@@ -1,0 +1,58 @@
+name: Compilar Fable y publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Una sola publicación a la vez; las nuevas esperan a que termine la anterior.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Caché de NuGet
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ hashFiles('**/*.fsproj', '**/dotnet-tools.json') }}
+
+      - name: Restaurar herramientas (Fable)
+        run: dotnet tool restore
+
+      - name: Compilar F# a JavaScript
+        run: dotnet fable src --outDir scripts --lang javascript
+
+      - name: Preparar artefacto
+        run: |
+          mkdir -p _site
+          cp -r index.html styles scripts assets .nojekyll _site/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
