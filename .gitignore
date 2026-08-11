@@ -16,3 +16,6 @@ Thumbs.db
 node_modules/
 _site/
 _probe.html
+
+# Perfil temporal que deja Chrome headless al convertir imágenes
+proffotos/
