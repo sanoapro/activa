@@ -7,7 +7,7 @@ Contiene dos piezas y un documento maestro:
 | Pieza | Ruta | Qué es |
 |---|---|---|
 | **Motion System** | `index.html` | Landing interactiva que explica y **ejecuta en vivo** el plan de integración de animación. Construida con F# + Fable. |
-| **upgrade edu 2026–2027** | `presentacion-upgrade-edu.html` | Deck de 32 diapositivas del programa comercial, estilo Google for Education. Autocontenido, no requiere compilar nada. |
+| **upgrade edu 2026–2027** | `upgrade-edu/index.html` | Deck de 28 diapositivas del programa comercial, estilo Google for Education. Autocontenido, no requiere compilar nada. Publicado en **/activa/upgrade-edu/**. |
 | **Portafolio de servicios** | `docs/portafolio-activa.md` | Documento maestro de referencia. **Fuente única y vigente** de la información de producto. |
 
 ---
@@ -17,7 +17,7 @@ Contiene dos piezas y un documento maestro:
 ```
 Presentacion-activa/
 ├── index.html                      Punto de montaje del Motion System
-├── presentacion-upgrade-edu.html   Deck comercial (abre directo, sin build)
+├── upgrade-edu/index.html          Deck comercial (abre directo, sin build)
 ├── styles/main.css                 Sistema de diseño: tokens, tema claro/oscuro, retícula
 ├── scripts/                        Salida JavaScript que genera Fable  ← NO editar a mano
 ├── src/                            Código fuente F#  ← aquí se edita
@@ -104,7 +104,7 @@ Agregar una sexta categoría es agregar un registro a la lista `categorias`, no 
 
 ## Atajos de la presentación comercial
 
-`presentacion-upgrade-edu.html` se abre con doble clic, sin servidor:
+`upgrade-edu/index.html` se abre con doble clic, sin servidor:
 
 - `←` `→` navegar · `O` vista panorámica · `F` pantalla completa · `P` imprimir a PDF en 16:9
 
