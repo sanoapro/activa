@@ -42,6 +42,12 @@ jobs:
         run: |
           mkdir -p _site
           cp -r index.html styles scripts assets .nojekyll _site/
+          # La presentación comercial se publica en una ruta corta y compartible:
+          # …/upgrade-edu/  se lee mucho mejor en WhatsApp que el nombre del archivo.
+          mkdir -p _site/upgrade-edu
+          cp presentacion-upgrade-edu.html _site/upgrade-edu/index.html
+          # Se conserva también la ruta original, por si ya se compartió así.
+          cp presentacion-upgrade-edu.html _site/
 
       - uses: actions/upload-pages-artifact@v3
         with:
