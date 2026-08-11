@@ -21,10 +21,11 @@ bajo una misma estrategia.
 
 | Indicador | Cifra |
 |---|---|
-| Profesores capacitados | **+1,000,000** |
-| Colegios en el programa upgrade edu | **+80** |
+| Trayectoria | **más de 10 años** en transformación educativa |
+| Profesores capacitados | **+2,000,000** |
+| Colegios en el programa upgrade edu | **+90** |
 | Google Reference Schools acompañadas | **16** |
-| Proyectos nacionales | **4** — México, Chile, Perú y El Salvador |
+| Proyectos internacionales | **6** — El Salvador, Chile, Perú, Barbados, Colombia y México |
 
 Respaldo del ecosistema Google, hoy el estándar global en educación: **190 millones** de alumnos y
 profesores en Google Workspace for Education, **190 millones** en Google Classroom y **50 millones**
@@ -394,7 +395,7 @@ webinars semanales · hasta 8 vouchers de certificación oficial Google.
    verificables en la plantilla.
 6. **Desarrollo integral del estudiante.** Cognitivo (impulsa), lingüístico (beta), socioemocional
    (motiva) y digital (certificación) bajo un mismo marco.
-7. **Respaldo comprobado.** +1 M de docentes capacitados, +80 colegios y 16 Google Reference Schools.
+7. **Respaldo comprobado.** +2 M de docentes capacitados, +90 colegios y 16 Google Reference Schools.
 8. **Interoperabilidad, no reemplazo.** integra y todo el ecosistema potencian lo que la escuela ya usa.
 
 ---
