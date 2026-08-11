@@ -1211,7 +1211,11 @@ ul.s08b-bens li b{font-size:13.5px}
    igual: una cosa es «se integra con Classroom» y otra, integra. Por eso no
    lleva marca ni el dominio activa.la ni los correos: ahí la palabra es una
    dirección, no un nombre propio. */
-.marca{font-style:italic;font-weight:700}
+.marca{font-style:italic;font-weight:800;color:var(--ink)}
+/* Donde el texto ya tiene su propio color —los divisores en blanco sobre
+   degradado, las píldoras, la banda oscura de cifras— la marca lo hereda:
+   forzar el negro ahí la volvería ilegible. */
+.divider .marca,.pill .marca,.s27w-band .marca{color:inherit}
 
 /* ═══════════ IMPRESIÓN ═══════════ */
 @page{size:1280px 720px;margin:0}
