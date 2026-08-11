@@ -45,6 +45,11 @@ jobs:
           # La presentación comercial vive en upgrade-edu/index.html, así que su
           # URL pública es …/upgrade-edu/ — corta y legible al compartirla.
           cp -r upgrade-edu _site/
+          # El kit de enlaces del equipo comercial: una sola lámina en
+          # …/kit-comercial/. og-source.html es solo el molde de la tarjeta de
+          # vista previa, no se publica.
+          cp -r kit-comercial _site/
+          rm -f _site/kit-comercial/og-source.html _site/kit-comercial/README.md
 
       - uses: actions/upload-pages-artifact@v3
         with:
