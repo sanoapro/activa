@@ -434,9 +434,6 @@ ul.s29-bens{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
   border-left:7px solid var(--grn-l);border-top:5px solid transparent;border-bottom:5px solid transparent}
 
 /* ── diapositiva 22 ─────────────────────────────────────────────── */
-.s22-note{border-left-color:var(--grn-l);background:var(--grn-t)}
-/* con el panel de eleva abierto la columna necesita ~27 px más: se recorta el relleno */
-.s22L .card.pad-s{padding:16px 20px} .s22L .tile{padding:9px 12px}
 
 /* ── diapositiva 19 ─────────────────────────────────────────────── */
 /* s19 · diagrama Consola de Google ⇄ integra */
@@ -456,7 +453,6 @@ ul.s29-bens{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
 /* Diapositiva 18 · beta — misma especificidad que ul.bens (0,1,1): al ir
    después en el archivo, ganan estas reglas (mismo truco que ul.s08-bens). */
 ul.s18-bens{display:grid;grid-template-columns:1fr 1fr;gap:7px 20px}
-ul.s18-xbens{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px 16px}
 /* Peldaños un poco más compactos para ceder alto a la banda de ventajas. */
 .s18-stairs .st{padding:16px 18px 16px}
 
@@ -606,9 +602,6 @@ ul.mini.s12-mini li::before{width:7px;height:7px;top:5px}
 /* s24 · «Google» con las letras en sus colores oficiales */
 .s24-gb{color:#4285f4} .s24-gr{color:#ea4335} .s24-gy{color:#fbbc04} .s24-gg{color:#34a853}
 /* s24 · sello del examen digital al pie de cada tarjeta */
-.s24-exam{margin-top:auto;display:flex;align-items:flex-start;gap:8px;padding-top:10px;
-  border-top:1px dashed rgba(32,33,36,.16);font-size:11.8px;line-height:1.32;color:var(--ink2)}
-.s24-exam svg{width:15px;height:15px;flex-shrink:0;margin-top:1px}
 .s24-exam.b svg{fill:var(--blue)} .s24-exam.r svg{fill:var(--red-d)} .s24-exam.g svg{fill:var(--grn-d)}
 /* s24 · banda del recorrido: capacitación → examen → certificación */
 .s24-flow{display:flex;align-items:center;gap:14px}
@@ -671,11 +664,9 @@ ul.mini.s12-mini li::before{width:7px;height:7px;top:5px}
 @keyframes s19x-rot{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.s19x-spin svg{animation:none}}
 /* El desplegable abre en clave amarilla (el sistema lo pinta azul por defecto) */
-.s19x-exp .exp-h:hover{background:var(--yel-t);color:var(--yel-d)}
-.s19x-exp:has(input:checked) .exp-h{background:var(--yel-t);color:var(--yel-d)}
 
 /* ── diapositiva 18 ─────────────────────────────────────────────── */
-/* sin reglas nuevas: la lámina reutiliza .tiles, .tile .ic, .s18-stairs y ul.s18-xbens ya presentes */
+/* sin reglas nuevas: la lámina reutiliza .tiles, .tile .ic y .s18-stairs ya presentes */
 
 /* ── diapositiva 17 ─────────────────────────────────────────────── */
 /* s17b · chip de icono para los peldaños de la escalera de niveles */
@@ -905,6 +896,72 @@ ul.s08b-bens li b{font-size:13.5px}
   box-shadow:var(--sh2);padding:11px 13px}
 .s06d-pop ul.bens.tight li{font-size:11.5px;line-height:1.35}
 .s06d-pop ul.bens.tight li b{font-size:12.5px}
+
+/* ── diapositiva 25 ─────────────────────────────────────────────── */
+/* b25 · compactación del paquete: la columna 01 pasa de 6 a 7 puntos
+   (stock y carrito separados); se recupera el alto con relleno y gap menores.
+   Reglas NUEVAS — no sustituyen a ninguna existente (.b25-gh y .b25-logos siguen igual). */
+.b25-pack .card.pad-s{padding:16px 20px}
+.b25-pack ul.bens.tight{gap:4px}
+
+/* ── diapositiva 24 ─────────────────────────────────────────────── */
+/* s24 · sello del examen — REEMPLAZA las reglas existentes .s24-exam y .s24-exam svg
+   (ahora es una columna centrada: icono, título mayor y nivel debajo).
+   Las reglas .s24-exam.b svg / .s24-exam.r svg / .s24-exam.g svg siguen vigentes tal cual. */
+.s24-exam{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding-top:12px;border-top:1px dashed rgba(32,33,36,.16);text-align:center;color:var(--ink2)}
+.s24-exam svg{width:16px;height:16px;flex-shrink:0}
+/* s24 · título y nivel del sello (nuevos) */
+.s24-ex-t{font-size:13px;font-weight:600;line-height:1.3;letter-spacing:-.1px;color:var(--ink)}
+.s24-ex-n{font-size:14px;font-weight:700;letter-spacing:.2px;line-height:1.25}
+.s24-exam.b .s24-ex-n{color:var(--blue-d)}
+.s24-exam.r .s24-ex-n{color:var(--red-d)}
+.s24-exam.g .s24-ex-n{color:var(--grn-d)}
+
+/* ── diapositiva 22 ─────────────────────────────────────────────── */
+/* ── diapositiva 22 · cabecera con figura del docente ── */
+.s22n-head{display:flex;align-items:center;gap:20px}
+.s22n-ht{display:flex;flex-direction:column;gap:9px}
+.s22n-fig{width:96px;height:74px;border-radius:20px;background:var(--grn-t);
+  overflow:hidden;flex-shrink:0}
+.s22n-fig svg{width:100%;height:100%;display:block}
+/* ── diapositiva 22 · banda de eleva crecida: tipografía legible ── */
+.s22n-eleva .s22x-brand{flex-basis:230px}
+.s22n-eleva .s22x-brand img{height:30px}
+.s22n-eleva .tile{padding:14px 16px}
+.s22n-eleva .tile h5{font-size:14.5px}
+.s22n-eleva .tile .td{font-size:12.5px;margin-top:3px}
+
+/* ── diapositiva 19 ─────────────────────────────────────────────── */
+/* ── diapositiva 19 · etiquetas MX / SAT en el color de su pilar ── */
+.s19x-tag.b{background:var(--blue-t);color:var(--blue-d)}
+.s19x-tag.g{background:var(--grn-t);color:var(--grn-d)}
+
+/* ── diapositiva 18 ─────────────────────────────────────────────── */
+/* ── diapositiva 18 · tarjeta única de complementos (prefijo s18c-) ── */
+.s18c-card{padding:10px 20px;gap:6px;flex-shrink:0}
+.s18c-cap{font-size:10.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--yel-d)}
+.s18c-row{display:grid;grid-template-columns:1fr 1fr 1.05fr;gap:16px}
+.s18c-it{display:flex;gap:10px;align-items:flex-start;min-width:0}
+.s18c-it .ic{width:24px;height:24px;border-radius:8px;background:rgba(255,255,255,.8);
+  display:grid;place-items:center;flex-shrink:0}
+.s18c-it .ic svg{width:14px;height:14px;fill:var(--yel-d)}
+.s18c-it h5{font-size:12.5px;font-weight:600;line-height:1.2;letter-spacing:-.1px;color:var(--ink)}
+.s18c-it .td{font-size:11.5px;line-height:1.3;color:var(--ink2);margin-top:2px}
+
+/* ── diapositiva 17 ─────────────────────────────────────────────── */
+/* ── diapositiva 17 · tarjetas centrales método + pilar (prefijo s17m-) ── */
+.s17m-card{flex-direction:row;align-items:center;gap:14px;padding:11px 18px}
+.s17m-tx{min-width:0;flex:1;display:flex;flex-direction:column;gap:4px}
+.s17m-steps{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:1px}
+.s17m-step{background:rgba(255,255,255,.92);color:var(--ink2)}
+.s17m-hero{background:var(--yel-d);color:#fff}
+/* lazo de retorno: cierra el ciclo Repite → Comprende (no es una lista, se repite) */
+.s17m-loop{height:9px;margin:3px 14px 0;border:1.5px dashed var(--yel-d);border-top:none;
+  border-radius:0 0 9px 9px;position:relative;opacity:.75}
+.s17m-loop::before{content:"";position:absolute;left:-4px;top:-6px;
+  border-left:4.5px solid transparent;border-right:4.5px solid transparent;
+  border-bottom:7px solid var(--yel-d)}
 
 /* ═══════════ IMPRESIÓN ═══════════ */
 @page{size:1280px 720px;margin:0}
@@ -2417,13 +2474,15 @@ como pidió el cliente; nada colapsado. 6 beneficios visibles (regla ≤12-14 �
 <!-- ═════════ 17 · MOTIVA ═════════ -->
 <!-- Cuenta de alturas · 720 − padding (46+30) = 644 px útiles
      head: logo 30 + gap 11 + h2 2 líneas ≈ 95 + margen 20 = 156 · foot: 38 + 18 = 56 → body ≈ 432
-     stack (4 hijos, 3 gaps × 10 = 30):
-       fila g2 diagnóstico + psicólogos (padding 28 + máx(icono 38, h4 21 + xs 18) ≈ 70)
-       tarjeta ciclo (padding 22 + caption 14 + gap 7 + pills 25)                  ≈ 68
-       escalera 3 niveles (flex-basis; peldaño mín. 140 ≥ contenido ≈ 139)          = 180
-       exp cerrado                                                                  = 26
-       cerrado 70+68+180+26+30 = 374 → holgura 58
-     desplegado: + margen 11 + 2 líneas xs con gap (≈ 42) = 427 ≤ 432 ✓ -->
+     stack (4 hijos, 3 gaps × 9 = 27), sin desplegable (un solo estado):
+       fila g2 diagnóstico + psicólogos (padding 22 + máx(icono 38, h4 21 + xs 18) ≈ 39)  ≈ 61
+       tarjeta ciclo (padding 16 + caption 14 + gap 5 + pills 25)                         ≈ 60
+       fila g2 CENTRAL método + pilar:
+         A: padding 22 + h4 21 + xs 18 + pasos 25 + lazo 9+3 + gaps 8  ≈ 106
+         B: padding 22 + h4 21 + gap 4 + chips 2 filas (25×2+6) 56     ≈ 103 → fila = 106
+       escalera 3 niveles (peldaño mín. 140 = contenido: pad 38 + ic 26 + n 13 + h4 21
+         + xs 18 + gaps 24)                                            = 166
+     total 61 + 60 + 106 + 166 + 27 = 420 ≤ 432 ✓ (holgura 12) -->
 <section class="slide">
   <span class="shape" style="width:340px;height:340px;right:-130px;top:-130px;background:var(--yel-t)"></span>
   <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
@@ -2432,18 +2491,18 @@ como pidió el cliente; nada colapsado. 6 beneficios visibles (regla ≤12-14 �
     <h2>Licencia de diagnóstico<br>y contenido socioemocional</h2>
   </div>
   <div class="body">
-    <div class="stack" style="gap:10px;justify-content:center">
+    <div class="stack" style="gap:9px;justify-content:center">
 
       <!-- qué mide y quién lo respalda -->
       <div class="grid g2" style="gap:16px;flex-shrink:0">
-        <div class="card soft" style="flex-direction:row;align-items:center;gap:14px;padding:14px 20px">
+        <div class="card soft" style="flex-direction:row;align-items:center;gap:14px;padding:11px 20px">
           <div class="med sm y"><svg viewBox="0 0 24 24"><path d="M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zm5.6 8H19v6h-2.8v-6z"/></svg></div>
           <div style="min-width:0">
             <h4>Diagnóstico como punto de partida</h4>
             <div class="xs">Mide el punto de partida socioemocional y da rumbo a la intervención.</div>
           </div>
         </div>
-        <div class="card soft" style="flex-direction:row;align-items:center;gap:14px;padding:14px 20px">
+        <div class="card soft" style="flex-direction:row;align-items:center;gap:14px;padding:11px 20px">
           <div class="med sm y"><svg viewBox="0 0 24 24"><path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69l-3.61.82.34 3.69L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72l-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></div>
           <div style="min-width:0">
             <h4>Psicólogos educativos certificados</h4>
@@ -2453,7 +2512,7 @@ como pidió el cliente; nada colapsado. 6 beneficios visibles (regla ≤12-14 �
       </div>
 
       <!-- ciclo de intervención y seguimiento -->
-      <div class="card soft" style="padding:11px 20px;gap:7px;flex-shrink:0">
+      <div class="card soft" style="padding:8px 20px;gap:5px;flex-shrink:0">
         <div class="s17-cap">Ciclo de intervención y seguimiento</div>
         <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
           <span class="pill ghost"><svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:currentColor;flex-shrink:0"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>Diagnóstico</span><span class="s17-arr">→</span>
@@ -2464,37 +2523,56 @@ como pidió el cliente; nada colapsado. 6 beneficios visibles (regla ≤12-14 �
         </div>
       </div>
 
+      <!-- LOS DOS PUNTOS CENTRALES: método en cuatro tiempos + pilar del desarrollo integral -->
+      <div class="grid g2" style="gap:16px;flex-shrink:0">
+        <div class="card t-y s17m-card">
+          <div class="med sm solid y"><svg viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg></div>
+          <div class="s17m-tx">
+            <h4>Método en cuatro tiempos</h4>
+            <div class="xs">Hasta convertir cada habilidad en hábito.</div>
+            <div class="s17m-steps">
+              <span class="pill s17m-step">Comprende</span><span class="s17-arr">→</span>
+              <span class="pill s17m-step">Aplica</span><span class="s17-arr">→</span>
+              <span class="pill s17m-step">Reflexiona</span><span class="s17-arr">→</span>
+              <span class="pill s17m-step">Repite</span>
+            </div>
+            <div class="s17m-loop" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="card t-y s17m-card">
+          <div class="med sm solid y"><svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2zm5.5 20c2.49 0 4.5-2.01 4.5-4.5S19.99 13 17.5 13 13 15.01 13 17.5s2.01 4.5 4.5 4.5zM3 21.5h8v-8H3v8z"/></svg></div>
+          <div class="s17m-tx">
+            <h4>Pilar del desarrollo integral</h4>
+            <div class="s17m-chips">
+              <span class="pill s17m-hero">motiva · socioemocional</span>
+              <span class="pill s17m-step">impulsa · cognitivo</span>
+              <span class="pill s17m-step">beta · lingüístico</span>
+              <span class="pill s17m-step">certificación digital del estudiante</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- contenido por nivel escolar -->
-      <div class="stairs s17-stairs" style="flex:0 0 180px">
+      <div class="stairs s17-stairs" style="flex:0 0 166px">
         <div class="st b" style="height:140px">
           <div class="s17b-ic"><svg viewBox="0 0 24 24" style="fill:var(--blue-d)"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
           <div class="n" style="color:var(--blue-d)">Primaria · Cimentación</div>
           <h4>Aprender a sentir</h4>
           <div class="xs">Emociones con nombre y autoconocimiento.</div>
         </div>
-        <div class="st r" style="height:160px">
+        <div class="st r" style="height:153px">
           <div class="s17b-ic"><svg viewBox="0 0 24 24" style="fill:var(--red-d)"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div>
           <div class="n" style="color:var(--red-d)">Secundaria · Blindaje y liderazgo</div>
           <h4>Juicio crítico</h4>
           <div class="xs">Resiliencia y decisiones con criterio propio.</div>
         </div>
-        <div class="st g" style="height:180px">
+        <div class="st g" style="height:166px">
           <div class="s17b-ic"><svg viewBox="0 0 24 24" style="fill:var(--grn-d)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm2.19 12.19L6 18l3.81-8.19L18 6l-3.81 8.19z"/></svg></div>
           <div class="n" style="color:var(--grn-d)">Bachillerato · Future Skills</div>
           <h4>Propósito de vida</h4>
           <div class="xs">Proyección vocacional y competencias de futuro.</div>
         </div>
-      </div>
-
-      <!-- profundidad para cuando el cliente pregunta -->
-      <div class="exp" data-noadv style="flex-shrink:0">
-        <label class="exp-h"><input type="checkbox" hidden><span class="exp-ico"></span>Ver el método en cuatro tiempos y el marco integral</label>
-        <div class="exp-b"><div class="exp-i">
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div class="xs"><b>Método en cuatro tiempos:</b> Comprende → Aplica → Reflexiona → Repite, hasta convertir cada habilidad en hábito.</div>
-            <div class="xs"><b>Pilar del desarrollo integral:</b> motiva cubre lo socioemocional junto a impulsa (cognitivo), beta (lingüístico) y la certificación digital del estudiante.</div>
-          </div>
-        </div></div>
       </div>
 
     </div>
@@ -2508,11 +2586,12 @@ como pidió el cliente; nada colapsado. 6 beneficios visibles (regla ≤12-14 �
 <!-- ═════════ 18 · BETA ═════════ -->
 <!-- Cuenta de alturas · 720 − padding (46+30) = 644 px útiles
      head: logo 30 + gap 11 + h2 1 línea 48 + margen 20 = 109 · foot: 38 + 18 = 56 → body ≈ 479
-     escalera 200 (Discovery 156 ≥ contenido ≈ 147: ic 24 + n 13 + h4 23 + xs 17 + gaps 24 + padding 32
-       — Maker/Influence/Mastery con xs de 2 líneas ≈ 164 ≤ 170/185/200) + margen 12
-     fila inferior: máx(6 mosaicos: 3 filas × 54 + 2 gaps × 9 = 180 | tarjeta certificación estirada = 180) + margen 10
-     exp cerrado 26  →  cerrado 200+12+180+10+26 = 428 (holgura 51)
-     desplegado: + margen 11 + 1 fila de 3 bens ≈ 34 = 473 ≤ 479 ✓ -->
+     Sin desplegable (un solo estado):
+       escalera 200 (Discovery 156 ≥ contenido ≈ 147; Mastery 200)        + margen 10
+       fila media: máx(6 mosaicos: 3 filas × 54 + 2 gaps × 9 = 180 | tarjeta certificación) = 180 + margen 8
+       tarjeta única «Complementos del programa»:
+         padding 20 + caption 13 + gap 6 + ítem máx(icono 24, h5 15 + 2 + td 15 = 32)  ≈ 71
+     total 200 + 10 + 180 + 8 + 71 = 469 ≤ 479 ✓ (holgura 10) -->
 <section class="slide">
   <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
   <div class="head">
@@ -2520,7 +2599,7 @@ como pidió el cliente; nada colapsado. 6 beneficios visibles (regla ≤12-14 �
     <h2>Boost English Technology Academy</h2>
   </div>
   <div class="body">
-    <div class="stairs s18-stairs" style="flex:0 0 200px;margin-bottom:12px">
+    <div class="stairs s18-stairs" style="flex:0 0 200px;margin-bottom:10px">
       <div class="st" style="background:var(--blue-t);height:156px">
         <div class="med sm round solid b" style="margin-bottom:2px"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div>
         <div class="n" style="color:var(--blue-d)">Pre-A1 → A1+</div>
@@ -2542,7 +2621,7 @@ como pidió el cliente; nada colapsado. 6 beneficios visibles (regla ≤12-14 �
         <h4 style="font-size:19px">Mastery</h4>
         <div class="xs">Bachillerato · pensamiento crítico y <i>future readiness</i></div></div>
     </div>
-    <div style="display:flex;gap:24px;align-items:stretch;margin-bottom:10px">
+    <div style="display:flex;gap:24px;align-items:stretch;margin-bottom:8px">
       <div class="tiles" style="flex:1;grid-template-columns:1fr 1fr;align-content:center">
         <div class="tile"><div class="ic y"><svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg></div>
           <div class="tx"><h5>Metodología CLIL</h5><div class="td">Aprender inglés usándolo en contenidos reales.</div></div></div>
@@ -2567,15 +2646,23 @@ como pidió el cliente; nada colapsado. 6 beneficios visibles (regla ≤12-14 �
         </div>
       </div>
     </div>
-    <div class="exp" data-noadv>
-      <label class="exp-h"><input type="checkbox" hidden><span class="exp-ico"></span>Ver 3 complementos del programa</label>
-      <div class="exp-b"><div class="exp-i">
-        <ul class="bens y tight s18-xbens">
-          <li><b>Proyectos PBL prediseñados</b>Proyectos listos por fase para usar el idioma creando.</li>
-          <li><b>Scope &amp; Sequence completo</b>La ruta de contenidos de cada fase, documentada.</li>
-          <li><b>Desarrollo integral</b>Junto a impulsa (cognitivo) y motiva (socioemocional).</li>
-        </ul>
-      </div></div>
+    <!-- complementos del programa: una sola tarjeta, tres puntos dentro -->
+    <div class="card t-y s18c-card">
+      <div class="s18c-cap">Complementos del programa</div>
+      <div class="s18c-row">
+        <div class="s18c-it">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></div>
+          <div class="tx"><h5>Proyectos PBL prediseñados</h5><div class="td">Proyectos listos por fase para usar el idioma creando.</div></div>
+        </div>
+        <div class="s18c-it">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg></div>
+          <div class="tx"><h5>Scope &amp; Sequence completo</h5><div class="td">La ruta de contenidos de cada fase, documentada.</div></div>
+        </div>
+        <div class="s18c-it">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2zm5.5 20c2.49 0 4.5-2.01 4.5-4.5S19.99 13 17.5 13 13 15.01 13 17.5s2.01 4.5 4.5 4.5zM3 21.5h8v-8H3v8z"/></svg></div>
+          <div class="tx"><h5>Desarrollo integral</h5><div class="td">Junto a impulsa (cognitivo) y motiva (socioemocional).</div></div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="foot">
@@ -2588,22 +2675,22 @@ como pidió el cliente; nada colapsado. 6 beneficios visibles (regla ≤12-14 �
 <!--
 CUENTA DE ALTURAS (h2 de 2 líneas → .body ≈ 470 px · ancho útil 1160 px)
 Estructura: stack (gap 16) = rejilla g3 de pilares + banda del diferenciador.
+Ya no hay desplegables: un solo estado, los 6 beneficios de cada pilar a la vista.
 
 Tarjeta de pilar (pad-s: 20/22 → 40 vertical; gap interno 10):
   cabecera .s19x-ph (med sm 38 / texto h4 19 + xs 17)             ≈  42
-  ul.bens 4 ítems (b 17 + desc 17 = 34 c/u; 3 gaps de 6)          ≈ 154
-  cabecera .exp 26                                                 ≈  26
-  cerrada: 40 + 42 + 10 + 154 + 10 + 26                           ≈ 282
-  desplegada: + 11 (margen exp-i) + 2 ítems (34×2 + 6 = 74)       ≈ 367
+  ul.bens 6 ítems (b 17 + desc 17 = 34 c/u; 5 gaps de 6)          ≈ 234
+  total: 40 + 42 + 10 + 234                                       ≈ 326
 
 Banda diferenciador .s19x-band (padding 14 → 28 + contenido 40)   ≈  68
 
-Cerrada:    282 + 16 + 68 = 366  < 470 ✓
-Desplegada: 367 + 16 + 68 = 451  < 470 ✓  (aun con los 3 paneles abiertos:
-la fila de la rejilla crece a la tarjeta más alta, 367)
+Total: 326 + 16 + 68 = 410  < 470 ✓  (un solo estado, sin colapsables)
 
 Ancho: columna g3 = (1160 − 32)/3 ≈ 376 px; texto de viñeta ≈ 313 px →
 descripciones ≤ 50 caracteres para sostener 1 sola línea. Verificado.
+
+Color: cada pilar con color propio — Comunicación azul, Control rojo,
+Gestión verde. El amarillo queda para el eje (eyebrow, banda y ejebar).
 -->
 <section class="slide">
   <span class="shape" style="width:560px;height:560px;left:-220px;bottom:-240px;background:var(--yel-t)"></span>
@@ -2614,73 +2701,52 @@ descripciones ≤ 50 caracteres para sostener 1 sola línea. Verificado.
   </div>
   <div class="body">
     <div class="stack" style="gap:16px">
-      <!-- ── Tres pilares de la licencia ── -->
+      <!-- ── Tres pilares de la licencia, cada uno con su color ── -->
       <div class="grid g3">
-        <!-- 1 · COMUNICACIÓN -->
-        <div class="card pad-s rule y" style="gap:10px;justify-content:flex-start">
+        <!-- 1 · COMUNICACIÓN · azul -->
+        <div class="card pad-s rule b" style="gap:10px;justify-content:flex-start">
           <div class="s19x-ph">
-            <div class="med sm solid y"><svg viewBox="0 0 24 24"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/></svg></div>
+            <div class="med sm solid b"><svg viewBox="0 0 24 24"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/></svg></div>
             <div><h4>Comunicación</h4><div class="xs">El colegio y la familia, en el mismo canal.</div></div>
           </div>
-          <ul class="bens y">
+          <ul class="bens b">
             <li><b>Chat con las familias</b>Mensajes directos entre docentes y papás.</li>
             <li><b>Comunicados y avisos</b>Circulares por grupo o a todo el colegio.</li>
-            <li><b>Avisos por WhatsApp <span class="s19x-tag">MX</span></b>Recordatorios en el canal que sí se lee.</li>
+            <li><b>Avisos por WhatsApp <span class="s19x-tag b">MX</span></b>Recordatorios en el canal que sí se lee.</li>
             <li><b>Agenda del alumno</b>Tareas, avisos e incidencias del día.</li>
+            <li><b>Acuse de lectura</b>Sabe qué familias ya leyeron el aviso.</li>
+            <li><b>Calendario escolar</b>Eventos y fechas para toda la comunidad.</li>
           </ul>
-          <div class="exp s19x-exp" data-noadv>
-            <label class="exp-h"><input type="checkbox" hidden><span class="exp-ico"></span>Ver 2 apoyos más de comunicación</label>
-            <div class="exp-b"><div class="exp-i">
-              <ul class="bens y">
-                <li><b>Acuse de lectura</b>Sabe qué familias ya leyeron el aviso.</li>
-                <li><b>Calendario escolar</b>Eventos y fechas para toda la comunidad.</li>
-              </ul>
-            </div></div>
-          </div>
         </div>
-        <!-- 2 · CONTROL -->
-        <div class="card pad-s rule y" style="gap:10px;justify-content:flex-start">
+        <!-- 2 · CONTROL · rojo -->
+        <div class="card pad-s rule r" style="gap:10px;justify-content:flex-start">
           <div class="s19x-ph">
-            <div class="med sm solid y"><svg viewBox="0 0 24 24"><path d="M20 3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM10 17H5v-2h5v2zm0-4H5v-2h5v2zm0-4H5V7h5v2zm4.82 6L12 12.16l1.41-1.41 1.41 1.42L17.99 9l1.42 1.42L14.82 15z"/></svg></div>
+            <div class="med sm solid r"><svg viewBox="0 0 24 24"><path d="M20 3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM10 17H5v-2h5v2zm0-4H5v-2h5v2zm0-4H5V7h5v2zm4.82 6L12 12.16l1.41-1.41 1.41 1.42L17.99 9l1.42 1.42L14.82 15z"/></svg></div>
             <div><h4>Control</h4><div class="xs">El día a día académico, registrado.</div></div>
           </div>
-          <ul class="bens y">
+          <ul class="bens r">
             <li><b>Calificaciones y boletas</b>Captura por materia y boletas descargables.</li>
             <li><b>Asistencia e incidencias</b>Pase de lista digital y registro de conducta.</li>
             <li><b>Expediente del alumno</b>Historial académico en un solo perfil.</li>
             <li><b>Control de acceso</b>Entradas y salidas con aviso a la familia.</li>
+            <li><b>Promedios y estadísticas</b>Desempeño por grupo, materia o plantel.</li>
+            <li><b>Horarios y grupos</b>Armado de grupos, materias y horarios.</li>
           </ul>
-          <div class="exp s19x-exp" data-noadv>
-            <label class="exp-h"><input type="checkbox" hidden><span class="exp-ico"></span>Ver 2 controles más</label>
-            <div class="exp-b"><div class="exp-i">
-              <ul class="bens y">
-                <li><b>Promedios y estadísticas</b>Desempeño por grupo, materia o plantel.</li>
-                <li><b>Horarios y grupos</b>Armado de grupos, materias y horarios.</li>
-              </ul>
-            </div></div>
-          </div>
         </div>
-        <!-- 3 · GESTIÓN -->
-        <div class="card pad-s rule y" style="gap:10px;justify-content:flex-start">
+        <!-- 3 · GESTIÓN · verde -->
+        <div class="card pad-s rule g" style="gap:10px;justify-content:flex-start">
           <div class="s19x-ph">
-            <div class="med sm solid y"><svg viewBox="0 0 24 24"><path d="M6.5 10h-2v7h2v-7zm6 0h-2v7h2v-7zm8.5 9H2v2h19v-2zm-2.5-9h-2v7h2v-7zm-7-6.74L16.71 6H8.29l3.21-2.74zm0-2.26L2 6v2h19V6l-9.5-5z"/></svg></div>
+            <div class="med sm solid g"><svg viewBox="0 0 24 24"><path d="M6.5 10h-2v7h2v-7zm6 0h-2v7h2v-7zm8.5 9H2v2h19v-2zm-2.5-9h-2v7h2v-7zm-7-6.74L16.71 6H8.29l3.21-2.74zm0-2.26L2 6v2h19V6l-9.5-5z"/></svg></div>
             <div><h4>Gestión</h4><div class="xs">La administración escolar, sin fricción.</div></div>
           </div>
-          <ul class="bens y">
+          <ul class="bens g">
             <li><b>Colegiaturas y cobranza</b>Estados de cuenta y avisos de vencimiento.</li>
             <li><b>Pagos en línea</b>Tarjeta, transferencia o referencia en la app.</li>
-            <li><b>Facturación CFDI 4.0 <span class="s19x-tag">SAT</span></b>Timbrado de colegiaturas conforme al SAT.</li>
+            <li><b>Facturación CFDI 4.0 <span class="s19x-tag g">SAT</span></b>Timbrado de colegiaturas conforme al SAT.</li>
             <li><b>Becas y descuentos</b>Convenios configurables por alumno.</li>
+            <li><b>Reportes para dirección</b>Morosidad y finanzas en un vistazo.</li>
+            <li><b>Cafetería y extracurriculares</b>Su operación y cobro, en el mismo sistema.</li>
           </ul>
-          <div class="exp s19x-exp" data-noadv>
-            <label class="exp-h"><input type="checkbox" hidden><span class="exp-ico"></span>Ver 2 módulos más de gestión</label>
-            <div class="exp-b"><div class="exp-i">
-              <ul class="bens y">
-                <li><b>Reportes para dirección</b>Morosidad y finanzas en un vistazo.</li>
-                <li><b>Cafetería y extracurriculares</b>Su operación y cobro, en el mismo sistema.</li>
-              </ul>
-            </div></div>
-          </div>
         </div>
       </div>
       <!-- ── Diferenciador confirmado: Consola de Google + convivencia ── -->
@@ -2845,34 +2911,37 @@ descripciones ≤ 50 caracteres para sostener 1 sola línea. Verificado.
 </section>
 
 <!-- ═════════ 22 · FORMACIÓN DOCENTE ═════════ -->
-<!-- Cuenta de alturas (escenario 720px · padding 46+30 · h2 de 1 línea → body ≈ 512 px):
-     head ≈ 78 + 20 margen · foot ≈ 38 + 18 margen. Ancho útil completo: 1160 px (ya sin columna derecha).
-     Bloque 1 · pilares: gh 15 + gap 9 + tarjetas pad-s [pill 25 + 6 + h4 19 + 6 + xs 17 + padding 40] 113 → 137.
-     Bloque 2 · datos duros: gh 15 + gap 9 + rejilla g2 de 2 filas ×(feat: h4 19 + 3 + xs ≤2 líneas 34 + padding 40 ≈ 96) + gap 12 → 228.
-     Bloque 3 · eleva (SIEMPRE visible — ya no hay desplegable):
-       banda pad-s [max(logo 26 + 7 + xs 34 = 67 ; tiles h5 15 + td 30 + padding 22 = 67) + padding 40] ≈ 107.
-     Total: 137 + 14 gap + 228 + 14 gap + 107 ≈ 500 px  ✓ (≤ 512). Un solo estado: nada colapsado. -->
+<!-- CUENTA DE ALTURAS (escenario 720 px · padding 46+30 · foot 38+18)
+     head con figura: max(figura .s22n-fig 74 ; eyebrow 11 + 11 + h2 1 línea 48 ≈ 70) ≈ 74
+       + 20 margen → queda para .body ≈ 720 − 76 − 74 − 20 − 56 ≈ 494 px. Ancho útil 1160 px.
+     Ya no existe el bloque de pilares: dos bloques, un solo estado, nada colapsado.
+     Bloque 1 · datos duros: gh 15 + gap 9 + rejilla g2 de 2 filas ×
+       (feat: 40 pad + max(med 38 ; h4 19 + 3 + xs ≤2 líneas 36) ≈ 98) + gap 12 → 232.
+     Bloque 2 · eleva (crecido, tipografía legible): gh 15 + gap 9 + banda pad-s
+       [40 pad + max(brand: logo 30 + 7 + sm 2 líneas 40 = 77 ;
+        tile: 28 pad + h5 18 + 3 + td 2 líneas 34 = 83) ≈ 83] ≈ 123 → 147.
+     Total: 232 + 12 gap + 147 ≈ 391 px  ✓ (≤ 494, respira). -->
 <section class="slide">
   <span class="shape" style="width:520px;height:520px;left:-210px;bottom:-230px;background:var(--grn-t)"></span>
   <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
   <div class="head">
-    <div class="eyebrow g">Acompañamiento · formación docente</div>
-    <h2>Así formamos a tu plantilla docente</h2>
+    <div class="s22n-head">
+      <div class="s22n-fig"><svg viewBox="0 0 92 74" role="img" aria-label="Docente frente al pizarrón">
+        <rect x="8" y="10" width="44" height="32" rx="4" fill="#fff"/>
+        <polyline points="14,34 22,26 29,30 38,18 46,23" fill="none" stroke="#34a853" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="68" cy="22" r="9" fill="#0d652d"/>
+        <path d="M54 74v-18c0-9 6-15 14-15s14 6 14 15v18z" fill="#1e8e3e"/>
+        <path d="M58 46 47 35" fill="none" stroke="#1e8e3e" stroke-width="8" stroke-linecap="round"/>
+        <circle cx="45" cy="33" r="4" fill="#0d652d"/>
+      </svg></div>
+      <div class="s22n-ht">
+        <div class="eyebrow g">Acompañamiento · formación docente</div>
+        <h2>Formación docente</h2>
+      </div>
+    </div>
   </div>
   <div class="body">
-    <div class="stack" style="gap:10px;justify-content:flex-start">
-
-      <div class="grupo">
-        <div class="gh"><span class="gt g">La ruta · tres pilares</span><i class="gline"></i></div>
-        <div class="grid g3" style="gap:12px">
-          <div class="card pad-s t-b" style="gap:6px"><span class="pill b">Pilar 1</span>
-            <h4>Materiales base</h4><div class="xs">Fundamentos teóricos</div></div>
-          <div class="card pad-s t-r" style="gap:6px"><span class="pill r">Pilar 2</span>
-            <h4>Herramientas digitales</h4><div class="xs">Práctica guiada</div></div>
-          <div class="card pad-s t-y" style="gap:6px"><span class="pill y">Pilar 3</span>
-            <h4>Pedagogías innovadoras</h4><div class="xs">Implementación en el aula</div></div>
-        </div>
-      </div>
+    <div class="stack" style="gap:12px;justify-content:center">
 
       <div class="grupo">
         <div class="gh"><span class="gt g">Qué recibe cada docente, cada año</span><i class="gline"></i></div>
@@ -2888,15 +2957,18 @@ descripciones ≤ 50 caracteres para sostener 1 sola línea. Verificado.
         </div>
       </div>
 
-      <div class="card pad-s t-y s22x-band">
-        <div class="s22x-brand">
-          <img data-logo="eleva" alt="eleva">
-          <div class="xs"><b>Refuerzo autogestivo</b>, incluido para cada docente</div>
-        </div>
-        <div class="s22x-tiles">
-          <div class="tile"><div class="tx"><h5>Cursos en línea</h5><div class="td">Metodologías de tecnología educativa, autogestivas</div></div></div>
-          <div class="tile"><div class="tx"><h5>Cada docente a su ritmo</h5><div class="td">La rotación de plantilla deja de frenar al grupo</div></div></div>
-          <div class="tile"><div class="tx"><h5>Evidencia de avance</h5><div class="td">El colegio ve el progreso de toda su plantilla</div></div></div>
+      <div class="grupo">
+        <div class="gh"><span class="gt y">Refuerzo autogestivo · eleva</span><i class="gline"></i></div>
+        <div class="card pad-s t-y s22x-band s22n-eleva">
+          <div class="s22x-brand">
+            <img data-logo="eleva" alt="eleva">
+            <div class="sm"><b>Refuerzo autogestivo</b>, incluido para cada docente</div>
+          </div>
+          <div class="s22x-tiles">
+            <div class="tile"><div class="tx"><h5>Cursos en línea</h5><div class="td">Metodologías de tecnología educativa, autogestivas</div></div></div>
+            <div class="tile"><div class="tx"><h5>Cada docente a su ritmo</h5><div class="td">La rotación de plantilla deja de frenar al grupo</div></div></div>
+            <div class="tile"><div class="tx"><h5>Evidencia de avance</h5><div class="td">El colegio ve el progreso de toda su plantilla</div></div></div>
+          </div>
         </div>
       </div>
 
@@ -3049,6 +3121,17 @@ descripciones ≤ 50 caracteres para sostener 1 sola línea. Verificado.
   Sin desplegables: cerrada = desplegada. Cabe en 1280 × 720.
 -->
 <!-- ═════════ 24 · CERTIFICACIÓN DE ESTUDIANTES ═════════ -->
+<!--
+  CUENTA DE ALTURAS (escenario 720; padding 46+30 → 644 útiles; ancho útil 1160)
+  head: eyebrow + h2 de 2 líneas ≈ 120 + margen 20 = 140
+  foot: 38 + margen 18 = 56  →  body disponible ≈ 448 px
+  Tarjeta g3 (interior ≈ 333 px): pad-s 40 + fila icono/pill 38 + gap 9 + h4 19
+    + gap 9 + bens 3 ítems (33 c/u + 2×6 gaps = 111) + gap 9
+    + sello nuevo (borde 12 + icono 16 + gap 4 + título 2 líneas 34 + gap 4 + nivel 18 = 88)
+    = 323 px
+  Stack: tarjeta 323 + gap 14 + banda (14×2 + flujo 44 = 72) = 409 ≤ 448 ✔
+  Sin desplegables: estado único.
+-->
 <section class="slide">
   <span class="shape" style="width:520px;height:520px;right:-210px;bottom:-240px;background:var(--grn-t)"></span>
   <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
@@ -3071,7 +3154,8 @@ descripciones ≤ 50 caracteres para sostener 1 sola línea. Verificado.
             <li><b>Datos y privacidad</b>Aprenden a cuidar su información en línea.</li>
           </ul>
           <div class="s24-exam b"><svg viewBox="0 0 24 24"><path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72l-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg>
-            <span><b>Examen digital en 6º de primaria</b> — certifica sus competencias digitales</span></div>
+            <span class="s24-ex-t">Examen de Certificación<br>de competencias digitales</span>
+            <span class="s24-ex-n">Primaria mayor</span></div>
         </div>
         <div class="card rule r lift pad-s" style="gap:9px;justify-content:flex-start">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
@@ -3085,7 +3169,8 @@ descripciones ≤ 50 caracteres para sostener 1 sola línea. Verificado.
             <li><b>Ciudadanía digital</b>Convivencia y criterio en los entornos digitales.</li>
           </ul>
           <div class="s24-exam r"><svg viewBox="0 0 24 24"><path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72l-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg>
-            <span><b>Examen digital en 3º de secundaria</b> — certifica sus competencias digitales</span></div>
+            <span class="s24-ex-t">Examen de Certificación<br>de competencias digitales</span>
+            <span class="s24-ex-n">Secundaria</span></div>
         </div>
         <div class="card rule g lift pad-s" style="gap:9px;justify-content:flex-start">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
@@ -3098,7 +3183,8 @@ descripciones ≤ 50 caracteres para sostener 1 sola línea. Verificado.
             <li><b>Listos para lo que sigue</b>Egresan con credencial, no solo con práctica.</li>
           </ul>
           <div class="s24-exam g"><svg viewBox="0 0 24 24"><path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72l-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg>
-            <span><b>Examen digital en 6º de bachillerato</b> — certifica sus competencias digitales</span></div>
+            <span class="s24-ex-t">Examen de Certificación<br>de competencias digitales</span>
+            <span class="s24-ex-n">Bachillerato</span></div>
         </div>
       </div>
       <div class="card soft" style="padding:14px 24px;gap:0;justify-content:center">
@@ -3122,7 +3208,7 @@ descripciones ≤ 50 caracteres para sostener 1 sola línea. Verificado.
   </div>
   <div class="foot">
     <div class="ejebar"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg on g"></span><em>04 · Acompañamiento</em></div>
-    <p class="sm">Se aplica en años terminales: <b>6º de primaria, 3º de secundaria y 6º de bachillerato</b>.</p>
+    <p class="sm">Se aplica al cierre de cada nivel: <b>primaria mayor, secundaria y bachillerato</b>.</p>
   </div>
 </section>
 
@@ -3131,10 +3217,15 @@ descripciones ≤ 50 caracteres para sostener 1 sola línea. Verificado.
   CUENTA DE ALTURAS (escenario 720; padding 46+30 → 644 útiles; ancho útil 1160)
   head: fila logo 27 + gap 11 + h2 1 línea 48 = 86 + margen 20 = 106
   foot: 38 + margen 18 = 56  →  body disponible ≈ 482 px
-  Columna (g4, gap 16 → 278 px; interior 234 px): pad-s 40 + encabezado 38 + gap 10
-    + lista 6 bens tight (título 16 + desc 2 líneas 32 = 48 c/u ×6 + 5×5 gaps = 313)
-    + gap 10 + tira de logos (borde 10 + img 16) 26 = 437 ≤ 482 ✔
-  Descripciones ≤ 72 caracteres para no pasar de 2 líneas a 234 px de ancho.
+  Columna crítica 01 · Dispositivos, ahora con 7 puntos (stock y carrito separados);
+  se compensa con .b25-pack: pad-s 16px (antes 20) y gap de lista 4px (antes 5).
+  Columna (g4, gap 16 → 278 px; interior 242 px): pad 32 + encabezado 38 + gap 10
+    + lista 7 bens tight: título 1 línea 16 + desc 2 líneas 32 = 48, salvo
+      «Chromebook para docente incluida» (título 2 líneas: 64) y
+      «Stock de reemplazo» (desc 1 línea: 32) → 48×5 + 64 + 32 = 336 + 6×4 gaps = 360
+    + gap 10 + tira de logos (borde 10 + img 16) 26 = 476 ≤ 482 ✔
+  Las otras tres columnas (4-6 puntos) quedan por debajo. Sin desplegables.
+  Descripciones ≤ 72 caracteres para no pasar de 2 líneas.
 -->
 <section class="slide">
   <span class="shape" style="width:480px;height:480px;right:-190px;bottom:-230px;background:var(--blue-t)"></span>
@@ -3147,7 +3238,7 @@ descripciones ≤ 50 caracteres para sostener 1 sola línea. Verificado.
     <h2>Un solo paquete: los cuatro ejes completos</h2>
   </div>
   <div class="body">
-    <div class="grid g4">
+    <div class="grid g4 b25-pack">
 
       <!-- ── 01 · Dispositivos ── -->
       <div class="card pad-s rule b" style="justify-content:flex-start;gap:10px">
@@ -3157,10 +3248,11 @@ descripciones ≤ 50 caracteres para sostener 1 sola línea. Verificado.
         </div>
         <ul class="bens tight b">
           <li><b>Chromebooks del programa</b>Encienden en menos de 10 s, batería para la jornada, sin antivirus.</li>
-          <li><b>Dotación docente incluida</b>1 equipo por cada 10 o 20 estudiantes, según el modelo elegido.</li>
+          <li><b>Chromebook para docente incluida</b>1 equipo por cada 10 o 20 estudiantes, según el modelo elegido.</li>
           <li><b>Chrome Education Upgrade</b>Licencia perpetua de gestión por equipo, desde la Consola Google.</li>
           <li><b>Seguro contra daño y robo</b>Póliza vigente todo el contrato, para alumnos y docentes.</li>
-          <li><b>Stock y carrito de carga</b>Reemplazo inmediato de equipos y carga simultánea del aula.</li>
+          <li><b>Stock de reemplazo</b>Va siempre, en cualquier modalidad.</li>
+          <li><b>Carrito de carga</b>Solo en modelos compartidos, donde varios alumnos usan el mismo equipo.</li>
           <li><b>Securly Filter y Classroom</b>Navegación segura dentro y fuera; el docente guía las pantallas.</li>
         </ul>
         <div class="b25-logos"><img data-logo="securly" alt="Securly"></div>
