@@ -11,6 +11,7 @@ paso de compilación.
 | **Kit comercial** | [/paginas/kit-comercial/](https://sanoapro.github.io/activa/paginas/kit-comercial/) | Una lámina con los accesos que el equipo comercial usa a diario. |
 | **Cotizador 2026–2027** | [/paginas/cotizador/](https://sanoapro.github.io/activa/paginas/cotizador/) | Arma la propuesta del colegio: dispositivos, licenciamiento, capacitación y soporte. |
 | **upgrade edu 2026–2027** | [/paginas/upgrade-edu/](https://sanoapro.github.io/activa/paginas/upgrade-edu/) | Deck de 28 diapositivas del programa comercial. Abre sin compilar nada. |
+| **Padres de familia 2026–2027** | [/paginas/padres-de-familia/](https://sanoapro.github.io/activa/paginas/padres-de-familia/) | Deck de 22 diapositivas para las juntas con familias. Se lee igual en el proyector que en el teléfono de un padre. |
 
 Documento maestro de producto —fuente única y vigente— en
 [`docs/portafolio-activa.md`](docs/portafolio-activa.md).

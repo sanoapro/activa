@@ -5,10 +5,9 @@ página en concreto: si algo solo le sirve a una, va dentro de su carpeta en `pa
 
 | Carpeta | Qué hay |
 |---|---|
-| `css/main.css` | Sistema de diseño: tokens de color, tema claro/oscuro, tipografías, retícula. |
 | `css/motion.css` | Las clases `mo-*` de movimiento. **Sin un solo color**: solo opacidad, transform y tiempos. |
-| `js/motion.js` | **El motor de animación.** Lo cargan las cuatro páginas. Script clásico, expone el global `Motion`. |
-| `js/motion-lottie.js` | Opcional. Lottie diferido con respaldo CSS si el CDN no responde. |
+| `js/motion.js` | **El motor de animación.** Script clásico, expone el global `Motion`. |
+| `js/motion-lottie.js` | Opcional. Lottie diferido con respaldo CSS si el CDN no responde. **Hoy no lo carga nadie**: es capacidad lista para la próxima página que quiera una animación vectorial. |
 | `js/motion-particles.js` | Opcional. Campo de partículas 3D en Canvas, con colores configurables. |
 | `lottie/` | Animaciones Lottie (`.json`). |
 | `img/marcas/` | 18 logos de marca y de marcos curriculares, en `.webp`. |
@@ -39,8 +38,23 @@ completa y quieta en lugar de quedarse en blanco.
 Las páginas viven a dos niveles de profundidad, así que la ruta relativa es siempre la misma:
 
 ```html
-<link rel="stylesheet" href="../../compartidos/css/main.css">
+<link rel="stylesheet" href="../../compartidos/css/motion.css">
+<script src="../../compartidos/js/motion.js"></script>
 ```
 
 Si se agrega algo acá, conviene anotarlo en la tabla de arriba y en
 [`docs/estructura.md`](../docs/estructura.md).
+
+## No hay hoja de estilos compartida, y es a propósito
+
+Aquí vivía `css/main.css`: tokens de color, tema claro/oscuro, retícula y los estilos de los
+cinco demos del Motion System. Era el sistema de diseño de esa página, y al retirarla se quedó
+sin un solo consumidor. Se borró.
+
+Cada página nace con su propia paleta en su `:root` —el deck es Google, el kit es pastel, el
+cotizador es sobrio, la de padres hereda la del deck— y eso **no es deuda**: es lo que permite
+que cada una se abra sin servidor y viaje sola. Lo único que se comparte es el movimiento, que
+justamente no lleva color para no pelearse con ninguna paleta.
+
+Si algún día dos páginas necesitan de verdad los mismos tokens, se crea entonces, con solo lo
+que ambas usen.

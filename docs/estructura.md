@@ -29,13 +29,13 @@ Presentacion-activa/
 │   │   └── README.md
 │   └── cotizador/                Herramienta para armar la propuesta
 │       ├── index.html
+│       ├── og.png
 │       └── README.md
 │
 ├── compartidos/                  ← LO QUE USA MÁS DE UNA PÁGINA
-│   ├── css/main.css              Sistema de diseño: tokens, tema claro/oscuro, retícula
 │   ├── css/motion.css            Clases mo-* de movimiento. Sin colores.
 │   ├── js/motion.js              EL MOTOR de animación. Lo usan las 4 páginas.
-│   ├── js/motion-lottie.js       Opcional: Lottie diferido con respaldo CSS
+│   ├── js/motion-lottie.js       Opcional: Lottie diferido. Hoy no lo carga nadie.
 │   ├── js/motion-particles.js    Opcional: campo de partículas 3D
 │   ├── lottie/pulse.json         Animación Lottie
 │   └── img/
@@ -61,13 +61,32 @@ tal cual: lo que está aquí es exactamente lo que se publica. No hay build, ni 
 
 | Va en `compartidos/` | Va dentro de la carpeta de la página |
 |---|---|
-| Tokens de diseño, tipografías, temas | CSS que solo tiene sentido en esa página |
+| El motor de movimiento y sus clases `mo-*` | Su paleta y todo su CSS |
 | Logos de marca y retratos originales | Su `og.png` y el molde que lo genera |
 | Animaciones e iconos reutilizables | Sus datos embebidos (`assets.js`, base64) |
 | Utilidades JS que valdrían para otra página | Su `README.md` |
 
 Regla práctica: si al borrar una página el archivo dejaría de servirle a nadie, ese archivo
 era de la página. Si le seguiría sirviendo a otra, es compartido.
+
+**No hay hoja de estilos compartida.** Cada página trae su paleta en su propio `:root`. Hubo un
+`compartidos/css/main.css`, pero era el sistema de diseño de la página motion-system y al
+retirarla se quedó sin consumidores; se borró. Lo único compartido en presentación es
+`motion.css`, que a propósito **no lleva un solo color** para no pelearse con ninguna paleta.
+
+## Nada de esto se indexa
+
+Las cinco páginas llevan `<meta name="robots" content="noindex">`. No es paranoia: el cotizador
+tiene el precio por alumno, los descuentos y los datos bancarios de la empresa, y los decks
+llevan la propuesta completa de un colegio concreto. Todo se abre desde el kit o se manda por
+enlace; nada se busca.
+
+**No sirve poner un `robots.txt` en este repositorio.** El sitio se publica en
+`sanoapro.github.io/activa/`, y el estándar solo lee ese archivo en la raíz del dominio
+—`sanoapro.github.io/robots.txt`—, que pertenece a otro repositorio. Uno puesto aquí sería
+ignorado y, peor, daría falsa tranquilidad. El bloqueo real lo hace la etiqueta de cada página.
+Si algún día se quiere además cortar el rastreo, la regla hay que ponerla en el repositorio del
+sitio de usuario.
 
 **Ojo con las imágenes de `compartidos/img/`.** Hoy son *material de origen*: el deck y el kit
 llevan las imágenes en base64 dentro del propio HTML, para abrir sin servidor. No se borran —
@@ -84,9 +103,12 @@ son la fuente de la que se regeneran esos base64.
    Y **leer [`normativa-motion.md`](normativa-motion.md) antes de animarla**: el motor es
    compartido y las reglas son obligatorias.
 4. Dar de alta la tarjeta en el portal `index.html` de la raíz (se copia un `<a class="card">`).
-5. Si la página lleva vista previa de WhatsApp, sus etiquetas `og:` van con **URL absoluta** —
-   WhatsApp no lee rutas relativas ni `data:` URI.
-6. Si conviene, agregarla también al kit comercial (`paginas/kit-comercial/index.html`, listas
+5. Ponerle `<meta name="robots" content="noindex">`. Todas lo llevan; ver «Nada de esto se
+   indexa», más arriba.
+6. Si la página lleva vista previa de WhatsApp, sus etiquetas `og:` van con **URL absoluta** —
+   WhatsApp no lee rutas relativas ni `data:` URI— y el `og.png` vive **en su propia carpeta**,
+   no en `compartidos/`.
+7. Si conviene, agregarla también al kit comercial (`paginas/kit-comercial/index.html`, listas
    `VENTA` e `INTERNA`).
 
 ---

@@ -129,11 +129,13 @@ footer code{font-family:var(--f-mono);font-size:.8rem;color:var(--ink-2)}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
+<link rel="stylesheet" href="./compartidos/css/motion.css">
+<script src="./compartidos/js/motion.js"></script>
 </head>
 <body>
 <div class="wrap">
 
-<header>
+<header class="mo-reveal">
   <p class="eyebrow">activa · Google for Education Partner</p>
   <h1>Portal de <em>páginas</em></h1>
   <p class="lede">
@@ -143,32 +145,32 @@ footer code{font-family:var(--f-mono);font-size:.8rem;color:var(--ink-2)}
   </p>
 </header>
 
-<section>
+<section class="mo-reveal">
   <h2>Páginas publicadas</h2>
-  <div class="grid">
+  <div class="grid mo-stagger" id="rejPaginas">
 
-    <a class="card" href="./paginas/kit-comercial/">
+    <a class="card mo-hover-eleva" href="./paginas/kit-comercial/">
       <p class="k">Uso diario · equipo comercial</p>
       <h3>Kit comercial</h3>
       <p>Una lámina con los accesos que el equipo abre todos los días: cotizador, base de datos, Classroom, herramientas internas.</p>
       <p class="go">Abrir <span>→</span></p>
     </a>
 
-    <a class="card b" href="./paginas/upgrade-edu/">
+    <a class="card b mo-hover-eleva" href="./paginas/upgrade-edu/">
       <p class="k">Presentación · 28 diapositivas</p>
       <h3>upgrade edu 2026–2027</h3>
       <p>El deck comercial del programa, estilo Google for Education. Se abre sin compilar nada.</p>
       <p class="go">Abrir <span>→</span></p>
     </a>
 
-    <a class="card c" href="./paginas/padres-de-familia/">
+    <a class="card c mo-hover-eleva" href="./paginas/padres-de-familia/">
       <p class="k">Presentación · 22 diapositivas</p>
       <h3>Padres de familia 2026–2027</h3>
       <p>El deck para las juntas con familias del colegio. Se abre en el teléfono de un padre igual de bien que en el proyector.</p>
       <p class="go">Abrir <span>→</span></p>
     </a>
 
-    <a class="card d" href="./paginas/cotizador/">
+    <a class="card d mo-hover-eleva" href="./paginas/cotizador/">
       <p class="k">Herramienta comercial</p>
       <h3>Cotizador 2026–2027</h3>
       <p>Arma la propuesta del colegio: dispositivos, licenciamiento, capacitación y soporte.</p>
@@ -178,9 +180,9 @@ footer code{font-family:var(--f-mono);font-size:.8rem;color:var(--ink-2)}
   </div>
 </section>
 
-<section>
+<section class="mo-reveal">
   <h2>Documentos de referencia</h2>
-  <div class="docs">
+  <div class="docs mo-stagger" id="rejDocs">
     <a href="./docs/portafolio-activa.md"><strong>Portafolio de servicios</strong> <em>Fuente única y vigente de la información de producto.</em></a>
     <a href="./docs/descripcion-de-productos/"><strong>Descripción de productos</strong> <em>Catálogo y guiones de video, listos para mandar al cliente.</em></a>
     <a href="./docs/estructura.md"><strong>Estructura del repositorio</strong> <em>Dónde va cada cosa y cómo se agrega una página nueva.</em></a>
@@ -188,11 +190,23 @@ footer code{font-family:var(--f-mono);font-size:.8rem;color:var(--ink-2)}
   </div>
 </section>
 
-<footer>
+<footer class="mo-reveal">
   <span>Material interno. Los destinos piden credenciales.</span>
   <span><code>sanoapro.github.io/activa/</code></span>
 </footer>
 
 </div>
+
+<!-- El motor, al final y una sola vez. La regla 4 de docs/normativa-motion.md:
+     el CSS solo esconde lo revelable bajo html.mo-ready, y esa clase la pone
+     Motion.start(). Si este script no carga, el portal se ve completo y quieto. -->
+<script>
+  Motion.stagger(document.getElementById('rejPaginas'), 80);
+  Motion.stagger(document.getElementById('rejDocs'), 70);
+  Motion.revealAll('.mo-reveal');
+  Motion.revealAll('#rejPaginas > *');
+  Motion.revealAll('#rejDocs > *');
+  Motion.start();          // ← siempre lo último
+</script>
 </body>
 </html>

@@ -14,9 +14,15 @@ build: se edita y se recarga.
 | Archivo | Qué es |
 |---|---|
 | `index.html` | Todo: markup, CSS, motor de cálculo, persistencia, impresión y pruebas. |
+| `og.png` | Vista previa de WhatsApp (1200×630). |
 
-Su vista previa de WhatsApp vive en `compartidos/img/og-cotizador.png` y las etiquetas `og:`
-apuntan a ella con **URL absoluta** (WhatsApp no lee rutas relativas).
+Las etiquetas `og:` apuntan a `og.png` con **URL absoluta**: WhatsApp no lee rutas relativas.
+La imagen vivía en `compartidos/img/og-cotizador.png`, contra lo que manda
+[`docs/estructura.md`](../../docs/estructura.md) —la vista previa va con su página— y contra lo
+que decía el comentario del propio `index.html`. Se movió aquí.
+
+La página lleva `<meta name="robots" content="noindex, nofollow">`: tiene el precio por alumno,
+los descuentos y los datos bancarios de la empresa. Se manda por enlace, no se busca.
 
 ---
 
