@@ -30,6 +30,9 @@
      comercial y del deck. Va como SVG en la propia etiqueta: antes apuntaba a
      icono-activa.png, un archivo que no existe en este repositorio. -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='11' height='11' rx='3' fill='%234285f4'/%3E%3Crect x='18' y='3' width='11' height='11' rx='3' fill='%23ea4335'/%3E%3Crect x='3' y='18' width='11' height='11' rx='3' fill='%23fbbc04'/%3E%3Crect x='18' y='18' width='11' height='11' rx='3' fill='%2334a853'/%3E%3C/svg%3E">
+<!-- Motor de movimiento compartido (docs/normativa-motion.md). Sin colores propios:
+     solo opacidad, transform y tiempos. Si no carga, nada se oculta. -->
+<link rel="stylesheet" href="../../compartidos/css/motion.css">
 <style>
 :root{
   --g-blue:#1a73e8; --g-blue-d:#174ea6; --g-blue-t:#e8f0fe;
@@ -1052,6 +1055,19 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
   #tblBreak thead th{background:#eef3fb}
   #tblBreak tbody tr:nth-child(even) td{background:#f7f9fd}
 }
+
+/* ============ Motion · complementos de esta página (solo movimiento) ============
+   El motor compartido no trae colores; el acento de la barra de avance se pone aquí.
+   La barra es ABSOLUTA dentro de .cfgbar: no cambia la altura que mide
+   setupDynamicOffsets() ni el comportamiento sticky del header. */
+.cfgbar{position:relative}
+.mo-progress{position:absolute;left:0;right:0;bottom:0;height:3px;pointer-events:none}
+.mo-progress-fill{display:block;height:100%;background:var(--acc);opacity:.85}
+/* Un botón deshabilitado no debe elevarse: seguiría pareciendo accionable. */
+.btn:disabled.mo-hover-eleva:hover{transform:none;box-shadow:none}
+/* Impresión: el motor ya anula revelados y cascadas en @media print; aquí se
+   anula lo que agrega esta página. (Al imprimir solo se muestra #printRoot.) */
+@media print{.mo-progress{display:none!important}}
 </style>
 </head>
 <body>
@@ -1104,13 +1120,16 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
         <b class="num" id="barPrice">$0</b>
       </div>
     </div>
+    <!-- Motion · avance de lectura de la cotización. Decorativo y absoluto:
+         no cambia la altura del header ni entra en el flujo del formulario. -->
+    <div class="mo-progress" aria-hidden="true"><span class="mo-progress-fill" id="moProgressFill"></span></div>
   </div>
 </header>
 
 <main id="mainContent">
 <!-- F-23 · C-02 · Banner persistente: el fallo de guardado no puede depender de un toast de 3 segundos -->
 <div class="wrap"><div id="storageBanner" role="alert" hidden></div></div>
-<form id="quoteForm" novalidate>
+<form id="quoteForm" class="mo-stagger" novalidate>
 <!-- ================= HERO ================= -->
 <div class="hero wrap">
   <span class="tag"><span class="gdots"><i></i><i></i><i></i><i></i></span> <span id="cycleTag">Ciclo escolar 2026–2027</span></span>
@@ -1198,7 +1217,7 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
       <p>Cada servicio muestra la cantidad que le corresponde al colegio. Los que no aplican en esta modalidad aparecen atenuados con el motivo.</p>
     </div>
 
-    <div class="area">
+    <div class="area mo-reveal">
       <div class="ahead">
         <div class="aico" style="background:var(--g-blue)"><svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg></div>
         <div><h3>TI — Tecnologías de la Información</h3><p>Dispositivos, licenciamiento e infraestructura</p></div>
@@ -1207,7 +1226,7 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
       <div class="igrid" id="gTI"></div>
     </div>
 
-    <div class="area">
+    <div class="area mo-reveal">
       <div class="ahead">
         <div class="aico" style="background:var(--g-red)"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></div>
         <div><h3>IP — Innovación y Proyectos</h3><p>Plataformas académicas, acompañamiento y certificaciones</p></div>
@@ -1216,7 +1235,7 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
       <div class="igrid" id="gIP"></div>
     </div>
 
-    <div class="area">
+    <div class="area mo-reveal">
       <div class="ahead">
         <div class="aico" style="background:var(--g-grn)"><svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></div>
         <div><h3>DP — Desarrollo Profesional</h3><p>Formación, certificación y acompañamiento docente</p></div>
@@ -1235,7 +1254,7 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
       <h2>Acompañamiento asignado</h2>
       <p>Se calcula automáticamente según el número de estudiantes del colegio.</p>
     </div>
-    <div class="acomp" id="acompGrid"></div>
+    <div class="acomp mo-reveal" id="acompGrid"></div>
   </div>
 </section>
 
@@ -4140,6 +4159,68 @@ function start(){
 
 window.addEventListener("error",event=>{console.error(event.error||event.message);});window.addEventListener("unhandledrejection",event=>console.error("Promesa no controlada",event.reason));document.addEventListener("DOMContentLoaded",start);window.__engine={quote,LICS,TERMS,BASE,capFor,ITEMS,clabeOk,getState:()=>clone(APP_STATE),getResult:()=>clone(CURRENT_RESULT)};window.__tests=QuoteTests;window.__diagnostics=Diagnostics;window.__print={preparePrint,buildProposal,buildPrintDocument};
 
+</script>
+<script src="../../compartidos/js/motion.js"></script>
+<script>
+/* ============ Motion · nivel moderado (docs/normativa-motion.md) ============
+   Solo movimiento: microinteracciones, cascada de entrada, revelado al bajar,
+   barra de avance y botones que narran su estado. Nada de aquí toca cálculos,
+   precios, folio, guardado, compartido ni impresión: los manejadores existentes
+   siguen haciendo todo el trabajo real. Si motion.js no cargara, este bloque
+   sale de inmediato y la página queda completa y quieta (regla 4). */
+(function () {
+  "use strict";
+  if (!window.Motion) return;
+
+  /* 1 · Microinteracciones en botones y controles. Nunca sobre campos ni sobre
+     números: #barPrice, #actPrice, la escalera y las tablas quedan quietos. */
+  document.querySelectorAll(".btn").forEach(function (b) {
+    if (b.classList.contains("text")) { b.classList.add("mo-hover-hunde"); return; }
+    b.classList.add("mo-hover-eleva", "mo-hover-hunde");
+    if (b.classList.contains("primary") || b.classList.contains("grn")) b.classList.add("mo-brillo");
+  });
+  document.querySelectorAll(".seg button").forEach(function (b) { b.classList.add("mo-hover-hunde"); });
+
+  /* 2 · Acciones que tardan o que hoy solo contestan con un toast: el botón
+     mismo narra reposo → trabajando → hecho. El guardado NO se toca: ya tiene
+     su propio indicador (#saveState). */
+  [
+    ["#btnShare",            "Copiando…",   "✓ Copiado"],
+    ["#btnPdf",              "Preparando…", "✓ Listo"],
+    ["#btnPdf2",             "Preparando…", "✓ Listo"],
+    ["#btnMailPdf",          "Preparando…", "✓ Listo"],
+    ["#btnCopyMail",         "Copiando…",   "✓ Copiado"],
+    ["#btnCopyScenarioCode", "Copiando…",   "✓ Copiado"]
+  ].forEach(function (def) {
+    var btn = document.querySelector(def[0]);
+    if (!btn) return;
+    var avisar = Motion.botonEstado(btn, {
+      trabajando: '<i class="mo-spinner" aria-hidden="true"></i> ' + def[1],
+      hecho: def[2]
+    });
+    btn.addEventListener("click", function () { if (!btn.disabled) avisar(); });
+  });
+
+  /* 3 · La página se arma en orden al cargar: cascada corta (60 ms) de los
+     bloques del formulario (hero + 6 secciones). El rootMargin enorme hace que
+     toda la cascada corra de una vez al arrancar: los retardos escalonados no
+     deben aplicarse al revelado por scroll, harían lentas las secciones bajas. */
+  var form = document.getElementById("quoteForm");
+  if (form) {
+    Motion.stagger(form, 60);
+    Motion.revealAll("#quoteForm > *", { threshold: 0, rootMargin: "0px 0px 100000px 0px" });
+  }
+
+  /* 4 · Bloques largos que se revelan al bajar (áreas de servicio y
+     acompañamiento; nunca los bloques de precio ni las tablas de cifras). */
+  Motion.revealAll(".mo-reveal");
+
+  /* 5 · Avance de la cotización en la barra de configuración fija. */
+  Motion.progressBar(document.getElementById("moProgressFill"));
+
+  /* 6 · Arranque del motor: siempre la última línea. */
+  Motion.start();
+})();
 </script>
 </body>
 </html>

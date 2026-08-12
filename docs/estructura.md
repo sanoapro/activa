@@ -24,14 +24,19 @@ Presentacion-activa/
 │   │   ├── index.html
 │   │   ├── og.png
 │   │   └── README.md
-│   └── motion-system/            Demostración de animación
-│       ├── index.html            Punto de montaje
-│       ├── js/                   Sus 7 módulos ES  ← aquí se edita
+│   ├── padres-de-familia/        Deck de 22 diapositivas para juntas con familias
+│   │   ├── index.html
+│   │   └── README.md
+│   └── cotizador/                Herramienta para armar la propuesta
+│       ├── index.html
 │       └── README.md
 │
 ├── compartidos/                  ← LO QUE USA MÁS DE UNA PÁGINA
 │   ├── css/main.css              Sistema de diseño: tokens, tema claro/oscuro, retícula
-│   ├── js/                       Módulos JS reutilizables (todavía vacío)
+│   ├── css/motion.css            Clases mo-* de movimiento. Sin colores.
+│   ├── js/motion.js              EL MOTOR de animación. Lo usan las 4 páginas.
+│   ├── js/motion-lottie.js       Opcional: Lottie diferido con respaldo CSS
+│   ├── js/motion-particles.js    Opcional: campo de partículas 3D
 │   ├── lottie/pulse.json         Animación Lottie
 │   └── img/
 │       ├── marcas/               18 logos de marca y de marcos curriculares (.webp)
@@ -40,6 +45,7 @@ Presentacion-activa/
 ├── docs/                         ← TEXTO, NO CÓDIGO
 │   ├── portafolio-activa.md      Documento maestro de producto (fuente de verdad)
 │   ├── descripcion-de-productos/ Catálogo y guiones de video
+│   ├── normativa-motion.md       Cómo se anima cualquier página. OBLIGATORIA.
 │   └── estructura.md             Este archivo
 │
 └── .nojekyll                     Para que GitHub Pages no procese con Jekyll
@@ -75,6 +81,8 @@ son la fuente de la que se regeneran esos base64.
 2. Todo lo propio de esa página, en esa carpeta. Lo que quiera reutilizar, apuntando a
    `../../compartidos/…`.
 3. Escribir su `README.md`: qué es, cómo se edita, y cómo se regenera lo que sea generado.
+   Y **leer [`normativa-motion.md`](normativa-motion.md) antes de animarla**: el motor es
+   compartido y las reglas son obligatorias.
 4. Dar de alta la tarjeta en el portal `index.html` de la raíz (se copia un `<a class="card">`).
 5. Si la página lleva vista previa de WhatsApp, sus etiquetas `og:` van con **URL absoluta** —
    WhatsApp no lee rutas relativas ni `data:` URI.
@@ -92,7 +100,8 @@ El sitio se sirve desde la rama `main` tal cual, así que **la ruta del reposito
 | Portal | https://sanoapro.github.io/activa/ |
 | Kit comercial | https://sanoapro.github.io/activa/paginas/kit-comercial/ |
 | upgrade edu | https://sanoapro.github.io/activa/paginas/upgrade-edu/ |
-| Motion System | https://sanoapro.github.io/activa/paginas/motion-system/ |
+| Padres de familia | https://sanoapro.github.io/activa/paginas/padres-de-familia/ |
+| Cotizador | https://sanoapro.github.io/activa/paginas/cotizador/ |
 
 Al mover una página hay que revisar tres lugares: sus propias etiquetas `og:`, las tarjetas del
 portal, y las listas del kit comercial.

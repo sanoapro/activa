@@ -29,6 +29,12 @@
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='11' height='11' rx='3' fill='%234285f4'/%3E%3Crect x='18' y='3' width='11' height='11' rx='3' fill='%23ea4335'/%3E%3Crect x='3' y='18' width='11' height='11' rx='3' fill='%23fbbc04'/%3E%3Crect x='18' y='18' width='11' height='11' rx='3' fill='%2334a853'/%3E%3C/svg%3E">
 
+<!-- Motor de movimiento compartido (docs/normativa-motion.md). Script clásico
+     a propósito: la lámina se abre con doble clic desde file://. Si no carga,
+     nada se oculta: la página se ve completa y quieta (regla 4). -->
+<link rel="stylesheet" href="../../compartidos/css/motion.css">
+<script src="../../compartidos/js/motion.js"></script>
+
 <style>
 /* ═══════════════════════════════════════════════════════════════
    KIT COMERCIAL · una sola lámina 1280×720, sin scroll.
@@ -145,27 +151,33 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
   padding:16px 17px 14px;border-radius:20px;text-decoration:none;color:inherit;
   background:var(--white);border:1px solid var(--line);box-shadow:var(--sh1);
   overflow:hidden;isolation:isolate;
-  transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s,border-color .22s;
-  opacity:0;transform:translateY(14px)}
-.tile.in{opacity:1;transform:none;
-  transition:opacity .5s cubic-bezier(.2,.8,.2,1),transform .5s cubic-bezier(.2,.8,.2,1)}
+  transition:box-shadow .22s,border-color .22s}
+/* Envoltura doble para el motor de movimiento: la cascada (mo-stagger) anima
+   .twrap, el imán desplaza .tmag y la inclinación gira la .tile. Cada capa
+   tiene su propio transform y ninguna pisa a las demás. La entrada solo se
+   oculta bajo html.mo-ready (regla 4): sin motor, todo se ve. */
+.twrap{display:flex;min-width:0;min-height:0}
+.tmag{display:flex;flex:1 1 auto;min-width:0}
+.twrap .tile{flex:1 1 auto}
 /* velo de color que se enciende al pasar el cursor */
 .tile::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;
   background:radial-gradient(420px 240px at var(--mx,50%) var(--my,0%),var(--tint),transparent 70%);
   transition:opacity .25s}
-.tile:hover{transform:translateY(-5px);box-shadow:var(--sh2);border-color:transparent}
-.tile:hover::before{opacity:1}
+/* la elevación en Y la pone ahora el imán del motor; aquí queda la sombra.
+   Las tarjetas «pronto» no reaccionan: no deben sentirse clicables. */
+.tile:not(.pronto):hover{box-shadow:var(--sh2);border-color:transparent}
+.tile:not(.pronto):hover::before{opacity:1}
 .tile:focus-visible{outline:3px solid var(--c);outline-offset:3px}
 /* filete de color al pie de la tarjeta, crece al hover */
 .tile::after{content:"";position:absolute;left:17px;bottom:0;height:4px;width:34px;
   border-radius:99px 99px 0 0;background:var(--c);transition:width .28s cubic-bezier(.2,.8,.2,1)}
-.tile:hover::after{width:calc(100% - 34px)}
+.tile:not(.pronto):hover::after{width:calc(100% - 34px)}
 
 .t-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
 .t-ico{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
   background:var(--grad);box-shadow:0 6px 16px -6px var(--c);flex-shrink:0;
   transition:transform .28s cubic-bezier(.2,.8,.2,1)}
-.tile:hover .t-ico{transform:scale(1.07) rotate(-4deg)}
+.tile:not(.pronto):hover .t-ico{transform:scale(1.07) rotate(-4deg)}
 .t-ico svg{width:25px;height:25px;fill:#fff;display:block}
 .t-arrow{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
   background:var(--wash);color:var(--ink3);flex-shrink:0;
@@ -190,6 +202,12 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
 .t-copy:hover{color:var(--c);border-color:var(--c)}
 .t-copy svg{width:14px;height:14px;fill:currentColor;display:block}
 .t-copy.ok{color:var(--grn);border-color:var(--grn)}
+/* estado «copiado» del motor (Motion.botonEstado): el botón crece para
+   decirlo con palabras y se queda visible mientras dura la confirmación,
+   aunque el cursor salga de la tarjeta */
+.t-copy.mo-done{opacity:1;transform:none;width:auto;min-width:27px;padding:0 9px;
+  font-size:10.5px;font-weight:700;white-space:nowrap;font-family:var(--font);
+  color:var(--grn);border-color:var(--grn)}
 
 /* la tarjeta interna es más baja: se compacta */
 .kc-sec.interna .tile{gap:7px;padding:14px 16px 12px}
@@ -205,9 +223,7 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
 .kc-teamcap .t{font-size:12.5px;font-weight:600;letter-spacing:-.2px}
 .kc-teamcap .s{font-size:10.5px;color:var(--ink3);line-height:1.25}
 .kc-people{flex:1;display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
-.p{display:flex;align-items:center;gap:8px;min-width:0;
-  opacity:0;transform:translateY(10px)}
-.p.in{opacity:1;transform:none;transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
+.p{display:flex;align-items:center;gap:8px;min-width:0}
 .p img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex-shrink:0;
   border:2.5px solid var(--pc);box-shadow:0 2px 8px -2px rgba(60,64,67,.4);
   transition:transform .25s cubic-bezier(.2,.8,.2,1)}
@@ -293,7 +309,7 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
         <span class="rule"></span>
         <span class="cnt">04</span>
       </div>
-      <div class="kc-grid g4" id="gVenta"></div>
+      <div class="kc-grid g4 mo-stagger" id="gVenta"></div>
     </section>
 
     <section class="kc-sec interna">
@@ -307,7 +323,7 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
         </a>
         <span class="cnt">04</span>
       </div>
-      <div class="kc-grid g4" id="gInterna"></div>
+      <div class="kc-grid g4 mo-stagger" id="gInterna"></div>
     </section>
 
   </main>
@@ -318,7 +334,7 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
       <span class="t">Tu equipo</span>
       <span class="s">activa.la</span>
     </div>
-    <div class="kc-people" id="team"></div>
+    <div class="kc-people mo-stagger" id="team"></div>
   </footer>
 
   <div id="toast">Enlace copiado</div>
@@ -373,11 +389,10 @@ const VENTA = [
     desc:'El deck de venta upgrade edu, listo para proyectar o compartir.',
     host:'sanoapro.github.io',
     url:'https://sanoapro.github.io/activa/paginas/upgrade-edu' },
-  /* Todavía no existe: la lámina queda apartada para que el equipo sepa que viene.
-     Cuando la presentación esté lista, se le pone su url y se quita `pronto`. */
   { id:'papas', nombre:'Presentación a papás', color:'--teal', color2:'#004d40', tinte:'--teal-t',
-    desc:'La versión para juntas con familias, en preparación.',
-    host:'Próximamente', pronto:true }
+    desc:'El deck para juntas con familias: por qué el programa, qué cambia y qué no.',
+    host:'sanoapro.github.io',
+    url:'https://sanoapro.github.io/activa/paginas/padres-de-familia/' }
 ];
 const INTERNA = [
   { id:'base', nombre:'Base de datos', color:'--grn', color2:'#0b5c28', tinte:'--grn-t',
@@ -423,14 +438,30 @@ function tarjeta(it){
        <svg viewBox="0 0 24 24" aria-hidden="true">${ICO_COPY}</svg>
      </button>`}`;
 
-  if(it.pronto) return a;   /* no hay enlace que copiar ni velo que seguir */
+  /* envoltura doble para el motor: la cascada anima .twrap, el imán mueve
+     .tmag y la tarjeta conserva su propio transform para la inclinación */
+  /* (el velo del cursor se pinta en veloPinta(), más abajo) */
+  const w = document.createElement('div');
+  w.className = 'twrap';
+  const mag = document.createElement('div');
+  mag.className = 'tmag';
+  mag.appendChild(a);
+  w.appendChild(mag);
 
-  /* el velo de color sigue al cursor dentro de la tarjeta */
+  if(it.pronto) return w;   /* no hay enlace que copiar ni velo que seguir */
+
+  /* El velo de color sigue al cursor dentro de la tarjeta.
+     El listener SOLO guarda coordenadas (regla 2 de la normativa): el rectángulo
+     se lee dentro del frame. Antes se leía aquí mismo, y ahora que la tarjeta
+     lleva transform por frame —imán e inclinación— eso forzaría un cálculo de
+     layout sincrónico en cada movimiento del cursor, justo mientras el bucle
+     está escribiendo. Sin el motor no hay bucle, así que ahí se lee directo:
+     el velo tiene que funcionar igual (regla 4). */
   a.addEventListener('pointermove', e=>{
-    const r = a.getBoundingClientRect(), k = window.__scale || 1;
-    a.style.setProperty('--mx', ((e.clientX-r.left)/k) + 'px');
-    a.style.setProperty('--my', ((e.clientY-r.top)/k) + 'px');
+    if(window.Motion){ velo.activa = a; velo.x = e.clientX; velo.y = e.clientY; return; }
+    veloPinta(a, e.clientX, e.clientY);
   });
+  a.addEventListener('pointerleave', ()=>{ if(velo.activa === a) velo.activa = null; });
 
   /* copiar sin navegar */
   const btn = a.querySelector('.t-copy');
@@ -438,7 +469,20 @@ function tarjeta(it){
     ev.preventDefault(); ev.stopPropagation();
     copiar(it.url, btn);
   });
-  return a;
+  return w;
+}
+
+/* ═══════════ velo de color que sigue al cursor ═══════════
+   `velo` guarda cuál tarjeta está bajo el cursor y en qué coordenada de
+   viewport; quien pinta es veloPinta(), llamada una vez por frame desde el
+   bucle del motor (ver el bloque de movimiento al final). Una sola lectura de
+   geometría por frame, y solo mientras el cursor está sobre una tarjeta. */
+const velo = { activa:null, x:0, y:0 };
+
+function veloPinta(tile, cx, cy){
+  const r = tile.getBoundingClientRect(), k = window.__scale || 1;
+  tile.style.setProperty('--mx', ((cx - r.left) / k) + 'px');
+  tile.style.setProperty('--my', ((cy - r.top)  / k) + 'px');
 }
 
 function pintar(cont, lista){
@@ -486,9 +530,12 @@ function avisar(msg){
 }
 function copiar(url, btn){
   const listo = ()=>{
+    avisar('Enlace copiado');
+    /* con el motor, el botón mismo dice «copiado» y vuelve solo;
+       sin motor, se conserva el aviso original con el icono de palomita */
+    if(btn._estado){ btn._estado(); return; }
     btn.classList.add('ok');
     btn.querySelector('svg').innerHTML = ICO_OK;
-    avisar('Enlace copiado');
     setTimeout(()=>{ btn.classList.remove('ok'); btn.querySelector('svg').innerHTML = ICO_COPY; }, 1700);
   };
   if(navigator.clipboard && window.isSecureContext){
@@ -518,14 +565,6 @@ function escalar(){
 escalar();
 addEventListener('resize', escalar);
 
-/* ═══════════ entrada escalonada ═══════════ */
-requestAnimationFrame(()=>{
-  document.querySelectorAll('.tile').forEach((el,i)=>
-    setTimeout(()=>el.classList.add('in'), 90 + i*70));
-  document.querySelectorAll('.p').forEach((el,i)=>
-    setTimeout(()=>el.classList.add('in'), 620 + i*55));
-});
-
 /* ═══════════ teclado ═══════════
    1–7 abre el acceso correspondiente; F alterna pantalla completa. */
 const TODOS = [...VENTA, ...INTERNA];
@@ -545,6 +584,41 @@ addEventListener('keydown', e=>{
     else document.documentElement.requestFullscreen?.();
   }
 });
+
+/* ═══════════ movimiento (motor compartido) ═══════════
+   docs/normativa-motion.md. Opcional por diseño: si motion.js no cargó,
+   la lámina ya se ve completa y quieta — nada de aquí condiciona el
+   contenido (regla 4). Todo va dentro de la lámina escalada; el escalado
+   de #stage no se toca: el imán y la inclinación viven en hijos internos. */
+if(window.Motion){
+
+  /* entrada en cascada: venta → interna → equipo, la coreografía de siempre */
+  Motion.stagger(document.getElementById('gVenta'),   70, 90);
+  Motion.stagger(document.getElementById('gInterna'), 70, 370);
+  Motion.stagger(document.getElementById('team'),     55, 620);
+  /* sin scroll no hace falta margen de anticipación: umbral cero */
+  Motion.revealAll('.mo-stagger > *', { threshold: 0, rootMargin: '0px' });
+
+  /* imán + inclinación en las tarjetas activas; las «pronto» se quedan
+     quietas a propósito: no deben sentirse clicables */
+  Motion.qsa('.twrap').forEach(w=>{
+    const tile = w.querySelector('.tile');
+    if(tile.classList.contains('pronto')) return;
+    Motion.magnetic(w, w.querySelector('.tmag'), 120, 0.22);
+    Motion.tilt(tile, 5);
+  });
+
+  /* el botón ⧉ confirma por sí mismo que copió (lo usa copiar(), arriba) */
+  Motion.qsa('.t-copy').forEach(b=>{
+    b._estado = Motion.botonEstado(b, { hecho:'✓ Copiado', msTrabajo:0, msHecho:1400 });
+  });
+
+  /* el velo del cursor: una lectura de geometría por frame, y solo si hay
+     tarjeta bajo el cursor. El listener de pointermove ya guardó la coordenada */
+  Motion.onFrame(()=>{ if(velo.activa) veloPinta(velo.activa, velo.x, velo.y); });
+
+  Motion.start();   /* siempre lo último */
+}
 </script>
 </body>
 </html>

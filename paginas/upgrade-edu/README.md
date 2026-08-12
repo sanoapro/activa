@@ -3,8 +3,13 @@
 Deck de 28 diapositivas del programa comercial, estilo Google for Education.
 Se publica en **https://sanoapro.github.io/activa/paginas/upgrade-edu/**
 
-Un solo archivo, autocontenido: markup, CSS, JS e imágenes en base64 viven dentro de
-`index.html`. Se abre con doble clic, sin servidor y sin compilar nada.
+Markup, CSS, JS e imágenes en base64 viven dentro de `index.html`. Se abre con doble clic, sin
+servidor y sin compilar nada.
+
+**Ya no es un archivo suelto:** desde agosto de 2026 carga el motor de movimiento compartido de
+`compartidos/`, así que viaja como carpeta o como zip, no como un `index.html` solo. Fue una
+decisión deliberada, para tener un único lugar donde arreglar el movimiento de las cuatro
+páginas.
 
 ## Archivos
 
@@ -12,6 +17,22 @@ Un solo archivo, autocontenido: markup, CSS, JS e imágenes en base64 viven dent
 |---|---|
 | `index.html` | El deck completo. ~790 KB, casi todo imágenes en base64. |
 | `og.png` | Vista previa de WhatsApp (1200×630). |
+
+## Movimiento
+
+Usa el motor compartido: coreografía de entrada en cascada por diapositiva —que se **reinicia**
+cada vez que se vuelve a entrar, porque el deck se recorre varias veces en una junta—,
+microinteracciones en los controles, seguimiento suave del cursor en portada y cierre, y un campo
+de partículas en la portada con la paleta de Google.
+
+La cascada entra por **animación** y no por transición: la regla de realce del propio deck
+(`.slide.on .card`) pisa por especificidad la transición de `motion.css`, y una transición no
+arranca en el mismo recálculo en que la diapositiva pasa de `display:none` a visible. Con
+transición, la cascada degradaba en silencio a «aparecer de golpe».
+
+Las reglas están en [`docs/normativa-motion.md`](../../docs/normativa-motion.md) y son
+obligatorias. Al agregar animaciones propias hay que anularlas también en `@media print`: la tecla
+`P` imprime a PDF y una hoja en blanco llegaría al cliente.
 
 ## Atajos
 

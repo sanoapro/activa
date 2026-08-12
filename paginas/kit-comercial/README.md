@@ -16,6 +16,19 @@ que el deck de [upgrade-edu](../upgrade-edu/).
 | `og.png` | Vista previa de WhatsApp (1200×630). **Generado** desde `og-source.html`. |
 | `og-source.html` | Molde de esa vista previa. No se abre en público. |
 
+## Movimiento
+
+Las dos páginas usan el motor compartido de `compartidos/`. En la lámina: cascada al armarse,
+tarjetas magnéticas que se acercan al cursor, inclinación 3D y confirmación visible al copiar un
+enlace. En descargables, que sí se desplaza: revelado al bajar y barra de avance.
+
+Cada tarjeta va en envoltura doble —`.twrap` (cascada) → `.tmag` (imán) → `.tile`
+(inclinación)— para que los tres `transform` no se pisen entre sí ni con la escala de `#stage`.
+Las tarjetas `pronto:true` quedan fuera de todo: no deben sentirse clicables.
+
+Las reglas están en [`docs/normativa-motion.md`](../../docs/normativa-motion.md) y son
+obligatorias.
+
 ## Cómo se usa
 
 - Clic en una tarjeta → abre el destino en pestaña nueva.

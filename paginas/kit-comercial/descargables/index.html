@@ -10,6 +10,12 @@
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='11' height='11' rx='3' fill='%234285f4'/%3E%3Crect x='18' y='3' width='11' height='11' rx='3' fill='%23ea4335'/%3E%3Crect x='3' y='18' width='11' height='11' rx='3' fill='%23fbbc04'/%3E%3Crect x='18' y='18' width='11' height='11' rx='3' fill='%2334a853'/%3E%3C/svg%3E">
 
+<!-- Motor de movimiento compartido (docs/normativa-motion.md). Script clásico
+     a propósito: la página se abre con doble clic desde file://. Si no carga,
+     nada se oculta: la página se ve completa y quieta (regla 4). -->
+<link rel="stylesheet" href="../../../compartidos/css/motion.css">
+<script src="../../../compartidos/js/motion.js"></script>
+
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
 <meta property="og:site_name" content="activa · Kit comercial">
@@ -85,6 +91,10 @@ h1{font-size:clamp(30px,5vw,44px);line-height:1.06;font-weight:500;letter-spacin
 .sechead .cnt{font-size:11px;font-weight:700;color:var(--ink3);font-variant-numeric:tabular-nums}
 
 .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr))}
+/* la envoltura .mo-reveal lleva la entrada en cascada; la tarjeta conserva
+   su propio hover sin pelear por el transform */
+.grid>.mo-reveal{display:flex}
+.grid .doc{flex:1}
 
 .doc{background:var(--white);border:1px solid var(--line2);border-radius:20px;
   padding:22px 22px 18px;display:flex;flex-direction:column;gap:12px;position:relative;
@@ -105,7 +115,8 @@ h1{font-size:clamp(30px,5vw,44px);line-height:1.06;font-weight:500;letter-spacin
 .acc{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 13px;
   border-radius:10px;text-decoration:none;font-size:12.5px;font-weight:600;
   border:1px solid var(--line);color:var(--ink2);background:var(--white);
-  transition:border-color .18s var(--ease),color .18s var(--ease),background .18s var(--ease)}
+  transition:border-color .18s var(--ease),color .18s var(--ease),background .18s var(--ease),
+             transform .18s var(--ease),box-shadow .18s var(--ease)}
 .acc svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}
 .acc:hover{border-color:var(--c);color:var(--c);background:var(--tint)}
 .acc.primaria{background:var(--grad);border-color:transparent;color:#fff}
@@ -118,10 +129,20 @@ h1{font-size:clamp(30px,5vw,44px);line-height:1.06;font-weight:500;letter-spacin
 footer{margin-top:38px;padding-top:20px;border-top:1px solid var(--line);
   color:var(--ink3);font-size:12.5px;display:flex;gap:8px 24px;flex-wrap:wrap}
 
+/* ── barra de avance de lectura ─────────────────────────────────
+   Vive justo bajo la franja Google; el motor la escala en X según el
+   scroll (Motion.progressBar). Nace en scaleX(0): sin scroll no se ve,
+   y sin motor tampoco estorba. */
+#progreso{position:fixed;left:0;right:0;top:5px;height:3px;z-index:10;
+  background:var(--blue);transform:scaleX(0);transform-origin:0 50%;
+  pointer-events:none}
+
+@media print{#progreso{display:none!important}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
+<div id="progreso" class="mo-progress-fill" aria-hidden="true"></div>
 <div class="wrap">
 
   <a class="volver" href="../">
@@ -219,20 +240,35 @@ function tarjeta(it){
      </div>
      <p class="d-desc">${it.desc}</p>
      <div class="acciones">
-       <a class="acc primaria" href="${l.copia}" target="_blank" rel="noopener noreferrer">
+       <a class="acc primaria mo-hover-eleva mo-hover-hunde" href="${l.copia}" target="_blank" rel="noopener noreferrer">
          <svg viewBox="0 0 24 24" aria-hidden="true">${ICO_COPIA}</svg>Copiar a mi Drive</a>
-       <a class="acc" href="${l.pdf}" target="_blank" rel="noopener noreferrer">
+       <a class="acc mo-hover-eleva mo-hover-hunde" href="${l.pdf}" target="_blank" rel="noopener noreferrer">
          <svg viewBox="0 0 24 24" aria-hidden="true">${ICO_PDF}</svg>PDF</a>
-       <a class="acc" href="${l.word}" target="_blank" rel="noopener noreferrer">
+       <a class="acc mo-hover-eleva mo-hover-hunde" href="${l.word}" target="_blank" rel="noopener noreferrer">
          <svg viewBox="0 0 24 24" aria-hidden="true">${ICO_WORD}</svg>Word</a>
      </div>
      ${it.nota ? `<p class="nota">${it.nota}</p>` : ``}`;
-  return el;
+  /* envoltura para el motor: la entrada anima la envoltura (mo-reveal) y la
+     tarjeta conserva su propio hover sin pelear por el transform */
+  const w = document.createElement('div');
+  w.className = 'mo-reveal';
+  w.appendChild(el);
+  return w;
 }
 
 const grid = document.getElementById('grid');
 DOCS.forEach(it => grid.appendChild(tarjeta(it)));
 document.getElementById('cnt').textContent = String(DOCS.length).padStart(2,'0');
+
+/* ═══════════ movimiento (motor compartido) ═══════════
+   docs/normativa-motion.md. Opcional por diseño: si motion.js no cargó,
+   la página ya se ve completa y quieta (regla 4). */
+if(window.Motion){
+  Motion.stagger(grid, 70);         /* cascada entre tarjetas de documentos */
+  Motion.revealAll('.mo-reveal');   /* entran al llegar a pantalla */
+  Motion.progressBar(document.getElementById('progreso'));
+  Motion.start();                   /* siempre lo último */
+}
 </script>
 </body>
 </html>

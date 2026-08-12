@@ -1,0 +1,209 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   activa · Movimiento compartido
+   ───────────────────────────────────────────────────────────────────────────
+   Pareja de compartidos/js/motion.js. Se carga en TODAS las páginas.
+
+       <link rel="stylesheet" href="../../compartidos/css/motion.css">
+
+   AQUÍ NO HAY UN SOLO COLOR. Solo opacidad, transform y tiempos. Cada página
+   tiene su propia paleta —el deck es Google, el kit es pastel, el cotizador
+   es sobrio— y este archivo no debe pelearse con ninguna. Si un efecto
+   necesita color, ese color va en el CSS de la página.
+
+   Todo lo revelable está condicionado a `html.mo-ready`, clase que pone
+   Motion.start(). Si el JS no carga, nada se oculta: la página se ve completa
+   y quieta. Es la lección de haber publicado una vez una página en blanco.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --mo-ease: cubic-bezier(.22, .68, .18, 1);
+  --mo-ease-out: cubic-bezier(.34, 1.4, .5, 1);
+  --mo-dur: .72s;
+  --mo-dur-corta: .28s;
+  --mo-delay: 0ms;
+  --mo-subida: 20px;
+}
+
+/* ── 1 · Revelado ─────────────────────────────────────────────────────────
+   El estado oculto SOLO existe si el motor arrancó. */
+
+.mo-ready .mo-reveal {
+  opacity: 0;
+  transform: translateY(var(--mo-subida));
+  transition:
+    opacity var(--mo-dur) var(--mo-ease) var(--mo-delay),
+    transform var(--mo-dur) var(--mo-ease) var(--mo-delay);
+  will-change: opacity, transform;
+}
+
+.mo-ready .mo-reveal.mo-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Variantes de dirección. Se combinan con .mo-reveal. */
+.mo-ready .mo-reveal.mo-desde-abajo { transform: translateY(var(--mo-subida)); }
+.mo-ready .mo-reveal.mo-desde-arriba { transform: translateY(calc(var(--mo-subida) * -1)); }
+.mo-ready .mo-reveal.mo-desde-izq  { transform: translateX(calc(var(--mo-subida) * -1.4)); }
+.mo-ready .mo-reveal.mo-desde-der  { transform: translateX(calc(var(--mo-subida) * 1.4)); }
+.mo-ready .mo-reveal.mo-escala     { transform: scale(.94); }
+.mo-ready .mo-reveal.mo-solo-fade  { transform: none; }
+
+.mo-ready .mo-reveal.mo-in.mo-desde-abajo,
+.mo-ready .mo-reveal.mo-in.mo-desde-arriba,
+.mo-ready .mo-reveal.mo-in.mo-desde-izq,
+.mo-ready .mo-reveal.mo-in.mo-desde-der,
+.mo-ready .mo-reveal.mo-in.mo-escala { transform: none; }
+
+/* ── 2 · Cascada ───────────────────────────────────────────────────────────
+   Motion.stagger() escribe --mo-delay en cada hijo. El contenedor solo
+   necesita la clase para que los hijos hereden el comportamiento. */
+
+.mo-ready .mo-stagger > * {
+  opacity: 0;
+  transform: translateY(var(--mo-subida));
+  transition:
+    opacity var(--mo-dur) var(--mo-ease) var(--mo-delay),
+    transform var(--mo-dur) var(--mo-ease) var(--mo-delay);
+}
+
+.mo-ready .mo-stagger > *.mo-in { opacity: 1; transform: none; }
+
+/* ── 3 · Microinteracciones ───────────────────────────────────────────────
+   Hover y foco. Sin color: solo geometría y sombra neutra. */
+
+.mo-hover-crece,
+.mo-hover-eleva,
+.mo-hover-hunde {
+  transition:
+    transform var(--mo-dur-corta) var(--mo-ease),
+    box-shadow var(--mo-dur-corta) var(--mo-ease),
+    filter var(--mo-dur-corta) var(--mo-ease);
+}
+
+.mo-hover-crece:hover, .mo-hover-crece:focus-visible { transform: scale(1.05); }
+.mo-hover-eleva:hover, .mo-hover-eleva:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .35);
+}
+.mo-hover-hunde:active { transform: translateY(1px) scale(.99); }
+
+/* Brillo que barre la superficie al pasar el cursor. Hereda el color del
+   texto, así que funciona en claro y en oscuro. */
+.mo-brillo { position: relative; overflow: hidden; }
+.mo-brillo::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 35%, currentColor 50%, transparent 65%);
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity var(--mo-dur-corta) var(--mo-ease);
+  pointer-events: none;
+}
+.mo-brillo:hover::after {
+  opacity: .10;
+  animation: mo-barrido .85s var(--mo-ease);
+}
+@keyframes mo-barrido {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+/* ── 4 · Botón de estado ──────────────────────────────────────────────────
+   Motion.botonEstado() pone y quita .mo-working y .mo-done. */
+
+.mo-working { cursor: progress; }
+.mo-working > .mo-spinner,
+.mo-spinner {
+  display: inline-block;
+  width: 1em; height: 1em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: mo-girar .7s linear infinite;
+  vertical-align: -.15em;
+}
+@keyframes mo-girar { to { transform: rotate(360deg); } }
+
+.mo-done { animation: mo-latido .45s var(--mo-ease-out); }
+@keyframes mo-latido {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* ── 5 · Barra de avance ──────────────────────────────────────────────────
+   Motion.progressBar() la escala en X. El color lo pone la página. */
+
+.mo-progress-fill {
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+/* ── 6 · Capas de parallax ────────────────────────────────────────────────
+   Solo decoración de fondo. Nunca texto que haya que leer. */
+
+.mo-capa { will-change: transform; pointer-events: none; }
+
+/* ── 6b · Respaldo de Lottie ──────────────────────────────────────────────
+   Lo monta motion-lottie.js cuando el CDN no responde. Tres anillos que
+   laten, en currentColor: toma el color del texto de la página. */
+
+.mo-lottie-fallback {
+  position: relative;
+  width: 96px; height: 96px;
+  margin: 0 auto;
+}
+.mo-lottie-fallback span {
+  position: absolute; inset: 0;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  opacity: 0;
+  animation: mo-pulso 2.4s var(--mo-ease) infinite;
+}
+.mo-lottie-fallback span:nth-child(2) { animation-delay: .8s; }
+.mo-lottie-fallback span:nth-child(3) { animation-delay: 1.6s; }
+
+@keyframes mo-pulso {
+  0%   { transform: scale(.35); opacity: .55; }
+  70%  { opacity: .12; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+/* ── 7 · Movimiento reducido ──────────────────────────────────────────────
+   Petición del sistema operativo. Se respeta sin excepciones. */
+
+@media (prefers-reduced-motion: reduce) {
+  .mo-ready .mo-reveal,
+  .mo-ready .mo-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .mo-brillo::after,
+  .mo-done { animation: none !important; }
+  .mo-lottie-fallback span { animation: none !important; opacity: .3; transform: scale(.7); }
+  .mo-spinner { animation-duration: 1.4s; }
+  .mo-hover-crece:hover, .mo-hover-eleva:hover { transform: none; }
+}
+
+/* ── 8 · Impresión ────────────────────────────────────────────────────────
+   CRÍTICO. El deck imprime a PDF en 16:9 y el cotizador imprime la
+   cotización del cliente. Un elemento en opacity:0 sale como hoja en
+   blanco, y eso llegaría al cliente. Aquí se anula todo. */
+
+@media print {
+  .mo-ready .mo-reveal,
+  .mo-ready .mo-stagger > *,
+  .mo-reveal,
+  .mo-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  .mo-capa { display: none !important; }
+  .mo-brillo::after { display: none !important; }
+  .mo-spinner { display: none !important; }
+}

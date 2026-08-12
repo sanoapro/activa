@@ -11,7 +11,6 @@ paso de compilación.
 | **Kit comercial** | [/paginas/kit-comercial/](https://sanoapro.github.io/activa/paginas/kit-comercial/) | Una lámina con los accesos que el equipo comercial usa a diario. |
 | **Cotizador 2026–2027** | [/paginas/cotizador/](https://sanoapro.github.io/activa/paginas/cotizador/) | Arma la propuesta del colegio: dispositivos, licenciamiento, capacitación y soporte. |
 | **upgrade edu 2026–2027** | [/paginas/upgrade-edu/](https://sanoapro.github.io/activa/paginas/upgrade-edu/) | Deck de 28 diapositivas del programa comercial. Abre sin compilar nada. |
-| **Motion System** | [/paginas/motion-system/](https://sanoapro.github.io/activa/paginas/motion-system/) | Landing que explica y **ejecuta en vivo** el plan de animación. JavaScript, en módulos ES. |
 
 Documento maestro de producto —fuente única y vigente— en
 [`docs/portafolio-activa.md`](docs/portafolio-activa.md).
@@ -37,8 +36,7 @@ de meter un proyecto nuevo.
 
 ## Ver el sitio en local
 
-La mayoría de las páginas abren con doble clic. El Motion System usa módulos ES, que exigen
-`http://` y no funcionan desde `file://`:
+Todas las páginas abren con doble clic, incluso desde `file://`. Para probarlas como se publican:
 
 ```bash
 python -m http.server 8123
@@ -50,12 +48,23 @@ python -m http.server 8123
 ## Nada que compilar
 
 Ninguna página tiene paso de build. Se edita un archivo, se recarga el navegador y se ve el
-cambio; lo que está en el repositorio es exactamente lo que se publica.
+cambio; lo que está en el repositorio es exactamente lo que se publica. Sin CI, sin bundler, sin
+`node_modules`.
 
-El Motion System es el único que reparte su código en varios archivos
-([`paginas/motion-system/js/`](paginas/motion-system/js/)), y lo hace con `import` entre módulos
-ES nativos, que el navegador resuelve solo. Casi todo su texto vive en `js/data.js`, como datos:
-agregar una categoría es agregar un registro a un arreglo, no escribir marcado.
+---
+
+## Movimiento
+
+Las cuatro páginas comparten un solo motor de animación, en
+[`compartidos/js/motion.js`](compartidos/js/motion.js) y
+[`compartidos/css/motion.css`](compartidos/css/motion.css): revelado al entrar en pantalla,
+cascadas, parallax, efectos de cursor, Lottie diferido y campo de partículas.
+
+**Antes de animar una página nueva hay que leer la
+[normativa de movimiento](docs/normativa-motion.md).** Fija cuatro reglas —un solo bucle de
+render, nada de leer geometría en eventos, respeto a «reducir movimiento», y que nada se oculte
+hasta que el motor confirme que corrió—, el catálogo de técnicas con su fragmento de código, las
+prohibiciones y la lista de revisión previa a publicar.
 
 ---
 
