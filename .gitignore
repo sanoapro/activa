@@ -1,21 +1,10 @@
-# ── .NET / F# ────────────────────────────────────────────────────────────────
-bin/
-obj/
-*.fable-temp.csproj
-*.user
-
-# ── Fable ────────────────────────────────────────────────────────────────────
-# La salida de Fable (paginas/motion-system/scripts/) SÍ se versiona: así el repositorio se puede publicar en
-# GitHub Pages sin CI y la carpeta funciona de forma independiente. Solo se
-# ignora la metadata interna del compilador.
-paginas/motion-system/scripts/fable_modules/project_cracked.json
-
 # ── Sistema ──────────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 node_modules/
 _site/
 _probe.html
+_probe-*.html
 
 # Perfil temporal que deja Chrome headless al convertir imágenes
 proffotos/

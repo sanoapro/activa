@@ -1,7 +1,8 @@
 # activa · páginas web
 
 Repositorio de **todas las páginas web de activa**, Google for Education Partner. Se publica
-completo en GitHub Pages, sin CI y sin bundler.
+completo en GitHub Pages: HTML, CSS y JavaScript tal cual, sin CI, sin bundler y sin ningún
+paso de compilación.
 
 **Portal:** https://sanoapro.github.io/activa/
 
@@ -10,7 +11,7 @@ completo en GitHub Pages, sin CI y sin bundler.
 | **Kit comercial** | [/paginas/kit-comercial/](https://sanoapro.github.io/activa/paginas/kit-comercial/) | Una lámina con los accesos que el equipo comercial usa a diario. |
 | **Cotizador 2026–2027** | [/paginas/cotizador/](https://sanoapro.github.io/activa/paginas/cotizador/) | Arma la propuesta del colegio: dispositivos, licenciamiento, capacitación y soporte. |
 | **upgrade edu 2026–2027** | [/paginas/upgrade-edu/](https://sanoapro.github.io/activa/paginas/upgrade-edu/) | Deck de 28 diapositivas del programa comercial. Abre sin compilar nada. |
-| **Motion System** | [/paginas/motion-system/](https://sanoapro.github.io/activa/paginas/motion-system/) | Landing que explica y **ejecuta en vivo** el plan de animación. F# + Fable. |
+| **Motion System** | [/paginas/motion-system/](https://sanoapro.github.io/activa/paginas/motion-system/) | Landing que explica y **ejecuta en vivo** el plan de animación. JavaScript, en módulos ES. |
 
 Documento maestro de producto —fuente única y vigente— en
 [`docs/portafolio-activa.md`](docs/portafolio-activa.md).
@@ -37,7 +38,7 @@ de meter un proyecto nuevo.
 ## Ver el sitio en local
 
 La mayoría de las páginas abren con doble clic. El Motion System usa módulos ES, que exigen
-`http://`:
+`http://` y no funcionan desde `file://`:
 
 ```bash
 python -m http.server 8123
@@ -46,35 +47,23 @@ python -m http.server 8123
 
 ---
 
-## Compilar el Motion System
+## Nada que compilar
 
-Es la única página que se compila. Necesita el **SDK de .NET 8** una sola vez; no hace falta Node
-ni bundler, Fable emite módulos ES nativos.
+Ninguna página tiene paso de build. Se edita un archivo, se recarga el navegador y se ve el
+cambio; lo que está en el repositorio es exactamente lo que se publica.
 
-```bash
-dotnet tool restore                    # instala Fable 4.24.0
-dotnet fable paginas/motion-system/src --outDir paginas/motion-system/scripts --lang javascript
-```
-
-Recompilación automática al guardar: el mismo comando con `fable watch`.
-
-La salida `paginas/motion-system/scripts/` **se versiona a propósito**: así el repositorio se
-publica sin que nadie tenga que compilar. Si se cambia algo en `src/`, hay que compilar en local
-y hacer commit de la salida.
-
-Casi todo el texto de esa página vive en `src/Data.fs`, como datos: agregar una categoría es
-agregar un registro a una lista, no escribir marcado.
+El Motion System es el único que reparte su código en varios archivos
+([`paginas/motion-system/js/`](paginas/motion-system/js/)), y lo hace con `import` entre módulos
+ES nativos, que el navegador resuelve solo. Casi todo su texto vive en `js/data.js`, como datos:
+agregar una categoría es agregar un registro a un arreglo, no escribir marcado.
 
 ---
 
 ## Publicación
 
 GitHub Pages sirve la rama `main` tal cual (*Settings → Pages → Source: Deploy from a branch →
-main / (root)*). Cada push republica. El `.nojekyll` evita que GitHub procese la carpeta con
-Jekyll.
-
-El workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) **no publica**: solo
-comprueba que el F# siga compilando.
+main / (root)*). Cada push republica, sin GitHub Actions de por medio. El `.nojekyll` evita que
+GitHub procese la carpeta con Jekyll.
 
 ---
 

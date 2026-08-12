@@ -24,10 +24,9 @@ Presentacion-activa/
 │   │   ├── index.html
 │   │   ├── og.png
 │   │   └── README.md
-│   └── motion-system/            Demostración de animación (F# + Fable)
+│   └── motion-system/            Demostración de animación
 │       ├── index.html            Punto de montaje
-│       ├── src/                  Código fuente F#  ← aquí se edita
-│       ├── scripts/              Salida de Fable   ← NO editar a mano
+│       ├── js/                   Sus 7 módulos ES  ← aquí se edita
 │       └── README.md
 │
 ├── compartidos/                  ← LO QUE USA MÁS DE UNA PÁGINA
@@ -43,10 +42,12 @@ Presentacion-activa/
 │   ├── descripcion-de-productos/ Catálogo y guiones de video
 │   └── estructura.md             Este archivo
 │
-├── .github/workflows/deploy.yml  Comprueba que el F# siga compilando
-├── .config/dotnet-tools.json     Fija la versión de Fable
 └── .nojekyll                     Para que GitHub Pages no procese con Jekyll
 ```
+
+**Nada de esto se compila.** Todo el repositorio es HTML, CSS y JavaScript que el navegador lee
+tal cual: lo que está aquí es exactamente lo que se publica. No hay build, ni CI, ni
+`node_modules`.
 
 ---
 
