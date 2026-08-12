@@ -8,7 +8,7 @@ página en concreto: si algo solo le sirve a una, va dentro de su carpeta en `pa
 | `css/motion.css` | Las clases `mo-*` de movimiento. **Sin un solo color**: solo opacidad, transform y tiempos. |
 | `js/motion.js` | **El motor de animación.** Script clásico, expone el global `Motion`. |
 | `js/motion-lottie.js` | Opcional. Lottie diferido con respaldo CSS si el CDN no responde. **Hoy no lo carga nadie**: es capacidad lista para la próxima página que quiera una animación vectorial. |
-| `js/motion-particles.js` | Opcional. Campo de partículas 3D en Canvas, con colores configurables. |
+| `js/motion-particles.js` | Opcional. Campo de partículas 3D en Canvas, con colores configurables: dos tonos que se mezclan por profundidad, o una `paleta` de colores fijos —así es como el deck pinta su red en los cuatro de Google—. |
 | `lottie/` | Animaciones Lottie (`.json`). |
 | `img/marcas/` | 18 logos de marca y de marcos curriculares, en `.webp`. |
 | `img/fotos-vendedores/` | Retratos originales del equipo comercial. |

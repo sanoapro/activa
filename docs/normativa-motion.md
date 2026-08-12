@@ -202,6 +202,13 @@ Motion.lottie.mount(host, '../../compartidos/lottie/pulse.json', function (estad
   chip.textContent = estado;
 });
 Motion.particles.mount(canvas, { n: 90, cerca: [34,211,199], lejos: [124,92,255] });
+
+// Campo multicolor: con `paleta`, cada partícula toma un color fijo de la lista
+// —y sus enlaces con él—, en vez de mezclar `cerca` y `lejos` por profundidad.
+Motion.particles.mount(canvas, {
+  n: 60,
+  paleta: [[66,133,244], [234,67,53], [251,188,4], [52,168,83]]
+});
 ```
 
 Lottie se baja del CDN de forma diferida y solo cuando el contenedor entra en pantalla; si el CDN
@@ -219,6 +226,12 @@ Presupuesto: 60–90 partículas en escritorio, 40–60 en móvil. Un solo Lotti
 cotizador imprime la cotización del cliente. Un elemento en `opacity: 0` sale como hoja en
 blanco, y eso llega al cliente. `motion.css` ya anula todo en `@media print`; si una página
 agrega animaciones propias, **tiene que anularlas ahí también**.
+
+> Y si la animación vive en un `::before` o un `::after`, hay que nombrarlo: `animation: none`
+> sobre el elemento **no alcanza a sus pseudoelementos**. Una guarda que dice
+> `.mi-clase { animation: none !important }` deja al pseudo animándose en el PDF y en cualquier
+> miniatura, y no se nota hasta ver la hoja impresa. La forma correcta es
+> `.mi-clase, .mi-clase::before, .mi-clase::after { … }`.
 
 - No hay movimiento sobre números, precios ni totales. La precisión no se decora.
 - No hay efectos de cursor sobre campos de formulario.

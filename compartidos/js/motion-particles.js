@@ -49,6 +49,10 @@
    *        n        cuántas partículas (90 por omisión; 60 en móvil está bien)
    *        cerca    color RGB de las cercanas   [34, 211, 199]
    *        lejos    color RGB de las lejanas    [124, 92, 255]
+   *        paleta   array de RGB; si va, cada partícula toma UN color fijo de
+   *                 la lista y `cerca`/`lejos` dejan de mezclarse. Es lo que
+   *                 permite un campo multicolor —los cuatro de Google, por
+   *                 ejemplo— en vez de un degradado entre dos tonos.
    *        enlaces  true para dibujar las líneas entre vecinas
    *        semilla  entero; misma semilla, misma composición
    */
@@ -58,6 +62,7 @@
     var n = o.n === undefined ? 90 : o.n;
     var cerca = o.cerca || [34, 211, 199];
     var lejos = o.lejos || [124, 92, 255];
+    var paleta = (o.paleta && o.paleta.length) ? o.paleta : null;
     var enlaces = o.enlaces !== false;
     var focal = o.focal === undefined ? 420 : o.focal;
 
@@ -73,7 +78,12 @@
         y: (rnd() - 0.5) * 700,
         z: rnd() * 700,
         vx: (rnd() - 0.5) * 0.22,
-        vy: (rnd() - 0.5) * 0.22
+        vy: (rnd() - 0.5) * 0.22,
+        // Por índice y no por rnd(): así el reparto de colores es parejo y,
+        // sobre todo, no consume números del generador. Sin eso, agregar una
+        // paleta correría la secuencia y cambiaría la composición de los
+        // campos que ya existen.
+        col: paleta ? paleta[i % paleta.length] : null
       });
     }
 
@@ -150,6 +160,9 @@
         ctx.lineWidth = 1;
         for (i = 0; i < n; i++) {
           a = proy[i];
+          // Con paleta, la línea toma el color de la partícula de la que sale:
+          // la red se ve tejida con los cuatro colores en vez de teñida de uno.
+          var cl = ps[i].col || cerca;
           for (j = i + 1; j < n; j++) {
             b = proy[j];
             dx = a.sx - b.sx;
@@ -157,7 +170,7 @@
             d2 = dx * dx + dy * dy;
             if (d2 >= 12100) continue; // 110 px de radio
             alpha = (1 - Math.sqrt(d2) / 110) * 0.28 * a.k;
-            ctx.strokeStyle = 'rgba(' + cerca[0] + ',' + cerca[1] + ',' + cerca[2] + ',' + alpha.toFixed(3) + ')';
+            ctx.strokeStyle = 'rgba(' + cl[0] + ',' + cl[1] + ',' + cl[2] + ',' + alpha.toFixed(3) + ')';
             ctx.beginPath();
             ctx.moveTo(a.sx, a.sy);
             ctx.lineTo(b.sx, b.sy);
@@ -181,11 +194,17 @@
         var radio = Math.max(0.4, 2.3 * q.k);
         alpha = global.Motion.clamp(0.05, 0.9, q.k * 0.95);
 
-        // El color viaja de «lejos» a «cerca» según la profundidad.
-        var m = global.Motion.clamp(0, 1, q.k);
-        var rr = Math.trunc(global.Motion.lerp(lejos[0], cerca[0], m));
-        var gg = Math.trunc(global.Motion.lerp(lejos[1], cerca[1], m));
-        var bb = Math.trunc(global.Motion.lerp(lejos[2], cerca[2], m));
+        // Con paleta, el color es fijo y la profundidad la cuenta el alpha.
+        // Sin paleta, el color viaja de «lejos» a «cerca» según la profundidad.
+        var rr, gg, bb, pc = ps[i].col;
+        if (pc) {
+          rr = pc[0]; gg = pc[1]; bb = pc[2];
+        } else {
+          var m = global.Motion.clamp(0, 1, q.k);
+          rr = Math.trunc(global.Motion.lerp(lejos[0], cerca[0], m));
+          gg = Math.trunc(global.Motion.lerp(lejos[1], cerca[1], m));
+          bb = Math.trunc(global.Motion.lerp(lejos[2], cerca[2], m));
+        }
 
         ctx.fillStyle = 'rgba(' + rr + ',' + gg + ',' + bb + ',' + alpha.toFixed(3) + ')';
         ctx.beginPath();
