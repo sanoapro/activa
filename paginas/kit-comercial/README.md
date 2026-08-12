@@ -11,7 +11,8 @@ que el deck de [upgrade-edu](../upgrade-edu/).
 | Archivo | Qué es |
 |---|---|
 | `index.html` | Todo el kit: markup, CSS y JS en un solo archivo. |
-| `assets.js` | **Generado.** Retratos del equipo y logos, en base64. No editar a mano. |
+| `descargables/index.html` | **Página 2**: los formatos que el equipo descarga. Sí se desplaza, porque la lista va a crecer. |
+| `assets.js` | **Generado.** Retratos del equipo y logos, en base64. No editar a mano. Lo usan las dos páginas. |
 | `og.png` | Vista previa de WhatsApp (1200×630). **Generado** desde `og-source.html`. |
 | `og-source.html` | Molde de esa vista previa. No se abre en público. |
 
@@ -19,7 +20,9 @@ que el deck de [upgrade-edu](../upgrade-edu/).
 
 - Clic en una tarjeta → abre el destino en pestaña nueva.
 - Pasar el cursor y clic en **⧉** → copia el enlace al portapapeles (para mandarlo por WhatsApp).
-- Teclas **1–7** → abren el acceso correspondiente. **F** → pantalla completa.
+- Teclas **1–8** → abren el acceso correspondiente. **D** → descargables. **F** → pantalla completa.
+- Las láminas **apartadas** (sin `url`, marcadas con `pronto:true`) no abren nada: existen para
+  que el equipo sepa que esa herramienta viene en camino.
 
 ## Cómo agregar o cambiar un enlace
 
@@ -39,8 +42,26 @@ En `index.html`, al final, están las dos listas `VENTA` e `INTERNA`. Cada entra
 Si el acceso nuevo necesita otro pictograma, se agrega su `path` al objeto `ICO`
 con la misma llave del `id`, en retícula 24×24 de Material.
 
-La retícula está fijada a 4 tarjetas arriba y 3 abajo (`.g4` / `.g3`). Si crecen
+La retícula está fijada a 5 tarjetas arriba y 3 abajo (`.g5` / `.g3`). Si crecen
 las listas hay que ajustar esas dos reglas — la lámina no crece.
+
+## Cómo agregar un descargable
+
+En `descargables/index.html`, la lista `DOCS`. Con el **id del documento de Google** basta:
+las tres acciones —copia a Drive, PDF y Word— se derivan de él.
+
+```js
+{ id:'responsiva',        // llave del icono en el objeto ICO de esa página
+  nombre:'Carta Responsiva',
+  tipo:'Documento de Google',
+  color:'--blue', color2:'#0d47a1', tinte:'--blue-t',
+  desc:'…',
+  docId:'1Af5…',          // el id que aparece en la URL del documento
+  nota:'…' }              // opcional, al pie de la tarjeta
+```
+
+El documento tiene que estar compartido como **«cualquiera con el enlace, lector»**; si no,
+quien abra `/copy` verá una pantalla de permiso en vez de la copia.
 
 ## Cómo se regenera `assets.js`
 

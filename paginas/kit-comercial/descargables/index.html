@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>activa · Descargables — Kit comercial</title>
+<meta name="description" content="Formatos y documentos del equipo comercial de activa: copia en tu Drive, PDF o Word.">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="noindex">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='11' height='11' rx='3' fill='%234285f4'/%3E%3Crect x='18' y='3' width='11' height='11' rx='3' fill='%23ea4335'/%3E%3Crect x='3' y='18' width='11' height='11' rx='3' fill='%23fbbc04'/%3E%3Crect x='18' y='18' width='11' height='11' rx='3' fill='%2334a853'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="activa · Kit comercial">
+<meta property="og:url" content="https://sanoapro.github.io/activa/paginas/kit-comercial/descargables/">
+<meta property="og:title" content="Descargables · Kit comercial activa">
+<meta property="og:description" content="Formatos y documentos del equipo comercial: copia en tu Drive, PDF o Word.">
+<meta property="og:image" content="https://sanoapro.github.io/activa/paginas/kit-comercial/og.png">
+
+<!--
+  Segunda lámina del kit comercial: los formatos que el equipo descarga.
+  A diferencia del kit —que es un lienzo fijo de 1280×720 porque cabe en una
+  pantalla— esta página SÍ se desplaza: la lista de descargables va a crecer y
+  un lienzo fijo la rompería. Mismo sistema de color y misma tipografía, para
+  que se lea como parte de la misma casa.
+
+  Para dar de alta un descargable nuevo: se agrega un registro a la lista DOCS
+  de abajo. El HTML se arma solo. Con el id del documento de Google basta:
+  las tres acciones —copia, PDF y Word— se construyen a partir de él.
+-->
+
+<style>
+:root{
+  --blue:#1a73e8; --blue-d:#174ea6; --blue-t:#e8f0fe; --blue-l:#4285f4;
+  --red:#ea4335;  --red-d:#b31412;  --red-t:#fce8e6;
+  --yel:#f9ab00;  --yel-d:#b06000;  --yel-t:#fef7e0;
+  --grn:#1e8e3e;  --grn-d:#0d652d;  --grn-t:#e6f4ea;
+  --plum:#7b1fa2; --plum-t:#f6ecfd;
+  --teal:#00897b; --teal-t:#e0f2f1;
+  --white:#fff; --ink:#202124; --ink2:#5f6368; --ink3:#80868b;
+  --line:#dadce0; --line2:#e8eaed; --wash:#f8f9fa;
+  --sh1:0 1px 2px rgba(60,64,67,.10), 0 4px 12px -4px rgba(60,64,67,.18);
+  --sh2:0 2px 6px rgba(60,64,67,.10), 0 14px 34px -12px rgba(60,64,67,.24);
+  --font:"Google Sans","Product Sans","Google Sans Text",Roboto,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--wash);color:var(--ink);font-family:var(--font);
+  -webkit-font-smoothing:antialiased;line-height:1.5;
+  padding:clamp(24px,4vw,56px) clamp(18px,4vw,48px);
+}
+/* la franja de Google, la misma que corona el kit */
+body::before{
+  content:"";position:fixed;left:0;right:0;top:0;height:5px;z-index:9;
+  background:linear-gradient(90deg,var(--blue-l) 0 25%,var(--red) 25% 50%,
+                             var(--yel) 50% 75%,var(--grn-l,#34a853) 75% 100%);
+}
+.wrap{max-width:1180px;margin:0 auto}
+
+/* ── cabecera ───────────────────────────────────────────────── */
+.head{display:flex;align-items:flex-start;justify-content:space-between;gap:28px;
+  padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:30px;flex-wrap:wrap}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;
+  letter-spacing:1.7px;text-transform:uppercase;color:var(--blue)}
+.eyebrow::before{content:"";width:18px;height:3px;border-radius:2px;background:currentColor}
+h1{font-size:clamp(30px,5vw,44px);line-height:1.06;font-weight:500;letter-spacing:-1.4px;margin:12px 0 8px}
+.sub{color:var(--ink2);font-size:15.5px;max-width:64ch}
+.brands{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.brands img{height:26px;width:auto;display:block}
+.brands .gfe{height:32px}
+.brands .bd{width:1px;height:26px;background:var(--line)}
+
+.volver{display:inline-flex;align-items:center;gap:8px;margin-bottom:16px;
+  height:34px;padding:0 15px;border-radius:99px;background:var(--white);
+  border:1px solid var(--line);color:var(--ink2);text-decoration:none;
+  font-size:13px;font-weight:600;transition:border-color .2s var(--ease),color .2s var(--ease)}
+.volver:hover{border-color:var(--blue-l);color:var(--blue-d)}
+.volver svg{width:15px;height:15px;fill:currentColor}
+
+/* ── rejilla de documentos ──────────────────────────────────── */
+.sechead{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.sechead .rule{flex:1;height:1px;background:var(--line2)}
+.sechead .cnt{font-size:11px;font-weight:700;color:var(--ink3);font-variant-numeric:tabular-nums}
+
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr))}
+
+.doc{background:var(--white);border:1px solid var(--line2);border-radius:20px;
+  padding:22px 22px 18px;display:flex;flex-direction:column;gap:12px;position:relative;
+  box-shadow:var(--sh1);transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.doc:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+.doc::after{content:"";position:absolute;left:22px;bottom:0;height:4px;width:34px;
+  border-radius:99px 99px 0 0;background:var(--c)}
+
+.d-top{display:flex;align-items:center;gap:13px}
+.d-ico{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
+  background:var(--grad);flex-shrink:0;box-shadow:var(--sh1)}
+.d-ico svg{width:25px;height:25px;fill:#fff;display:block}
+.d-name{font-size:17px;font-weight:600;letter-spacing:-.2px}
+.d-kind{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3)}
+.d-desc{font-size:13.5px;color:var(--ink2);flex:1}
+
+.acciones{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.acc{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 13px;
+  border-radius:10px;text-decoration:none;font-size:12.5px;font-weight:600;
+  border:1px solid var(--line);color:var(--ink2);background:var(--white);
+  transition:border-color .18s var(--ease),color .18s var(--ease),background .18s var(--ease)}
+.acc svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}
+.acc:hover{border-color:var(--c);color:var(--c);background:var(--tint)}
+.acc.primaria{background:var(--grad);border-color:transparent;color:#fff}
+.acc.primaria:hover{filter:brightness(1.07);color:#fff}
+
+.nota{margin-top:10px;font-size:12px;color:var(--ink3);line-height:1.45;
+  padding-top:10px;border-top:1px dashed var(--line)}
+
+/* ── pie ────────────────────────────────────────────────────── */
+footer{margin-top:38px;padding-top:20px;border-top:1px solid var(--line);
+  color:var(--ink3);font-size:12.5px;display:flex;gap:8px 24px;flex-wrap:wrap}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="volver" href="../">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z"/></svg>
+    Kit comercial
+  </a>
+
+  <header class="head">
+    <div>
+      <span class="eyebrow">Kit comercial · página 2</span>
+      <h1>Descargables</h1>
+      <p class="sub">Formatos y documentos listos para usar. Cada uno se puede
+        <b>copiar a tu Drive</b> para editarlo, o descargar en <b>PDF</b> o <b>Word</b>.</p>
+    </div>
+    <div class="brands">
+      <img data-logo="activa" alt="activa">
+      <span class="bd"></span>
+      <img class="gfe" data-logo="gfepartner" alt="Google for Education Partner">
+    </div>
+  </header>
+
+  <section>
+    <div class="sechead">
+      <span class="eyebrow">Formatos</span>
+      <span class="rule"></span>
+      <span class="cnt" id="cnt">01</span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <footer>
+    <span>activa · Google for Education Partner</span>
+    <span>Los enlaces de copia y descarga los sirve Google Docs.</span>
+  </footer>
+
+</div>
+
+<script src="../assets.js"></script>
+<script>
+/* ═══════════ marcas ═══════════ */
+document.querySelectorAll("img[data-logo]").forEach(el=>{
+  const src = (window.BRAND||{})[el.dataset.logo];
+  if(src) el.src = src; else el.remove();
+});
+
+/* ═══════════ pictogramas ═══════════ */
+const ICO = {
+  /* hoja firmada — la carta responsiva */
+  responsiva:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 13h8v1.6H8V13zm0 3.4h5.4V18H8v-1.6z"/>',
+};
+const ICO_COPIA='<path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/>';
+const ICO_PDF='<path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>';
+const ICO_WORD=ICO_PDF;
+
+/* ═══════════ los descargables ═══════════
+   Con el id del documento de Google basta: las tres acciones se derivan de él.
+   Para agregar uno nuevo, se copia un registro y se cambian id, nombre y desc. */
+const DOCS = [
+  {
+    id:'responsiva',
+    nombre:'Carta Responsiva',
+    tipo:'Documento de Google',
+    color:'--blue', color2:'#0d47a1', tinte:'--blue-t',
+    desc:'La responsiva que firma la familia al recibir el equipo. Se copia a tu Drive, se llena con los datos del colegio y se imprime.',
+    docId:'1Af5HAqxMHhvwioKueKfmusYatRRKtyMHPDsMqCPmgJA',
+    nota:'La copia se guarda en tu propio Drive: puedes editarla sin tocar el original.'
+  }
+];
+
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+/* Las tres formas de entregar un documento de Google.
+   /copy abre la pantalla de «hacer una copia»; /export descarga sin abrir nada. */
+const enlaces = docId => ({
+  copia: `https://docs.google.com/document/d/${docId}/copy`,
+  pdf:   `https://docs.google.com/document/d/${docId}/export?format=pdf`,
+  word:  `https://docs.google.com/document/d/${docId}/export?format=docx`,
+});
+
+function tarjeta(it){
+  const c = css(it.color), t = css(it.tinte);
+  const l = enlaces(it.docId);
+  const el = document.createElement('article');
+  el.className = 'doc';
+  el.style.setProperty('--c', c);
+  el.style.setProperty('--tint', t);
+  el.style.setProperty('--grad', `linear-gradient(135deg,${it.color2} 0%,${c} 100%)`);
+  el.innerHTML =
+    `<div class="d-top">
+       <span class="d-ico"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO[it.id]}</svg></span>
+       <div>
+         <div class="d-name">${it.nombre}</div>
+         <div class="d-kind">${it.tipo}</div>
+       </div>
+     </div>
+     <p class="d-desc">${it.desc}</p>
+     <div class="acciones">
+       <a class="acc primaria" href="${l.copia}" target="_blank" rel="noopener noreferrer">
+         <svg viewBox="0 0 24 24" aria-hidden="true">${ICO_COPIA}</svg>Copiar a mi Drive</a>
+       <a class="acc" href="${l.pdf}" target="_blank" rel="noopener noreferrer">
+         <svg viewBox="0 0 24 24" aria-hidden="true">${ICO_PDF}</svg>PDF</a>
+       <a class="acc" href="${l.word}" target="_blank" rel="noopener noreferrer">
+         <svg viewBox="0 0 24 24" aria-hidden="true">${ICO_WORD}</svg>Word</a>
+     </div>
+     ${it.nota ? `<p class="nota">${it.nota}</p>` : ``}`;
+  return el;
+}
+
+const grid = document.getElementById('grid');
+DOCS.forEach(it => grid.appendChild(tarjeta(it)));
+document.getElementById('cnt').textContent = String(DOCS.length).padStart(2,'0');
+</script>
+</body>
+</html>

@@ -114,8 +114,29 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
 .kc-sechead .rule{flex:1;height:1px;background:var(--line2)}
 .kc-sechead .cnt{font-size:10.5px;font-weight:700;letter-spacing:1.2px;color:var(--ink3)}
 .kc-grid{flex:1;min-height:0;display:grid;gap:14px}
+.kc-grid.g5{grid-template-columns:repeat(5,1fr)}
 .kc-grid.g4{grid-template-columns:repeat(4,1fr)}
 .kc-grid.g3{grid-template-columns:repeat(3,1fr)}
+
+/* Lámina apartada: existe para que el equipo sepa que viene, pero no lleva a
+   ningún lado todavía. Se ve en reposo, sin sombra ni reacción al cursor. */
+.tile.pronto{background:var(--wash);border-style:dashed;box-shadow:none;cursor:default}
+.tile.pronto .t-ico{background:var(--line2);box-shadow:none}
+.tile.pronto .t-ico svg{fill:var(--ink3)}
+.tile.pronto .t-name{color:var(--ink2)}
+.tile.pronto .t-host{color:var(--ink3);font-style:italic}
+.tile.pronto::after{background:var(--line)}
+
+/* Botón hacia la segunda lámina del kit */
+.kc-mas{display:inline-flex;align-items:center;gap:9px;height:36px;padding:0 16px;
+  border-radius:99px;background:var(--white);border:1px solid var(--line);
+  color:var(--ink2);text-decoration:none;font-size:13px;font-weight:600;
+  box-shadow:var(--sh1);flex-shrink:0;
+  transition:border-color .2s var(--ease),color .2s var(--ease),transform .2s var(--ease)}
+.kc-mas:hover{border-color:var(--blue-l);color:var(--blue-d);transform:translateY(-1px)}
+.kc-mas svg{width:16px;height:16px;fill:currentColor}
+.kc-mas .n{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;
+  border-radius:99px;background:var(--blue-t);color:var(--blue-d);font-size:10.5px;font-weight:700}
 
 /* ---------- tarjeta de enlace ---------- */
 .tile{position:relative;display:flex;flex-direction:column;gap:9px;
@@ -268,15 +289,20 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
       <div class="kc-sechead">
         <span class="eyebrow b">Herramientas de venta</span>
         <span class="rule"></span>
-        <span class="cnt">04</span>
+        <span class="cnt">05</span>
       </div>
-      <div class="kc-grid g4" id="gVenta"></div>
+      <div class="kc-grid g5" id="gVenta"></div>
     </section>
 
     <section class="kc-sec interna">
       <div class="kc-sechead">
         <span class="eyebrow p">Herramientas internas</span>
         <span class="rule"></span>
+        <a class="kc-mas" href="./descargables/">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Descargables
+          <span class="n">01</span>
+        </a>
         <span class="cnt">03</span>
       </div>
       <div class="kc-grid g3" id="gInterna"></div>
@@ -321,7 +347,9 @@ const ICO = {
   /* ficha de contacto — el CRM */
   crm:'<path d="M4 4.5h16A1.5 1.5 0 0 1 21.5 6v12A1.5 1.5 0 0 1 20 19.5H4A1.5 1.5 0 0 1 2.5 18V6A1.5 1.5 0 0 1 4 4.5zm4.6 3a2.4 2.4 0 1 0 0 4.8 2.4 2.4 0 0 0 0-4.8zM4.6 16.4c0-1.9 2-3 4-3s4 1.1 4 3v.4h-8v-.4zM15 8.6a.9.9 0 0 0 0 1.8h4a.9.9 0 0 0 0-1.8h-4zm0 3.5a.9.9 0 0 0 0 1.8h4a.9.9 0 0 0 0-1.8h-4z"/>',
   /* torre de servidores — el portal TI */
-  ti:'<path d="M4.5 3h15A1.5 1.5 0 0 1 21 4.5v3.8A1.5 1.5 0 0 1 19.5 9.8h-15A1.5 1.5 0 0 1 3 8.3V4.5A1.5 1.5 0 0 1 4.5 3zm1.4 2.5a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zm3.8.1a.9.9 0 0 0 0 1.8h7.6a.9.9 0 0 0 0-1.8H9.7zM4.5 11.6h15A1.5 1.5 0 0 1 21 13.1v3.8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 16.9v-3.8a1.5 1.5 0 0 1 1.5-1.5zm1.4 2.5a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zm3.8.1a.9.9 0 0 0 0 1.8h7.6a.9.9 0 0 0 0-1.8H9.7zM8 19.9h8a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2z"/>'
+  ti:'<path d="M4.5 3h15A1.5 1.5 0 0 1 21 4.5v3.8A1.5 1.5 0 0 1 19.5 9.8h-15A1.5 1.5 0 0 1 3 8.3V4.5A1.5 1.5 0 0 1 4.5 3zm1.4 2.5a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zm3.8.1a.9.9 0 0 0 0 1.8h7.6a.9.9 0 0 0 0-1.8H9.7zM4.5 11.6h15A1.5 1.5 0 0 1 21 13.1v3.8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 16.9v-3.8a1.5 1.5 0 0 1 1.5-1.5zm1.4 2.5a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zm3.8.1a.9.9 0 0 0 0 1.8h7.6a.9.9 0 0 0 0-1.8H9.7zM8 19.9h8a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2z"/>',
+  /* dos figuras y un corazón — la presentación a las familias */
+  papas:'<path d="M8.2 4a2.6 2.6 0 1 1 0 5.2 2.6 2.6 0 0 1 0-5.2zm7.6 0a2.6 2.6 0 1 1 0 5.2 2.6 2.6 0 0 1 0-5.2zM3.4 17c0-2.3 2.5-3.6 4.8-3.6.9 0 1.9.2 2.7.6a5.9 5.9 0 0 0-1.1 3v1.6H3.4V17zm10.4 1.6V17c0-1.3.8-2.3 1.9-2.9a6 6 0 0 1 2.9-.7c2.3 0 4 1.3 4 3.6v1.6h-8.8zM12 13.9l-.5-.5c-1.4-1.3-2.3-2.1-2.3-3.1 0-.9.7-1.5 1.5-1.5.5 0 1 .2 1.3.6.3-.4.8-.6 1.3-.6.8 0 1.5.6 1.5 1.5 0 1-.9 1.8-2.3 3.1l-.5.5z"/>'
 };
 const ICO_LINK  = '<path d="M14 3a1 1 0 0 0 0 2h3.6l-8.3 8.3a1 1 0 0 0 1.4 1.4L19 6.4V10a1 1 0 0 0 2 0V3h-7zM5 5h5a1 1 0 0 1 0 2H6v11h11v-4a1 1 0 0 1 2 0v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/>';
 const ICO_GLOBE = '<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 9h-3a15 15 0 0 0-1.2-5.3A8 8 0 0 1 18.9 11zM12 4.2c.8 1.1 1.6 3.3 1.8 6.8h-3.6c.2-3.5 1-5.7 1.8-6.8zM5.1 11a8 8 0 0 1 4.2-5.3A15 15 0 0 0 8.1 11h-3zm0 2h3a15 15 0 0 0 1.2 5.3A8 8 0 0 1 5.1 13zm5 0h3.8c-.2 3.5-1 5.7-1.9 6.8-.8-1.1-1.6-3.3-1.8-6.8zm4.6 5.3a15 15 0 0 0 1.2-5.3h3a8 8 0 0 1-4.2 5.3z"/>';
@@ -334,7 +362,7 @@ const VENTA = [
   { id:'cotizador', nombre:'Cotizador', color:'--blue', color2:'#0d47a1', tinte:'--blue-t',
     desc:'Arma la propuesta y el precio del ciclo 2026–2027 en minutos.',
     host:'sanoapro.github.io',
-    url:'https://sanoapro.github.io/google/Cotizador_Activa_2026-2027_v4.html' },
+    url:'https://sanoapro.github.io/activa/paginas/cotizador/' },
   { id:'base', nombre:'Base de datos', color:'--grn', color2:'#0b5c28', tinte:'--grn-t',
     desc:'Colegios, contactos y seguimiento. La fuente de verdad del pipeline.',
     host:'Google Sheets',
@@ -346,7 +374,12 @@ const VENTA = [
   { id:'deck', nombre:'Presentación comercial', color:'--red', color2:'#8c1410', tinte:'--red-t',
     desc:'El deck de venta upgrade edu, listo para proyectar o compartir.',
     host:'sanoapro.github.io',
-    url:'https://sanoapro.github.io/activa/paginas/upgrade-edu' }
+    url:'https://sanoapro.github.io/activa/paginas/upgrade-edu' },
+  /* Todavía no existe: la lámina queda apartada para que el equipo sepa que viene.
+     Cuando la presentación esté lista, se le pone su url y se quita `pronto`. */
+  { id:'papas', nombre:'Presentación a papás', color:'--teal', color2:'#004d40', tinte:'--teal-t',
+    desc:'La versión para juntas con familias, en preparación.',
+    host:'Próximamente', pronto:true }
 ];
 const INTERNA = [
   { id:'reembolso', nombre:'Reembolso', color:'--plum', color2:'#4a148c', tinte:'--plum-t',
@@ -367,25 +400,28 @@ const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).
 
 function tarjeta(it){
   const c = css(it.color), t = css(it.tinte);
-  const a = document.createElement('a');
-  a.className = 'tile';
-  a.href = it.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+  /* Una lámina apartada no es un enlace: sin href no navega ni sale al tabular. */
+  const a = document.createElement(it.pronto ? 'div' : 'a');
+  a.className = it.pronto ? 'tile pronto' : 'tile';
+  if(!it.pronto){ a.href = it.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; }
   a.style.setProperty('--c', c);
   a.style.setProperty('--tint', t);
   a.style.setProperty('--grad', `linear-gradient(135deg,${it.color2} 0%,${c} 100%)`);
   a.innerHTML =
     `<div class="t-top">
        <span class="t-ico"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO[it.id]}</svg></span>
-       <span class="t-arrow"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO_LINK}</svg></span>
+       ${it.pronto ? `` : `<span class="t-arrow"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO_LINK}</svg></span>`}
      </div>
      <div class="t-name">${it.nombre}</div>
      <div class="t-desc">${it.desc}</div>
      <div class="t-foot">
-       <span class="t-host"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO_GLOBE}</svg>${it.host}</span>
+       <span class="t-host">${it.pronto ? `` : `<svg viewBox="0 0 24 24" aria-hidden="true">${ICO_GLOBE}</svg>`}${it.host}</span>
      </div>
-     <button class="t-copy" type="button" title="Copiar enlace" aria-label="Copiar enlace de ${it.nombre}">
+     ${it.pronto ? `` : `<button class="t-copy" type="button" title="Copiar enlace" aria-label="Copiar enlace de ${it.nombre}">
        <svg viewBox="0 0 24 24" aria-hidden="true">${ICO_COPY}</svg>
-     </button>`;
+     </button>`}`;
+
+  if(it.pronto) return a;   /* no hay enlace que copiar ni velo que seguir */
 
   /* el velo de color sigue al cursor dentro de la tarjeta */
   a.addEventListener('pointermove', e=>{
@@ -494,7 +530,14 @@ const TODOS = [...VENTA, ...INTERNA];
 addEventListener('keydown', e=>{
   if(e.metaKey || e.ctrlKey || e.altKey) return;
   const n = parseInt(e.key, 10);
-  if(n >= 1 && n <= TODOS.length){ window.open(TODOS[n-1].url, '_blank', 'noopener'); return; }
+  /* Las láminas apartadas no tienen destino: la tecla no hace nada en vez de
+     abrir una pestaña en blanco. */
+  if(n >= 1 && n <= TODOS.length){
+    const destino = TODOS[n-1];
+    if(destino.url) window.open(destino.url, '_blank', 'noopener');
+    return;
+  }
+  if(e.key === 'd' || e.key === 'D'){ location.href = './descargables/'; return; }
   if(e.key === 'f' || e.key === 'F'){
     if(document.fullscreenElement) document.exitFullscreen();
     else document.documentElement.requestFullscreen?.();
