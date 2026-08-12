@@ -297,7 +297,11 @@ ul.bens.tight li{font-size:12px} ul.bens.tight{gap:5px}
    añade profundidad para cuando el cliente pregunta. Marcar con
    data-noadv para que el clic no avance la diapositiva. */
 .exp{display:flex;flex-direction:column;gap:0;min-height:0}
+/* position + overflow: la píldora aloja y recorta la onda Material que nace
+   en el punto del clic (.mv-ripple, más abajo). Con 26 px de alto y una
+   sola línea de 11.5 px no hay nada que el recorte pueda cortar. */
 .exp-h{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;cursor:pointer;
+  position:relative;overflow:hidden;
   height:26px;padding:0 13px;border-radius:99px;background:var(--surf2);color:var(--ink2);
   font-size:11.5px;font-weight:700;letter-spacing:.3px;user-select:none;
   transition:background .15s,color .15s}
@@ -1031,10 +1035,18 @@ ul.s08b-bens li b{font-size:13.5px}
 .slide.plane.on > *{animation:none}
 
 [class*="mv-"]{will-change:transform,opacity}
-#grid [class*="mv-"]{animation:none!important;transition:none!important}
-@media print{[class*="mv-"]{animation:none!important}}
+/* Las guardas alcanzan también a ::before y ::after. `animation:none` sobre
+   un elemento NO llega a sus pseudoelementos, y un motivo dibujado ahí
+   —el halo de la lámina 8— seguiría latiendo en las miniaturas y en el PDF
+   sin que nadie lo notara hasta ver la hoja impresa. */
+#grid [class*="mv-"],#grid [class*="mv-"]::before,#grid [class*="mv-"]::after{
+  animation:none!important;transition:none!important}
+@media print{
+  [class*="mv-"],[class*="mv-"]::before,[class*="mv-"]::after{animation:none!important}
+}
 @media (prefers-reduced-motion:reduce){
-  [class*="mv-"]{animation:none!important;transition:none!important}
+  [class*="mv-"],[class*="mv-"]::before,[class*="mv-"]::after{
+    animation:none!important;transition:none!important}
 }
 
 /* Capa de fondo para los efectos ambientales: siempre por debajo del contenido
@@ -1214,6 +1226,348 @@ ul.s08b-bens li b{font-size:13.5px}
 .mv-ola4{animation-duration:18s;animation-delay:-13s}
 @keyframes mv-ola-des{to{transform:translateX(-1280px)}}
 
+/* ═══════════ MOVIMIENTO · REALCE Y TRANSICIONES ═══════════
+   Piezas que NO pertenecen a una sola lámina: el subrayado a mano, el
+   barrido de capítulo, las ondas al avanzar. Todas llevan prefijo `mv-`,
+   así que las guardas de arriba las apagan solas en las miniaturas, al
+   imprimir y con «reducir movimiento» — no hay que repetir nada.
+
+   Regla del estado base, y es la que evita los desastres:
+   · si la marca DEBE llegar al PDF (un subrayado, un círculo, una
+     flecha), su estado base es el trazo COMPLETO y la animación va del
+     trazo vacío al completo. Apagar la animación deja la marca puesta.
+   · si la pieza es una TRANSICIÓN (barrido, onda), su estado base es
+     invisible. Apagar la animación la borra, en vez de dejar una barra
+     de color atravesada en la lámina impresa. */
+
+/* ── realce · trazos de pizarra ───────────────────────────────────
+   Subrayado, círculo y flecha dibujados a mano alzada sobre la palabra
+   que hay que recordar, alternando los cuatro colores de Google. El SVG
+   va en position:absolute: no ocupa flujo, así que ninguna cuenta de
+   alturas de las láminas cambia por ponerle una marca a un título.
+
+   Se redibujan solas en cada visita a la lámina, sin una línea de JS:
+   la lámina inactiva es display:none y eso reinicia las animaciones CSS.
+
+   Cada path lleva pathLength="100" para que el dasharray sea 100 sin
+   importar su longitud real: así un mismo par de reglas traza cualquier
+   garabato. Sin vector-effect a propósito — con estos viewBox el estirón
+   es corto y el grosor apenas se nota, y non-scaling-stroke desharía
+   justamente la normalización de pathLength. */
+.mv-r{position:relative;display:inline-block}
+.mv-r > svg,.mv-flecha > svg{position:absolute;overflow:visible;pointer-events:none;
+  fill:none;stroke:var(--c,var(--blue-l));stroke-linecap:round;stroke-linejoin:round}
+.mv-traza{stroke-dasharray:100;stroke-dashoffset:0;
+  animation:mv-traza .6s cubic-bezier(.36,.75,.4,1) var(--mv-t,.46s) both}
+@keyframes mv-traza{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+
+/* El tamaño va SIEMPRE por width/height y nunca por el par left+right (ni
+   top+bottom). Un <svg> es un elemento reemplazado: con posición absoluta y
+   los cuatro lados fijados, el navegador no lo estira — respeta su tamaño
+   intrínseco e ignora `right`. El síntoma era silencioso y feo: todas las
+   marcas medían los mismos ~215 px, así que en una frase larga el subrayado
+   se quedaba a dos tercios y en una corta se pasaba de largo. */
+
+/* subrayado: se pega al borde inferior de la palabra y la desborda un
+   poco a los lados, como un trazo hecho de una pasada */
+.mv-sub{left:-5px;width:calc(100% + 10px);top:100%;height:11px;stroke-width:3.4}
+/* círculo: rodea la palabra con overshoot; el trazo cierra pasándose */
+.mv-circ{left:-13px;width:calc(100% + 26px);top:-9px;height:calc(100% + 18px);stroke-width:2.8}
+/* flecha suelta: no marca una palabra dentro de una frase, señala un
+   elemento vecino. Ocupa su propia caja en la fila y se balancea despacio
+   hacia lo que apunta — el vaivén es transform y el trazado es
+   dashoffset, así que conviven en el mismo elemento sin pisarse. */
+.mv-flecha{position:relative;display:inline-block;width:64px;height:30px;flex-shrink:0}
+.mv-flecha > svg{left:0;top:0;width:100%;height:100%;stroke-width:2.6;
+  animation:mv-flecha-vaiven 4.6s ease-in-out 1.35s infinite}
+.mv-flecha .mv-punta{--mv-t:.95s}
+@keyframes mv-flecha-vaiven{
+  0%,100%{transform:translateX(0)}
+  50%{transform:translateX(-5px)}
+}
+
+/* ── ondas de Google Assistant ────────────────────────────────────
+   Cuatro barras que respiran como si escucharan. Alturas de reposo
+   distintas por barra (--a) para que con las animaciones apagadas siga
+   leyéndose como un ecualizador y no como cuatro palitos iguales.
+   ÚNICA excepción a la regla de la casa de 4-12 s por ciclo, y es
+   deliberada: unas barras de voz a seis segundos no parecen voz, parecen
+   una avería. Se compensa con lo que la regla protege de verdad — 22 px
+   de alto, 5 px de ancho y un solo motivo en toda la lámina. */
+.mv-asist{display:inline-flex;align-items:flex-end;gap:4px;height:22px;flex-shrink:0}
+.mv-asist > i{display:block;width:5px;height:100%;border-radius:3px;background:var(--c);
+  transform-origin:50% 100%;transform:scaleY(var(--a));
+  animation:mv-asist 1.25s ease-in-out var(--d,0s) infinite alternate}
+@keyframes mv-asist{from{transform:scaleY(var(--a))}to{transform:scaleY(var(--b))}}
+
+/* ── anillo que resuelve una cifra ────────────────────────────────
+   El indicador de carga de Google —un arco que gira pasando por azul,
+   rojo, amarillo y verde— gira dos vueltas alrededor de la cifra y se
+   abre para dejarla sola. La CIFRA NO SE ANIMA: la normativa prohíbe
+   decorar números, y aquí no se toca ni su tamaño ni su opacidad ni su
+   posición. Lo que entra y sale es el aro, y pasa por fuera del cuerpo
+   de los dígitos (radio 48 px contra 37 px de la esquina del glifo).
+   Estado base opacity:0 → en el PDF y en las miniaturas queda solo la
+   cifra, que es lo único que ahí importa. */
+.mv-cifra{position:relative;display:inline-block;z-index:0}
+.mv-anillo{position:absolute;left:50%;top:50%;width:96px;height:96px;margin:-48px 0 0 -48px;
+  opacity:0;animation:mv-anillo-sale .88s cubic-bezier(.2,.8,.2,1) .28s both}
+.mv-anillo > i{display:block;width:100%;height:100%;border-radius:50%;
+  border:3px solid transparent;border-top-color:#4285f4;
+  animation:mv-anillo-gira .44s linear .28s 2,
+            mv-anillo-color .88s steps(1,end) .28s both}
+@keyframes mv-anillo-gira{to{transform:rotate(360deg)}}
+@keyframes mv-anillo-color{
+  0%{border-top-color:#4285f4} 25%{border-top-color:#ea4335}
+  50%{border-top-color:#fbbc04} 75%,100%{border-top-color:#34a853}
+}
+@keyframes mv-anillo-sale{
+  0%{opacity:0;transform:scale(.72)}
+  14%,68%{opacity:.9;transform:scale(1)}
+  100%{opacity:0;transform:scale(1.32)}
+}
+/* el rótulo de la cifra pasa por encima del aro: el arco lo roza al girar
+   y el texto de 13 px no puede quedar cruzado ni un cuadro */
+.s03-l{position:relative;z-index:1}
+
+/* ── geometría flotante de los divisores ──────────────────────────
+   Círculo, triángulo, cuadrado y píldora derivando muy despacio sobre el
+   degradado del divisor, cada uno a su ritmo y —vía Motion.follow— a su
+   propia velocidad respecto del cursor: eso es lo que da la profundidad.
+   En BLANCO y no en los cuatro colores: el divisor ya es una superficie
+   de color saturado, y ahí el blanco es lo que lee limpio (es el mismo
+   criterio de los aros .mv-onda y de las ilustraciones). Los cuatro
+   colores entran en estas láminas por el barrido que abre el capítulo.
+   Dos elementos anidados a propósito: el envoltorio recibe el transform
+   en línea de Motion.follow y el hijo lleva la animación CSS. En el mismo
+   elemento, la animación le ganaría al estilo en línea y el paralaje se
+   perdería en silencio. */
+.mv-geo{position:absolute;z-index:0}
+.mv-geo > i{display:block;animation:mv-geo-deriva 13s ease-in-out infinite alternate}
+.mv-geo-cir,.mv-geo-cua,.mv-geo-pil{background:var(--col,rgba(255,255,255,.15))}
+.mv-geo-cir{width:var(--s);height:var(--s);border-radius:50%}
+.mv-geo-cua{width:var(--s);height:var(--s);border-radius:6px}
+.mv-geo-pil{width:calc(var(--s) * 2.3);height:calc(var(--s) * .58);border-radius:99px}
+.mv-geo-tri{width:0;height:0;
+  border-left:calc(var(--s) * .5) solid transparent;
+  border-right:calc(var(--s) * .5) solid transparent;
+  border-bottom:calc(var(--s) * .88) solid var(--col,rgba(255,255,255,.15))}
+@keyframes mv-geo-deriva{
+  from{transform:translate3d(0,0,0) rotate(0deg)}
+  to{transform:translate3d(9px,-17px,0) rotate(11deg)}
+}
+
+/* ── deriva ambiental del fondo ───────────────────────────────────
+   Los círculos pastel de las esquinas —y los cuatro emblemas al agua del
+   plano cartesiano— estaban clavados en todas las láminas de contenido.
+   Ahora respiran: 16 s de ciclo, 18 px de recorrido en diagonal y un 3 %
+   de escala. Es el movimiento más barato del deck (una sola propiedad
+   compuesta, sin recálculo de nada) y el que más se nota, porque ocurre
+   en las láminas que no tenían absolutamente nada.
+   La clase la pone la coreografía y no el markup: así ni la portada ni el
+   cierre la reciben, donde esos mismos círculos ya persiguen al cursor
+   con Motion.follow y una animación CSS le ganaría al estilo en línea. */
+.mv-flota{animation:mv-flota 16s ease-in-out infinite alternate}
+@keyframes mv-flota{
+  from{transform:translate3d(0,0,0) scale(1)}
+  to{transform:translate3d(-16px,12px,0) scale(1.035)}
+}
+
+/* ── escalón que sube ─────────────────────────────────────────────
+   La escalera de niveles de beta va de Pre-A1 a C1 en cuatro peldaños de
+   los cuatro colores. El salto recorre los medallones en orden, uno tras
+   otro, y la escalera se lee como lo que es: una progresión.
+   Va sobre el MEDALLÓN y no sobre el peldaño porque el peldaño ya es hijo
+   de una cascada, y la regla del realce del deck —de especificidad muy
+   alta— le pisaría la animación sin avisar. */
+.mv-escalon{animation:mv-escalon 6s ease-in-out var(--d,0s) infinite}
+@keyframes mv-escalon{
+  0%,52%,100%{transform:translateY(0)}
+  7%{transform:translateY(-6px)}
+  20%{transform:translateY(0)}
+}
+
+/* ── pulso de flujo ───────────────────────────────────────────────
+   Las láminas que explican un PROCESO (impulsa, certificación de
+   estudiantes) tienen una banda de pasos separados por flechas. El pulso
+   recorre esas flechas en orden, con un empujón de 4 px cada una: la
+   banda deja de ser un dibujo y pasa a decir hacia dónde corre el
+   proceso. Un ciclo de 5.4 s con casi cuatro de descanso — es una coma,
+   no un metrónomo.
+   Solo transform y sin `both`: con las guardas apagadas la flecha queda
+   exactamente como la dibujó el diseño, sin heredar ningún estado. */
+.mv-paso{animation:mv-paso 5.4s ease-in-out var(--d,0s) infinite}
+@keyframes mv-paso{
+  0%,58%,100%{transform:translateX(0)}
+  8%{transform:translateX(4px)}
+  22%{transform:translateX(0)}
+}
+
+/* ── barrido de capítulo ──────────────────────────────────────────
+   Cuatro barras diagonales que cruzan el escenario cuando entra un
+   DIVISOR, y solo entonces: es el gesto de «cambia el eje», el mismo con
+   el que Google abre un I/O. Si barriera en cada lámina dejaría de
+   significar algo y sería un parpadeo cada diez segundos.
+   Vive DENTRO de #stage para que el recorte y las esquinas redondeadas
+   del escenario lo contengan. Sale de la lámina por arriba y por abajo
+   (top -15 %, alto 130 %) porque va inclinado 14°. */
+.mv-barrido{position:absolute;inset:0;z-index:41;pointer-events:none;overflow:hidden;display:none}
+.mv-barrido.on{display:block}
+.mv-barrido > i{position:absolute;left:0;top:-15%;width:30%;height:130%;
+  transform:translateX(-170%) skewX(-14deg)}
+.mv-barrido.on > i{animation:mv-barrido .6s cubic-bezier(.5,0,.2,1) both}
+.mv-barrido > i:nth-child(1){background:#4285f4}
+.mv-barrido > i:nth-child(2){background:#ea4335;animation-delay:.06s}
+.mv-barrido > i:nth-child(3){background:#fbbc04;animation-delay:.12s}
+.mv-barrido > i:nth-child(4){background:#34a853;animation-delay:.18s}
+@keyframes mv-barrido{
+  from{transform:translateX(-170%) skewX(-14deg)}
+  to{transform:translateX(430%) skewX(-14deg)}
+}
+
+/* ── ondas Material al avanzar ────────────────────────────────────
+   Dos círculos en dos colores de Google que se expanden desde el punto
+   donde se hizo clic (o desde el borde por el que se avanza con el
+   teclado) y se apagan. Es la respuesta táctil de Material: contesta
+   «te oí» antes de que la lámina termine de cambiar.
+   RELLENOS y no aros: un aro escalado 30 veces engorda su borde 30
+   veces, y a mitad de camino sería una rosquilla de 60 px. El relleno a
+   opacidad .14 que se desvanece es además lo que hace Material de verdad.
+   Se crean y se destruyen desde JS; el contenedor va dentro de #stage
+   para heredar su recorte y su escala. */
+.mv-ondas{position:absolute;inset:0;z-index:40;pointer-events:none;overflow:hidden}
+.mv-ondamat{position:absolute;width:1500px;height:1500px;margin:-750px 0 0 -750px;
+  border-radius:50%;background:var(--c);opacity:0;transform:scale(0);
+  animation:mv-ondamat .74s cubic-bezier(.22,.68,.18,1) both}
+@keyframes mv-ondamat{
+  0%{transform:scale(0);opacity:.14}
+  100%{transform:scale(1);opacity:0}
+}
+
+/* ── ondas Material en los desplegables ───────────────────────────
+   La píldora que abre un panel es el ÚNICO control que el cliente toca
+   dentro de una lámina, y hasta ahora respondía solo con un cambio de
+   fondo. Ahora la onda nace en el punto exacto del clic y en el
+   siguiente color de Google: la misma respuesta táctil que el deck ya
+   da al avanzar (.mv-ondamat), en la escala de un control de 26 px.
+   Rellena y no aro, por el mismo motivo que la grande: un borde
+   escalado engorda con la escala y a medio camino sería una rosquilla.
+   La crea y la retira la coreografía; .exp-h la recorta. */
+.mv-ripple{position:absolute;width:260px;height:260px;margin:-130px 0 0 -130px;
+  border-radius:50%;background:var(--c);opacity:0;transform:scale(0);pointer-events:none;
+  animation:mv-ripple .62s cubic-bezier(.22,.68,.18,1) both}
+@keyframes mv-ripple{
+  0%{transform:scale(0);opacity:.30}
+  100%{transform:scale(1);opacity:0}
+}
+
+/* ── píldoras que se sugieren ─────────────────────────────────────
+   Las tiras de chips —los cuatro divisores, los perfiles de alumno de
+   la 13 y los pilares del desarrollo de la 17— entraban en bloque con
+   su lámina. Ahora suben una tras otra, que es como Google ofrece una
+   sugerencia de búsqueda: la fila deja de ser un rectángulo de texto y
+   se lee como una enumeración que alguien va nombrando.
+   El retardo lo escribe la coreografía en --d, contado DENTRO de cada
+   fila para que las tres tiras de la 13 arranquen igual en vez de
+   heredar el índice de la anterior. Se rehace sola en cada visita sin
+   una línea de JS: la lámina inactiva es display:none y eso reinicia
+   las animaciones CSS.
+   Sin opacity:0 de base: apagada la animación, la píldora queda
+   exactamente donde el diseño la puso, y al PDF llegan todas. */
+.mv-pil{animation:mv-pil .34s cubic-bezier(.2,.8,.2,1) var(--d,0s) both}
+@keyframes mv-pil{
+  from{opacity:0;transform:translateY(8px) scale(.96)}
+  to{opacity:1;transform:none}
+}
+/* Aro de marca al pasar el cursor, uno distinto por posición: la
+   sugerencia contesta que se puede tomar. Solo en las píldoras sobre
+   fondo claro — en los divisores el chip es blanco sobre un degradado
+   saturado y ahí un aro de color ensuciaría. Con box-shadow y no con
+   border: un borde de 2 px recolocaría el texto de la píldora. */
+#stage .slide.on .s13-chip,#stage .slide.on .s17m-chips .pill{
+  transition:box-shadow .18s cubic-bezier(.2,.8,.2,1)}
+#stage .slide.on .s13-chip:nth-child(4n+1),
+#stage .slide.on .s17m-chips .pill:nth-child(4n+1){--aro:#4285f4}
+#stage .slide.on .s13-chip:nth-child(4n+2),
+#stage .slide.on .s17m-chips .pill:nth-child(4n+2){--aro:#ea4335}
+#stage .slide.on .s13-chip:nth-child(4n+3),
+#stage .slide.on .s17m-chips .pill:nth-child(4n+3){--aro:#fbbc04}
+#stage .slide.on .s13-chip:nth-child(4n+4),
+#stage .slide.on .s17m-chips .pill:nth-child(4n+4){--aro:#34a853}
+#stage .slide.on .s13-chip:hover,
+#stage .slide.on .s17m-chips .pill:hover{box-shadow:0 0 0 2px var(--aro)}
+
+/* ── halo de resguardo (lámina 8) ─────────────────────────────────
+   La lámina de la continuidad del parque es la única de contenido que
+   no tenía absolutamente nada. Sus cuatro tarjetas ya traen los cuatro
+   colores de Google en el medallón —gestión, seguro, stock, carrito—,
+   así que el motivo estaba escrito: un aro concéntrico sale de cada
+   medallón y se apaga, y los cuatro se turnan en orden. Es la onda de
+   Material en registro ambiental, y dice justo lo que dice la lámina:
+   cuatro resguardos relevándose para que la clase no pare.
+   Ciclo de 8 s con más de seis de descanso — un latido, no un
+   metrónomo. Va en ::after: no toca el layout ni el icono, y hereda el
+   border-radius del medallón, así que el aro sale redondo en los de
+   .round y con esquina en los demás sin repetir un solo valor.
+   Estado base opacity:0 → apagado no deja rastro en el PDF. */
+.mv-halo{position:relative}
+.mv-halo::after{content:"";position:absolute;inset:0;border-radius:inherit;
+  border:2px solid var(--c);opacity:0;pointer-events:none;
+  animation:mv-halo 8s cubic-bezier(.2,.8,.2,1) var(--d,0s) infinite}
+.mv-halo.b{--c:#4285f4} .mv-halo.r{--c:#ea4335}
+.mv-halo.y{--c:#f9ab00} .mv-halo.g{--c:#34a853}
+@keyframes mv-halo{
+  0%{opacity:.6;transform:scale(1)}
+  22%{opacity:0;transform:scale(1.72)}
+  100%{opacity:0;transform:scale(1.72)}
+}
+
+/* ── pulso de los ejes (lámina 4) ─────────────────────────────────
+   El plano cartesiano entra completo y quieto a propósito: es una
+   retícula, y escalonarla la rompe (.slide.plane.on > * {animation:none}).
+   Lo que le faltaba no era entrada sino decir DE DÓNDE sale todo.
+   Cuatro pulsos —uno por color— salen del círculo de upgrade edu en el
+   origen y recorren los cuatro brazos hacia afuera. La retícula no se
+   mueve un píxel: lo que viaja es una veta de color dentro de la barra
+   blanca del eje, que ya es absoluta y z4. Los primeros 86 px van
+   tapados por el círculo del origen (r = 86), así que el pulso parece
+   nacer de la marca y no aparecer de la nada.
+   Ciclo de 9 s con siete de descanso, y solo transform y opacity. */
+.mv-eje{position:absolute;pointer-events:none;opacity:0;background:var(--c);border-radius:99px}
+.plane .axis.h .mv-eje{top:2px;bottom:2px;left:50%;width:150px;margin-left:-75px}
+.plane .axis.v .mv-eje{left:2px;right:2px;top:50%;height:150px;margin-top:-75px}
+.mv-eje-der{animation:mv-eje-der 9s cubic-bezier(.3,.55,.25,1) var(--d,0s) infinite}
+.mv-eje-izq{animation:mv-eje-izq 9s cubic-bezier(.3,.55,.25,1) var(--d,0s) infinite}
+.mv-eje-arr{animation:mv-eje-arr 9s cubic-bezier(.3,.55,.25,1) var(--d,0s) infinite}
+.mv-eje-aba{animation:mv-eje-aba 9s cubic-bezier(.3,.55,.25,1) var(--d,0s) infinite}
+/* 565 px de recorrido: media lámina (1280/2 = 640) menos el medio ancho de
+   la veta (75). La veta muere justo en el canto, sin asomarse por fuera. */
+@keyframes mv-eje-der{
+  0%{opacity:0;transform:translateX(0)}      7%{opacity:.85}
+  32%{opacity:0;transform:translateX(565px)} 100%{opacity:0;transform:translateX(565px)}
+}
+@keyframes mv-eje-izq{
+  0%{opacity:0;transform:translateX(0)}       7%{opacity:.85}
+  32%{opacity:0;transform:translateX(-565px)} 100%{opacity:0;transform:translateX(-565px)}
+}
+/* 285 px: media lámina de alto (720/2 = 360) menos el medio alto (75). */
+@keyframes mv-eje-arr{
+  0%{opacity:0;transform:translateY(0)}       7%{opacity:.85}
+  32%{opacity:0;transform:translateY(-285px)} 100%{opacity:0;transform:translateY(-285px)}
+}
+@keyframes mv-eje-aba{
+  0%{opacity:0;transform:translateY(0)}      7%{opacity:.85}
+  32%{opacity:0;transform:translateY(285px)} 100%{opacity:0;transform:translateY(285px)}
+}
+
+/* Ni el barrido ni las ondas pintan en papel: son transición, no
+   contenido, y una barra de color a media hoja llegaría al cliente.
+   Lo mismo vale para la onda del desplegable y para el pulso de los
+   ejes: son respuesta e indicación, no información. */
+@media print{
+  .mv-barrido,.mv-ondas,.mv-ripple,.mv-eje{display:none!important}
+}
+
 /* ═══════════ LAS MARCAS DE LA CASA ═══════════
    activa y sus plataformas —impulsa, eleva, motiva, beta, integra— van siempre
    en negrita cursiva. Es lo que las separa del verbo español que se escribe
@@ -1265,12 +1619,12 @@ ul.s08b-bens li b{font-size:13.5px}
   #stage .slide.on .mo-stagger > *.mo-in{animation:none}
 }
 #grid .mo-stagger > *{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}
-#grid .mini .shape,#grid .mini .mv-fondo,#grid .mini .s28f-p{transform:none!important}
+#grid .mini .shape,#grid .mini .mv-fondo,#grid .mini .mv-geo,#grid .mini .s28f-p{transform:none!important}
 .mo-particulas{position:absolute;inset:0;width:100%;height:100%}
 @media print{
   .mo-particulas{display:none!important}
   /* follow/tilt escriben transform en línea; al papel no llega ninguno */
-  .slide .shape,.slide .mv-fondo,.s28f-p{transform:none!important}
+  .slide .shape,.slide .mv-fondo,.slide .mv-geo,.s28f-p{transform:none!important}
 }
 </style>
 </head>
@@ -1510,8 +1864,12 @@ ul.s08b-bens li b{font-size:13.5px}
           <div class="l">docentes capacitados</div></div></div>
         <div class="card rule r lift"><div class="stat"><div class="n r">+90</div>
           <div class="l">colegios con su programa de <b>transformación digital</b></div></div></div>
-        <div class="card rule y lift"><div class="stat"><div class="n y">16</div>
-          <div class="l"><span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> Reference Schools</div></div></div>
+        <!-- La cifra de las Reference Schools es la más «de Google» de las
+             cuatro y la única lo bastante estrecha para que un aro la rodee
+             sin cruzarla: por eso el anillo de carga cae aquí y no en +2 M. -->
+        <div class="card rule y lift"><div class="stat"><div class="n y"><span class="mv-cifra">16<span
+          class="mv-anillo" aria-hidden="true"><i></i></span></span></div>
+          <div class="l s03-l"><span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> Reference Schools</div></div></div>
         <div class="card rule g lift"><div class="stat"><div class="n g">6</div>
           <div class="l">proyectos internacionales:<br><b>El Salvador · Chile · Perú<br>Barbados · Colombia · México</b></div></div></div>
       </div>
@@ -1658,8 +2016,19 @@ ul.s08b-bens li b{font-size:13.5px}
     </div>
   </div>
 
-  <div class="axis h"></div>
-  <div class="axis v"></div>
+  <!-- MOVIMIENTO · pulso de los ejes. Las vetas viven DENTRO de las barras
+       blancas de los ejes, que ya son absolutas: 0 px de flujo, la cuenta de
+       alturas de esta lámina no cambia. Salen del origen en los cuatro
+       colores y se apagan antes del canto. Los retardos las escalonan para
+       que no se lea como una cruz que parpadea. -->
+  <div class="axis h">
+    <i class="mv-eje mv-eje-der" style="--c:#4285f4;--d:.5s"></i>
+    <i class="mv-eje mv-eje-izq" style="--c:#ea4335;--d:2.7s"></i>
+  </div>
+  <div class="axis v">
+    <i class="mv-eje mv-eje-arr" style="--c:#fbbc04;--d:1.6s"></i>
+    <i class="mv-eje mv-eje-aba" style="--c:#34a853;--d:3.8s"></i>
+  </div>
   <div class="origin"><img data-logo="upgradeedu" alt="upgrade edu"></div>
   <div class="axlabel" style="left:50%;top:16px;transform:translateX(-50%)">Infraestructura</div>
   <div class="axlabel" style="left:50%;bottom:16px;transform:translateX(-50%)">Personas</div>
@@ -1689,6 +2058,14 @@ ul.s08b-bens li b{font-size:13.5px}
     <i class="mv-onda"></i>
     <i class="mv-onda" style="animation-delay:3s"></i>
     <i class="mv-onda" style="animation-delay:6s"></i>
+    <!-- Geometría flotante: las cuatro formas van por los MÁRGENES del
+         divisor —franja izquierda, borde superior, zócalo—, nunca detrás
+         del bloque de texto (.inner ocupa el 58 % izquierdo, centrado
+         vertical). El paralaje con el cursor lo cablea la coreografía. -->
+    <span class="mv-geo" style="left:3.5%;top:15%"><i class="mv-geo-cir" style="--s:30px;--col:rgba(255,255,255,.17)"></i></span>
+    <span class="mv-geo" style="left:29%;top:6%"><i class="mv-geo-tri" style="--s:26px;--col:rgba(255,255,255,.13);animation-delay:-4s"></i></span>
+    <span class="mv-geo" style="left:7%;bottom:11%"><i class="mv-geo-cua" style="--s:22px;--col:rgba(255,255,255,.15);animation-delay:-8s"></i></span>
+    <span class="mv-geo" style="left:45%;bottom:7%"><i class="mv-geo-pil" style="--s:30px;--col:rgba(255,255,255,.12);animation-delay:-11s"></i></span>
   </div>
   <div class="ghostnum">01</div>
   <div class="art">
@@ -2067,7 +2444,9 @@ ul.s08b-bens li b{font-size:13.5px}
   <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
   <div class="head">
     <img data-logo="securly" class="lg" alt="Securly" style="height:28px">
-    <h2>La mejor seguridad que podemos ofrecer</h2>
+    <h2>La <span class="mv-r">mejor seguridad<svg class="mv-sub" viewBox="0 0 200 11"
+      preserveAspectRatio="none" aria-hidden="true" style="--c:#4285f4"><path class="mv-traza"
+      pathLength="100" d="M3 7C38 3.2 72 9 108 5.6 137 3 168 4.4 197 8.2"/></svg></span> que podemos ofrecer</h2>
     <p class="lead" style="max-width:none">Solo contenido apropiado para su edad — con un docente que ve y guía cada pantalla.</p>
   </div>
   <div class="body" style="justify-content:center;gap:14px">
@@ -2233,6 +2612,14 @@ Sin desplegables: cerrada = desplegada. Cabe en 1280×720. ✓
     <i class="mv-onda"></i>
     <i class="mv-onda" style="animation-delay:3s"></i>
     <i class="mv-onda" style="animation-delay:6s"></i>
+    <!-- Geometría flotante: las cuatro formas van por los MÁRGENES del
+         divisor —franja izquierda, borde superior, zócalo—, nunca detrás
+         del bloque de texto (.inner ocupa el 58 % izquierdo, centrado
+         vertical). El paralaje con el cursor lo cablea la coreografía. -->
+    <span class="mv-geo" style="left:3.5%;top:15%"><i class="mv-geo-cir" style="--s:30px;--col:rgba(255,255,255,.17)"></i></span>
+    <span class="mv-geo" style="left:29%;top:6%"><i class="mv-geo-tri" style="--s:26px;--col:rgba(255,255,255,.13);animation-delay:-4s"></i></span>
+    <span class="mv-geo" style="left:7%;bottom:11%"><i class="mv-geo-cua" style="--s:22px;--col:rgba(255,255,255,.15);animation-delay:-8s"></i></span>
+    <span class="mv-geo" style="left:45%;bottom:7%"><i class="mv-geo-pil" style="--s:30px;--col:rgba(255,255,255,.12);animation-delay:-11s"></i></span>
   </div>
   <div class="ghostnum">02</div>
   <div class="art">
@@ -2302,7 +2689,9 @@ Visibles: 8 beneficios + 2 placas de licencia + Gemini (≤ 12-14). ✓
   <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
   <div class="head">
     <div class="eyebrow r">Licencias · <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> Workspace for Education</div>
-    <h2>Dos rutas, según cómo entra el colegio</h2>
+    <h2><span class="mv-r">Dos rutas<svg class="mv-circ" viewBox="0 0 200 60"
+      preserveAspectRatio="none" aria-hidden="true" style="--c:#ea4335"><path class="mv-traza"
+      pathLength="100" d="M160 12C126 4 64 3 32 13 8 21 8 42 32 50c34 11 108 10 142-2 21-7 23-26 4-34"/></svg></span>, según cómo entra el colegio</h2>
   </div>
   <div class="body">
     <div class="grid g2 wsn-g">
@@ -2625,7 +3014,9 @@ Visibles: 8 beneficios + 2 placas de licencia + Gemini (≤ 12-14). ✓
       <img data-logo="everway" class="lg" alt="Everway" style="height:26px">
       <span class="pill plus">Exclusivo PLUS</span>
     </div>
-    <h2>Apoyo a necesidades especiales<br>y neurodivergencias, en cada materia</h2>
+    <h2>Apoyo a necesidades especiales<br>y neurodivergencias, <span class="mv-r">en cada materia<svg
+      class="mv-sub" viewBox="0 0 200 11" preserveAspectRatio="none" aria-hidden="true" style="--c:#7b1fa2"><path
+      class="mv-traza" pathLength="100" d="M3 7.2C36 3.4 71 8.8 107 5.8 138 3.2 168 4.2 197 7.6"/></svg></span></h2>
   </div>
   <div class="body" style="gap:14px;justify-content:center">
     <div class="grid g3">
@@ -2712,6 +3103,14 @@ Visibles: 8 beneficios + 2 placas de licencia + Gemini (≤ 12-14). ✓
     <i class="mv-onda"></i>
     <i class="mv-onda" style="animation-delay:3s"></i>
     <i class="mv-onda" style="animation-delay:6s"></i>
+    <!-- Geometría flotante: las cuatro formas van por los MÁRGENES del
+         divisor —franja izquierda, borde superior, zócalo—, nunca detrás
+         del bloque de texto (.inner ocupa el 58 % izquierdo, centrado
+         vertical). El paralaje con el cursor lo cablea la coreografía. -->
+    <span class="mv-geo" style="left:3.5%;top:15%"><i class="mv-geo-cir" style="--s:30px;--col:rgba(255,255,255,.17)"></i></span>
+    <span class="mv-geo" style="left:29%;top:6%"><i class="mv-geo-tri" style="--s:26px;--col:rgba(255,255,255,.13);animation-delay:-4s"></i></span>
+    <span class="mv-geo" style="left:7%;bottom:11%"><i class="mv-geo-cua" style="--s:22px;--col:rgba(255,255,255,.15);animation-delay:-8s"></i></span>
+    <span class="mv-geo" style="left:45%;bottom:7%"><i class="mv-geo-pil" style="--s:30px;--col:rgba(255,255,255,.12);animation-delay:-11s"></i></span>
   </div>
   <div class="ghostnum">03</div>
   <div class="art">
@@ -2868,7 +3267,18 @@ como pidió el cliente; nada colapsado. 6 beneficios visibles (regla ≤12-14 �
   </div>
   <div class="body">
     <div class="grupo" style="gap:9px">
-      <div class="gh"><span class="gt g">La formación docente anual — seis componentes</span><span class="gline"></span></div>
+      <!-- MOVIMIENTO · subrayado a mano sobre «seis componentes»: era la única
+           lámina de contenido sin motivo propio. En amarillo, el color de su
+           propio eje (03 · plataformas de contenido). El SVG es absoluto: no
+           ocupa flujo y la cuenta de alturas de arriba no cambia. -->
+      <!-- El viewBox va a 200×7 y no a 200×11 como los de los h2: aquí el
+           rótulo mide 12 px, no 44, y con la caja de 11 el trazo se aplastaría
+           (preserveAspectRatio="none" escala cada eje por su lado). A 7 px de
+           alto la escala vertical es 1 y el garabato conserva su grosor. -->
+      <div class="gh"><span class="gt g">La formación docente anual — <span class="mv-r">seis
+        componentes<svg class="mv-sub" viewBox="0 0 200 7" preserveAspectRatio="none"
+        aria-hidden="true" style="--c:#f9ab00;height:7px;stroke-width:2.2"><path class="mv-traza"
+        pathLength="100" d="M2 4.2C36 6.2 70 2.2 105 3.8 134 5.1 167 5.3 198 3"/></svg></span></span><span class="gline"></span></div>
       <div class="grid g3">
 
         <div class="card pad-s rule y s16b-card">
@@ -2938,7 +3348,19 @@ como pidió el cliente; nada colapsado. 6 beneficios visibles (regla ≤12-14 �
   <span class="shape" style="width:340px;height:340px;right:-130px;top:-130px;background:var(--yel-t)"></span>
   <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
   <div class="head">
-    <img data-logo="motiva" class="lg" alt="motiva" style="height:30px">
+    <!-- Ondas de Google Assistant: cuatro barras que respiran como si
+         estuvieran escuchando. Es la lámina del diagnóstico socioemocional
+         —la única del deck donde el producto literalmente escucha antes de
+         proponer nada—, así que el motivo dice algo en vez de decorar. -->
+    <div style="display:flex;align-items:center;gap:16px">
+      <img data-logo="motiva" class="lg" alt="motiva" style="height:30px">
+      <span class="mv-asist" aria-hidden="true">
+        <i style="--c:#4285f4;--a:.34;--b:.92;--d:0s"></i>
+        <i style="--c:#ea4335;--a:.72;--b:.30;--d:-.35s"></i>
+        <i style="--c:#fbbc04;--a:.46;--b:1;--d:-.62s"></i>
+        <i style="--c:#34a853;--a:.90;--b:.42;--d:-.18s"></i>
+      </span>
+    </div>
     <h2>Licencia de diagnóstico<br>y contenido socioemocional</h2>
   </div>
   <div class="body">
@@ -3232,6 +3654,14 @@ Gestión verde. El amarillo queda para el eje (eyebrow, banda y ejebar).
     <i class="mv-onda"></i>
     <i class="mv-onda" style="animation-delay:3s"></i>
     <i class="mv-onda" style="animation-delay:6s"></i>
+    <!-- Geometría flotante: las cuatro formas van por los MÁRGENES del
+         divisor —franja izquierda, borde superior, zócalo—, nunca detrás
+         del bloque de texto (.inner ocupa el 58 % izquierdo, centrado
+         vertical). El paralaje con el cursor lo cablea la coreografía. -->
+    <span class="mv-geo" style="left:3.5%;top:15%"><i class="mv-geo-cir" style="--s:30px;--col:rgba(255,255,255,.17)"></i></span>
+    <span class="mv-geo" style="left:29%;top:6%"><i class="mv-geo-tri" style="--s:26px;--col:rgba(255,255,255,.13);animation-delay:-4s"></i></span>
+    <span class="mv-geo" style="left:7%;bottom:11%"><i class="mv-geo-cua" style="--s:22px;--col:rgba(255,255,255,.15);animation-delay:-8s"></i></span>
+    <span class="mv-geo" style="left:45%;bottom:7%"><i class="mv-geo-pil" style="--s:30px;--col:rgba(255,255,255,.12);animation-delay:-11s"></i></span>
   </div>
   <div class="ghostnum">04</div>
   <div class="art">
@@ -3270,7 +3700,9 @@ Gestión verde. El amarillo queda para el eje (eyebrow, banda y ejebar).
   <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
   <div class="head">
     <div class="eyebrow g">Acompañamiento · coaching</div>
-    <h2>Un coach certificado, asignado a tu colegio</h2>
+    <h2>Un coach <span class="mv-r">certificado<svg class="mv-sub" viewBox="0 0 200 11"
+      preserveAspectRatio="none" aria-hidden="true" style="--c:#34a853"><path class="mv-traza"
+      pathLength="100" d="M3 6.6C36 9.4 70 3.4 106 6 138 8.4 168 9.6 197 6"/></svg></span>, asignado a tu colegio</h2>
   </div>
   <div class="body">
     <div class="stack" style="gap:16px">
@@ -3569,7 +4001,17 @@ Gestión verde. El amarillo queda para el eje (eyebrow, banda y ejebar).
     </div>
     <div class="stack" style="gap:12px">
       <div class="grupo" style="gap:11px">
-        <div class="gh"><span class="gt g">Qué resuelve la mesa de ayuda</span><span class="gline"></span></div>
+        <!-- Ondas de Assistant, segunda y última aparición del deck: las dos
+             láminas donde hay alguien del otro lado escuchando —el
+             diagnóstico socioemocional y la mesa de ayuda—. En cualquier
+             otra sería un adorno. -->
+        <div class="gh"><span class="gt g">Qué resuelve la mesa de ayuda</span>
+          <span class="mv-asist" aria-hidden="true" style="height:16px">
+            <i style="--c:#4285f4;--a:.40;--b:.95;--d:0s"></i>
+            <i style="--c:#ea4335;--a:.85;--b:.32;--d:-.42s"></i>
+            <i style="--c:#fbbc04;--a:.52;--b:1;--d:-.70s"></i>
+            <i style="--c:#34a853;--a:.95;--b:.45;--d:-.22s"></i>
+          </span><span class="gline"></span></div>
         <div class="feat"><div class="med sm b"><svg viewBox="0 0 24 24"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg></div>
           <div><h4>Consola de <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> Workspace</h4>
             <div class="xs" style="margin-top:3px;max-width:480px">Enrolamiento inicial, altas de usuarios, políticas y licencias.</div></div></div>
@@ -3735,7 +4177,13 @@ Gestión verde. El amarillo queda para el eje (eyebrow, banda y ejebar).
       <img data-logo="upgradeedu" class="lg" alt="upgrade edu" style="height:27px">
       <span class="eyebrow b">La oferta</span>
     </div>
-    <h2>Un solo paquete: los cuatro ejes completos</h2>
+    <!-- Subrayado y no círculo, a diferencia de la lámina 10: aquí el h2 va
+         pegado a la fila de tarjetas y la elipse, que baja 9 px por debajo de
+         la caja de línea, chocaba contra el filete superior de la primera
+         tarjeta. El trazo recto cabe en el hueco de 20 px con aire de sobra. -->
+    <h2><span class="mv-r">Un solo paquete<svg class="mv-sub" viewBox="0 0 200 11"
+      preserveAspectRatio="none" aria-hidden="true" style="--c:#4285f4"><path class="mv-traza"
+      pathLength="100" d="M3 6.8C37 3 71 8.8 107 5.6 138 3 168 4.6 197 8"/></svg></span>: los cuatro ejes completos</h2>
   </div>
   <div class="body">
     <div class="grid g4 b25-pack">
@@ -3837,6 +4285,13 @@ Gestión verde. El amarillo queda para el eje (eyebrow, banda y ejebar).
     <div style="display:flex;align-items:center;gap:14px">
       <img data-logo="upgradeedu" class="lg" alt="upgrade edu" style="height:24px">
       <span class="pill plus">PLUS</span>
+      <!-- Flecha a mano que señala la píldora: se traza sola al entrar la
+           lámina y después se balancea hacia ella. La punta se dibuja
+           después del asta (--mv-t), que es como se dibuja una flecha. -->
+      <span class="mv-flecha" aria-hidden="true"><svg viewBox="0 0 64 30" style="--c:#7b1fa2">
+        <path class="mv-traza" pathLength="100" d="M61 8c-9 7-21 11-33 11-4 0-8-.3-12-1"/>
+        <path class="mv-traza mv-punta" pathLength="100" d="M23 13l-7 5 6 6"/>
+      </svg></span>
     </div>
     <h2>Incluye todo lo anterior y suma tres exclusivos</h2>
   </div>
@@ -3945,7 +4400,9 @@ MOVIMIENTO · barrido de luz sobre la banda de cifras (08 · respaldo):
   <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
   <div class="head">
     <div class="eyebrow">Por qué <em class="marca">activa</em></div>
-    <h2>Ocho cosas que ningún competidor reúne a la vez</h2>
+    <h2>Ocho cosas que ningún competidor reúne <span class="mv-r">a la vez<svg class="mv-sub"
+      viewBox="0 0 200 11" preserveAspectRatio="none" aria-hidden="true" style="--c:#f9ab00"><path
+      class="mv-traza" pathLength="100" d="M3 6C34 3 70 8.6 106 5.4 139 2.4 169 4 197 8"/></svg></span></h2>
   </div>
   <div class="body">
     <div class="s27w-wrap">
@@ -4121,6 +4578,16 @@ movimiento) desaparecen en vez de apilarse en el centro. Sin JS, sin estados var
   </div>
 </section>
 
+<!-- ═════════ CAPAS DE TRANSICIÓN ═════════
+     Van DENTRO de #stage, después de la última lámina: así heredan su
+     recorte, sus esquinas redondeadas y su escala, y quedan por encima de
+     cualquier diapositiva sin tocar el cromo (z 40-41 contra z 50).
+     No se clonan al panorama: buildGrid() solo copia elementos .slide.
+     Las llena y las dispara el bloque de coreografía del final; si
+     motion.js no cargó, se quedan vacías y quietas. -->
+<div class="mv-ondas" id="mvOndas" aria-hidden="true"></div>
+<div class="mv-barrido" id="mvBarrido" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
 </div><!-- /#stage -->
 
 <div class="chrome" id="progress"><i></i></div>
@@ -4157,8 +4624,13 @@ const bar=document.querySelector("#progress i");
 const counter=document.getElementById("counter");
 let idx=0;
 
+// Escala viva del escenario. Se guarda porque las ondas Material tienen que
+// pasar el punto del clic —que llega en píxeles de pantalla— a las coordenadas
+// de 1280 × 720 en las que vive la lámina.
+let stageScale=1;
 function fit(){
   const s=Math.min(innerWidth/1280, innerHeight/720)*0.955;
+  stageScale=s;
   stage.style.transform=`translate(-50%,-50%) scale(${s})`;
 }
 function show(n){
@@ -4244,6 +4716,132 @@ show(Number.isFinite(start)&&start>0?start-1:0);
   Motion.qsa('.exp-h').forEach(function(el){ el.classList.add('mo-hover-hunde'); });
   Motion.qsa('.divider .chips span').forEach(function(el){ el.classList.add('mo-brillo'); });
 
+  var GCOLOR=['#4285f4','#ea4335','#fbbc04','#34a853'];
+
+  /* ── Onda Material en los desplegables ───────────────────────────
+     El deck ya contesta con una onda cuando cambia de lámina. Faltaba la
+     escala chica: la píldora que abre un panel es el único control que el
+     cliente toca DENTRO de una lámina y solo cambiaba de fondo.
+     Se escucha en pointerdown y no en click: la onda tiene que salir con
+     el dedo abajo, no al soltarlo — es la diferencia entre «te oí» y
+     «ya terminé». El punto llega en píxeles de pantalla y la píldora vive
+     dentro de #stage, que está escalado: de ahí la división entre esc.
+     La geometría se lee aquí y no en un frame porque esto ocurre una vez
+     por clic, no sesenta veces por segundo (regla 2 del motor). */
+  var tonoExp=0;
+  Motion.qsa('.exp-h').forEach(function(cab){
+    cab.addEventListener('pointerdown',function(e){
+      if(Motion.reduced) return;
+      var caja=cab.getBoundingClientRect();
+      var esc=stageScale||1;
+      var gota=document.createElement('i');
+      gota.className='mv-ripple';
+      gota.style.left=((e.clientX-caja.left)/esc)+'px';
+      gota.style.top=((e.clientY-caja.top)/esc)+'px';
+      gota.style.setProperty('--c',GCOLOR[tonoExp++%4]);
+      cab.appendChild(gota);
+      // No deja rastro: una junta de una hora acumularía cientos de
+      // círculos de 260 px dentro de las píldoras.
+      Motion.after(700,function(){ if(gota.parentNode) gota.parentNode.removeChild(gota); });
+    },{passive:true});
+  });
+
+  /* ── Píldoras que se sugieren ────────────────────────────────────
+     Las tiras de chips suben una tras otra, como una sugerencia de
+     búsqueda de Google. El retardo se cuenta DENTRO de cada tira: las
+     tres de la lámina 13 arrancan igual en vez de heredar el índice de
+     la anterior, y la última píldora de una tira de cuatro entra a los
+     550 ms — la entrada completa se queda por debajo de los 900 ms que
+     manda la normativa.
+     Arranca en 340 ms porque el cuerpo de la lámina entra con 90 ms de
+     retardo y 460 de recorrido: antes de eso las píldoras subirían
+     mientras su propio contenedor todavía está subiendo. */
+  Motion.qsa('.divider .chips, .s13-chips, .s17m-chips').forEach(function(tira){
+    var hijos=tira.children;
+    for(var i=0;i<hijos.length;i++){
+      hijos[i].classList.add('mv-pil');
+      hijos[i].style.setProperty('--d',(0.34+i*0.07)+'s');
+    }
+  });
+
+  /* ── Halo de los cuatro resguardos (lámina 8) ────────────────────
+     Era la única lámina de contenido sin movimiento propio. Sus cuatro
+     medallones ya traen los cuatro colores de Google; el halo los
+     recorre en orden, con 1.1 s entre uno y otro dentro de un ciclo de
+     8 s. El color no se pasa desde aquí: el CSS lo saca de la clase de
+     color que el medallón ya tiene (.b .r .y .g), así que si mañana una
+     tarjeta cambia de color el halo la sigue sin tocar este archivo. */
+  Motion.qsa('.s08b-g .med').forEach(function(med,i){
+    med.classList.add('mv-halo');
+    med.style.setProperty('--d',(i*1.1)+'s');
+  });
+
+  /* ── Barrido de capítulo ─────────────────────────────────────────
+     Las cuatro barras cruzan la lámina SOLO al entrar a un divisor. Es
+     una puntuación, no un adorno: marca los cuatro cortes del deck y
+     nada más. El reflow entre quitar y poner .on no es opcional — sin
+     él el navegador agrupa los dos cambios y la animación no rearranca,
+     que es el mismo motivo por el que Motion.replay() lo hace. */
+  var barrido=document.getElementById('mvBarrido');
+  var barridoT=0;
+  function lanzaBarrido(){
+    if(!barrido||Motion.reduced) return;
+    clearTimeout(barridoT);
+    barrido.classList.remove('on');
+    void barrido.offsetWidth;                       // ← el reflow, a propósito
+    barrido.classList.add('on');
+    // Se apaga al terminar (.6s + .18s del último retardo): con display:none
+    // las animaciones vuelven al principio y la próxima vez barre completo.
+    barridoT=setTimeout(function(){ barrido.classList.remove('on'); },900);
+  }
+
+  /* ── Ondas Material al avanzar ───────────────────────────────────
+     Nacen donde se hizo clic; con el teclado, en el canto por el que se
+     avanza, y así la onda además dice hacia dónde va la presentación.
+     Dos círculos con 110 ms de diferencia y colores consecutivos de
+     Google: se leen como una onda concéntrica sin serlo.
+     El punto llega en píxeles de pantalla y el contenedor vive dentro de
+     #stage, que está escalado: de ahí la división entre stageScale. */
+  var capaOndas=document.getElementById('mvOndas');
+  var tono=0;
+  function onda(cx,cy){
+    if(!capaOndas||Motion.reduced) return;
+    var caja=stage.getBoundingClientRect();
+    var esc=stageScale||1;
+    var x=(cx-caja.left)/esc, y=(cy-caja.top)/esc;
+    for(var k=0;k<2;k++){
+      var el=document.createElement('i');
+      el.className='mv-ondamat';
+      el.style.left=x+'px';
+      el.style.top=y+'px';
+      el.style.setProperty('--c',GCOLOR[tono++%4]);
+      el.style.animationDelay=(k*110)+'ms';
+      capaOndas.appendChild(el);
+      // La onda no deja rastro: se retira sola. Sin esto, una junta de una
+      // hora acumularía cientos de círculos de 1500 px en el DOM.
+      (function(nodo){
+        Motion.after(1000+k*110,function(){ if(nodo.parentNode) nodo.parentNode.removeChild(nodo); });
+      })(el);
+    }
+  }
+
+  // El clic sobre un control desplegable es suyo, no del navegador del deck:
+  // ahí tampoco hay onda, porque la lámina no cambia.
+  stage.addEventListener('click',function(e){
+    if(e.target.closest&&e.target.closest('[data-noadv]')) return;
+    onda(e.clientX,e.clientY);
+  });
+  addEventListener('keydown',function(e){
+    if(grid.classList.contains('on')) return;       // en el panorama no hay lámina que ondear
+    var k=e.key;
+    var haciaAtras=(k==='ArrowLeft'||k==='PageUp');
+    var haciaDelante=(k==='ArrowRight'||k==='PageDown'||k===' '||k==='Enter');
+    if(!haciaAtras&&!haciaDelante) return;
+    if((k===' '||k==='Enter')&&e.target.closest&&e.target.closest('[data-noadv]')) return;
+    var caja=stage.getBoundingClientRect();
+    onda(haciaAtras?caja.left+10:caja.right-10, caja.top+caja.height/2);
+  });
+
   /* ── Cascada por diapositiva ─────────────────────────────────────
      Se aprovecha el mecanismo .slide.on que ya trae el deck: el encabezado,
      el cuerpo y el pie siguen entrando con mv-sube; lo que se agrega es la
@@ -4273,6 +4871,9 @@ show(Number.isFinite(start)&&start>0?start-1:0);
   window.__moCoreo=function(n){
     if(n===ultima) return;           // misma lámina (p. ej. → en la última): no se repite
     ultima=n;
+    // Antes del corte por cascada: los divisores no tienen rejillas que
+    // escalonar, así que si esto fuera después nunca se dispararía.
+    if(slides[n]&&slides[n].classList.contains('divider')) lanzaBarrido();
     if(!porSlide[n].length) return;
     // La lámina acaba de pasar de display:none a flex. Una transición no
     // arranca en el mismo recálculo en que el elemento empieza a pintarse,
@@ -4295,17 +4896,59 @@ show(Number.isFinite(start)&&start>0?start-1:0);
   Motion.qsa('.shape',cierre ).forEach(function(sh,i){ Motion.follow(sh,[8,6,7,9][i%4]); });
   Motion.qsa('.s28f-p',cierre).forEach(function(card){ Motion.tilt(card,5); });
 
-  /* ── Partículas en la portada ────────────────────────────────────
-     Azul y verde de la paleta Google del deck, bajo las olas (z0, dentro
-     de .mv-fondo, que ya es sordo al ratón). Semilla fija del motor: la
-     composición es la misma en cada junta. */
+  /* Geometría flotante de los divisores. Cuatro amplitudes distintas: si
+     todas se movieran igual el fondo sería una calcomanía deslizándose, y
+     lo que da profundidad es justamente que no coincidan. Van sobre el
+     envoltorio .mv-geo y no sobre la forma, que ya tiene su propia deriva
+     en CSS: dos animaciones de transform en el mismo elemento no conviven. */
+  Motion.qsa('.divider .mv-geo').forEach(function(el,i){ Motion.follow(el,[7,13,9,16][i%4]); });
+
+  /* Deriva ambiental. La clase se pone desde aquí y no en el markup por dos
+     razones: la portada y el cierre quedan fuera —ahí los círculos ya
+     persiguen al cursor y la animación CSS le ganaría al transform en
+     línea—, y cualquier lámina que nazca mañana con un círculo de fondo lo
+     hereda sin que nadie se acuerde de escribir la clase.
+     Los retardos negativos desincronizan: veinte círculos derivando al
+     unísono se leen como un temblor de la lámina entera. */
+  Motion.qsa('.slide:not(.cover) > .shape, .plane .wm').forEach(function(el,i){
+    el.classList.add('mv-flota');
+    el.style.animationDelay=(-i * 2.3)+'s';
+  });
+
+  /* Pulso de flujo: las flechas de las bandas de proceso —impulsa y la
+     certificación de estudiantes— se empujan en orden, de izquierda a
+     derecha. El retardo se cuenta DENTRO de cada banda para que las dos
+     láminas arranquen igual en vez de heredar el índice de la otra. */
+  Motion.qsa('.s15b-flow, .s24-flow').forEach(function(banda){
+    Motion.qsa('.s15b-arr, .s24-arr', banda).forEach(function(fl,i){
+      fl.classList.add('mv-paso');
+      fl.style.setProperty('--d',(i * 0.18)+'s');
+    });
+  });
+
+  /* La escalera de niveles de beta sube peldaño por peldaño. */
+  Motion.qsa('.s18-stairs .med').forEach(function(med,i){
+    med.classList.add('mv-escalon');
+    med.style.setProperty('--d',(i * 0.2)+'s');
+  });
+
+  /* ── Partículas conectadas en la portada ─────────────────────────
+     Red neuronal en los CUATRO colores de Google —cada partícula y sus
+     enlaces llevan el suyo—, bajo las olas (z0, dentro de .mv-fondo, que
+     ya es sordo al ratón). Antes iba de azul a verde según la profundidad
+     y el campo se leía como una nube teñida; con paleta se lee como
+     Google. Semilla fija del motor: la composición es la misma en cada
+     junta, que es lo que se quiere en una portada que se repite. */
   if(Motion.particles){
     var fondo=portada.querySelector('.mv-fondo');
     if(fondo){
       var cv=document.createElement('canvas');
       cv.className='mo-particulas';
       fondo.insertBefore(cv,fondo.firstChild);
-      Motion.particles.mount(cv,{n:60,cerca:[66,133,244],lejos:[52,168,83]});
+      Motion.particles.mount(cv,{
+        n:60,
+        paleta:[[66,133,244],[234,67,53],[251,188,4],[52,168,83]]
+      });
     }
   }
 
