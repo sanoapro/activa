@@ -1,7 +1,7 @@
 # Kit comercial
 
 Una sola lámina de 1280×720 con los accesos que el equipo comercial usa a diario.
-Se publica en **https://sanoapro.github.io/activa/kit-comercial/**
+Se publica en **https://sanoapro.github.io/activa/paginas/kit-comercial/**
 
 No hay scroll: la lámina se escala para caber entera en cualquier pantalla, igual
 que el deck de [upgrade-edu](../upgrade-edu/).
@@ -12,7 +12,8 @@ que el deck de [upgrade-edu](../upgrade-edu/).
 |---|---|
 | `index.html` | Todo el kit: markup, CSS y JS en un solo archivo. |
 | `assets.js` | **Generado.** Retratos del equipo y logos, en base64. No editar a mano. |
-| `og-source.html` | Molde de la tarjeta de vista previa (1200×630). No se publica. |
+| `og.png` | Vista previa de WhatsApp (1200×630). **Generado** desde `og-source.html`. |
+| `og-source.html` | Molde de esa vista previa. No se abre en público. |
 
 ## Cómo se usa
 
@@ -43,15 +44,16 @@ las listas hay que ajustar esas dos reglas — la lámina no crece.
 
 ## Cómo se regenera `assets.js`
 
-Los retratos y logos salen del objeto `BRAND` del deck, para no duplicar imágenes:
+Los retratos y logos salen del objeto `BRAND` del deck, para no duplicar imágenes.
+Se corre desde la raíz del repositorio:
 
 ```bash
 python -c "
 import json
-l=open('upgrade-edu/index.html',encoding='utf-8').read().split('\n')[4077]
+l=open('paginas/upgrade-edu/index.html',encoding='utf-8').read().split('\n')[4077]
 b=json.loads(l[l.index('{'):l.rindex('}')+1])
 keep=['vJuan','vMartin','vJosue','vRoberto','vVicky','vZeni','activa','gfepartner','upgradeedu']
-open('kit-comercial/assets.js','w',encoding='utf-8').write(
+open('paginas/kit-comercial/assets.js','w',encoding='utf-8').write(
   'window.BRAND = '+json.dumps({k:b[k] for k in keep},ensure_ascii=False)+';\n')
 "
 ```
@@ -67,8 +69,8 @@ kit. Para volver a exportarla después de un cambio:
 ```bash
 chrome --headless=new --disable-gpu --hide-scrollbars \
   --force-device-scale-factor=1 --virtual-time-budget=4000 \
-  --window-size=1200,630 --screenshot=assets/img/og-kit-comercial.png \
-  kit-comercial/og-source.html
+  --window-size=1200,630 --screenshot=paginas/kit-comercial/og.png \
+  paginas/kit-comercial/og-source.html
 ```
 
 Las URLs de las etiquetas `og:` son absolutas: WhatsApp no lee rutas relativas ni

@@ -5,10 +5,10 @@ obj/
 *.user
 
 # ── Fable ────────────────────────────────────────────────────────────────────
-# La salida de scripts/ SÍ se versiona: así el repositorio se puede publicar en
+# La salida de Fable (paginas/motion-system/scripts/) SÍ se versiona: así el repositorio se puede publicar en
 # GitHub Pages sin CI y la carpeta funciona de forma independiente. Solo se
 # ignora la metadata interna del compilador.
-scripts/fable_modules/project_cracked.json
+paginas/motion-system/scripts/fable_modules/project_cracked.json
 
 # ── Sistema ──────────────────────────────────────────────────────────────────
 .DS_Store

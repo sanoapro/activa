@@ -1,118 +1,100 @@
-# Presentacion-activa
+# activa · páginas web
 
-Paquete web autocontenido para el equipo comercial de **activa**, listo para GitHub Pages.
+Repositorio de **todas las páginas web de activa**, Google for Education Partner. Se publica
+completo en GitHub Pages, sin CI y sin bundler.
 
-Contiene dos piezas y un documento maestro:
+**Portal:** https://sanoapro.github.io/activa/
 
-| Pieza | Ruta | Qué es |
+| Página | URL | Qué es |
 |---|---|---|
-| **Motion System** | `index.html` | Landing interactiva que explica y **ejecuta en vivo** el plan de integración de animación. Construida con F# + Fable. |
-| **upgrade edu 2026–2027** | `upgrade-edu/index.html` | Deck de 28 diapositivas del programa comercial, estilo Google for Education. Autocontenido, no requiere compilar nada. Publicado en **/activa/upgrade-edu/**. |
-| **Portafolio de servicios** | `docs/portafolio-activa.md` | Documento maestro de referencia. **Fuente única y vigente** de la información de producto. |
+| **Kit comercial** | [/paginas/kit-comercial/](https://sanoapro.github.io/activa/paginas/kit-comercial/) | Una lámina con los accesos que el equipo comercial usa a diario. |
+| **Cotizador 2026–2027** | [/paginas/cotizador/](https://sanoapro.github.io/activa/paginas/cotizador/) | Arma la propuesta del colegio: dispositivos, licenciamiento, capacitación y soporte. |
+| **upgrade edu 2026–2027** | [/paginas/upgrade-edu/](https://sanoapro.github.io/activa/paginas/upgrade-edu/) | Deck de 28 diapositivas del programa comercial. Abre sin compilar nada. |
+| **Motion System** | [/paginas/motion-system/](https://sanoapro.github.io/activa/paginas/motion-system/) | Landing que explica y **ejecuta en vivo** el plan de animación. F# + Fable. |
+
+Documento maestro de producto —fuente única y vigente— en
+[`docs/portafolio-activa.md`](docs/portafolio-activa.md).
 
 ---
 
-## Estructura
+## Cómo está organizado
+
+Una carpeta por página en `paginas/`, y lo reutilizable en `compartidos/`:
 
 ```
-Presentacion-activa/
-├── index.html                      Punto de montaje del Motion System
-├── upgrade-edu/index.html          Deck comercial (abre directo, sin build)
-├── styles/main.css                 Sistema de diseño: tokens, tema claro/oscuro, retícula
-├── scripts/                        Salida JavaScript que genera Fable  ← NO editar a mano
-├── src/                            Código fuente F#  ← aquí se edita
-│   ├── Dsl.fs                      DSL de construcción de DOM
-│   ├── Data.fs                     TODO el contenido del deck, como datos
-│   ├── Motion.fs                   Motor de animación (un solo bucle rAF)
-│   ├── Particles.fs                Campo de partículas 3D sobre Canvas
-│   ├── Lottie.fs                   Carga diferida de Lottie con respaldo CSS
-│   ├── Demos.fs                    Los cinco demos vivos
-│   └── App.fs                      Composición de la página
-├── assets/
-│   ├── img/                        18 logos de marca y de marcos curriculares (.webp)
-│   └── lottie/pulse.json           Animación Lottie de ejemplo
-├── docs/portafolio-activa.md       Documento maestro de producto
-└── .github/workflows/deploy.yml    Compila y publica en GitHub Pages
+index.html        Portal (índice de páginas)
+paginas/          Una carpeta por página, con TODO lo suyo dentro
+compartidos/      css · js · img/marcas · img/fotos-vendedores · lottie
+docs/             Documentos de producto y de referencia
 ```
+
+La guía completa —qué va en `compartidos/`, cómo se agrega una página nueva, qué revisar al
+cambiar una URL— está en **[`docs/estructura.md`](docs/estructura.md)**. Conviene leerla antes
+de meter un proyecto nuevo.
 
 ---
 
-## Requisitos y compilación
+## Ver el sitio en local
 
-Se necesita el **SDK de .NET 8** una sola vez. No hace falta Node ni ningún bundler: Fable emite
-módulos ES nativos que el navegador carga tal cual.
-
-```bash
-cd Presentacion-activa
-dotnet tool restore                              # instala Fable 4.24.0
-dotnet fable src --outDir scripts --lang javascript
-```
-
-Para ver el sitio en local (los módulos ES exigen `http://`, no `file://`):
+La mayoría de las páginas abren con doble clic. El Motion System usa módulos ES, que exigen
+`http://`:
 
 ```bash
 python -m http.server 8123
 # abrir http://127.0.0.1:8123/
 ```
 
-Durante desarrollo, recompilación automática al guardar:
+---
+
+## Compilar el Motion System
+
+Es la única página que se compila. Necesita el **SDK de .NET 8** una sola vez; no hace falta Node
+ni bundler, Fable emite módulos ES nativos.
 
 ```bash
-dotnet fable watch src --outDir scripts --lang javascript
+dotnet tool restore                    # instala Fable 4.24.0
+dotnet fable paginas/motion-system/src --outDir paginas/motion-system/scripts --lang javascript
 ```
+
+Recompilación automática al guardar: el mismo comando con `fable watch`.
+
+La salida `paginas/motion-system/scripts/` **se versiona a propósito**: así el repositorio se
+publica sin que nadie tenga que compilar. Si se cambia algo en `src/`, hay que compilar en local
+y hacer commit de la salida.
+
+Casi todo el texto de esa página vive en `src/Data.fs`, como datos: agregar una categoría es
+agregar un registro a una lista, no escribir marcado.
 
 ---
 
-## Publicar en GitHub Pages
+## Publicación
 
-**Opción A — automática (recomendada).** El workflow `.github/workflows/deploy.yml` instala el SDK,
-compila Fable y publica. En el repositorio: *Settings → Pages → Source: GitHub Actions*. Cada push a
-`main` republica.
+GitHub Pages sirve la rama `main` tal cual (*Settings → Pages → Source: Deploy from a branch →
+main / (root)*). Cada push republica. El `.nojekyll` evita que GitHub procese la carpeta con
+Jekyll.
 
-**Opción B — sin CI.** La carpeta `scripts/` ya viene compilada y versionada, así que basta con
-publicar la rama: *Settings → Pages → Source: Deploy from a branch → main / (root)*.
-
-El archivo `.nojekyll` está incluido para que GitHub no procese la carpeta con Jekyll.
+El workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) **no publica**: solo
+comprueba que el F# siga compilando.
 
 ---
 
 ## Dependencias externas
 
-El paquete funciona **sin conexión**, con dos degradaciones controladas:
+Todo funciona sin conexión, con dos degradaciones controladas:
 
 | Recurso | Origen | Si no hay red |
 |---|---|---|
 | Tipografías Sora / Inter Tight / IBM Plex Mono | Google Fonts | Cae a Segoe UI y a la pila del sistema. El diseño se mantiene. |
-| Reproductor `lottie-web` | cdnjs | El contenedor cae a una animación CSS equivalente y la sección sigue explicándose. |
+| Reproductor `lottie-web` | cdnjs | Cae a una animación CSS equivalente y la sección sigue explicándose. |
 
-Todo lo demás —iconos, logos, la animación Lottie, el motor de animación y el campo de partículas—
-es local. Los iconos son rutas SVG en línea dentro de `src/Data.fs`; no hay ningún archivo de fuente
-de iconos ni imagen rasterizada que pueda faltar.
-
-Si se necesita independencia total de la red, hay que autoalojar las tipografías y `lottie-web`.
-
----
-
-## Cómo editar el contenido
-
-Casi todo el texto del Motion System vive en `src/Data.fs`, como datos. Para cambiar una categoría,
-un argumento de venta o una objeción, se edita ese archivo y se recompila; el HTML se regenera solo.
-
-Agregar una sexta categoría es agregar un registro a la lista `categorias`, no escribir marcado.
-
----
-
-## Atajos de la presentación comercial
-
-`upgrade-edu/index.html` se abre con doble clic, sin servidor:
-
-- `←` `→` navegar · `O` vista panorámica · `F` pantalla completa · `P` imprimir a PDF en 16:9
+Lo demás es local. Los iconos son rutas SVG en línea; no hay fuente de iconos que pueda faltar.
+El deck y el kit llevan sus imágenes en base64 dentro del HTML, por eso abren desde `file://`.
 
 ---
 
 ## Nota sobre material anterior
 
 La presentación `activa - upgrade edu presentación.pptx` (112 MB) **quedó sustituida** por
-`docs/portafolio-activa.md` y por el deck HTML. No se incluye en este repositorio por dos razones:
-supera el límite de 100 MB por archivo de GitHub, y su contenido ya está consolidado y actualizado
-en el documento maestro. Consérvela fuera del repositorio como respaldo histórico.
+`docs/portafolio-activa.md` y por el deck HTML. No se incluye en el repositorio: supera el límite
+de 100 MB por archivo de GitHub, y su contenido ya está consolidado y actualizado en el documento
+maestro. Consérvela fuera del repositorio como respaldo histórico.

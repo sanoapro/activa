@@ -4,9 +4,9 @@ name: Compilar Fable
 #
 # GitHub Pages está configurado para servir la rama `main` tal cual
 # (Settings → Pages → Source: «Deploy from a branch»), y funciona porque la
-# salida de Fable —la carpeta scripts/— se versiona a propósito. Por eso el
-# sitio ya está completo en el repositorio: index.html, upgrade-edu/ y
-# kit-comercial/ se sirven sin que nadie tenga que compilar nada.
+# salida de Fable —paginas/motion-system/scripts/— se versiona a propósito. Por
+# eso el sitio ya está completo en el repositorio: el portal index.html y todo
+# lo que hay en paginas/ se sirve sin que nadie tenga que compilar nada.
 #
 # Antes este workflow intentaba además publicar con actions/deploy-pages, que
 # exige que Pages esté en modo «GitHub Actions». Como no lo está, ese paso
@@ -14,7 +14,8 @@ name: Compilar Fable
 # afectado. Se retiró.
 #
 # Lo que queda es una comprobación honesta: que el F# siga compilando. Si
-# alguien rompe src/, el workflow avisa; si no, no molesta a nadie.
+# alguien rompe el F# del Motion System, el workflow avisa; si no, no molesta
+# a nadie.
 #
 # Si algún día se prefiere que sea Actions quien publique, hay que cambiar
 # Settings → Pages → Source a «GitHub Actions» y volver a añadir los pasos de
@@ -24,7 +25,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'src/**'
+      - 'paginas/motion-system/src/**'
       - '.config/dotnet-tools.json'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:
@@ -57,12 +58,13 @@ jobs:
         run: dotnet tool restore
 
       # Se compila a una carpeta aparte: la salida buena es la que está
-      # versionada en scripts/, y no queremos que el CI la pise ni genere ruido.
+      # versionada en paginas/motion-system/scripts/, y no queremos que el CI la
+      # pise ni genere ruido.
       - name: Compilar F# a JavaScript
-        run: dotnet fable src --outDir /tmp/fable-check --lang javascript
+        run: dotnet fable paginas/motion-system/src --outDir /tmp/fable-check --lang javascript
 
       - name: Recordatorio
         run: |
           echo "Compila correctamente."
-          echo "Si cambiaste algo en src/, recuerda compilar en local y hacer commit de scripts/:"
-          echo "  dotnet fable src --outDir scripts --lang javascript"
+          echo "Si cambiaste algo en paginas/motion-system/src/, recuerda compilar en local y hacer commit de la salida:"
+          echo "  dotnet fable paginas/motion-system/src --outDir paginas/motion-system/scripts --lang javascript"

@@ -183,8 +183,8 @@ let media () =
     let estado = span [ Cls "chip chip-live"; Txt "en espera" ] []
     let peso = span [ Cls "chip"; Txt "midiendo…" ] []
 
-    Lottie.mount host "./assets/lottie/pulse.json" (fun s -> estado.textContent <- s)
-    Lottie.pesaJson "./assets/lottie/pulse.json" (fun bytes ->
+    Lottie.mount host "../../compartidos/lottie/pulse.json" (fun s -> estado.textContent <- s)
+    Lottie.pesaJson "../../compartidos/lottie/pulse.json" (fun bytes ->
         if bytes = 0 then peso.textContent <- "peso no disponible"
         else
             let kb = float bytes / 1024.0

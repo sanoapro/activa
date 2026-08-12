@@ -1,50 +1,197 @@
 <!doctype html>
-<html lang="es-MX" data-theme="dark">
+<html lang="es-MX">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Motion System · Plan profesional de integración de animación — activa</title>
-<meta name="description" content="Cinco capas de interacción que convierten una página estática en una demostración de ventas. Cada sección explica la técnica y la ejecuta en vivo.">
-<meta name="theme-color" content="#080d14">
+<title>activa · Portal de páginas</title>
+<meta name="description" content="Índice de las páginas web del equipo de activa, Google for Education Partner.">
+<meta name="robots" content="noindex">
 <meta name="color-scheme" content="dark light">
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="Motion System · activa">
-<meta property="og:description" content="El movimiento no decora. Vende. Plan profesional de integración de animación, demostrado en vivo.">
-
+<meta name="theme-color" content="#080d14">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%2322d3c7'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23080d14'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="./styles/main.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%2322d3c7'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23080d14'/%3E%3C/svg%3E">
-</head>
-<body>
-
-<a class="skip" href="#microinteracciones">Saltar al contenido</a>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 
 <!--
-  El documento se construye completo desde F#/Fable (src/App.fs).
-  Este contenedor es el único punto de montaje.
+  Portal. No es una «página» del catálogo: es el índice que lleva a todas.
+  Autocontenido a propósito (CSS en línea) para que abra incluso desde file://
+  y para que nunca dependa de una hoja de estilos de otra página.
+  Para dar de alta una página nueva: se copia un <a class="card"> y se apunta a
+  su carpeta dentro de paginas/. Ver docs/estructura.md.
 -->
-<div id="app"></div>
 
-<noscript>
-  <div class="noscript">
-    <h1>Motion System · activa</h1>
-    <p>
-      Esta presentación <strong>es</strong> la demostración: su contenido se construye y se anima
-      con JavaScript. Active JavaScript para verla funcionando.
-    </p>
-    <p>
-      Plan profesional de integración de animación en cinco capas:
-      microinteracciones, animaciones de entrada, movimiento basado en scroll,
-      interacción con el cursor y media enriquecida (Lottie y Canvas).
-    </p>
+<style>
+:root{
+  --bg:#080d14; --surface:#0e1620; --surface-2:#131e2b;
+  --line:rgba(146,186,205,.13); --line-2:rgba(146,186,205,.26);
+  --ink:#e8f0f6; --ink-2:#93a8ba; --ink-3:#677f93;
+  --brand:#22d3c7; --brand-t:rgba(34,211,199,.12);
+  --violet:#8b7cff; --amber:#ffb454; --verde:#4ade80;
+  --f-display:"Sora","Segoe UI",system-ui,sans-serif;
+  --f-body:"Inter Tight","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --ease:cubic-bezier(.22,.68,.18,1);
+}
+@media (prefers-color-scheme:light){
+  :root{
+    --bg:#eef2f5; --surface:#fff; --surface-2:#f2f6f8;
+    --line:rgba(12,46,62,.12); --line-2:rgba(12,46,62,.22);
+    --ink:#08131c; --ink-2:#47606f; --ink-3:#6d8494;
+    --brand:#0d9c92; --brand-t:rgba(13,156,146,.12);
+    --violet:#6250dc; --amber:#a86a12; --verde:#177245;
+  }
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--f-body);
+  min-height:100vh; padding:clamp(28px,6vw,72px) clamp(20px,5vw,40px);
+  line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(60vw 50vh at 12% -10%, var(--brand-t), transparent 70%),
+    radial-gradient(50vw 40vh at 95% 0%, rgba(139,124,255,.10), transparent 70%);
+}
+.wrap{max-width:1180px;margin:0 auto}
+
+header{border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:36px}
+.eyebrow{
+  font-family:var(--f-mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--brand);display:flex;align-items:center;gap:10px
+}
+.eyebrow::after{content:"";height:1px;flex:1;background:var(--line-2)}
+h1{
+  font-family:var(--f-display);font-weight:700;letter-spacing:-.02em;
+  font-size:clamp(1.9rem,5vw,3rem);margin:14px 0 10px
+}
+h1 em{font-style:italic;color:var(--brand)}
+.lede{color:var(--ink-2);max-width:62ch;font-size:clamp(1rem,2.2vw,1.12rem)}
+
+h2{
+  font-family:var(--f-display);font-weight:600;font-size:1.05rem;letter-spacing:-.01em;
+  margin:0 0 16px;display:flex;align-items:center;gap:12px
+}
+h2::after{content:"";height:1px;flex:1;background:var(--line)}
+section{margin-bottom:44px}
+
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+.card{
+  display:flex;flex-direction:column;gap:10px;
+  background:var(--surface);border:1px solid var(--line);border-radius:18px;
+  padding:22px 22px 20px;text-decoration:none;color:inherit;position:relative;
+  transition:transform .3s var(--ease),border-color .3s var(--ease),background .3s var(--ease);
+}
+.card:hover,.card:focus-visible{
+  transform:translateY(-3px);border-color:var(--line-2);background:var(--surface-2);outline:none
+}
+.card:focus-visible{box-shadow:0 0 0 2px var(--brand)}
+.card .k{
+  font-family:var(--f-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3)
+}
+.card h3{font-family:var(--f-display);font-weight:600;font-size:1.18rem;letter-spacing:-.01em}
+.card p{color:var(--ink-2);font-size:.94rem}
+.card .go{
+  margin-top:auto;padding-top:12px;font-size:.85rem;font-weight:600;color:var(--brand);
+  display:flex;align-items:center;gap:6px
+}
+.card .go span{transition:transform .3s var(--ease)}
+.card:hover .go span{transform:translateX(4px)}
+.card::before{
+  content:"";position:absolute;left:22px;right:22px;top:0;height:2px;border-radius:2px;
+  background:var(--accent,var(--brand));opacity:.75
+}
+.card.b{--accent:var(--violet)}
+.card.c{--accent:var(--amber)}
+.card.d{--accent:var(--verde)}
+
+.card.soon{pointer-events:none;opacity:.5}
+.card.soon .go{color:var(--ink-3)}
+
+.docs{display:grid;gap:10px}
+.docs a{
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+  text-decoration:none;color:inherit;transition:border-color .3s var(--ease),background .3s var(--ease)
+}
+.docs a:hover{border-color:var(--line-2);background:var(--surface-2)}
+.docs a strong{font-weight:600;font-size:.98rem}
+.docs a em{font-style:normal;color:var(--ink-2);font-size:.9rem}
+
+footer{
+  border-top:1px solid var(--line);padding-top:22px;color:var(--ink-3);font-size:.85rem;
+  display:flex;gap:8px 22px;flex-wrap:wrap
+}
+footer code{font-family:var(--f-mono);font-size:.8rem;color:var(--ink-2)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">activa · Google for Education Partner</p>
+  <h1>Portal de <em>páginas</em></h1>
+  <p class="lede">
+    Índice de todo lo que publicamos en web. Cada página vive en su propia carpeta
+    dentro de <code>paginas/</code>; lo que se comparte entre varias está en
+    <code>compartidos/</code>.
+  </p>
+</header>
+
+<section>
+  <h2>Páginas publicadas</h2>
+  <div class="grid">
+
+    <a class="card" href="./paginas/kit-comercial/">
+      <p class="k">Uso diario · equipo comercial</p>
+      <h3>Kit comercial</h3>
+      <p>Una lámina con los accesos que el equipo abre todos los días: cotizador, base de datos, Classroom, herramientas internas.</p>
+      <p class="go">Abrir <span>→</span></p>
+    </a>
+
+    <a class="card b" href="./paginas/upgrade-edu/">
+      <p class="k">Presentación · 28 diapositivas</p>
+      <h3>upgrade edu 2026–2027</h3>
+      <p>El deck comercial del programa, estilo Google for Education. Se abre sin compilar nada.</p>
+      <p class="go">Abrir <span>→</span></p>
+    </a>
+
+    <a class="card c" href="./paginas/motion-system/">
+      <p class="k">Demostración técnica</p>
+      <h3>Motion System</h3>
+      <p>Cinco capas de animación explicadas y ejecutadas en vivo. Construida con F# + Fable.</p>
+      <p class="go">Abrir <span>→</span></p>
+    </a>
+
+    <a class="card d" href="./paginas/cotizador/">
+      <p class="k">Herramienta comercial</p>
+      <h3>Cotizador 2026–2027</h3>
+      <p>Arma la propuesta del colegio: dispositivos, licenciamiento, capacitación y soporte.</p>
+      <p class="go">Abrir <span>→</span></p>
+    </a>
+
   </div>
-</noscript>
+</section>
 
-<script type="module" src="./scripts/App.js"></script>
+<section>
+  <h2>Documentos de referencia</h2>
+  <div class="docs">
+    <a href="./docs/portafolio-activa.md"><strong>Portafolio de servicios</strong> <em>Fuente única y vigente de la información de producto.</em></a>
+    <a href="./docs/descripcion-de-productos/"><strong>Descripción de productos</strong> <em>Catálogo y guiones de video, listos para mandar al cliente.</em></a>
+    <a href="./docs/estructura.md"><strong>Estructura del repositorio</strong> <em>Dónde va cada cosa y cómo se agrega una página nueva.</em></a>
+  </div>
+</section>
 
+<footer>
+  <span>Material interno. Los destinos piden credenciales.</span>
+  <span><code>sanoapro.github.io/activa/</code></span>
+</footer>
+
+</div>
 </body>
 </html>

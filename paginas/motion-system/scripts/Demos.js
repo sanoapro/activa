@@ -136,10 +136,10 @@ export function media() {
     const host = div(ofArray([new Attr$(0, ["lottie-host"]), new Attr$(2, ["aria-live", "polite"])]), empty());
     const estado = span(ofArray([new Attr$(0, ["chip chip-live"]), new Attr$(4, ["en espera"])]), empty());
     const peso = span(ofArray([new Attr$(0, ["chip"]), new Attr$(4, ["midiendo…"])]), empty());
-    mount(host, "./assets/lottie/pulse.json", (s) => {
+    mount(host, "../../compartidos/lottie/pulse.json", (s) => {
         estado.textContent = s;
     });
-    fetch("./assets/lottie/pulse.json").then(function(r){return r.text();}).then(function(t){((bytes) => {
+    fetch("../../compartidos/lottie/pulse.json").then(function(r){return r.text();}).then(function(t){((bytes) => {
         if (bytes === 0) {
             peso.textContent = "peso no disponible";
         }
