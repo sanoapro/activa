@@ -15,7 +15,7 @@ hay peticiones de red: ni fuentes por CDN, ni librerías de terceros, ni imágen
 
 | Archivo | Qué es |
 |---|---|
-| `index.html` | El deck completo. ~83 KB, sin imágenes embebidas: donde va una foto hay un marcador. |
+| `index.html` | El deck completo. Sin imágenes: toda ilustración es SVG en línea dibujado con los tokens del sistema. |
 | `og.png` | Vista previa de WhatsApp (1200×630). **Generado** desde `og-source.html`. |
 | `og-source.html` | Molde de esa vista previa. No se abre en público. |
 
@@ -23,10 +23,9 @@ hay peticiones de red: ni fuentes por CDN, ni librerías de terceros, ni imágen
 
 Usa el motor compartido de `compartidos/`, con menos movimiento que el deck comercial, a
 propósito: esta junta acompaña, no vende. Una sola cascada por lámina y solo donde el dato se
-construye ante los ojos (las diez siluetas del «6 de cada 10», la escalera hasta el C1, la ruta
+construye ante los ojos (las diez siluetas de «La mayoría», la escalera hasta el C1, la ruta
 de implementación); el bloque D («tranquilidad») queda sin cascada, solo con la entrada serena
-que ya tenía, y las rejillas con marcadores pendientes quedan fuera para que el pendiente salte
-a la vista. Fondo ambiental únicamente en portada (partículas) y cierre (las olas y sus
+que ya tenía. Fondo ambiental únicamente en portada (partículas) y cierre (las olas y sus
 círculos siguiendo al cursor).
 
 Todo lo que el motor esconde vive bajo `html.mo-ready`: si `motion.js` no carga, el deck se ve
@@ -93,23 +92,12 @@ colorea a partir de él. **Mover una diapositiva rompe el argumento**, y el bloq
 | F · Resultado y prueba social | 19–20 | `resultado` |
 | G · Cierre | 21–22 | `cierre` |
 
-## Antes de presentar: hay que completar los marcadores
+## Se proyecta tal cual: no hay nada que completar
 
-El deck se entrega con marcadores a propósito, para que nadie proyecte un dato inventado.
-
-- **Marcadores de texto** — van resaltados en amarillo, imposibles de pasar por alto. Se
-  buscan con `class="mk"`. Son 18: el nombre de un colegio local (2), la fuente del dato de
-  «6 de cada 10» (6), datos de pantalla en casa (8), horas de capacitación y maestros
-  certificados (9), las horas de uso por nivel (10), qué pasa con la cuenta al egresar y quién
-  accede al monitoreo (12), los dos casos sustituibles (16), quién emite la certificación (19),
-  el calendario y el canal de dudas (21) y el contacto del colegio (22).
-- **Marcadores de imagen** — recuadro de borde punteado con la etiqueta de qué foto va ahí y en
-  qué proporción. Se buscan con `class="ph"` (8, fotografías y capturas) y `logotile dash`
-  (11, logotipos de certificaciones y universidades).
-
-**Ojo con la lámina 6:** el dato de «6 de cada 10» lleva el marcador
-`[FUENTE POR CONFIRMAR]` bien visible. No se presenta sin verificarlo.
-
-## Pendientes conocidos
-
-- Los testimonios de familias entran en la lámina 21, donde ya está apartado su marcador.
+El deck es **universal por requisito explícito**: cualquier colegio lo proyecta sin rellenar
+datos, sin conseguir fotos ni logotipos y sin actualizar nada nunca. No quedan marcadores de
+ningún tipo. Donde antes iba una foto o un logotipo hay SVG en línea o tratamiento
+tipográfico del propio sistema; donde antes iba una cifra del colegio, el punto está dicho en
+cualidad, no en cantidad, para que sea verdad en cualquier plantel. La única cifra proyectiva
+(«La mayoría de estos niños trabajará en profesiones que todavía no existen», lámina 6) se
+enuncia como proyección, no como medición, con su línea de honestidad al pie.

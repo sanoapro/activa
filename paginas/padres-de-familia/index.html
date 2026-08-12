@@ -7,9 +7,8 @@
 <meta name="description" content="Presentación para juntas con familias: por qué el colegio adopta el programa, qué cambia en el aula, qué NO cambia, y cómo queda protegido su hijo. 22 diapositivas.">
 <meta name="theme-color" content="#ffffff">
 <!-- Fuera de los buscadores: el deck se entrega por enlace a las familias de un
-     colegio concreto, y una vez completados sus marcadores lleva sus fotos y sus
-     datos. No se busca, se manda. Las etiquetas og: siguen funcionando: WhatsApp
-     lee la página para la vista previa, no la indexa. -->
+     colegio concreto. No se busca, se manda. Las etiquetas og: siguen
+     funcionando: WhatsApp lee la página para la vista previa, no la indexa. -->
 <meta name="robots" content="noindex, nofollow">
 
 <!-- Icono de pestaña: los cuatro cuadros de Google, el mismo del kit y del deck
@@ -176,12 +175,12 @@ ul.mini.p li::before{background:var(--plum-l)}
 .stat .n.y{color:var(--yel-d)} .stat .n.g{color:var(--grn-l)}
 .stat .n.p{color:var(--plum)}
 
-/* logos (aquí siempre marcadores punteados, nunca imágenes) */
+/* instituciones: su nombre escrito con la tipografía del sistema, nunca
+   logotipos — un nombre no obliga a nadie a conseguir una imagen */
 .logotile{background:var(--white);border:1px solid var(--line);border-radius:18px;
   height:88px;display:grid;place-items:center;padding:14px 18px}
-.logotile.dash{border:2px dashed var(--ink4);background:var(--surf)}
-.logotile .lt{font-size:10.5px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;
-  color:var(--ink2);text-align:center;line-height:1.45}
+.logotile .wm{font-size:15px;font-weight:600;letter-spacing:-.2px;color:var(--ink);
+  text-align:center;line-height:1.3;text-wrap:balance}
 
 .card > .pill{align-self:flex-start}
 
@@ -258,35 +257,11 @@ tbody tr:last-child td{border-bottom:0}
 .gg i:nth-child(2),.gg i:nth-child(6){color:#ea4335}
 .gg i:nth-child(3){color:#fbbc04}
 .gg i:nth-child(5){color:#34a853}
-.eyebrow .gg i,.gt .gg i,.pill .gg i,.mk .gg i{color:inherit}
+.eyebrow .gg i,.gt .gg i,.pill .gg i{color:inherit}
 
 /* marcas de la casa: activa, motiva, beta */
 .marca{font-style:italic;font-weight:800;color:var(--ink)}
 .pill .marca{color:inherit}
-
-/* ═══════════ NUEVO · PLACEHOLDER DE IMAGEN ═══════════
-   Construido con los tokens del sistema: borde punteado, fondo surf,
-   radio 20, etiqueta explícita de QUÉ imagen va y en qué proporción. */
-.ph{position:relative;border:2px dashed var(--ink4);background:var(--surf);border-radius:20px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
-  min-height:110px;padding:18px;text-align:center}
-.ph svg{width:34px;height:34px;fill:var(--ink3);flex-shrink:0}
-.ph .tag{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
-  color:var(--ink2);line-height:1.55;max-width:380px}
-.ph.mini{min-height:96px;padding:12px;border-radius:16px;gap:6px}
-.ph.mini svg{width:24px;height:24px}
-.ph.mini .tag{font-size:9.5px;letter-spacing:.9px}
-/* variante de fondo: enmarca toda la lámina, detrás del contenido */
-.ph.bgph{position:absolute;inset:14px;z-index:0;background:transparent;border-radius:14px;
-  justify-content:flex-end;align-items:flex-start;padding:14px}
-.ph.bgph .tag{background:var(--surf);border-radius:8px;padding:5px 10px;max-width:none}
-
-/* ═══════════ NUEVO · MARCADOR DE TEXTO PENDIENTE ═══════════
-   Todo lo que va entre corchetes salta a la vista: nadie presenta
-   sin completarlo. Fondo yel-t + texto yel-d = AA garantizado. */
-.mk{display:inline-block;background:var(--yel-t);color:var(--yel-d);font-weight:700;
-  border-radius:8px;padding:1px 9px;font-size:.94em;line-height:1.45;
-  box-shadow:inset 0 0 0 1.5px var(--yel-l)}
 
 /* ═══════════ NUEVO · VOZ DEL PADRE (lámina 14) ═══════════ */
 .voz{font-size:18px;font-weight:600;letter-spacing:-.25px;line-height:1.2;color:var(--ink)}
@@ -419,8 +394,6 @@ tbody tr:last-child td{border-bottom:0}
   .foot{flex-direction:column;align-items:flex-start;gap:12px}
   .stat .n{font-size:clamp(36px,10vw,52px)}
   .shape,.mv-fondo{display:none}
-  .ph.bgph{position:relative;inset:auto;min-height:130px;margin-bottom:18px;
-    align-items:center;justify-content:center}
   .feat .xs,.feat p{max-width:none}
   #hint{display:none}
   #nav{right:12px;bottom:12px;background:rgba(32,33,36,.85);border-radius:99px;
@@ -458,23 +431,33 @@ tbody tr:last-child td{border-bottom:0}
 
 <!-- ═════════ 1 · PORTADA · bloque A ═════════ -->
 <section class="slide cover" data-bloque="apertura">
-  <div class="ph bgph">
-    <div class="tag">Fotografía de fondo — alumnos reales del colegio · 16:9</div>
-  </div>
+  <span class="shape" style="width:520px;height:520px;left:-180px;top:-240px;background:var(--blue-t)"></span>
+  <span class="shape" style="width:250px;height:250px;right:-80px;bottom:150px;background:var(--yel-t)"></span>
+  <span class="shape" style="width:140px;height:140px;right:330px;top:90px;background:var(--grn-t)"></span>
   <div class="mv-fondo" aria-hidden="true">
     <i class="mv-nube" style="left:-60px;top:-40px;width:380px;height:170px;animation-duration:12s;animation-delay:-3s;
       background:radial-gradient(closest-side at 40% 55%,rgba(66,133,244,.18),rgba(66,133,244,0) 72%)"></i>
     <i class="mv-nube mv-inv" style="right:-40px;bottom:-30px;width:340px;height:150px;animation-duration:11s;animation-delay:-6s;
       background:radial-gradient(closest-side at 40% 55%,rgba(52,168,83,.16),rgba(52,168,83,0) 72%)"></i>
+    <svg class="mv-olas" viewBox="0 0 2560 140" preserveAspectRatio="none" aria-hidden="true">
+      <g class="mv-ola mv-ola1">
+        <path d="M0 34 Q160 16 320 34 T640 34 T960 34 T1280 34 T1600 34 T1920 34 T2240 34 T2560 34" fill="none" stroke="#4285f4" stroke-width="4.5" stroke-linecap="round" opacity=".7"/>
+      </g>
+      <g class="mv-ola mv-ola2">
+        <path d="M0 62 Q160 80 320 62 T640 62 T960 62 T1280 62 T1600 62 T1920 62 T2240 62 T2560 62" fill="none" stroke="#ea4335" stroke-width="4.5" stroke-linecap="round" opacity=".65"/>
+      </g>
+      <g class="mv-ola mv-ola3">
+        <path d="M0 90 Q160 72 320 90 T640 90 T960 90 T1280 90 T1600 90 T1920 90 T2240 90 T2560 90" fill="none" stroke="#fbbc04" stroke-width="4.5" stroke-linecap="round" opacity=".75"/>
+      </g>
+      <g class="mv-ola mv-ola4">
+        <path d="M0 116 Q160 132 320 116 T640 116 T960 116 T1280 116 T1600 116 T1920 116 T2240 116 T2560 116" fill="none" stroke="#34a853" stroke-width="4.5" stroke-linecap="round" opacity=".7"/>
+      </g>
+    </svg>
   </div>
   <div class="inner" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:0">
-    <div class="ph mini" style="width:240px;margin-bottom:34px">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-      <div class="tag">Logo — escudo del colegio</div>
-    </div>
     <h1 style="max-width:940px">Preparando a nuestros alumnos para un mundo que aún no existe</h1>
-    <p class="lead" style="margin-top:22px;max-width:none">Programa de Transformación Digital · Ciclo 2026–2027</p>
-    <div class="xs" style="margin-top:44px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700">
+    <p class="lead" style="margin-top:26px;max-width:none">Programa de Transformación Digital · Ciclo 2026–2027</p>
+    <div class="xs" style="margin-top:52px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700">
       En alianza con <em class="marca">activa</em> · <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> for Education Partner</div>
   </div>
 </section>
@@ -494,8 +477,7 @@ tbody tr:last-child td{border-bottom:0}
     </div>
     <div class="grid" style="grid-template-rows:repeat(3,1fr)">
       <div class="card pad-s rule r lift"><div class="stat"><div class="n r" style="font-size:40px;letter-spacing:-1.6px">+90</div>
-        <div class="l">colegios ya recorrieron este camino<br>
-        <span class="mk">[COLEGIO — insertar nombre de un colegio local del programa]</span></div></div></div>
+        <div class="l">colegios ya recorrieron este camino</div></div></div>
       <div class="card pad-s rule y lift"><div class="stat"><div class="n y" style="font-size:40px;letter-spacing:-1.6px">16</div>
         <div class="l"><span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> Reference Schools — «la máxima distinción que <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> otorga a un colegio en el mundo»</div></div></div>
       <div class="card pad-s rule g lift"><div class="stat"><div class="n g" style="font-size:40px;letter-spacing:-1.6px">5</div>
@@ -634,8 +616,8 @@ tbody tr:last-child td{border-bottom:0}
       <use href="#nino" x="384" fill="#bdc1c6"/>
       <use href="#nino" x="432" fill="#bdc1c6"/>
     </svg>
-    <h1 style="font-size:52px;letter-spacing:-1.8px;max-width:1000px"><b style="color:var(--red);font-weight:500">6 de cada 10</b> niños de esta escuela trabajarán en profesiones que hoy no existen.</h1>
-    <p style="font-size:16px"><span class="mk">[FUENTE POR CONFIRMAR — insertar estudio, institución y año]</span></p>
+    <h1 style="font-size:52px;letter-spacing:-1.8px;max-width:1000px"><b style="color:var(--red);font-weight:500">La mayoría</b> de estos niños trabajará en profesiones que todavía no existen.</h1>
+    <p class="sm" style="max-width:760px">Es una proyección sobre el futuro del trabajo, no una medición: los empleos que aún no se inventan no se pueden contar.</p>
   </div>
 </section>
 
@@ -708,9 +690,6 @@ tbody tr:last-child td{border-bottom:0}
         <h4>Entender el impacto de la tecnología</h4>
       </div>
     </div>
-    <div class="note" style="font-size:14px">
-      <span class="mk">[INSERTAR — edad promedio del primer teléfono / horas diarias de pantalla sin supervisión]</span>
-    </div>
   </div>
 </section>
 
@@ -722,14 +701,20 @@ tbody tr:last-child td{border-bottom:0}
     <h2>La tecnología no sustituye al maestro. Lo potencia.</h2>
   </div>
   <div class="body">
-    <div class="grid g3">
-      <div class="card rule g lift">
-        <div class="stat"><div class="n g" style="font-size:58px"><span class="mk">[N]</span></div>
-          <div class="l" style="font-size:14.5px;margin-top:12px">horas de capacitación recibidas por nuestros docentes</div></div>
+    <!-- Al quitarse las dos cifras del colegio, las tarjetas quedaron con poco
+         dentro. Se suelta el estirado a toda la altura (.body > .grid:only-child)
+         para que cada una abrace su contenido y el conjunto se centre: aire
+         intencional en vez de tres cajas medio vacías. -->
+    <div class="grid g3" style="grid-auto-rows:minmax(250px,auto);align-content:center">
+      <div class="card rule g lift" style="gap:13px">
+        <div class="med g" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></div>
+        <h3>Formación continua</h3>
+        <p class="sm">Los maestros se capacitan y reciben acompañamiento durante todo el ciclo escolar, no solo al arranque del programa.</p>
       </div>
-      <div class="card rule g lift">
-        <div class="stat"><div class="n g" style="font-size:58px"><span class="mk">[N]</span></div>
-          <div class="l" style="font-size:14.5px;margin-top:12px">maestros certificados por <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span></div></div>
+      <div class="card rule g lift" style="gap:13px">
+        <div class="med g" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+        <h3>Certificación oficial</h3>
+        <p class="sm">El programa prepara al profesorado para certificarse como educador de <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span>, una credencial con validez internacional.</p>
       </div>
       <div class="card t-g lift" style="gap:14px">
         <div class="med g" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
@@ -750,12 +735,12 @@ tbody tr:last-child td{border-bottom:0}
       <div class="stack">
         <div class="tw">
           <table>
-            <thead><tr><th>Nivel</th><th class="n">Uso real del dispositivo</th></tr></thead>
+            <thead><tr><th>Nivel</th><th>Cómo se usa el dispositivo</th></tr></thead>
             <tbody>
-              <tr><td><b>Primaria baja (1º–3º)</b></td><td class="n"><span class="mk">[N h/día]</span></td></tr>
-              <tr><td><b>Primaria alta (4º–6º)</b></td><td class="n"><span class="mk">[N h/día]</span></td></tr>
-              <tr><td><b>Secundaria</b></td><td class="n"><span class="mk">[N h/día]</span></td></tr>
-              <tr><td><b>Bachillerato</b></td><td class="n"><span class="mk">[N h/día]</span></td></tr>
+              <tr><td><b>Primaria baja (1º–3º)</b></td><td>Puntual y siempre guiado por el maestro</td></tr>
+              <tr><td><b>Primaria alta (4º–6º)</b></td><td>En actividades concretas, con supervisión constante</td></tr>
+              <tr><td><b>Secundaria</b></td><td>Regular, con autonomía creciente y acompañamiento</td></tr>
+              <tr><td><b>Bachillerato</b></td><td>Autónomo, orientado a productividad y proyectos</td></tr>
             </tbody>
           </table>
         </div>
@@ -803,9 +788,37 @@ tbody tr:last-child td{border-bottom:0}
       </div>
     </div>
     <div style="display:flex;min-height:0">
-      <div class="ph" style="flex:1">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-        <div class="tag">Captura — reporte que recibiría el padre<br>(portal familiar) · 16:10</div>
+      <div class="card soft" style="flex:1;justify-content:center;gap:16px;padding:28px 32px">
+        <svg viewBox="0 0 340 232" role="img" style="width:100%;height:auto"
+          aria-label="Esquema de un reporte de actividad: un encabezado y cuatro filas, cada una con su estado en verde">
+          <rect x="0" y="0" width="340" height="36" rx="10" fill="var(--grn-t)"/>
+          <circle cx="21" cy="18" r="8" fill="var(--grn-l)"/>
+          <rect x="40" y="13" width="112" height="10" rx="5" fill="var(--grn-d)" opacity=".5"/>
+          <rect x="0" y="50" width="340" height="38" rx="10" fill="var(--surf)"/>
+          <rect x="14" y="61" width="16" height="16" rx="5" fill="var(--blue-l)"/>
+          <rect x="42" y="64" width="128" height="10" rx="5" fill="var(--ink4)"/>
+          <circle cx="316" cy="69" r="10" fill="var(--grn-t)"/>
+          <path d="M311.5 69l3 3 6-6" fill="none" stroke="var(--grn-d)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="0" y="98" width="340" height="38" rx="10" fill="var(--surf)"/>
+          <rect x="14" y="109" width="16" height="16" rx="5" fill="var(--yel-l)"/>
+          <rect x="42" y="112" width="96" height="10" rx="5" fill="var(--ink4)"/>
+          <circle cx="316" cy="117" r="10" fill="var(--grn-t)"/>
+          <path d="M311.5 117l3 3 6-6" fill="none" stroke="var(--grn-d)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="0" y="146" width="340" height="38" rx="10" fill="var(--surf)"/>
+          <rect x="14" y="157" width="16" height="16" rx="5" fill="var(--grn-l)"/>
+          <rect x="42" y="160" width="142" height="10" rx="5" fill="var(--ink4)"/>
+          <circle cx="316" cy="165" r="10" fill="var(--grn-t)"/>
+          <path d="M311.5 165l3 3 6-6" fill="none" stroke="var(--grn-d)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="0" y="194" width="340" height="38" rx="10" fill="var(--surf)"/>
+          <rect x="14" y="205" width="16" height="16" rx="5" fill="var(--plum-l)"/>
+          <rect x="42" y="208" width="110" height="10" rx="5" fill="var(--ink4)"/>
+          <circle cx="316" cy="213" r="10" fill="var(--grn-t)"/>
+          <path d="M311.5 213l3 3 6-6" fill="none" stroke="var(--grn-d)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <!-- Se enuncia el principio —queda registro—, no una función concreta: que la
+             familia reciba un reporte depende de cómo lo configure cada colegio, y este
+             deck se proyecta igual en todos. -->
+        <p class="xs" style="text-align:center">El uso del equipo no es una caja negra: queda registro claro de la actividad.</p>
       </div>
     </div>
   </div>
@@ -832,13 +845,13 @@ tbody tr:last-child td{border-bottom:0}
         <p style="font-size:16px;color:var(--ink)">Cumplimiento de la <b>normativa de protección de datos personales</b>.</p>
       </div>
       <div class="card pad-s lift" style="flex-direction:row;align-items:center;gap:16px">
-        <div class="med y" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg></div>
-        <p style="font-size:16px;color:var(--ink)"><span class="mk">[COMPLETAR]</span> qué ocurre con la cuenta cuando el alumno egresa.</p>
+        <div class="med g" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9z"/></svg></div>
+        <p style="font-size:16px;color:var(--ink)">La cuenta es <b>escolar</b>: deja de estar activa cuando el alumno egresa.</p>
       </div>
     </div>
   </div>
   <div class="foot">
-    <p class="sm"><span class="mk">[COMPLETAR — quién dentro del colegio tiene acceso al monitoreo y bajo qué protocolo]</span></p>
+    <p class="sm">El monitoreo lo realiza <b>únicamente personal autorizado del colegio</b>, bajo un protocolo establecido.</p>
   </div>
 </section>
 
@@ -881,9 +894,8 @@ tbody tr:last-child td{border-bottom:0}
   </div>
   <div class="split wide-r">
     <div style="display:flex;min-height:0">
-      <div class="ph" style="flex:1">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
-        <div class="tag">Fotografía — el equipo que usará su hijo<br>limpio, sin adornos gráficos detrás · 4:3</div>
+      <div style="flex:1;display:grid;place-items:center;background:var(--blue-t);border-radius:24px;fill:var(--blue)">
+        <svg viewBox="0 0 24 24" role="img" aria-label="Computadora portátil" style="width:58%;max-width:300px;height:auto"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
       </div>
     </div>
     <div class="grid g2">
@@ -951,26 +963,18 @@ tbody tr:last-child td{border-bottom:0}
 <section class="slide" data-bloque="solucion">
   <div class="head">
     <div class="eyebrow b">Así se ve en la práctica</div>
-    <h2>Un caso real</h2>
+    <h2>Proyectos como los que harán sus hijos</h2>
+    <p class="lead" style="max-width:900px">Dos ejemplos ilustrativos del tipo de trabajo que los alumnos hacen en este programa.</p>
   </div>
-  <div class="split wide-r">
-    <div class="stack" style="gap:14px">
-      <div class="card pad-s lift rule b" style="justify-content:flex-start;gap:10px">
-        <span class="mk" style="align-self:flex-start">[SUSTITUIR — reemplazar por un caso propio del colegio]</span>
-        <p style="font-size:15.5px;color:var(--ink)">Alumnos de 5º de primaria midieron el consumo de agua del colegio, diseñaron una campaña de ahorro y la presentaron a la dirección. En ese proyecto usaron matemáticas, redacción, diseño y trabajo en equipo.</p>
+  <div class="body">
+    <div class="grid g2">
+      <div class="card lift rule b" style="gap:14px;padding:30px 34px">
+        <span class="pill b">Ejemplo · primaria</span>
+        <p style="font-size:16.5px;line-height:1.5;color:var(--ink)">Alumnos de 5º de primaria midieron el consumo de agua del colegio, diseñaron una campaña de ahorro y la presentaron a la dirección. En ese proyecto usaron matemáticas, redacción, diseño y trabajo en equipo.</p>
       </div>
-      <div class="card pad-s soft" style="justify-content:flex-start;gap:10px">
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <span class="pill ghost">ejemplo alternativo sustituible</span>
-          <span class="mk">[SUSTITUIR — reemplazar por un caso propio del colegio]</span>
-        </div>
-        <p class="sm">Alumnos de secundaria mapearon los cruces peligrosos del camino a la escuela, levantaron datos de tráfico a la hora de entrada y llevaron una propuesta de señalización a la autoridad municipal. En ese proyecto usaron geografía, estadística, redacción y diseño.</p>
-      </div>
-    </div>
-    <div style="display:flex;min-height:0">
-      <div class="ph" style="flex:1">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-        <div class="tag">Fotografía — los alumnos durante el proyecto<br>espacio dominante de la lámina · 4:3</div>
+      <div class="card lift rule g" style="gap:14px;padding:30px 34px">
+        <span class="pill g">Ejemplo · secundaria</span>
+        <p style="font-size:16.5px;line-height:1.5;color:var(--ink)">Alumnos de secundaria mapearon los cruces peligrosos del camino a la escuela, levantaron datos de tráfico a la hora de entrada y llevaron una propuesta de señalización a la autoridad municipal. En ese proyecto usaron geografía, estadística, redacción y diseño.</p>
       </div>
     </div>
   </div>
@@ -988,18 +992,53 @@ tbody tr:last-child td{border-bottom:0}
         <div class="med b" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM11 13H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
         <h3>Estudian jugando.</h3>
         <p class="sm">Sus hijos repasan con cuestionarios interactivos, y el maestro sabe exactamente qué no entendieron antes de aplicar el examen.</p>
-        <div class="ph" style="flex:1;min-height:150px">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-          <div class="tag">Fotografía — trabajo real hecho por alumnos,<br>no capturas de software · 16:9</div>
+        <!-- Escena, no icono: un cuestionario resuelto. Solo formas y tokens del
+             sistema; no imita ningún producto y no hay nada que actualizar. -->
+        <div style="flex:1;min-height:150px;display:grid;place-items:center;background:var(--blue-t);border-radius:16px;padding:22px">
+          <svg viewBox="0 0 300 190" role="img" style="width:100%;height:auto;max-height:100%"
+            aria-label="Un cuestionario resuelto: la pregunta, tres respuestas y la correcta marcada">
+            <rect x="0" y="0" width="300" height="190" rx="14" fill="var(--white)"/>
+            <rect x="20" y="20" width="150" height="12" rx="6" fill="var(--ink4)"/>
+            <rect x="20" y="40" width="96" height="12" rx="6" fill="var(--ink4)" opacity=".55"/>
+            <rect x="20" y="72" width="260" height="30" rx="9" fill="var(--surf)"/>
+            <circle cx="40" cy="87" r="8" fill="var(--white)" stroke="var(--ink4)" stroke-width="2"/>
+            <rect x="58" y="82" width="120" height="10" rx="5" fill="var(--ink4)" opacity=".7"/>
+            <rect x="20" y="110" width="260" height="30" rx="9" fill="var(--grn-t)"/>
+            <circle cx="40" cy="125" r="8" fill="var(--grn-l)"/>
+            <path d="M36.4 125.2l2.6 2.6 5-5" fill="none" stroke="var(--white)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="58" y="120" width="150" height="10" rx="5" fill="var(--grn-d)" opacity=".55"/>
+            <rect x="20" y="148" width="260" height="30" rx="9" fill="var(--surf)"/>
+            <circle cx="40" cy="163" r="8" fill="var(--white)" stroke="var(--ink4)" stroke-width="2"/>
+            <rect x="58" y="158" width="98" height="10" rx="5" fill="var(--ink4)" opacity=".7"/>
+          </svg>
         </div>
       </div>
       <div class="card lift" style="justify-content:flex-start;gap:12px">
         <div class="med p" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37l-1.34-1.34c-.39-.39-1.02-.39-1.41 0L9 12.25 11.75 15l8.96-8.96c.39-.39.39-1.02 0-1.41z"/></svg></div>
         <h3>No consumen contenido. Lo crean.</h3>
-        <p class="sm">Diseñan, presentan y publican su propio trabajo con herramientas profesionales.</p>
-        <div class="ph" style="flex:1;min-height:150px">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-          <div class="tag">Fotografía — trabajo real hecho por alumnos,<br>no capturas de software · 16:9</div>
+        <!-- Escena, no icono: un trabajo hecho por el alumno, en su lienzo. -->
+        <div style="flex:1;min-height:150px;display:grid;place-items:center;background:var(--plum-t);border-radius:16px;padding:22px">
+          <svg viewBox="0 0 300 190" role="img" style="width:100%;height:auto;max-height:100%"
+            aria-label="Un trabajo creado por un alumno: su lienzo, con una imagen, texto y una paleta de color">
+            <rect x="0" y="0" width="300" height="190" rx="14" fill="var(--white)"/>
+            <rect x="0" y="0" width="300" height="26" rx="14" fill="var(--surf2)"/>
+            <rect x="0" y="18" width="300" height="8" fill="var(--surf2)"/>
+            <circle cx="20" cy="13" r="4.5" fill="var(--plum-l)"/>
+            <circle cx="35" cy="13" r="4.5" fill="var(--yel-l)"/>
+            <circle cx="50" cy="13" r="4.5" fill="var(--grn-l)"/>
+            <rect x="20" y="42" width="168" height="16" rx="8" fill="var(--plum)" opacity=".75"/>
+            <rect x="20" y="70" width="130" height="86" rx="10" fill="var(--plum-t)"/>
+            <circle cx="52" cy="98" r="12" fill="var(--yel-l)"/>
+            <path d="M28 156l32-38 26 30 18-20 26 28z" fill="var(--plum-l)" opacity=".85"/>
+            <rect x="166" y="70" width="114" height="10" rx="5" fill="var(--ink4)" opacity=".6"/>
+            <rect x="166" y="88" width="98" height="10" rx="5" fill="var(--ink4)" opacity=".45"/>
+            <rect x="166" y="106" width="110" height="10" rx="5" fill="var(--ink4)" opacity=".45"/>
+            <circle cx="174" cy="142" r="9" fill="var(--blue-l)"/>
+            <circle cx="196" cy="142" r="9" fill="var(--red-l)"/>
+            <circle cx="218" cy="142" r="9" fill="var(--yel-l)"/>
+            <circle cx="240" cy="142" r="9" fill="var(--grn-l)"/>
+          </svg>
+        </div>
         </div>
       </div>
     </div>
@@ -1044,9 +1083,9 @@ tbody tr:last-child td{border-bottom:0}
       <div class="grupo">
         <div class="gh"><div class="gt b">Ruta de certificación</div><div class="gline"></div></div>
         <div class="grid g3" style="gap:10px">
-          <div class="logotile dash"><div class="lt">Logo — Cambridge</div></div>
-          <div class="logotile dash"><div class="lt">Logo — IELTS</div></div>
-          <div class="logotile dash"><div class="lt">Logo — TOEFL</div></div>
+          <div class="logotile"><div class="wm">Cambridge</div></div>
+          <div class="logotile"><div class="wm">IELTS</div></div>
+          <div class="logotile"><div class="wm">TOEFL</div></div>
         </div>
       </div>
     </div>
@@ -1089,8 +1128,7 @@ tbody tr:last-child td{border-bottom:0}
     <div class="card t-p" style="flex-direction:row;align-items:center;gap:18px;padding:18px 26px;flex-shrink:0">
       <div class="med p" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></div>
       <div>
-        <p style="font-size:16.5px;color:var(--ink)"><b>Egresan con una certificación que pueden incluir en su solicitud universitaria y en su primer currículum.</b></p>
-        <p class="sm" style="margin-top:5px">Emite: <span class="mk">[POR CONFIRMAR — institución que emite la certificación]</span></p>
+        <p style="font-size:16.5px;color:var(--ink)"><b>Egresan con una certificación oficial que pueden incluir en su solicitud universitaria y en su primer currículum.</b></p>
       </div>
     </div>
   </div>
@@ -1121,14 +1159,14 @@ tbody tr:last-child td{border-bottom:0}
       </div>
     </div>
     <div class="grid g2" style="gap:10px;align-content:center">
-      <div class="logotile dash"><div class="lt">Logo — Tec de Monterrey</div></div>
-      <div class="logotile dash"><div class="lt">Logo — UNAM</div></div>
-      <div class="logotile dash"><div class="lt">Logo — Universidad Iberoamericana</div></div>
-      <div class="logotile dash"><div class="lt">Logo — Universidad Anáhuac</div></div>
-      <div class="logotile dash"><div class="lt">Logo — Stanford University</div></div>
-      <div class="logotile dash"><div class="lt">Logo — Brown University</div></div>
-      <div class="logotile dash"><div class="lt">Logo — University of Toronto</div></div>
-      <div class="logotile dash"><div class="lt">Logo — Universidad de los Andes</div></div>
+      <div class="logotile"><div class="wm">Tec de Monterrey</div></div>
+      <div class="logotile"><div class="wm">UNAM</div></div>
+      <div class="logotile"><div class="wm">Universidad Iberoamericana</div></div>
+      <div class="logotile"><div class="wm">Universidad Anáhuac</div></div>
+      <div class="logotile"><div class="wm">Stanford University</div></div>
+      <div class="logotile"><div class="wm">Brown University</div></div>
+      <div class="logotile"><div class="wm">University of Toronto</div></div>
+      <div class="logotile"><div class="wm">Universidad de los Andes</div></div>
     </div>
   </div>
 </section>
@@ -1150,7 +1188,6 @@ tbody tr:last-child td{border-bottom:0}
         <div class="arr" aria-hidden="true">→</div>
         <div class="rp"><div class="rn">4</div><h5>Acompañamiento y seguimiento</h5><div class="rd">Medición continua y ajustes durante todo el ciclo.</div></div>
       </div>
-      <div class="note" style="margin-top:10px"><span class="mk">[FECHAS — calendario de implementación del colegio]</span></div>
     </div>
     <div class="split" style="flex:0 1 auto;gap:16px">
       <div class="card pad-s t-b" style="justify-content:flex-start;gap:12px">
@@ -1168,12 +1205,10 @@ tbody tr:last-child td{border-bottom:0}
           <p class="sm" style="max-width:none">Usar el canal de dudas del colegio.</p>
         </div>
       </div>
-      <div class="stack" style="gap:12px">
-        <div class="note b" style="font-size:13.5px"><span class="mk">[COMPLETAR — canal de dudas y contacto del colegio]</span></div>
-        <div class="card pad-s soft" style="align-items:center;text-align:center;gap:8px;flex:1">
-          <div class="med y sm round" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
-          <span class="mk">[PENDIENTE — testimonios de familias, se agregan después]</span>
-        </div>
+      <div class="card pad-s t-b" style="justify-content:center;gap:12px">
+        <div class="med b" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div>
+        <h3>¿Y si me surge una duda mañana?</h3>
+        <p class="sm">El colegio les compartirá el canal por el que podrán preguntar en cualquier momento del ciclo. Ninguna duda tiene que esperar a la siguiente junta.</p>
       </div>
     </div>
   </div>
@@ -1201,14 +1236,9 @@ tbody tr:last-child td{border-bottom:0}
     </svg>
   </div>
   <div class="inner" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:0">
-    <div class="ph mini" style="width:220px;margin-bottom:30px">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-      <div class="tag">Logo — escudo del colegio</div>
-    </div>
     <h1 style="max-width:940px;font-size:56px;letter-spacing:-1.9px">Preparando a nuestros alumnos para un mundo que aún no existe</h1>
-    <p class="lead" style="margin-top:24px;max-width:720px">Este camino se recorre juntos: colegio, maestros y familias. El espacio es ahora para sus preguntas.</p>
-    <p style="margin-top:26px;font-size:15px"><span class="mk">[CONTACTO — nombre, correo y teléfono del colegio]</span></p>
-    <div class="xs" style="margin-top:36px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700">
+    <p class="lead" style="margin-top:26px;max-width:720px">Este camino se recorre juntos: colegio, maestros y familias. El espacio es ahora para sus preguntas.</p>
+    <div class="xs" style="margin-top:52px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700">
       En alianza con <em class="marca">activa</em> · <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> for Education Partner</div>
   </div>
 </section>
@@ -1362,18 +1392,15 @@ var slides=Array.prototype.slice.call(document.querySelectorAll(".slide"));
 /* ── Cascada interna: UNA por lámina, y solo donde el dato se construye ──
    El encabezado, el cuerpo y el pie siguen entrando con mv-sube (CSS puro:
    funciona hasta sin JS); lo que se agrega es la cascada interna de la
-   rejilla principal. Quedan fuera, a propósito:
-   · el bloque D («tranquilidad», láminas 9–13): es donde el padre baja la
-     guardia; ahí se queda solo la entrada serena que ya existía;
-   · toda rejilla con marcadores pendientes (.mk, .ph, logotile punteado):
-     deben saltar a la vista como pendientes, no integrarse a la coreografía. */
+   rejilla principal. Queda fuera, a propósito, el bloque D («tranquilidad»,
+   láminas 9–13): es donde el padre baja la guardia; ahí se queda solo la
+   entrada serena que ya existía. */
 var SEL='.grid,.tiles,.stairs,.ruta';
 var porSlide=slides.map(function(s){
   if(s.getAttribute('data-bloque')==='tranquilidad') return [];
   var cands=Motion.qsa(SEL,s).filter(function(c){
     var n=c.children.length;
     if(n<2||n>9) return false;
-    if(c.querySelector('.mk,.ph,.logotile.dash')) return false;
     /* rejilla dentro de otra rejilla: manda la exterior */
     var padre=c.parentElement&&c.parentElement.closest(SEL);
     return !(padre&&s.contains(padre));
