@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es-MX"><head><meta charset="utf-8">
+<!-- Molde de la vista previa de WhatsApp (og.png, 1200×630) de la
+     presentación a padres de familia. No se abre en público: se exporta
+     con Edge headless (ver README). Sin escudo del colegio a propósito:
+     la presentación es una plantilla que se reutiliza en varios colegios.
+     Los tokens son los de index.html. -->
+<style>
+:root{
+  --blue:#1a73e8; --blue-d:#174ea6; --blue-t:#e8f0fe; --blue-l:#4285f4;
+  --red:#ea4335;  --red-t:#fce8e6;
+  --yel:#f9ab00;  --yel-t:#fef7e0;
+  --grn:#1e8e3e;  --grn-t:#e6f4ea;  --grn-l:#34a853;
+  --plum:#7b1fa2;
+  --ink:#202124;  --ink2:#5f6368;   --line:#e3e5e8;
+  --font:"Google Sans","Product Sans","Google Sans Text",Roboto,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1200px;height:630px;overflow:hidden;background:#fff;font-family:var(--font);color:var(--ink)}
+.card{position:relative;width:1200px;height:630px;overflow:hidden;display:flex;flex-direction:column;
+  padding:58px 74px 0}
+/* filete superior con los cuatro colores, el de la casa */
+.card::before{content:"";position:absolute;left:0;top:0;right:0;height:9px;z-index:5;
+  background:linear-gradient(90deg,#4285f4 0 25%,#ea4335 25% 50%,#fbbc04 50% 75%,#34a853 75% 100%)}
+.sh{position:absolute;border-radius:50%;z-index:0}
+.top{display:flex;align-items:flex-start;justify-content:space-between;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:17px;font-weight:700;
+  letter-spacing:2.4px;text-transform:uppercase;color:var(--blue-d)}
+.eyebrow::before{content:"";width:30px;height:4px;border-radius:2px;background:currentColor}
+.cuadros{display:block;width:52px;height:52px;flex-shrink:0}
+h1{margin-top:44px;font-size:72px;line-height:1.06;font-weight:500;letter-spacing:-2.8px;
+  max-width:1010px;z-index:2}
+.sub{margin-top:26px;font-size:27px;line-height:1.35;color:var(--ink2);max-width:860px;z-index:2}
+.alianza{margin-top:auto;margin-bottom:54px;font-size:16px;font-weight:700;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--ink2);z-index:2}
+.alianza .marca{font-style:italic;font-weight:800;color:var(--ink);text-transform:none;
+  font-size:19px;letter-spacing:0}
+.gg i{font-style:normal}
+.gg i:nth-child(1),.gg i:nth-child(4){color:#4285f4}
+.gg i:nth-child(2),.gg i:nth-child(6){color:#ea4335}
+.gg i:nth-child(3){color:#fbbc04}
+.gg i:nth-child(5){color:#34a853}
+/* la firma del deck: su indicador de progreso segmentado, una lámina por
+   segmento, coloreado por bloque narrativo (los mismos siete colores) */
+.progreso{position:absolute;left:0;right:0;bottom:0;height:10px;display:flex;gap:4px;padding:0 8px;z-index:5}
+.progreso i{flex:1;border-radius:3px 3px 0 0;background:var(--c);opacity:.85}
+</style></head><body>
+<div class="card">
+  <span class="sh" style="width:500px;height:500px;left:-210px;top:-240px;background:var(--blue-t);opacity:.7"></span>
+  <span class="sh" style="width:380px;height:380px;right:-140px;top:-160px;background:var(--grn-t);opacity:.65"></span>
+  <span class="sh" style="width:300px;height:300px;right:-110px;bottom:30px;background:var(--yel-t);opacity:.5"></span>
+
+  <div class="top">
+    <span class="eyebrow">Presentación para padres de familia</span>
+    <svg class="cuadros" viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="3" y="3" width="11" height="11" rx="3" fill="#4285f4"/>
+      <rect x="18" y="3" width="11" height="11" rx="3" fill="#ea4335"/>
+      <rect x="3" y="18" width="11" height="11" rx="3" fill="#fbbc04"/>
+      <rect x="18" y="18" width="11" height="11" rx="3" fill="#34a853"/>
+    </svg>
+  </div>
+
+  <h1>Preparando a nuestros alumnos para un mundo que aún no existe</h1>
+  <p class="sub">Programa de Transformación Digital · Ciclo 2026–2027</p>
+
+  <div class="alianza">En alianza con <span class="marca">activa</span> ·
+    <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> for Education Partner</div>
+
+  <div class="progreso" id="progreso"></div>
+</div>
+<script>
+/* 22 segmentos, uno por lámina, con el color de su bloque narrativo:
+   el mismo mapa COLOR de index.html. */
+var BLOQUES=[["#1a73e8",2],["#ea4335",4],["#f9ab00",2],["#1e8e3e",5],
+             ["#4285f4",5],["#7b1fa2",2],["#202124",2]];
+document.getElementById("progreso").innerHTML=BLOQUES.map(function(b){
+  var s="";for(var i=0;i<b[1];i++)s+='<i style="--c:'+b[0]+'"></i>';return s;
+}).join("");
+</script>
+</body></html>

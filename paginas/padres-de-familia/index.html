@@ -6,6 +6,11 @@
 <title>Padres de familia · Programa de Transformación Digital · Ciclo 2026–2027</title>
 <meta name="description" content="Presentación para juntas con familias: por qué el colegio adopta el programa, qué cambia en el aula, qué NO cambia, y cómo queda protegido su hijo. 22 diapositivas.">
 <meta name="theme-color" content="#ffffff">
+<!-- Fuera de los buscadores: el deck se entrega por enlace a las familias de un
+     colegio concreto, y una vez completados sus marcadores lleva sus fotos y sus
+     datos. No se busca, se manda. Las etiquetas og: siguen funcionando: WhatsApp
+     lee la página para la vista previa, no la indexa. -->
+<meta name="robots" content="noindex, nofollow">
 
 <!-- Icono de pestaña: los cuatro cuadros de Google, el mismo del kit y del deck
      comercial, para que las páginas se reconozcan como de la misma casa. -->
@@ -13,14 +18,25 @@
 
 <!-- Vista previa al compartir el enlace. Las URL van absolutas: WhatsApp no lee
      rutas relativas ni data: URI. Si la página se mueve, se actualizan a mano.
-     Falta `og.png` — mientras no exista, WhatsApp muestra solo título y bajada. -->
+     `og.png` se regenera desde `og-source.html` (ver README). -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
-<meta property="og:site_name" content="activa · Transformación Digital">
+<meta property="og:site_name" content="activa">
 <meta property="og:url" content="https://sanoapro.github.io/activa/paginas/padres-de-familia/">
 <meta property="og:title" content="Preparando a nuestros alumnos para un mundo que aún no existe">
 <meta property="og:description" content="Programa de Transformación Digital · Ciclo 2026–2027. Presentación para las familias del colegio.">
+<meta property="og:image" content="https://sanoapro.github.io/activa/paginas/padres-de-familia/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Preparando a nuestros alumnos para un mundo que aún no existe · Programa de Transformación Digital · Ciclo 2026–2027">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sanoapro.github.io/activa/paginas/padres-de-familia/og.png">
+
+<!-- Motor de movimiento compartido (docs/normativa-motion.md). Solo esconde
+     cosas bajo html.mo-ready: si el JS no llega a cargar, el deck se ve
+     completo y quieto. -->
+<link rel="stylesheet" href="../../compartidos/css/motion.css">
 <style>
 /* ═══════════════════════════════════════════════════════════
    SISTEMA DE DISEÑO · tomado de paginas/upgrade-edu/index.html
@@ -327,6 +343,36 @@ tbody tr:last-child td{border-bottom:0}
 #stage .slide.on .card.rule.y:hover{--realce:var(--yel-l)}
 #stage .slide.on .card.rule.g:hover{--realce:var(--grn-l)}
 #stage .slide.on .card.rule.p:hover{--realce:var(--plum-l)}
+
+/* ═══════════ MOTOR COMPARTIDO (motion.js / motion.css) ═══════════
+   Ajustes locales sobre el motor de compartidos/. Este deck acompaña, no
+   vende: duraciones largas, amplitudes cortas y UNA cascada por lámina.
+   Todo lo que el motor esconde vive bajo html.mo-ready (regla 4 de
+   docs/normativa-motion.md): sin motion.js la página se ve completa y
+   quieta, porque las clases mo-stagger las pone el propio script. */
+#stage .slide{--mo-dur:.55s;--mo-subida:12px}
+/* La cascada entra por ANIMACIÓN y no por la transición de motion.css:
+   la regla del realce de arriba (#stage .slide.on .card/.tile) pisa esa
+   transición con la suya, y una transición no arranca en el mismo
+   recálculo en que la lámina pasa de display:none a visible. Lee el
+   --mo-delay que escribe Motion.stagger(). */
+@keyframes mv-cascada{
+  from{opacity:0;transform:translateY(var(--mo-subida))}
+  to{opacity:1;transform:none}
+}
+#stage .slide.on .mo-stagger > *.mo-in{
+  animation:mv-cascada var(--mo-dur) var(--mo-ease) var(--mo-delay) both}
+/* lienzo de partículas de la portada: decoración dentro de .mv-fondo,
+   que ya es sordo al ratón y desaparece en móvil y en impresión */
+.mo-particulas{position:absolute;inset:0;width:100%;height:100%}
+@media (prefers-reduced-motion:reduce){
+  #stage .slide.on .mo-stagger > *.mo-in{animation:none}
+}
+/* cinturón además del de motion.css: nada revelable en opacity:0 al
+   imprimir, aunque aquel archivo faltara */
+@media print{
+  #stage .mo-stagger > *{opacity:1!important;transform:none!important;animation:none!important}
+}
 
 /* reducir movimiento: TODO quieto */
 @media (prefers-reduced-motion:reduce){
@@ -1173,10 +1219,16 @@ tbody tr:last-child td{border-bottom:0}
 <div class="chrome" id="hint">← → navegar · F pantalla completa · P imprimir</div>
 <div class="chrome" id="nav">
   <span id="bloque"></span>
-  <button id="bPrev" aria-label="Diapositiva anterior" title="Anterior (←)">‹</button>
-  <button id="bNext" aria-label="Diapositiva siguiente" title="Siguiente (→)">›</button>
+  <button id="bPrev" class="mo-hover-eleva mo-hover-hunde" aria-label="Diapositiva anterior" title="Anterior (←)">‹</button>
+  <button id="bNext" class="mo-hover-eleva mo-hover-hunde" aria-label="Diapositiva siguiente" title="Siguiente (→)">›</button>
   <span id="counter" aria-live="polite">1 / 22</span>
 </div>
+
+<!-- Motor de movimiento compartido: scripts CLÁSICOS a propósito (los módulos
+     no cargan desde file:// y este deck se abre con doble clic). Si alguno
+     falla, el deck navega igual: todo lo de abajo está guardado. -->
+<script src="../../compartidos/js/motion.js"></script>
+<script src="../../compartidos/js/motion-particles.js"></script>
 
 <script>
 /* Navegación del deck. TODO el estado vive en variables de memoria:
@@ -1241,6 +1293,9 @@ function show(n){
   var h="#"+(idx+1);
   if(location.hash!==h){try{location.hash=h}catch(e){}}
   if(!esEscritorio())scrollTo(0,0);
+  /* Coreografía del motor compartido: la define el script de más abajo.
+     Si motion.js no cargó, la función no existe y el deck navega igual. */
+  if(window.__moCoreo)__moCoreo(idx);
 }
 function next(){show(idx+1)} function prev(){show(idx-1)}
 
@@ -1288,6 +1343,95 @@ addEventListener("resize",fit);
 fit();
 var start=parseInt((location.hash||"").slice(1),10);
 show(isFinite(start)&&start>=1&&start<=slides.length?start-1:0);
+})();
+</script>
+
+<!-- ═══════════ MOTOR COMPARTIDO · coreografía del deck ═══════════
+     Todo lo de este bloque depende de que motion.js haya cargado; si no
+     cargó, el IIFE sale en la primera línea y el deck queda como estaba:
+     completo, quieto y navegable (regla 4 de docs/normativa-motion.md).
+     Esta es una junta para tranquilizar familias, no una venta: aquí hay
+     menos movimiento que en el deck comercial, a propósito. -->
+<script>
+(function(){
+"use strict";
+if(!window.Motion) return;
+
+var slides=Array.prototype.slice.call(document.querySelectorAll(".slide"));
+
+/* ── Cascada interna: UNA por lámina, y solo donde el dato se construye ──
+   El encabezado, el cuerpo y el pie siguen entrando con mv-sube (CSS puro:
+   funciona hasta sin JS); lo que se agrega es la cascada interna de la
+   rejilla principal. Quedan fuera, a propósito:
+   · el bloque D («tranquilidad», láminas 9–13): es donde el padre baja la
+     guardia; ahí se queda solo la entrada serena que ya existía;
+   · toda rejilla con marcadores pendientes (.mk, .ph, logotile punteado):
+     deben saltar a la vista como pendientes, no integrarse a la coreografía. */
+var SEL='.grid,.tiles,.stairs,.ruta';
+var porSlide=slides.map(function(s){
+  if(s.getAttribute('data-bloque')==='tranquilidad') return [];
+  var cands=Motion.qsa(SEL,s).filter(function(c){
+    var n=c.children.length;
+    if(n<2||n>9) return false;
+    if(c.querySelector('.mk,.ph,.logotile.dash')) return false;
+    /* rejilla dentro de otra rejilla: manda la exterior */
+    var padre=c.parentElement&&c.parentElement.closest(SEL);
+    return !(padre&&s.contains(padre));
+  });
+  /* lámina 6: las diez siluetas se construyen una por una y el
+     «6 de cada 10» aparece ante los ojos. Amplitud en unidades del
+     viewBox (480 de ancho), por eso la subida propia, más corta. */
+  var sil=s.querySelector('.sil');
+  if(sil){ sil.style.setProperty('--mo-subida','7px'); cands=[sil]; }
+  cands=cands.slice(0,1);            /* una sola animación focal por lámina */
+  cands.forEach(function(c){
+    c.classList.add('mo-stagger');
+    Motion.stagger(c, Math.min(60, Math.round(320/c.children.length)), 90);
+  });
+  return cands;
+});
+
+var ultima=-1;
+window.__moCoreo=function(n){
+  if(n===ultima) return;             /* misma lámina: no se repite */
+  ultima=n;
+  if(!porSlide[n]||!porSlide[n].length) return;
+  /* La lámina acaba de pasar de display:none a flex. Una animación no
+     arranca en el mismo recálculo en que el elemento empieza a pintarse:
+     primero se pinta UN frame con la rejilla en su estado oculto (sin
+     mo-in) y al siguiente se lanza la cascada con replay. */
+  porSlide[n].forEach(function(c){
+    for(var i=0;i<c.children.length;i++) c.children[i].classList.remove('mo-in');
+  });
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    if(ultima!==n) return;           /* ya está en otra lámina */
+    porSlide[n].forEach(function(c){ Motion.replay(c); });
+  }); });
+};
+
+/* ── Fondo ambiental, SOLO portada y cierre (capa 5 de la normativa) ────
+   El cierre queda proyectado durante las preguntas: sus tres círculos
+   siguen al cursor con amplitudes cortas. La portada recibe el campo de
+   partículas del vocabulario del deck comercial, en azul y verde, bajo
+   las nubes. El motor apaga solo todo esto en táctil y con «reducir
+   movimiento»; en móvil .mv-fondo y .shape ni siquiera se pintan. */
+var portada=slides[0], cierre=slides[slides.length-1];
+Motion.qsa('.shape',cierre).forEach(function(sh,i){ Motion.follow(sh,[7,5,6][i%3]); });
+if(Motion.particles){
+  var fondo=portada.querySelector('.mv-fondo');
+  if(fondo){
+    var cv=document.createElement('canvas');
+    cv.className='mo-particulas';
+    fondo.insertBefore(cv,fondo.firstChild);
+    Motion.particles.mount(cv,{n:60,cerca:[66,133,244],lejos:[52,168,83]});
+  }
+}
+
+Motion.start();   /* ← siempre lo último que se ejecuta síncronamente */
+/* La coreografía de la lámina inicial va un frame después: html.mo-ready
+   ya pintado, la cascada dispara de verdad. */
+var actual=slides.indexOf(document.querySelector('.slide.on'));
+requestAnimationFrame(function(){ __moCoreo(actual<0?0:actual); });
 })();
 </script>
 </body>
