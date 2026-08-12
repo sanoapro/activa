@@ -42,8 +42,8 @@ En `index.html`, al final, están las dos listas `VENTA` e `INTERNA`. Cada entra
 Si el acceso nuevo necesita otro pictograma, se agrega su `path` al objeto `ICO`
 con la misma llave del `id`, en retícula 24×24 de Material.
 
-La retícula está fijada a 5 tarjetas arriba y 3 abajo (`.g5` / `.g3`). Si crecen
-las listas hay que ajustar esas dos reglas — la lámina no crece.
+La retícula está fijada a 4 tarjetas arriba y 4 abajo (`.g4`). Si una fila crece a
+cinco, se le cambia la clase a `.g5`, que ya existe — la lámina no crece de alto.
 
 ## Cómo agregar un descargable
 

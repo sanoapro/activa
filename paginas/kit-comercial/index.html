@@ -108,12 +108,14 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
 .kc-body{position:relative;z-index:2;flex:1;min-height:0;
   display:flex;flex-direction:column;gap:16px}
 .kc-sec{display:flex;flex-direction:column;gap:9px;min-height:0}
-.kc-sec.venta{flex:1.32}
+.kc-sec.venta{flex:1.26}
 .kc-sec.interna{flex:1}
 .kc-sechead{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .kc-sechead .rule{flex:1;height:1px;background:var(--line2)}
 .kc-sechead .cnt{font-size:10.5px;font-weight:700;letter-spacing:1.2px;color:var(--ink3)}
 .kc-grid{flex:1;min-height:0;display:grid;gap:14px}
+/* g5 queda disponible por si una fila crece a cinco: la lámina no crece, así que
+   pasar de cuatro a cinco es cambiar la clase de la rejilla, no el alto. */
 .kc-grid.g5{grid-template-columns:repeat(5,1fr)}
 .kc-grid.g4{grid-template-columns:repeat(4,1fr)}
 .kc-grid.g3{grid-template-columns:repeat(3,1fr)}
@@ -289,9 +291,9 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
       <div class="kc-sechead">
         <span class="eyebrow b">Herramientas de venta</span>
         <span class="rule"></span>
-        <span class="cnt">05</span>
+        <span class="cnt">04</span>
       </div>
-      <div class="kc-grid g5" id="gVenta"></div>
+      <div class="kc-grid g4" id="gVenta"></div>
     </section>
 
     <section class="kc-sec interna">
@@ -303,9 +305,9 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
           Descargables
           <span class="n">01</span>
         </a>
-        <span class="cnt">03</span>
+        <span class="cnt">04</span>
       </div>
-      <div class="kc-grid g3" id="gInterna"></div>
+      <div class="kc-grid g4" id="gInterna"></div>
     </section>
 
   </main>
@@ -363,10 +365,6 @@ const VENTA = [
     desc:'Arma la propuesta y el precio del ciclo 2026–2027 en minutos.',
     host:'sanoapro.github.io',
     url:'https://sanoapro.github.io/activa/paginas/cotizador/' },
-  { id:'base', nombre:'Base de datos', color:'--grn', color2:'#0b5c28', tinte:'--grn-t',
-    desc:'Colegios, contactos y seguimiento. La fuente de verdad del pipeline.',
-    host:'Google Sheets',
-    url:'https://docs.google.com/spreadsheets/d/1d7HeQR4lNQSn3rIvfGAHkzVxFclJe7N0HkCtNM0YOrQ/edit?gid=1780484479#gid=1780484479' },
   { id:'taller', nombre:'Taller Google', color:'--yel-d', color2:'#f9ab00', tinte:'--yel-t',
     desc:'El aula del taller: material, tareas y avance de los docentes.',
     host:'Google Classroom',
@@ -382,16 +380,20 @@ const VENTA = [
     host:'Próximamente', pronto:true }
 ];
 const INTERNA = [
+  { id:'base', nombre:'Base de datos', color:'--grn', color2:'#0b5c28', tinte:'--grn-t',
+    desc:'Colegios, contactos y pipeline.',
+    host:'Google Sheets',
+    url:'https://docs.google.com/spreadsheets/d/1d7HeQR4lNQSn3rIvfGAHkzVxFclJe7N0HkCtNM0YOrQ/edit?gid=1780484479#gid=1780484479' },
   { id:'reembolso', nombre:'Reembolso', color:'--plum', color2:'#4a148c', tinte:'--plum-t',
-    desc:'Captura tus gastos de viaje y comprobantes para reembolso.',
+    desc:'Tus gastos de viaje y comprobantes.',
     host:'AppSheet',
     url:'https://www.appsheet.com/newshortcut/501547d4-9b8d-49ee-a247-bf4ce5d48cc4' },
   { id:'crm', nombre:'CRM interno', color:'--teal', color2:'#004d40', tinte:'--teal-t',
-    desc:'Oportunidades, actividades y estado de cada cuenta.',
+    desc:'Oportunidades y estado de cada cuenta.',
     host:'Cloud Run',
     url:'https://ais-pre-cpf6chuykc4s4dp32ucgwb-224242766208.us-east1.run.app/' },
   { id:'ti', nombre:'Portal activa TI', color:'--indigo', color2:'#1a237e', tinte:'--indigo-t',
-    desc:'Soporte, tickets y servicios internos de sistemas.',
+    desc:'Soporte, tickets y servicios internos.',
     host:'ti.activa.la',
     url:'http://ti.activa.la:2684/' }
 ];
