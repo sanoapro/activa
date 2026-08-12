@@ -6,11 +6,17 @@ La **fuente de verdad** de todo lo que hay aquí sigue siendo
 
 | Documento | Para qué es | A quién le habla |
 |---|---|---|
-| [`para-familias.md`](para-familias.md) | Junta de padres: qué recibe su hijo, en corto | Familias |
+| [`catalogo-productos.md`](catalogo-productos.md) | Todos los productos con su descripción, agrupados en TI, IP y DP | Uso interno y anexo de propuesta |
 | [`video-impulsa.md`](video-impulsa.md) | Guion de video de ~1 min | Dirección y coordinación académica |
 | [`video-motiva.md`](video-motiva.md) | Guion de video de ~1 min | Dirección y familias |
 | [`video-beta.md`](video-beta.md) | Guion de video de ~1 min | Dirección y coordinación de inglés |
 | [`video-integra.md`](video-integra.md) | Guion de video de ~1 min | Dirección, administración y sistemas |
+
+## Sobre el catálogo
+
+Va **sin cantidades**: describe cada producto para que sirva con cualquier colegio. Cuántas
+Chromebooks y cuántas licencias lleva cada uno sale del cotizador. Las tres áreas —TI, IP y DP—
+son las mismas que firman la Carta de Entrega Comercial.
 
 ## Cómo están escritos los guiones
 
