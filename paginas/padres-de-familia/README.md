@@ -19,18 +19,41 @@ hay peticiones de red: ni fuentes por CDN, ni librerías de terceros, ni imágen
 | `og.png` | Vista previa de WhatsApp (1200×630). **Generado** desde `og-source.html`. |
 | `og-source.html` | Molde de esa vista previa. No se abre en público. |
 
-## Movimiento
+## Movimiento y fondo
 
-Usa el motor compartido de `compartidos/`, con menos movimiento que el deck comercial, a
-propósito: esta junta acompaña, no vende. Una sola cascada por lámina y solo donde el dato se
-construye ante los ojos (las diez siluetas de «La mayoría», la escalera hasta el C1, la ruta
-de implementación); el bloque D («tranquilidad») queda sin cascada, solo con la entrada serena
-que ya tenía. Fondo ambiental únicamente en portada (partículas) y cierre (las olas y sus
-círculos siguiendo al cursor).
+Usa el motor compartido de `compartidos/` y el vocabulario visual de
+[`../upgrade-edu/`](../upgrade-edu/README.md). **Ninguna de las 22 láminas queda en blanco**:
+todas llevan una capa `.mv-fondo` (z0, sorda al ratón) con círculos de tinte, iconos SVG
+temáticos muy tenues (birrete y libro en las de maestros, escudo y candado en protección,
+corazón en la socioemocional, globo terráqueo en la internacional…) y la decoración del
+momento narrativo.
+
+**Portado de `upgrade-edu` tal cual** (con el color parametrizado donde el fondo claro lo
+pidió): nubes (`mv-nube`), olas (`mv-olas`), pradera que crece y se mece (`mv-pasto` /
+`mv-crece` / `mv-mece`), confeti del cierre (`mv-cf`, keyframe renombrado a `mv-cf-est`),
+aros que respiran (`mv-onda`) y barrido de luz (`mv-brillo`, sobre el peldaño C1).
+**Nuevo de esta página**: globos con los colores de Google que suben con vaivén
+(`mv-globo`), flechas que entran y laten señalando el momento importante (`mv-flecha`),
+subrayado que se dibuja bajo la frase clave (`mv-sub`) y aro que respira alrededor de un
+medallón (`mv-late`).
+
+La energía sigue el embudo: festivo en la apertura (olas, nubes, globos, partículas),
+contenido y en rojos tenues en la disonancia, amarillo con aros en la bisagra, **sereno en el
+bloque D** (nubes lentas, verdes suaves, la pradera; sin estallidos ni cascadas: ahí el padre
+baja la guardia), con color y aros en la solución, tono de logro en el resultado, y el cierre
+—que queda proyectado durante las preguntas— con confeti, globos y olas. Las cifras (+2 M,
++90, 16, 5, +200 M) **no se animan nunca**; se anima lo que las rodea.
+
+Los bucles decorativos son lentos (4–12 s) y los acentos de entrada cortos (≤ .5 s), como
+manda la normativa. En **impresión** sobrevive todo lo estático congelado en su estado final
+(círculos, iconos, nubes, olas, globos, pasto crecido, flechas, subrayados) y se apaga lo que
+solo existe en movimiento (confeti, aros, barrido y el canvas de partículas). En **móvil**
+(`< 1024px`) la decoración pesada no se pinta (`.mv-fondo`, `.shape`, `.mv-flecha`,
+`.mv-brillo`).
 
 Todo lo que el motor esconde vive bajo `html.mo-ready`: si `motion.js` no carga, el deck se ve
-completo y quieto, y navega igual. Las reglas están en
-[`docs/normativa-motion.md`](../../docs/normativa-motion.md) y son obligatorias.
+completo y navega igual (las clases `mv-` son CSS puro y no dependen de él). Las reglas están
+en [`docs/normativa-motion.md`](../../docs/normativa-motion.md) y son obligatorias.
 
 ## Cómo se regenera la vista previa de WhatsApp
 
@@ -71,6 +94,9 @@ Se puede enlazar a una diapositiva concreta con el número en el hash: `…/padr
   columna. Un padre que abra el enlace en su teléfono lee texto de tamaño normal, no un 16:9
   encogido.
 - **Sin almacenamiento del navegador.** Todo el estado en variables en memoria.
+- **Un `</div>` de más, ya corregido.** La lámina 17 cerraba `#stage` antes de tiempo y las
+  láminas 18–22 quedaban fuera del escenario: se veían a sangre completa, sin escala y con la
+  decoración descolocada. Si el HTML se toca a mano, contar los cierres de esa zona.
 - **Impresión:** `Ctrl+P` saca una diapositiva por página en horizontal (22 páginas de
   1280×720).
 
