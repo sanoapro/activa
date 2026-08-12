@@ -28,8 +28,10 @@
   Segunda lámina del kit comercial: los formatos que el equipo descarga.
   A diferencia del kit —que es un lienzo fijo de 1280×720 porque cabe en una
   pantalla— esta página SÍ se desplaza: la lista de descargables va a crecer y
-  un lienzo fijo la rompería. Mismo sistema de color y misma tipografía, para
-  que se lea como parte de la misma casa.
+  un lienzo fijo la rompería. Mismo sistema de color, misma tipografía y el
+  mismo repertorio de movimiento que la lámina 1: manchas pastel, pradera
+  Google, tarjetas magnéticas con velo bajo el cursor y ⧉ para copiar el
+  enlace. Se lee como parte de la misma casa.
 
   Para dar de alta un descargable nuevo: se agrega un registro a la lista DOCS
   de abajo. El HTML se arma solo. Con el id del documento de Google basta:
@@ -37,13 +39,20 @@
 -->
 
 <style>
+/* ═══════════════════════════════════════════════════════════════
+   DESCARGABLES · página 2 del kit comercial.
+   Misma paleta y mismos gestos que ../index.html; lo único distinto
+   es que aquí hay scroll, así que el revelado va por scroll y hay
+   barra de avance.
+   ═══════════════════════════════════════════════════════════════ */
 :root{
   --blue:#1a73e8; --blue-d:#174ea6; --blue-t:#e8f0fe; --blue-l:#4285f4;
-  --red:#ea4335;  --red-d:#b31412;  --red-t:#fce8e6;
-  --yel:#f9ab00;  --yel-d:#b06000;  --yel-t:#fef7e0;
-  --grn:#1e8e3e;  --grn-d:#0d652d;  --grn-t:#e6f4ea;
+  --red:#ea4335;  --red-d:#b31412;  --red-t:#fce8e6;  --red-l:#f28b82;
+  --yel:#f9ab00;  --yel-d:#b06000;  --yel-t:#fef7e0;  --yel-l:#fdd663;
+  --grn:#1e8e3e;  --grn-d:#0d652d;  --grn-t:#e6f4ea;  --grn-l:#34a853;
   --plum:#7b1fa2; --plum-t:#f6ecfd;
   --teal:#00897b; --teal-t:#e0f2f1;
+  --indigo:#3949ab; --indigo-t:#e8eaf6;
   --white:#fff; --ink:#202124; --ink2:#5f6368; --ink3:#80868b;
   --line:#dadce0; --line2:#e8eaed; --wash:#f8f9fa;
   --sh1:0 1px 2px rgba(60,64,67,.10), 0 4px 12px -4px rgba(60,64,67,.18);
@@ -55,60 +64,140 @@
 body{
   background:var(--wash);color:var(--ink);font-family:var(--font);
   -webkit-font-smoothing:antialiased;line-height:1.5;
-  padding:clamp(24px,4vw,56px) clamp(18px,4vw,48px);
+  /* el respiro lateral vive en .wrap, no aquí: así la pradera del pie llega a
+     los dos cantos de la pantalla sin recurrir a 100vw, que en Windows suma el
+     ancho de la barra de desplazamiento y saca scroll horizontal */
+  padding:clamp(22px,3.4vw,44px) 0 0;
+  /* columna alta: con pocos descargables la pradera igual cierra la pantalla
+     por abajo en vez de dejar un vacío */
+  min-height:100vh;display:flex;flex-direction:column;
 }
 /* la franja de Google, la misma que corona el kit */
 body::before{
   content:"";position:fixed;left:0;right:0;top:0;height:5px;z-index:9;
   background:linear-gradient(90deg,var(--blue-l) 0 25%,var(--red) 25% 50%,
-                             var(--yel) 50% 75%,var(--grn-l,#34a853) 75% 100%);
+                             var(--yel) 50% 75%,var(--grn-l) 75% 100%);
 }
-.wrap{max-width:1180px;margin:0 auto}
+
+/* ── fondo: las mismas manchas pastel de la lámina 1 ─────────────
+   Fijas al viewport y detrás de todo: la página se desplaza sobre ellas. */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.shape{position:absolute;border-radius:50%}
+
+.wrap{max-width:1180px;margin:0 auto;position:relative;z-index:1;flex:1 0 auto;
+  width:100%;padding:0 clamp(18px,4vw,48px)}
 
 /* ── cabecera ───────────────────────────────────────────────── */
-.head{display:flex;align-items:flex-start;justify-content:space-between;gap:28px;
-  padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:30px;flex-wrap:wrap}
+.volver{display:inline-flex;align-items:center;gap:8px;margin-bottom:16px;
+  height:36px;padding:0 16px;border-radius:99px;background:var(--white);
+  border:1px solid var(--line);color:var(--ink2);text-decoration:none;
+  font-size:13px;font-weight:600;box-shadow:var(--sh1);
+  transition:border-color .2s var(--ease),color .2s var(--ease),box-shadow .2s var(--ease)}
+.volver:hover{border-color:var(--blue-l);color:var(--blue-d);box-shadow:var(--sh2)}
+.volver svg{width:15px;height:15px;fill:currentColor;
+  transition:transform .24s var(--ease)}
+.volver:hover svg{transform:translateX(-3px)}
+
+/* El encabezado es una lámina blanca, no texto suelto: le da a la página 2
+   el mismo peso de objeto que tiene la lámina 1. */
+.head{position:relative;overflow:hidden;isolation:isolate;
+  background:var(--white);border:1px solid var(--line2);border-radius:24px;
+  box-shadow:var(--sh1);padding:30px 32px;margin-bottom:30px;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap}
+/* filete Google al canto de la lámina, igual que en #stage */
+.head::before{content:"";position:absolute;left:0;top:0;right:0;height:5px;z-index:2;
+  background:linear-gradient(90deg,#4285f4 0 25%,#ea4335 25% 50%,#fbbc04 50% 75%,#34a853 75% 100%)}
+.head .shape{z-index:-1}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;
   letter-spacing:1.7px;text-transform:uppercase;color:var(--blue)}
 .eyebrow::before{content:"";width:18px;height:3px;border-radius:2px;background:currentColor}
-h1{font-size:clamp(30px,5vw,44px);line-height:1.06;font-weight:500;letter-spacing:-1.4px;margin:12px 0 8px}
-.sub{color:var(--ink2);font-size:15.5px;max-width:64ch}
+h1{font-size:clamp(32px,5vw,46px);line-height:1.04;font-weight:500;letter-spacing:-1.6px;margin:11px 0 9px}
+h1 .g1{color:#4285f4} h1 .g2{color:#ea4335} h1 .g3{color:#fbbc04} h1 .g4{color:#34a853}
+.sub{color:var(--ink2);font-size:15.5px;max-width:60ch}
+.sub b{font-weight:600;color:var(--ink)}
 .brands{display:flex;align-items:center;gap:16px;flex-shrink:0}
 .brands img{height:26px;width:auto;display:block}
 .brands .gfe{height:32px}
 .brands .bd{width:1px;height:26px;background:var(--line)}
 
-.volver{display:inline-flex;align-items:center;gap:8px;margin-bottom:16px;
-  height:34px;padding:0 15px;border-radius:99px;background:var(--white);
-  border:1px solid var(--line);color:var(--ink2);text-decoration:none;
-  font-size:13px;font-weight:600;transition:border-color .2s var(--ease),color .2s var(--ease)}
-.volver:hover{border-color:var(--blue-l);color:var(--blue-d)}
-.volver svg{width:15px;height:15px;fill:currentColor}
+/* ── dos columnas: los formatos y la ayuda al margen ─────────── */
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:26px;align-items:start}
+@media (max-width:980px){.cols{grid-template-columns:1fr}}
 
-/* ── rejilla de documentos ──────────────────────────────────── */
 .sechead{display:flex;align-items:center;gap:14px;margin-bottom:16px}
 .sechead .rule{flex:1;height:1px;background:var(--line2)}
-.sechead .cnt{font-size:11px;font-weight:700;color:var(--ink3);font-variant-numeric:tabular-nums}
+.sechead .cnt{display:inline-grid;place-items:center;min-width:26px;height:22px;padding:0 8px;
+  border-radius:99px;background:var(--blue-t);color:var(--blue-d);
+  font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
 
-.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr))}
-/* la envoltura .mo-reveal lleva la entrada en cascada; la tarjeta conserva
-   su propio hover sin pelear por el transform */
-.grid>.mo-reveal{display:flex}
-.grid .doc{flex:1}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr))}
+/* Con un solo formato, la rejilla de tres huecos se ve vacía: la tarjeta pasa
+   a ocupar el ancho entero y crece de escala. Al llegar el segundo documento,
+   la clase se quita sola y vuelve la rejilla. */
+.grid.uno{grid-template-columns:1fr}
+.grid.uno .doc{padding:30px 30px 24px;gap:15px}
+.grid.uno .d-ico{width:54px;height:54px;border-radius:16px}
+.grid.uno .d-ico svg{width:30px;height:30px}
+.grid.uno .d-name{font-size:22px;letter-spacing:-.5px}
+.grid.uno .d-desc{font-size:15px}
+.grid.uno .doc::after{left:30px}
+/* En pantalla ancha la tarjeta destacada se parte en dos: el documento a la
+   izquierda y las tres acciones apiladas en un panel del color del documento.
+   Así el ancho completo se usa, en vez de dejar medio renglón vacío. */
+@media (min-width:760px){
+  .grid.uno .doc{display:grid;align-content:start;column-gap:26px;row-gap:13px;
+    grid-template-columns:minmax(0,1fr) 262px;
+    grid-template-areas:"top acc" "desc acc" "nota acc"}
+  .grid.uno .d-top{grid-area:top}
+  .grid.uno .d-desc{grid-area:desc;align-self:start}
+  .grid.uno .nota{grid-area:nota;margin-top:4px}
+  .grid.uno .acciones{grid-area:acc;flex-direction:column;flex-wrap:nowrap;
+    align-items:stretch;gap:9px;margin:0;padding:14px;
+    border-radius:16px;background:var(--tint)}
+  .grid.uno .acc{height:40px;padding:0 15px;font-size:13px;border-color:transparent}
+  .grid.uno .acc:not(.primaria){background:var(--white)}
+  .grid.uno .acc:not(.primaria):hover{border-color:var(--c)}
+  /* el ⧉ se recorre al canto de la columna izquierda: en su sitio de siempre
+     —la esquina de la tarjeta— caería justo encima de «Copiar a mi Drive».
+     30 de relleno + 262 del panel + 26 de canal, y 10 de aire */
+  .grid.uno .d-copy{right:calc(30px + 262px + 26px + 10px)}
+}
 
-.doc{background:var(--white);border:1px solid var(--line2);border-radius:20px;
-  padding:22px 22px 18px;display:flex;flex-direction:column;gap:12px;position:relative;
-  box-shadow:var(--sh1);transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
-.doc:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+/* Envoltura doble para el motor, igual que en la lámina 1: la cascada anima
+   .twrap, el imán desplaza .tmag y la inclinación gira la .doc. Cada capa con
+   su propio transform, ninguna pisa a las demás. */
+.twrap{display:flex;min-width:0}
+.tmag{display:flex;flex:1 1 auto;min-width:0}
+.twrap .doc{flex:1 1 auto}
+
+/* ── tarjeta de documento ───────────────────────────────────── */
+.doc{position:relative;background:var(--white);border:1px solid var(--line);
+  border-radius:20px;padding:22px 22px 18px;display:flex;flex-direction:column;gap:12px;
+  overflow:hidden;isolation:isolate;box-shadow:var(--sh1);
+  transition:box-shadow .22s,border-color .22s}
+/* velo de color que sigue al cursor dentro de la tarjeta */
+.doc::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;
+  background:radial-gradient(460px 260px at var(--mx,50%) var(--my,0%),var(--tint),transparent 70%);
+  transition:opacity .25s}
+.doc:hover{box-shadow:var(--sh2);border-color:transparent}
+.doc:hover::before{opacity:1}
+/* filete de color al pie, crece al pasar el cursor */
 .doc::after{content:"";position:absolute;left:22px;bottom:0;height:4px;width:34px;
-  border-radius:99px 99px 0 0;background:var(--c)}
+  border-radius:99px 99px 0 0;background:var(--c);
+  transition:width .28s var(--ease)}
+.doc:hover::after{width:calc(100% - 34px)}
 
 .d-top{display:flex;align-items:center;gap:13px}
 .d-ico{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
-  background:var(--grad);flex-shrink:0;box-shadow:var(--sh1)}
+  background:var(--grad);flex-shrink:0;box-shadow:0 6px 16px -6px var(--c);
+  transition:transform .28s var(--ease)}
+.doc:hover .d-ico{transform:scale(1.07) rotate(-4deg)}
 .d-ico svg{width:25px;height:25px;fill:#fff;display:block}
-.d-name{font-size:17px;font-weight:600;letter-spacing:-.2px}
-.d-kind{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3)}
+.d-name{font-size:17px;font-weight:600;letter-spacing:-.3px;line-height:1.2}
+.d-kind{display:inline-flex;align-items:center;gap:5px;margin-top:5px;
+  font-size:10.5px;font-weight:700;letter-spacing:.3px;color:var(--c);
+  background:var(--tint);border-radius:99px;padding:3.5px 9px}
+.d-kind svg{width:11px;height:11px;fill:currentColor;flex-shrink:0}
 .d-desc{font-size:13.5px;color:var(--ink2);flex:1}
 
 .acciones{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
@@ -119,15 +208,78 @@ h1{font-size:clamp(30px,5vw,44px);line-height:1.06;font-weight:500;letter-spacin
              transform .18s var(--ease),box-shadow .18s var(--ease)}
 .acc svg{width:15px;height:15px;fill:currentColor;flex-shrink:0}
 .acc:hover{border-color:var(--c);color:var(--c);background:var(--tint)}
-.acc.primaria{background:var(--grad);border-color:transparent;color:#fff}
+.acc.primaria{background:var(--grad);border-color:transparent;color:#fff;
+  box-shadow:0 6px 16px -8px var(--c)}
 .acc.primaria:hover{filter:brightness(1.07);color:#fff}
 
 .nota{margin-top:10px;font-size:12px;color:var(--ink3);line-height:1.45;
   padding-top:10px;border-top:1px dashed var(--line)}
 
+/* botón ⧉: copia el enlace de copia para mandarlo por WhatsApp.
+   Mismo gesto y mismo lugar que en la lámina 1. */
+.d-copy{position:absolute;right:14px;top:14px;z-index:3;
+  width:29px;height:29px;border-radius:9px;border:1px solid var(--line);
+  background:var(--white);color:var(--ink3);cursor:pointer;display:grid;place-items:center;
+  opacity:0;transform:translateY(-4px);
+  transition:opacity .2s,transform .2s,color .2s,border-color .2s}
+.doc:hover .d-copy,.d-copy:focus-visible{opacity:1;transform:none}
+.d-copy:hover{color:var(--c);border-color:var(--c)}
+.d-copy svg{width:14px;height:14px;fill:currentColor;display:block}
+.d-copy.ok{color:var(--grn);border-color:var(--grn)}
+/* estado «copiado» del motor (Motion.botonEstado): el botón crece para decirlo
+   con palabras y se queda visible aunque el cursor salga de la tarjeta */
+.d-copy.mo-done{opacity:1;transform:none;width:auto;min-width:29px;padding:0 9px;
+  font-size:10.5px;font-weight:700;white-space:nowrap;font-family:var(--font);
+  color:var(--grn);border-color:var(--grn)}
+
+/* ── columna de ayuda ───────────────────────────────────────── */
+.aside{display:flex;flex-direction:column;gap:16px;position:sticky;top:28px}
+@media (max-width:980px){.aside{position:static}}
+.card{background:var(--white);border:1px solid var(--line2);border-radius:20px;
+  padding:20px 20px 18px;box-shadow:var(--sh1)}
+.card h2{font-size:14.5px;font-weight:600;letter-spacing:-.2px;margin-bottom:14px}
+.paso{display:flex;gap:11px;padding:9px 0;border-top:1px solid var(--line2)}
+.paso:first-of-type{border-top:0;padding-top:0}
+.paso .i{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  background:var(--pt);color:var(--pc);flex-shrink:0}
+.paso .i svg{width:16px;height:16px;fill:currentColor;display:block}
+.paso .t{font-size:12.5px;font-weight:600;line-height:1.3}
+.paso .s{font-size:11.5px;color:var(--ink2);line-height:1.35;margin-top:2px}
+.card.tip{background:linear-gradient(160deg,var(--blue-t) 0%,var(--white) 70%);
+  border-color:var(--blue-t)}
+.card.tip p{font-size:12.5px;color:var(--ink2);line-height:1.45}
+.card.tip kbd{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;
+  border-radius:6px;background:var(--white);border:1px solid var(--line);
+  font-family:var(--font);font-size:11px;font-weight:700;color:var(--ink2);
+  vertical-align:-4px}
+
 /* ── pie ────────────────────────────────────────────────────── */
 footer{margin-top:38px;padding-top:20px;border-top:1px solid var(--line);
-  color:var(--ink3);font-size:12.5px;display:flex;gap:8px 24px;flex-wrap:wrap}
+  color:var(--ink3);font-size:12.5px;display:flex;gap:8px 24px;flex-wrap:wrap;
+  position:relative;z-index:1}
+
+/* ── pradera Google, la misma de la lámina 1 ─────────────────────
+   Cierra la página a lo ancho completo: cada brizna crece desde el suelo una
+   vez y luego se mece. Decoración de fondo declarada (normativa, §prohibiciones). */
+.pradera{position:relative;z-index:0;height:78px;margin-top:26px;
+  width:100%;flex-shrink:0;overflow:hidden;pointer-events:none}
+/* El dibujo está trazado para 1280 px de ancho, como la lámina 1. Debajo de
+   eso no se encoge —las briznas quedarían como agujas—: se mantiene a 1280 y
+   la pradera se recorta. Arriba de eso se estira, que sí le sienta bien. */
+.pradera svg{display:block;width:100%;min-width:1280px;height:100%}
+.mv-crece{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);
+  animation:crece 2.4s cubic-bezier(.2,.7,.25,1) both}
+@keyframes crece{to{transform:scaleY(1)}}
+.mv-mece{transform-box:fill-box;transform-origin:50% 100%;
+  animation:mece 6.5s ease-in-out infinite}
+@keyframes mece{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+
+/* ── aviso volante al copiar ────────────────────────────────── */
+#toast{position:fixed;left:50%;bottom:26px;z-index:40;transform:translate(-50%,14px);
+  background:#202124;color:#fff;font-size:12.5px;font-weight:500;
+  padding:9px 18px;border-radius:99px;box-shadow:var(--sh2);
+  opacity:0;pointer-events:none;transition:opacity .22s,transform .22s}
+#toast.on{opacity:1;transform:translate(-50%,0)}
 
 /* ── barra de avance de lectura ─────────────────────────────────
    Vive justo bajo la franja Google; el motor la escala en X según el
@@ -137,12 +289,32 @@ footer{margin-top:38px;padding-top:20px;border-top:1px solid var(--line);
   background:var(--blue);transform:scaleX(0);transform-origin:0 50%;
   pointer-events:none}
 
-@media print{#progreso{display:none!important}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* Al imprimir: sin decoración y sin nada en movimiento, pero con todo el
+   contenido (normativa, §prohibiciones). */
+@media print{
+  #progreso,.bg,.pradera,.d-copy,#toast{display:none!important}
+  *{animation:none!important;transition:none!important}
+  .doc,.card,.head{box-shadow:none!important;break-inside:avoid}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  /* sin la animación, la brizna se quedaría en su estado inicial —scaleY(0)—
+     y la pradera desaparecería: se monta ya crecida, que es su estado final */
+  .mv-crece{transform:none!important}
+}
 </style>
 </head>
 <body>
 <div id="progreso" class="mo-progress-fill" aria-hidden="true"></div>
+
+<!-- ── fondo: manchas pastel ─────────────────────────────────── -->
+<div class="bg" aria-hidden="true">
+  <span class="shape" style="width:520px;height:520px;left:-210px;top:-230px;background:var(--blue-t);opacity:.65"></span>
+  <span class="shape" style="width:380px;height:380px;right:-150px;top:-120px;background:var(--yel-t);opacity:.6"></span>
+  <span class="shape" style="width:340px;height:340px;right:-140px;bottom:60px;background:var(--red-t);opacity:.45"></span>
+  <span class="shape" style="width:300px;height:300px;left:-130px;bottom:-90px;background:var(--grn-t);opacity:.5"></span>
+</div>
+
 <div class="wrap">
 
   <a class="volver" href="../">
@@ -151,9 +323,11 @@ footer{margin-top:38px;padding-top:20px;border-top:1px solid var(--line);
   </a>
 
   <header class="head">
+    <span class="shape" aria-hidden="true" style="width:300px;height:300px;right:-110px;top:-150px;background:var(--blue-t);opacity:.55"></span>
+    <span class="shape" aria-hidden="true" style="width:200px;height:200px;right:120px;bottom:-140px;background:var(--yel-t);opacity:.5"></span>
     <div>
       <span class="eyebrow">Kit comercial · página 2</span>
-      <h1>Descargables</h1>
+      <h1><span class="g1">D</span><span class="g2">e</span><span class="g3">s</span><span class="g4">c</span><span class="g1">a</span><span class="g2">r</span><span class="g3">g</span><span class="g4">a</span><span class="g1">b</span><span class="g2">l</span><span class="g3">e</span><span class="g4">s</span></h1>
       <p class="sub">Formatos y documentos listos para usar. Cada uno se puede
         <b>copiar a tu Drive</b> para editarlo, o descargar en <b>PDF</b> o <b>Word</b>.</p>
     </div>
@@ -164,14 +338,52 @@ footer{margin-top:38px;padding-top:20px;border-top:1px solid var(--line);
     </div>
   </header>
 
-  <section>
-    <div class="sechead">
-      <span class="eyebrow">Formatos</span>
-      <span class="rule"></span>
-      <span class="cnt" id="cnt">01</span>
-    </div>
-    <div class="grid" id="grid"></div>
-  </section>
+  <div class="cols">
+
+    <section>
+      <div class="sechead">
+        <span class="eyebrow">Formatos</span>
+        <span class="rule"></span>
+        <span class="cnt" id="cnt">01</span>
+      </div>
+      <div class="grid mo-stagger" id="grid"></div>
+    </section>
+
+    <aside class="aside">
+      <div class="card mo-reveal mo-desde-der">
+        <h2>Las tres formas de usarlo</h2>
+        <div class="paso" style="--pc:var(--blue);--pt:var(--blue-t)">
+          <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg></span>
+          <div>
+            <div class="t">Copiar a mi Drive</div>
+            <div class="s">Abre la pantalla de «hacer una copia». Queda en tu Drive y la editas sin tocar el original.</div>
+          </div>
+        </div>
+        <div class="paso" style="--pc:var(--red);--pt:var(--red-t)">
+          <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></span>
+          <div>
+            <div class="t">PDF</div>
+            <div class="s">Se descarga tal cual, listo para imprimir o mandar por WhatsApp.</div>
+          </div>
+        </div>
+        <div class="paso" style="--pc:var(--indigo);--pt:var(--indigo-t)">
+          <span class="i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></span>
+          <div>
+            <div class="t">Word</div>
+            <div class="s">El mismo documento en <b>.docx</b>, por si el colegio lo pide en ese formato.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card tip mo-reveal mo-desde-der">
+        <h2>Mandarlo por WhatsApp</h2>
+        <p>Pasa el cursor sobre una tarjeta y usa <b>⧉</b> para copiar el enlace:
+          quien lo reciba obtiene <b>su propia copia</b>, no la tuya.
+          <br><br>Con <kbd>Esc</kbd> vuelves al kit comercial.</p>
+      </div>
+    </aside>
+
+  </div>
 
   <footer>
     <span>activa · Google for Education Partner</span>
@@ -179,6 +391,36 @@ footer{margin-top:38px;padding-top:20px;border-top:1px solid var(--line);
   </footer>
 
 </div>
+
+<!-- ── pradera: el cierre de la página, igual que el pie de la lámina 1 ── -->
+<div class="pradera" aria-hidden="true"><svg viewBox="0 0 1280 78" preserveAspectRatio="none">
+  <rect x="0" y="75.5" width="1280" height="2.5" fill="#34a853" opacity=".28"/>
+  <g transform="translate(24,78) scale(.9)"><g class="mv-crece" style="animation-delay:.2s"><path class="mv-mece" style="animation-delay:-1.2s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".6"/></g></g>
+  <g transform="translate(52,78) scale(.9)"><g class="mv-crece" style="animation-delay:1.1s"><path class="mv-mece" style="animation-delay:-3.4s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+  <g transform="translate(108,78)"><g class="mv-crece" style="animation-delay:.5s"><path class="mv-mece" style="animation-delay:-.6s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#1e8e3e" opacity=".62"/></g></g>
+  <g transform="translate(166,78) scale(.8)"><g class="mv-crece" style="animation-delay:1.4s"><path class="mv-mece" style="animation-delay:-2.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+  <g transform="translate(196,78) scale(.85)"><g class="mv-crece" style="animation-delay:.8s"><path class="mv-mece" style="animation-delay:-4.8s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#34a853" opacity=".55"/></g></g>
+  <g transform="translate(254,78)"><g class="mv-crece" style="animation-delay:.3s"><path class="mv-mece" style="animation-delay:-1.8s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#34a853" opacity=".6"/></g></g>
+  <g transform="translate(328,78) scale(.95)"><g class="mv-crece" style="animation-delay:1s"><path class="mv-mece" style="animation-delay:-5.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#fbbc04" opacity=".6"/></g></g>
+  <g transform="translate(358,78) scale(.9)"><g class="mv-crece" style="animation-delay:.6s"><path class="mv-mece" style="animation-delay:-2.9s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#ea4335" opacity=".45"/></g></g>
+  <g transform="translate(434,78) scale(.9)"><g class="mv-crece" style="animation-delay:.15s"><path class="mv-mece" style="animation-delay:-.9s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#34a853" opacity=".62"/></g></g>
+  <g transform="translate(514,78)"><g class="mv-crece" style="animation-delay:1.3s"><path class="mv-mece" style="animation-delay:-4.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#1e8e3e" opacity=".6"/></g></g>
+  <g transform="translate(544,78) scale(.85)"><g class="mv-crece" style="animation-delay:.7s"><path class="mv-mece" style="animation-delay:-2.5s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+  <g transform="translate(612,78) scale(.85)"><g class="mv-crece" style="animation-delay:.4s"><path class="mv-mece" style="animation-delay:-3.9s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+  <g transform="translate(684,78) scale(.9)"><g class="mv-crece" style="animation-delay:1.6s"><path class="mv-mece" style="animation-delay:-1.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".62"/></g></g>
+  <g transform="translate(714,78) scale(.8)"><g class="mv-crece" style="animation-delay:.9s"><path class="mv-mece" style="animation-delay:-5.1s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#1e8e3e" opacity=".55"/></g></g>
+  <g transform="translate(786,78) scale(.95)"><g class="mv-crece" style="animation-delay:.25s"><path class="mv-mece" style="animation-delay:-3.1s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#ea4335" opacity=".5"/></g></g>
+  <g transform="translate(862,78)"><g class="mv-crece" style="animation-delay:1.2s"><path class="mv-mece" style="animation-delay:-2.2s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".6"/></g></g>
+  <g transform="translate(892,78) scale(.9)"><g class="mv-crece" style="animation-delay:.55s"><path class="mv-mece" style="animation-delay:-4.5s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+  <g transform="translate(964,78) scale(.9)"><g class="mv-crece" style="animation-delay:1.5s"><path class="mv-mece" style="animation-delay:-.4s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#1e8e3e" opacity=".62"/></g></g>
+  <g transform="translate(1036,78) scale(.85)"><g class="mv-crece" style="animation-delay:.35s"><path class="mv-mece" style="animation-delay:-3.6s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+  <g transform="translate(1102,78) scale(.9)"><g class="mv-crece" style="animation-delay:1s"><path class="mv-mece" style="animation-delay:-1.9s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#34a853" opacity=".6"/></g></g>
+  <g transform="translate(1158,78)"><g class="mv-crece" style="animation-delay:.65s"><path class="mv-mece" style="animation-delay:-5.8s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#34a853" opacity=".62"/></g></g>
+  <g transform="translate(1222,78) scale(.9)"><g class="mv-crece" style="animation-delay:1.35s"><path class="mv-mece" style="animation-delay:-2.7s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+  <g transform="translate(1256,78) scale(.8)"><g class="mv-crece" style="animation-delay:.75s"><path class="mv-mece" style="animation-delay:-4.2s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#1e8e3e" opacity=".55"/></g></g>
+</svg></div>
+
+<div id="toast">Enlace copiado</div>
 
 <script src="../assets.js"></script>
 <script>
@@ -196,6 +438,11 @@ const ICO = {
 const ICO_COPIA='<path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/>';
 const ICO_PDF='<path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>';
 const ICO_WORD=ICO_PDF;
+/* el chip del tipo de documento */
+const ICO_DOC='<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>';
+/* el botón ⧉ y su confirmación, los mismos de la lámina 1 */
+const ICO_COPY='<path d="M8 2h9a2 2 0 0 1 2 2v11a1 1 0 0 1-2 0V4H8a1 1 0 0 1 0-2zM5 6h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm0 2v12h8V8H5z"/>';
+const ICO_OK='<path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8z"/>';
 
 /* ═══════════ los descargables ═══════════
    Con el id del documento de Google basta: las tres acciones se derivan de él.
@@ -235,7 +482,7 @@ function tarjeta(it){
        <span class="d-ico"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO[it.id]}</svg></span>
        <div>
          <div class="d-name">${it.nombre}</div>
-         <div class="d-kind">${it.tipo}</div>
+         <div class="d-kind"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO_DOC}</svg>${it.tipo}</div>
        </div>
      </div>
      <p class="d-desc">${it.desc}</p>
@@ -247,27 +494,122 @@ function tarjeta(it){
        <a class="acc mo-hover-eleva mo-hover-hunde" href="${l.word}" target="_blank" rel="noopener noreferrer">
          <svg viewBox="0 0 24 24" aria-hidden="true">${ICO_WORD}</svg>Word</a>
      </div>
-     ${it.nota ? `<p class="nota">${it.nota}</p>` : ``}`;
-  /* envoltura para el motor: la entrada anima la envoltura (mo-reveal) y la
-     tarjeta conserva su propio hover sin pelear por el transform */
+     ${it.nota ? `<p class="nota">${it.nota}</p>` : ``}
+     <button class="d-copy" type="button" title="Copiar enlace" aria-label="Copiar enlace de ${it.nombre}">
+       <svg viewBox="0 0 24 24" aria-hidden="true">${ICO_COPY}</svg>
+     </button>`;
+
+  /* envoltura doble para el motor: la cascada anima .twrap, el imán mueve
+     .tmag y la tarjeta conserva su propio transform para la inclinación */
   const w = document.createElement('div');
-  w.className = 'mo-reveal';
-  w.appendChild(el);
+  w.className = 'twrap';
+  const mag = document.createElement('div');
+  mag.className = 'tmag';
+  mag.appendChild(el);
+  w.appendChild(mag);
+
+  /* El velo de color sigue al cursor dentro de la tarjeta. El listener SOLO
+     guarda coordenadas (regla 2 de la normativa): la geometría se lee dentro
+     del frame, en veloPinta(). Sin motor no hay bucle, así que ahí se pinta
+     directo: el velo tiene que funcionar igual (regla 4). */
+  el.addEventListener('pointermove', e=>{
+    if(window.Motion){ velo.activa = el; velo.x = e.clientX; velo.y = e.clientY; return; }
+    veloPinta(el, e.clientX, e.clientY);
+  });
+  el.addEventListener('pointerleave', ()=>{ if(velo.activa === el) velo.activa = null; });
+
+  el.querySelector('.d-copy').addEventListener('click', ev=>{
+    ev.preventDefault(); ev.stopPropagation();
+    copiar(l.copia, ev.currentTarget);
+  });
   return w;
+}
+
+/* ═══════════ velo de color que sigue al cursor ═══════════
+   `velo` guarda cuál tarjeta está bajo el cursor y en qué coordenada de
+   viewport; quien pinta es veloPinta(), llamada una vez por frame desde el
+   bucle del motor. Una sola lectura de geometría por frame. */
+const velo = { activa:null, x:0, y:0 };
+
+function veloPinta(tile, cx, cy){
+  const r = tile.getBoundingClientRect();
+  tile.style.setProperty('--mx', (cx - r.left) + 'px');
+  tile.style.setProperty('--my', (cy - r.top)  + 'px');
 }
 
 const grid = document.getElementById('grid');
 DOCS.forEach(it => grid.appendChild(tarjeta(it)));
 document.getElementById('cnt').textContent = String(DOCS.length).padStart(2,'0');
+/* un solo formato no debe verse como una rejilla a medio llenar */
+if(DOCS.length === 1) grid.classList.add('uno');
+
+/* ═══════════ copiar al portapapeles ═══════════
+   navigator.clipboard sólo existe en contexto seguro (https). El respaldo
+   con textarea + execCommand mantiene el botón vivo en http:// y file://. */
+const toast = document.getElementById('toast');
+let toastT;
+function avisar(msg){
+  toast.textContent = msg;
+  toast.classList.add('on');
+  clearTimeout(toastT);
+  toastT = setTimeout(()=>toast.classList.remove('on'), 1700);
+}
+function copiar(url, btn){
+  const listo = ()=>{
+    avisar('Enlace copiado');
+    /* con el motor, el botón mismo dice «copiado» y vuelve solo;
+       sin motor, se conserva el aviso con el icono de palomita */
+    if(btn._estado){ btn._estado(); return; }
+    btn.classList.add('ok');
+    btn.querySelector('svg').innerHTML = ICO_OK;
+    setTimeout(()=>{ btn.classList.remove('ok'); btn.querySelector('svg').innerHTML = ICO_COPY; }, 1700);
+  };
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(url).then(listo).catch(()=>respaldo(url, listo));
+  } else respaldo(url, listo);
+}
+function respaldo(url, listo){
+  const ta = document.createElement('textarea');
+  ta.value = url;
+  ta.style.cssText = 'position:fixed;top:-999px;opacity:0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); listo(); }
+  catch(e){ avisar('No se pudo copiar'); }
+  ta.remove();
+}
+
+/* ═══════════ teclado ═══════════
+   Esc vuelve al kit, que es de donde se llegó. */
+addEventListener('keydown', e=>{
+  if(e.metaKey || e.ctrlKey || e.altKey) return;
+  if(e.key === 'Escape') location.href = '../';
+});
 
 /* ═══════════ movimiento (motor compartido) ═══════════
    docs/normativa-motion.md. Opcional por diseño: si motion.js no cargó,
    la página ya se ve completa y quieta (regla 4). */
 if(window.Motion){
-  Motion.stagger(grid, 70);         /* cascada entre tarjetas de documentos */
-  Motion.revealAll('.mo-reveal');   /* entran al llegar a pantalla */
+  Motion.stagger(grid, 70);              /* cascada entre tarjetas de documentos */
+  Motion.revealAll('.mo-stagger > *');   /* entran al llegar a pantalla */
+  Motion.revealAll('.mo-reveal');        /* la columna de ayuda, desde la derecha */
   Motion.progressBar(document.getElementById('progreso'));
-  Motion.start();                   /* siempre lo último */
+
+  /* imán + inclinación en cada documento, como en la lámina 1 */
+  Motion.qsa('.twrap').forEach(w=>{
+    Motion.magnetic(w, w.querySelector('.tmag'), 140, 0.16);
+    Motion.tilt(w.querySelector('.doc'), 4);
+  });
+
+  /* el botón ⧉ confirma por sí mismo que copió (lo usa copiar(), arriba) */
+  Motion.qsa('.d-copy').forEach(b=>{
+    b._estado = Motion.botonEstado(b, { hecho:'✓ Copiado', msTrabajo:0, msHecho:1400 });
+  });
+
+  /* el velo del cursor: una lectura de geometría por frame, y solo si hay
+     tarjeta bajo el cursor. El listener de pointermove ya guardó la coordenada */
+  Motion.onFrame(()=>{ if(velo.activa) veloPinta(velo.activa, velo.x, velo.y); });
+
+  Motion.start();                        /* siempre lo último */
 }
 </script>
 </body>

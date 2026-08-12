@@ -16,15 +16,32 @@ que el deck de [upgrade-edu](../upgrade-edu/).
 | `og.png` | Vista previa de WhatsApp (1200×630). **Generado** desde `og-source.html`. |
 | `og-source.html` | Molde de esa vista previa. No se abre en público. |
 
+## Las dos páginas se ven igual
+
+Descargables no es una lista suelta: usa el mismo sistema que la lámina —manchas pastel de fondo,
+filete Google al canto, pradera animada al pie, título con las letras de colores, tarjetas con
+velo bajo el cursor, filete que crece y ⧉ para copiar el enlace—. Lo único propio de la página 2
+es lo que exige el scroll: barra de avance, revelado al bajar y una columna lateral que explica
+las tres acciones.
+
+Con **un solo** descargable la rejilla se vería a medio llenar, así que la tarjeta pasa a ocupar
+el ancho entero y parte las acciones a un panel lateral (clase `.uno`, que el JS pone y quita
+solo según cuántos haya). Al llegar el segundo documento vuelve la rejilla, sin tocar nada.
+
 ## Movimiento
 
 Las dos páginas usan el motor compartido de `compartidos/`. En la lámina: cascada al armarse,
 tarjetas magnéticas que se acercan al cursor, inclinación 3D y confirmación visible al copiar un
-enlace. En descargables, que sí se desplaza: revelado al bajar y barra de avance.
+enlace. En descargables, lo mismo, más lo que pide el scroll: revelado al bajar y barra de avance.
 
-Cada tarjeta va en envoltura doble —`.twrap` (cascada) → `.tmag` (imán) → `.tile`
+Cada tarjeta va en envoltura doble —`.twrap` (cascada) → `.tmag` (imán) → `.tile` / `.doc`
 (inclinación)— para que los tres `transform` no se pisen entre sí ni con la escala de `#stage`.
 Las tarjetas `pronto:true` quedan fuera de todo: no deben sentirse clicables.
+
+La pradera está trazada para 1280 px de ancho. En la lámina eso es exacto; en descargables el
+`svg` lleva `min-width:1280px` y el pie recorta, porque comprimirla deja las briznas como agujas.
+Y como el crecido de cada brizna es una animación, con «reducir movimiento» se monta ya crecida:
+sin esa regla la pradera desaparecería.
 
 Las reglas están en [`docs/normativa-motion.md`](../../docs/normativa-motion.md) y son
 obligatorias.
@@ -36,6 +53,9 @@ obligatorias.
 - Teclas **1–8** → abren el acceso correspondiente. **D** → descargables. **F** → pantalla completa.
 - Las láminas **apartadas** (sin `url`, marcadas con `pronto:true`) no abren nada: existen para
   que el equipo sepa que esa herramienta viene en camino.
+- En **descargables**: cada tarjeta abre el documento de tres formas y el **⧉** copia el enlace de
+  copia, que es el que se manda por WhatsApp —quien lo reciba obtiene su propia copia, no la del
+  que lo mandó—. **Esc** regresa al kit.
 
 ## Cómo agregar o cambiar un enlace
 
