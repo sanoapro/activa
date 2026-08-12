@@ -18,6 +18,16 @@ Va **sin cantidades**: describe cada producto para que sirva con cualquier coleg
 Chromebooks y cuántas licencias lleva cada uno sale del cotizador. Las tres áreas —TI, IP y DP—
 son las mismas que firman la Carta de Entrega Comercial.
 
+## Cómo está armado cada archivo de producto
+
+Los cuatro archivos `video-*.md` tienen dos partes, y sirven para dos cosas distintas:
+
+**1 · El producto.** Qué es, qué contiene, qué gana el colegio, cobertura y licenciamiento, y —
+cuando aplica — qué **no** se promete. Esta parte se le manda tal cual al cliente que pidió una
+explicación a fondo.
+
+**2 · El guion del video.** El corte de un minuto, con escaleta por tiempos y notas de producción.
+
 ## Cómo están escritos los guiones
 
 - **Un minuto de locución en español son unas 150 palabras.** Cada guion está medido para eso; si

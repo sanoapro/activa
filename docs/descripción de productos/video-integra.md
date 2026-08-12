@@ -1,12 +1,82 @@
-# Video · integra
+# integra
 
-**Duración objetivo:** 55–60 s · **Locución:** 156 palabras
-**Uso:** se envía a un cliente que pidió entender la herramienta · redes sociales
+**Uso:** explicar la herramienta a un cliente que pidió entenderla · base del video promocional
 **A quién le habla:** dirección, administración y el área de sistemas
 
 ---
 
-## Guion de locución
+# 1 · El producto
+
+## Qué es
+
+**integra** es la plataforma de **comunicación, control y gestión escolar** de activa. Reúne en un
+solo lugar lo que hoy suele estar repartido entre tres o cuatro sistemas que no se hablan entre sí:
+los avisos a las familias, las calificaciones y la cobranza.
+
+Su diferencia de fondo está en una decisión de diseño: **integra convive con lo que el colegio ya
+usa, no lo reemplaza.** Se suma al ecosistema en lugar de exigir una migración.
+
+## Qué contiene
+
+### Comunicación
+Todo lo que el colegio necesita para hablar con su comunidad.
+
+- Avisos y notificaciones a las familias
+- Seguimiento de la comunicación con cada familia
+- Comunicación con dirección, docentes, alumnos y padres desde el mismo lugar
+
+### Control
+Lo académico, registrado y consultable.
+
+- Calificaciones
+- Boletas
+- Expediente del alumno
+- Control de acceso al plantel
+
+### Gestión
+La operación administrativa del colegio.
+
+- Colegiaturas
+- Cafetería
+- Extracurriculares
+
+### Y la pieza que ningún competidor comunica igual
+**Sincronización nativa con la Consola de Google.** Las cuentas de alumnos y docentes y la
+asignación de clases se dan de alta **una sola vez**. Sin doble captura, sin listas que se
+desincronizan entre el sistema escolar y el ecosistema de Google.
+
+## Qué gana el colegio
+
+- **Una sola fuente de verdad.** Se acaba el «depende de dónde lo consultes» entre el sistema
+  administrativo y el académico.
+- **El área de sistemas deja de capturar dos veces.** Es la ganancia más inmediata y la más fácil
+  de demostrar en una demo.
+- **Las familias dejan de perseguir información**: avisos, calificaciones y seguimiento en el mismo
+  lugar donde ya entran.
+- **Sin costo de migración traumática.** Convive con las herramientas actuales, así que la
+  decisión no obliga a apagar nada el primer día.
+- **Alcance de institución completa**, no por licencia individual.
+
+## Cobertura y licenciamiento
+
+| | |
+|---|---|
+| **Alcance** | Institución completa |
+| **Paquete** | Incluida en upgrade edu y en upgrade edu PLUS |
+
+## Lo que no se promete todavía
+
+⚠ **integra es la licencia más reciente del portafolio.** Este documento solo afirma lo que el
+documento maestro da por confirmado. **Facturación electrónica CFDI y avisos o cobranza por
+WhatsApp no se mencionan** —ni en el video ni frente a un cliente— hasta que producto los confirme
+por escrito. Son las dos funciones que más pesan en el mercado mexicano, así que conviene
+confirmarlas pronto; mientras tanto, prometerlas sería vender lo que no está.
+
+---
+
+# 2 · Guion del video
+
+**Duración objetivo:** 55–60 s · **Locución:** 156 palabras
 
 > ¿Cuántos sistemas distintos usa hoy tu colegio? Uno para calificaciones. Otro para avisos. Otro
 > para cobranza. Y todos pidiendo la misma información.
@@ -27,8 +97,6 @@
 >
 > **integra.** Toda tu escuela, en el mismo lugar.
 
----
-
 ## Escaleta
 
 | Tiempo | En pantalla | Locución |
@@ -40,21 +108,16 @@
 | 0:50–0:57 | Las herramientas que el colegio ya usa, alrededor y encendidas, no tachadas | Convive, no reemplaza |
 | 0:57–1:00 | Logo integra + activa | Cierre |
 
----
-
 ## Notas de producción
 
 - **El gancho está en los primeros diez segundos**: la misma lista capturada tres veces. Quien
   administra un colegio se reconoce ahí de inmediato.
-- **El diferenciador real es la sincronización con la Consola de Google.** Ningún competidor del
-  mercado mexicano lo comunica así. Dale su bloque propio y no lo mezcles con el resto.
+- **El diferenciador real es la sincronización con la Consola de Google.** Dale su bloque propio y
+  no lo mezcles con el resto.
 - **«Convive, no reemplaza» desactiva la objeción más cara**: el miedo a migrar. Que se vea
   literal en pantalla: las herramientas actuales encendidas, no tachadas.
-- ⚠ **integra es la licencia más reciente del portafolio.** Antes de grabar, confirma con producto
-  qué módulos están disponibles hoy y cuáles están en camino. Este guion menciona solo lo que el
-  documento maestro da por confirmado: comunicación con familias, colegiaturas, boletas,
-  calificaciones, control de acceso, cafetería y extracurriculares. **Facturación CFDI y avisos
-  por WhatsApp no se mencionan hasta que producto los confirme por escrito.**
+- Si se quiere una versión más larga, hay material para **90 segundos** abriendo los tres pilares
+  módulo por módulo. El corte de 60 s es el que va a redes.
 - Palabras que **no** se usan: comprar, precio, paquete, cotización, licencia.
 - Cierre alterno para redes:
   *«Escríbenos y te mostramos integra con la estructura de tu propio colegio.»*
