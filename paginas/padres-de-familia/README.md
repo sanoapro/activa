@@ -37,6 +37,18 @@ aros que respiran (`mv-onda`) y barrido de luz (`mv-brillo`, sobre el peldaño C
 subrayado que se dibuja bajo la frase clave (`mv-sub`) y aro que respira alrededor de un
 medallón (`mv-late`).
 
+**Vocabulario Google, repartido por todo el deck** (agosto de 2026). Antes el movimiento
+ambiental vivía solo en la portada y en el cierre. Ahora, con la paleta de marca en cuatro
+tokens (`--g-azul` `--g-rojo` `--g-amar` `--g-verd`): ondas de Assistant (`mv-voz`, láminas 3,
+13 y 21), pulsaciones Material al avanzar (`mv-ondamat`, global), red de partículas en los
+cuatro colores (`data-red` en las láminas 1, 7 y 20), barrido de capítulo al cambiar de bloque
+narrativo (`mv-barrido`, seis veces en 22 láminas), spinner evolutivo alrededor de una cifra
+(`mv-anillo`), geometría flotante con paralaje de cursor (`mv-geo`), trazos de pizarra y
+círculo de foco (`mv-r` + `mv-traza`), píldoras de autocompletado (`mv-pill`), hilo multicolor
+en la barra de progreso, y deriva ambiental en los 28 círculos de fondo (`mv-flota`).
+El detalle de qué va dónde y por qué está en
+[`docs/plan-rediseno-padres.md`](../../docs/plan-rediseno-padres.md) §8.
+
 La energía sigue el embudo: festivo en la apertura (olas, nubes, globos, partículas),
 contenido y en rojos tenues en la disonancia, amarillo con aros en la bisagra, **sereno en el
 bloque D** (nubes lentas, verdes suaves, la pradera; sin estallidos ni cascadas: ahí el padre

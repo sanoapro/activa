@@ -22,13 +22,13 @@
 <meta property="og:locale" content="es_MX">
 <meta property="og:site_name" content="activa">
 <meta property="og:url" content="https://sanoapro.github.io/activa/paginas/padres-de-familia/">
-<meta property="og:title" content="Preparando a nuestros alumnos para un mundo que aún no existe">
+<meta property="og:title" content="Preparando a sus hijos para un mundo que aún no existe">
 <meta property="og:description" content="Programa de Transformación Digital · Ciclo 2026–2027. Presentación para las familias del colegio.">
 <meta property="og:image" content="https://sanoapro.github.io/activa/paginas/padres-de-familia/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Preparando a nuestros alumnos para un mundo que aún no existe · Programa de Transformación Digital · Ciclo 2026–2027">
+<meta property="og:image:alt" content="Preparando a sus hijos para un mundo que aún no existe · Programa de Transformación Digital · Ciclo 2026–2027">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://sanoapro.github.io/activa/paginas/padres-de-familia/og.png">
 
@@ -279,6 +279,21 @@ tbody tr:last-child td{border-bottom:0}
 /* ═══════════ NUEVO · SILUETAS 6 DE 10 (lámina 6) ═══════════ */
 .sil{width:100%;max-width:860px;height:auto;display:block;margin:0 auto}
 
+/* ── lámina 3 · la pregunta como una búsqueda de Google ────────────
+   La caja y su lista de sugerencias. Los oficios van TACHADOS: la
+   tachadura es el argumento de la lámina —ya no existen— y sobrevive a
+   la impresión, porque es color y no movimiento. */
+.s03-buscador{width:100%;max-width:720px;background:var(--white);
+  border:1px solid var(--line);border-radius:26px;box-shadow:var(--sh);overflow:hidden}
+.s03-q{display:flex;align-items:center;gap:14px;padding:15px 22px}
+.s03-q > svg{width:21px;height:21px;fill:var(--ink3);flex-shrink:0}
+.s03-q .tx{flex:1;font-size:17px;color:var(--ink);min-width:0}
+.s03-sug{border-top:1px solid var(--line);padding:5px 0;margin:0;list-style:none}
+.s03-sug li{display:flex;align-items:center;gap:14px;padding:8px 22px;font-size:16px}
+.s03-sug li > svg{width:17px;height:17px;fill:var(--ink4);flex-shrink:0}
+.s03-sug li b{font-weight:400;color:var(--ink2);
+  text-decoration:line-through;text-decoration-color:var(--red-l);text-decoration-thickness:2px}
+
 /* ═══════════ MOVIMIENTO ═══════════ */
 .slide.on > .head{animation:mv-sube .42s cubic-bezier(.2,.8,.2,1) both}
 .slide.on > .body,.slide.on > .split,.slide.on > .inner{
@@ -472,6 +487,190 @@ tbody tr:last-child td{border-bottom:0}
   #stage .mo-stagger > *{opacity:1!important;transform:none!important;animation:none!important}
 }
 
+/* ═══════════ MOVIMIENTO · VOCABULARIO GOOGLE ═══════════
+   Ocho sistemas nuevos, con la paleta de marca obligatoria:
+   azul #4285F4 · rojo #EA4335 · amarillo #FBBC05 · verde #34A853.
+
+   Todo lleva prefijo `mv-`, así que las guardas que ya existen abajo
+   —impresión, «reducir movimiento», móvil— los apagan solos sin repetir
+   una línea. Las cuatro reglas de docs/normativa-motion.md siguen
+   mandando: un bucle, la geometría se lee en el frame, se respeta
+   «reducir movimiento» y nada se oculta si el motor no arrancó.
+
+   LA REGLA DEL ESTADO BASE, que es la que evita desastres al imprimir:
+   · lo que DEBE llegar al PDF (subrayados, círculos, flechas, píldoras)
+     tiene como estado base su forma TERMINADA, y la animación va del
+     estado vacío al terminado. Apagarla deja la marca puesta.
+   · lo que solo existe en movimiento (barrido, ondas, spinner) tiene
+     como estado base INVISIBLE. Apagarlo lo borra, en vez de dejar una
+     barra de color atravesada en la hoja. */
+
+:root{
+  --g-azul:#4285F4; --g-rojo:#EA4335; --g-amar:#FBBC05; --g-verd:#34A853;
+}
+
+/* ── 1 · Ondas de Google Assistant ────────────────────────────────
+   Cuatro barras que respiran como si escucharan. Alturas de reposo
+   distintas (--a) para que, con la animación apagada, siga leyéndose
+   como un ecualizador y no como cuatro palitos iguales.
+   Única excepción a la regla de la casa de 4-12 s por ciclo, y es
+   deliberada: unas barras de voz a seis segundos no parecen voz. */
+.mv-voz{display:inline-flex;align-items:flex-end;gap:4px;height:22px;flex-shrink:0;vertical-align:middle}
+.mv-voz > i{display:block;width:5px;height:100%;border-radius:3px;background:var(--c);
+  transform-origin:50% 100%;transform:scaleY(var(--a));
+  animation:mv-voz 1.25s ease-in-out var(--d,0s) infinite alternate}
+@keyframes mv-voz{from{transform:scaleY(var(--a))}to{transform:scaleY(var(--b))}}
+
+/* ── 2 · Pulsaciones Material ─────────────────────────────────────
+   Nacen donde se hizo clic; con el teclado, en el canto por el que se
+   avanza, y así la onda además dice hacia dónde va la presentación.
+   RELLENAS y no aros: un aro escalado 30 veces engorda su borde 30
+   veces y a mitad de camino sería una rosquilla. El relleno que se
+   desvanece es además lo que hace Material de verdad. */
+.mv-ondas{position:absolute;inset:0;z-index:40;pointer-events:none;overflow:hidden}
+.mv-ondamat{position:absolute;width:1500px;height:1500px;margin:-750px 0 0 -750px;
+  border-radius:50%;background:var(--c);opacity:0;transform:scale(0);
+  animation:mv-ondamat .74s cubic-bezier(.22,.68,.18,1) both}
+@keyframes mv-ondamat{0%{transform:scale(0);opacity:.13}100%{transform:scale(1);opacity:0}}
+
+/* ── 4 · Barrido de capítulo ──────────────────────────────────────
+   Cuatro barras diagonales cruzan el escenario al CAMBIAR DE BLOQUE
+   narrativo, y solo entonces. El deck son siete bloques —apertura,
+   disonancia, bisagra, tranquilidad, solución, resultado, cierre—, así
+   que barre seis veces en 22 láminas: puntúa la estructura en vez de
+   parpadear cada diez segundos. */
+.mv-barrido{position:absolute;inset:0;z-index:41;pointer-events:none;overflow:hidden;display:none}
+.mv-barrido.on{display:block}
+.mv-barrido > i{position:absolute;left:0;top:-15%;width:30%;height:130%;
+  transform:translateX(-170%) skewX(-14deg)}
+.mv-barrido.on > i{animation:mv-barrido .6s cubic-bezier(.5,0,.2,1) both}
+.mv-barrido > i:nth-child(1){background:var(--g-azul)}
+.mv-barrido > i:nth-child(2){background:var(--g-rojo);animation-delay:.06s}
+.mv-barrido > i:nth-child(3){background:var(--g-amar);animation-delay:.12s}
+.mv-barrido > i:nth-child(4){background:var(--g-verd);animation-delay:.18s}
+@keyframes mv-barrido{
+  from{transform:translateX(-170%) skewX(-14deg)}
+  to{transform:translateX(430%) skewX(-14deg)}
+}
+
+/* ── 5 · Spinner evolutivo ────────────────────────────────────────
+   El indicador de carga de Google —un arco que gira pasando por azul,
+   rojo, amarillo y verde— da dos vueltas alrededor de una cifra y se
+   abre para dejarla sola.
+   LA CIFRA NO SE ANIMA: la normativa prohíbe decorar números y aquí no
+   se toca ni su tamaño ni su opacidad ni su posición. Lo que entra y
+   sale es el aro, y pasa por fuera del cuerpo de los dígitos. */
+.mv-cifra{position:relative;display:inline-block;z-index:0}
+.mv-anillo{position:absolute;left:50%;top:50%;width:var(--r,132px);height:var(--r,132px);
+  margin:calc(var(--r,132px) / -2) 0 0 calc(var(--r,132px) / -2);
+  opacity:0;animation:mv-anillo-sale .88s cubic-bezier(.2,.8,.2,1) .3s both}
+.mv-anillo > i{display:block;width:100%;height:100%;border-radius:50%;
+  border:3px solid transparent;border-top-color:var(--g-azul);
+  animation:mv-anillo-gira .44s linear .3s 2, mv-anillo-color .88s steps(1,end) .3s both}
+@keyframes mv-anillo-gira{to{transform:rotate(360deg)}}
+@keyframes mv-anillo-color{
+  0%{border-top-color:var(--g-azul)} 25%{border-top-color:var(--g-rojo)}
+  50%{border-top-color:var(--g-amar)} 75%,100%{border-top-color:var(--g-verd)}
+}
+@keyframes mv-anillo-sale{
+  0%{opacity:0;transform:scale(.72)}
+  14%,68%{opacity:.9;transform:scale(1)}
+  100%{opacity:0;transform:scale(1.3)}
+}
+/* El rótulo de la cifra pasa por encima del aro: el arco lo roza al girar
+   y un texto de 13 px no puede quedar cruzado ni un cuadro. */
+.stat:has(.mv-cifra) .l{position:relative;z-index:1}
+
+/* ── 6 · Geometría flotante con paralaje ──────────────────────────
+   Círculo, triángulo, cuadrado y píldora derivando muy despacio, cada
+   uno a su ritmo y —vía Motion.follow— a su propia velocidad respecto
+   del cursor: eso es lo que da la profundidad.
+   Dos elementos anidados a propósito: el envoltorio recibe el transform
+   en línea de Motion.follow y el hijo lleva la animación CSS. En el
+   mismo elemento, la animación le ganaría al estilo en línea y el
+   paralaje se perdería en silencio. */
+.mv-geo{position:absolute;z-index:0}
+.mv-geo > i{display:block;animation:mv-geo-deriva 13s ease-in-out infinite alternate}
+.mv-geo-cir,.mv-geo-cua,.mv-geo-pil{background:var(--col)}
+.mv-geo-cir{width:var(--s);height:var(--s);border-radius:50%}
+.mv-geo-cua{width:var(--s);height:var(--s);border-radius:6px}
+.mv-geo-pil{width:calc(var(--s) * 2.3);height:calc(var(--s) * .58);border-radius:99px}
+.mv-geo-tri{width:0;height:0;
+  border-left:calc(var(--s) * .5) solid transparent;
+  border-right:calc(var(--s) * .5) solid transparent;
+  border-bottom:calc(var(--s) * .88) solid var(--col)}
+@keyframes mv-geo-deriva{
+  from{transform:translate3d(0,0,0) rotate(0deg)}
+  to{transform:translate3d(9px,-17px,0) rotate(11deg)}
+}
+
+/* ── 7 · 9 · 10 · Trazos de pizarra, subrayado y círculo de foco ───
+   Marcas dibujadas a mano alzada sobre la palabra que hay que
+   recordar. El SVG va en position:absolute: no ocupa flujo, así que
+   ninguna cuenta de alturas de las láminas cambia por ponerle una
+   marca a un título.
+
+   Se redibujan solas en cada visita, sin una línea de JS: la lámina
+   inactiva es display:none y eso reinicia las animaciones CSS.
+
+   Cada path lleva pathLength="100" para que el dasharray sea 100 sin
+   importar su longitud real; así un mismo par de reglas traza cualquier
+   garabato. Y el tamaño va SIEMPRE por width/height y nunca por el par
+   left+right: un <svg> es un elemento reemplazado, y con los cuatro
+   lados fijados el navegador ignora `right` y respeta su tamaño
+   intrínseco — el subrayado se quedaría corto en las frases largas. */
+.mv-r{position:relative;display:inline-block}
+.mv-r > svg{position:absolute;overflow:visible;pointer-events:none;
+  fill:none;stroke:var(--c,var(--g-azul));stroke-linecap:round;stroke-linejoin:round}
+.mv-traza{stroke-dasharray:100;stroke-dashoffset:0;
+  animation:mv-traza .6s cubic-bezier(.36,.75,.4,1) var(--mv-t,.5s) both}
+@keyframes mv-traza{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+/* subrayado mágico: se pega al borde inferior de la palabra */
+.mv-sub2{left:-5px;width:calc(100% + 10px);top:100%;height:11px;stroke-width:3.4}
+/* círculo de foco: rodea la palabra con overshoot, cerrando de más. La
+   holgura es generosa a propósito — con 13 px el trazo rozaba el asta de
+   los dígitos de 88 px y parecía tachadura en vez de círculo. */
+.mv-circ{left:-22px;width:calc(100% + 44px);top:-14px;height:calc(100% + 28px);stroke-width:3}
+
+/* ── Deriva ambiental del fondo ───────────────────────────────────
+   Los círculos pastel de las esquinas estaban clavados en las veinte
+   láminas de contenido: el movimiento vivía solo en la portada y en el
+   cierre. Ahora respiran — 16 s de ciclo, 18 px de recorrido en
+   diagonal y un 3 % de escala. Es el movimiento más barato del deck
+   (una sola propiedad compuesta, sin recálculo) y el que más se nota,
+   porque ocurre justo donde no había nada. La clase la reparte la
+   coreografía, no el markup. */
+.mv-flota{animation:mv-flota 16s ease-in-out infinite alternate}
+@keyframes mv-flota{
+  from{transform:translate3d(0,0,0) scale(1)}
+  to{transform:translate3d(-16px,12px,0) scale(1.035)}
+}
+
+/* ── 12 · Píldoras de autocompletado ──────────────────────────────
+   Entran de abajo hacia arriba, una tras otra, como las sugerencias de
+   búsqueda de Google. Estado base: PUESTAS y visibles — al imprimir y
+   con «reducir movimiento» la lista se lee entera. */
+.mv-pill{animation:mv-pill .42s cubic-bezier(.2,.8,.2,1) var(--d,0s) both}
+@keyframes mv-pill{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mv-pill:hover{border-color:var(--c,var(--g-azul))}
+
+/* ── 11 · Barra de progreso multicolor ────────────────────────────
+   El indicador segmentado ya existía, con un color por bloque
+   narrativo. Se le suma el hilo de los cuatro colores de Google
+   corriendo por debajo: la barra dice a la vez en qué bloque va la
+   junta y cuánto falta. */
+#progress::before{content:"";position:absolute;left:0;top:0;height:100%;
+  width:var(--avance,0%);background:linear-gradient(90deg,
+    var(--g-azul),var(--g-rojo) 33%,var(--g-amar) 66%,var(--g-verd));
+  opacity:.30;transition:width .45s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+
+/* Ni el barrido ni las ondas pintan en papel: son transición, no
+   contenido, y una barra de color a media hoja llegaría a la familia. */
+@media print{
+  .mv-barrido,.mv-ondas{display:none!important}
+  #progress::before{display:none!important}
+}
+
 /* reducir movimiento: TODO quieto, TODO visible */
 @media (prefers-reduced-motion:reduce){
   .slide.on,.slide.on > .head,.slide.on > .body,.slide.on > .split,
@@ -479,6 +678,8 @@ tbody tr:last-child td{border-bottom:0}
   [class*="mv-"]{animation:none!important;transition:none!important}
   .mv-sub::after,.mv-late::after{animation:none!important}
   .mv-crece{transform:none!important}   /* el pasto, crecido y quieto */
+  /* el hilo de la barra salta a su sitio en vez de deslizarse */
+  #progress::before{transition:none!important}
   #stage .slide.on .card:hover,#stage .slide.on .tile:hover,
   #stage .slide.on .logotile:hover{transform:none}
 }
@@ -522,6 +723,10 @@ tbody tr:last-child td{border-bottom:0}
   /* la flecha se posiciona en px sobre el lienzo de 1280×720: en flujo
      vertical no tiene dónde apuntar; el brillo vive dentro del peldaño */
   .mv-flecha,.mv-brillo{display:none}
+  /* Barrido y ondas se posicionan sobre el escenario de 1280×720. En flujo
+     vertical el escenario mide toda la página: una capa inset:0 taparía el
+     documento entero. Fuera en móvil, como el resto de la decoración pesada. */
+  .mv-barrido,.mv-ondas{display:none!important}
   .feat .xs,.feat p{max-width:none}
   #hint{display:none}
   #nav{right:12px;bottom:12px;background:rgba(32,33,36,.85);border-radius:99px;
@@ -572,7 +777,7 @@ tbody tr:last-child td{border-bottom:0}
   <span class="shape" style="width:520px;height:520px;left:-180px;top:-240px;background:var(--blue-t)"></span>
   <span class="shape" style="width:250px;height:250px;right:-80px;bottom:150px;background:var(--yel-t)"></span>
   <span class="shape" style="width:140px;height:140px;right:330px;top:90px;background:var(--grn-t)"></span>
-  <div class="mv-fondo" aria-hidden="true">
+  <div class="mv-fondo" data-red="60" aria-hidden="true">
     <i class="mv-nube" style="left:-60px;top:-40px;width:380px;height:170px;animation-duration:12s;animation-delay:-3s;
       background:radial-gradient(closest-side at 40% 55%,rgba(66,133,244,.18),rgba(66,133,244,0) 72%)"></i>
     <i class="mv-nube mv-inv" style="right:-40px;bottom:-30px;width:340px;height:150px;animation-duration:11s;animation-delay:-6s;
@@ -621,7 +826,7 @@ tbody tr:last-child td{border-bottom:0}
     </svg>
   </div>
   <div class="inner" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:0">
-    <h1 style="max-width:940px">Preparando a nuestros alumnos para un mundo que aún no existe</h1>
+    <h1 style="max-width:940px">Preparando a sus hijos para un mundo que aún no existe</h1>
     <p class="lead" style="margin-top:26px;max-width:none">Programa de Transformación Digital · Ciclo 2026–2027</p>
     <div class="xs" style="margin-top:52px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700">
       En alianza con <em class="marca">activa</em> · <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> for Education Partner</div>
@@ -648,16 +853,22 @@ tbody tr:last-child td{border-bottom:0}
   <div class="split wide-l">
     <div class="card lift rule b" style="justify-content:center;gap:14px">
       <div class="stat"><div class="n b" style="font-size:96px;letter-spacing:-4.5px">+2&nbsp;M</div>
-        <div class="l" style="font-size:16px;max-width:340px;margin-top:10px">profesores capacitados</div></div>
+        <div class="l" style="font-size:16px;max-width:340px;margin-top:10px">maestros capacitados</div></div>
       <p class="sm" style="max-width:360px">«Maestros como los de sus hijos.»</p>
     </div>
     <div class="grid" style="grid-template-rows:repeat(3,1fr)">
       <div class="card pad-s rule r lift"><div class="stat"><div class="n r" style="font-size:40px;letter-spacing:-1.6px">+90</div>
         <div class="l">colegios ya recorrieron este camino</div></div></div>
-      <div class="card pad-s rule y lift"><div class="stat"><div class="n y" style="font-size:40px;letter-spacing:-1.6px">16</div>
+      <!-- El 16 es la cifra más «de Google» de la lámina y la única lo bastante
+           estrecha para que un aro la rodee sin cruzarla: por eso el spinner
+           evolutivo cae aquí y no en el +2 M, que mide 250 px de ancho. -->
+      <div class="card pad-s rule y lift"><div class="stat"><div class="n y" style="font-size:40px;letter-spacing:-1.6px"><span class="mv-cifra">16<span
+        class="mv-anillo" style="--r:86px" aria-hidden="true"><i></i></span></span></div>
         <div class="l"><span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> Reference Schools — «la máxima distinción que <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> otorga a un colegio en el mundo»</div></div></div>
-      <div class="card pad-s rule g lift"><div class="stat"><div class="n g" style="font-size:40px;letter-spacing:-1.6px">5</div>
-        <div class="l">proyectos internacionales: <b>México, Chile, Perú, El Salvador, Barbados</b></div></div></div>
+      <!-- Son SEIS, no cinco: faltaba Colombia. La cifra y la lista salen de
+           docs/portafolio-activa.md §1 y no se tocan sin actualizar ese documento. -->
+      <div class="card pad-s rule g lift"><div class="stat"><div class="n g" style="font-size:40px;letter-spacing:-1.6px">6</div>
+        <div class="l">proyectos internacionales: <b>México, Chile, Perú, El Salvador, Barbados y Colombia</b></div></div></div>
     </div>
   </div>
   <div class="foot">
@@ -675,37 +886,51 @@ tbody tr:last-child td{border-bottom:0}
     <svg class="mv-icono" style="right:-56px;bottom:-64px;width:300px;height:300px;transform:rotate(-10deg)" viewBox="0 0 24 24" fill="#ea4335" opacity=".05"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
     <svg class="mv-icono" style="left:-70px;top:180px;width:260px;height:260px;transform:rotate(12deg)" viewBox="0 0 24 24" fill="#ea4335" opacity=".05"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
   </div>
-  <!-- flecha que señala la respuesta: EL momento de la lámina -->
-  <svg class="mv-flecha" style="right:80px;bottom:196px;width:64px;color:var(--red)" viewBox="0 0 72 58" aria-hidden="true">
-    <path d="M8 6 C 40 8, 58 22, 62 42" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/>
-    <path d="M62 54 L54 41 L70 40 z" fill="currentColor"/>
-  </svg>
+  <!-- Aquí vivía una flecha roja que señalaba la tarjeta de la respuesta. Esa
+       tarjeta se mudó a la lámina 9, así que la flecha apuntaba al vacío: se
+       retira. Lo que dirige la mirada ahora es el propio buscador. -->
+  <!--
+    REESCRITA. Antes esta lámina proyectaba a la familia dos cosas que no
+    eran para ella: un rótulo «Apoyo para quien presenta — si la sala se
+    queda callada» con nueve píldoras de ejemplo, y una tarjeta «Si alguien
+    pregunta…» con su respuesta. Eso es guion del presentador, y el padre
+    lo estaba leyendo.
+
+    Ahora la lámina entera es UNA metáfora: la pregunta es una búsqueda de
+    Google y los oficios desaparecidos son su autocompletado, tachados
+    porque ya no existen. Las sugerencias entran una tras otra (.mv-pill),
+    igual que las de Google, y las ondas de Assistant ocupan el lugar del
+    micrófono: la sala es la que tiene que contestar.
+
+    La respuesta sobre los maestros no se perdió: se mudó a la lámina 9,
+    que trata exactamente de eso y donde sí es contenido y no acotación.
+  -->
   <div class="head">
-    <div class="eyebrow r">Actividad · para conversar</div>
+    <div class="eyebrow r">Para conversar</div>
   </div>
-  <div class="body" style="gap:26px">
-    <h1 style="font-size:54px;letter-spacing:-1.9px;max-width:1020px">¿Qué trabajos existían cuando ustedes eran niños y hoy ya no existen?</h1>
-    <div>
-      <div class="xs" style="font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink2);margin-bottom:9px">
-        Apoyo para quien presenta — si la sala se queda callada</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;max-width:980px">
-        <span class="pill ghost">operadora de conmutador</span>
-        <span class="pill ghost">mecanógrafa</span>
-        <span class="pill ghost">revelador de fotografía</span>
-        <span class="pill ghost">cobrador de peaje</span>
-        <span class="pill ghost">agente de viajes de mostrador</span>
-        <span class="pill ghost">videoclub</span>
-        <span class="pill ghost">capturista</span>
-        <span class="pill ghost">dibujante de planos a mano</span>
-        <span class="pill ghost">vendedor de enciclopedias</span>
+  <div class="body" style="gap:24px;justify-content:center">
+    <h1 style="font-size:52px;letter-spacing:-1.8px;max-width:1020px">¿Qué trabajos existían cuando ustedes eran niños y hoy ya no existen?</h1>
+
+    <div class="s03-buscador">
+      <div class="s03-q">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <span class="tx">trabajos que existían y ya no existen</span>
+        <!-- Ondas de Assistant en el sitio del micrófono: aquí contesta la sala -->
+        <span class="mv-voz" aria-hidden="true">
+          <i style="--c:#4285F4;--a:.34;--b:.92;--d:0s"></i>
+          <i style="--c:#EA4335;--a:.72;--b:.30;--d:-.35s"></i>
+          <i style="--c:#FBBC05;--a:.46;--b:1;--d:-.62s"></i>
+          <i style="--c:#34A853;--a:.90;--b:.42;--d:-.18s"></i>
+        </span>
       </div>
-    </div>
-    <div class="card t-r lift" style="flex-direction:row;align-items:center;gap:20px;padding:22px 28px">
-      <div class="med r lg round" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg></div>
-      <div>
-        <div class="xs" style="font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--red-d)">Si alguien pregunta: «¿los maestros van a dejar de existir?»</div>
-        <h3 style="margin-top:6px;font-size:24px;max-width:900px">No. El maestro no desaparece; el maestro que no use tecnología será reemplazado por el que sí la use.</h3>
-      </div>
+      <ul class="s03-sug mv-pills">
+        <li class="mv-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg><b>operadora de conmutador</b></li>
+        <li class="mv-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg><b>mecanógrafa</b></li>
+        <li class="mv-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg><b>revelador de fotografía</b></li>
+        <li class="mv-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg><b>cobrador de peaje</b></li>
+        <li class="mv-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg><b>empleado de videoclub</b></li>
+        <li class="mv-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg><b>vendedor de enciclopedias</b></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -807,6 +1032,11 @@ tbody tr:last-child td{border-bottom:0}
   <div class="mv-fondo" aria-hidden="true">
     <i class="mv-onda" style="left:50%;top:34%;--onda-c:rgba(234,67,53,.32)"></i>
     <i class="mv-onda" style="left:50%;top:34%;--onda-c:rgba(234,67,53,.32);animation-delay:4.5s"></i>
+    <!-- Geometría flotante en los márgenes: esta lámina es casi todo aire -->
+    <span class="mv-geo" style="left:6%;top:14%"><i class="mv-geo-cir" style="--s:28px;--col:rgba(66,133,244,.15)"></i></span>
+    <span class="mv-geo" style="left:88%;top:20%"><i class="mv-geo-tri" style="--s:24px;--col:rgba(251,188,5,.20);animation-delay:-4s"></i></span>
+    <span class="mv-geo" style="left:10%;top:82%"><i class="mv-geo-cua" style="--s:20px;--col:rgba(52,168,83,.16);animation-delay:-8s"></i></span>
+    <span class="mv-geo" style="left:84%;top:80%"><i class="mv-geo-pil" style="--s:28px;--col:rgba(234,67,53,.13);animation-delay:-11s"></i></span>
     <i class="mv-nube mv-inv" style="right:-50px;bottom:60px;width:340px;height:150px;animation-duration:12s;animation-delay:-5s;
       background:radial-gradient(closest-side at 40% 55%,rgba(234,67,53,.10),rgba(234,67,53,0) 72%)"></i>
     <svg class="mv-icono" style="right:-64px;top:-60px;width:280px;height:280px;transform:rotate(12deg)" viewBox="0 0 24 24" fill="#ea4335" opacity=".05"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
@@ -843,7 +1073,7 @@ tbody tr:last-child td{border-bottom:0}
 <section class="slide" data-bloque="bisagra">
   <span class="shape" style="width:400px;height:400px;right:-180px;bottom:-190px;background:var(--yel-t)"></span>
   <!-- la bisagra se abre: amarillo, más aire — el foco y el trazo creativo -->
-  <div class="mv-fondo" aria-hidden="true">
+  <div class="mv-fondo" data-red="48" aria-hidden="true">
     <i class="mv-nube" style="left:-60px;top:-30px;width:360px;height:160px;animation-duration:11s;animation-delay:-2s;
       background:radial-gradient(closest-side at 40% 55%,rgba(249,171,0,.14),rgba(249,171,0,0) 72%)"></i>
     <svg class="mv-icono" style="right:-60px;top:-70px;width:280px;height:280px;transform:rotate(10deg)" viewBox="0 0 24 24" fill="#f9ab00" opacity=".06"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
@@ -902,6 +1132,13 @@ tbody tr:last-child td{border-bottom:0}
     <i class="mv-onda" style="left:84%;top:36%;--onda-c:rgba(249,171,0,.5)"></i>
     <i class="mv-onda" style="left:84%;top:36%;--onda-c:rgba(249,171,0,.5);animation-delay:3s"></i>
     <i class="mv-onda" style="left:84%;top:36%;--onda-c:rgba(249,171,0,.5);animation-delay:6s"></i>
+    <!-- Geometría flotante con paralaje: las cuatro formas van por los
+         MÁRGENES, nunca detrás del bloque de texto. El paralaje con el
+         cursor lo cablea la coreografía del final. -->
+    <span class="mv-geo" style="left:5%;top:56%"><i class="mv-geo-cir" style="--s:30px;--col:rgba(66,133,244,.16)"></i></span>
+    <span class="mv-geo" style="left:26%;top:78%"><i class="mv-geo-tri" style="--s:26px;--col:rgba(234,67,53,.14);animation-delay:-4s"></i></span>
+    <span class="mv-geo" style="left:52%;top:86%"><i class="mv-geo-cua" style="--s:22px;--col:rgba(251,188,5,.20);animation-delay:-8s"></i></span>
+    <span class="mv-geo" style="left:70%;top:70%"><i class="mv-geo-pil" style="--s:30px;--col:rgba(52,168,83,.15);animation-delay:-11s"></i></span>
     <svg class="mv-icono" style="right:150px;bottom:-90px;width:300px;height:300px;transform:rotate(-8deg)" viewBox="0 0 24 24" fill="#f9ab00" opacity=".06"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
     <svg class="mv-icono" style="left:-60px;bottom:-70px;width:260px;height:260px;transform:rotate(12deg)" viewBox="0 0 24 24" fill="#f9ab00" opacity=".05"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
   </div>
@@ -973,26 +1210,41 @@ tbody tr:last-child td{border-bottom:0}
     <div class="eyebrow g">El maestro no desaparece</div>
     <h2>La tecnología no sustituye al maestro. Lo potencia.</h2>
   </div>
-  <div class="body">
-    <!-- Al quitarse las dos cifras del colegio, las tarjetas quedaron con poco
-         dentro. Se suelta el estirado a toda la altura (.body > .grid:only-child)
-         para que cada una abrace su contenido y el conjunto se centre: aire
-         intencional en vez de tres cajas medio vacías. -->
-    <div class="grid g3" style="grid-auto-rows:minmax(250px,auto);align-content:center">
-      <div class="card rule g lift" style="gap:13px">
+  <div class="body" style="gap:14px">
+    <!--
+      AMPLIADA. Antes eran tres tarjetas con una frase cada una, flotando en
+      una banda estrecha con media lámina vacía; decía «se capacitan» sin
+      decir cuánto. Ahora lleva las cifras de docs/portafolio-activa.md §7.2,
+      que son las que convierten una promesa en un compromiso, y recibe la
+      respuesta sobre los maestros que antes vivía —como acotación para el
+      presentador— en la lámina 3.
+    -->
+    <div class="grid g4" style="grid-auto-rows:minmax(188px,auto);align-content:center;gap:14px">
+      <div class="card rule g lift" style="gap:10px">
         <div class="med g" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></div>
-        <h3>Formación continua</h3>
-        <p class="sm">Los maestros se capacitan y reciben acompañamiento durante todo el ciclo escolar, no solo al arranque del programa.</p>
+        <div class="stat"><div class="n g" style="font-size:38px;letter-spacing:-1.4px">3</div>
+          <div class="l">bootcamps al año, de mes y medio cada uno</div></div>
       </div>
-      <div class="card rule g lift" style="gap:13px">
+      <div class="card rule g lift" style="gap:10px">
         <div class="med g" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
-        <h3>Certificación oficial</h3>
-        <p class="sm">El programa prepara al profesorado para certificarse como educador de <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span>, una credencial con validez internacional.</p>
+        <div class="stat"><div class="n g" style="font-size:38px;letter-spacing:-1.4px">1</div>
+          <div class="l">examen oficial de <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> por maestro, cada año</div></div>
       </div>
-      <div class="card t-g lift" style="gap:14px">
-        <div class="med g" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
-        <p style="font-size:15px;line-height:1.5;color:var(--ink)">Al automatizar la preparación de materiales y la calificación, el maestro recupera tiempo para lo único que no puede delegarse: <b>atender a su hijo</b>.</p>
+      <div class="card rule g lift" style="gap:10px">
+        <div class="med g" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div>
+        <div class="stat"><div class="n g" style="font-size:31px;letter-spacing:-1.1px">Semanal</div>
+          <div class="l">sesiones de actualización durante todo el ciclo</div></div>
       </div>
+      <div class="card t-g lift" style="gap:10px">
+        <div class="med g" style="background:var(--white)" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+        <p style="font-size:14.5px;line-height:1.45;color:var(--ink)">Al automatizar materiales y calificación, el maestro recupera tiempo para lo único que no puede delegarse: <b>atender a su hijo</b>.</p>
+      </div>
+    </div>
+
+    <!-- La duda que el padre trae de verdad, contestada de frente -->
+    <div class="card t-g" style="flex-direction:row;align-items:center;gap:20px;padding:18px 26px;flex-shrink:0">
+      <div class="med g lg round" style="background:var(--white)" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg></div>
+      <h3 style="font-size:22px;max-width:960px">El maestro no desaparece. El maestro que <span class="mv-r">no use tecnología<svg class="mv-sub2" viewBox="0 0 200 11" preserveAspectRatio="none" aria-hidden="true" style="--c:#34A853"><path class="mv-traza" pathLength="100" d="M3 7C38 3.4 72 8.8 108 5.6 138 3 168 4.4 197 8"/></svg></span> será reemplazado por el que sí la use.</h3>
     </div>
   </div>
 </section>
@@ -1125,7 +1377,9 @@ tbody tr:last-child td{border-bottom:0}
     <svg class="mv-icono" style="right:220px;top:-90px;width:250px;height:250px;transform:rotate(12deg)" viewBox="0 0 24 24" fill="#1e8e3e" opacity=".05"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
   </div>
   <div class="head">
-    <div class="eyebrow g">Cuatro afirmaciones frontales</div>
+    <!-- El epígrafe decía «Cuatro afirmaciones frontales»: eso describe la
+         retórica de la lámina, no su contenido, y el padre lo estaba leyendo. -->
+    <div class="eyebrow g">Datos y privacidad</div>
     <h2>Privacidad de su hijo</h2>
   </div>
   <div class="body">
@@ -1134,7 +1388,7 @@ tbody tr:last-child td{border-bottom:0}
     <div class="grid g2" style="grid-auto-rows:minmax(120px,auto);align-content:center;gap:18px">
       <div class="card pad-s t-g lift" style="flex-direction:row;align-items:center;gap:16px">
         <div class="med g" style="background:var(--white)" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div>
-        <p style="font-size:16px;color:var(--ink)">Los datos del alumno son <b>del colegio</b>, no de la plataforma.</p>
+        <p style="font-size:16px;color:var(--ink)">Los datos de su hijo son <b>del colegio</b>, no de la plataforma.</p>
       </div>
       <div class="card pad-s t-g lift" style="flex-direction:row;align-items:center;gap:16px">
         <div class="med g" style="background:var(--white)" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/></svg></div>
@@ -1146,7 +1400,7 @@ tbody tr:last-child td{border-bottom:0}
       </div>
       <div class="card pad-s t-g lift" style="flex-direction:row;align-items:center;gap:16px">
         <div class="med g" style="background:var(--white)" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9z"/></svg></div>
-        <p style="font-size:16px;color:var(--ink)">La cuenta es <b>escolar</b>: deja de estar activa cuando el alumno egresa.</p>
+        <p style="font-size:16px;color:var(--ink)">La cuenta es <b>escolar</b>: deja de estar activa cuando su hijo egresa.</p>
       </div>
     </div>
   </div>
@@ -1166,7 +1420,15 @@ tbody tr:last-child td{border-bottom:0}
     <svg class="mv-icono" style="right:-56px;top:-64px;width:240px;height:240px;transform:rotate(14deg)" viewBox="0 0 24 24" fill="#7b1fa2" opacity=".05"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
   </div>
   <div class="head">
-    <div class="eyebrow g">También cuidamos su interior · <em class="marca">motiva</em></div>
+    <!-- Ondas de Assistant: esta es la lámina del diagnóstico socioemocional,
+         donde el programa literalmente escucha antes de proponer nada. -->
+    <div class="eyebrow g">También cuidamos su interior · <em class="marca">motiva</em>
+      <span class="mv-voz" style="height:15px" aria-hidden="true">
+        <i style="--c:#4285F4;--a:.40;--b:.95;--d:0s"></i>
+        <i style="--c:#EA4335;--a:.85;--b:.32;--d:-.42s"></i>
+        <i style="--c:#FBBC05;--a:.52;--b:1;--d:-.70s"></i>
+        <i style="--c:#34A853;--a:.95;--b:.45;--d:-.22s"></i>
+      </span></div>
     <h2>Trayectoria socioemocional por etapas.</h2>
   </div>
   <div class="body" style="gap:16px">
@@ -1300,7 +1562,10 @@ tbody tr:last-child td{border-bottom:0}
   <div class="head">
     <div class="eyebrow b">Así se ve en la práctica</div>
     <h2>Proyectos como los que harán sus hijos</h2>
-    <p class="lead" style="max-width:900px">Dos ejemplos ilustrativos del tipo de trabajo que los alumnos hacen en este programa.</p>
+    <!-- El subtítulo empezaba «Dos ejemplos ilustrativos del tipo de trabajo
+         que…». El hedge protegía al presentador y le quitaba fuerza al caso:
+         la salvedad baja al pie, en pequeño, donde no compite con el ejemplo. -->
+    <p class="lead" style="max-width:900px">Así se ve un proyecto cuando entra al aula.</p>
   </div>
   <div class="body">
     <!-- sin estirado a toda la altura: las tarjetas abrazan su párrafo -->
@@ -1310,13 +1575,16 @@ tbody tr:last-child td{border-bottom:0}
     <div class="grid g2" style="grid-auto-rows:minmax(320px,auto);align-content:center;gap:18px">
       <div class="card lift rule b" style="gap:14px;padding:30px 34px">
         <span class="pill b">Ejemplo · primaria</span>
-        <p style="font-size:16.5px;line-height:1.5;color:var(--ink)">Alumnos de 5º de primaria midieron el consumo de agua del colegio, diseñaron una campaña de ahorro y la presentaron a la dirección. En ese proyecto usaron matemáticas, redacción, diseño y trabajo en equipo.</p>
+        <p style="font-size:16.5px;line-height:1.5;color:var(--ink)">Estudiantes de 5º de primaria midieron el consumo de agua del colegio, diseñaron una campaña de ahorro y la presentaron a la dirección. En ese proyecto usaron matemáticas, redacción, diseño y trabajo en equipo.</p>
       </div>
       <div class="card lift rule g" style="gap:14px;padding:30px 34px">
         <span class="pill g">Ejemplo · secundaria</span>
-        <p style="font-size:16.5px;line-height:1.5;color:var(--ink)">Alumnos de secundaria mapearon los cruces peligrosos del camino a la escuela, levantaron datos de tráfico a la hora de entrada y llevaron una propuesta de señalización a la autoridad municipal. En ese proyecto usaron geografía, estadística, redacción y diseño.</p>
+        <p style="font-size:16.5px;line-height:1.5;color:var(--ink)">Estudiantes de secundaria mapearon los cruces peligrosos del camino a la escuela, levantaron datos de tráfico a la hora de entrada y llevaron una propuesta de señalización a la autoridad municipal. En ese proyecto usaron geografía, estadística, redacción y diseño.</p>
       </div>
     </div>
+  </div>
+  <div class="foot">
+    <p class="xs">Dos ejemplos del tipo de proyecto que plantea el programa.</p>
   </div>
 </section>
 
@@ -1363,10 +1631,10 @@ tbody tr:last-child td{border-bottom:0}
       <div class="card lift" style="justify-content:flex-start;gap:12px">
         <div class="med p" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37l-1.34-1.34c-.39-.39-1.02-.39-1.41 0L9 12.25 11.75 15l8.96-8.96c.39-.39.39-1.02 0-1.41z"/></svg></div>
         <h3>No consumen contenido. Lo crean.</h3>
-        <!-- Escena, no icono: un trabajo hecho por el alumno, en su lienzo. -->
+        <!-- Escena, no icono: un trabajo hecho por el estudiante, en su lienzo. -->
         <div style="flex:1;min-height:150px;display:grid;place-items:center;background:var(--plum-t);border-radius:16px;padding:22px">
           <svg viewBox="0 0 300 190" role="img" style="width:100%;height:auto;max-height:100%"
-            aria-label="Un trabajo creado por un alumno: su lienzo, con una imagen, texto y una paleta de color">
+            aria-label="Un trabajo creado por un estudiante: su lienzo, con una imagen, texto y una paleta de color">
             <rect x="0" y="0" width="300" height="190" rx="14" fill="var(--white)"/>
             <rect x="0" y="0" width="300" height="26" rx="14" fill="var(--surf2)"/>
             <rect x="0" y="18" width="300" height="8" fill="var(--surf2)"/>
@@ -1512,7 +1780,7 @@ tbody tr:last-child td{border-bottom:0}
   <span class="shape" style="width:380px;height:380px;right:-170px;bottom:-190px;background:var(--plum-t)"></span>
   <!-- el globo terráqueo de la presencia internacional; los aros respiran
        del lado de las universidades, lejos de la cifra (que no se anima) -->
-  <div class="mv-fondo" aria-hidden="true">
+  <div class="mv-fondo" data-red="46" aria-hidden="true">
     <i class="mv-onda" style="left:76%;top:48%;--onda-c:rgba(123,31,162,.35)"></i>
     <i class="mv-onda" style="left:76%;top:48%;--onda-c:rgba(123,31,162,.35);animation-delay:4.5s"></i>
     <svg class="mv-icono" style="right:-80px;top:-80px;width:330px;height:330px;transform:rotate(10deg)" viewBox="0 0 24 24" fill="#7b1fa2" opacity=".05"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
@@ -1524,8 +1792,14 @@ tbody tr:last-child td{border-bottom:0}
   <div class="split wide-l">
     <div class="stack" style="gap:22px">
       <div class="stat">
-        <div class="n p" style="font-size:88px;letter-spacing:-4px">+200 M</div>
-        <div class="l" style="font-size:16px;max-width:420px;margin-top:10px">Más de <b>200 millones</b> de alumnos y educadores usan <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> Workspace for Education.</div>
+        <!-- 190 millones, que es la cifra de docs/portafolio-activa.md §1 y la que
+             usa el deck comercial. Antes decía «+200 M», sin respaldo. -->
+        <!-- Círculo de foco a mano alzada: la cifra es demasiado ancha para un
+             aro circular, y la elipse trazada sí se estira con la palabra. -->
+        <div class="n p" style="font-size:88px;letter-spacing:-4px"><span class="mv-r">190 M<svg
+          class="mv-circ" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true" style="--c:#EA4335"><path
+          class="mv-traza" pathLength="100" d="M160 12C126 4 64 3 32 13 8 21 8 42 32 50c34 11 108 10 142-2 21-7 23-26 4-34"/></svg></span></div>
+        <div class="l" style="font-size:16px;max-width:420px;margin-top:10px">Más de <b>190 millones</b> de estudiantes y educadores usan <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> Workspace for Education.</div>
       </div>
       <div>
         <div class="xs" style="font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink2);margin-bottom:9px">Presencia internacional</div>
@@ -1568,9 +1842,9 @@ tbody tr:last-child td{border-bottom:0}
   <div class="body" style="gap:16px">
     <div>
       <div class="ruta">
-        <div class="rp"><div class="rn">1</div><h5>Capacitación docente</h5><div class="rd">Los maestros primero: nadie enseña lo que no domina.</div></div>
+        <div class="rp"><div class="rn">1</div><h5>Capacitación de los maestros</h5><div class="rd">Los maestros primero: nadie enseña lo que no domina.</div></div>
         <div class="arr" aria-hidden="true">→</div>
-        <div class="rp"><div class="rn">2</div><h5>Entrega de equipos y cuentas</h5><div class="rd">Cada alumno recibe su equipo y su cuenta escolar.</div></div>
+        <div class="rp"><div class="rn">2</div><h5>Entrega de equipos y cuentas</h5><div class="rd">Cada estudiante recibe su equipo y su cuenta escolar.</div></div>
         <div class="arr" aria-hidden="true">→</div>
         <div class="rp"><div class="rn">3</div><h5>Arranque en aula</h5><div class="rd">El programa entra a las clases de forma gradual.</div></div>
         <div class="arr" aria-hidden="true">→</div>
@@ -1595,7 +1869,12 @@ tbody tr:last-child td{border-bottom:0}
       </div>
       <div class="card pad-s t-b" style="justify-content:center;gap:12px">
         <div class="med b" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div>
-        <h3>¿Y si me surge una duda mañana?</h3>
+        <h3>¿Y si me surge una duda mañana?<span class="mv-voz" style="height:16px;margin-left:12px" aria-hidden="true">
+          <i style="--c:#4285F4;--a:.38;--b:.94;--d:0s"></i>
+          <i style="--c:#EA4335;--a:.80;--b:.30;--d:-.42s"></i>
+          <i style="--c:#FBBC05;--a:.50;--b:1;--d:-.70s"></i>
+          <i style="--c:#34A853;--a:.92;--b:.44;--d:-.22s"></i>
+        </span></h3>
         <p class="sm">El colegio les compartirá el canal por el que podrán preguntar en cualquier momento del ciclo. Ninguna duda tiene que esperar a la siguiente junta.</p>
       </div>
     </div>
@@ -1675,12 +1954,21 @@ tbody tr:last-child td{border-bottom:0}
     </svg>
   </div>
   <div class="inner" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:0">
-    <h1 style="max-width:940px;font-size:56px;letter-spacing:-1.9px">Preparando a nuestros alumnos para un mundo que aún no existe</h1>
+    <h1 style="max-width:940px;font-size:56px;letter-spacing:-1.9px">Preparando a sus hijos para un mundo que aún no existe</h1>
     <p class="lead" style="margin-top:26px;max-width:720px">Este camino se recorre juntos: colegio, maestros y familias. El espacio es ahora para sus preguntas.</p>
     <div class="xs" style="margin-top:52px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700">
       En alianza con <em class="marca">activa</em> · <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> for Education Partner</div>
   </div>
 </section>
+
+<!-- ═════════ CAPAS DE TRANSICIÓN ═════════
+     Van DENTRO de #stage, después de la última lámina: así heredan su
+     recorte, sus esquinas redondeadas y su escala, y quedan por encima de
+     cualquier diapositiva sin tocar el cromo. Las llena y las dispara el
+     bloque de coreografía del final; si motion.js no cargó, se quedan
+     vacías y quietas, y la junta sigue igual de navegable. -->
+<div class="mv-ondas" id="mvOndas" aria-hidden="true"></div>
+<div class="mv-barrido" id="mvBarrido" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
 </div><!-- /#stage -->
 
@@ -1740,11 +2028,19 @@ slides.forEach(function(s,i){
 
 function esEscritorio(){return matchMedia("(min-width:1024px)").matches}
 
+/* Escala viva del escenario. Se guarda porque las ondas Material tienen que
+   pasar el punto del clic —que llega en píxeles de pantalla— a las
+   coordenadas de 1280 × 720 en las que vive la lámina. */
+var stageScale=1;
+window.__stageScale=function(){return stageScale};
+
 function fit(){
   if(esEscritorio()){
     var s=Math.min(innerWidth/1280,innerHeight/720)*0.955;
+    stageScale=s;
     stage.style.transform="translate(-50%,-50%) scale("+s+")";
   }else{
+    stageScale=1;
     stage.style.transform="none";
   }
 }
@@ -1756,6 +2052,8 @@ function show(n){
     s.setAttribute("aria-hidden",i===idx?"false":"true");
   });
   segs.forEach(function(seg,i){seg.classList.toggle("on",i<=idx)});
+  /* hilo de los cuatro colores corriendo bajo los segmentos: cuánto falta */
+  progress.style.setProperty("--avance",((idx+1)/slides.length*100)+"%");
   counter.textContent=(idx+1)+" / "+slides.length;
   bloqueEl.textContent=NOMBRE[slides[idx].getAttribute("data-bloque")]||"";
   /* hash con el número pelón: #7 */
@@ -1827,6 +2125,68 @@ show(isFinite(start)&&start>=1&&start<=slides.length?start-1:0);
 if(!window.Motion) return;
 
 var slides=Array.prototype.slice.call(document.querySelectorAll(".slide"));
+var stage=document.getElementById("stage");
+var GCOLOR=['#4285F4','#EA4335','#FBBC05','#34A853'];
+
+/* ── Barrido de capítulo ────────────────────────────────────────────────
+   Las cuatro barras cruzan la lámina solo cuando CAMBIA EL BLOQUE
+   narrativo. Son siete bloques en 22 láminas, así que barre seis veces:
+   puntúa la estructura del argumento en vez de parpadear en cada avance.
+   El reflow entre quitar y poner .on no es opcional — sin él el navegador
+   agrupa los dos cambios y la animación no rearranca. */
+var barrido=document.getElementById('mvBarrido');
+var barridoT=0, bloqueAnterior=null;
+function lanzaBarrido(){
+  if(!barrido||Motion.reduced) return;
+  clearTimeout(barridoT);
+  barrido.classList.remove('on');
+  void barrido.offsetWidth;                    /* ← el reflow, a propósito */
+  barrido.classList.add('on');
+  barridoT=setTimeout(function(){ barrido.classList.remove('on'); },900);
+}
+
+/* ── Ondas Material al avanzar ──────────────────────────────────────────
+   Nacen donde se hizo clic; con el teclado, en el canto por el que se
+   avanza, y así la onda además dice hacia dónde va la junta. Dos círculos
+   con 110 ms de diferencia y colores consecutivos de Google: se leen como
+   una onda concéntrica sin serlo.
+   El punto llega en píxeles de pantalla y la capa vive dentro de #stage,
+   que está escalado: de ahí la división entre la escala. */
+var capaOndas=document.getElementById('mvOndas');
+var tono=0;
+function onda(cx,cy){
+  if(!capaOndas||Motion.reduced) return;
+  if(!matchMedia('(min-width:1024px)').matches) return;
+  var caja=stage.getBoundingClientRect();
+  var esc=(window.__stageScale?window.__stageScale():1)||1;
+  var x=(cx-caja.left)/esc, y=(cy-caja.top)/esc;
+  for(var k=0;k<2;k++){
+    var el=document.createElement('i');
+    el.className='mv-ondamat';
+    el.style.left=x+'px'; el.style.top=y+'px';
+    el.style.setProperty('--c',GCOLOR[tono++%4]);
+    el.style.animationDelay=(k*110)+'ms';
+    capaOndas.appendChild(el);
+    /* La onda no deja rastro: se retira sola. Sin esto, una junta de una
+       hora acumularía cientos de círculos de 1500 px en el DOM. */
+    (function(nodo){
+      Motion.after(1000+k*110,function(){ if(nodo.parentNode) nodo.parentNode.removeChild(nodo); });
+    })(el);
+  }
+}
+stage.addEventListener('click',function(e){
+  if(e.target.closest&&e.target.closest('[data-noadv],a,button')) return;
+  onda(e.clientX,e.clientY);
+});
+addEventListener('keydown',function(e){
+  var k=e.key;
+  var atras=(k==='ArrowLeft'||k==='PageUp');
+  var adelante=(k==='ArrowRight'||k==='PageDown'||k===' ');
+  if(!atras&&!adelante) return;
+  if(e.target&&e.target.closest&&e.target.closest('button,a,input,[data-noadv]')&&k===' ') return;
+  var caja=stage.getBoundingClientRect();
+  onda(atras?caja.left+10:caja.right-10, caja.top+caja.height/2);
+});
 
 /* ── Cascada interna: UNA por lámina, y solo donde el dato se construye ──
    El encabezado, el cuerpo y el pie siguen entrando con mv-sube (CSS puro:
@@ -1861,6 +2221,12 @@ var ultima=-1;
 window.__moCoreo=function(n){
   if(n===ultima) return;             /* misma lámina: no se repite */
   ultima=n;
+  /* Antes del corte por cascada: hay bloques —la bisagra, el cierre— cuya
+     primera lámina no tiene rejilla que escalonar, y si esto fuera después
+     el barrido no se dispararía justo en el cambio de capítulo. */
+  var bloque=slides[n]&&slides[n].getAttribute('data-bloque');
+  if(bloqueAnterior!==null&&bloque!==bloqueAnterior) lanzaBarrido();
+  bloqueAnterior=bloque;
   if(!porSlide[n]||!porSlide[n].length) return;
   /* La lámina acaba de pasar de display:none a flex. Una animación no
      arranca en el mismo recálculo en que el elemento empieza a pintarse:
@@ -1875,22 +2241,58 @@ window.__moCoreo=function(n){
   }); });
 };
 
-/* ── Fondo ambiental, SOLO portada y cierre (capa 5 de la normativa) ────
-   El cierre queda proyectado durante las preguntas: sus tres círculos
-   siguen al cursor con amplitudes cortas. La portada recibe el campo de
-   partículas del vocabulario del deck comercial, en azul y verde, bajo
-   las nubes. El motor apaga solo todo esto en táctil y con «reducir
-   movimiento»; en móvil .mv-fondo y .shape ni siquiera se pintan. */
+/* ── Fondo ambiental, ahora REPARTIDO ───────────────────────────────────
+   Antes esto vivía solo en la portada y en el cierre, y las veinte láminas
+   de en medio se proyectaban completamente quietas. Ahora cada una respira,
+   con la intensidad que le toca por bloque narrativo. */
+
 var portada=slides[0], cierre=slides[slides.length-1];
 Motion.qsa('.shape',cierre).forEach(function(sh,i){ Motion.follow(sh,[7,5,6][i%3]); });
+
+/* Deriva ambiental de los círculos de fondo. La clase se pone desde aquí y
+   no en el markup por dos razones: la portada y el cierre quedan fuera —ahí
+   los círculos ya persiguen al cursor y una animación CSS le ganaría al
+   transform en línea—, y cualquier lámina que nazca mañana con un círculo
+   lo hereda sin que nadie se acuerde de escribir la clase.
+   Los retardos negativos desincronizan: veinte círculos derivando al
+   unísono se leen como un temblor de la lámina entera. */
+Motion.qsa('.slide:not(.cover) > .shape').forEach(function(el,i){
+  el.classList.add('mv-flota');
+  el.style.animationDelay=(-i * 2.3)+'s';
+});
+
+/* Geometría flotante con paralaje. Va sobre el ENVOLTORIO .mv-geo y no
+   sobre la forma, que ya tiene su propia deriva en CSS: dos animaciones de
+   transform en el mismo elemento no conviven. Cuatro amplitudes distintas —
+   si todas se movieran igual el fondo sería una calcomanía deslizándose, y
+   lo que da profundidad es justamente que no coincidan. */
+Motion.qsa('.mv-geo').forEach(function(el,i){ Motion.follow(el,[7,13,9,16][i%4]); });
+
+/* Píldoras de autocompletado: entran una tras otra, como las sugerencias de
+   Google. El retardo se cuenta DENTRO de cada grupo para que dos láminas
+   distintas arranquen igual en vez de heredar el índice de la otra. */
+Motion.qsa('.mv-pills').forEach(function(grupo){
+  Motion.qsa('.mv-pill',grupo).forEach(function(p,i){
+    p.style.setProperty('--d',(0.28 + i*0.07)+'s');
+  });
+});
+
+/* Red neuronal de partículas en los CUATRO colores de Google. Va en las
+   láminas marcadas con data-red: la portada, la de competencias —donde la
+   red ES el argumento— y la de presencia internacional. Semilla fija del
+   motor: la composición es idéntica en cada junta.
+   El motor no gasta frames en lienzos fuera de pantalla, así que las
+   láminas ocultas no cuestan nada. */
 if(Motion.particles){
-  var fondo=portada.querySelector('.mv-fondo');
-  if(fondo){
+  Motion.qsa('.mv-fondo[data-red]').forEach(function(fondo){
     var cv=document.createElement('canvas');
     cv.className='mo-particulas';
     fondo.insertBefore(cv,fondo.firstChild);
-    Motion.particles.mount(cv,{n:60,cerca:[66,133,244],lejos:[52,168,83]});
-  }
+    Motion.particles.mount(cv,{
+      n:parseInt(fondo.getAttribute('data-red'),10)||54,
+      paleta:[[66,133,244],[234,67,53],[251,188,5],[52,168,83]]
+    });
+  });
 }
 
 Motion.start();   /* ← siempre lo último que se ejecuta síncronamente */
