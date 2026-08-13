@@ -501,9 +501,9 @@ tbody tr:last-child td{border-bottom:0}
    · lo que DEBE llegar al PDF (subrayados, círculos, flechas, píldoras)
      tiene como estado base su forma TERMINADA, y la animación va del
      estado vacío al terminado. Apagarla deja la marca puesta.
-   · lo que solo existe en movimiento (barrido, ondas, spinner) tiene
-     como estado base INVISIBLE. Apagarlo lo borra, en vez de dejar una
-     barra de color atravesada en la hoja. */
+   · lo que solo existe en movimiento (ondas, spinner) tiene como estado
+     base INVISIBLE. Apagarlo lo borra, en vez de dejar una mancha de
+     color atravesada en la hoja. */
 
 :root{
   --g-azul:#4285F4; --g-rojo:#EA4335; --g-amar:#FBBC05; --g-verd:#34A853;
@@ -521,37 +521,34 @@ tbody tr:last-child td{border-bottom:0}
   animation:mv-voz 1.25s ease-in-out var(--d,0s) infinite alternate}
 @keyframes mv-voz{from{transform:scaleY(var(--a))}to{transform:scaleY(var(--b))}}
 
-/* ── 2 · Pulsaciones Material ─────────────────────────────────────
-   Nacen donde se hizo clic; con el teclado, en el canto por el que se
+/* ── 2 · Pulsación Material ───────────────────────────────────────
+   Nace donde se hizo clic; con el teclado, en el canto por el que se
    avanza, y así la onda además dice hacia dónde va la presentación.
-   RELLENAS y no aros: un aro escalado 30 veces engorda su borde 30
-   veces y a mitad de camino sería una rosquilla. El relleno que se
-   desvanece es además lo que hace Material de verdad. */
-.mv-ondas{position:absolute;inset:0;z-index:40;pointer-events:none;overflow:hidden}
-.mv-ondamat{position:absolute;width:1500px;height:1500px;margin:-750px 0 0 -750px;
-  border-radius:50%;background:var(--c);opacity:0;transform:scale(0);
-  animation:mv-ondamat .74s cubic-bezier(.22,.68,.18,1) both}
-@keyframes mv-ondamat{0%{transform:scale(0);opacity:.13}100%{transform:scale(1);opacity:0}}
+   RELLENA y no aro: un aro escalado engorda su borde con la escala y a
+   mitad de camino sería una rosquilla. El relleno que se desvanece es
+   además lo que hace Material de verdad.
 
-/* ── 4 · Barrido de capítulo ──────────────────────────────────────
-   Cuatro barras diagonales cruzan el escenario al CAMBIAR DE BLOQUE
-   narrativo, y solo entonces. El deck son siete bloques —apertura,
-   disonancia, bisagra, tranquilidad, solución, resultado, cierre—, así
-   que barre seis veces en 22 láminas: puntúa la estructura en vez de
-   parpadear cada diez segundos. */
-.mv-barrido{position:absolute;inset:0;z-index:41;pointer-events:none;overflow:hidden;display:none}
-.mv-barrido.on{display:block}
-.mv-barrido > i{position:absolute;left:0;top:-15%;width:30%;height:130%;
-  transform:translateX(-170%) skewX(-14deg)}
-.mv-barrido.on > i{animation:mv-barrido .6s cubic-bezier(.5,0,.2,1) both}
-.mv-barrido > i:nth-child(1){background:var(--g-azul)}
-.mv-barrido > i:nth-child(2){background:var(--g-rojo);animation-delay:.06s}
-.mv-barrido > i:nth-child(3){background:var(--g-amar);animation-delay:.12s}
-.mv-barrido > i:nth-child(4){background:var(--g-verd);animation-delay:.18s}
-@keyframes mv-barrido{
-  from{transform:translateX(-170%) skewX(-14deg)}
-  to{transform:translateX(430%) skewX(-14deg)}
-}
+   Calibrada en agosto de 2026, a petición del cliente: antes eran DOS
+   círculos de 1500 px con 110 ms de diferencia, resueltos en 740 ms. Un
+   disco más ancho que el escenario cruzando la lámina entera en menos de
+   un segundo, y por duplicado, no se leía como un clic sino como una
+   prisa. Ahora es uno solo, de 620 px —media lámina, no toda—, y tarda
+   1.1 s en apagarse.
+   Rompe a propósito el tope de 900 ms: esa regla protege lo que hace
+   ESPERAR, y esto no bloquea nada —la lámina ya cambió—; alargarlo es
+   justo lo que lo vuelve discreto. */
+.mv-ondas{position:absolute;inset:0;z-index:40;pointer-events:none;overflow:hidden}
+.mv-ondamat{position:absolute;width:620px;height:620px;margin:-310px 0 0 -310px;
+  border-radius:50%;background:var(--c);opacity:0;transform:scale(.12);
+  animation:mv-ondamat 1.1s cubic-bezier(.19,.62,.24,1) both}
+@keyframes mv-ondamat{0%{transform:scale(.12);opacity:.12}100%{transform:scale(1);opacity:0}}
+
+/* El barrido de capítulo —cuatro barras de color que cruzaban la lámina al
+   cambiar de bloque narrativo— se retiró en agosto de 2026, a petición del
+   cliente. Cruzaba la pantalla entera cuatro veces seguidas y en una junta
+   se leía como un parpadeo, no como puntuación. La estructura de los siete
+   bloques ya la marcan el ritmo del contenido y el hilo multicolor de la
+   barra de avance. Si algún día vuelve, va a la normativa primero. */
 
 /* ── 5 · Spinner evolutivo ────────────────────────────────────────
    El indicador de carga de Google —un arco que gira pasando por azul,
@@ -664,10 +661,10 @@ tbody tr:last-child td{border-bottom:0}
     var(--g-azul),var(--g-rojo) 33%,var(--g-amar) 66%,var(--g-verd));
   opacity:.30;transition:width .45s cubic-bezier(.2,.8,.2,1);pointer-events:none}
 
-/* Ni el barrido ni las ondas pintan en papel: son transición, no
-   contenido, y una barra de color a media hoja llegaría a la familia. */
+/* La onda no pinta en papel: es transición, no contenido, y una mancha
+   de color a media hoja llegaría a la familia. */
 @media print{
-  .mv-barrido,.mv-ondas{display:none!important}
+  .mv-ondas{display:none!important}
   #progress::before{display:none!important}
 }
 
@@ -723,10 +720,10 @@ tbody tr:last-child td{border-bottom:0}
   /* la flecha se posiciona en px sobre el lienzo de 1280×720: en flujo
      vertical no tiene dónde apuntar; el brillo vive dentro del peldaño */
   .mv-flecha,.mv-brillo{display:none}
-  /* Barrido y ondas se posicionan sobre el escenario de 1280×720. En flujo
+  /* La capa de ondas se posiciona sobre el escenario de 1280×720. En flujo
      vertical el escenario mide toda la página: una capa inset:0 taparía el
      documento entero. Fuera en móvil, como el resto de la decoración pesada. */
-  .mv-barrido,.mv-ondas{display:none!important}
+  .mv-ondas{display:none!important}
   .feat .xs,.feat p{max-width:none}
   #hint{display:none}
   #nav{right:12px;bottom:12px;background:rgba(32,33,36,.85);border-radius:99px;
@@ -757,7 +754,7 @@ tbody tr:last-child td{border-bottom:0}
   /* La decoración ESTÁTICA sobrevive al papel: círculos, iconos, nubes,
      olas, globos, pasto, flechas y subrayados quedan congelados en su
      estado final — una lámina impresa tampoco debería ser un folio en
-     blanco. Lo que SOLO existe en movimiento (confeti, aros, barrido,
+     blanco. Lo que SOLO existe en movimiento (confeti, aros, ondas,
      canvas de partículas) se apaga del todo: o su base es opacity:0 o se
      quita aquí. */
   [class*="mv-"]{animation:none!important}
@@ -1968,7 +1965,7 @@ tbody tr:last-child td{border-bottom:0}
      bloque de coreografía del final; si motion.js no cargó, se quedan
      vacías y quietas, y la junta sigue igual de navegable. -->
 <div class="mv-ondas" id="mvOndas" aria-hidden="true"></div>
-<div class="mv-barrido" id="mvBarrido" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<!-- Aquí vivía también .mv-barrido, retirado en agosto de 2026. -->
 
 </div><!-- /#stage -->
 
@@ -2128,28 +2125,15 @@ var slides=Array.prototype.slice.call(document.querySelectorAll(".slide"));
 var stage=document.getElementById("stage");
 var GCOLOR=['#4285F4','#EA4335','#FBBC05','#34A853'];
 
-/* ── Barrido de capítulo ────────────────────────────────────────────────
-   Las cuatro barras cruzan la lámina solo cuando CAMBIA EL BLOQUE
-   narrativo. Son siete bloques en 22 láminas, así que barre seis veces:
-   puntúa la estructura del argumento en vez de parpadear en cada avance.
-   El reflow entre quitar y poner .on no es opcional — sin él el navegador
-   agrupa los dos cambios y la animación no rearranca. */
-var barrido=document.getElementById('mvBarrido');
-var barridoT=0, bloqueAnterior=null;
-function lanzaBarrido(){
-  if(!barrido||Motion.reduced) return;
-  clearTimeout(barridoT);
-  barrido.classList.remove('on');
-  void barrido.offsetWidth;                    /* ← el reflow, a propósito */
-  barrido.classList.add('on');
-  barridoT=setTimeout(function(){ barrido.classList.remove('on'); },900);
-}
+/* ── Onda Material al avanzar ───────────────────────────────────────────
+   Nace donde se hizo clic; con el teclado, en el canto por el que se
+   avanza, y así la onda además dice hacia dónde va la junta.
 
-/* ── Ondas Material al avanzar ──────────────────────────────────────────
-   Nacen donde se hizo clic; con el teclado, en el canto por el que se
-   avanza, y así la onda además dice hacia dónde va la junta. Dos círculos
-   con 110 ms de diferencia y colores consecutivos de Google: se leen como
-   una onda concéntrica sin serlo.
+   UNA sola, desde agosto de 2026. Antes eran dos círculos con 110 ms de
+   diferencia, que se leían como una onda concéntrica; en la práctica el
+   segundo llegaba antes de que el ojo terminara el primero y el conjunto
+   parecía tener prisa. Un solo círculo, más chico y más lento, dice lo
+   mismo sin apurar a nadie.
    El punto llega en píxeles de pantalla y la capa vive dentro de #stage,
    que está escalado: de ahí la división entre la escala. */
 var capaOndas=document.getElementById('mvOndas');
@@ -2159,20 +2143,16 @@ function onda(cx,cy){
   if(!matchMedia('(min-width:1024px)').matches) return;
   var caja=stage.getBoundingClientRect();
   var esc=(window.__stageScale?window.__stageScale():1)||1;
-  var x=(cx-caja.left)/esc, y=(cy-caja.top)/esc;
-  for(var k=0;k<2;k++){
-    var el=document.createElement('i');
-    el.className='mv-ondamat';
-    el.style.left=x+'px'; el.style.top=y+'px';
-    el.style.setProperty('--c',GCOLOR[tono++%4]);
-    el.style.animationDelay=(k*110)+'ms';
-    capaOndas.appendChild(el);
-    /* La onda no deja rastro: se retira sola. Sin esto, una junta de una
-       hora acumularía cientos de círculos de 1500 px en el DOM. */
-    (function(nodo){
-      Motion.after(1000+k*110,function(){ if(nodo.parentNode) nodo.parentNode.removeChild(nodo); });
-    })(el);
-  }
+  var el=document.createElement('i');
+  el.className='mv-ondamat';
+  el.style.left=((cx-caja.left)/esc)+'px';
+  el.style.top=((cy-caja.top)/esc)+'px';
+  el.style.setProperty('--c',GCOLOR[tono++%4]);
+  capaOndas.appendChild(el);
+  /* La onda no deja rastro: se retira sola. Sin esto, una junta de una hora
+     acumularía cientos de círculos en el DOM. El plazo va por encima de la
+     animación (1.1 s) para no cortarla en el último cuadro. */
+  Motion.after(1300,function(){ if(el.parentNode) el.parentNode.removeChild(el); });
 }
 stage.addEventListener('click',function(e){
   if(e.target.closest&&e.target.closest('[data-noadv],a,button')) return;
@@ -2221,12 +2201,6 @@ var ultima=-1;
 window.__moCoreo=function(n){
   if(n===ultima) return;             /* misma lámina: no se repite */
   ultima=n;
-  /* Antes del corte por cascada: hay bloques —la bisagra, el cierre— cuya
-     primera lámina no tiene rejilla que escalonar, y si esto fuera después
-     el barrido no se dispararía justo en el cambio de capítulo. */
-  var bloque=slides[n]&&slides[n].getAttribute('data-bloque');
-  if(bloqueAnterior!==null&&bloque!==bloqueAnterior) lanzaBarrido();
-  bloqueAnterior=bloque;
   if(!porSlide[n]||!porSlide[n].length) return;
   /* La lámina acaba de pasar de display:none a flex. Una animación no
      arranca en el mismo recálculo en que el elemento empieza a pintarse:

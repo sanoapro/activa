@@ -1227,8 +1227,8 @@ ul.s08b-bens li b{font-size:13.5px}
 @keyframes mv-ola-des{to{transform:translateX(-1280px)}}
 
 /* ═══════════ MOVIMIENTO · REALCE Y TRANSICIONES ═══════════
-   Piezas que NO pertenecen a una sola lámina: el subrayado a mano, el
-   barrido de capítulo, las ondas al avanzar. Todas llevan prefijo `mv-`,
+   Piezas que NO pertenecen a una sola lámina: el subrayado a mano, la
+   onda al avanzar, la onda del desplegable. Todas llevan prefijo `mv-`,
    así que las guardas de arriba las apagan solas en las miniaturas, al
    imprimir y con «reducir movimiento» — no hay que repetir nada.
 
@@ -1236,8 +1236,8 @@ ul.s08b-bens li b{font-size:13.5px}
    · si la marca DEBE llegar al PDF (un subrayado, un círculo, una
      flecha), su estado base es el trazo COMPLETO y la animación va del
      trazo vacío al completo. Apagar la animación deja la marca puesta.
-   · si la pieza es una TRANSICIÓN (barrido, onda), su estado base es
-     invisible. Apagar la animación la borra, en vez de dejar una barra
+   · si la pieza es una TRANSICIÓN (una onda), su estado base es
+     invisible. Apagar la animación la borra, en vez de dejar una mancha
      de color atravesada en la lámina impresa. */
 
 /* ── realce · trazos de pizarra ───────────────────────────────────
@@ -1337,7 +1337,8 @@ ul.s08b-bens li b{font-size:13.5px}
    En BLANCO y no en los cuatro colores: el divisor ya es una superficie
    de color saturado, y ahí el blanco es lo que lee limpio (es el mismo
    criterio de los aros .mv-onda y de las ilustraciones). Los cuatro
-   colores entran en estas láminas por el barrido que abre el capítulo.
+   colores ya están en el divisor por otra vía: cada uno de los cuatro
+   tiene su propio degradado de eje (d-b, d-r, d-y, d-g).
    Dos elementos anidados a propósito: el envoltorio recibe el transform
    en línea de Motion.follow y el hijo lleva la animación CSS. En el mismo
    elemento, la animación le ganaría al estilo en línea y el paralaje se
@@ -1403,44 +1404,41 @@ ul.s08b-bens li b{font-size:13.5px}
   22%{transform:translateX(0)}
 }
 
-/* ── barrido de capítulo ──────────────────────────────────────────
-   Cuatro barras diagonales que cruzan el escenario cuando entra un
-   DIVISOR, y solo entonces: es el gesto de «cambia el eje», el mismo con
-   el que Google abre un I/O. Si barriera en cada lámina dejaría de
-   significar algo y sería un parpadeo cada diez segundos.
-   Vive DENTRO de #stage para que el recorte y las esquinas redondeadas
-   del escenario lo contengan. Sale de la lámina por arriba y por abajo
-   (top -15 %, alto 130 %) porque va inclinado 14°. */
-.mv-barrido{position:absolute;inset:0;z-index:41;pointer-events:none;overflow:hidden;display:none}
-.mv-barrido.on{display:block}
-.mv-barrido > i{position:absolute;left:0;top:-15%;width:30%;height:130%;
-  transform:translateX(-170%) skewX(-14deg)}
-.mv-barrido.on > i{animation:mv-barrido .6s cubic-bezier(.5,0,.2,1) both}
-.mv-barrido > i:nth-child(1){background:#4285f4}
-.mv-barrido > i:nth-child(2){background:#ea4335;animation-delay:.06s}
-.mv-barrido > i:nth-child(3){background:#fbbc04;animation-delay:.12s}
-.mv-barrido > i:nth-child(4){background:#34a853;animation-delay:.18s}
-@keyframes mv-barrido{
-  from{transform:translateX(-170%) skewX(-14deg)}
-  to{transform:translateX(430%) skewX(-14deg)}
-}
+/* El barrido de capítulo —cuatro barras de color que cruzaban la lámina al
+   entrar a un divisor— se retiró en agosto de 2026, a petición del cliente.
+   Cruzaba la pantalla entera cuatro veces seguidas y en una junta se leía
+   como un parpadeo, no como puntuación. Los cuatro cortes del deck ya los
+   marcan los divisores mismos: superficie de color saturado, número de eje
+   al agua y aros de encendido. No hace falta anunciarlos dos veces.
+   Si algún día vuelve, va en `docs/normativa-motion.md` primero. */
 
-/* ── ondas Material al avanzar ────────────────────────────────────
-   Dos círculos en dos colores de Google que se expanden desde el punto
-   donde se hizo clic (o desde el borde por el que se avanza con el
-   teclado) y se apagan. Es la respuesta táctil de Material: contesta
-   «te oí» antes de que la lámina termine de cambiar.
-   RELLENOS y no aros: un aro escalado 30 veces engorda su borde 30
-   veces, y a mitad de camino sería una rosquilla de 60 px. El relleno a
-   opacidad .14 que se desvanece es además lo que hace Material de verdad.
-   Se crean y se destruyen desde JS; el contenedor va dentro de #stage
-   para heredar su recorte y su escala. */
+/* ── onda Material al avanzar ─────────────────────────────────────
+   UN círculo que se expande desde el punto donde se hizo clic (o desde el
+   borde por el que se avanza con el teclado) y se apaga. Es la respuesta
+   táctil de Material: contesta «te oí» antes de que la lámina termine de
+   cambiar.
+   RELLENO y no aro: un aro escalado engorda su borde con la escala, y a
+   mitad de camino sería una rosquilla. El relleno a opacidad baja que se
+   desvanece es además lo que hace Material de verdad.
+
+   Calibrado en agosto de 2026, también a petición del cliente: antes eran
+   DOS círculos de 1500 px con 110 ms de diferencia, resueltos en 740 ms.
+   Un disco más ancho que el escenario barriendo la lámina entera en menos
+   de un segundo, y por duplicado, no se leía como un clic sino como una
+   prisa. Ahora es uno solo, de 620 px —media lámina, no toda—, y tarda
+   1.1 s en apagarse.
+   Rompe a propósito el tope de 900 ms de la normativa: la regla protege
+   las animaciones que hacen ESPERAR, y esta no bloquea nada —la lámina ya
+   cambió—; alargarla es justo lo que la vuelve discreta. Arranca en
+   scale(.12) y no en 0 para que no aparezca de golpe.
+   Se crea y se destruye desde JS; el contenedor va dentro de #stage para
+   heredar su recorte y su escala. */
 .mv-ondas{position:absolute;inset:0;z-index:40;pointer-events:none;overflow:hidden}
-.mv-ondamat{position:absolute;width:1500px;height:1500px;margin:-750px 0 0 -750px;
-  border-radius:50%;background:var(--c);opacity:0;transform:scale(0);
-  animation:mv-ondamat .74s cubic-bezier(.22,.68,.18,1) both}
+.mv-ondamat{position:absolute;width:620px;height:620px;margin:-310px 0 0 -310px;
+  border-radius:50%;background:var(--c);opacity:0;transform:scale(.12);
+  animation:mv-ondamat 1.1s cubic-bezier(.19,.62,.24,1) both}
 @keyframes mv-ondamat{
-  0%{transform:scale(0);opacity:.14}
+  0%{transform:scale(.12);opacity:.13}
   100%{transform:scale(1);opacity:0}
 }
 
@@ -1560,12 +1558,12 @@ ul.s08b-bens li b{font-size:13.5px}
   32%{opacity:0;transform:translateY(285px)} 100%{opacity:0;transform:translateY(285px)}
 }
 
-/* Ni el barrido ni las ondas pintan en papel: son transición, no
-   contenido, y una barra de color a media hoja llegaría al cliente.
-   Lo mismo vale para la onda del desplegable y para el pulso de los
-   ejes: son respuesta e indicación, no información. */
+/* Las ondas no pintan en papel: son transición, no contenido, y una
+   mancha de color a media hoja llegaría al cliente. Lo mismo vale para la
+   onda del desplegable y para el pulso de los ejes: son respuesta e
+   indicación, no información. */
 @media print{
-  .mv-barrido,.mv-ondas,.mv-ripple,.mv-eje{display:none!important}
+  .mv-ondas,.mv-ripple,.mv-eje{display:none!important}
 }
 
 /* ═══════════ LAS MARCAS DE LA CASA ═══════════
@@ -4578,15 +4576,15 @@ movimiento) desaparecen en vez de apilarse en el centro. Sin JS, sin estados var
   </div>
 </section>
 
-<!-- ═════════ CAPAS DE TRANSICIÓN ═════════
-     Van DENTRO de #stage, después de la última lámina: así heredan su
-     recorte, sus esquinas redondeadas y su escala, y quedan por encima de
-     cualquier diapositiva sin tocar el cromo (z 40-41 contra z 50).
-     No se clonan al panorama: buildGrid() solo copia elementos .slide.
-     Las llena y las dispara el bloque de coreografía del final; si
-     motion.js no cargó, se quedan vacías y quietas. -->
+<!-- ═════════ CAPA DE TRANSICIÓN ═════════
+     Va DENTRO de #stage, después de la última lámina: así hereda su
+     recorte, sus esquinas redondeadas y su escala, y queda por encima de
+     cualquier diapositiva sin tocar el cromo (z 40 contra z 50).
+     No se clona al panorama: buildGrid() solo copia elementos .slide.
+     La llena y la dispara el bloque de coreografía del final; si
+     motion.js no cargó, se queda vacía y quieta.
+     Aquí vivía también .mv-barrido, retirado en agosto de 2026. -->
 <div class="mv-ondas" id="mvOndas" aria-hidden="true"></div>
-<div class="mv-barrido" id="mvBarrido" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
 </div><!-- /#stage -->
 
@@ -4776,30 +4774,15 @@ show(Number.isFinite(start)&&start>0?start-1:0);
     med.style.setProperty('--d',(i*1.1)+'s');
   });
 
-  /* ── Barrido de capítulo ─────────────────────────────────────────
-     Las cuatro barras cruzan la lámina SOLO al entrar a un divisor. Es
-     una puntuación, no un adorno: marca los cuatro cortes del deck y
-     nada más. El reflow entre quitar y poner .on no es opcional — sin
-     él el navegador agrupa los dos cambios y la animación no rearranca,
-     que es el mismo motivo por el que Motion.replay() lo hace. */
-  var barrido=document.getElementById('mvBarrido');
-  var barridoT=0;
-  function lanzaBarrido(){
-    if(!barrido||Motion.reduced) return;
-    clearTimeout(barridoT);
-    barrido.classList.remove('on');
-    void barrido.offsetWidth;                       // ← el reflow, a propósito
-    barrido.classList.add('on');
-    // Se apaga al terminar (.6s + .18s del último retardo): con display:none
-    // las animaciones vuelven al principio y la próxima vez barre completo.
-    barridoT=setTimeout(function(){ barrido.classList.remove('on'); },900);
-  }
-
-  /* ── Ondas Material al avanzar ───────────────────────────────────
-     Nacen donde se hizo clic; con el teclado, en el canto por el que se
+  /* ── Onda Material al avanzar ────────────────────────────────────
+     Nace donde se hizo clic; con el teclado, en el canto por el que se
      avanza, y así la onda además dice hacia dónde va la presentación.
-     Dos círculos con 110 ms de diferencia y colores consecutivos de
-     Google: se leen como una onda concéntrica sin serlo.
+
+     UNA sola, desde agosto de 2026. Antes eran dos círculos con 110 ms de
+     diferencia, que se leían como una onda concéntrica; en la práctica el
+     segundo llegaba antes de que el ojo terminara el primero y el conjunto
+     parecía tener prisa. Un solo círculo, más chico y más lento, dice lo
+     mismo sin apurar a nadie.
      El punto llega en píxeles de pantalla y el contenedor vive dentro de
      #stage, que está escalado: de ahí la división entre stageScale. */
   var capaOndas=document.getElementById('mvOndas');
@@ -4808,21 +4791,16 @@ show(Number.isFinite(start)&&start>0?start-1:0);
     if(!capaOndas||Motion.reduced) return;
     var caja=stage.getBoundingClientRect();
     var esc=stageScale||1;
-    var x=(cx-caja.left)/esc, y=(cy-caja.top)/esc;
-    for(var k=0;k<2;k++){
-      var el=document.createElement('i');
-      el.className='mv-ondamat';
-      el.style.left=x+'px';
-      el.style.top=y+'px';
-      el.style.setProperty('--c',GCOLOR[tono++%4]);
-      el.style.animationDelay=(k*110)+'ms';
-      capaOndas.appendChild(el);
-      // La onda no deja rastro: se retira sola. Sin esto, una junta de una
-      // hora acumularía cientos de círculos de 1500 px en el DOM.
-      (function(nodo){
-        Motion.after(1000+k*110,function(){ if(nodo.parentNode) nodo.parentNode.removeChild(nodo); });
-      })(el);
-    }
+    var el=document.createElement('i');
+    el.className='mv-ondamat';
+    el.style.left=((cx-caja.left)/esc)+'px';
+    el.style.top=((cy-caja.top)/esc)+'px';
+    el.style.setProperty('--c',GCOLOR[tono++%4]);
+    capaOndas.appendChild(el);
+    // La onda no deja rastro: se retira sola. Sin esto, una junta de una
+    // hora acumularía cientos de círculos en el DOM. El plazo va por encima
+    // de la animación (1.1 s) para no cortarla en el último cuadro.
+    Motion.after(1300,function(){ if(el.parentNode) el.parentNode.removeChild(el); });
   }
 
   // El clic sobre un control desplegable es suyo, no del navegador del deck:
@@ -4871,9 +4849,6 @@ show(Number.isFinite(start)&&start>0?start-1:0);
   window.__moCoreo=function(n){
     if(n===ultima) return;           // misma lámina (p. ej. → en la última): no se repite
     ultima=n;
-    // Antes del corte por cascada: los divisores no tienen rejillas que
-    // escalonar, así que si esto fuera después nunca se dispararía.
-    if(slides[n]&&slides[n].classList.contains('divider')) lanzaBarrido();
     if(!porSlide[n].length) return;
     // La lámina acaba de pasar de display:none a flex. Una transición no
     // arranca en el mismo recálculo en que el elemento empieza a pintarse,

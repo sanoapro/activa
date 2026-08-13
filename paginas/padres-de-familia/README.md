@@ -40,14 +40,24 @@ medallón (`mv-late`).
 **Vocabulario Google, repartido por todo el deck** (agosto de 2026). Antes el movimiento
 ambiental vivía solo en la portada y en el cierre. Ahora, con la paleta de marca en cuatro
 tokens (`--g-azul` `--g-rojo` `--g-amar` `--g-verd`): ondas de Assistant (`mv-voz`, láminas 3,
-13 y 21), pulsaciones Material al avanzar (`mv-ondamat`, global), red de partículas en los
-cuatro colores (`data-red` en las láminas 1, 7 y 20), barrido de capítulo al cambiar de bloque
-narrativo (`mv-barrido`, seis veces en 22 láminas), spinner evolutivo alrededor de una cifra
+13 y 21), pulsación Material al avanzar (`mv-ondamat`, global), red de partículas en los
+cuatro colores (`data-red` en las láminas 1, 7 y 20), spinner evolutivo alrededor de una cifra
 (`mv-anillo`), geometría flotante con paralaje de cursor (`mv-geo`), trazos de pizarra y
 círculo de foco (`mv-r` + `mv-traza`), píldoras de autocompletado (`mv-pill`), hilo multicolor
 en la barra de progreso, y deriva ambiental en los 28 círculos de fondo (`mv-flota`).
 El detalle de qué va dónde y por qué está en
 [`docs/plan-rediseno-padres.md`](../../docs/plan-rediseno-padres.md) §8.
+
+**El barrido de capítulo se retiró** (agosto de 2026, a petición del cliente). Eran cuatro barras
+de color que cruzaban la lámina al cambiar de bloque narrativo, seis veces en las 22; en una junta
+se leían como un parpadeo y no como puntuación. La estructura de los siete bloques ya la marcan el
+ritmo del contenido y el hilo multicolor de la barra de avance.
+
+**La onda se calibró en la misma fecha.** Antes eran dos círculos de 1500 px con 110 ms de
+diferencia, resueltos en 740 ms: un disco más ancho que el escenario cruzando la lámina entera en
+menos de un segundo, y por duplicado. Ahora es **uno solo, de 620 px, en 1.1 s**. Rompe el tope de
+900 ms de la normativa a propósito — esa regla protege lo que hace *esperar*, y esto no bloquea
+nada, porque la lámina ya cambió.
 
 La energía sigue el embudo: festivo en la apertura (olas, nubes, globos, partículas),
 contenido y en rojos tenues en la disonancia, amarillo con aros en la bisagra, **sereno en el
@@ -59,7 +69,7 @@ baja la guardia), con color y aros en la solución, tono de logro en el resultad
 Los bucles decorativos son lentos (4–12 s) y los acentos de entrada cortos (≤ .5 s), como
 manda la normativa. En **impresión** sobrevive todo lo estático congelado en su estado final
 (círculos, iconos, nubes, olas, globos, pasto crecido, flechas, subrayados) y se apaga lo que
-solo existe en movimiento (confeti, aros, barrido y el canvas de partículas). En **móvil**
+solo existe en movimiento (confeti, aros, ondas y el canvas de partículas). En **móvil**
 (`< 1024px`) la decoración pesada no se pinta (`.mv-fondo`, `.shape`, `.mv-flecha`,
 `.mv-brillo`).
 

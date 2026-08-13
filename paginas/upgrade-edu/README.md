@@ -36,9 +36,19 @@ Transiciones y respuestas, que no pertenecen a ninguna diapositiva:
 
 | Pieza | Cuándo | Dónde vive |
 |---|---|---|
-| **Ondas Material** | en cada avance, desde el punto del clic (o desde el canto por el que se avanza con el teclado) | `.mv-ondas`, dentro de `#stage` |
-| **Barrido de cuatro colores** | solo al entrar a un **divisor** — marca los cuatro cortes del deck | `.mv-barrido`, dentro de `#stage` |
+| **Onda Material** | en cada avance, desde el punto del clic (o desde el canto por el que se avanza con el teclado) | `.mv-ondas`, dentro de `#stage` |
 | **Onda del desplegable** | al presionar una píldora `.exp-h`, desde el punto del dedo y en el siguiente color de Google | `.mv-ripple`, dentro de la propia píldora |
+
+**El barrido de capítulo se retiró en agosto de 2026**, a petición del cliente. Eran cuatro
+barras de color que cruzaban la lámina al entrar a un divisor; en una junta se leían como un
+parpadeo y no como puntuación. Los cuatro cortes del deck ya los marcan los divisores mismos.
+Si vuelve, va a [`docs/normativa-motion.md`](../../docs/normativa-motion.md) primero.
+
+**La onda se calibró en la misma fecha.** Antes eran dos círculos de 1280 px de radio con 110 ms
+de diferencia, resueltos en 740 ms: un disco más ancho que el escenario cruzando la lámina
+entera en menos de un segundo, y por duplicado. Ahora es **uno solo, de 620 px, en 1.1 s**.
+Rompe el tope de 900 ms de la normativa a propósito — esa regla protege lo que hace *esperar*, y
+esto no bloquea nada, porque la lámina ya cambió. Alargarlo es justo lo que lo vuelve discreto.
 
 La onda del desplegable escucha `pointerdown` y no `click`: tiene que salir con el dedo
 abajo, no al soltarlo — es la diferencia entre «te oí» y «ya terminé». Es la única
@@ -56,7 +66,7 @@ defecto que arrastraba el deck, con todo el movimiento concentrado en la primera
 | 2 · contexto | nubes de color a la deriva |
 | 3 · quiénes somos | **anillo de carga** que gira por azul → rojo → amarillo → verde y se abre para dejar el `16` |
 | 4 · plano | **pulso de los ejes**: cuatro vetas de color salen del origen y recorren los brazos · los cuatro emblemas al agua derivan |
-| 5 · 9 · 14 · 20 · divisores | aros de encendido · **geometría flotante** con paralaje de cursor · barrido al entrar · **píldoras** que suben en cascada |
+| 5 · 9 · 14 · 20 · divisores | aros de encendido · **geometría flotante** con paralaje de cursor · **píldoras** que suben en cascada |
 | 6 · Chromebooks | globo de meridianos que gira |
 | 7 · 10 · 13 · 21 · 25 · 27 | **trazos de pizarra**: subrayado o círculo a mano alzada sobre la palabra clave |
 | 8 · continuidad | **halo de resguardo**: un aro concéntrico sale de cada medallón y los cuatro se turnan, cada uno en su color |
@@ -90,7 +100,7 @@ impresión, «reducir movimiento»—, y hay dos casos opuestos:
 
 - **Marcas que deben llegar al PDF** (subrayado, círculo, flecha): el estado base es el trazo
   **completo** y la animación va del trazo vacío al completo. Apagarla deja la marca puesta.
-- **Transiciones** (barrido, ondas) y el anillo: el estado base es **invisible**. Apagarlas las
+- **Transiciones** (las ondas) y el anillo: el estado base es **invisible**. Apagarlas las
   borra, en vez de dejar una barra de color atravesada en la hoja impresa.
 
 Los trazos se redibujan solos en cada visita sin una línea de JS: la diapositiva inactiva es
