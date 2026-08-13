@@ -52,6 +52,8 @@
   --yel:#f9ab00;  --yel-d:#b06000;  --yel-t:#fef7e0;  --yel-l:#fdd663;
   --grn:#1e8e3e;  --grn-d:#0d652d;  --grn-t:#e6f4ea;  --grn-l:#34a853;
   --plum:#7b1fa2; --plum-t:#f6ecfd; --plum-l:#c58af9;
+  /* marca activa: turquesa principal y morado de contraste, tomados del logotipo */
+  --act:#0fa2a6;  --act-c:#855a9d;
   --ink:#202124;  --ink2:#5f6368;   --ink3:#80868b;  --ink4:#bdc1c6;
   --line:#e3e5e8; --surf:#f8f9fa;   --surf2:#f1f3f4; --white:#fff;
   --sh:0 1px 2px rgba(60,64,67,.08), 0 6px 18px -6px rgba(60,64,67,.16);
@@ -538,34 +540,43 @@ ul.mini.s12-mini li::before{width:7px;height:7px;top:5px}
   background:linear-gradient(150deg,var(--blue-d) 0%,var(--blue) 62%,var(--blue-l) 100%);
   color:#fff;padding:24px 24px 22px;display:flex;flex-direction:column;justify-content:center;gap:14px}
 .s27w-hero h3{color:#fff;font-size:26px;line-height:1.1;letter-spacing:-.6px}
-.s27w-hp{font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.88);max-width:230px}
-.s27w-hp b{color:#fff;font-weight:700}
-.s27w-hn{position:absolute;right:-12px;top:-34px;font-size:120px;font-weight:700;
-  letter-spacing:-6px;color:rgba(255,255,255,.14);line-height:1;pointer-events:none}
+/* los cuatro ejes: rótulo + detalle, viñeta en los cuatro colores de Google */
+.s27w-hl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.s27w-hl li{position:relative;padding-left:17px}
+.s27w-hl li::before{content:"";position:absolute;left:0;top:5px;width:7px;height:7px;
+  border-radius:50%;background:var(--p)}
+.s27w-hl b{display:block;font-size:13px;font-weight:700;line-height:1.3;color:#fff}
+.s27w-hl span{display:block;font-size:11.5px;line-height:1.35;color:rgba(255,255,255,.72)}
+/* el 01 del héroe usa el mismo numeral que las tarjetas: los ocho se cuentan igual */
+.s27w-hn{position:absolute;top:20px;right:20px;font-size:11px;font-weight:800;
+  letter-spacing:.8px;color:rgba(255,255,255,.72);line-height:1;
+  font-variant-numeric:tabular-nums;pointer-events:none}
 .s27w-hic{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.18);
   display:grid;place-items:center}
 .s27w-hic svg{width:32px;height:32px;fill:#fff}
-/* mosaico 02-06 y 08 */
+/* mosaico 02-07 */
 .s27w-mid{grid-row:1;grid-column:2;display:grid;grid-template-columns:repeat(3,1fr);
   grid-auto-rows:minmax(0,1fr);gap:12px;min-height:0}
 .s27w-c{position:relative;background:var(--surf);border-radius:18px;padding:14px 16px;
   display:flex;flex-direction:column;gap:6px;justify-content:center;min-height:0;overflow:hidden}
 .s27w-c h4{font-size:15px;line-height:1.2;margin-top:3px}
 .s27w-c .xs{font-size:12.3px;line-height:1.38}
+/* un solo resaltado por tarjeta: sin esta regla el <b> heredaría el gris del .xs */
+.s27w-c .xs b{font-weight:700;color:var(--ink)}
 .s27w-c.b{box-shadow:inset 4px 0 0 var(--blue-l)}
 .s27w-c.r{box-shadow:inset 4px 0 0 var(--red-l)}
 .s27w-c.y{box-shadow:inset 4px 0 0 var(--yel-l)}
 .s27w-c.g{box-shadow:inset 4px 0 0 var(--grn-l)}
 .s27w-cn{position:absolute;top:12px;right:15px;font-size:11px;font-weight:800;
   letter-spacing:.8px;color:var(--ink4);font-variant-numeric:tabular-nums}
-.s27w-cn.w{position:static;color:rgba(255,255,255,.5)}
+.s27w-cn.w{position:static;color:rgba(255,255,255,.72)}
 .s27w-ci{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex-shrink:0}
 .s27w-ci svg{width:19px;height:19px;fill:#fff}
 .s27w-ci.b{background:var(--blue)} .s27w-ci.r{background:var(--red)}
 .s27w-ci.y{background:var(--yel)} .s27w-ci.g{background:var(--grn-l)}
 .s27w-dots{display:flex;gap:5px;margin-top:2px}
 .s27w-dots i{width:8px;height:8px;border-radius:50%}
-/* banda 07: cifras sobre fondo oscuro */
+/* banda 08: cifras sobre fondo oscuro */
 .s27w-band{grid-row:2;grid-column:1 / -1;background:var(--ink);border-radius:18px;
   display:flex;align-items:center;gap:34px;padding:0 30px;color:#fff}
 .s27w-bt{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:700;
@@ -644,6 +655,13 @@ ul.mini.s12-mini li::before{width:7px;height:7px;top:5px}
 
 /* ── diapositiva 19 ─────────────────────────────────────────────── */
 /* ── diapositiva 19 · integra (rediseño en 3 pilares) ── */
+/* Título de la lámina con su medallón: el expediente del alumno dice «control
+   escolar» antes de leer el h2. El medallón (52) es más bajo que el bloque de
+   eyebrow + h2 de dos líneas (≈120), así que no altera la cuenta de alturas.
+   El eyebrow entra en la misma columna que el h2 para que ambos arranquen en
+   la misma vertical y el medallón quede fuera de la caja de texto. */
+.s19x-ht{display:flex;align-items:center;gap:16px}
+.s19x-hx{display:flex;flex-direction:column;gap:11px;min-width:0}
 /* Cabecera de pilar: medallón + nombre + una línea de propósito */
 .s19x-ph{display:flex;gap:12px;align-items:center;flex-shrink:0}
 .s19x-ph h4{font-size:16px;line-height:1.15}
@@ -700,17 +718,41 @@ ul.mini.s12-mini li::before{width:7px;height:7px;top:5px}
 .s15b-arr{flex-shrink:0;color:var(--ink4);font-size:16px;font-weight:700;line-height:1}
 .s15b-node.cls{background:var(--grn-t);border-radius:14px;padding:8px 12px;flex:1.18}
 .s15b-cls{width:36px;height:36px;flex-shrink:0;display:block}
-/* s15b · rejilla de los 7 ejes articuladores */
-.s15b-ej{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.s15b-ej .tile{background:rgba(255,255,255,.82);align-items:center}
-.s15b-ej .tile .ic{width:30px;height:30px;border-radius:9px;background:var(--yel-t)}
-.s15b-ej .tile .ic svg{width:18px;height:18px;fill:var(--yel-d)}
+/* s15b · reparto de la fila inferior: la planeación es el argumento central de
+   la lámina, los ejes son la prueba de alineación. La columna ancha va a la
+   derecha para que la planeación deje de ir orillada. */
+.s15b-cols{grid-template-columns:.76fr 1.24fr;gap:34px}
+/* s15b · rejilla de los 7 ejes articuladores — mismo diseño, un punto menos
+   de peso: son referencia, no titular. */
+.s15b-ejc{gap:8px}
+.s15b-ejc h4{font-size:14px;line-height:1.25;letter-spacing:-.2px}
+.s15b-ejc .xs{font-size:11.5px;line-height:1.35}
+.s15b-ej{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.s15b-ej .tile{background:var(--white);align-items:center;padding:8px 10px;gap:8px}
+.s15b-ej .tile h5{font-size:11px;line-height:1.2}
+.s15b-ej .tile .ic{width:24px;height:24px;border-radius:8px;background:var(--yel-t)}
+.s15b-ej .tile .ic svg{width:14px;height:14px;fill:var(--yel-d)}
 .s15b-ej .span2{grid-column:1/-1}
 /* s15b · dos cifras en una sola tarjeta horizontal */
 .s15b-stats{flex-direction:row;align-items:center;gap:18px}
 .s15b-stats i{width:1px;align-self:stretch;background:var(--line);flex-shrink:0}
 .s15b-stats .stat{flex:1;min-width:0}
 .s15b-stats .n{font-size:34px;letter-spacing:-1.4px}
+/* s15b · la planeación resuelta: titular más grande y cada punto con su icono.
+   Se apoya en ul.bens para conservar la cascada de entrada que el motor ya
+   aplica a .bens; por eso los selectores calcan la especificidad de ul.bens
+   (ul.s15b-pl li = 0,1,2 · li::before y li b = 0,1,3) y ganan por ir después.
+   El punto redondo desaparece: su lugar lo ocupa el icono. */
+.s15b-plan{gap:10px}
+.s15b-plan h4{font-size:19px;line-height:1.2;letter-spacing:-.35px}
+ul.s15b-pl{gap:7px}
+ul.s15b-pl li{padding-left:0;display:flex;align-items:flex-start;gap:10px}
+ul.s15b-pl li::before{display:none}
+ul.s15b-pl li b{font-size:14px}
+.s15b-pl .pi{width:28px;height:28px;border-radius:9px;background:var(--white);
+  display:grid;place-items:center;flex-shrink:0;margin-top:1px}
+.s15b-pl .pi svg{width:16px;height:16px;fill:var(--yel-d)}
+.s15b-pl .pt{min-width:0}
 
 /* ── diapositiva 13 ─────────────────────────────────────────────── */
 /* s13b · banda de materias: en qué clases se usa cada herramienta */
@@ -997,8 +1039,26 @@ ul.s08b-bens li b{font-size:13.5px}
 .s02-labrow .stat{flex:1}
 .s02-labrow .stat .n{font-size:28px;letter-spacing:-1px}
 .s02-labrow .stat .l{font-size:12px;margin-top:4px}
-/* mosaicos sobre la tarjeta azul: fondo blanco translúcido para que respiren */
+/* iconos que anclan cada bloque del hecho consumado: la IA (título), los
+   estudiantes (la cifra héroe) y las empresas (la banda del mundo laboral).
+   Tres tamaños para respetar la jerarquía ya establecida por la tipografía. */
+.s02-ic{border-radius:12px;display:grid;place-items:center;flex-shrink:0}
+.s02-ic.md{width:40px;height:40px} .s02-ic.md svg{width:22px;height:22px}
+.s02-ic.sm{width:30px;height:30px;border-radius:10px} .s02-ic.sm svg{width:17px;height:17px}
+.s02-ic.xs{width:24px;height:24px;border-radius:8px} .s02-ic.xs svg{width:14px;height:14px}
+.s02-ic.r{background:var(--red-t)} .s02-ic.r svg{fill:var(--red-d)}
+.s02-ic.y{background:var(--yel-t)} .s02-ic.y svg{fill:var(--yel-d)}
+.s02-th{display:flex;align-items:center;gap:12px}
+.s02-lrow{display:flex;align-items:center;gap:10px;margin-top:6px}
+.s02-lrow .l{margin-top:0}
+.s02-labcap{display:flex;align-items:center;gap:9px}
+/* mosaicos sobre la tarjeta azul: fondo blanco translúcido para que respiren.
+   Los seis rótulos suben a 14.5px: son los seis actores, tienen que leerse
+   como títulos y no confundirse con la línea de descripción. */
 .s02-right .tile{background:rgba(255,255,255,.82)}
+.s02-right .tile h5{font-size:14.5px;line-height:1.18}
+.s02-right .tile .ic{width:28px;height:28px;border-radius:9px}
+.s02-right .tile .ic svg{width:16px;height:16px}
 
 /* ═══════════ LA PALABRA «GOOGLE», CON SU MARCA ═══════════ */
 /* Se aplica sola sobre cada aparición en texto. En superficies de color o en
@@ -1077,6 +1137,11 @@ ul.s08b-bens li b{font-size:13.5px}
 /* ── diapositiva 28 · CIERRE (bloque s28f- COMPLETO: sustituye al anterior) ── */
 .s28f-in{display:flex;flex-direction:column;align-items:flex-start}
 .s28f-h1{font-size:48px;line-height:1.06;letter-spacing:-1.8px;margin-top:12px}
+/* «siguiente nivel» cierra la frase con la marca: turquesa de activa y un
+   trazo más grueso que el resto del titular. Las iniciales s y n van en el
+   morado de contraste, el mismo juego de dos colores del logotipo. */
+.s28f-nx{color:var(--act);font-weight:700}
+.s28f-nx i{font-style:normal;color:var(--act-c)}
 .s28f-cap{display:flex;align-items:center;gap:14px;width:100%;margin-top:22px}
 .s28f-cap span{font-size:11px;font-weight:800;letter-spacing:1.7px;text-transform:uppercase;
   color:var(--ink3);white-space:nowrap}
@@ -1693,18 +1758,26 @@ ul.s08b-bens li b{font-size:13.5px}
     .split (presupuesto restante: 644 − 33 − 56 = 555; las tarjetas estiran)
       Tarjeta izquierda (pad 26×2 = 52 → interior 503, contenido centrado):
         eyebrow 13 + gap 12
-        título s02-t 2 líneas (27px × 1.12) ............................  ≈  61
+        fila título: icono IA 40 vs s02-t 2 líneas (27px × 1.12) 61 → ..  ≈  61
         gap 16
-        stat héroe (n 84 + mt 6 + l 2 líneas 40) ........................ ≈ 130
+        stat héroe (n 84 + mt 6 + fila icono 30 / l 2 líneas 40) ....... ≈ 130
         gap 14 + stat dúo 24 % (n 44 alineado con l) ...................  ≈  46
-        gap 16 + banda laboral (borde 1 + pad-t 14 + cap 13 + gap 8
-          + fila: n 30 + mt 4 + l 2 líneas 36 = 70) ....................  ≈ 106
-        TOTAL ≈ 414 ≤ 503 ✓ (centrado vertical, sobra aire)
+        gap 16 + banda laboral (borde 1 + pad-t 14 + cap con icono 24
+          + gap 8 + fila: n 30 + mt 4 + l 2 líneas 36 = 70) ............  ≈ 117
+        TOTAL ≈ 425 ≤ 503 ✓ (centrado vertical, sobra aire)
       Tarjeta derecha (pad 26×2 = 52 → interior 503):
         eyebrow 13 + gap 12
         título s02-t 2 líneas ..........................................  ≈  61
         gap 8 + subtítulo sm 1 línea ...................................  ≈  28
         gap 12 + tiles 2×3 (flex:1) ....................................  ✓
+          tile = pad 22 + h5 14.5px 1 línea 17 + 2 + td 2 líneas 30 = 71
+          fila disponible (503 − 134 − 18 gaps)/3 ≈ 117 ≥ 71 ✓
+
+  ICONOS (petición del cliente): los tres bloques del hecho consumado quedan
+  anclados por un icono — chispas (la IA), birrete (los estudiantes) y edificio
+  (las empresas). Por coherencia dentro de la misma lámina, el birrete pasa al
+  mosaico «Estudiantes» de la derecha y «Coordinación» toma el portapapeles con
+  visto bueno, que es lo que describe su texto (contenidos ya mapeados).
     .foot  38 + margen 18 ..............................................  ≈  56
     TOTAL ≈ 33 + 555 + 56 = 644 ✓ — nada desborda 720. No hay desplegables.
 
@@ -1736,13 +1809,21 @@ ul.s08b-bens li b{font-size:13.5px}
     <!-- IZQUIERDA · el hecho consumado -->
     <div class="card lift rule r" style="gap:0;justify-content:center">
       <div class="eyebrow r">Esto ya está pasando</div>
-      <h3 class="s02-t" style="margin-top:12px">IA transformando la educación</h3>
+      <div class="s02-th" style="margin-top:12px">
+        <span class="s02-ic md r" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg></span>
+        <h3 class="s02-t">IA transformando la educación</h3>
+      </div>
       <div class="stat s02-hero" style="margin-top:16px"><div class="n r">86&nbsp;%</div>
-        <div class="l">de los estudiantes <b>ya usa IA</b> para estudiar</div></div>
+        <div class="s02-lrow">
+          <span class="s02-ic sm r" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></span>
+          <div class="l">de los estudiantes <b>ya usa IA</b> para estudiar</div>
+        </div></div>
       <div class="s02-duo" style="margin-top:14px"><div class="n y">24&nbsp;%</div>
         <div class="l">la usa <b>todos los días</b></div></div>
       <div class="s02-lab" style="margin-top:16px">
-        <div class="s02-labcap">Y en el mundo laboral</div>
+        <div class="s02-labcap">
+          <span class="s02-ic xs r" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg></span>
+          Y en el mundo laboral</div>
         <div class="s02-labrow">
           <div class="stat"><div class="n r">78&nbsp;%</div>
             <div class="l">de las empresas <b>ya usa IA</b> en su operación</div></div>
@@ -1762,7 +1843,7 @@ ul.s08b-bens li b{font-size:13.5px}
           <div class="tx"><h5>Dirección</h5>
           <div class="td">Hoy coordina proveedores sueltos; necesita una estrategia con metas verificables.</div></div></div>
         <div class="tile" style="align-items:center">
-          <div class="ic r"><svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></div>
+          <div class="ic r"><svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 15l-5-5 1.41-1.41L10 15.17l7.59-7.59L19 9l-9 9zm2-15c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/></svg></div>
           <div class="tx"><h5>Coordinación</h5>
           <div class="td">Carga con la alineación curricular a NEM, ISTE y UNESCO; recibe contenidos ya mapeados.</div></div></div>
         <div class="tile" style="align-items:center">
@@ -1770,7 +1851,7 @@ ul.s08b-bens li b{font-size:13.5px}
           <div class="tx"><h5>Docentes</h5>
           <div class="td">La planeación le roba horas de enseñanza; cada quien domina lo digital a su manera.</div></div></div>
         <div class="tile" style="align-items:center">
-          <div class="ic g"><svg viewBox="0 0 24 24"><path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72l-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg></div>
+          <div class="ic g"><svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></div>
           <div class="tx"><h5>Estudiantes</h5>
           <div class="td">Ya usa IA por su cuenta; sin estrategia, improvisa cómo, cuándo y para qué.</div></div></div>
         <div class="tile" style="align-items:center">
@@ -3142,13 +3223,19 @@ CUENTA DE ALTURAS (escenario 720 · padding 46/30 = 644 útiles · ancho útil 1
 · foot: 38 + margen 18 → 56          · queda para .body: 644 − 109 − 56 = 479 px
 · Fila 1 — banda de flujo (petición explícita del cliente: flujo visible + Classroom):
   padding 14×2 + nodo Classroom (8×2 + logo 36 = 52) = 80 + gap 14 → 94
-· Fila 2 — split wide-l (1.2fr/.8fr, gap 44): izq 670 · der 446 → disponible 385
-  IZQ  card ejes NEM: padding 40 + h4 21 + gap 9 + rejilla 2 col (3 filas de 46
-       + fila larga 46 + 3×9 gap = 211) + gap 9 + xs 18 = 308 ≤ 385 ✓
-  DER  card stats horizontal: padding 40 + (n 34 + 6 + l 2 líneas 35) = 115
-       + gap 12 + card planeación: padding 40 + h4 21 + gap 9 + 4 bens
-       (34+34+34+51 + 3×6 = 171) = 241  →  115+12+241 = 368 ≤ 385 ✓
-· Total body: 94 + max(308, 368) = 462 ≤ 479 ✓ — sin desplegables: cerrada = desplegada.
+· Fila 2 — split .s15b-cols (.76fr/1.24fr, gap 34): izq 428 · der 698 → disp. 385
+  El reparto se invierte respecto a la versión anterior (era 670/446): la
+  planeación resuelta es el argumento que cierra la venta y ahora manda; los
+  7 ejes se mantienen completos pero en cuerpo menor, como prueba de alineación.
+  IZQ  card ejes NEM (soft, interior 384): padding 40 + h4 14px 2 líneas 35
+       + gap 8 + rejilla 2 col a 188 (3 filas de ~40-42 + fila span2 40
+       + 3×7 gap = 183) + gap 8 + xs 11.5px 2 líneas 31 = 297 ≤ 385 ✓
+  DER  card stats horizontal (interior 654): padding 40 + (n 34 + 6 + l 1 línea
+       18) = 98 + gap 12 + card planeación: padding 40 + h4 19px 1 línea 23
+       + gap 10 + 4 puntos con icono (fila = max(icono 28, b 19 + desc 17 = 36)
+       → 4×36 + 3×7 = 165) = 238  →  98+12+238 = 348 ≤ 385 ✓
+       (descripción más larga: 78 car. a 12.5px ≈ 484 px ≤ 616 de texto → 1 línea)
+· Total body: 94 + max(297, 348) = 442 ≤ 479 ✓ — sin desplegables: cerrada = desplegada.
 Nota de densidad: el cliente pidió explícitamente los 7 ejes con icono y el flujo
 visible; se compensa con chips de una sola línea y sin panel colapsable.
 -->
@@ -3196,10 +3283,12 @@ visible; se compensa con chips de una sola línea y sin panel colapsable.
         </div>
       </div>
 
-      <div class="split wide-l" style="flex:1;min-height:0">
+      <div class="split s15b-cols" style="flex:1;min-height:0">
 
-        <!-- IZQUIERDA · los 7 ejes articuladores de la NEM, cada uno con su icono -->
-        <div class="card pad-s t-y" style="gap:9px;justify-content:flex-start">
+        <!-- IZQUIERDA · los 7 ejes articuladores de la NEM, cada uno con su icono.
+             Columna estrecha y tipografía menor: acreditan la alineación, pero el
+             titular de la lámina es la planeación de la derecha. -->
+        <div class="card pad-s soft s15b-ejc">
           <h4>Los 7 ejes articuladores de la Nueva Escuela Mexicana</h4>
           <div class="s15b-ej">
             <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg></span><div class="tx"><h5>Inclusión</h5></div></div>
@@ -3220,13 +3309,17 @@ visible; se compensa con chips de una sola línea y sin panel colapsable.
             <i></i>
             <div class="stat"><div class="n" style="color:var(--ink)">+1,000</div><div class="l">recursos de expertos, con plantillas, rúbricas y guías</div></div>
           </div>
-          <div class="card pad-s t-y" style="gap:9px">
+          <div class="card pad-s t-y lift s15b-plan">
             <h4>La planeación, resuelta desde el proyecto</h4>
-            <ul class="bens y">
-              <li><b>Campos formativos</b>la estructura oficial de contenidos, mapeada en cada proyecto</li>
-              <li><b>PDA por proyecto</b>los Procesos de Desarrollo de Aprendizaje, ya identificados</li>
-              <li><b>Programa Analítico</b>la base de la planeación NEM como punto de partida</li>
-              <li><b>Metodologías activas</b>ABP, STEAM e indagación, Aprendizaje Basado en Problemas y Aprendizaje Servicio</li>
+            <ul class="bens y s15b-pl">
+              <li><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span>
+                <span class="pt"><b>Campos formativos</b>la estructura oficial de contenidos, mapeada en cada proyecto</span></li>
+              <li><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg></span>
+                <span class="pt"><b>PDA por proyecto</b>los Procesos de Desarrollo de Aprendizaje, ya identificados</span></li>
+              <li><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></span>
+                <span class="pt"><b>Programa Analítico</b>la base de la planeación NEM como punto de partida</span></li>
+              <li><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 11.33L18 18H6l5-6.67V6h2v5.33zM15.96 4H8.04c-.42 0-.65.48-.39.81L9 6.5v4.17L3.2 18.4c-.49.66-.02 1.6.8 1.6h16c.82 0 1.29-.94.8-1.6L15 10.67V6.5l1.35-1.69c.26-.33.03-.81-.39-.81z"/></svg></span>
+                <span class="pt"><b>Metodologías activas</b>ABP, STEAM e indagación, Aprendizaje Basado en Problemas y Aprendizaje Servicio</span></li>
             </ul>
           </div>
         </div>
@@ -3545,6 +3638,9 @@ como pidió el cliente; nada colapsado. 6 beneficios visibles (regla ≤12-14 �
 <!-- ═════════ 19 · INTEGRA ═════════ -->
 <!--
 CUENTA DE ALTURAS (h2 de 2 líneas → .body ≈ 470 px · ancho útil 1160 px)
+El h2 va precedido por un medallón de control escolar (.med y, 52 px): al ser
+más bajo que el h2 de dos líneas (≈95), el encabezado no crece y la cuenta
+siguiente se mantiene intacta.
 Estructura: stack (gap 16) = rejilla g3 de pilares + banda del diferenciador.
 Ya no hay desplegables: un solo estado, los 6 beneficios de cada pilar a la vista.
 
@@ -3567,8 +3663,13 @@ Gestión verde. El amarillo queda para el eje (eyebrow, banda y ejebar).
   <span class="shape" style="width:560px;height:560px;left:-220px;bottom:-240px;background:var(--yel-t)"></span>
   <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
   <div class="head">
-    <div class="eyebrow y"><em class="marca">integra</em> · nueva en el portafolio <em class="marca">activa</em></div>
-    <h2>Licencia de comunicación,<br>control y gestión escolar</h2>
+    <div class="s19x-ht">
+      <span class="med y" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"/></svg></span>
+      <div class="s19x-hx">
+        <div class="eyebrow y"><em class="marca">integra</em> · nueva en el portafolio <em class="marca">activa</em></div>
+        <h2>Licencia de comunicación,<br>control y gestión escolar</h2>
+      </div>
+    </div>
   </div>
   <div class="body">
     <div class="stack" style="gap:16px">
@@ -4377,14 +4478,24 @@ CUENTA DE ALTURAS (escenario 720; padding 46+30 → 644 útiles):
 · .foot ≈ 38 + 18 margen = 56  →  .body = 644 − 98 − 56 = 490
 · .s27w-wrap: rejilla 296px + 1fr / filas 1fr + 106px fijos, gap 12
   → fila 1 = 490 − 106 − 12 = 372 · fila 2 (banda de respaldo) = 106.
-· Héroe (01, columna izq., 372 de alto): 24 pad + 60 icono + 16 + 30 h3 +
-  12 + 5 líneas de 13px×1.5 ≈ 98 + 24 pad ≈ 264 ≤ 372 ✓ (respira).
+· Héroe (01, columna izq., 372 de alto; caja útil 372 − 24 − 22 = 326):
+  60 icono + 14 + h3 de 2 líneas (26×1.1 ≈ 57) + 14 + lista de los cuatro ejes
+  (4 × [13×1.3 rótulo + 11.5×1.35 detalle ≈ 33] + 3 gaps de 8 = 156) ≈ 301 ≤ 326 ✓.
+  Ancho útil 296 − 48 pad − 17 de viñeta = 231: el rótulo más largo («Plataformas
+  de contenido», 13px w700 ≈ 168) y el detalle más largo («impulsa, eleva, motiva,
+  beta e integra», 11.5px ≈ 205) caben en una línea. Si alguno se partiera en dos,
+  sobran 25 px: aguanta un solo desborde, no dos. Por eso los detalles van cortos.
 · Seis tarjetas (3×2, gap 12): alto por tarjeta (372−12)/2 = 180.
   Contenido: 14 pad + 34 icono + 8 + 19 h4 + 5 + 2 líneas xs ≈ 34 + 14 pad ≈ 128 ≤ 180 ✓
   (la tarjeta 06 añade 8 px de puntos de color: 136 ≤ 180 ✓).
-· Banda 07 (106): 3 cifras de 30px + rótulo, centrado vertical ✓.
+  Los seis títulos son sustantivo + adjetivo y entran en UNA línea (antes tres se
+  partían en dos): el h4 mide 19 y no 38, que es lo que sostiene la cuenta de arriba.
+· Banda 08 (106): 3 cifras de 30px + rótulo, centrado vertical ✓.
 · 8 diferenciadores del documento maestro: 1 héroe + 6 tarjetas + 1 banda.
   Sin desplegables; no hay estados que cambien el alto: la lámina cabe siempre.
+· Los ocho se numeran con el MISMO numeral (11px w800): el 01 del héroe dejó de ser
+  la cifra fantasma de 120px recortada por overflow y el 08 de la banda subió de
+  .5 a .72 de opacidad. Antes el título prometía ocho y el ojo contaba seis.
 MOVIMIENTO · barrido de luz sobre la banda de cifras (08 · respaldo):
   .mv-fondo vive DENTRO de .s27w-band (que pasa a position:relative por CSS
   adicional): capa absoluta que cubre solo la banda, recortada a su radio.
@@ -4398,51 +4509,56 @@ MOVIMIENTO · barrido de luz sobre la banda de cifras (08 · respaldo):
   <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
   <div class="head">
     <div class="eyebrow">Por qué <em class="marca">activa</em></div>
-    <h2>Ocho cosas que ningún competidor reúne <span class="mv-r">a la vez<svg class="mv-sub"
+    <h2>Ocho piezas que ningún competidor reúne <span class="mv-r">a la vez<svg class="mv-sub"
       viewBox="0 0 200 11" preserveAspectRatio="none" aria-hidden="true" style="--c:#f9ab00"><path
       class="mv-traza" pathLength="100" d="M3 6C34 3 70 8.6 106 5.4 139 2.4 169 4 197 8"/></svg></span></h2>
   </div>
   <div class="body">
     <div class="s27w-wrap">
 
-      <!-- 01 · héroe: el diferenciador paraguas -->
+      <!-- 01 · héroe: el proyecto integral, con los cuatro ejes del programa -->
       <div class="s27w-hero">
         <span class="s27w-hn">01</span>
         <div class="s27w-hic"><svg viewBox="0 0 24 24"><path d="M21 12.22C21 6.73 16.74 3 12 3c-4.69 0-9 3.65-9 9.28-.6.34-1 .98-1 1.72v2c0 1.1.9 2 2 2h1v-6.1c0-3.87 3.13-7 7-7s7 3.13 7 7V19h-8v2h8c1.1 0 2-.9 2-2v-1.22c.59-.31 1-.92 1-1.64v-2.3c0-.7-.41-1.31-1-1.62z"/><path d="M9 14c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm6 0c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1z"/><path d="M18 11.03C17.52 8.18 15.04 6 12.05 6c-3.03 0-6.29 2.51-6.03 6.45 2.47-1.01 4.33-3.21 4.86-5.89 1.31 2.63 4 4.44 7.12 4.47z"/></svg></div>
-        <h3>Un solo<br>interlocutor</h3>
-        <p class="s27w-hp">Equipos, licencias, contenido, formación y soporte con un mismo proveedor: el colegio coordina <b>uno</b>, no cinco.</p>
+        <h3>Un proyecto<br>integral</h3>
+        <ul class="s27w-hl">
+          <li style="--p:#8ab4f8"><b>Dispositivos</b><span>Chromebooks con gestión y seguro</span></li>
+          <li style="--p:#f28b82"><b>Licencias educativas</b><span>Workspace, Canva y Wayground</span></li>
+          <li style="--p:#fdd663"><b>Plataformas de contenido</b><span>impulsa, eleva, motiva, beta e integra</span></li>
+          <li style="--p:#81c995"><b>Acompañamiento</b><span>Coaching, formación y soporte TI</span></li>
+        </ul>
       </div>
 
-      <!-- 02-06 y 08 · mosaico -->
+      <!-- 02-07 · mosaico: las seis piezas que sostienen el proyecto -->
       <div class="s27w-mid">
         <div class="s27w-c r"><span class="s27w-cn">02</span>
           <div class="s27w-ci r"><svg viewBox="0 0 24 24"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg></div>
-          <h4>Estrategia antes que producto</h4>
-          <div class="xs">Cada implementación se ancla a una ruta con metas verificables, no a compras sueltas.</div></div>
+          <h4>Estrategia primero</h4>
+          <div class="xs">Cada implementación se ancla a una <b>ruta con metas verificables</b>, no a compras sueltas.</div></div>
         <div class="s27w-c y"><span class="s27w-cn">03</span>
           <div class="s27w-ci y"><svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></div>
-          <h4>Alineación curricular real</h4>
-          <div class="xs">NEM, ISTE, UNESCO y MCER mapeados en el contenido, sin adaptaciones superficiales.</div></div>
+          <h4>Currículo alineado</h4>
+          <div class="xs"><b>NEM, ISTE, UNESCO y MCER</b> mapeados en el contenido, sin adaptaciones superficiales.</div></div>
         <div class="s27w-c g"><span class="s27w-cn">04</span>
           <div class="s27w-ci g"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
-          <h4>Acompañamiento sostenido</h4>
-          <div class="xs">Coach certificado, psicólogos educativos y mesa de ayuda con SLA garantizado.</div></div>
+          <h4>Acompañamiento humano</h4>
+          <div class="xs"><b>Coach certificado</b>, psicólogos educativos y mesa de ayuda con <b>SLA garantizado</b>.</div></div>
         <div class="s27w-c b"><span class="s27w-cn">05</span>
           <div class="s27w-ci b"><svg viewBox="0 0 24 24"><path d="M9.68 13.69L12 11.93l2.31 1.76-.88-2.85L15.75 9h-2.84L12 6.19 11.09 9H8.25l2.32 1.84-.89 2.85zM20 10c0-4.42-3.58-8-8-8s-8 3.58-8 8c0 2.03.76 3.87 2 5.28V23l6-2 6 2v-7.72c1.24-1.41 2-3.25 2-5.28zm-8-6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6z"/></svg></div>
-          <h4>Credenciales, no horas</h4>
-          <div class="xs">Bootcamps y vouchers que dejan certificaciones oficiales <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> en la plantilla.</div></div>
+          <h4>Credenciales oficiales</h4>
+          <div class="xs">Bootcamps y vouchers que dejan <b>certificaciones verificables</b> de <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> en la plantilla.</div></div>
         <div class="s27w-c r"><span class="s27w-cn">06</span>
           <div class="s27w-ci r"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
           <h4>Estudiante completo</h4>
-          <div class="xs">Cognitivo, lingüístico, socioemocional y digital bajo un mismo marco.</div>
+          <div class="xs">Cognitivo, lingüístico, socioemocional y digital, <b>bajo un mismo marco</b>.</div>
           <div class="s27w-dots"><i style="background:var(--blue-l)"></i><i style="background:var(--red-l)"></i><i style="background:var(--yel-l)"></i><i style="background:var(--grn-l)"></i></div></div>
         <div class="s27w-c g"><span class="s27w-cn">07</span>
           <div class="s27w-ci g"><svg viewBox="0 0 24 24"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/></svg></div>
-          <h4>Convive, no reemplaza</h4>
-          <div class="xs"><em class="marca">integra</em> y todo el ecosistema potencian lo que el colegio ya usa.</div></div>
+          <h4>Ecosistema abierto</h4>
+          <div class="xs"><em class="marca">activa</em> potencia <b>lo que el colegio ya usa</b>, con <em class="marca">integra</em> como puente.</div></div>
       </div>
 
-      <!-- 07 · banda de respaldo: el diferenciador con cifras -->
+      <!-- 08 · banda de respaldo: el diferenciador con cifras -->
       <div class="s27w-band">
         <div class="mv-fondo"><i class="mv-brillo"></i></div>
         <div class="s27w-bt"><span class="s27w-cn w">08</span>
@@ -4517,7 +4633,7 @@ movimiento) desaparecen en vez de apilarse en el centro. Sin JS, sin estados var
 
   <div class="inner s28f-in">
     <div class="eyebrow">El siguiente paso</div>
-    <h1 class="s28f-h1">Estamos listos para llevar<br>a tu colegio al siguiente nivel.</h1>
+    <h1 class="s28f-h1">Estamos listos para llevar<br>a tu colegio al <span class="s28f-nx"><i>s</i>iguiente <i>n</i>ivel</span></h1>
 
     <div class="s28f-cap"><span>Tu equipo comercial</span><i></i></div>
 
