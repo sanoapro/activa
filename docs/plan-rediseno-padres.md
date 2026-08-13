@@ -15,7 +15,8 @@
 | Vocabulario: «alumno» fuera, «maestro» unificado (§2.1) | ✅ aplicado |
 | Notas del presentador fuera de pantalla (§2.2) — láminas 3, 12, 16 | ✅ aplicado |
 | Capa de animación, las 12 ideas repartidas (§8) | ✅ aplicado |
-| Lámina 3 rehecha · lámina 9 ampliada | ✅ aplicado |
+| Láminas 3, 4 y 9 rehechas | ✅ aplicado |
+| ¿Fusionar la 3 con la 4? | ⚠️ **no ejecutado — decisión pendiente**, ver §4.1 |
 | Investigación ISTE / UNESCO (§5.1) | ⬜ pendiente — **bloquea la lámina 7** |
 | Logotipos en base64 (§2.4) | ⬜ pendiente |
 | Fusión 11+12 y Securly (§4) | ⬜ pendiente |
@@ -163,6 +164,30 @@ justo el argumento de respaldo.
 ✅ Corregir 5 → **6** proyectos, con Colombia.
 
 ### Bloque B · Disonancia y desarme
+
+### 4.1 · Sobre fusionar la 3 con la 4
+
+Las dos son el mismo movimiento retórico —«esto ya pasó antes y salió bien»— y por eso la
+pregunta de fusionarlas es buena. **Se resolvió unificándolas en sentido, no en una sola
+lámina**, y conviene dejar dicho por qué:
+
+- **La 3 es una actividad: la sala habla.** Es el único momento del deck en que el padre dice
+  algo en voz alta, y necesita una pregunta sola y sitio para que la conversación ocurra.
+- **La 4 es la respuesta: el presentador habla.** Es un recorrido histórico que se lee.
+- Fundidas en 1280×720 caben —6 pares + 5 hitos + 2 remates— pero el resultado es una lámina
+  que **no se puede conversar**: mientras el padre lee la línea de tiempo, deja de recordar sus
+  propios ejemplos, que es justo lo que la 3 busca.
+
+Lo que sí se hizo: la 4 pasó a titularse «**Y cada vez que llegó, nos dio miedo**», que recoge
+literalmente donde termina la 3 («a sus hijos les va a pasar varias veces»). Proyectadas
+seguidas se leen como un solo argumento en dos tiempos.
+
+**Si aun así se quiere una sola lámina**, la vía es sacrificar la actividad: convertir la
+pregunta en titular retórico y montar una línea de tiempo única donde cada era lleve su miedo
+*y* el oficio que transformó. Es una lámina más densa y una junta más pasiva; queda como
+decisión abierta.
+
+---
 
 **3 · Actividad para conversar** — *mal: es guion, no lámina*
 ⬛ Rehacer entera. La pregunta («¿Qué trabajos existían cuando ustedes eran niños y hoy ya no
@@ -477,7 +502,7 @@ repartidas por todo el embudo, y cada una cae donde significa algo.
 | **1** | Ondas de Assistant | **3**, **13**, **21** | Las tres láminas donde alguien escucha: la sala que contesta, el diagnóstico socioemocional y el canal de dudas |
 | **2** | Pulsaciones Material | **global**, en cada avance | Desde el punto del clic; con teclado, desde el canto hacia el que se avanza |
 | **3** | Partículas conectadas | **1**, **7**, **20** | Portada, competencias —donde la red *es* el argumento— y presencia internacional |
-| **4** | Barrido de colores | **al cambiar de bloque** | Seis barridos en 22 láminas: puntúa la estructura del argumento, no cada avance |
+| **4** | Barrido de colores | ~~al cambiar de bloque~~ · **retirado** | Se montó y se retiró a petición del cliente: en una junta las cuatro barras se leían como un parpadeo, no como puntuación. La estructura de los siete bloques ya la marcan el ritmo del contenido y el hilo multicolor de la barra de avance |
 | **5** | Spinner evolutivo | **2** (el `16`) | La cifra más «de Google» y la única lo bastante estrecha para que un aro la rodee sin cruzarla |
 | **6** | Geometría flotante con paralaje | **6**, **8** | Las dos láminas con más aire; las formas van por los márgenes, nunca tras el texto |
 | **7 · 9** | Trazos de pizarra y subrayado mágico | **9**, y el sistema listo para el resto | SVG con `pathLength`, se redibuja en cada visita sin una línea de JS |
@@ -496,7 +521,7 @@ ocurre justo donde no había nada.
   `--g-amar #FBBC05`, `--g-verd #34A853` — y de ahí sale todo.
 - **La regla del estado base.** Lo que debe llegar al PDF (subrayados, círculos, píldoras)
   tiene como base su forma **terminada** y se anima desde el estado vacío: apagar la animación
-  deja la marca puesta. Lo que solo existe en movimiento (barrido, ondas, spinner) tiene como
+  deja la marca puesta. Lo que solo existe en movimiento (la onda, el spinner) tiene como
   base **invisible**: apagarlo lo borra, en vez de dejar una barra de color cruzando la hoja.
 - **Las cifras no se animan nunca.** El spinner y el círculo de foco entran y salen *alrededor*
   del número; no le tocan tamaño, opacidad ni posición.

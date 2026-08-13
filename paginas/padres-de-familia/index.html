@@ -279,20 +279,35 @@ tbody tr:last-child td{border-bottom:0}
 /* ═══════════ NUEVO · SILUETAS 6 DE 10 (lámina 6) ═══════════ */
 .sil{width:100%;max-width:860px;height:auto;display:block;margin:0 auto}
 
-/* ── lámina 3 · la pregunta como una búsqueda de Google ────────────
-   La caja y su lista de sugerencias. Los oficios van TACHADOS: la
-   tachadura es el argumento de la lámina —ya no existen— y sobrevive a
-   la impresión, porque es color y no movimiento. */
-.s03-buscador{width:100%;max-width:720px;background:var(--white);
-  border:1px solid var(--line);border-radius:26px;box-shadow:var(--sh);overflow:hidden}
-.s03-q{display:flex;align-items:center;gap:14px;padding:15px 22px}
-.s03-q > svg{width:21px;height:21px;fill:var(--ink3);flex-shrink:0}
-.s03-q .tx{flex:1;font-size:17px;color:var(--ink);min-width:0}
-.s03-sug{border-top:1px solid var(--line);padding:5px 0;margin:0;list-style:none}
-.s03-sug li{display:flex;align-items:center;gap:14px;padding:8px 22px;font-size:16px}
-.s03-sug li > svg{width:17px;height:17px;fill:var(--ink4);flex-shrink:0}
-.s03-sug li b{font-weight:400;color:var(--ink2);
-  text-decoration:line-through;text-decoration-color:var(--red-l);text-decoration-thickness:2px}
+/* ── lámina 3 · el oficio y en qué se convirtió ────────────────────
+   Pares de transformación, no una lista de bajas.
+
+   Aquí hubo dos intentos fallidos y conviene dejar dicho por qué, para
+   que nadie los reponga:
+   · el primero proyectaba «Apoyo para quien presenta — si la sala se
+     queda callada» con nueve píldoras: era el guion del presentador, y
+     el padre lo estaba leyendo;
+   · el segundo lo convirtió en un buscador con esos oficios TACHADOS en
+     rojo. Se veía como una lista de errores, y tachar el mundo en el que
+     creció el padre es el tono contrario al que remata este bloque
+     («este modelo funcionó, y funcionó bien», lámina 5). Además solo
+     enumeraba: no hacía pensar nada.
+
+   Lo que hay ahora es el argumento de verdad — ninguno de esos oficios
+   desapareció por hacerlo mal; cambió la herramienta—, y eso sí se puede
+   mirar y pensar. La flecha lleva el color de Google que le toca. */
+.s03-pares{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:100%}
+.s03-par{background:var(--white);border:1px solid var(--line);border-radius:20px;
+  box-shadow:var(--sh);padding:18px 20px;display:flex;flex-direction:column;gap:9px}
+/* El icono va en gris: es el oficio que se fue, y no compite con el color
+   de la flecha, que es lo que marca hacia dónde se fue. */
+.s03-par .ic{width:34px;height:34px;border-radius:10px;background:var(--surf2);
+  display:grid;place-items:center;flex-shrink:0}
+.s03-par .ic svg{width:19px;height:19px;fill:var(--ink3)}
+.s03-par .antes{font-size:14.5px;line-height:1.3;color:var(--ink3)}
+.s03-par .paso{display:flex;align-items:flex-start;gap:9px}
+.s03-par .paso i{font-style:normal;font-size:18px;line-height:1.2;color:var(--c);flex-shrink:0}
+.s03-par .ahora{font-size:16px;line-height:1.32;font-weight:600;color:var(--ink)}
 
 /* ═══════════ MOVIMIENTO ═══════════ */
 .slide.on > .head{animation:mv-sube .42s cubic-bezier(.2,.8,.2,1) both}
@@ -905,29 +920,49 @@ tbody tr:last-child td{border-bottom:0}
   <div class="head">
     <div class="eyebrow r">Para conversar</div>
   </div>
-  <div class="body" style="gap:24px;justify-content:center">
-    <h1 style="font-size:52px;letter-spacing:-1.8px;max-width:1020px">¿Qué trabajos existían cuando ustedes eran niños y hoy ya no existen?</h1>
+  <div class="body" style="gap:20px;justify-content:center">
+    <h1 style="font-size:48px;letter-spacing:-1.7px;max-width:1060px">¿Qué trabajos existían cuando ustedes eran niños y hoy ya no existen?</h1>
 
-    <div class="s03-buscador">
-      <div class="s03-q">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-        <span class="tx">trabajos que existían y ya no existen</span>
-        <!-- Ondas de Assistant en el sitio del micrófono: aquí contesta la sala -->
-        <span class="mv-voz" aria-hidden="true">
-          <i style="--c:#4285F4;--a:.34;--b:.92;--d:0s"></i>
-          <i style="--c:#EA4335;--a:.72;--b:.30;--d:-.35s"></i>
-          <i style="--c:#FBBC05;--a:.46;--b:1;--d:-.62s"></i>
-          <i style="--c:#34A853;--a:.90;--b:.42;--d:-.18s"></i>
-        </span>
+    <div class="s03-pares mv-pills">
+      <div class="s03-par mv-pill" style="--c:#4285F4">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></span>
+        <div class="antes">Operadora de conmutador</div>
+        <div class="paso"><i aria-hidden="true">↓</i><div class="ahora">La llamada se conecta sola</div></div>
       </div>
-      <ul class="s03-sug mv-pills">
-        <li class="mv-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg><b>operadora de conmutador</b></li>
-        <li class="mv-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg><b>mecanógrafa</b></li>
-        <li class="mv-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg><b>revelador de fotografía</b></li>
-        <li class="mv-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg><b>cobrador de peaje</b></li>
-        <li class="mv-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg><b>empleado de videoclub</b></li>
-        <li class="mv-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18z"/></svg><b>vendedor de enciclopedias</b></li>
-      </ul>
+      <div class="s03-par mv-pill" style="--c:#EA4335">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg></span>
+        <div class="antes">Mecanógrafa</div>
+        <div class="paso"><i aria-hidden="true">↓</i><div class="ahora">Hoy todos escribimos a máquina</div></div>
+      </div>
+      <div class="s03-par mv-pill" style="--c:#FBBC05">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg></span>
+        <div class="antes">Revelador de fotografía</div>
+        <div class="paso"><i aria-hidden="true">↓</i><div class="ahora">La cámara vive en el bolsillo</div></div>
+      </div>
+      <div class="s03-par mv-pill" style="--c:#34A853">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg></span>
+        <div class="antes">Empleado de videoclub</div>
+        <div class="paso"><i aria-hidden="true">↓</i><div class="ahora">El catálogo entero cabe en la sala</div></div>
+      </div>
+      <div class="s03-par mv-pill" style="--c:#4285F4">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></span>
+        <div class="antes">Agente de viajes de mostrador</div>
+        <div class="paso"><i aria-hidden="true">↓</i><div class="ahora">El viaje se arma desde el teléfono</div></div>
+      </div>
+      <div class="s03-par mv-pill" style="--c:#EA4335">
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg></span>
+        <div class="antes">Vendedor de enciclopedias</div>
+        <div class="paso"><i aria-hidden="true">↓</i><div class="ahora">La respuesta llega en un segundo</div></div>
+      </div>
+    </div>
+
+    <!-- LA reflexión de la lámina. No es que estos oficios murieran: es que
+         cambió la herramienta, y que a estos padres les pasó una vez mientras
+         que a sus hijos les va a pasar varias. De aquí arranca la 4 (el miedo
+         en la historia), la 5 (XX vs XXI) y la 6 (profesiones que no existen). -->
+    <div class="card t-r" style="flex-direction:row;align-items:center;gap:20px;padding:20px 28px;flex-shrink:0">
+      <div class="med r lg round" style="background:var(--white)" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg></div>
+      <p style="font-size:19px;line-height:1.42;color:var(--ink);max-width:1000px">Ninguno desapareció por hacerlo mal: <b>cambió la herramienta, no las ganas de trabajar</b>. A ustedes les pasó una vez en toda su vida laboral. A sus hijos les va a pasar varias, y más rápido.</p>
     </div>
   </div>
 </section>
@@ -941,34 +976,68 @@ tbody tr:last-child td{border-bottom:0}
     <svg class="mv-icono" style="left:340px;bottom:-80px;width:250px;height:250px;transform:rotate(-14deg)" viewBox="0 0 24 24" fill="#ea4335" opacity=".05"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
   </div>
   <div class="head">
+    <!-- El título recoge donde termina la lámina 3 («a sus hijos les va a pasar
+         varias veces»): las dos son el mismo argumento en dos tiempos — lo que
+         ustedes vivieron, y el miedo que dio cada vez. -->
     <div class="eyebrow r">Un miedo con historia</div>
-    <h2>Miedo a la tecnología en la historia</h2>
+    <h2>Y cada vez que llegó, nos dio miedo</h2>
   </div>
-  <div class="body" style="gap:16px">
-    <div class="grid g4">
-      <div class="card pad-s rule b lift">
-        <span class="pill b">1492</span>
-        <h4>Un monje escribe contra la imprenta</h4>
-        <p class="xs">Johannes Trithemius: «Los libros impresos nunca serán mejores que los libros escritos a mano.»</p>
+  <div class="body" style="gap:15px">
+    <!-- Cinco hitos y no cuatro: el quinto es la IA, que es el miedo que el
+         padre trae puesto hoy. Sin él, la lámina demuestra que los miedos
+         pasados eran infundados pero no dice nada del presente, que es de lo
+         que la familia vino a hablar. -->
+    <div class="grid g5" style="gap:13px;grid-auto-rows:minmax(212px,auto);align-content:center">
+      <div class="card pad-s rule b lift" style="gap:9px;justify-content:flex-start">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+          <div class="med sm b" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg></div>
+          <span class="pill b">1492</span>
+        </div>
+        <h4>La imprenta</h4>
+        <p class="xs">«Los libros impresos nunca serán mejores que los escritos a mano.» — un monje copista.</p>
       </div>
-      <div class="card pad-s rule y lift">
-        <span class="pill y">Años 80</span>
-        <h4>La calculadora en el aula</h4>
-        <p class="xs">Temor a que los estudiantes perdieran la capacidad de pensar.</p>
+      <div class="card pad-s rule y lift" style="gap:9px;justify-content:flex-start">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+          <div class="med sm y" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8.5 14.5H9v-2H7v-1.5h2v-2h1.5v2h2V15h-2v2.5zM7 9V7.5h6V9H7zm9.75 9c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25S17.44 18 16.75 18zm0-6c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25S18 10.06 18 10.75 17.44 12 16.75 12z"/></svg></div>
+          <span class="pill y">Años 80</span>
+        </div>
+        <h4>La calculadora</h4>
+        <p class="xs">«Van a dejar de saber pensar.» Hoy nadie discute que se use en clase.</p>
       </div>
-      <div class="card pad-s rule g lift">
-        <span class="pill g">Años 90–2000</span>
+      <div class="card pad-s rule g lift" style="gap:9px;justify-content:flex-start">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+          <div class="med sm g" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></div>
+          <span class="pill g">Años 90</span>
+        </div>
         <h4>Internet en casa</h4>
-        <p class="xs">«No dejes que los niños hablen con extraños en línea.» Hoy la escuela, el banco y el trabajo viven ahí.</p>
+        <p class="xs">«Van a hablar con extraños.» Hoy la escuela, el banco y el trabajo viven ahí.</p>
       </div>
-      <div class="card pad-s rule r lift">
-        <span class="pill r">2007</span>
+      <div class="card pad-s rule r lift" style="gap:9px;justify-content:flex-start">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+          <div class="med sm r" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-1.99-1.99zM17 19H7V5h10v14z"/></svg></div>
+          <span class="pill r">2007</span>
+        </div>
         <h4>El teléfono inteligente</h4>
-        <p class="xs">Hoy ninguno de nosotros renunciaría a él.</p>
+        <p class="xs">«Los va a aislar.» Hoy ninguno de nosotros renunciaría al suyo.</p>
+      </div>
+      <!-- Lleva el filete rojo como las otras cuatro para que las cinco cabeceras
+           compartan línea base; el tinte es lo que la marca como la de hoy. -->
+      <div class="card pad-s rule r t-r lift" style="gap:9px;justify-content:flex-start">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+          <div class="med sm r" style="background:var(--white)" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg></div>
+          <span class="pill r">Hoy</span>
+        </div>
+        <h4>La inteligencia artificial</h4>
+        <p class="xs">«Van a dejar de esforzarse.» Es el miedo que traemos hoy, y es el que toca acompañar.</p>
       </div>
     </div>
-    <div class="card t-y" style="padding:20px 28px;border-left:4px solid var(--yel)">
-      <p style="font-size:18px;line-height:1.45;color:var(--ink)"><b>En cada caso la tecnología llegó de todos modos. Lo único que estuvo en nuestras manos fue si los niños la aprendían solos o acompañados.</b></p>
+    <!-- La frase anterior («la tecnología llegó de todos modos») sonaba a
+         resignación: le decía al padre que su miedo era irrelevante. Esta
+         reconoce el miedo como razonable y le devuelve la decisión, que es lo
+         único que de verdad está en sus manos. -->
+    <div class="card t-g" style="flex-direction:row;align-items:center;gap:20px;padding:20px 28px;border-left:4px solid var(--grn-l);flex-shrink:0">
+      <div class="med g lg round" style="background:var(--white)" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+      <p style="font-size:18.5px;line-height:1.45;color:var(--ink);max-width:1000px"><b>Tener miedo es razonable</b>, y esta vez también lo tenemos. Pero el miedo nunca decidió lo que pasó: lo decidimos nosotros. Y lo que sí está en nuestras manos es si nuestros hijos lo enfrentan <b>solos o acompañados</b>.</p>
     </div>
   </div>
 </section>
