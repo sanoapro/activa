@@ -59,7 +59,9 @@ obligatorias.
 - Pasar el cursor y clic en **⧉** → copia el enlace al portapapeles (para mandarlo por WhatsApp).
 - Teclas **1–9** → abren el acceso correspondiente, en el orden en que se leen (izquierda a derecha, de arriba abajo). **D** → descargables. **F** → pantalla completa.
 - Botón **QR** (solo en las tarjetas que traen `qr`) → abre el código a pantalla completa sobre
-  fondo blanco, para que la sala lo escanee. Se cierra con **Esc**, con la ✕ o tocando el fondo.
+  fondo blanco, para que la sala lo escanee. Se sale con el botón **← Volver al kit** (arriba a la
+  izquierda, donde vive el «atrás» de cualquier navegador), con **Esc**, con la ✕ o tocando el fondo.
+  El botón con palabras no sobra sobre la ✕: quien llega desde una tarjeta tiene que VER la salida.
   A diferencia del ⧉, se ve siempre y no solo al pasar el cursor: en un evento hay que saber que
   el código existe, y en una pantalla proyectada muchas veces no hay cursor que pasar.
 - Las láminas **apartadas** (sin `url`, marcadas con `pronto:true`) no abren nada: existen para

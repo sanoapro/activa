@@ -301,6 +301,19 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
   word-break:break-all;font-family:ui-monospace,"Cascadia Mono",Consolas,monospace}
 .qr-cap .h{font-size:12px;color:var(--ink3)}
 .qr-cap .h b{color:var(--ink2);font-weight:700}
+/* Volver, con su flecha y su palabra. La ✕ de la esquina y el Esc ya cerraban,
+   pero ninguno de los dos DICE volver: quien llega a esta lámina desde una
+   tarjeta tiene que ver la salida, no deducirla. Va arriba a la izquierda,
+   donde vive el «atrás» de cualquier navegador. */
+#qrAtras{position:absolute;left:22px;top:24px;display:inline-flex;align-items:center;gap:9px;
+  height:42px;padding:0 18px 0 14px;border-radius:99px;
+  border:1px solid var(--line);background:var(--white);color:var(--ink2);cursor:pointer;
+  font-family:var(--font);font-size:14px;font-weight:600;letter-spacing:-.2px;
+  box-shadow:var(--sh1);transition:border-color .2s,color .2s,transform .2s}
+#qrAtras:hover{border-color:var(--blue-l);color:var(--blue-d);transform:translateX(-2px)}
+#qrAtras:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+#qrAtras svg{width:19px;height:19px;fill:currentColor;display:block}
+
 #qrCerrar{position:absolute;right:22px;top:24px;width:42px;height:42px;border-radius:50%;
   border:1px solid var(--line);background:var(--white);color:var(--ink2);cursor:pointer;
   display:grid;place-items:center;transition:border-color .2s,color .2s,transform .2s}
@@ -426,6 +439,10 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
      Fuera de #stage a propósito (ver el CSS de #qr). Nace vacío: el JS le
      pone imagen y textos según la tarjeta que lo abrió. -->
 <div id="qr" role="dialog" aria-modal="true" aria-labelledby="qrTitulo" hidden>
+  <button id="qrAtras" type="button" aria-label="Volver al kit comercial">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z"/></svg>
+    Volver al kit
+  </button>
   <button id="qrCerrar" type="button" title="Cerrar" aria-label="Cerrar el código QR">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4l5.6 5.6L5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6z"/></svg>
   </button>
@@ -433,7 +450,7 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
   <div class="qr-cap">
     <span class="t" id="qrTitulo"></span>
     <span class="u" id="qrUrl"></span>
-    <span class="h">Apunta la cámara del teléfono · <b>Esc</b> para volver al kit</span>
+    <span class="h">Apunta la cámara del teléfono · <b>Volver al kit</b> o <b>Esc</b> para regresar</span>
   </div>
 </div>
 
@@ -638,7 +655,8 @@ function qrAbrir(it){
   /* un frame de gracia: sin él la transición no arranca, porque el elemento
      pasa de display:none a opacidad final dentro del mismo estilo calculado */
   requestAnimationFrame(()=> qrCaja.classList.add('vis'));
-  document.getElementById('qrCerrar').focus();
+  /* el foco arranca en «Volver al kit» y no en la ✕: es la salida que se lee */
+  document.getElementById('qrAtras').focus();
 }
 
 function qrCerrar(){
@@ -651,6 +669,7 @@ function qrCerrar(){
 }
 const qrAbierto = ()=> qrCaja.classList.contains('on');
 
+document.getElementById('qrAtras').addEventListener('click', qrCerrar);
 document.getElementById('qrCerrar').addEventListener('click', qrCerrar);
 /* tocar el fondo cierra; tocar el código o su pie, no */
 qrCaja.addEventListener('click', e=>{ if(e.target === qrCaja) qrCerrar(); });
