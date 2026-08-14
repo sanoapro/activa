@@ -50,7 +50,7 @@ obligatorias.
 
 - Clic en una tarjeta → abre el destino en pestaña nueva.
 - Pasar el cursor y clic en **⧉** → copia el enlace al portapapeles (para mandarlo por WhatsApp).
-- Teclas **1–8** → abren el acceso correspondiente. **D** → descargables. **F** → pantalla completa.
+- Teclas **1–9** → abren el acceso correspondiente, en el orden en que se leen (izquierda a derecha, de arriba abajo). **D** → descargables. **F** → pantalla completa.
 - Las láminas **apartadas** (sin `url`, marcadas con `pronto:true`) no abren nada: existen para
   que el equipo sepa que esa herramienta viene en camino.
 - En **descargables**: cada tarjeta abre el documento de tres formas y el **⧉** copia el enlace de
@@ -59,7 +59,7 @@ obligatorias.
 
 ## Cómo agregar o cambiar un enlace
 
-En `index.html`, al final, están las dos listas `VENTA` e `INTERNA`. Cada entrada es:
+En `index.html`, al final, están las tres listas `VENTA`, `EVENTOS` e `INTERNA` —una por fila de la lámina—. Cada entrada es:
 
 ```js
 { id:'cotizador',          // llave del icono en el objeto ICO
@@ -75,8 +75,14 @@ En `index.html`, al final, están las dos listas `VENTA` e `INTERNA`. Cada entra
 Si el acceso nuevo necesita otro pictograma, se agrega su `path` al objeto `ICO`
 con la misma llave del `id`, en retícula 24×24 de Material.
 
-La retícula está fijada a 4 tarjetas arriba y 4 abajo (`.g4`). Si una fila crece a
-cinco, se le cambia la clase a `.g5`, que ya existe — la lámina no crece de alto.
+La retícula es de **3×3**: tres bloques de tres —venta, eventos y proceso interno—.
+Ese número no es decorativo: con tres filas cada tarjeta mide ≈106 px de alto, y por
+eso es horizontal (icono al costado). Una cuarta tarjeta en una fila la deja en `.g4`,
+que ya existe, pero entonces esa fila no cuadra con las otras dos: si el kit crece de
+verdad, lo honesto es repartir en tres otra vez, no estirar una sola fila.
+
+La base de datos vive en **eventos** y no en proceso interno a propósito: se llena el
+día del evento, con el registro en la mano.
 
 ## Cómo agregar un descargable
 

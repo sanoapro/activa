@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>activa · Kit comercial — accesos rápidos del equipo</title>
-<meta name="description" content="Los siete accesos que el equipo comercial de activa usa todos los días: cotizador, base de datos, taller Google, presentación de ventas y las herramientas internas.">
+<meta name="description" content="Los nueve accesos que el equipo comercial de activa usa todos los días, en tres bloques: herramientas de venta, eventos y proceso interno.">
 <meta name="theme-color" content="#ffffff">
 <meta name="robots" content="noindex">
 
@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="activa">
 <meta property="og:url" content="https://sanoapro.github.io/activa/paginas/kit-comercial/">
 <meta property="og:title" content="Kit comercial · activa">
-<meta property="og:description" content="Siete accesos en una sola pantalla: cotizador, base de datos, taller Google, presentación de ventas y herramientas internas.">
+<meta property="og:description" content="Nueve accesos en una sola pantalla: herramientas de venta, eventos y proceso interno.">
 <meta property="og:image" content="https://sanoapro.github.io/activa/paginas/kit-comercial/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="activa · Kit comercial — los siete accesos del equipo en una sola pantalla.">
+<meta property="og:image:alt" content="activa · Kit comercial — los nueve accesos del equipo en una sola pantalla.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kit comercial · activa">
-<meta name="twitter:description" content="Siete accesos en una sola pantalla: cotizador, base de datos, taller Google, presentación de ventas y herramientas internas.">
+<meta name="twitter:description" content="Nueve accesos en una sola pantalla: herramientas de venta, eventos y proceso interno.">
 <meta name="twitter:image" content="https://sanoapro.github.io/activa/paginas/kit-comercial/og.png">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='11' height='11' rx='3' fill='%234285f4'/%3E%3Crect x='18' y='3' width='11' height='11' rx='3' fill='%23ea4335'/%3E%3Crect x='3' y='18' width='11' height='11' rx='3' fill='%23fbbc04'/%3E%3Crect x='18' y='18' width='11' height='11' rx='3' fill='%2334a853'/%3E%3C/svg%3E">
@@ -49,6 +49,9 @@
   --plum:#7b1fa2; --plum-t:#f6ecfd;
   --teal:#00897b; --teal-t:#e0f2f1;
   --indigo:#3949ab; --indigo-t:#e8eaf6;
+  /* el formulario de eventos entra noveno y los ocho colores ya estaban dados;
+     el carmín es el único tono que no repite fila ni vecino */
+  --pink:#c2185b; --pink-t:#fce4ec;
   --white:#fff; --ink:#202124; --ink2:#5f6368; --ink3:#80868b;
   --line:#dadce0; --line2:#e8eaed; --wash:#f8f9fa;
   --sh1:0 1px 2px rgba(60,64,67,.10), 0 4px 12px -4px rgba(60,64,67,.18);
@@ -95,6 +98,7 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
   letter-spacing:1.6px;text-transform:uppercase;color:var(--ink3)}
 .eyebrow::before{content:"";width:18px;height:3px;border-radius:2px;background:currentColor}
 .eyebrow.b{color:var(--blue)} .eyebrow.p{color:var(--plum)}
+.eyebrow.y{color:var(--yel-d)}
 
 /* ---------- cabecera ---------- */
 .kc-head{position:relative;z-index:2;display:flex;align-items:flex-end;
@@ -110,21 +114,25 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
 .kc-brands .bd{width:1px;height:26px;background:var(--line)}
 .kc-brands .gfe{height:32px}
 
-/* ---------- cuerpo ---------- */
+/* ---------- cuerpo ----------
+   Rejilla 3×3: tres bloques del mismo peso —venta, eventos, proceso interno—
+   con tres accesos cada uno. Las tres secciones miden lo mismo (flex:1) porque
+   ninguna manda sobre las otras; el orden ya cuenta la historia. Presupuesto:
+   614 útiles − 121 de cabecera − 56 del equipo = 437 para .kc-body; menos los
+   dos gaps de 12 quedan 413/3 ≈ 137 por sección, y de ahí 24 de encabezado + 7
+   de gap dejan ≈ 106 px de alto por tarjeta. Ese número es el que obliga a la
+   tarjeta horizontal de abajo. */
 .kc-body{position:relative;z-index:2;flex:1;min-height:0;
-  display:flex;flex-direction:column;gap:16px}
-.kc-sec{display:flex;flex-direction:column;gap:9px;min-height:0}
-.kc-sec.venta{flex:1.26}
-.kc-sec.interna{flex:1}
-.kc-sechead{display:flex;align-items:center;gap:12px;flex-shrink:0}
+  display:flex;flex-direction:column;gap:12px}
+.kc-sec{flex:1;display:flex;flex-direction:column;gap:7px;min-height:0}
+/* altura fija en el encabezado: el botón de descargables vive en una sola
+   sección y sin este tope esa fila sería más baja que las otras dos */
+.kc-sechead{display:flex;align-items:center;gap:12px;flex-shrink:0;height:24px}
 .kc-sechead .rule{flex:1;height:1px;background:var(--line2)}
 .kc-sechead .cnt{font-size:10.5px;font-weight:700;letter-spacing:1.2px;color:var(--ink3)}
 .kc-grid{flex:1;min-height:0;display:grid;gap:14px}
-/* g5 queda disponible por si una fila crece a cinco: la lámina no crece, así que
-   pasar de cuatro a cinco es cambiar la clase de la rejilla, no el alto. */
-.kc-grid.g5{grid-template-columns:repeat(5,1fr)}
-.kc-grid.g4{grid-template-columns:repeat(4,1fr)}
 .kc-grid.g3{grid-template-columns:repeat(3,1fr)}
+.kc-grid.g4{grid-template-columns:repeat(4,1fr)}
 
 /* Lámina apartada: existe para que el equipo sepa que viene, pero no lleva a
    ningún lado todavía. Se ve en reposo, sin sombra ni reacción al cursor. */
@@ -136,19 +144,22 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
 .tile.pronto::after{background:var(--line)}
 
 /* Botón hacia la segunda lámina del kit */
-.kc-mas{display:inline-flex;align-items:center;gap:9px;height:36px;padding:0 16px;
+.kc-mas{display:inline-flex;align-items:center;gap:8px;height:24px;padding:0 12px;
   border-radius:99px;background:var(--white);border:1px solid var(--line);
-  color:var(--ink2);text-decoration:none;font-size:13px;font-weight:600;
+  color:var(--ink2);text-decoration:none;font-size:12px;font-weight:600;
   box-shadow:var(--sh1);flex-shrink:0;
   transition:border-color .2s var(--ease),color .2s var(--ease),transform .2s var(--ease)}
 .kc-mas:hover{border-color:var(--blue-l);color:var(--blue-d);transform:translateY(-1px)}
-.kc-mas svg{width:16px;height:16px;fill:currentColor}
-.kc-mas .n{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;
+.kc-mas svg{width:14px;height:14px;fill:currentColor}
+.kc-mas .n{display:inline-grid;place-items:center;min-width:16px;height:16px;padding:0 5px;
   border-radius:99px;background:var(--blue-t);color:var(--blue-d);font-size:10.5px;font-weight:700}
 
-/* ---------- tarjeta de enlace ---------- */
-.tile{position:relative;display:flex;flex-direction:column;gap:9px;
-  padding:16px 17px 14px;border-radius:20px;text-decoration:none;color:inherit;
+/* ---------- tarjeta de enlace ----------
+   Horizontal: con nueve accesos la fila mide ≈106 px de alto y 386 de ancho,
+   y en esa proporción el icono encima del texto no cabe. Va al costado, y la
+   tarjeta gana el ancho que el apilado desperdiciaba. */
+.tile{position:relative;display:flex;flex-direction:row;align-items:flex-start;gap:13px;
+  padding:13px 16px 12px;border-radius:18px;text-decoration:none;color:inherit;
   background:var(--white);border:1px solid var(--line);box-shadow:var(--sh1);
   overflow:hidden;isolation:isolate;
   transition:box-shadow .22s,border-color .22s}
@@ -168,33 +179,59 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
 .tile:not(.pronto):hover{box-shadow:var(--sh2);border-color:transparent}
 .tile:not(.pronto):hover::before{opacity:1}
 .tile:focus-visible{outline:3px solid var(--c);outline-offset:3px}
-/* filete de color al pie de la tarjeta, crece al hover */
-.tile::after{content:"";position:absolute;left:17px;bottom:0;height:4px;width:34px;
+/* Filete de color al pie de la tarjeta, crece al hover. Arranca donde arranca
+   el texto (16 de padding + 44 de icono + 13 de gap = 73) y no en el canto: con
+   el icono ya al costado, un filete debajo de él duplicaba la misma mancha de
+   color y se leía como una barra suelta. */
+.tile::after{content:"";position:absolute;left:73px;bottom:0;height:4px;width:34px;
   border-radius:99px 99px 0 0;background:var(--c);transition:width .28s cubic-bezier(.2,.8,.2,1)}
-.tile:not(.pronto):hover::after{width:calc(100% - 34px)}
+.tile:not(.pronto):hover::after{width:calc(100% - 89px)}
 
-.t-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+/* columna de texto: reserva a la derecha el carril de la flecha y del botón ⧉,
+   que ahora flotan los dos sobre el mismo canto. Se estira a todo el alto de la
+   tarjeta —con el nombre arriba y la etiqueta de origen abajo, empujada por el
+   margen automático del pie— para que las tres tarjetas de una fila alineen sus
+   títulos y sus chips aunque una lleve una línea de descripción y otra dos. */
+.t-tx{flex:1;min-width:0;align-self:stretch;
+  display:flex;flex-direction:column;gap:3px;padding-right:24px}
 .t-ico{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
   background:var(--grad);box-shadow:0 6px 16px -6px var(--c);flex-shrink:0;
   transition:transform .28s cubic-bezier(.2,.8,.2,1)}
 .tile:not(.pronto):hover .t-ico{transform:scale(1.07) rotate(-4deg)}
 .t-ico svg{width:25px;height:25px;fill:#fff;display:block}
-.t-arrow{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+.t-arrow{position:absolute;right:13px;top:12px;
+  width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
   background:var(--wash);color:var(--ink3);flex-shrink:0;
   transition:background .22s,color .22s,transform .28s cubic-bezier(.2,.8,.2,1)}
-.t-arrow svg{width:15px;height:15px;fill:currentColor}
+.t-arrow svg{width:14px;height:14px;fill:currentColor}
 .tile:hover .t-arrow{background:var(--c);color:#fff;transform:translate(3px,-3px)}
-.t-name{font-size:16.5px;font-weight:600;letter-spacing:-.35px;line-height:1.15}
-.t-desc{font-size:12.5px;line-height:1.35;color:var(--ink2);flex:1}
-.t-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:2px}
+.t-name{font-size:16px;font-weight:600;letter-spacing:-.35px;line-height:1.15}
+.t-desc{font-size:12px;line-height:1.33;color:var(--ink2)}
+.t-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:5px}
 .t-host{display:inline-flex;align-items:center;gap:5px;max-width:100%;
   font-size:10.5px;font-weight:600;letter-spacing:.2px;color:var(--c);
   background:var(--tint);border-radius:99px;padding:3.5px 9px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .t-host svg{width:11px;height:11px;fill:currentColor;flex-shrink:0}
 
-/* botón copiar: vive dentro del <a>, pero cancela la navegación */
-.t-copy{position:absolute;right:12px;bottom:11px;z-index:3;
+/* Botonera de la tarjeta: vive dentro del <a>, pero cancela la navegación.
+   Los dos botones comparten carril para que el ⧉ no cambie de sitio en la
+   tarjeta que además lleva QR. */
+.t-acts{position:absolute;right:12px;bottom:10px;z-index:3;
+  display:flex;align-items:center;gap:6px}
+
+/* El QR se queda a la vista siempre, al revés que el ⧉: en un evento hay que
+   saber que ese código existe sin descubrirlo pasando el cursor —y en una
+   pantalla proyectada muchas veces no hay cursor que pasar—. */
+.t-qr{display:inline-flex;align-items:center;gap:5px;height:27px;padding:0 10px 0 8px;
+  border-radius:9px;border:1px solid var(--c);background:var(--tint);color:var(--c);
+  cursor:pointer;font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:.6px;
+  transition:background .2s,color .2s,transform .2s}
+.t-qr svg{width:14px;height:14px;fill:currentColor;display:block}
+.t-qr:hover{background:var(--c);color:#fff;transform:translateY(-1px)}
+.t-qr:focus-visible{outline:3px solid var(--c);outline-offset:3px}
+
+.t-copy{position:relative;z-index:3;
   width:27px;height:27px;border-radius:9px;border:1px solid var(--line);
   background:var(--white);color:var(--ink3);cursor:pointer;display:grid;place-items:center;
   opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s,color .2s,border-color .2s}
@@ -208,12 +245,6 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
 .t-copy.mo-done{opacity:1;transform:none;width:auto;min-width:27px;padding:0 9px;
   font-size:10.5px;font-weight:700;white-space:nowrap;font-family:var(--font);
   color:var(--grn);border-color:var(--grn)}
-
-/* la tarjeta interna es más baja: se compacta */
-.kc-sec.interna .tile{gap:7px;padding:14px 16px 12px}
-.kc-sec.interna .t-ico{width:40px;height:40px;border-radius:12px}
-.kc-sec.interna .t-ico svg{width:23px;height:23px}
-.kc-sec.interna .t-name{font-size:15.5px}
 
 /* ---------- equipo ---------- */
 .kc-team{position:relative;z-index:2;flex-shrink:0;margin-top:13px;
@@ -300,30 +331,39 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
     </div>
   </header>
 
-  <!-- ── cuerpo: los siete accesos ──────────────────────────────── -->
+  <!-- ── cuerpo: los nueve accesos, en tres bloques de tres ─────── -->
   <main class="kc-body">
 
     <section class="kc-sec venta">
       <div class="kc-sechead">
         <span class="eyebrow b">Herramientas de venta</span>
         <span class="rule"></span>
-        <span class="cnt">04</span>
+        <span class="cnt">03</span>
       </div>
-      <div class="kc-grid g4 mo-stagger" id="gVenta"></div>
+      <div class="kc-grid g3 mo-stagger" id="gVenta"></div>
+    </section>
+
+    <section class="kc-sec eventos">
+      <div class="kc-sechead">
+        <span class="eyebrow y">Eventos</span>
+        <span class="rule"></span>
+        <span class="cnt">03</span>
+      </div>
+      <div class="kc-grid g3 mo-stagger" id="gEventos"></div>
     </section>
 
     <section class="kc-sec interna">
       <div class="kc-sechead">
-        <span class="eyebrow p">Herramientas internas</span>
+        <span class="eyebrow p">Proceso interno</span>
         <span class="rule"></span>
         <a class="kc-mas" href="./descargables/">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
           Descargables
           <span class="n">01</span>
         </a>
-        <span class="cnt">04</span>
+        <span class="cnt">03</span>
       </div>
-      <div class="kc-grid g4 mo-stagger" id="gInterna"></div>
+      <div class="kc-grid g3 mo-stagger" id="gInterna"></div>
     </section>
 
   </main>
@@ -356,6 +396,8 @@ const ICO = {
   cotizador:'<path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm.8 3.2v3.4h10.4V5.2H6.8zm.4 6a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zm4.8 0a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zm4.8 0a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zm-9.6 5a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zm4.8 0a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zm4.8 0a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/>',
   /* tabla con filas — la base de datos */
   base:'<path d="M3.5 4.5A1.5 1.5 0 0 1 5 3h14a1.5 1.5 0 0 1 1.5 1.5v15A1.5 1.5 0 0 1 19 21H5a1.5 1.5 0 0 1-1.5-1.5v-15zM5.4 4.9v3h13.2v-3H5.4zm0 4.8v3h4.9v-3H5.4zm6.7 0v3h6.5v-3h-6.5zm-6.7 4.8v3h4.9v-3H5.4zm6.7 0v3h6.5v-3h-6.5z"/>',
+  /* hoja con opciones redondas — el formulario de registro */
+  formulario:'<path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm1.7 5.1a1.15 1.15 0 1 0 0 2.3 1.15 1.15 0 0 0 0-2.3zm3.4.2a.9.9 0 0 0 0 1.8h5.2a.9.9 0 0 0 0-1.8h-5.2zm-3.4 3.9a1.15 1.15 0 1 0 0 2.3 1.15 1.15 0 0 0 0-2.3zm3.4.2a.9.9 0 0 0 0 1.8h5.2a.9.9 0 0 0 0-1.8h-5.2zm-3.4 3.9a1.15 1.15 0 1 0 0 2.3 1.15 1.15 0 0 0 0-2.3zm3.4.2a.9.9 0 0 0 0 1.8h5.2a.9.9 0 0 0 0-1.8h-5.2z"/>',
   /* birrete — el taller Google */
   taller:'<path d="M12 3 1.5 8.6 12 14.2l8.6-4.6v6.1h1.9V8.6L12 3zM5.2 12.4v3.9c0 .6.3 1.1.8 1.4 1.6 1 3.7 1.6 6 1.6s4.4-.6 6-1.6c.5-.3.8-.8.8-1.4v-3.9L12 16.1l-6.8-3.7z"/>',
   /* pantalla con gráfico — la presentación */
@@ -373,36 +415,48 @@ const ICO_LINK  = '<path d="M14 3a1 1 0 0 0 0 2h3.6l-8.3 8.3a1 1 0 0 0 1.4 1.4L1
 const ICO_GLOBE = '<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 9h-3a15 15 0 0 0-1.2-5.3A8 8 0 0 1 18.9 11zM12 4.2c.8 1.1 1.6 3.3 1.8 6.8h-3.6c.2-3.5 1-5.7 1.8-6.8zM5.1 11a8 8 0 0 1 4.2-5.3A15 15 0 0 0 8.1 11h-3zm0 2h3a15 15 0 0 0 1.2 5.3A8 8 0 0 1 5.1 13zm5 0h3.8c-.2 3.5-1 5.7-1.9 6.8-.8-1.1-1.6-3.3-1.8-6.8zm4.6 5.3a15 15 0 0 0 1.2-5.3h3a8 8 0 0 1-4.2 5.3z"/>';
 const ICO_COPY  = '<path d="M8 2h9a2 2 0 0 1 2 2v11a1 1 0 0 1-2 0V4H8a1 1 0 0 1 0-2zM5 6h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm0 2v12h8V8H5z"/>';
 const ICO_OK    = '<path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8z"/>';
+/* tres ojos de registro y un módulo suelto: el gesto universal de «esto es un QR» */
+const ICO_QR    = '<path d="M3 3h7.5v7.5H3V3zm2 2v3.5h3.5V5H5zm8.5-2H21v7.5h-7.5V3zm2 2v3.5H19V5h-3.5zM3 13.5h7.5V21H3v-7.5zm2 2V19h3.5v-3.5H5zm8.5-2h2.6v2.6h-2.6v-2.6zm4.4 0H21v2.6h-3.1v-2.6zm-4.4 4.4h2.6V21h-2.6v-3.1zm4.4 0H21V21h-3.1v-3.1z"/>';
 
-/* ═══════════ los siete accesos ═══════════
-   Un solo lugar para editarlos: cambiar aquí basta, el HTML se arma solo. */
+/* ═══════════ los nueve accesos ═══════════
+   Un solo lugar para editarlos: cambiar aquí basta, el HTML se arma solo.
+   Tres listas de tres, y cada una es un momento distinto del trabajo: lo que
+   se enseña al colegio, lo que se mueve alrededor de un evento y lo que se
+   captura después. La base de datos vive con eventos y no con el proceso
+   interno a propósito: se llena el día del evento, con el registro en la mano. */
 const VENTA = [
   { id:'cotizador', nombre:'Cotizador', color:'--blue', color2:'#0d47a1', tinte:'--blue-t',
     desc:'Arma la propuesta y el precio del ciclo 2026–2027 en minutos.',
     host:'sanoapro.github.io',
     url:'https://sanoapro.github.io/activa/paginas/cotizador/' },
-  { id:'taller', nombre:'Taller Google', color:'--yel-d', color2:'#f9ab00', tinte:'--yel-t',
-    desc:'El aula del taller: material, tareas y avance de los docentes.',
-    host:'Google Classroom',
-    url:'https://classroom.google.com/c/ODcwODM1NDc4Nzg4' },
   { id:'deck', nombre:'Presentación comercial', color:'--red', color2:'#8c1410', tinte:'--red-t',
-    desc:'El deck de venta upgrade edu, listo para proyectar o compartir.',
+    desc:'El deck de venta upgrade edu, listo para proyectar.',
     host:'sanoapro.github.io',
     url:'https://sanoapro.github.io/activa/paginas/upgrade-edu' },
   { id:'papas', nombre:'Presentación a papás', color:'--teal', color2:'#004d40', tinte:'--teal-t',
-    desc:'El deck para juntas con familias: por qué el programa, qué cambia y qué no.',
+    desc:'Para juntas con familias: qué cambia y qué no.',
     host:'sanoapro.github.io',
     url:'https://sanoapro.github.io/activa/paginas/padres-de-familia/' }
 ];
-const INTERNA = [
+const EVENTOS = [
+  { id:'taller', nombre:'Taller Google', color:'--yel-d', color2:'#f9ab00', tinte:'--yel-t',
+    desc:'El aula del taller: material, tareas y avance.',
+    host:'Google Classroom',
+    url:'https://classroom.google.com/c/ODcwODM1NDc4Nzg4' },
+  /* `qr` es opcional: la tarjeta que lo trae gana el botón QR y su lámina a
+     pantalla completa. Cualquier otro acceso lo hereda con solo apuntar aquí
+     a su imagen; nada más hay que tocar. */
+  { id:'formulario', nombre:'Registro a eventos', color:'--pink', color2:'#880e4f', tinte:'--pink-t',
+    desc:'El formulario de inscripción que se comparte.',
+    host:'Google Forms',
+    url:'https://docs.google.com/forms/d/e/1FAIpQLSdK378g97bZPlcPCBhXKJq8Sx8zT72HBP_NEquugidYrsAF8g/viewform',
+    qr:'./QR/QR-Eventos.png' },
   { id:'base', nombre:'Base de datos', color:'--grn', color2:'#0b5c28', tinte:'--grn-t',
     desc:'Colegios, contactos y pipeline.',
     host:'Google Sheets',
-    url:'https://docs.google.com/spreadsheets/d/1d7HeQR4lNQSn3rIvfGAHkzVxFclJe7N0HkCtNM0YOrQ/edit?gid=1780484479#gid=1780484479' },
-  { id:'reembolso', nombre:'Reembolso', color:'--plum', color2:'#4a148c', tinte:'--plum-t',
-    desc:'Tus gastos de viaje y comprobantes.',
-    host:'AppSheet',
-    url:'https://www.appsheet.com/newshortcut/501547d4-9b8d-49ee-a247-bf4ce5d48cc4' },
+    url:'https://docs.google.com/spreadsheets/d/1d7HeQR4lNQSn3rIvfGAHkzVxFclJe7N0HkCtNM0YOrQ/edit?gid=1780484479#gid=1780484479' }
+];
+const INTERNA = [
   { id:'crm', nombre:'CRM interno', color:'--teal', color2:'#004d40', tinte:'--teal-t',
     desc:'Oportunidades y estado de cada cuenta.',
     host:'Cloud Run',
@@ -410,7 +464,11 @@ const INTERNA = [
   { id:'ti', nombre:'Portal activa TI', color:'--indigo', color2:'#1a237e', tinte:'--indigo-t',
     desc:'Soporte, tickets y servicios internos.',
     host:'ti.activa.la',
-    url:'http://ti.activa.la:2684/' }
+    url:'http://ti.activa.la:2684/' },
+  { id:'reembolso', nombre:'Reembolso', color:'--plum', color2:'#4a148c', tinte:'--plum-t',
+    desc:'Tus gastos de viaje y comprobantes.',
+    host:'AppSheet',
+    url:'https://www.appsheet.com/newshortcut/501547d4-9b8d-49ee-a247-bf4ce5d48cc4' }
 ];
 
 const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
@@ -425,18 +483,23 @@ function tarjeta(it){
   a.style.setProperty('--tint', t);
   a.style.setProperty('--grad', `linear-gradient(135deg,${it.color2} 0%,${c} 100%)`);
   a.innerHTML =
-    `<div class="t-top">
-       <span class="t-ico"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO[it.id]}</svg></span>
-       ${it.pronto ? `` : `<span class="t-arrow"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO_LINK}</svg></span>`}
+    `<span class="t-ico"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO[it.id]}</svg></span>
+     <div class="t-tx">
+       <div class="t-name">${it.nombre}</div>
+       <div class="t-desc">${it.desc}</div>
+       <div class="t-foot">
+         <span class="t-host">${it.pronto ? `` : `<svg viewBox="0 0 24 24" aria-hidden="true">${ICO_GLOBE}</svg>`}${it.host}</span>
+       </div>
      </div>
-     <div class="t-name">${it.nombre}</div>
-     <div class="t-desc">${it.desc}</div>
-     <div class="t-foot">
-       <span class="t-host">${it.pronto ? `` : `<svg viewBox="0 0 24 24" aria-hidden="true">${ICO_GLOBE}</svg>`}${it.host}</span>
-     </div>
-     ${it.pronto ? `` : `<button class="t-copy" type="button" title="Copiar enlace" aria-label="Copiar enlace de ${it.nombre}">
-       <svg viewBox="0 0 24 24" aria-hidden="true">${ICO_COPY}</svg>
-     </button>`}`;
+     ${it.pronto ? `` : `<span class="t-arrow"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO_LINK}</svg></span>`}
+     ${it.pronto ? `` : `<div class="t-acts">
+       ${it.qr ? `<button class="t-qr" type="button" title="Ver el código QR a pantalla completa" aria-label="Ver el código QR de ${it.nombre} a pantalla completa">
+         <svg viewBox="0 0 24 24" aria-hidden="true">${ICO_QR}</svg>QR
+       </button>` : ``}
+       <button class="t-copy" type="button" title="Copiar enlace" aria-label="Copiar enlace de ${it.nombre}">
+         <svg viewBox="0 0 24 24" aria-hidden="true">${ICO_COPY}</svg>
+       </button>
+     </div>`}`;
 
   /* envoltura doble para el motor: la cascada anima .twrap, el imán mueve
      .tmag y la tarjeta conserva su propio transform para la inclinación */
@@ -489,7 +552,8 @@ function pintar(cont, lista){
   const box = document.getElementById(cont);
   lista.forEach(it => box.appendChild(tarjeta(it)));
 }
-pintar('gVenta', VENTA);
+pintar('gVenta',   VENTA);
+pintar('gEventos', EVENTOS);
 pintar('gInterna', INTERNA);
 
 /* ═══════════ el equipo ═══════════ */
@@ -566,8 +630,9 @@ escalar();
 addEventListener('resize', escalar);
 
 /* ═══════════ teclado ═══════════
-   1–7 abre el acceso correspondiente; F alterna pantalla completa. */
-const TODOS = [...VENTA, ...INTERNA];
+   1–9 abre el acceso correspondiente, leyendo la rejilla como se ve: de
+   izquierda a derecha y de arriba abajo. F alterna pantalla completa. */
+const TODOS = [...VENTA, ...EVENTOS, ...INTERNA];
 addEventListener('keydown', e=>{
   if(e.metaKey || e.ctrlKey || e.altKey) return;
   const n = parseInt(e.key, 10);
@@ -592,9 +657,12 @@ addEventListener('keydown', e=>{
    de #stage no se toca: el imán y la inclinación viven en hijos internos. */
 if(window.Motion){
 
-  /* entrada en cascada: venta → interna → equipo, la coreografía de siempre */
+  /* entrada en cascada: venta → eventos → interna → equipo. Con tres filas
+     los arranques se acercan (90 · 260 · 430) para que las nueve tarjetas
+     terminen de entrar antes que el equipo, como en la versión de dos. */
   Motion.stagger(document.getElementById('gVenta'),   70, 90);
-  Motion.stagger(document.getElementById('gInterna'), 70, 370);
+  Motion.stagger(document.getElementById('gEventos'), 70, 260);
+  Motion.stagger(document.getElementById('gInterna'), 70, 430);
   Motion.stagger(document.getElementById('team'),     55, 620);
   /* sin scroll no hace falta margen de anticipación: umbral cero */
   Motion.revealAll('.mo-stagger > *', { threshold: 0, rootMargin: '0px' });
