@@ -20,7 +20,7 @@ Presentacion-activa/
 │   │   ├── og.png                Su vista previa de WhatsApp
 │   │   ├── og-source.html        El molde de esa vista previa
 │   │   └── README.md             Cómo se edita y cómo se regenera
-│   ├── upgrade-edu/              Deck comercial de 28 diapositivas
+│   ├── upgrade-edu/              Deck comercial de 34 diapositivas
 │   │   ├── index.html
 │   │   ├── og.png
 │   │   └── README.md

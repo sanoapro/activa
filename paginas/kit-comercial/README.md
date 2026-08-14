@@ -15,6 +15,7 @@ que el deck de [upgrade-edu](../upgrade-edu/).
 | `assets.js` | **Generado.** Retratos del equipo y logos, en base64. No editar a mano. Lo usan las dos páginas. |
 | `og.png` | Vista previa de WhatsApp (1200×630). **Generado** desde `og-source.html`. |
 | `og-source.html` | Molde de esa vista previa. No se abre en público. |
+| `QR/` | Códigos QR de los accesos que lo tengan. Se cargan por ruta relativa, no en base64: pesan de más para meterlos en `assets.js`. |
 
 ## Las dos páginas se ven igual
 
@@ -51,6 +52,10 @@ obligatorias.
 - Clic en una tarjeta → abre el destino en pestaña nueva.
 - Pasar el cursor y clic en **⧉** → copia el enlace al portapapeles (para mandarlo por WhatsApp).
 - Teclas **1–9** → abren el acceso correspondiente, en el orden en que se leen (izquierda a derecha, de arriba abajo). **D** → descargables. **F** → pantalla completa.
+- Botón **QR** (solo en las tarjetas que traen `qr`) → abre el código a pantalla completa sobre
+  fondo blanco, para que la sala lo escanee. Se cierra con **Esc**, con la ✕ o tocando el fondo.
+  A diferencia del ⧉, se ve siempre y no solo al pasar el cursor: en un evento hay que saber que
+  el código existe, y en una pantalla proyectada muchas veces no hay cursor que pasar.
 - Las láminas **apartadas** (sin `url`, marcadas con `pronto:true`) no abren nada: existen para
   que el equipo sepa que esa herramienta viene en camino.
 - En **descargables**: cada tarjeta abre el documento de tres formas y el **⧉** copia el enlace de
@@ -74,6 +79,17 @@ En `index.html`, al final, están las tres listas `VENTA`, `EVENTOS` e `INTERNA`
 
 Si el acceso nuevo necesita otro pictograma, se agrega su `path` al objeto `ICO`
 con la misma llave del `id`, en retícula 24×24 de Material.
+
+El campo **`qr`** es opcional y apunta a la imagen del código (`qr:'./QR/loquesea.png'`).
+Con eso basta: la tarjeta gana el botón y la lámina a pantalla completa, sin tocar nada más.
+El diálogo `#qr` vive **fuera** de `#stage` a propósito —la lámina va escalada por `transform`,
+y un `position:fixed` colgado de ella se escala también y deja de cubrir la pantalla—.
+
+Un QR con recorte de fantasía (estrella, logo al centro) es un QR al filo del estándar: por eso
+la lámina lo pinta lo más grande que quepa y le añade un margen blanco propio, que es la zona de
+silencio que el PNG recortado no trae. **Cada QR nuevo hay que probarlo con un teléfono de
+verdad** antes de llevarlo a un evento; que el archivo contenga la URL correcta no garantiza que
+una cámara lo levante.
 
 La retícula es de **3×3**: tres bloques de tres —venta, eventos y proceso interno—.
 Ese número no es decorativo: con tres filas cada tarjeta mide ≈106 px de alto, y por

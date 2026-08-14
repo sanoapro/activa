@@ -1133,6 +1133,149 @@ ul.s08b-bens li b{font-size:13.5px}
   #stage .slide.on .card:hover,#stage .slide.on .tile:hover{transform:none}
 }
 
+/* ══════════ PROYECTO PILOTO · láminas 28–33 ══════════
+   Seis láminas que cierran el argumento: oferta → trato → preparación →
+   proceso → resultados → calendario. Se resuelven con el vocabulario que ya
+   existe (.card, .stat, ul.bens, .tiles, .grid, .pill, .note, .ejebar); aquí
+   abajo vive SOLO lo que ninguna pieza del deck resolvía.
+   Prefijo sp- (subproyecto piloto) para no chocar con los bloques sNN-. */
+
+/* Hilo del bloque. Mismo componente que la barra de los cuatro ejes, pero con
+   SEIS tramos y rótulo propio: se lee como su propio hilo y nadie lo confunde
+   con los ejes del programa, que son cuatro y ya están todos vendidos. */
+.ejebar.sp-bar .seg{width:15px}
+.ejebar.sp-bar .seg.on{width:32px}
+
+/* ── 28 · la oferta en una línea ── */
+.sp1-h{font-size:82px;line-height:1;font-weight:500;letter-spacing:-3.6px}
+.sp1-figs .stat .n{font-size:78px;letter-spacing:-3.6px}
+/* La unidad va en la misma línea base pero a un tercio del cuerpo: «4 semanas»
+   entero a 78 px mediría ≈360 y la columna interior son 320. De paso deja a
+   «$0» como la única cifra sin cola — es la que tiene que pesar más. */
+.sp1-figs .nu{font-size:30px;font-weight:500;letter-spacing:-1.2px;color:var(--ink3);
+  margin-left:13px}
+.sp1-figs .stat .l{font-size:14.5px;line-height:1.35;margin-top:10px}
+/* El aro de carga del deck mide 96 px: hecho para una cifra de dos dígitos a
+   52 px. Aquí la cifra va a 78 px y la esquina del glifo cae en ≈60 px, así
+   que el aro sube a 150 para seguir pasando POR FUERA de los dígitos, que es
+   la condición que impone la normativa. Misma animación, mismas guardas. */
+.mv-anillo.sp-xl{width:150px;height:150px;margin:-75px 0 0 -75px}
+
+/* ── 29 · el trato ── */
+.sp2-gh .gi{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;flex-shrink:0}
+.sp2-gh .gi svg{width:15px;height:15px}
+.sp2-gh .gi.b{background:var(--blue-t)} .sp2-gh .gi.b svg{fill:var(--blue)}
+.sp2-gh .gi.n{background:var(--surf2)} .sp2-gh .gi.n svg{fill:var(--ink2)}
+/* La frase que desarma la objeción: es la única línea de la lámina que se lee
+   a distancia de proyector, y por eso va sola en su banda. */
+.sp2-eje{padding:15px 22px;border-radius:16px;text-align:center}
+.sp2-eje b{font-size:20px;line-height:1.28;font-weight:600;letter-spacing:-.4px;color:var(--ink)}
+.sp2-eje b em{font-style:normal;color:var(--blue-d)}
+/* Condiciones del préstamo: se dicen de frente, con el mismo peso que todo lo
+   demás. Letra chica escondida es justo lo que el director viene buscando. */
+.sp2-cond{grid-template-columns:repeat(3,1fr)}
+.sp2-cond .tile{align-items:center}
+
+/* ── 30 · tres decisiones y una capacitación ── */
+.sp3-c{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;
+  font-size:12.5px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.sp3-c.b{background:var(--blue-t);color:var(--blue-d)}
+.sp3-c.y{background:var(--yel);color:#fff}
+.sp3-top{display:flex;align-items:center;gap:10px}
+.sp3-top h4{font-size:18px;letter-spacing:-.3px}
+.sp3-g .card{gap:9px;justify-content:flex-start}
+.sp3-g .xs{font-size:12.5px}
+/* Los tres grados sugeridos: píldoras y no lista, para que se lean como
+   ejemplos y no como requisitos. */
+.sp3-gr{display:flex;flex-direction:column;gap:6px;margin-top:2px}
+.sp3-gr span{display:flex;align-items:baseline;gap:6px;background:var(--surf);border-radius:9px;
+  padding:6px 10px;font-size:12px;line-height:1.25;color:var(--ink2)}
+.sp3-gr span b{font-size:12.5px;color:var(--ink)}
+
+/* ── 31 · cuatro semanas, tres momentos ── */
+/* El riel traduce «semanas 2 y 3» en el DOBLE de ancho: la proporción del
+   tiempo se ve antes de leer una sola palabra. Riel y tarjetas comparten la
+   misma rejilla 1fr 2fr 1fr para que los cortes caigan en la misma vertical. */
+.sp4-tl{display:grid;grid-template-columns:1fr 2fr 1fr;gap:14px;flex:1;min-height:0}
+.sp4-rail{display:grid;grid-template-columns:1fr 2fr 1fr;gap:14px;margin-bottom:12px}
+.sp4-rail i{height:6px;border-radius:99px;display:block}
+.sp4-rail i.b{background:var(--blue)} .sp4-rail i.y{background:var(--yel)}
+.sp4-rail i.g{background:var(--grn-l)}
+.sp4-w{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.sp4-w.b{color:var(--blue-d)} .sp4-w.y{color:var(--yel-d)} .sp4-w.g{color:var(--grn-d)}
+.sp4-tl h4{font-size:19px;letter-spacing:-.35px;margin-top:6px}
+.sp4-tl .xs{font-size:13px;margin-top:8px}
+/* Banda de acompañamiento: atraviesa las cuatro semanas porque el coach
+   también las atraviesa. El punto la recorre en cuatro tiempos —una parada
+   por semana— y descansa; es la única animación focal de la lámina. */
+.sp4-coach{display:flex;align-items:center;gap:14px;padding:13px 20px;border-radius:16px;
+  background:var(--grn-t);position:relative;overflow:hidden}
+.sp4-coach .ci{width:30px;height:30px;border-radius:10px;background:var(--white);
+  display:grid;place-items:center;flex-shrink:0}
+.sp4-coach .ci svg{width:17px;height:17px;fill:var(--grn-d)}
+.sp4-coach .ct{font-size:14px;line-height:1.3;color:var(--ink2)}
+.sp4-coach .ct b{color:var(--grn-d)}
+/* Opacidad 0 de base, igual que el aro de la cifra: con las guardas apagadas
+   —miniaturas, PDF, reducir movimiento— desaparece en vez de quedar clavado
+   como una raya suelta en la esquina de la banda. */
+.mv-coach{position:absolute;left:0;bottom:0;height:3px;width:14px;border-radius:99px;
+  opacity:0;background:var(--grn-l);animation:mv-coach 7.2s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes mv-coach{
+  0%,6%{opacity:1;transform:translateX(60px)}
+  18%,30%{opacity:1;transform:translateX(340px)}
+  42%,54%{opacity:1;transform:translateX(620px)}
+  66%,94%{opacity:1;transform:translateX(900px)}
+  100%{opacity:0;transform:translateX(900px)}
+}
+.sp4-end{font-size:20px;line-height:1.3;font-weight:600;letter-spacing:-.4px;color:var(--ink);
+  text-align:center}
+.sp4-end em{font-style:normal;color:var(--yel-d)}
+
+/* ── 32 · qué se llevan ── */
+.sp5-g .card{gap:10px;justify-content:flex-start}
+.sp5-g h4{font-size:18px;letter-spacing:-.3px}
+.sp5-g .xs{font-size:13px;line-height:1.42}
+/* La frase que cierra el deck entero: la única a 32 px fuera de un titular. */
+.sp5-cita{padding:24px 34px;border-radius:20px;text-align:center}
+.sp5-cita b{font-size:31px;line-height:1.22;font-weight:500;letter-spacing:-1.1px;color:var(--ink)}
+.sp5-cita b em{font-style:normal;color:var(--blue)}
+
+/* ── 33 · calendario ── */
+/* Siete semanas consecutivas, siete columnas iguales: ninguna manda sobre las
+   otras. Lo que sí distingue es la FASE, con el color que el bloque ya tiene
+   en el hilo del piloto — preparación amarillo, ejecución verde, cierre azul. */
+.sp6-tl{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.sp6-s{border-radius:14px;padding:12px 11px 13px;display:flex;flex-direction:column;gap:7px;
+  border-top:4px solid transparent}
+.sp6-s.pre{background:var(--yel-t);border-top-color:var(--yel)}
+.sp6-s.eje{background:var(--grn-t);border-top-color:var(--grn-l)}
+.sp6-s.fin{background:var(--blue-t);border-top-color:var(--blue)}
+.sp6-fec{font-size:11.5px;font-weight:800;letter-spacing:.2px;line-height:1.1;
+  font-variant-numeric:tabular-nums}
+.sp6-s.pre .sp6-fec{color:var(--yel-d)} .sp6-s.eje .sp6-fec{color:var(--grn-d)}
+.sp6-s.fin .sp6-fec{color:var(--blue-d)}
+.sp6-h{font-size:12px;line-height:1.28;font-weight:600;letter-spacing:-.1px;color:var(--ink)}
+.sp6-d{font-size:11px;line-height:1.3;color:var(--ink2)}
+/* Rótulo de fase sobre el grupo de columnas que abarca */
+/* Misma rejilla de 7 columnas que la línea de tiempo, y cada rótulo abarca
+   las suyas con span: con 2fr/4fr/1fr los cortes caían unos píxeles fuera,
+   porque tres columnas llevan 2 huecos y siete llevan 6. */
+.sp6-fases{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:8px}
+.sp6-fase.pre{grid-column:span 2} .sp6-fase.eje{grid-column:span 4}
+.sp6-fase{font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px}
+.sp6-fase i{flex:1;height:1px}
+.sp6-fase.pre{color:var(--yel-d)} .sp6-fase.pre i{background:var(--yel-l)}
+.sp6-fase.eje{color:var(--grn-d)} .sp6-fase.eje i{background:var(--grn-l)}
+.sp6-fase.fin{color:var(--blue-d)} .sp6-fase.fin i{background:var(--blue-l)}
+/* Los dos bloques de acción del cierre */
+.sp6-acc .card{gap:8px;justify-content:flex-start}
+.sp6-cap{font-size:10.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.sp6-cap.b{color:var(--blue-d)} .sp6-cap.g{color:var(--grn-d)}
+.sp6-tres{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:17px;
+  font-weight:600;letter-spacing:-.3px;color:var(--ink)}
+.sp6-tres i{font-style:normal;color:var(--ink4);font-weight:400}
+
 /* ── diapositiva 28 ─────────────────────────────────────────────── */
 /* ── diapositiva 28 · CIERRE (bloque s28f- COMPLETO: sustituye al anterior) ── */
 .s28f-in{display:flex;flex-direction:column;align-items:flex-start}
@@ -4577,7 +4720,442 @@ MOVIMIENTO · barrido de luz sobre la banda de cifras (08 · respaldo):
     TI · IP · DP.</p></div>
 </section>
 
-<!-- ═════════ 28 · CIERRE ═════════ -->
+<!-- ═════════ 28 · PILOTO · LA OFERTA ═════════ -->
+<!--
+CUENTA DE ALTURAS (escenario 720 · padding 46/30 = 644 útiles · ancho útil 1160)
+· head: fila logo 26 + gap 11 + sp1-h 82 + gap 12 + lead 26 = 157 + margen 20 → 177
+· foot: ejebar 15 (+ línea sm 20 a la derecha) + margen 18 → 38
+· body disponible: 644 − 177 − 38 = 429
+  rejilla g3 de cifras: card pad 52 + n 78 + mt 10 + l 2 líneas 39 = 179 ≤ 429 ✓
+· TOTAL ≈ 177 + 179 + 38 = 394 ≤ 644 — sobra aire, y sobra a propósito: la
+  lámina existe para que «$0» sea lo primero que el ojo toque.
+ANCHO: columna g3 = (1160 − 32)/3 = 376 · interior 320.
+  «4» a 78 + «semanas» a 30 ≈ 45 + 9 + 112 = 166 ✓ · el aro de $0 mide 150 ✓
+MOVIMIENTO: el aro de carga de Google rodea «$0» y se abre para dejarla sola;
+  la cifra no se toca (normativa). Las tres tarjetas entran en cascada por
+  .grid, que ya está en el selector de la coreografía.
+-->
+<section class="slide" data-bloque="oferta">
+  <span class="shape" style="width:520px;height:520px;right:-200px;top:-200px;background:var(--grn-t)"></span>
+  <span class="shape" style="width:230px;height:230px;left:-125px;bottom:-125px;background:var(--blue-t)"></span>
+  <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div style="display:flex;align-items:center;gap:16px">
+      <img data-logo="activa" class="lg" alt="activa" style="height:26px">
+      <span class="pill ghost">Octubre – Noviembre 2026</span>
+    </div>
+    <h2 class="sp1-h">Proyecto <span class="mv-r">Piloto<svg class="mv-sub" viewBox="0 0 200 11"
+      preserveAspectRatio="none" aria-hidden="true" style="--c:#34a853"><path class="mv-traza"
+      pathLength="100" d="M3 6.4C36 3 72 8.6 108 5.4 140 2.6 169 4.4 197 8"/></svg></span></h2>
+    <p class="lead" style="max-width:720px">Prueben el programa completo con un grupo real, <b>sin costo</b>.</p>
+  </div>
+  <div class="body">
+    <!-- La rejilla va envuelta a propósito: `.body > .grid:only-child` la
+         estiraría a los 429 px del cuerpo y las tres cifras quedarían
+         flotando en tarjetas de 600. Aquí manda el contenido. -->
+    <div class="stack" style="justify-content:center">
+    <div class="grid g3 sp1-figs">
+      <div class="card rule b lift"><div class="stat">
+        <div class="n b">4<span class="nu">semanas</span></div>
+        <div class="l">de duración total, de arranque a entrega de resultados</div></div></div>
+      <div class="card rule y lift"><div class="stat">
+        <div class="n y">1<span class="nu">salón</span></div>
+        <div class="l">un solo grupo, con su docente al frente</div></div></div>
+      <!-- La cifra que decide la junta: va sola, sin unidad que le reste peso,
+           y es la única de las tres que lleva el aro de carga. -->
+      <div class="card rule g lift"><div class="stat">
+        <div class="n g"><span class="mv-cifra">$0<span class="mv-anillo sp-xl" aria-hidden="true"><i></i></span></span></div>
+        <div class="l s03-l">de costo para el colegio, de principio a fin</div></div></div>
+    </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="ejebar sp-bar"><span class="seg on b"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><em>Piloto · la oferta</em></div>
+    <p class="sm">Equipos, licencias, capacitación y acompañamiento incluidos. Al final, <b>ustedes deciden con evidencia propia.</b></p>
+  </div>
+</section>
+
+<!-- ═════════ 29 · PILOTO · EL TRATO ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 1 línea 48 = 72 + margen 20 → 92
+· foot: ejebar 15 (+ sm 20) + margen 18 → 38 · body disponible: 644 − 92 − 38 = 514
+  split .96fr/.74fr (gap 30): izq 617 · der 475
+    IZQ card: pad 40 + gh 26 + gap 11 + 7 bens tight (7×32 + 6×5 = 254) = 331
+    DER card: pad 40 + gh 26 + gap 11 + 4 bens (4×34 + 3×6 = 154) = 231 → estira a 331
+  + gap 12 + banda de la frase (pad 30 + 1 línea 26) = 56
+  + gap 12 + tira de 3 condiciones (.tiles: pad 22 + h5 15 + 2 + td 2 líneas 30 = 69)
+  BODY ≈ 331 + 12 + 56 + 12 + 69 = 480 ≤ 514 ✓
+· TOTAL ≈ 92 + 480 + 38 = 610 ≤ 644 ✓ — sin desplegables: cerrada = desplegada.
+ANCHO: bens izq a 12px en 617 − 40 pad − 19 sangría = 558 → la línea más larga
+  («Chromebooks para todo el grupo…», 46 car. de rótulo) cabe holgada ✓
+  Cada condición: (1160 − 18)/3 = 380 · interior 380 − 26 pad − 34 icono = 320 ✓
+NOTA DE FONDO: las tres condiciones del préstamo —equipos que se quedan, retiro
+  al cierre y seguro con deducible— van al MISMO cuerpo que el resto y no en
+  letra chica. Es exactamente lo que el director viene buscando; esconderlo es
+  lo único que rompería la lámina.
+-->
+<section class="slide" data-bloque="trato">
+  <span class="shape" style="width:460px;height:460px;right:-200px;top:-190px;background:var(--blue-t)"></span>
+  <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow b">Qué pone cada quién</div>
+    <h2>El trato completo</h2>
+  </div>
+  <div class="body">
+    <div class="stack" style="gap:12px;justify-content:center">
+
+      <div class="split" style="grid-template-columns:.96fr .74fr;gap:30px;flex:0 0 auto">
+        <!-- IZQUIERDA · activa pone -->
+        <div class="card t-b lift" style="gap:11px;justify-content:flex-start">
+          <div class="grupo"><div class="gh sp2-gh">
+            <span class="gi b"><svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg></span>
+            <span class="gt b"><em class="marca">activa</em> pone</span><span class="gline"></span>
+          </div></div>
+          <ul class="bens b tight">
+            <li><b>Chromebooks para todo el grupo y su docente</b>En préstamo, entre 15 y 30 equipos según el tamaño del salón</li>
+            <li><b>Cuentas institucionales</b>Para el docente y para cada estudiante</li>
+            <li><b>Licencia educativa de <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> Workspace</b>Más la licencia de seguridad</li>
+            <li><b>Canva para Educación</b>La suite de diseño completa para el grupo</li>
+            <li><b>Capacitación inicial del docente</b>2 horas con coach certificado</li>
+            <li><b>Acompañamiento semanal con coach</b>1 hora por semana durante todo el piloto</li>
+            <li><b>Diagnóstico, medición y reporte final</b>Los datos con los que ustedes van a decidir</li>
+          </ul>
+        </div>
+        <!-- DERECHA · el colegio pone -->
+        <div class="card soft" style="gap:11px;justify-content:flex-start">
+          <div class="grupo"><div class="gh sp2-gh">
+            <span class="gi n"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg></span>
+            <span class="gt">el colegio pone</span><span class="gline"></span>
+          </div></div>
+          <ul class="bens">
+            <li><b>Un grupo y un docente</b>La sección que ustedes elijan</li>
+            <li><b>Aproximadamente 6 horas del docente</b>En total, repartidas en cinco semanas</li>
+            <li><b>Cuatro semanas de calendario</b>Dentro de su ciclo, sin mover nada</li>
+            <li><b>El salón donde ya trabajan</b>No hace falta aula ni equipo adicional</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- La frase que desarma la objeción, sola en su banda -->
+      <div class="card t-b sp2-eje" style="flex:0 0 auto">
+        <b>El costo económico es cero. El costo real son <em>seis horas de un maestro</em>.</b>
+      </div>
+
+      <!-- Condiciones del préstamo: dichas de frente, no en letra chica -->
+      <div class="tiles sp2-cond" style="flex:0 0 auto">
+        <div class="tile b"><div class="ic b"><svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm0 2.7L17 10v8h-2v-6H9v6H7v-8l5-4.3z"/></svg></div>
+          <div class="tx"><h5>Los equipos permanecen en el colegio</h5>
+          <div class="td">No se van a casa con los estudiantes.</div></div></div>
+        <div class="tile b"><div class="ic b"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
+          <div class="tx"><h5>Al cierre, <em class="marca">activa</em> recoge los equipos</h5>
+          <div class="td">El préstamo termina en la última semana de noviembre.</div></div></div>
+        <div class="tile b"><div class="ic b"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div>
+          <div class="tx"><h5>Los equipos están asegurados</h5>
+          <div class="td">En caso de daño o extravío, el colegio cubre únicamente el deducible.</div></div></div>
+      </div>
+
+    </div>
+  </div>
+  <div class="foot">
+    <div class="ejebar sp-bar"><span class="seg"></span><span class="seg on r"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><em>Piloto · el trato</em></div>
+    <p class="sm">Sin contrato, sin anticipo y sin permanencia: el piloto termina cuando termina.</p>
+  </div>
+</section>
+
+<!-- ═════════ 30 · PILOTO · ANTES DE ARRANCAR ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 1 línea 48 + gap 8 + lead 1 línea 26 = 106 + 20 → 126
+· foot: ejebar 15 (+ sm 20) + margen 18 → 38 · body disponible: 644 − 126 − 38 = 480
+  rejilla g4 (gap 16 → columna 278, interior 222):
+    tarjeta 1 (la más alta): pad 52 + fila chip/h4 26 + gap 9 + xs 3 líneas 55
+      + gap 9 + tres grados (3×28 + 2×6 = 96) + gap 9 + nota xs 2 líneas 37 = 288
+  + gap 14 + .note al pie 2 líneas ≈ 60
+  BODY ≈ 288 + 14 + 60 = 362 ≤ 480 ✓ (sobra aire: la lámina tiene que sentirse
+  ligera — son tres decisiones, no un proceso de admisión)
+· TOTAL ≈ 126 + 362 + 38 = 526 ≤ 644 ✓
+COLOR: los tres primeros bloques son decisiones del colegio y van en azul; el
+  cuarto es responsabilidad de activa y va en amarillo lleno, que es el único
+  cambio de color de la lámina — por eso se ve sin necesidad de explicarlo.
+-->
+<section class="slide" data-bloque="preparacion">
+  <span class="shape" style="width:440px;height:440px;right:-185px;top:-175px;background:var(--yel-t)"></span>
+  <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow b">Lo que se decide antes de arrancar</div>
+    <h2>Tres decisiones y una capacitación</h2>
+    <p class="lead" style="max-width:760px">Todo lo que ocurre antes de la primera semana.</p>
+  </div>
+  <div class="body">
+    <div class="stack" style="gap:14px;justify-content:center">
+      <div class="grid g4 sp3-g" style="flex:0 0 auto">
+
+        <div class="card rule b lift">
+          <div class="sp3-top"><span class="sp3-c b">1</span><h4>El grupo</h4></div>
+          <div class="xs">Elijan la sección donde quieran probarlo. Por experiencia, estos son los grupos que mejor responden:</div>
+          <div class="sp3-gr">
+            <span><b>Primaria</b>5.º grado</span>
+            <span><b>Secundaria</b>2.º grado</span>
+            <span><b>Bachillerato</b>1.º grado</span>
+          </div>
+          <div class="xs" style="color:var(--ink3);font-size:11.5px">Si quieren probarlo en más de una sección, escojan el mejor grupo de cada una.</div>
+        </div>
+
+        <div class="card rule b lift">
+          <div class="sp3-top"><span class="sp3-c b">2</span><h4>El docente</h4></div>
+          <div class="xs">Un maestro que dirija el proyecto.</div>
+          <div class="xs"><b>No necesita experiencia previa con tecnología:</b> para eso está la capacitación.</div>
+        </div>
+
+        <div class="card rule b lift">
+          <div class="sp3-top"><span class="sp3-c b">3</span><h4>El proyecto</h4></div>
+          <div class="xs">Les presentamos <b>6 opciones</b> y ustedes eligen la que mejor embone con su plan de estudios.</div>
+        </div>
+
+        <!-- El cuarto no es una decisión del colegio: es trabajo de activa. -->
+        <div class="card rule y t-y lift">
+          <div class="sp3-top"><span class="sp3-c y">4</span><h4>La capacitación</h4></div>
+          <span class="pill y" style="align-self:flex-start">A cargo de <em class="marca">activa</em></span>
+          <div class="xs"><b>2 horas</b> con un coach certificado en <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> for Education, antes de la primera semana.</div>
+        </div>
+
+      </div>
+      <div class="note b" style="flex:0 0 auto">El plan de proyecto se aprueba <b>en conjunto</b> con la coordinación del colegio y con nuestro coach antes de iniciar.</div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="ejebar sp-bar"><span class="seg"></span><span class="seg"></span><span class="seg on y"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><em>Piloto · preparación</em></div>
+    <p class="sm">Tres decisiones del colegio · una responsabilidad de <em class="marca">activa</em>.</p>
+  </div>
+</section>
+
+<!-- ═════════ 31 · PILOTO · CÓMO FUNCIONA ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 1 línea 48 = 72 + margen 20 → 92
+· foot: ejebar 15 (+ sm 20) + margen 18 → 38 · body disponible: 644 − 92 − 38 = 514
+  riel 6 + margen 12 ............................................  18
+  tarjetas .sp4-tl (flex:1): pad 52 + rótulo 13 + h4 mt 6 + 24 + xs mt 8
+    + 3 líneas 55 = 158 → estiran a lo que sobre                   ≈ 260
+  gap 14 + banda del coach (pad 26 + contenido 30) ...............  70
+  gap 14 + línea de cierre 26 ....................................  40
+  BODY ≈ 18 + 260 + 70 + 40 = 388 ≤ 514 ✓ (el resto lo absorbe el flex:1 de
+  la línea de tiempo, que es justo lo que pide la lámina: si sobra espacio,
+  crece la línea de tiempo, no el contenido)
+· TOTAL ≈ 92 + 514 + 38 = 644 ✓
+PROPORCIÓN: riel y tarjetas comparten la rejilla 1fr 2fr 1fr, así que
+  «Semanas 2 y 3» ocupa literalmente el doble que las otras dos. El tiempo se
+  ve antes de leerse. Columnas: (1160 − 28)/4 = 283 → 283 · 566 · 283.
+MOVIMIENTO: un punto recorre la banda del coach en cuatro tiempos (una parada
+  por semana) y descansa; 7.2 s de ciclo. Única animación focal de la lámina.
+-->
+<section class="slide" data-bloque="proceso">
+  <span class="shape" style="width:480px;height:480px;right:-235px;top:-235px;background:var(--grn-t)"></span>
+  <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow g">Cómo funciona</div>
+    <h2>Cuatro semanas, tres momentos</h2>
+  </div>
+  <div class="body">
+    <!-- El stack llena el cuerpo (flex:1) para que el flex:1 de la línea de
+         tiempo tenga de dónde crecer: si sobra aire, crece la línea de
+         tiempo, que es lo que esta lámina tiene que hacer grande. -->
+    <div class="stack" style="gap:14px;justify-content:center">
+
+      <!-- 250 px fijos: con flex:1 las tarjetas se estiraban a 570 y el texto
+           quedaba flotando sobre 400 px de vacío. La línea de tiempo tiene que
+           ser grande, no hueca. El contenido se alinea arriba —y no al centro—
+           para que los tres rótulos de semana caigan en la MISMA horizontal:
+           centrados, cada uno subía o bajaba según lo largo de su descripción. -->
+      <div style="flex:0 0 250px;display:flex;flex-direction:column">
+        <!-- El riel: cuatro semanas, y las dos de en medio pesan el doble -->
+        <div class="sp4-rail" aria-hidden="true"><i class="b"></i><i class="y"></i><i class="g"></i></div>
+        <div class="sp4-tl">
+          <div class="card soft" style="justify-content:flex-start">
+            <div class="sp4-w b">Semana 1</div>
+            <h4>Arranque</h4>
+            <div class="xs">Entrega de Chromebooks, activación de cuentas y presentación del proyecto a los estudiantes.</div>
+          </div>
+          <div class="card t-y" style="justify-content:flex-start">
+            <div class="sp4-w y">Semanas 2 y 3</div>
+            <h4>Desarrollo</h4>
+            <div class="xs">Los alumnos trabajan el proyecto en clase.</div>
+          </div>
+          <div class="card soft" style="justify-content:flex-start">
+            <div class="sp4-w g">Semana 4</div>
+            <h4>Cierre</h4>
+            <div class="xs">Entrega final y evaluación con herramienta digital.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Atraviesa las cuatro semanas porque el coach también las atraviesa -->
+      <div class="sp4-coach" style="flex:0 0 auto">
+        <span class="ci"><svg viewBox="0 0 24 24"><path d="M9 11c1.66 0 3-1.34 3-3S10.66 5 9 5 6 6.34 6 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm7.5-8.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5S15 8.83 15 8s.67-1.5 1.5-1.5zm0 5c-.35 0-.69.03-1.02.08 1.02.71 1.52 1.63 1.52 2.42V19h5v-2.5c0-2.33-3.17-3.5-5.5-3.5z"/></svg></span>
+        <div class="ct"><b>1 hora semanal de acompañamiento con su coach</b> — las cuatro semanas, sin excepción.</div>
+        <span class="mv-coach" aria-hidden="true"></span>
+      </div>
+
+      <div class="sp4-end" style="flex:0 0 auto">Seis horas del docente en total, <em>repartidas en cinco semanas</em>.</div>
+
+    </div>
+  </div>
+  <div class="foot">
+    <div class="ejebar sp-bar"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg on g"></span><span class="seg"></span><span class="seg"></span><em>Piloto · el proceso</em></div>
+    <p class="sm">Cinco semanas contando la capacitación previa · cuatro de trabajo en el aula.</p>
+  </div>
+</section>
+
+<!-- ═════════ 32 · PILOTO · QUÉ SE LLEVAN ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 1 línea 48 = 72 + margen 20 → 92
+  «Al cerrar noviembre, ustedes tienen datos propios» = 47 car. a 44px ≈ 940 ≤ 1160 ✓
+· foot: ejebar 15 (+ sm 20) + margen 18 → 38 · body disponible: 644 − 92 − 38 = 514
+  rejilla g3 (columna 376, interior 320): pad 52 + med 52 + gap 10 + h4 22
+    + gap 10 + contenido (bloque 2, el más alto: 3 bens de 1 línea = 3×17 + 12 = 63)
+    ≈ 209
+  + gap 16 + cita (pad 48 + 2 líneas a 31px ≈ 76) = 124
+  BODY ≈ 209 + 16 + 124 = 349 ≤ 514 ✓
+· TOTAL ≈ 92 + 349 + 38 = 479 ≤ 644 ✓
+JERARQUÍA: los tres bloques pesan igual —son tres entregables, no una
+  progresión— y la cita es lo único que rompe la escala. Es la frase más
+  importante del deck y la última que se dice antes del calendario.
+-->
+<section class="slide" data-bloque="resultados">
+  <span class="shape" style="width:470px;height:470px;left:-205px;bottom:-225px;background:var(--blue-t)"></span>
+  <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow b">Qué se llevan</div>
+    <h2>Al cerrar noviembre, ustedes tienen <span class="mv-r">datos propios<svg class="mv-sub"
+      viewBox="0 0 200 11" preserveAspectRatio="none" aria-hidden="true" style="--c:#1a73e8"><path
+      class="mv-traza" pathLength="100" d="M3 6.2C35 3 71 8.8 107 5.6 139 2.8 168 4.4 197 8"/></svg></span></h2>
+  </div>
+  <div class="body">
+    <div class="stack" style="gap:16px;justify-content:center">
+
+      <div class="grid g3 sp5-g" style="flex:0 0 auto">
+        <div class="card lift" style="justify-content:flex-start">
+          <div class="med b"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg></div>
+          <h4>Diagnóstico antes y después</h4>
+          <div class="xs">Medimos el mismo grupo al inicio y al cierre, para que la comparación sea <b>contra ustedes mismos</b> y no contra un promedio ajeno.</div>
+        </div>
+        <div class="card lift" style="justify-content:flex-start">
+          <div class="med r"><svg viewBox="0 0 24 24"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg></div>
+          <h4>Estadísticas del piloto</h4>
+          <ul class="bens r tight">
+            <li>Participación de los estudiantes</li>
+            <li>Adopción y uso real de las herramientas por el docente</li>
+            <li>Producto final entregado por los alumnos</li>
+          </ul>
+        </div>
+        <div class="card lift" style="justify-content:flex-start">
+          <div class="med g"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg></div>
+          <h4>Reunión de entrega de resultados</h4>
+          <div class="xs">Sesión con dirección y coordinación para revisar los hallazgos, <b>con reporte por escrito</b>.</div>
+        </div>
+      </div>
+
+      <div class="card t-b sp5-cita" style="flex:0 0 auto">
+        <b>No les pedimos que nos crean.<br>Les pedimos cuatro semanas para que <em>lo comprueben con sus propios alumnos</em>.</b>
+      </div>
+
+    </div>
+  </div>
+  <div class="foot">
+    <div class="ejebar sp-bar"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg on b"></span><span class="seg"></span><em>Piloto · resultados</em></div>
+    <p class="sm">El reporte es del colegio: se entrega por escrito, continúe o no el programa.</p>
+  </div>
+</section>
+
+<!-- ═════════ 33 · PILOTO · CALENDARIO Y SIGUIENTE PASO ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 1 línea 48 + gap 8 + lead 26 = 106 + margen 20 → 126
+· foot: ejebar 15 (+ sm 20) + margen 18 → 38 · body disponible: 644 − 126 − 38 = 480
+  rótulos de fase 13 + margen 8 ..................................  21
+  .sp6-tl: pad 25 + borde 4 + fecha 13 + gap 7 + título 2 líneas 31
+    + gap 7 + detalle 3 líneas 43 = 130
+  gap 14 + nota al pie 17 ........................................  31
+  gap 14 + dos bloques de acción: pad 52 + cap 14 + gap 8 + contenido
+    (izq: los tres en una línea de 17px = 23 · der: 2 líneas de xs = 37) = 111
+  BODY ≈ 21 + 130 + 31 + 14 + 111 = 307 ≤ 480 ✓
+· TOTAL ≈ 126 + 307 + 38 = 471 ≤ 644 ✓
+ANCHO: 7 columnas con 6 gaps de 8 → (1160 − 48)/7 = 158 · interior 136.
+  «Capacitación docente» a 12px ≈ 128 ✓ · «y entrega de Chromebooks» a 11px
+  se parte en dos líneas dentro de los 136 ✓
+PESO: las siete columnas miden y pesan igual — son siete semanas consecutivas,
+  ninguna manda. Lo que se distingue es la FASE, con el mismo color que el
+  bloque lleva en el hilo del piloto: preparación amarillo, ejecución verde,
+  cierre azul.
+RECAPITULACIÓN: las tres decisiones vuelven como UNA línea —grupo · docente ·
+  proyecto— y no como lista. El director las vio hace tres láminas; repetir las
+  explicaciones aquí alarga el cierre y no añade nada.
+-->
+<section class="slide" data-bloque="cierre">
+  <span class="shape" style="width:430px;height:430px;right:-215px;top:-205px;background:var(--yel-t)"></span>
+  <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow y">Calendario y siguiente paso</div>
+    <h2>Calendario</h2>
+    <p class="lead" style="max-width:760px">Siete semanas, de octubre a noviembre de 2026.</p>
+  </div>
+  <div class="body">
+    <div class="stack" style="gap:14px;justify-content:center">
+
+      <div style="flex:0 0 auto">
+        <div class="sp6-fases" aria-hidden="true">
+          <div class="sp6-fase pre">Preparación<i></i></div>
+          <div class="sp6-fase eje">Ejecución en el aula<i></i></div>
+          <div class="sp6-fase fin">Cierre<i></i></div>
+        </div>
+        <div class="sp6-tl">
+          <div class="sp6-s pre"><div class="sp6-fec">12 – 17 oct</div>
+            <div class="sp6-h">Reunión inicial</div>
+            <div class="sp6-d">Se confirman grupo, docente y proyecto.</div></div>
+          <div class="sp6-s pre"><div class="sp6-fec">19 – 24 oct</div>
+            <div class="sp6-h">Capacitación y entrega</div>
+            <div class="sp6-d">2 h con el coach; los Chromebooks llegan al colegio.</div></div>
+          <div class="sp6-s eje"><div class="sp6-fec">26 – 31 oct</div>
+            <div class="sp6-h">Semana 1 — Arranque</div>
+            <div class="sp6-d">Cuentas activas y proyecto presentado.</div></div>
+          <div class="sp6-s eje"><div class="sp6-fec">2 – 7 nov</div>
+            <div class="sp6-h">Semana 2 — Desarrollo</div>
+            <div class="sp6-d">Los alumnos trabajan en clase.</div></div>
+          <div class="sp6-s eje"><div class="sp6-fec">9 – 14 nov</div>
+            <div class="sp6-h">Semana 3 — Desarrollo</div>
+            <div class="sp6-d">Los alumnos trabajan en clase.</div></div>
+          <div class="sp6-s eje"><div class="sp6-fec">16 – 21 nov</div>
+            <div class="sp6-h">Semana 4 — Cierre</div>
+            <div class="sp6-d">Entrega final y evaluación.</div></div>
+          <div class="sp6-s fin"><div class="sp6-fec">23 – 28 nov</div>
+            <div class="sp6-h">Entrega de resultados</div>
+            <div class="sp6-d">Reunión con dirección y recolección de equipos.</div></div>
+        </div>
+        <div class="xs" style="font-size:11.5px;color:var(--ink3);margin-top:9px">Las fechas exactas de cada actividad se acuerdan con la coordinación dentro de cada semana.</div>
+      </div>
+
+      <div class="grid g2 sp6-acc" style="flex:0 0 auto;gap:16px">
+        <div class="card rule b lift" style="justify-content:flex-start">
+          <div class="sp6-cap b">Lo que necesitamos de ustedes antes del 12 de octubre</div>
+          <div class="sp6-tres">grupo <i>·</i> docente <i>·</i> proyecto</div>
+        </div>
+        <div class="card rule g lift" style="justify-content:flex-start">
+          <div class="sp6-cap g">Lo que decidimos en la última semana</div>
+          <div class="xs" style="font-size:13.5px">Con los resultados en la mesa, definimos juntos <b>si el programa continúa y en qué alcance</b>.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="foot">
+    <div class="ejebar sp-bar"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg on y"></span><em>Piloto · calendario</em></div>
+    <p class="sm">Siete semanas consecutivas · el colegio acomoda cada hito dentro de su propia semana.</p>
+  </div>
+</section>
+
+<!-- ═════════ 34 · CIERRE ═════════ -->
 <!--
 CUENTA DE ALTURAS (lámina .cover: padding 0, .inner centrado en 720 con 84 px laterales):
 · eyebrow 13
@@ -4944,7 +5522,8 @@ show(Number.isFinite(start)&&start>0?start-1:0);
      quede por debajo de ~600 ms. El plano cartesiano entra entero: es una
      retícula, no una lista. */
   var SEL='.grid,.tiles,.stairs,.bens,.cnv-tiles,.s22x-tiles,.s21x-esc,'+
-          '.s15b-ej,.s18c-row,.s27w-mid,.s06d-side,.s28f-team';
+          '.s15b-ej,.s18c-row,.s27w-mid,.s06d-side,.s28f-team,'+
+          '.sp4-tl,.sp6-tl';
   var porSlide=slides.map(function(s){
     if(s.classList.contains('plane')) return [];
     var cands=Motion.qsa(SEL,s).filter(function(c){

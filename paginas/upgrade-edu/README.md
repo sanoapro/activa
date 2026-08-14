@@ -1,6 +1,6 @@
 # upgrade edu 2026–2027
 
-Deck de 28 diapositivas del programa comercial, estilo Google for Education.
+Deck de 34 diapositivas del programa comercial, estilo Google for Education.
 Se publica en **https://sanoapro.github.io/activa/paginas/upgrade-edu/**
 
 Markup, CSS, JS e imágenes en base64 viven dentro de `index.html`. Se abre con doble clic, sin
@@ -57,7 +57,7 @@ respuesta táctil a un control *dentro* de una lámina; el resto del cromo usa l
 
 Motivos por diapositiva:
 
-**Las 28 tienen motivo propio.** No hay lámina muerta entre la portada y el cierre: era el
+**Las 34 tienen motivo propio.** No hay lámina muerta entre la portada y el cierre: era el
 defecto que arrastraba el deck, con todo el movimiento concentrado en la primera y la última.
 
 | Diapositiva | Movimiento |
@@ -79,7 +79,10 @@ defecto que arrastraba el deck, con todo el movimiento concentrado en la primera
 | 18 · beta | la escalera de niveles sube peldaño por peldaño |
 | 19 · integra | el emblema de sincronización gira |
 | 26 · PLUS | **flecha a mano** que se traza sola y se balancea hacia la píldora |
-| 28 · cierre | confeti que estalla desde el centro · vaivén de las letras de Google · tarjetas que se inclinan |
+| 28 · piloto · la oferta | **subrayado a mano** sobre «Piloto» · **anillo de carga** alrededor del `$0` (aro de 150 px: a 78 px la cifra ya no cabe en el de 96) |
+| 29 · 30 · 32 · 33 · piloto | cascada de la rejilla · en 32, subrayado a mano sobre «datos propios» |
+| 31 · piloto · el proceso | un punto recorre la banda del coach en cuatro tiempos —una parada por semana— y descansa |
+| 34 · cierre | confeti que estalla desde el centro · vaivén de las letras de Google · tarjetas que se inclinan |
 
 Y en todas las de contenido, los círculos pastel del fondo derivan muy despacio (`.mv-flota`,
 16 s por ciclo). La clase la reparte la coreografía, no el markup.
@@ -122,6 +125,22 @@ obligatorias. Al agregar animaciones propias hay que anularlas también en `@med
 - `O` vista panorámica de todas las diapositivas
 - `F` pantalla completa
 - `P` imprimir a PDF en 16:9
+
+## El bloque del proyecto piloto (28–33)
+
+Seis láminas entre «Por qué activa» (27) y el cierre (34). Cierran la junta con la oferta del
+piloto gratuito de cuatro semanas, en este orden: **oferta → trato → preparación → proceso →
+resultados → calendario**. Cada una lleva su fase en `data-bloque`.
+
+- **No abren capítulo.** La barra de los cuatro ejes es del programa, no del piloto, y los
+  cuatro ejes ya quedaron vendidos en la lámina 25. El bloque lleva su propio hilo —`.ejebar
+  .sp-bar`, seis tramos y rótulo «Piloto · …»— que se lee como lo que es: otra cosa.
+- **Prefijo `sp-`** en todo el CSS nuevo, para no chocar con los bloques `sNN-`.
+- **Sin logo ni nombre de colegio.** El deck se presenta igual ante cualquier institución; el
+  único dato variable de todo el archivo sigue siendo el contacto de la última lámina.
+- Las siete semanas del calendario son **rangos de lunes a sábado de 2026** verificados contra
+  el calendario real: 12 oct, 19 oct, 26 oct, 2 nov, 9 nov, 16 nov y 23 nov caen todos en lunes.
+  Si el piloto se mueve de año, hay que rehacer los siete rangos.
 
 ## Notas
 

@@ -267,6 +267,44 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
 .p .m a{color:inherit;text-decoration:none}
 .p .m a:hover{color:var(--pc);text-decoration:underline}
 
+/* ---------- lámina del QR, a pantalla completa ----------
+   Vive FUERA de #stage y no dentro: la lámina va escalada por transform, y
+   cualquier position:fixed que cuelgue de ella se escala con ella y deja de
+   cubrir la pantalla. Aquí el fondo blanco es el requisito —un QR sobre color
+   o sobre foto no lo lee ningún teléfono— y por eso también el marco blanco
+   alrededor de la imagen: es la zona de silencio que el código necesita. */
+#qr{position:fixed;inset:0;z-index:100;background:#fff;
+  display:none;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+  padding:46px 24px;opacity:0;transition:opacity .22s}
+#qr.on{display:flex}
+#qr.vis{opacity:1}
+/* `hidden` es un atributo de la hoja del navegador y cualquier regla de autor le
+   gana: sin esta línea, un .on suelto dejaría el diálogo a la vista aunque el
+   marcado lo diera por oculto */
+#qr[hidden]{display:none}
+#qr::before{content:"";position:absolute;left:0;top:0;right:0;height:6px;
+  background:linear-gradient(90deg,#4285f4 0 25%,#ea4335 25% 50%,#fbbc04 50% 75%,#34a853 75% 100%)}
+/* Lo más grande que quepa, y con margen blanco propio: este código va recortado
+   en estrella, así que sus puntas llegan al borde del PNG y se queda sin la zona
+   de silencio que el estándar pide. El padding se la devuelve —con box-sizing
+   heredado, se come parte del ancho en vez de sumarse—. Cuanto más grande, desde
+   más lejos lo levanta un teléfono en una sala. */
+#qr img{width:min(74vh,74vw);height:auto;display:block;
+  background:#fff;padding:min(3.4vh,30px);border-radius:16px}
+.qr-cap{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;max-width:min(86vw,760px)}
+.qr-cap .t{font-size:clamp(19px,2.6vh,26px);font-weight:600;letter-spacing:-.4px}
+.qr-cap .u{font-size:clamp(11px,1.5vh,13px);color:var(--ink3);line-height:1.35;
+  word-break:break-all;font-family:ui-monospace,"Cascadia Mono",Consolas,monospace}
+.qr-cap .h{font-size:12px;color:var(--ink3)}
+.qr-cap .h b{color:var(--ink2);font-weight:700}
+#qrCerrar{position:absolute;right:22px;top:24px;width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--line);background:var(--white);color:var(--ink2);cursor:pointer;
+  display:grid;place-items:center;transition:border-color .2s,color .2s,transform .2s}
+#qrCerrar:hover{border-color:var(--ink);color:var(--ink);transform:rotate(90deg)}
+#qrCerrar svg{width:20px;height:20px;fill:currentColor}
+/* impreso, la lámina del QR no existe: se imprime el kit, no el código */
+@media print{#qr{display:none!important}}
+
 /* ---------- aviso volante al copiar ---------- */
 #toast{position:absolute;left:50%;bottom:26px;z-index:40;transform:translate(-50%,14px);
   background:#202124;color:#fff;font-size:12.5px;font-weight:500;
@@ -378,6 +416,21 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
   </footer>
 
   <div id="toast">Enlace copiado</div>
+</div>
+
+<!-- ── el QR a pantalla completa ───────────────────────────────────
+     Fuera de #stage a propósito (ver el CSS de #qr). Nace vacío: el JS le
+     pone imagen y textos según la tarjeta que lo abrió. -->
+<div id="qr" role="dialog" aria-modal="true" aria-labelledby="qrTitulo" hidden>
+  <button id="qrCerrar" type="button" title="Cerrar" aria-label="Cerrar el código QR">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4l5.6 5.6L5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6z"/></svg>
+  </button>
+  <img id="qrImg" alt="">
+  <div class="qr-cap">
+    <span class="t" id="qrTitulo"></span>
+    <span class="u" id="qrUrl"></span>
+    <span class="h">Apunta la cámara del teléfono · <b>Esc</b> para volver al kit</span>
+  </div>
 </div>
 
 <script src="./assets.js"></script>
@@ -532,6 +585,13 @@ function tarjeta(it){
     ev.preventDefault(); ev.stopPropagation();
     copiar(it.url, btn);
   });
+
+  /* el QR tampoco navega: abre la lámina y deja la tarjeta donde estaba */
+  const bqr = a.querySelector('.t-qr');
+  if(bqr) bqr.addEventListener('click', ev=>{
+    ev.preventDefault(); ev.stopPropagation();
+    qrAbrir(it);
+  });
   return w;
 }
 
@@ -547,6 +607,42 @@ function veloPinta(tile, cx, cy){
   tile.style.setProperty('--mx', ((cx - r.left) / k) + 'px');
   tile.style.setProperty('--my', ((cy - r.top)  / k) + 'px');
 }
+
+/* ═══════════ la lámina del QR ═══════════
+   Un solo diálogo reutilizable: lo abre la tarjeta que traiga `qr` y se cierra
+   con Esc, con la ✕ o tocando el fondo blanco. Devuelve el foco al botón que lo
+   abrió, porque quien navega con teclado tiene que volver a donde estaba. */
+const qrCaja = document.getElementById('qr');
+const qrImg  = document.getElementById('qrImg');
+let qrVolver = null;
+
+function qrAbrir(it){
+  qrVolver = document.activeElement;
+  qrImg.src = it.qr;
+  qrImg.alt = `Código QR de ${it.nombre}`;
+  document.getElementById('qrTitulo').textContent = it.nombre;
+  document.getElementById('qrUrl').textContent = it.url;
+  qrCaja.hidden = false;
+  qrCaja.classList.add('on');
+  /* un frame de gracia: sin él la transición no arranca, porque el elemento
+     pasa de display:none a opacidad final dentro del mismo estilo calculado */
+  requestAnimationFrame(()=> qrCaja.classList.add('vis'));
+  document.getElementById('qrCerrar').focus();
+}
+
+function qrCerrar(){
+  if(!qrCaja.classList.contains('on')) return;
+  qrCaja.classList.remove('vis');
+  qrCaja.classList.remove('on');
+  qrCaja.hidden = true;
+  if(qrVolver && qrVolver.focus) qrVolver.focus();
+  qrVolver = null;
+}
+const qrAbierto = ()=> qrCaja.classList.contains('on');
+
+document.getElementById('qrCerrar').addEventListener('click', qrCerrar);
+/* tocar el fondo cierra; tocar el código o su pie, no */
+qrCaja.addEventListener('click', e=>{ if(e.target === qrCaja) qrCerrar(); });
 
 function pintar(cont, lista){
   const box = document.getElementById(cont);
@@ -635,6 +731,12 @@ addEventListener('resize', escalar);
 const TODOS = [...VENTA, ...EVENTOS, ...INTERNA];
 addEventListener('keydown', e=>{
   if(e.metaKey || e.ctrlKey || e.altKey) return;
+  /* Con el QR abierto el teclado es suyo y solo escucha Esc: si no, un 1 o una
+     D mandarían al equipo a otra pestaña por detrás de un código proyectado. */
+  if(qrAbierto()){
+    if(e.key === 'Escape'){ e.preventDefault(); qrCerrar(); }
+    return;
+  }
   const n = parseInt(e.key, 10);
   /* Las láminas apartadas no tienen destino: la tecla no hace nada en vez de
      abrir una pestaña en blanco. */
