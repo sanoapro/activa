@@ -37,6 +37,12 @@ enlace. En descargables, lo mismo, más lo que pide el scroll: revelado al bajar
 
 Cada tarjeta va en envoltura doble —`.twrap` (cascada) → `.tmag` (imán) → `.tile` / `.doc`
 (inclinación)— para que los tres `transform` no se pisen entre sí ni con la escala de `#stage`.
+
+La tarjeta **no es un enlace**: es un contenedor con una capa `a.t-link` que la cubre entera
+(`inset:0`, `z-index:2`) y una botonera `.t-acts` por encima (`z-index:3`). Los botones son
+hermanos de la capa, nunca hijos suyos. Anidarlos dentro del `<a>` —como estaba antes— es HTML
+inválido y cada navegador lo resuelve a su manera: el botón QR terminaba abriendo el enlace de la
+tarjeta. Cancelar el clic con `preventDefault()` no es garantía; no anidarlos, sí.
 Las tarjetas `pronto:true` quedan fuera de todo: no deben sentirse clicables.
 
 La pradera está trazada para 1280 px de ancho. En la lámina eso es exacto; en descargables el

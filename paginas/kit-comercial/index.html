@@ -178,7 +178,11 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
    Las tarjetas «pronto» no reaccionan: no deben sentirse clicables. */
 .tile:not(.pronto):hover{box-shadow:var(--sh2);border-color:transparent}
 .tile:not(.pronto):hover::before{opacity:1}
-.tile:focus-visible{outline:3px solid var(--c);outline-offset:3px}
+/* La capa de enlace: cubre la tarjeta entera y queda por DEBAJO de la botonera
+   (z-index 2 contra 3), así que el clic en un botón nunca es un clic en el
+   enlace. El anillo de foco se dibuja aquí porque aquí es donde para el tabulador. */
+.t-link{position:absolute;inset:0;z-index:2;border-radius:inherit}
+.t-link:focus-visible{outline:3px solid var(--c);outline-offset:3px}
 /* Filete de color al pie de la tarjeta, crece al hover. Arranca donde arranca
    el texto (16 de padding + 44 de icono + 13 de gap = 73) y no en el canto: con
    el icono ya al costado, un filete debajo de él duplicaba la misma mancha de
@@ -528,15 +532,22 @@ const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).
 
 function tarjeta(it){
   const c = css(it.color), t = css(it.tinte);
-  /* Una lámina apartada no es un enlace: sin href no navega ni sale al tabular. */
-  const a = document.createElement(it.pronto ? 'div' : 'a');
+  /* La tarjeta es un contenedor, NO un enlace. El enlace es una capa que la cubre
+     (.t-link) y los botones van encima de esa capa, como hermanos suyos.
+     Antes el <a> era la tarjeta entera y los botones colgaban dentro: eso es
+     HTML inválido —un botón no puede vivir dentro de un enlace— y cada navegador
+     lo resuelve como quiere; de ahí que el botón QR abriera el formulario en vez
+     de la lámina. Cancelar el clic no bastaba: hay que no anidarlos.
+     Una lámina apartada no lleva capa de enlace: no navega ni sale al tabular. */
+  const a = document.createElement('div');
   a.className = it.pronto ? 'tile pronto' : 'tile';
-  if(!it.pronto){ a.href = it.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; }
   a.style.setProperty('--c', c);
   a.style.setProperty('--tint', t);
   a.style.setProperty('--grad', `linear-gradient(135deg,${it.color2} 0%,${c} 100%)`);
   a.innerHTML =
-    `<span class="t-ico"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO[it.id]}</svg></span>
+    `${it.pronto ? `` : `<a class="t-link" href="${it.url}" target="_blank" rel="noopener noreferrer"
+       aria-label="Abrir ${it.nombre} en una pestaña nueva"></a>`}
+     <span class="t-ico"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO[it.id]}</svg></span>
      <div class="t-tx">
        <div class="t-name">${it.nombre}</div>
        <div class="t-desc">${it.desc}</div>
