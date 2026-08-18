@@ -734,9 +734,13 @@ body.calc-invalid .tbox:has(#tblBreak)::after{
   background:var(--g-red-t);color:var(--g-red-d);font-size:12.5px;font-weight:600;
   border-top:1px solid #f5c6c0}
 /* F-27 · UX-6 · En el primer uso no existe un "último cálculo válido": el rojo hacía que
-   una cotización recién abierta pareciera rota. La guía azul dice qué falta para calcular. */
+   una cotización recién abierta pareciera rota. La guía azul dice qué falta para calcular.
+   F-28 · Ya no nombra el modelo de equipos docentes: esa decisión dejó de bloquear el
+   precio, así que una cotización recién abierta ya no cae aquí. Lo que queda son causas
+   financieras reales (carrito sin precio, escenario corrupto), y el motivo concreto se
+   escribe además junto al precio, en la barra de acciones. */
 body.calc-first .tbox:has(#tblBreak)::after{
-  content:"Para calcular el precio: elige el modelo de equipos docentes (paso 4) y completa los datos marcados";
+  content:"Para calcular el precio faltan datos: corrige los campos marcados en el paso 4";
   background:var(--g-blue-t);color:var(--g-blue-d);border-top:1px solid #c6dafc}
 /* F-23 · C-02 · Banner persistente cuando el guardado local no está disponible. */
 #storageBanner{margin:14px auto 0;background:var(--g-red-t);border:1px solid #f5c6c0;border-radius:10px;padding:10px 12px;color:var(--g-red-d);font-size:12.5px;font-weight:500}
@@ -2103,11 +2107,26 @@ function quote(input) {
   const list = roundFinancial(listRaw);
   const schemes = Object.fromEntries(Object.entries(PAYS).map(([key,payment]) => [key,t.sched.map(f => calculatePaymentYear(listRaw,f,payment))]));
   const cap = capFor(Math.max(students,1));
+  /* F-28 · Todo warn t:"e" declara QUÉ bloquea, y el motor sigue siendo la única
+     fuente de verdad sobre ello:
+       blocks:"price"    · el importe por alumno no es confiable → se oculta el precio.
+       blocks:"document" · el importe ES correcto; lo que falta es una decisión que el
+                           documento necesita → el precio se muestra y se bloquean la
+                           propuesta y el PDF.
+     Clasificar mal esto fue el origen de "a los demás no les sale el precio":
+     TEACHER_MODEL vaciaba el precio de TODA cotización recién abierta, porque el
+     estado inicial nace sin modelo elegido. */
   const warns = [];
 
-  if (students <= 0) warns.push({t:"e",code:"STUDENTS",m:"Captura un número válido de estudiantes para poder cotizar."});
-  /* F-25 · P5 · Sin modelo de equipo docente elegido no hay documento. */
-  if (hasDev && !teacherModel) warns.push({t:"e",code:"TEACHER_MODEL",m:`Elige el modelo de los equipos docentes incluidos: modelo docente (1 por cada ${teacherModelRatio("docente")} alumnos) o modelo estudiante (1 por cada ${teacherModelRatio("estudiante")} alumnos). Sin esta decisión no se puede generar la propuesta ni el PDF.`});
+  if (students <= 0) warns.push({t:"e",blocks:"price",code:"STUDENTS",m:"Captura un número válido de estudiantes para poder cotizar."});
+  /* F-25 · P5 · Sin modelo de equipo docente elegido no hay documento.
+     F-28 · Pero tampoco hay motivo para ocultar el precio: el modelo NO entra en el
+     importe por alumno (no toca base, discLic, adjEqDoc, adjStuExtra ni adjCart; solo
+     mueve eqDocInc y el parque que se describe en el documento). Por eso bloquea la
+     propuesta y el PDF, nunca el importe. Lo custodia la prueba
+     "F-28 · El modelo de equipos docentes no mueve el precio": si algún día el modelo
+     empieza a costar dinero, esa prueba falla y este blocks debe volver a "price". */
+  if (hasDev && !teacherModel) warns.push({t:"e",blocks:"document",code:"TEACHER_MODEL",m:`Elige el modelo de los equipos docentes incluidos: modelo docente (1 por cada ${teacherModelRatio("docente")} alumnos) o modelo estudiante (1 por cada ${teacherModelRatio("estudiante")} alumnos). Sin esta decisión no se puede generar la propuesta ni el PDF.`});
   /* F-27 · Fase 2 · Se eliminó la advertencia FREE_1TO1_EXTRAS: la regla 5 (F-26 · P2)
      normaliza stuExtra a 0 en 1:1 en los tres caminos de entrada, así que la condición
      divisor===1 && stuExtra>0 era inalcanzable desde cualquier flujo comercial real.
@@ -2117,17 +2136,17 @@ function quote(input) {
   /* F-25 · P3 · El comercial debe ver que el equipo docente adicional mueve licencias. */
   if (teacherDeviceExtras > 0) warns.push({t:"i",code:"EXTRA_TEACHER_DEVICES",m:`${teacherDeviceExtras} equipo(s) docente(s) adicional(es): suman ${teacherDeviceExtras} usuario(s) con licencia y se cobran a costo de catálogo (${money(APP_CONFIG.equipment.teacherDeviceCost)} modelo docente · ${money(APP_CONFIG.equipment.studentDeviceCost)} modelo estudiante), con el licenciamiento ya incluido en ese precio.`});
   const cartFreeValid = carts > 0 && cartPrice === 0 && isCartAuthorizationValid(q,{stuReq,carts,cartPrice});
-  if (carts > 0 && cartPrice === 0 && !cartFreeValid) warns.push({t:"e",code:"CART_PRICE",m:`Falta capturar el precio de ${carts} carrito(s) de ${q.cartCap} equipos o autorizar expresamente su entrega sin costo.`});
+  if (carts > 0 && cartPrice === 0 && !cartFreeValid) warns.push({t:"e",blocks:"price",code:"CART_PRICE",m:`Falta capturar el precio de ${carts} carrito(s) de ${q.cartCap} equipos o autorizar expresamente su entrega sin costo.`});
   if (cartFreeValid) warns.push({t:"w",code:"CART_FREE",m:`${carts} carrito(s) de ${q.cartCap} equipos autorizados sin costo para esta configuración.`});
   if (docExtra > 0) warns.push({t:"i",code:"EXTRA_TEACHERS",m:`${docExtra} docente(s) extra sin equipo: suman licencias y ${money(APP_CONFIG.equipment.extraTeacherAnnualCost)} al año cada uno.`});
-  if (list <= 0) warns.push({t:"e",code:"NON_POSITIVE_PRICE",m:"El precio por alumno quedó en cero o negativo. Revisa los ajustes de la cotización."});
+  if (list <= 0) warns.push({t:"e",blocks:"price",code:"NON_POSITIVE_PRICE",m:"El precio por alumno quedó en cero o negativo. Revisa los ajustes de la cotización."});
   if (mod === 0) warns.push({t:"i",code:"NO_DEVICES",m:"Modalidad sin equipos: la propuesta cotiza únicamente licenciamiento y servicios."});
   /* F-23 · M-02/M-03 · Cota de plausibilidad: sin ella, 1 alumno con 999,999 equipos
      docentes producía $10,499,993,700.00 por alumno sin advertencia, y por encima de
      ~9×10⁹ el redondeo con 1e6 pierde exactitud (MAX_SAFE_INTEGER). */
-  if (!Number.isFinite(listRaw)) warns.push({t:"e",code:"NON_FINITE_PRICE",m:"El precio por alumno no es un número válido. Revisa los ajustes de equipos y carritos."});
-  else if (list > APP_CONFIG.limits.listPerStudent.max) warns.push({t:"e",code:"IMPLAUSIBLE_PRICE",m:`El precio resultante (${money(list)} por alumno y año) supera el máximo razonable de ${money(APP_CONFIG.limits.listPerStudent.max)}. Revisa equipos adicionales, docentes extra y carritos.`});
-  if (fallbacks.length) warns.push({t:"e",code:"CORRUPT_SCENARIO",m:`La configuración contiene valores no reconocidos (${fallbacks.join("; ")}). Se usaron valores predeterminados: no generes el PDF hasta corregirla.`});
+  if (!Number.isFinite(listRaw)) warns.push({t:"e",blocks:"price",code:"NON_FINITE_PRICE",m:"El precio por alumno no es un número válido. Revisa los ajustes de equipos y carritos."});
+  else if (list > APP_CONFIG.limits.listPerStudent.max) warns.push({t:"e",blocks:"price",code:"IMPLAUSIBLE_PRICE",m:`El precio resultante (${money(list)} por alumno y año) supera el máximo razonable de ${money(APP_CONFIG.limits.listPerStudent.max)}. Revisa equipos adicionales, docentes extra y carritos.`});
+  if (fallbacks.length) warns.push({t:"e",blocks:"price",code:"CORRUPT_SCENARIO",m:`La configuración contiene valores no reconocidos (${fallbacks.join("; ")}). Se usaron valores predeterminados: no generes el PDF hasta corregirla.`});
 
   return {
     t,yrs:years,base,div:divisor,hasDev,stu:students,users:students+docTot,cartCap:q.cartCap,
@@ -2753,16 +2772,20 @@ function engineErrorsToIssues(result){
   return result.warns.filter(w=>w.t==="e").map(w=>({
     id:w.code==="CART_PRICE"?`fCart${S().cartCap}`:(ENGINE_ERROR_FIELD[w.code]||"fStu"),
     message:w.m,
-    type:"financial"
+    /* F-28 · blocks:"document" NO es error financiero: no oculta el precio. */
+    type:w.blocks==="document"?"document":"financial",
+    /* F-28 · Pero sí bloquea propuesta y PDF, a diferencia de un dato documental que
+       solo está pendiente de captura (institución, RFC, banco…). */
+    blocking:true
   }));
 }
-function getReadiness(){const r=CURRENT_RESULT||quote(S()),errors=[],warnings=[];FIELD_ERRORS.forEach((message,id)=>errors.push({id,message,type:CALCULATION_FIELDS.has(id)?"financial":"document"}));errors.push(...engineErrorsToIssues(r));const required=[["fInst",APP_STATE.client.institution,"Captura la institución."],["fCity",APP_STATE.client.city,"Captura la ciudad."],["fDate",APP_STATE.validity.quoteDate,"Captura la fecha de cotización."],["fValid",APP_STATE.validity.validUntil,"Captura la vigencia."],["fBy",APP_STATE.seller.name,"Captura el nombre de quien firma."],["fMail",APP_STATE.seller.email,"Captura el correo del vendedor."],["fLegal",APP_STATE.supplier.legalName,"Captura la razón social."],["fRfc",APP_STATE.supplier.rfc,"Captura el RFC."],["fAddr",APP_STATE.supplier.address,"Captura el domicilio fiscal."],["fBankT",APP_STATE.supplier.bank.holder,"Captura el titular de la cuenta."],["fBankN",APP_STATE.supplier.bank.name,"Captura el banco."],["fBankC",APP_STATE.supplier.bank.account,"Captura el número de cuenta."],["fBankK",APP_STATE.supplier.bank.clabe,"Captura la CLABE."]];required.forEach(([id,value,message])=>{if(!String(value||"").trim())errors.push({id,message,type:"document"});});if(APP_STATE.seller.email&&!EMAIL_RE.test(APP_STATE.seller.email))errors.push({id:"fMail",message:"El correo del vendedor no es válido.",type:"document"});/* F-27 · V4-12 · El sitio web se interpola en un href del correo con prefijo https://; esc() ya neutraliza inyección, pero un texto con espacios o protocolo producía un enlace roto hacia el colegio. */if(APP_STATE.seller.website&&!/^[\w.-]+\.[a-z]{2,}(\/\S*)?$/i.test(String(APP_STATE.seller.website).trim()))errors.push({id:"fWeb",message:"El sitio web debe ser un dominio válido, sin http:// ni espacios (ej. activa.la).",type:"document"});if(APP_STATE.supplier.rfc&&!rfcOk(APP_STATE.supplier.rfc))errors.push({id:"fRfc",message:"El RFC no tiene un formato o fecha válidos.",type:"document"});const bankAccount=String(APP_STATE.supplier.bank.account||"").replace(/\s+/g,"");if(bankAccount&&!/^\d{6,30}$/.test(bankAccount))errors.push({id:"fBankC",message:"La cuenta debe contener entre 6 y 30 dígitos.",type:"document"});if(APP_STATE.supplier.bank.clabe&&!clabeOk(APP_STATE.supplier.bank.clabe))errors.push({id:"fBankK",message:"La CLABE no supera la validación.",type:"document"});if(!validISODate(APP_STATE.validity.quoteDate))errors.push({id:"fDate",message:"La fecha de cotización no es válida.",type:"document"});if(!validISODate(APP_STATE.validity.validUntil))errors.push({id:"fValid",message:"La fecha de vigencia no es válida.",type:"document"});if(validISODate(APP_STATE.validity.quoteDate)&&validISODate(APP_STATE.validity.validUntil)&&APP_STATE.validity.validUntil<APP_STATE.validity.quoteDate)errors.push({id:"fValid",message:"La vigencia no puede ser anterior a la fecha de cotización.",type:"document"});APP_STATE.client.contacts.forEach((c,i)=>{if(c.email&&!EMAIL_RE.test(c.email))errors.push({id:`qC${i+1}m`,message:`El correo del contacto ${i+1} no es válido.`,type:"document"});});r.warns.filter(w=>w.t==="w"||w.t==="i").forEach(w=>warnings.push(w));const hasFinancialError=errors.some(e=>e.type==="financial");return{calculable:r.stu>0&&r.list>0&&!hasFinancialError,documentReady:errors.length===0,errors,warnings,financialErrors:errors.filter(e=>e.type==="financial"),documentErrors:errors.filter(e=>e.type!=="financial")};}
+function getReadiness(){const r=CURRENT_RESULT||quote(S()),errors=[],warnings=[];FIELD_ERRORS.forEach((message,id)=>errors.push({id,message,type:CALCULATION_FIELDS.has(id)?"financial":"document"}));errors.push(...engineErrorsToIssues(r));const required=[["fInst",APP_STATE.client.institution,"Captura la institución."],["fCity",APP_STATE.client.city,"Captura la ciudad."],["fDate",APP_STATE.validity.quoteDate,"Captura la fecha de cotización."],["fValid",APP_STATE.validity.validUntil,"Captura la vigencia."],["fBy",APP_STATE.seller.name,"Captura el nombre de quien firma."],["fMail",APP_STATE.seller.email,"Captura el correo del vendedor."],["fLegal",APP_STATE.supplier.legalName,"Captura la razón social."],["fRfc",APP_STATE.supplier.rfc,"Captura el RFC."],["fAddr",APP_STATE.supplier.address,"Captura el domicilio fiscal."],["fBankT",APP_STATE.supplier.bank.holder,"Captura el titular de la cuenta."],["fBankN",APP_STATE.supplier.bank.name,"Captura el banco."],["fBankC",APP_STATE.supplier.bank.account,"Captura el número de cuenta."],["fBankK",APP_STATE.supplier.bank.clabe,"Captura la CLABE."]];required.forEach(([id,value,message])=>{if(!String(value||"").trim())errors.push({id,message,type:"document"});});if(APP_STATE.seller.email&&!EMAIL_RE.test(APP_STATE.seller.email))errors.push({id:"fMail",message:"El correo del vendedor no es válido.",type:"document"});/* F-27 · V4-12 · El sitio web se interpola en un href del correo con prefijo https://; esc() ya neutraliza inyección, pero un texto con espacios o protocolo producía un enlace roto hacia el colegio. */if(APP_STATE.seller.website&&!/^[\w.-]+\.[a-z]{2,}(\/\S*)?$/i.test(String(APP_STATE.seller.website).trim()))errors.push({id:"fWeb",message:"El sitio web debe ser un dominio válido, sin http:// ni espacios (ej. activa.la).",type:"document"});if(APP_STATE.supplier.rfc&&!rfcOk(APP_STATE.supplier.rfc))errors.push({id:"fRfc",message:"El RFC no tiene un formato o fecha válidos.",type:"document"});const bankAccount=String(APP_STATE.supplier.bank.account||"").replace(/\s+/g,"");if(bankAccount&&!/^\d{6,30}$/.test(bankAccount))errors.push({id:"fBankC",message:"La cuenta debe contener entre 6 y 30 dígitos.",type:"document"});if(APP_STATE.supplier.bank.clabe&&!clabeOk(APP_STATE.supplier.bank.clabe))errors.push({id:"fBankK",message:"La CLABE no supera la validación.",type:"document"});if(!validISODate(APP_STATE.validity.quoteDate))errors.push({id:"fDate",message:"La fecha de cotización no es válida.",type:"document"});if(!validISODate(APP_STATE.validity.validUntil))errors.push({id:"fValid",message:"La fecha de vigencia no es válida.",type:"document"});if(validISODate(APP_STATE.validity.quoteDate)&&validISODate(APP_STATE.validity.validUntil)&&APP_STATE.validity.validUntil<APP_STATE.validity.quoteDate)errors.push({id:"fValid",message:"La vigencia no puede ser anterior a la fecha de cotización.",type:"document"});APP_STATE.client.contacts.forEach((c,i)=>{if(c.email&&!EMAIL_RE.test(c.email))errors.push({id:`qC${i+1}m`,message:`El correo del contacto ${i+1} no es válido.`,type:"document"});});r.warns.filter(w=>w.t==="w"||w.t==="i").forEach(w=>warnings.push(w));const hasFinancialError=errors.some(e=>e.type==="financial");const calculable=r.stu>0&&r.list>0&&!hasFinancialError;/* F-28 · Se puede COTIZAR (precio a la vista) sin poder aún abrir la PROPUESTA (falta una decisión bloqueante) ni emitir el DOCUMENTO (faltan datos por capturar). Antes solo había dos estados y toda decisión pendiente degradaba hasta el precio. */return{calculable,proposalReady:calculable&&!errors.some(e=>e.blocking),documentReady:errors.length===0,errors,warnings,blockingErrors:errors.filter(e=>e.blocking),financialErrors:errors.filter(e=>e.type==="financial"),documentErrors:errors.filter(e=>e.type!=="financial")};}
 function focusIssue(issue){const el=$("#"+issue.id);if(!el)return;el.closest("details")?.setAttribute("open","");const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;el.scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"});setTimeout(()=>el.focus(),reduce?0:250);}
 function requireDocumentReady(){if(!requireNoPendingInstitution())return false;const ready=getReadiness();if(ready.documentReady)return true;if(ready.errors[0])focusIssue(ready.errors[0]);toast(ready.errors[0]?.message||"Completa los datos requeridos","error");return false;}
 /* F-23 · A-07 · Con cálculo inválido no basta poner "—" en seis titulares: la clase
    calc-invalid atenúa y rotula TODO el bloque financiero para que una captura de
    pantalla no muestre importes viejos como si fueran vigentes. */
-function renderInvalidFinancialState(){document.body.classList.add("calc-invalid");for(const id of ["#barPrice","#actPrice","#resYear1","#kvAgosto","#kvMens","#kvSave"])if($(id))$(id).textContent="—";}
+function renderInvalidFinancialState(reason=""){document.body.classList.add("calc-invalid");for(const id of ["#barPrice","#actPrice","#resYear1","#kvAgosto","#kvMens","#kvSave"])if($(id))$(id).textContent="—";/* F-28 · El motivo viaja PEGADO al precio ausente. La barra de acciones es lo único que el comercial tiene siempre a la vista: un "—" mudo, con la causa cuatro secciones más abajo, se lee como herramienta rota y así se reportó. */if($("#actSub"))$("#actSub").textContent=reason||"No se puede calcular el precio con los datos actuales.";}
 
 const TEXT_BINDINGS={
   fShort:"client.shortName",fCity:"client.city",
@@ -2990,7 +3013,7 @@ function bindEvents() {
   $("#btnShare").addEventListener("click",shareScenario);
   $("#btnManage")?.addEventListener("click",openManage);
   $("#btnStatus")?.addEventListener("click",()=>{const r=getReadiness();if(r.errors[0])focusIssue(r.errors[0]);else toast("La cotización está lista","success");});
-  $("#btnProp").addEventListener("click",()=>{if(getReadiness().calculable)openProposal();else focusIssue({id:"fStu"});});
+  $("#btnProp").addEventListener("click",()=>{const ready=getReadiness();if(ready.proposalReady){openProposal();return;}/* F-28 · Antes mandaba siempre a #fStu, que casi nunca era el problema. Ahora enfoca el primer error que de verdad bloquea la propuesta —el modelo docente, típicamente— y focusIssue() abre el fold que lo contiene. */const issue=ready.blockingErrors[0]||ready.errors[0];if(issue)focusIssue(issue);});
   $("#btnBack").addEventListener("click",closeProposal);
   $("#btnPdf").addEventListener("click",()=>window.doPrint()); $("#btnPdf2").addEventListener("click",()=>window.doPrint());
   $("#btnMail").addEventListener("click",openMail); $("#btnMail2").addEventListener("click",openMail);
@@ -3037,7 +3060,7 @@ function renderAll() {
   $("#heroScope").textContent=`${d.modLbl} · ${r.t.label} · ${Math.max(r.stu,0).toLocaleString("es-MX")} alumnos`;
   $("#incPkg").textContent=d.pkgName;$("#incMod").textContent="· "+d.modLbl;
   const rows=r.schemes[S().pay],payment=PAYS[S().pay],defer=payment.installments>0;
-  $("#actPrice").textContent=r.stu>0?money(rows[0].net):"—";$("#actSub").textContent=`${d.pkgName} · ${d.modLbl} · ${payment.title}`;
+  $("#actPrice").textContent=r.stu>0?money(rows[0].net):"—";/* F-28 · El subtítulo bueno queda guardado: con el cálculo bloqueado su lugar lo ocupa el motivo, y renderStatus() lo restituye al volver a ser válido. */const actSubText=`${d.pkgName} · ${d.modLbl} · ${payment.title}`;$("#actSub").dataset.ok=actSubText;$("#actSub").textContent=actSubText;
   $("#resYear1").textContent=r.stu>0?money(rows[0].net):"—";$("#resScope").textContent=`${d.pkgName} · ${r.t.label} · ${d.modLbl}`;
   $("#lblAgo").textContent=defer?"50% en agosto":"Pago único en agosto";$("#kvAgosto").textContent=money(rows[0].agosto);$("#kvMens").textContent=defer?money(rows[0].mensual):"—";
   $("#kvSave").textContent=payment.disc?`−${money(rows[0].gross-rows[0].net)}`:"—";$("#resLegend").textContent=payment.title;
@@ -3191,7 +3214,7 @@ function renderDocumentMeta() {
    de un cálculo que ERA válido y se rompió. El primer caso recibe una guía azul; el
    segundo conserva la alerta roja de "valores del último cálculo válido". */
 let HAS_VALID_RENDER=false;
-function renderStatus(){const ready=getReadiness(),button=$("#btnStatus");if(ready.calculable)HAS_VALID_RENDER=true;document.body.classList.toggle("calc-first",!ready.calculable&&!HAS_VALID_RENDER);document.body.classList.toggle("calc-invalid",!ready.calculable);if(!ready.calculable){button.className="quote-status quote-status--error";button.textContent="Revisa el cálculo";renderInvalidFinancialState();}else if(ready.documentReady){button.className="quote-status quote-status--ready";button.textContent="Cotización lista";}else{button.className="quote-status quote-status--warning";button.textContent=`Faltan ${ready.errors.length} dato(s)`;}button.setAttribute("aria-label",ready.documentReady?"La cotización está lista":`${ready.errors.length} problemas pendientes. Pulsa para ir al primero.`);/* F-27 · V4-01 · La propuesta también se bloquea visualmente con un cambio de institución pendiente. */const institutionPending=PENDING_INSTITUTION!==null;$("#btnProp").disabled=!ready.calculable||institutionPending;$("#btnPdf").disabled=!ready.documentReady;$("#btnMail").disabled=!ready.documentReady;if($("#btnPdf2"))$("#btnPdf2").disabled=!ready.documentReady;if($("#btnMail2"))$("#btnMail2").disabled=!ready.documentReady;}
+function renderStatus(){const ready=getReadiness(),button=$("#btnStatus");if(ready.calculable)HAS_VALID_RENDER=true;document.body.classList.toggle("calc-first",!ready.calculable&&!HAS_VALID_RENDER);document.body.classList.toggle("calc-invalid",!ready.calculable);if(!ready.calculable){button.className="quote-status quote-status--error";button.textContent="Revisa el cálculo";renderInvalidFinancialState(ready.financialErrors[0]?.message||"");}else{/* F-28 · El cálculo es válido: se restituye el subtítulo real del precio, que renderInvalidFinancialState() pudo haber sustituido por el motivo del bloqueo. */const sub=$("#actSub");if(sub?.dataset.ok)sub.textContent=sub.dataset.ok;if(ready.documentReady){button.className="quote-status quote-status--ready";button.textContent="Cotización lista";}else{button.className="quote-status quote-status--warning";button.textContent=`Faltan ${ready.errors.length} dato(s)`;}}button.setAttribute("aria-label",ready.documentReady?"La cotización está lista":`${ready.errors.length} problemas pendientes. Pulsa para ir al primero.`);/* F-27 · V4-01 · La propuesta también se bloquea visualmente con un cambio de institución pendiente. */const institutionPending=PENDING_INSTITUTION!==null;/* F-28 · La propuesta se bloquea con CUALQUIER error bloqueante, no solo con los financieros: el modelo docente ya no vacía el precio, pero sigue siendo obligatorio para el documento. */$("#btnProp").disabled=!ready.proposalReady||institutionPending;$("#btnPdf").disabled=!ready.documentReady;$("#btnMail").disabled=!ready.documentReady;if($("#btnPdf2"))$("#btnPdf2").disabled=!ready.documentReady;if($("#btnMail2"))$("#btnMail2").disabled=!ready.documentReady;}
 const ITEMS_CACHE={TI:null,IP:null,DP:null};
 function renderItems(r) {
   const isPlus=S().pkg==="plus",mod=S().mod,lic=S().lic;
@@ -3928,15 +3951,17 @@ const QuoteTests={
     this.test("F-27 · UX-6 · El primer uso se distingue de un cálculo roto",()=>this.withStorageSandbox(()=>{
       const prevFlag=HAS_VALID_RENDER;
       try{
-        APP_STATE=createSafeDefaultState();CURRENT_RESULT=quote(S());
+        /* F-28 · El disparador ya no es el modelo docente —que no toca el precio— sino un
+           carrito de 1:2 sin precio capturado, que sí deja el importe incalculable. */
+        APP_STATE=createSafeDefaultState();S().teacherDeviceModel="docente";S().mod=3;S().cartCap=30;S().cartP={20:0,30:0,40:0};CURRENT_RESULT=quote(S());
         HAS_VALID_RENDER=false;
         renderStatus();
         this.assert(document.body.classList.contains("calc-first"),"la cotización recién abierta debía marcar calc-first (guía azul)");
         this.assert(document.body.classList.contains("calc-invalid"),"el primer uso sigue siendo un estado no calculable");
-        S().teacherDeviceModel="docente";CURRENT_RESULT=quote(S());
+        S().cartP={20:0,30:18500,40:0};CURRENT_RESULT=quote(S());
         renderStatus();
-        this.assert(!document.body.classList.contains("calc-first")&&HAS_VALID_RENDER,"elegir el modelo debía producir el primer render válido");
-        S().teacherDeviceModel=null;CURRENT_RESULT=quote(S());
+        this.assert(!document.body.classList.contains("calc-first")&&HAS_VALID_RENDER,"capturar el precio del carrito debía producir el primer render válido");
+        S().cartP={20:0,30:0,40:0};CURRENT_RESULT=quote(S());
         renderStatus();
         this.assert(document.body.classList.contains("calc-invalid")&&!document.body.classList.contains("calc-first"),"tras haber sido válido, romperlo debía mostrar la alerta roja, no la guía de primer uso");
       }finally{HAS_VALID_RENDER=prevFlag;}
@@ -3967,7 +3992,68 @@ const QuoteTests={
     this.test("F-25 · P3 · Un equipo docente adicional suma un usuario con licencia",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:200,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic};const sin=quote(base),conDoc=quote({...base,eqDoc:1}),conStu=quote({...base,eqStu:1}),ambos=quote({...base,eqDoc:1,eqStu:1});this.assert(conDoc.users===sin.users+1,`1 equipo modelo docente debía sumar 1 licencia: ${sin.users} -> ${conDoc.users}`);this.assert(conStu.users===sin.users+1,`1 equipo modelo estudiante debía sumar 1 licencia: ${sin.users} -> ${conStu.users}`);this.assert(ambos.users===sin.users+2,`2 equipos docentes debían sumar 2 licencias: ${sin.users} -> ${ambos.users}`);this.assert(ambos.docTot===sin.docTot+2,"docTot no reflejó los equipos docentes adicionales");this.assert(ambos.totalEq===sin.totalEq+2,"el parque no reflejó los equipos docentes adicionales");this.assertClose(ambos.list-sin.list,(APP_CONFIG.equipment.teacherDeviceCost+APP_CONFIG.equipment.studentDeviceCost)/200/4,1e-6,"el cargo del equipo adicional cambió");});
     this.test("F-25 · P3 · Las partidas por docente reflejan los equipos adicionales",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"plus",term:"cb4",mod:4,pay:"contado",stu:200,stuExtra:0,teacherDeviceModel:"estudiante",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic};const sin=quote(base),con=quote({...base,eqDoc:2});const porDocente=ITEMS.filter(it=>it.qty&&String(it.qty).includes("docTot"));this.assert(porDocente.length>0,"no se encontraron partidas por docente");for(const it of porDocente)this.assert(it.qty(con)===it.qty(sin)+2,`la partida "${it.n}" no sumó los equipos docentes adicionales`);});
     this.test("F-25 · P4 · Los equipos de estudiante incluidos son fijos",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:65,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic};for(const intento of [0,6,-50,null,undefined,"60"]){const r=quote({...base,stuExtra:intento});this.assert(r.stuReq>=r.stuIncl,`stuExtra=${JSON.stringify(intento)} dejó menos equipos que los incluidos`);this.assert(r.stuIncl===65,"los incluidos cambiaron");}this.assert(quote({...base,stuExtra:6}).stuReq===71,"los adicionales no se sumaron a los incluidos");this.assert(!quote({...base,stuExtra:-50}).warns.some(w=>w.code==="LESS_DEVICES"),"LESS_DEVICES debería ser imposible");});
-    this.test("F-25 · P5 · Sin modelo docente elegido no hay documento",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";S().mod=4;S().stu=65;S().teacherDeviceModel=null;CURRENT_RESULT=quote(S());let ready=getReadiness();this.assert(!ready.calculable,"sin modelo docente se permitió calcular");this.assert(ready.financialErrors.some(e=>/modelo de los equipos docentes/i.test(e.message)),"falta el error de modelo docente");S().teacherDeviceModel="estudiante";CURRENT_RESULT=quote(S());ready=getReadiness();this.assert(ready.calculable,"con modelo elegido debía poder calcular");}));
+    /* F-28 · El contrato cambió: sin modelo docente no hay PROPUESTA ni PDF, pero sí hay
+       precio. Antes esta prueba exigía lo contrario y por eso el defecto sobrevivió a la
+       suite: la prueba custodiaba el bug. */
+    this.test("F-25 · P5 · Sin modelo docente no hay propuesta, pero sí hay precio",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";S().mod=4;S().stu=65;S().teacherDeviceModel=null;CURRENT_RESULT=quote(S());let ready=getReadiness();this.assert(ready.calculable,"el modelo docente no mueve el precio: no puede ocultarlo");this.assert(ready.financialErrors.length===0,"el modelo docente no es un error financiero");this.assert(!ready.proposalReady,"sin modelo docente se permitió abrir la propuesta");this.assert(!ready.documentReady,"sin modelo docente el documento no puede estar listo");this.assert(ready.blockingErrors.some(e=>/modelo de los equipos docentes/i.test(e.message)),"falta el error bloqueante de modelo docente");S().teacherDeviceModel="estudiante";CURRENT_RESULT=quote(S());ready=getReadiness();this.assert(ready.proposalReady,"con modelo elegido debía poder abrirse la propuesta");}));
+    /* ============ F-28 · "A los demás comerciales no les sale el precio" ============
+       Una cotización recién abierta nace sin modelo de equipo docente elegido. Ese error
+       se clasificaba como financiero y vaciaba el precio de la barra superior, de la barra
+       de acciones y del resumen del paso 1. Solo funcionaba en máquinas con borradores
+       heredados de v2/v3, porque migrateDeviceFields() les fija el modelo "docente".
+       Las tres pruebas siguientes cierran las tres puertas por las que puede volver. */
+    this.test("F-28 · Una cotización recién abierta ya muestra el precio por alumno",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();CURRENT_RESULT=quote(S());
+      const ready=getReadiness();
+      this.assert(ready.calculable,`una cotización nueva no calcula: ${ready.financialErrors.map(e=>e.message).join(" · ")||"sin motivo declarado"}`);
+      renderAll();
+      this.assert($("#barPrice").textContent!=="—","el precio de la barra superior quedó en — en una cotización recién abierta");
+      this.assert($("#actPrice").textContent!=="—","el precio de la barra de acciones quedó en — en una cotización recién abierta");
+      this.assert(!document.body.classList.contains("calc-invalid"),"una cotización nueva no puede nacer en estado no calculable");
+      this.assert($("#btnStatus").textContent!=="Revisa el cálculo","una cotización nueva no puede anunciarse como cálculo roto");
+    }));
+    /* F-28 · La razón por la que el modelo docente puede no bloquear el precio es que no
+       entra en él. Si eso deja de ser cierto, esta prueba falla y hay que devolver
+       TEACHER_MODEL a blocks:"price". No borrarla sin cambiar también el motor. */
+    this.test("F-28 · El modelo de equipos docentes no mueve el precio",()=>{
+      const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));
+      const escenarios=[
+        {pkg:"edu",term:"cb4",mod:4,stu:300,stuExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0}},
+        {pkg:"plus",term:"tb3",mod:3,stu:850,stuExtra:40,eqDoc:3,eqStu:2,cartCap:40,cartP:{20:0,30:0,40:22900}},
+        {pkg:"edu",term:"fl2",mod:2,stu:120,stuExtra:5,eqDoc:1,eqStu:1,cartCap:20,cartP:{20:15900,30:0,40:0}}
+      ];
+      for(const base of escenarios){
+        const q={...base,pay:"contado",docExtra:0,cartFreeAuthorization:emptyCartAuthorization(),lic};
+        const sin=quote({...q,teacherDeviceModel:null}),doc=quote({...q,teacherDeviceModel:"docente"}),est=quote({...q,teacherDeviceModel:"estudiante"});
+        this.assertClose(doc.list,sin.list,0,`el modelo docente movió el precio en ${base.pkg}/${base.term}/${base.mod}`);
+        this.assertClose(est.list,sin.list,0,`el modelo estudiante movió el precio en ${base.pkg}/${base.term}/${base.mod}`);
+        for(const scheme of Object.keys(PAYS))for(const [i,year] of sin.schemes[scheme].entries()){
+          this.assertClose(doc.schemes[scheme][i].net,year.net,0,`el modelo docente movió ${scheme} año ${i+1}`);
+          this.assertClose(est.schemes[scheme][i].net,year.net,0,`el modelo estudiante movió ${scheme} año ${i+1}`);
+        }
+        this.assert(doc.eqDocInc!==est.eqDocInc,"el modelo sí debe seguir cambiando los equipos docentes incluidos del documento");
+      }
+    });
+    /* F-28 · El motor es la única fuente de verdad sobre qué bloquea: un warn t:"e" sin
+       blocks caería silenciosamente en "financial" y volvería a vaciar el precio. */
+    this.test("F-28 · Todo warn bloqueante declara qué bloquea",()=>{
+      const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));
+      const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:100,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic};
+      const escenarios=[
+        {stu:0,teacherDeviceModel:null},
+        {mod:3,stu:120,cartCap:30},
+        {term:"zzz"},
+        {stu:1,eqDoc:999999}
+      ];
+      const vistos=new Set();
+      for(const parche of escenarios)for(const w of quote({...base,...parche}).warns){
+        if(w.t!=="e")continue;
+        this.assert(w.blocks==="price"||w.blocks==="document",`el warn ${w.code} no declara blocks`);
+        vistos.add(w.code);
+      }
+      this.assert(vistos.size>=4,`se esperaban al menos 4 códigos bloqueantes distintos, hubo ${[...vistos].join(", ")||"ninguno"}`);
+      this.assert(vistos.has("TEACHER_MODEL"),"el escenario sin modelo docente dejó de emitir TEACHER_MODEL");
+    });
     this.test("F-25 · P5 · Sin equipos no exige modelo docente",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const r=quote({pkg:"edu",term:"cb4",mod:0,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:null,docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assert(!r.warns.some(w=>w.code==="TEACHER_MODEL"),"la modalidad sin equipos no debe exigir modelo docente");});
     this.test("F-25 · El PDF documenta las reglas de docentes y los adicionales",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";S().mod=4;S().stu=200;S().teacherDeviceModel="docente";S().eqDoc=1;S().eqStu=1;S().stuExtra=3;CURRENT_RESULT=quote(S());const html=buildProposal();this.assert(/Cómo se calculan docentes y sus equipos/.test(html),"falta la nota de reglas de docentes");this.assert(/Adicionales docentes · modelo docente/.test(html),"falta el renglón de adicionales modelo docente");this.assert(/Adicionales docentes · modelo estudiante/.test(html),"falta el renglón de adicionales modelo estudiante");this.assert(/suma un <b>usuario con licencia<\/b>/.test(html),"la propuesta no explica que el adicional suma licencia");this.assert(!/Equipos incluidos no solicitados/.test(html),"reapareció el renglón de LESS_DEVICES");}));
     this.test("F-25 · Migración v3 a v4 conserva la aritmética histórica",()=>{const legado={v:3,cycle:APP_CONFIG.cycle.id,pkg:"plus",term:"cb4",mod:4,pay:"contado",stu:65,stuRequested:71,docExtra:0,eqDoc:0,eqStu:4,cartCap:30,cartP:{20:0,30:0,40:0},lic:Object.fromEntries(LICS.map(l=>[l.k,true]))};const compartido={...legado,mod:3,stu:850,stuRequested:465};const s=sanitizeScenarioPayload(compartido,{allowLegacy:true});this.assert(s.stuExtra===40,`stuRequested 465 sobre 425 incluidos debía migrar a 40 adicionales, dio ${s.stuExtra}`);this.assert(sanitizeScenarioPayload(legado,{allowLegacy:true}).stuExtra===0,"en 1:1 los adicionales deben normalizarse a 0");this.assert(s.teacherDeviceModel==="docente","la migración debe fijar el modelo docente histórico 1:20");const bajo=sanitizeScenarioPayload({...compartido,stuRequested:400},{allowLegacy:true});this.assert(bajo.stuExtra===0,"un legado por debajo de lo incluido debe migrar a 0 adicionales, sin bloqueo ni aviso");});
@@ -4008,7 +4094,7 @@ const QuoteTests={
       this.assert(limpio.validity.validUntil===addDaysISO(hoy,APP_CONFIG.cycle.validityDays),"vigencia mal calculada");
       this.assert(limpio.validity.validUntilAuto===true,"la vigencia automática debe quedar activa");
     }));
-    this.test("Todo warn t:'e' del motor bloquea el documento",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();S().mod=4;S().stu=65;S().teacherDeviceModel=null;CURRENT_RESULT=quote(S());const ready=getReadiness();this.assert(!ready.calculable,"un error del motor no bloqueó el cálculo");this.assert(ready.financialErrors.length>0,"el error del motor no llegó a financialErrors");}));
+    this.test("Todo warn t:'e' del motor bloquea el documento",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();S().mod=4;S().stu=65;S().teacherDeviceModel=null;CURRENT_RESULT=quote(S());let ready=getReadiness();this.assert(!ready.documentReady&&!ready.proposalReady,"un error del motor no bloqueó el documento");this.assert(ready.blockingErrors.length>0,"el error del motor no llegó a blockingErrors");/* F-28 · Y un error que sí es financiero —carrito de 1:2 sin precio— sigue ocultando el precio, que es lo que blocks:"price" debe significar. */S().teacherDeviceModel="docente";S().mod=3;S().cartCap=30;S().cartP={20:0,30:0,40:0};CURRENT_RESULT=quote(S());ready=getReadiness();this.assert(!ready.calculable,"un carrito sin precio debía bloquear el cálculo");this.assert(ready.financialErrors.length>0,"el error financiero del motor no llegó a financialErrors");}));
     this.test("Precio implausible se bloquea",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const r=quote({pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:1,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:999999,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assert(r.warns.some(w=>w.code==="IMPLAUSIBLE_PRICE"&&w.t==="e"),"no se detectó el precio absurdo");});
     this.test("Un plazo o modalidad desconocidos avisan",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));for(const bad of [{term:"zzz"},{mod:9}]){const r=quote({pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:100,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic,...bad});this.assert(r.warns.some(w=>w.code==="CORRUPT_SCENARIO"&&w.t==="e"),`fallback silencioso con ${JSON.stringify(bad)}`);}});
     this.test("Carrito con precio corrupto no descuenta",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const r=quote({pkg:"edu",term:"cb3",mod:3,pay:"contado",stu:120,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:30,cartP:{20:0,30:-100000,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assert(r.cartPrice===0,"el precio negativo se propagó");this.assert(r.warns.some(w=>w.code==="CORRUPT_SCENARIO"),"precio de carrito corrupto sin advertencia");});

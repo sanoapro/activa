@@ -69,6 +69,32 @@ juntas a propósito para que sea un solo lugar.
 
 ---
 
+## Qué bloquea qué
+
+Hay **tres** estados de preparación, no dos, y confundirlos es caro. `getReadiness()` los devuelve:
+
+| Estado | Qué habilita | Qué lo rompe |
+|---|---|---|
+| `calculable` | Que se **vea el precio** por alumno | Solo lo financiero: alumnos, precio no positivo o no finito, precio implausible, carrito sin precio, escenario corrupto |
+| `proposalReady` | El botón **Ver propuesta** | Lo anterior, más cualquier decisión obligatoria pendiente (hoy: el modelo de equipos docentes) |
+| `documentReady` | **PDF** y **correo** | Lo anterior, más todo dato documental por capturar: institución, ciudad, fechas, RFC, banco… |
+
+El motor es la única fuente de verdad: cada advertencia `t:"e"` declara en `blocks` si tumba el
+**precio** (`"price"`) o solo el **documento** (`"document"`). `engineErrorsToIssues()` no decide, traduce.
+
+> **La regla que hay que respetar.** Un dato solo puede llevar `blocks:"price"` si de verdad entra en
+> el importe por alumno. El modelo de equipos docentes no entra —mueve `eqDocInc` y el parque que
+> describe el documento, nunca `list` ni los esquemas de pago— y por eso vaciaba el precio de **toda
+> cotización recién abierta**: el estado inicial nace sin modelo elegido. Solo funcionaba en las
+> máquinas con borradores heredados de `v2`/`v3`, porque `migrateDeviceFields()` les fija `docente`.
+> La suite estaba en verde mientras tanto, porque una prueba afirmaba el comportamiento roto.
+
+Cuando el precio sí es incalculable, el motivo se escribe **junto al precio**, en `#actSub` de la barra
+de acciones, que es lo único siempre a la vista. Un `—` mudo con la causa cuatro secciones más abajo se
+lee como herramienta rota, y así se reportó.
+
+---
+
 ## Persistencia, folio y revisión
 
 Guarda en `localStorage`, con estas llaves (versión `v3`, y migra desde `v2`):
@@ -153,6 +179,9 @@ dentro de `.cfgbar` para no alterar la altura que mide `setupDynamicOffsets()`.
 
 1. **No cambies la lógica para animar o maquetar.** Si un efecto exige tocar un cálculo, no va.
 2. **Corre `?test=1`** antes y después de cualquier cambio en precios o reglas.
-3. **Imprime** (`Ctrl+P`) y revisa que no falte ninguna sección ni salgan hojas en blanco.
-4. **Prueba sin red y sin `localStorage`**: la herramienta debe seguir cotizando.
-5. Comprueba que la barra de configuración siga pegada al bajar.
+3. **Ábrela en una ventana privada** después de tocar validaciones o reglas. Con tu `localStorage`
+   lleno de borradores no ves lo que ve un comercial que entra por primera vez, que es donde vivía
+   el defecto de "no me sale el precio".
+4. **Imprime** (`Ctrl+P`) y revisa que no falte ninguna sección ni salgan hojas en blanco.
+5. **Prueba sin red y sin `localStorage`**: la herramienta debe seguir cotizando.
+6. Comprueba que la barra de configuración siga pegada al bajar.
