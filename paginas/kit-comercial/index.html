@@ -293,14 +293,43 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
    de silencio que el estándar pide. El padding se la devuelve —con box-sizing
    heredado, se come parte del ancho en vez de sumarse—. Cuanto más grande, desde
    más lejos lo levanta un teléfono en una sala. */
-#qr img{width:min(74vh,74vw);height:auto;display:block;
+/* El titular va ARRIBA del código y no debajo: desde el fondo de una sala se
+   lee primero la palabra y después se busca el QR. Escala con la altura de la
+   ventana (vh) para que en un proyector crezca con todo lo demás. */
+.qr-head{display:flex;flex-direction:column;align-items:center;gap:10px;
+  text-align:center;max-width:min(90vw,940px);flex-shrink:0}
+.qr-head .t{font-size:clamp(30px,5.6vh,62px);line-height:1;font-weight:700;
+  letter-spacing:-1.8px}
+/* El lema es la oferta —lo que hace que alguien saque el teléfono— así que no
+   puede ser un pie de foto gris: va en banda, más grande y con su propio peso. */
+.qr-head .s{display:inline-block;font-size:clamp(15px,2.6vh,27px);line-height:1.35;
+  color:var(--ink);font-weight:500;
+  background:var(--blue-t);border-radius:99px;padding:.45em 1.1em;
+  max-width:100%;text-wrap:balance}
+.qr-head .s[hidden]{display:none}
+/* «Gemini» con el degradado de su marca. El color plano va primero como red de
+   seguridad: si el navegador no recorta el fondo al texto, se lee morado en vez
+   de quedar transparente sobre blanco, que sería no leerse. */
+.qr-head .s .gem{font-weight:700;color:#9b72cb}
+@supports (-webkit-background-clip:text) or (background-clip:text){
+  .qr-head .s .gem{background:linear-gradient(95deg,#4285f4 0%,#9b72cb 48%,#d96570 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+}
+/* «sin costo» en verde: es la objeción que desarma, y merece el color del sí */
+.qr-head .s .gratis{font-weight:700;color:var(--grn-d)}
+
+/* El código se encoge antes que desbordar: flex-shrink con object-fit reduce la
+   caja y la imagen dentro conserva su proporción. Lo que sobra a los lados es
+   blanco sobre blanco, así que no se nota. Sin esto, un titular de dos líneas en
+   una ventana baja empujaría el QR fuera de la pantalla.
+   El padding es la zona de silencio: este código va recortado en estrella y sus
+   puntas llegan al borde del PNG, así que no trae la suya. */
+#qr img{width:min(70vh,70vw);height:auto;align-self:center;
+  flex:0 1 auto;min-height:0;object-fit:contain;
   background:#fff;padding:min(3.4vh,30px);border-radius:16px}
-.qr-cap{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;max-width:min(86vw,760px)}
-.qr-cap .t{font-size:clamp(19px,2.6vh,26px);font-weight:600;letter-spacing:-.4px}
-.qr-cap .u{font-size:clamp(11px,1.5vh,13px);color:var(--ink3);line-height:1.35;
-  word-break:break-all;font-family:ui-monospace,"Cascadia Mono",Consolas,monospace}
-.qr-cap .h{font-size:12px;color:var(--ink3)}
-.qr-cap .h b{color:var(--ink2);font-weight:700}
+
+.qr-hint{font-size:12px;color:var(--ink3);flex-shrink:0}
+.qr-hint b{color:var(--ink2);font-weight:700}
 /* Volver, con su flecha y su palabra. La ✕ de la esquina y el Esc ya cerraban,
    pero ninguno de los dos DICE volver: quien llega a esta lámina desde una
    tarjeta tiene que ver la salida, no deducirla. Va arriba a la izquierda,
@@ -446,12 +475,12 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
   <button id="qrCerrar" type="button" title="Cerrar" aria-label="Cerrar el código QR">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4l5.6 5.6L5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6z"/></svg>
   </button>
-  <img id="qrImg" alt="">
-  <div class="qr-cap">
+  <div class="qr-head">
     <span class="t" id="qrTitulo"></span>
-    <span class="u" id="qrUrl"></span>
-    <span class="h">Apunta la cámara del teléfono · <b>Volver al kit</b> o <b>Esc</b> para regresar</span>
+    <span class="s" id="qrLema"></span>
   </div>
+  <img id="qrImg" alt="">
+  <span class="qr-hint">Apunta la cámara del teléfono · <b>Volver al kit</b> o <b>Esc</b> para regresar</span>
 </div>
 
 <script src="./assets.js"></script>
@@ -524,7 +553,9 @@ const EVENTOS = [
     desc:'El formulario de inscripción que se comparte.',
     host:'Google Forms',
     url:'https://docs.google.com/forms/d/e/1FAIpQLSdK378g97bZPlcPCBhXKJq8Sx8zT72HBP_NEquugidYrsAF8g/viewform',
-    qr:'./QR/QR-Eventos.png' },
+    qr:'./QR/QR-Eventos.png',
+    qrTitulo:'Registro',
+    qrLema:'Obtén la capacitación de <b class="gem">Gemini</b> para tu colegio <b class="gratis">(sin costo)</b>' },
   { id:'base', nombre:'Base de datos', color:'--grn', color2:'#0b5c28', tinte:'--grn-t',
     desc:'Colegios, contactos y pipeline.',
     host:'Google Sheets',
@@ -648,8 +679,16 @@ function qrAbrir(it){
   qrVolver = document.activeElement;
   qrImg.src = it.qr;
   qrImg.alt = `Código QR de ${it.nombre}`;
-  document.getElementById('qrTitulo').textContent = it.nombre;
-  document.getElementById('qrUrl').textContent = it.url;
+  /* Titular propio si la tarjeta lo trae; si no, su nombre. La URL ya no se
+     pinta: quien está frente a la pantalla escanea, y quien la necesita
+     escrita la tiene en el ⧉ de la tarjeta. */
+  document.getElementById('qrTitulo').textContent = it.qrTitulo || it.nombre;
+  /* innerHTML y no textContent: el lema lleva marcado —la marca Gemini y el
+     «sin costo» van resaltados— y el texto es nuestro, escrito en la lista de
+     arriba. Nada de aquí viene de fuera ni de lo que teclee nadie. */
+  const lema = document.getElementById('qrLema');
+  lema.innerHTML = it.qrLema || '';
+  lema.hidden = !it.qrLema;
   qrCaja.hidden = false;
   qrCaja.classList.add('on');
   /* un frame de gracia: sin él la transición no arranca, porque el elemento

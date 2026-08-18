@@ -89,6 +89,11 @@ Si el acceso nuevo necesita otro pictograma, se agrega su `path` al objeto `ICO`
 con la misma llave del `id`, en retícula 24×24 de Material.
 
 El campo **`qr`** es opcional y apunta a la imagen del código (`qr:'./QR/loquesea.png'`).
+Lo acompañan **`qrTitulo`** y **`qrLema`**, que son lo que la lámina del código pone en grande
+—titular y oferta— en vez del nombre de la tarjeta. `qrLema` admite marcado (se pinta con
+`innerHTML`) porque lleva resaltados: `<b class="gem">` da el degradado de la marca Gemini y
+`<b class="gratis">` el verde del «sin costo». Es texto nuestro, escrito en esa misma lista;
+nada de ahí viene de fuera.
 Con eso basta: la tarjeta gana el botón y la lámina a pantalla completa, sin tocar nada más.
 El diálogo `#qr` vive **fuera** de `#stage` a propósito —la lámina va escalada por `transform`,
 y un `position:fixed` colgado de ella se escala también y deja de cubrir la pantalla—.
