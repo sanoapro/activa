@@ -59,18 +59,30 @@ blanco no llega al contraste mínimo ni a tamaño grande.
 
 ## De dónde salen los números — y la regla de oro
 
-**El cotizador es la única fuente de verdad de los precios.** Esta página lleva una **copia
-consciente** de esa configuración en el bloque `CFG` de su script (busca «COPIA CONSCIENTE»):
-precios por paquete/fila/modalidad, factores anuales, descuentos por forma de pago, fecha de
-firma temprana y la tabla de volumen.
+**El cotizador es la única fuente de verdad de los precios.** Esta página **ya no lleva su propia
+copia**: los precios, los factores anuales, los descuentos, las fechas y la aritmética viven en
+[`compartidos/js/precios-ciclo.js`](../../compartidos/js/precios-ciclo.js), que es una **copia
+consciente** del `APP_CONFIG` del cotizador.
 
-> **Al cambiar precios o reglas en el cotizador** (`paginas/cotizador/index.html`,
-> `APP_CONFIG` cerca de la línea 1771) **hay que actualizar el `CFG` de esta página a mano.**
-> Son los mismos objetos con los mismos nombres, a propósito, para poder compararlos lado a lado.
+Se movió allá cuando el deck de [upgrade edu](../upgrade-edu/) estrenó su lámina del desglose:
+con dos páginas enseñando los mismos números, una segunda copia pegada a mano es la forma
+conocida de que un deck y una cotización digan cifras distintas delante del mismo director.
+Regla de [`docs/estructura.md`](../../docs/estructura.md): lo que usa más de una página vive en
+`compartidos/`.
+
+> **Al cambiar precios o reglas en el cotizador** (`paginas/cotizador/index.html`, `APP_CONFIG`
+> cerca de la línea 1771) **hay que actualizar `compartidos/js/precios-ciclo.js` a mano** — y con
+> eso quedan al día esta página y el deck a la vez. Son los mismos objetos con los mismos
+> nombres, a propósito, para poder compararlos lado a lado.
+
+**Ese archivo no es opcional.** El motor de movimiento sí lo es —sin él la página se ve completa y
+quieta—, pero sin los precios no hay nada que enseñar: si no carga, la página lo dice en pantalla
+en vez de quedarse con huecos. Repártela como **carpeta**, no como `index.html` suelto.
 
 La aritmética del desglose replica la cadena del cotizador (`calculatePaymentYear`): precio →
 factor anual → descuento **en precisión completa**, y solo se redondea al final. Si un importe
-de aquí no coincide con el del cotizador para el mismo escenario, el bug es de esta página.
+de aquí no coincide con el del cotizador para el mismo escenario, el bug está en el archivo
+compartido o en la lámina, nunca en el cotizador.
 
 ## Movimiento
 

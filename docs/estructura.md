@@ -20,7 +20,7 @@ Presentacion-activa/
 │   │   ├── og.png                Su vista previa de WhatsApp
 │   │   ├── og-source.html        El molde de esa vista previa
 │   │   └── README.md             Cómo se edita y cómo se regenera
-│   ├── upgrade-edu/              Deck comercial de 33 diapositivas
+│   ├── upgrade-edu/              Deck comercial de 34 diapositivas
 │   │   ├── index.html
 │   │   ├── og.png
 │   │   └── README.md
@@ -42,6 +42,8 @@ Presentacion-activa/
 │   ├── js/motion.js              EL MOTOR de animación. Lo usan las 4 páginas.
 │   ├── js/motion-lottie.js       Opcional: Lottie diferido. Hoy no lo carga nadie.
 │   ├── js/motion-particles.js    Opcional: campo de partículas 3D
+│   ├── js/precios-ciclo.js       LOS PRECIOS del ciclo y su aritmética. Los usan
+│   │                             precios/ y la lámina 33 de upgrade-edu/.
 │   ├── lottie/pulse.json         Animación Lottie
 │   └── img/
 │       ├── marcas/               18 logos de marca y de marcos curriculares (.webp)

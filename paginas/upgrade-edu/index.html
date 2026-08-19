@@ -1817,6 +1817,68 @@ ul.sp2-l li::before{display:none}
    forzar el negro ahí la volvería ilegible. */
 .divider .marca,.pill .marca,.s27w-band .marca{color:inherit}
 
+/* ═══════════ 33 · EL DESGLOSE, AÑO POR AÑO ═══════════
+   La misma lámina de paginas/precios/, traída al deck para cerrar la junta con
+   el número puesto. Prefijo dsg- en todo: .seg ya es de la barra de ejes y
+   .card ya lleva el realce del deck.
+   El semáforo de las cuatro columnas es información, no adorno: azul el eje de
+   años, y verde → amarillo → rojo las tres formas de pago, de la más barata al
+   precio de lista. Se lee antes de leer un solo número. */
+.dsg-head{gap:9px}
+.dsg-head h2{font-size:30px;letter-spacing:-1.1px;line-height:1.12;text-wrap:initial}
+.dsg-head h2 .paqn{font-weight:600;color:var(--tc,var(--blue-d))}
+.dsg-head h2 .sep{color:var(--ink3);font-weight:300;margin:0 6px}
+.dsg-body{gap:12px;justify-content:flex-start}
+
+.dsg-ctrl{flex-shrink:0;display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap}
+.dsg-cg{display:flex;flex-direction:column;gap:4px}
+.dsg-cl{font-size:9.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3)}
+.dsg-seg{display:inline-flex;background:var(--surf);border:1px solid var(--line);
+  border-radius:12px;padding:3px;gap:3px}
+.dsg-seg button{border:0;background:transparent;border-radius:9px;padding:0 11px;height:28px;
+  font-family:var(--font);font-size:11.5px;font-weight:600;color:var(--ink2);cursor:pointer;
+  white-space:nowrap;transition:background .2s,color .2s,box-shadow .2s}
+.dsg-seg button:hover{color:var(--ink)}
+.dsg-seg button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.dsg-seg button[aria-pressed="true"]{background:var(--segc,var(--ink));color:#fff;
+  box-shadow:0 3px 10px -3px var(--segc,var(--ink))}
+
+.dsg-cards{flex:1;min-height:0;display:grid;grid-template-columns:.72fr 1fr 1fr 1fr;gap:12px}
+.dsg-card{display:flex;flex-direction:column;min-height:0;border-radius:16px;overflow:hidden;
+  border:1px solid var(--line);background:var(--white);box-shadow:var(--sh)}
+.dsg-cab{flex-shrink:0;background:var(--c);color:var(--ct);padding:9px 12px 10px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  text-align:center;min-height:86px}
+.dsg-ico{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;
+  background:rgba(255,255,255,.22)}
+.dsg-ico svg{width:15px;height:15px;fill:currentColor;display:block}
+.dsg-k{font-size:13.5px;font-weight:600;letter-spacing:-.2px;line-height:1.16}
+.dsg-b{font-size:14.5px;font-weight:700;letter-spacing:-.3px;
+  background:rgba(255,255,255,.22);border-radius:99px;padding:2px 11px}
+.dsg-b.suave{font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+
+/* las filas se reparten el alto sobrante: con 2 años quedan anchas y con 4
+   ajustadas, pero siempre alineadas entre las cuatro columnas */
+.dsg-filas{flex:1;min-height:0;display:flex;flex-direction:column}
+.dsg-fila{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:2px;padding:5px 10px;text-align:center;
+  border-top:1px solid var(--line)}
+.dsg-fila:first-child{border-top:0}
+.dsg-imp{font-size:24px;font-weight:600;letter-spacing:-1px;color:var(--cd);
+  font-variant-numeric:tabular-nums}
+.dsg-cal{font-size:10px;color:var(--ink2);line-height:1.3;font-variant-numeric:tabular-nums}
+.dsg-ya{font-size:21px;font-weight:600;letter-spacing:-.5px;color:var(--ink)}
+.dsg-falta{grid-column:1/-1;display:grid;place-items:center;text-align:center;
+  border:1px dashed var(--line);border-radius:16px;color:var(--ink2);font-size:14px;padding:24px}
+
+/* El amarillo lleva tinta oscura: sobre #f9ab00 el blanco no llega al contraste
+   mínimo ni a tamaño grande. */
+.dsg-card--anio{--c:var(--blue);--ct:#fff;--cd:var(--blue-d)}
+.dsg-card--con {--c:var(--grn); --ct:#fff;--cd:var(--grn-d)}
+.dsg-card--ant {--c:var(--yel); --ct:var(--ink);--cd:var(--yel-d)}
+.dsg-card--des {--c:var(--red); --ct:#fff;--cd:var(--red-d)}
+.dsg-card--ant .dsg-ico,.dsg-card--ant .dsg-b{background:rgba(32,33,36,.14)}
+
 /* ═══════════ IMPRESIÓN ═══════════ */
 @page{size:1280px 720px;margin:0}
 @media print{
@@ -5167,7 +5229,57 @@ ARCO DE LA LÁMINA: los tres entregables son la PRUEBA (concreta, verificable);
   </div>
 </section>
 
-<!-- ═════════ 33 · CIERRE ═════════ -->
+<!-- ═════════ 33 · EL DESGLOSE, AÑO POR AÑO ═════════ -->
+<!--
+CUENTA DE ALTURAS (escenario 720 · padding 46/30 = 644 útiles · ancho útil 1160)
+· head: eyebrow 14 + gap 9 + h2 34 + margen 20 = 77
+· conmutadores 52 + gap 12 = 64
+· foot: 20 + margen 18 = 38
+· tarjetas disponibles: 644 − 77 − 64 − 38 = 465
+  cabecera 86 + 4 filas × 94 ≈ 462 ✓ — con un plazo de 2 años las filas se
+  ensanchan solas (flex:1), no se quedan cortas arriba.
+ANCHO: 4 columnas .72fr/1fr/1fr/1fr con 3 huecos de 12 → 1124 útiles.
+
+SIN BRANDMARK a propósito: el rótulo del escenario llega a «Upgrade Edu Plus ·
+  Chromebook Flip-Touch seminueva · modalidad 1:1 · 2 años» y necesita el ancho
+  entero. Es la misma decisión que en paginas/precios/.
+LOS TRES CONMUTADORES van dentro de [data-noadv]: en este deck un clic sobre la
+  lámina AVANZA, y elegir el escenario delante del director no puede pasar de
+  diapositiva. Enter y espacio con el foco dentro también le pertenecen a ellos.
+SIN TOTAL DEL CONTRATO: decisión comercial, la misma de paginas/precios/. En la
+  primera visita se enseña el importe anual por alumno, no la suma de los años.
+MOVIMIENTO: ninguno propio. Los importes no se animan —prohibición expresa de
+  docs/normativa-motion.md— y .dsg-cards queda FUERA del selector de la
+  coreografía a propósito: entra con el .body, como un bloque, y se queda quieta.
+LOS NÚMEROS salen de compartidos/js/precios-ciclo.js, el mismo archivo que
+  alimenta paginas/precios/. Aquí no se escribe ni un precio.
+-->
+<section class="slide">
+  <span class="shape" style="width:460px;height:460px;right:-190px;top:-210px;background:var(--blue-t)"></span>
+  <span class="shape" style="width:300px;height:300px;left:-150px;bottom:-170px;background:var(--yel-t)"></span>
+  <div class="head dsg-head">
+    <div class="eyebrow b">La inversión · año por año</div>
+    <h2 id="dsgTitulo">El desglose del escenario</h2>
+  </div>
+  <div class="body dsg-body">
+    <div class="dsg-ctrl" data-noadv>
+      <div class="dsg-cg"><span class="dsg-cl">Paquete</span>
+        <div class="dsg-seg" id="dsgPaq" role="group" aria-label="Elegir paquete"></div></div>
+      <div class="dsg-cg"><span class="dsg-cl">Equipo y plazo</span>
+        <div class="dsg-seg" id="dsgTerm" role="group" aria-label="Elegir equipo y plazo"></div></div>
+      <div class="dsg-cg"><span class="dsg-cl">Modalidad</span>
+        <div class="dsg-seg" id="dsgMod" role="group" aria-label="Elegir modalidad"></div></div>
+    </div>
+    <div class="dsg-cards" id="dsgCards" role="group" aria-live="polite"
+         aria-label="Desglose año por año del escenario elegido, por alumno y con las tres formas de pago"></div>
+  </div>
+  <div class="foot">
+    <p class="sm" id="dsgNota">Importes <b>por alumno y por año</b>, IVA incluido · mensualidades de septiembre a junio</p>
+    <div class="ejebar"><em>Precios · ciclo 2026–2027</em></div>
+  </div>
+</section>
+
+<!-- ═════════ 34 · CIERRE ═════════ -->
 <!--
 CUENTA DE ALTURAS (lámina .cover: padding 0, .inner centrado en 720 con 84 px laterales):
 · eyebrow 13
@@ -5308,6 +5420,10 @@ movimiento) desaparecen en vez de apilarse en el centro. Sin JS, sin estados var
      no cargan desde file:// y este deck se abre con doble clic). Si alguno
      falla, el deck navega igual: todo lo de abajo está guardado. -->
 <script src="../../compartidos/js/motion.js"></script>
+<!-- Los precios del ciclo y su aritmética, compartidos con paginas/precios/.
+     A diferencia del motor de movimiento, la lámina 33 no funciona sin esto:
+     si falta, esa lámina lo dice en pantalla en vez de quedarse en blanco. -->
+<script src="../../compartidos/js/precios-ciclo.js"></script>
 <script src="../../compartidos/js/motion-particles.js"></script>
 
 <script>
@@ -5403,6 +5519,129 @@ addEventListener("resize", ()=>{ fit(); if(grid.classList.contains("on")) scaleT
 fit();
 const start=parseInt((location.hash||"").replace("#s",""),10);
 show(Number.isFinite(start)&&start>0?start-1:0);
+</script>
+
+<!-- ═══════════ LÁMINA 33 · el desglose año por año ═══════════
+     Los precios y la aritmética viven en compartidos/js/precios-ciclo.js, que
+     es también el que alimenta paginas/precios/. Aquí no se escribe ni un
+     importe: si hay que cambiar uno, se cambia allá y las dos páginas lo
+     reciben a la vez.
+
+     Las referencias al DOM se toman UNA vez, al arrancar. El panorama (tecla O)
+     CLONA las láminas con todo y sus id, así que un getElementById tardío podría
+     acabar apuntando a una miniatura en lugar de a la lámina viva. -->
+<script>
+(function(){
+  var P = window.PreciosCiclo;
+  var cards  = document.getElementById("dsgCards");
+  if(!cards) return;
+  if(!P){
+    cards.innerHTML = '<div class="dsg-falta">No se pudo cargar ' +
+      '<b>compartidos/js/precios-ciclo.js</b>.<br>Esta lámina no puede enseñar ' +
+      'precios sin él: reparte el deck como carpeta completa, no como archivo suelto.</div>';
+    return;
+  }
+
+  var titulo = document.getElementById("dsgTitulo");
+  var cajas  = { pkg: document.getElementById("dsgPaq"),
+                 term: document.getElementById("dsgTerm"),
+                 mod: document.getElementById("dsgMod") };
+
+  /* El escenario que se enseña por defecto es el que más se cotiza: Edu,
+     Chromebook nueva a 4 años, un equipo por alumno. */
+  var S = { pkg:"edu", term:"cb4", mod:4 };
+
+  var ICOS = {
+    anio:'<path d="M19 3h-1V1h-2v2H8V1H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 16H5V8h14v11z"/>',
+    con:'<path d="M21 18v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1h-9a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9zm-9-2h10V8H12v8zm4-2.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>',
+    ant:'<path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 16H5V8h14v11zm-8.47-1.71-2.83-2.83 1.06-1.06 1.77 1.77 4.71-4.71 1.06 1.06-5.77 5.77z"/>',
+    des:'<path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>'
+  };
+
+  function esc(t){ return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+
+  /* ── los tres conmutadores ───────────────────────────────────────── */
+  var OPCIONES = {
+    pkg:  [{v:"edu", t:"Edu", c:"var(--blue)"}, {v:"plus", t:"Edu Plus", c:"var(--plum)"}],
+    term: P.TERMS.map(function(t){ return {v:t.k, t:t.corto}; }),
+    mod:  P.MODS.map(function(m){ return {v:String(m.i), t:m.label}; })
+  };
+
+  /* Los botones se construyen UNA vez y después solo cambian de aria-pressed.
+     Reconstruir el innerHTML dentro del propio clic desprendía el botón del DOM
+     antes de que el listener del escenario —que está en un ancestro— llegara a
+     mirarlo, y su closest("[data-noadv]") devolvía null sobre un nodo huérfano:
+     elegir un paquete hacía AVANZAR la diapositiva. Además, reconstruir pierde
+     el foco del teclado. */
+  function construyeSeg(clave){
+    cajas[clave].innerHTML = OPCIONES[clave].map(function(o){
+      return '<button type="button" data-v="' + o.v + '"' +
+             (o.c ? ' style="--segc:' + o.c + '"' : '') +
+             ' aria-pressed="' + (o.v === String(S[clave])) + '">' + esc(o.t) + '</button>';
+    }).join("");
+  }
+
+  Object.keys(cajas).forEach(function(clave){
+    construyeSeg(clave);
+    cajas[clave].addEventListener("click", function(e){
+      var b = e.target.closest("button");
+      if(!b) return;
+      S[clave] = clave === "mod" ? Number(b.dataset.v) : b.dataset.v;
+      var botones = cajas[clave].querySelectorAll("button");
+      for(var i = 0; i < botones.length; i++){
+        botones[i].setAttribute("aria-pressed", String(botones[i] === b));
+      }
+      pinta();
+    });
+  });
+
+  /* ── las cuatro columnas ─────────────────────────────────────────── */
+  function columna(cls, ico, rotulo, insignia, suave, filas){
+    return '<article class="dsg-card dsg-card--' + cls + '">' +
+      '<header class="dsg-cab">' +
+        '<span class="dsg-ico" aria-hidden="true"><svg viewBox="0 0 24 24">' + ICOS[ico] + '</svg></span>' +
+        '<span class="dsg-k">' + esc(rotulo) + '</span>' +
+        '<span class="dsg-b' + (suave ? ' suave' : '') + '">' + insignia + '</span>' +
+      '</header>' +
+      '<div class="dsg-filas">' + filas + '</div></article>';
+  }
+
+  function pinta(){
+    var d = P.desglose(S.pkg, S.term, S.mod), t = d.term;
+
+    var colAnios = columna("anio", "anio", "Año de contrato", t.years + " años", true,
+      d.filas.map(function(f){
+        return '<div class="dsg-fila"><span class="dsg-ya">Año ' + (f.i + 1) + '</span></div>';
+      }).join(""));
+
+    var colsPago = P.CFG.pagos.map(function(p, j){
+      return columna(p.cls, p.cls, p.titulo, p.insignia, p.suave,
+        d.filas.map(function(f){
+          var r = f.pagos[j];
+          var calendario = r.mensual
+            ? "agosto " + P.money(r.agosto) + " + 10 × " + P.money(r.mensual)
+            : "pago único en agosto";
+          /* leído en voz alta el importe llega solo: sin el año y sin la forma de
+             pago sería una cifra suelta, porque aquí las columnas son tarjetas */
+          return '<div class="dsg-fila" aria-label="Año ' + (f.i + 1) + ', ' + p.titulo +
+                 ': ' + P.money(r.net) + ', ' + calendario + '">' +
+                 '<b class="dsg-imp">' + P.money(r.net) + '</b>' +
+                 '<span class="dsg-cal">' + calendario + '</span></div>';
+        }).join(""));
+    }).join("");
+
+    cards.innerHTML = colAnios + colsPago;
+
+    var esPlus = S.pkg === "plus";
+    titulo.style.setProperty("--tc", esPlus ? "var(--plum)" : "var(--blue-d)");
+    titulo.innerHTML = '<span class="paqn">' + P.nombrePaquete(S.pkg) + '</span>' +
+      P.tramosEscenario(S.pkg, t, S.mod).map(function(x){
+        return '<span class="sep">·</span>' + esc(x);
+      }).join("");
+  }
+
+  pinta();
+})();
 </script>
 
 <!-- ═══════════ MOTOR COMPARTIDO · coreografía del deck ═══════════

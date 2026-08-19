@@ -9,6 +9,7 @@ página en concreto: si algo solo le sirve a una, va dentro de su carpeta en `pa
 | `js/motion.js` | **El motor de animación.** Script clásico, expone el global `Motion`. |
 | `js/motion-lottie.js` | Opcional. Lottie diferido con respaldo CSS si el CDN no responde. **Hoy no lo carga nadie**: es capacidad lista para la próxima página que quiera una animación vectorial. |
 | `js/motion-particles.js` | Opcional. Campo de partículas 3D en Canvas, con colores configurables: dos tonos que se mezclan por profundidad, o una `paleta` de colores fijos —así es como el deck pinta su red en los cuatro de Google—. |
+| `js/precios-ciclo.js` | **Los precios del ciclo y su aritmética.** Expone el global `PreciosCiclo`. Lo cargan [`paginas/precios/`](../paginas/precios/) y la lámina del desglose del [deck de upgrade edu](../paginas/upgrade-edu/). **No es opcional**: quien lo pierda se queda sin números. |
 | `lottie/` | Animaciones Lottie (`.json`). |
 | `img/marcas/` | 18 logos de marca y de marcos curriculares, en `.webp`. |
 | `img/fotos-vendedores/` | Retratos originales del equipo comercial. |

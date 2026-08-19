@@ -36,6 +36,9 @@
      nada se oculta: las láminas se ven completas y quietas (regla 4). -->
 <link rel="stylesheet" href="../../compartidos/css/motion.css">
 <script src="../../compartidos/js/motion.js"></script>
+<!-- Los precios del ciclo y su aritmética. A diferencia del motor de movimiento,
+     esto NO es opcional: sin él la página no tiene números que enseñar. -->
+<script src="../../compartidos/js/precios-ciclo.js"></script>
 
 <style>
 /* ═══════════════════════════════════════════════════════════════
@@ -313,12 +316,9 @@ h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
   font-variant-numeric:tabular-nums}
 .dcard .cal{font-size:10.5px;color:var(--ink2);line-height:1.3;font-variant-numeric:tabular-nums}
 
-/* la columna de años: etiqueta y factor en la misma línea */
-.dcard--anio .dfila{flex-direction:row;gap:9px}
-.dcard--anio .ya{font-size:19px;font-weight:600;letter-spacing:-.5px;color:var(--ink)}
-.dcard--anio .yf{font-size:11px;font-weight:600;color:var(--ink2);background:var(--wash);
-  border:1px solid var(--line2);border-radius:99px;padding:2px 8px;
-  font-variant-numeric:tabular-nums}
+/* la columna de años: solo la etiqueta. El factor anual (× 0.90, × 0.97…) se
+   retiró: es cómo se calcula el importe, no lo que el colegio compara. */
+.dcard--anio .ya{font-size:22px;font-weight:600;letter-spacing:-.5px;color:var(--ink)}
 
 /* semáforo. El amarillo lleva tinta oscura: sobre #f9ab00 el blanco no llega
    al contraste mínimo ni a tamaño grande. */
@@ -655,50 +655,21 @@ h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
 
 <script>
 /* ═══════════ LA CONFIGURACIÓN DEL CICLO ═══════════
-   COPIA CONSCIENTE del APP_CONFIG del cotizador (paginas/cotizador/index.html,
-   busca «CONFIGURACIÓN FIJA DEL CICLO»). El cotizador es la fuente de verdad:
-   si allá cambian precios, factores, descuentos o fechas, HAY QUE actualizar
-   este bloque a mano. Todo lo demás de esta página se calcula desde aquí. */
-const CFG = {
-  ciclo: "2026–2027",
-  firmaTemprana: "19 de marzo de 2027",
-  firmaTempranaCorta: "19 mar 2027",
-  /* La primera exhibición cae en agosto, cuando se entregan los equipos: el
-     cotizador lo fija en APP_CONFIG.cycle.delivery = "15 de agosto de 2027".
-     El año va escrito porque el corte de firma temprana (marzo 2027) es
-     ANTERIOR a ese agosto, y sin año la lámina se lee al revés. */
-  primeraExhibicion: "agosto 2027",
-  /* precio de lista por alumno y por año: paquete → fila de equipo → modalidad
-     (índices: 0 = sin equipos, 1 = 1:4, 2 = 1:3, 3 = 1:2, 4 = 1:1) */
-  pricing: {
-    edu :{n3:[3000,4225,4633.333333,5450,7900], n4:[3000,3975,4300,4950,6900],
-          flip:[3000,3300,3400,3600,4200], tab:[3000,3300,3400,3600,4200]},
-    plus:{n3:[3500,4725,5133.333333,5950,8400], n4:[3500,4475,4800,5450,7400],
-          flip:[3500,3875,4000,4250,5000], tab:[3500,3875,4000,4250,5000]}
-  },
-  /* cómo escala el precio de lista año con año, según el plazo */
-  factores: { three:[0.94,1.02,1.10], four:[0.90,0.97,1.04,1.11], twoFlat:[1,1] },
-  /* descuentos por forma de pago, y su calendario */
-  pagos: [
-    {k:"contado", disc:0.10, agosto:1,  mensualidades:0,  cls:"con", insignia:"−10%"},
-    {k:"antes",   disc:0.05, agosto:.5, mensualidades:10, cls:"ant", insignia:"−5%"},
-    {k:"despues", disc:0,    agosto:.5, mensualidades:10, cls:"des", insignia:"Precio de lista", suave:true}
-  ],
-  /* referencia de descuento por volumen para redes de colegios (validación
-     comercial requerida, igual que en el cotizador) */
-  volumen: [["500 – 999",10],["1,000 – 1,499",15],["1,500 – 1,999",20],
-            ["2,000 – 2,499",30],["2,500 – 2,999",40],["3,000 – 4,999",45],["5,000 +",55]]
-};
-const TERMS = [
-  {k:"cb3", row:"n3",  years:3, sched:CFG.factores.three,   nombre:"Chromebook nueva",           plazo:"3 años", corto:"Chromebook · 3 años", ico:"laptop"},
-  {k:"cb4", row:"n4",  years:4, sched:CFG.factores.four,    nombre:"Chromebook nueva",           plazo:"4 años", corto:"Chromebook · 4 años", ico:"laptop"},
-  {k:"fl2", row:"flip",years:2, sched:CFG.factores.twoFlat, nombre:"Chromebook Flip-Touch seminueva", plazo:"2 años", corto:"Flip-Touch · 2 años", ico:"flip"},
-  {k:"tb3", row:"tab", years:3, sched:CFG.factores.three,   nombre:"Tablet",                     plazo:"3 años", corto:"Tablet · 3 años", ico:"tablet"}
-];
-const MODS = [
-  {i:0, label:"Sin equipos"},
-  {i:1, label:"1:4"}, {i:2, label:"1:3"}, {i:3, label:"1:2"}, {i:4, label:"1:1"}
-];
+   Vive en compartidos/js/precios-ciclo.js, que también alimenta la lámina del
+   desglose del deck de upgrade-edu. Ahí está la regla de oro: el cotizador es la
+   fuente de verdad y ese archivo es una copia consciente suya. Aquí NO se
+   escriben precios: si hace falta cambiar uno, se cambia allá y las dos páginas
+   lo reciben a la vez. */
+if(!window.PreciosCiclo){
+  document.title = "Precios · faltan los datos del ciclo";
+  document.body.innerHTML = '<p style="color:#fff;font:500 16px/1.5 system-ui;padding:40px">' +
+    'No se pudo cargar <b>compartidos/js/precios-ciclo.js</b>. Esta página no puede ' +
+    'enseñar precios sin él: repártela como carpeta completa, no como archivo suelto.</p>';
+  throw new Error("precios-ciclo.js no cargó");
+}
+const {CFG, TERMS, MODS, roundFinancial, roundCurrency, money, moneyCompact,
+       calcAnio, desglose, tramosEscenario, nombrePaquete} = PreciosCiclo;
+
 /* colores por columna de modalidad y por año, los mismos cuatro del deck */
 const COL = [
   {c:"var(--blue-d)", t:"var(--blue-t)", dot:"#4285f4"},
@@ -706,13 +677,6 @@ const COL = [
   {c:"var(--yel-d)",  t:"var(--yel-t)",  dot:"#f9ab00"},
   {c:"var(--grn-d)",  t:"var(--grn-t)",  dot:"#34a853"}
 ];
-/* Los rótulos de las tres formas de pago se derivan de las fechas de arriba:
-   escribirlos a mano en la lámina y en el CFG fue como el año de agosto acabó
-   faltando. Se usan en las tarjetas del desglose y en la lámina de paquetes. */
-CFG.pagos[0].titulo = "Contado en " + CFG.primeraExhibicion;
-CFG.pagos[1].titulo = "Firma antes del " + CFG.firmaTempranaCorta;
-CFG.pagos[2].titulo = "Firma a partir del " + CFG.firmaTempranaCorta;
-
 /* un icono por columna del desglose: el año, y las tres formas de pago */
 const ICOS_PAGO = {
   anio:'<path d="M19 3h-1V1h-2v2H8V1H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 16H5V8h14v11z"/>',
@@ -725,27 +689,6 @@ const ICOS = {
   flip:'<path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/>',
   tablet:'<path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm1 3v12.6h10V5H7zm5 14a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/>'
 };
-
-/* ═══════════ aritmética: la misma cadena del cotizador ═══════════
-   precio → factor anual → descuento, en precisión completa, y solo se
-   redondea al final (ver calculatePaymentYear en el cotizador). */
-const roundFinancial = n => Math.round((Number(n) + Number.EPSILON) * 1e6) / 1e6;
-const roundCurrency  = n => Math.round((Number(n) + Number.EPSILON) * 100) / 100;
-const money = n => roundCurrency(Number(n) || 0).toLocaleString("es-MX",
-  {style:"currency", currency:"MXN", minimumFractionDigits:2, maximumFractionDigits:2});
-/* para la matriz: sin centavos cuando el importe es redondo */
-const moneyCompact = n => {
-  const v = roundCurrency(Number(n) || 0);
-  return v.toLocaleString("es-MX", {style:"currency", currency:"MXN",
-    minimumFractionDigits: Number.isInteger(v) ? 0 : 2, maximumFractionDigits:2});
-};
-function calcAnio(lista, factor, pago){
-  const net = roundCurrency(roundFinancial(lista * factor * (1 - pago.disc)));
-  if(!pago.mensualidades) return {net, agosto:net, mensual:0};
-  const mensual = roundCurrency(net * (1 - pago.agosto) / pago.mensualidades);
-  const agosto  = roundCurrency(net - mensual * pago.mensualidades);
-  return {net, agosto, mensual};
-}
 
 /* ═══════════ estado de las dos láminas con datos ═══════════ */
 const S = { pkg2:"edu", d:{pkg:"edu", term:"cb4", mod:4} };
@@ -789,11 +732,7 @@ function armaControles(){
    El escenario elegido es el título de la lámina, para que salga en la misma
    foto que los importes. */
 function renderDesglose(){
-  const t = TERMS.find(x => x.k === S.d.term);
-  const lista = CFG.pricing[S.d.pkg][t.row][S.d.mod];
-  const filas = t.sched.map((factor,i) => ({
-    i, factor, pagos: CFG.pagos.map(p => calcAnio(lista, factor, p))
-  }));
+  const {term: t, filas} = desglose(S.d.pkg, S.d.term, S.d.mod);
 
   const col = (cls, ico, titulo, insignia, suave, celdas) => `
     <article class="dcard dcard--${cls}">
@@ -806,10 +745,7 @@ function renderDesglose(){
     </article>`;
 
   const colAnios = col("anio", "anio", "Año de contrato", `${t.years} años`, true,
-    filas.map(f => `<div class="dfila">
-        <span class="ya">Año ${f.i+1}</span>
-        <span class="yf">× ${f.factor.toFixed(2)}</span>
-      </div>`).join(""));
+    filas.map(f => `<div class="dfila"><span class="ya">Año ${f.i+1}</span></div>`).join(""));
 
   const colsPago = CFG.pagos.map((p,j) => col(p.cls, p.cls, p.titulo, p.insignia, p.suave,
     filas.map(f => {
@@ -831,14 +767,8 @@ function renderDesglose(){
   const esPlus = S.d.pkg === "plus";
   const tit = document.getElementById("dTitulo");
   tit.style.setProperty("--tc", esPlus ? "var(--plus-d)" : "var(--blue-d)");
-  /* Sin equipos NO se nombra el equipo: el precio de la modalidad 0 es el mismo
-     en las cuatro filas de equipo, y anunciar «Flip-Touch seminueva · sin equipos»
-     se contradice en la misma línea. El plazo sí se queda: manda sobre los años. */
-  const tramos = S.d.mod === 0
-    ? ["Sin equipos", `${t.years} años`]
-    : [t.nombre, "modalidad " + MODS[S.d.mod].label, `${t.years} años`];
-  tit.innerHTML = `<span class="paqn">Upgrade Edu${esPlus ? " Plus" : ""}</span>` +
-    tramos.map(x => `<span class="sep">·</span>${x}`).join("");
+  tit.innerHTML = `<span class="paqn">${nombrePaquete(S.d.pkg)}</span>` +
+    tramosEscenario(S.d.pkg, t, S.d.mod).map(x => `<span class="sep">·</span>${x}`).join("");
   document.getElementById("dNota").innerHTML =
     `Importes <b>por alumno y por año</b>, IVA incluido. Las mensualidades corren de ` +
     `septiembre a junio. El descuento de la forma de pago aplica a cada año del contrato.`;

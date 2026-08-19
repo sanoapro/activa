@@ -1,15 +1,21 @@
 # upgrade edu 2026–2027
 
-Deck de 33 diapositivas del programa comercial, estilo Google for Education.
+Deck de 34 diapositivas del programa comercial, estilo Google for Education.
 Se publica en **https://sanoapro.github.io/activa/paginas/upgrade-edu/**
 
 Markup, CSS, JS e imágenes en base64 viven dentro de `index.html`. Se abre con doble clic, sin
 servidor y sin compilar nada.
 
-**Ya no es un archivo suelto:** desde agosto de 2026 carga el motor de movimiento compartido de
-`compartidos/`, así que viaja como carpeta o como zip, no como un `index.html` solo. Fue una
-decisión deliberada, para tener un único lugar donde arreglar el movimiento de las cuatro
-páginas.
+**Ya no es un archivo suelto:** desde agosto de 2026 carga dos archivos de `compartidos/`, así
+que viaja como carpeta o como zip, no como un `index.html` solo.
+
+| Archivo compartido | Qué pasa si falta |
+|---|---|
+| `js/motion.js` | Nada grave: el deck queda completo, quieto y navegable (regla 4 de la normativa). |
+| `js/precios-ciclo.js` | La **lámina 33** se queda sin precios y lo dice en pantalla. No es opcional. |
+
+Las dos son la misma decisión: un único lugar donde arreglar el movimiento —y ahora los
+precios— de todas las páginas, en vez de una copia por archivo.
 
 ## Archivos
 
@@ -57,8 +63,9 @@ respuesta táctil a un control *dentro* de una lámina; el resto del cromo usa l
 
 Motivos por diapositiva:
 
-**Las 33 tienen motivo propio.** No hay lámina muerta entre la portada y el cierre: era el
-defecto que arrastraba el deck, con todo el movimiento concentrado en la primera y la última.
+**Las 33 de contenido tienen motivo propio.** No hay lámina muerta entre la portada y el cierre:
+era el defecto que arrastraba el deck, con todo el movimiento concentrado en la primera y la
+última. La 34.ª —el desglose— es la excepción declarada: ahí lo que manda son las cifras.
 
 | Diapositiva | Movimiento |
 |---|---|
@@ -83,7 +90,8 @@ defecto que arrastraba el deck, con todo el movimiento concentrado en la primera
 | 29 · 30 · piloto | cascada de la rejilla, con pictograma en cada renglón |
 | 31 · piloto · proceso y calendario | un punto recorre la banda del coach en cuatro tiempos —una parada por semana de aula— y descansa |
 | 32 · piloto · resultados | **subrayado a mano** sobre «datos propios» · cascada de la rejilla |
-| 33 · cierre | confeti que estalla desde el centro · vaivén de las letras de Google · tarjetas que se inclinan |
+| 33 · el desglose | **ninguno propio, a propósito**: los importes no se animan (prohibición expresa de la normativa) y las cuatro columnas entran con el `.body`, como un bloque |
+| 34 · cierre | confeti que estalla desde el centro · vaivén de las letras de Google · tarjetas que se inclinan |
 
 Y en todas las de contenido, los círculos pastel del fondo derivan muy despacio (`.mv-flota`,
 16 s por ciclo). La clase la reparte la coreografía, no el markup.
@@ -120,6 +128,36 @@ Las reglas están en [`docs/normativa-motion.md`](../../docs/normativa-motion.md
 obligatorias. Al agregar animaciones propias hay que anularlas también en `@media print`: la tecla
 `P` imprime a PDF y una hoja en blanco llegaría al cliente.
 
+## La lámina 33 · el desglose, año por año
+
+La penúltima. Es la misma lámina que abre [`paginas/precios/`](../precios/), traída al deck para
+cerrar la junta con el número puesto: el comercial arma el escenario —paquete, equipo y plazo,
+modalidad— delante del director, y las cuatro columnas dan el importe **por alumno y por año**
+con las tres formas de pago.
+
+Tres cosas que hay que respetar al tocarla:
+
+- **Aquí no se escribe ni un precio.** Salen de
+  [`compartidos/js/precios-ciclo.js`](../../compartidos/js/precios-ciclo.js), el mismo archivo que
+  alimenta la página de precios. Ese archivo es una copia consciente del `APP_CONFIG` del
+  [cotizador](../cotizador/), que sigue siendo la única fuente de verdad.
+- **Los tres conmutadores van dentro de `[data-noadv]`.** En este deck un clic sobre la lámina
+  AVANZA; elegir un escenario delante del director no puede pasar de diapositiva. Y por lo mismo,
+  los botones se construyen una vez y después solo cambian de `aria-pressed`: reconstruir su
+  `innerHTML` dentro del propio clic desprendía el botón del DOM antes de que el listener del
+  escenario lo mirara, `closest("[data-noadv]")` devolvía `null` sobre un nodo huérfano, y el deck
+  avanzaba igual. Es un error que solo aparece al probarlo con el ratón.
+- **Sin total del contrato**, decisión comercial: en la primera visita se enseña el importe anual
+  por alumno, no la suma de los años. Y sin `brandmark`, porque el rótulo del escenario llega a
+  «Upgrade Edu Plus · Chromebook Flip-Touch seminueva · modalidad 1:1 · 2 años» y necesita el
+  ancho entero.
+
+El semáforo de las cuatro columnas —azul el eje de años, y verde → amarillo → rojo las tres
+formas de pago— es información, no adorno: se lee antes de leer un solo número. El amarillo
+lleva tinta oscura porque sobre `#f9ab00` el blanco no llega al contraste mínimo ni a tamaño
+grande. Prefijo `dsg-` en todo su CSS: `.seg` ya es de la barra de ejes y `.card` ya lleva el
+realce del deck.
+
 ## Atajos
 
 - `←` `→` navegar
@@ -129,7 +167,7 @@ obligatorias. Al agregar animaciones propias hay que anularlas también en `@med
 
 ## El bloque del proyecto piloto (28–32)
 
-Cinco láminas entre «Por qué activa» (27) y el cierre (33). Cierran la junta con la oferta del
+Cinco láminas entre «Por qué activa» (27) y el desglose (33). Cierran la junta con la oferta del
 piloto gratuito de cuatro semanas, en este orden: **oferta → trato → preparación → proceso y
 calendario → resultados**. Cada una lleva su fase en `data-bloque`.
 
