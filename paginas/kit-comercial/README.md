@@ -57,7 +57,7 @@ obligatorias.
 
 - Clic en una tarjeta → abre el destino en pestaña nueva.
 - Pasar el cursor y clic en **⧉** → copia el enlace al portapapeles (para mandarlo por WhatsApp).
-- Teclas **1–9** → abren el acceso correspondiente, en el orden en que se leen (izquierda a derecha, de arriba abajo). **D** → descargables. **F** → pantalla completa.
+- Teclas **1–9** y **0** → abren el acceso correspondiente, en el orden en que se leen (izquierda a derecha, de arriba abajo). El **0** es el décimo, como en cualquier barra de tareas. **D** → descargables. **F** → pantalla completa.
 - Botón **QR** (solo en las tarjetas que traen `qr`) → abre el código a pantalla completa sobre
   fondo blanco, para que la sala lo escanee. Se sale con el botón **← Volver al kit** (arriba a la
   izquierda, donde vive el «atrás» de cualquier navegador), con **Esc**, con la ✕ o tocando el fondo.
@@ -104,11 +104,17 @@ silencio que el PNG recortado no trae. **Cada QR nuevo hay que probarlo con un t
 verdad** antes de llevarlo a un evento; que el archivo contenga la URL correcta no garantiza que
 una cámara lo levante.
 
-La retícula es de **3×3**: tres bloques de tres —venta, eventos y proceso interno—.
-Ese número no es decorativo: con tres filas cada tarjeta mide ≈106 px de alto, y por
-eso es horizontal (icono al costado). Una cuarta tarjeta en una fila la deja en `.g4`,
-que ya existe, pero entonces esa fila no cuadra con las otras dos: si el kit crece de
-verdad, lo honesto es repartir en tres otra vez, no estirar una sola fila.
+La retícula es de **4 + 3 + 3**: venta lleva cuatro accesos y los otros dos bloques tres.
+Las tres filas miden lo mismo de alto (≈106 px por tarjeta) y por eso la tarjeta es
+horizontal, con el icono al costado.
+
+La fila de cuatro usa `.g4` y **se aprieta sola**: 286 px de ancho por tarjeta en vez de
+387, así que un bloque de reglas `.kc-grid.g4 .tile` baja el icono a 38 y el cuerpo un
+punto. No es densidad porque sí — con el tamaño de la fila de tres, «Presentación
+comercial» se parte en dos líneas y la tarjeta rebasa los 106 px. **Las descripciones de
+esa fila tienen que quedarse cortas** (≈60 caracteres); si crecen, se parten en tres
+líneas y desbordan. Una quinta tarjeta en esa fila ya no cabe con este diseño: ahí toca
+repartir de nuevo, no seguir apretando.
 
 La base de datos vive en **eventos** y no en proceso interno a propósito: se llena el
 día del evento, con el registro en la mano.
