@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>og · arrendamiento (molde, no publicar)</title>
+<!-- Molde de la vista previa de WhatsApp (og.png, 1200×630). No se abre en
+     público y NO lleva un solo dato de precio: la imagen viaja con el enlace.
+     Cómo se regenera: ver README.md de esta carpeta. -->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1200px;height:630px;overflow:hidden}
+body{
+  font-family:"Segoe UI",Roboto,Arial,sans-serif;color:#202124;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(52,168,83,.14), transparent 22%),
+    radial-gradient(circle at 6% 88%, rgba(251,188,4,.16), transparent 24%),
+    radial-gradient(circle at 88% 82%, rgba(66,133,244,.12), transparent 26%),
+    linear-gradient(135deg,#e6f4ea 0%,#f6fdf8 52%,#e8f0fe 100%);
+  display:flex;flex-direction:column
+}
+.gbar{height:14px;display:flex}
+.gbar i{flex:1}
+.gbar i:nth-child(1){background:#4285f4}.gbar i:nth-child(2){background:#ea4335}
+.gbar i:nth-child(3){background:#fbbc04}.gbar i:nth-child(4){background:#34a853}
+.inner{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 84px}
+.brand{display:flex;align-items:center;gap:18px;margin-bottom:34px}
+.gdots{display:grid;grid-template-columns:repeat(2,16px);grid-gap:7px}
+.gdots i{width:16px;height:16px;border-radius:50%;display:block}
+.gdots i:nth-child(1){background:#4285f4}.gdots i:nth-child(2){background:#ea4335}
+.gdots i:nth-child(3){background:#fbbc04}.gdots i:nth-child(4){background:#34a853}
+.brand b{font-size:38px;font-weight:700;letter-spacing:-.5px}
+.brand span{font-size:19px;color:#5f6368;border-left:2px solid #dadce0;padding-left:18px}
+.eyebrow{font-size:20px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#188038;margin-bottom:14px}
+h1{font-size:74px;font-weight:800;line-height:1.06;letter-spacing:-2px;margin-bottom:22px}
+h1 em{font-style:normal;color:#188038}
+.sub{font-size:27px;color:#3c4043;line-height:1.4;max-width:900px;margin-bottom:36px}
+.chips{display:flex;gap:14px;flex-wrap:wrap}
+.chip{display:inline-block;border-radius:999px;padding:12px 26px;font-size:22px;font-weight:600}
+.chip.g{background:#e6f4ea;color:#0d652d;border:2px solid #a8dab5}
+.chip.b{background:#e8f0fe;color:#174ea6;border:2px solid #aecbfa}
+.chip.y{background:#fef7e0;color:#8a4b00;border:2px solid #fdd663}
+.chip.r{background:#fce8e6;color:#a50e0e;border:2px solid #f6c7c2}
+</style>
+</head>
+<body>
+<div class="gbar"><i></i><i></i><i></i><i></i></div>
+<div class="inner">
+  <div class="brand"><span class="gdots"><i></i><i></i><i></i><i></i></span><b>activa</b><span>Google for Education Partner</span></div>
+  <div class="eyebrow">Arrendamiento de equipo</div>
+  <h1>Chromebooks en renta,<br><em>mensualidad fija</em> para el colegio</h1>
+  <p class="sub">Cotiza equipo de estudiante y docente en un solo paso: plazo a 3 o 4 años, con seguro, Securly y carritos de carga.</p>
+  <div class="chips">
+    <span class="chip g">3 o 4 años</span>
+    <span class="chip b">Mensualidad fija en MXN</span>
+    <span class="chip y">IVA desglosado</span>
+    <span class="chip r">Seguro y Securly</span>
+  </div>
+</div>
+<div class="gbar"><i></i><i></i><i></i><i></i></div>
+</body>
+</html>

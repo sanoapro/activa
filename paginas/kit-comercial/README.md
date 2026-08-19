@@ -57,7 +57,7 @@ obligatorias.
 
 - Clic en una tarjeta → abre el destino en pestaña nueva.
 - Pasar el cursor y clic en **⧉** → copia el enlace al portapapeles (para mandarlo por WhatsApp).
-- Teclas **1–9** y **0** → abren el acceso correspondiente, en el orden en que se leen (izquierda a derecha, de arriba abajo). El **0** es el décimo, como en cualquier barra de tareas. **D** → descargables. **F** → pantalla completa.
+- Teclas **1–9** y **0** → abren el acceso correspondiente, en el orden en que se leen (izquierda a derecha, de arriba abajo). El **0** es el décimo, como en cualquier barra de tareas; con doce accesos, los dos últimos (Reembolso y Compra directa) quedan sin atajo — no hay más teclas de un dígito. **D** → descargables. **F** → pantalla completa.
 - Botón **QR** (solo en las tarjetas que traen `qr`) → abre el código a pantalla completa sobre
   fondo blanco, para que la sala lo escanee. Se sale con el botón **← Volver al kit** (arriba a la
   izquierda, donde vive el «atrás» de cualquier navegador), con **Esc**, con la ✕ o tocando el fondo.
@@ -104,17 +104,20 @@ silencio que el PNG recortado no trae. **Cada QR nuevo hay que probarlo con un t
 verdad** antes de llevarlo a un evento; que el archivo contenga la URL correcta no garantiza que
 una cámara lo levante.
 
-La retícula es de **4 + 3 + 3**: venta lleva cuatro accesos y los otros dos bloques tres.
-Las tres filas miden lo mismo de alto (≈106 px por tarjeta) y por eso la tarjeta es
-horizontal, con el icono al costado.
+La retícula es de **5 + 3 + 4**: venta lleva cinco accesos, eventos tres, y proceso
+interno pasó a cuatro cuando entró el cotizador de **Compra directa** (ago-2026) — es una
+herramienta de venta, pero la fila de venta ya estaba llena, así que la fila interna
+cambió su clase a `.g4`, cuya densidad ya existía. Las tres filas miden lo mismo de alto
+(≈106 px por tarjeta) y por eso la tarjeta es horizontal, con el icono al costado.
 
-La fila de cuatro usa `.g4` y **se aprieta sola**: 286 px de ancho por tarjeta en vez de
-387, así que un bloque de reglas `.kc-grid.g4 .tile` baja el icono a 38 y el cuerpo un
-punto. No es densidad porque sí — con el tamaño de la fila de tres, «Presentación
-comercial» se parte en dos líneas y la tarjeta rebasa los 106 px. **Las descripciones de
-esa fila tienen que quedarse cortas** (≈60 caracteres); si crecen, se parten en tres
-líneas y desbordan. Una quinta tarjeta en esa fila ya no cabe con este diseño: ahí toca
-repartir de nuevo, no seguir apretando.
+Las filas apretadas **se aprietan solas** por clase de rejilla: `.g4` (286 px por tarjeta)
+baja el icono a 38 y el cuerpo un punto; `.g5` (≈229 px, la fila de venta desde que entró
+el cotizador de arrendamiento) baja el icono a 34 y el cuerpo otro punto. No es densidad
+porque sí — con el tamaño de la fila de tres, «Presentación comercial» se parte en dos
+líneas y la tarjeta rebasa los 106 px. **Las descripciones de la fila de cinco tienen que
+quedarse en una idea corta** (≈55 caracteres, dos líneas a 10.5 px); si crecen, desbordan.
+Una sexta tarjeta en esa fila ya no cabe con este diseño: ahí toca repartir de nuevo, no
+seguir apretando.
 
 La base de datos vive en **eventos** y no en proceso interno a propósito: se llena el
 día del evento, con el registro en la mano.
