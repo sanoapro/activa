@@ -131,7 +131,7 @@ h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
 .seg.chica button{height:27px;font-size:11.5px;padding:0 10px}
 
 /* ═══════════ LÁMINA 1 · paquetes y formas de pago ═══════════ */
-.l1-cuerpo{position:relative;z-index:2;flex:1;min-height:0;
+.cuerpo-paquetes{position:relative;z-index:2;flex:1;min-height:0;
   display:flex;flex-direction:column;gap:13px}
 .paqs{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
 /* envoltura doble, como en el kit: la cascada (mo-stagger) anima .twrap y la
@@ -162,31 +162,32 @@ h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
   box-shadow:0 6px 16px -6px var(--c)}
 .paq-ico svg{width:26px;height:26px;fill:#fff;display:block}
 .paq-id{flex:1;min-width:0}
-.paq-n{font-size:19px;font-weight:600;letter-spacing:-.4px;line-height:1.1}
-.paq-d{font-size:11.5px;color:var(--ink2);margin-top:2px}
+.paq-n{font-size:20.5px;font-weight:600;letter-spacing:-.4px;line-height:1.1}
+.paq-d{font-size:12.5px;color:var(--ink2);margin-top:3px}
 .paq-precio{text-align:right;flex-shrink:0}
 .paq-precio .desde{display:block;font-size:10px;font-weight:700;letter-spacing:1.2px;
   text-transform:uppercase;color:var(--ink3)}
 .paq-precio b{display:block;font-size:27px;font-weight:600;letter-spacing:-1px;color:var(--cd)}
 .paq-precio .uni{display:block;font-size:10.5px;color:var(--ink2)}
-.paq-chip{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;
-  font-size:10.5px;font-weight:700;letter-spacing:.3px;color:var(--cd);
-  background:var(--tint);border-radius:99px;padding:4px 10px}
-.paq-chip svg{width:12px;height:12px;fill:currentColor}
+.paq-chip{align-self:flex-start;display:inline-flex;align-items:center;gap:7px;
+  font-size:11.5px;font-weight:700;letter-spacing:.3px;color:var(--cd);
+  background:var(--tint);border-radius:99px;padding:5px 12px}
+.paq-chip svg{width:13px;height:13px;fill:currentColor;flex-shrink:0}
 
 /* las tres filas se reparten el alto sobrante de la tarjeta: sin esto, el
    contenido se apila arriba y el pie queda como un hueco sin propósito */
 .paq-areas{list-style:none;flex:1;display:flex;flex-direction:column;
   justify-content:space-evenly;gap:8px;margin-top:2px}
-.paq-areas li{display:flex;gap:10px;align-items:flex-start}
-.ar{flex-shrink:0;width:30px;height:22px;border-radius:7px;display:grid;place-items:center;
-  font-size:10.5px;font-weight:700;letter-spacing:.5px}
+.paq-areas li{display:flex;gap:12px;align-items:center}
+.ar{flex-shrink:0;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+  font-size:11.5px;font-weight:700;letter-spacing:.5px;line-height:1}
+.ar.ico svg{width:19px;height:19px;fill:currentColor;display:block}
 .ar.ti{background:var(--blue-t);color:var(--blue-d)}
 .ar.ip{background:var(--red-t);color:var(--red-d)}
 .ar.dp{background:var(--grn-t);color:var(--grn-d)}
 .ar.pl{background:var(--plus-t);color:var(--plus-d)}
-.paq-areas b{display:block;font-size:12px;font-weight:600;letter-spacing:-.1px;line-height:1.25}
-.paq-areas span{display:block;font-size:11px;color:var(--ink2);line-height:1.35}
+.paq-areas b{display:block;font-size:13.5px;font-weight:600;letter-spacing:-.1px;line-height:1.25}
+.paq-areas span{display:block;font-size:12.5px;color:var(--ink2);line-height:1.38;margin-top:1px}
 
 /* ---------- formas de pago ---------- */
 .pagos{flex-shrink:0;display:flex;flex-direction:column;gap:7px}
@@ -206,15 +207,15 @@ h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
   background:var(--tint);color:var(--cd)}
 .pago-ico svg{width:19px;height:19px;fill:currentColor}
 .pago-tx{flex:1;min-width:0}
-.pago-tx b{display:block;font-size:12.5px;font-weight:600;letter-spacing:-.2px;line-height:1.2}
-.pago-tx span{display:block;font-size:10.5px;color:var(--ink2);line-height:1.3;margin-top:1px}
+.pago-tx b{display:block;font-size:13.5px;font-weight:600;letter-spacing:-.2px;line-height:1.2}
+.pago-tx span{display:block;font-size:11.5px;color:var(--ink2);line-height:1.3;margin-top:2px}
 .pago-badge{flex-shrink:0;font-size:14px;font-weight:700;letter-spacing:-.4px;color:var(--cd);
   background:var(--tint);border-radius:99px;padding:5px 11px}
 .pago.gris .pago-badge{font-size:10.5px;font-weight:600;letter-spacing:.2px}
 .legal{font-size:10px;color:var(--ink3);text-align:center;flex-shrink:0}
 
 /* ═══════════ LÁMINA 2 · matriz de precios ═══════════ */
-.l2-cuerpo{position:relative;z-index:2;flex:1;min-height:0;
+.cuerpo-matriz{position:relative;z-index:2;flex:1;min-height:0;
   display:flex;flex-direction:column;gap:10px}
 .matriz{width:100%;border-collapse:separate;border-spacing:0;flex-shrink:0}
 .matriz th,.matriz td{padding:0}
@@ -265,40 +266,67 @@ h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
 .pie-nota{font-size:10.5px;color:var(--ink3);flex-shrink:0}
 .pie-nota b{font-weight:600;color:var(--ink2)}
 
-/* ═══════════ LÁMINA 3 · desglose año por año ═══════════ */
-/* centrado vertical: con 2 años la tabla es corta y con 4 llena; el aire
-   sobrante se reparte arriba y abajo en vez de acumularse antes del pasto */
-.l3-cuerpo{position:relative;z-index:2;flex:1;min-height:0;
-  display:flex;flex-direction:column;justify-content:center;gap:13px}
+/* ═══════════ LÁMINA · desglose año por año ═══════════
+   Cuatro columnas-tarjeta a lámina completa. Era una tabla con un pie de
+   «total del contrato»; se fotografiaba mal y enseñaba la cifra total en la
+   primera visita, que es justo lo que no conviene enseñar todavía.
+   El semáforo no es decoración: verde barato, amarillo intermedio, rojo
+   precio de lista. Se lee antes de leer un solo número. */
+.lamina.plena{padding:22px 40px 40px}
+.cuerpo-desglose{position:relative;z-index:2;flex:1;min-height:0;
+  display:flex;flex-direction:column;gap:12px}
 .ctrl{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;flex-shrink:0}
 .cg{display:flex;flex-direction:column;gap:4px}
 .cl{font-size:9.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3)}
 
-.desg{width:100%;border-collapse:separate;border-spacing:0;flex-shrink:0}
-.desg thead th{padding:8px 10px;font-size:11px;font-weight:700;text-align:center;
-  border-bottom:2px solid var(--line2)}
-.desg thead th:first-child{text-align:left}
-.desg thead .dh{display:flex;flex-direction:column;align-items:center;gap:3px}
-.desg thead .dh b{font-size:12.5px;letter-spacing:-.2px;color:var(--hc)}
-.desg thead .dh span{font-size:13px;font-weight:700;color:var(--hc);
-  background:var(--ht);border-radius:99px;padding:2px 11px}
-.desg tbody th{padding:8px 10px 8px 0;text-align:left;border-bottom:1px solid var(--line2);
-  font-size:13px;font-weight:600;white-space:nowrap}
-.desg tbody th em{font-style:normal;font-size:10.5px;font-weight:600;color:var(--ink2);
-  background:var(--wash);border:1px solid var(--line2);border-radius:99px;padding:2px 8px;margin-left:8px}
-.ydot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--yc);
-  margin-right:8px;vertical-align:1px}
-.desg tbody td{padding:8px 6px;text-align:center;border-bottom:1px solid var(--line2)}
-.desg td b{display:block;font-size:15.5px;font-weight:600;letter-spacing:-.4px}
-.desg td span{display:block;font-size:9.5px;color:var(--ink2);margin-top:1px}
-.desg .con b{color:var(--grn-d)} .desg .ant b{color:var(--blue-d)} .desg .des b{color:var(--ink)}
-.desg tfoot th,.desg tfoot td{padding:9px 6px;border-top:2px solid var(--line2)}
-.desg tfoot th{text-align:left;font-size:12px;font-weight:700;letter-spacing:.2px}
-.desg tfoot td{text-align:center}
-.desg tfoot td b{display:block;font-size:16.5px;font-weight:700;letter-spacing:-.5px}
-.desg tfoot td span{display:block;font-size:9.5px;margin-top:1px;color:var(--ink2)}
-.desg tfoot .con span,.desg tfoot .ant span{font-weight:700}
-.desg tfoot .con span{color:var(--grn-d)} .desg tfoot .ant span{color:var(--blue-d)}
+/* título y tarjetas viajan juntos: son un solo bloque para la foto */
+.desg-bloque{flex:1;min-height:0;display:flex;flex-direction:column;gap:11px}
+.desg-titulo{flex-shrink:0}
+.desg-titulo h1{font-size:29px;line-height:1.1;letter-spacing:-1.1px;font-weight:500}
+.desg-titulo h1 .paqn{font-weight:600;color:var(--tc)}
+.desg-titulo h1 .sep{color:var(--ink3);font-weight:300;margin:0 6px}
+.desg-nota{font-size:11.5px;color:var(--ink3);line-height:1.35;margin-top:5px}
+.desg-nota b{font-weight:600;color:var(--ink2)}
+
+.dcards{flex:1;min-height:0;display:grid;grid-template-columns:.72fr 1fr 1fr 1fr;gap:12px}
+.dcard{display:flex;flex-direction:column;min-height:0;border-radius:16px;overflow:hidden;
+  border:1px solid var(--line);background:var(--white);box-shadow:var(--sh1)}
+.dcard-cab{flex-shrink:0;background:var(--c);color:var(--ct);padding:10px 12px 11px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  text-align:center;min-height:98px}
+.dcard-ico{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
+  background:rgba(255,255,255,.22)}
+.dcard-ico svg{width:16px;height:16px;fill:currentColor;display:block}
+.dcard-k{font-size:14px;font-weight:600;letter-spacing:-.2px;line-height:1.16}
+.dcard-b{font-size:15px;font-weight:700;letter-spacing:-.3px;
+  background:rgba(255,255,255,.22);border-radius:99px;padding:2px 12px}
+.dcard-b.suave{font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+
+/* las filas se reparten el alto sobrante: con 2 años quedan anchas y con 4
+   ajustadas, pero siempre alineadas entre las cuatro columnas */
+.dcard-filas{flex:1;min-height:0;display:flex;flex-direction:column}
+.dfila{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:2px;padding:6px 10px;text-align:center;
+  border-top:1px solid var(--line2)}
+.dfila:first-child{border-top:0}
+.dcard .imp{font-size:25px;font-weight:600;letter-spacing:-1px;color:var(--cd);
+  font-variant-numeric:tabular-nums}
+.dcard .cal{font-size:10.5px;color:var(--ink2);line-height:1.3;font-variant-numeric:tabular-nums}
+
+/* la columna de años: etiqueta y factor en la misma línea */
+.dcard--anio .dfila{flex-direction:row;gap:9px}
+.dcard--anio .ya{font-size:19px;font-weight:600;letter-spacing:-.5px;color:var(--ink)}
+.dcard--anio .yf{font-size:11px;font-weight:600;color:var(--ink2);background:var(--wash);
+  border:1px solid var(--line2);border-radius:99px;padding:2px 8px;
+  font-variant-numeric:tabular-nums}
+
+/* semáforo. El amarillo lleva tinta oscura: sobre #f9ab00 el blanco no llega
+   al contraste mínimo ni a tamaño grande. */
+.dcard--anio{--c:var(--blue);--ct:#fff;--cd:var(--blue-d)}
+.dcard--con {--c:var(--grn); --ct:#fff;--cd:var(--grn-d)}
+.dcard--ant {--c:var(--yel); --ct:var(--ink);--cd:var(--yel-d)}
+.dcard--des {--c:var(--red); --ct:#fff;--cd:var(--red-d)}
+.dcard--ant .dcard-ico,.dcard--ant .dcard-b{background:rgba(32,33,36,.14)}
 
 /* ---------- navegación entre láminas (fuera del escenario) ---------- */
 #nav{position:fixed;right:22px;bottom:16px;z-index:50;display:flex;align-items:center;gap:10px;color:#fff}
@@ -346,8 +374,143 @@ h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
 
 <div id="stage">
 
-<!-- ════════════════ LÁMINA 1 · Dos paquetes, un ecosistema ════════════════ -->
-<section class="lamina on" id="l1" role="group" aria-roledescription="diapositiva" aria-label="Lámina 1 de 3: Paquetes y formas de pago">
+<!-- ════════════════ LÁMINA · El desglose, año por año ════════════════ -->
+<section class="lamina plena on" id="lDes" role="group" aria-roledescription="diapositiva" aria-label="Lámina 1 de 3: Desglose año por año con las tres formas de pago">
+
+  <div class="bg" aria-hidden="true">
+    <span class="shape" style="width:420px;height:420px;left:-180px;top:-200px;background:var(--plus-t);opacity:.5"></span>
+    <span class="shape" style="width:320px;height:320px;right:-130px;top:-150px;background:var(--blue-t);opacity:.55"></span>
+    <div class="mv-pasto corta"><svg viewBox="0 0 1280 42" preserveAspectRatio="none">
+      <rect x="0" y="39.5" width="1280" height="2.5" fill="#34a853" opacity=".28"/>
+      <g transform="translate(30,42) scale(.55)"><g class="mv-crece" style="animation-delay:.2s"><path class="mv-mece" style="animation-delay:-1.2s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".6"/></g></g>
+      <g transform="translate(74,42) scale(.5)"><g class="mv-crece" style="animation-delay:1.1s"><path class="mv-mece" style="animation-delay:-3.4s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+      <g transform="translate(150,42) scale(.6)"><g class="mv-crece" style="animation-delay:.5s"><path class="mv-mece" style="animation-delay:-.6s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#1e8e3e" opacity=".62"/></g></g>
+      <g transform="translate(238,42) scale(.5)"><g class="mv-crece" style="animation-delay:1.4s"><path class="mv-mece" style="animation-delay:-2.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+      <g transform="translate(340,42) scale(.6)"><g class="mv-crece" style="animation-delay:.3s"><path class="mv-mece" style="animation-delay:-1.8s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#34a853" opacity=".6"/></g></g>
+      <g transform="translate(452,42) scale(.55)"><g class="mv-crece" style="animation-delay:1s"><path class="mv-mece" style="animation-delay:-5.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#fbbc04" opacity=".6"/></g></g>
+      <g transform="translate(560,42) scale(.5)"><g class="mv-crece" style="animation-delay:.6s"><path class="mv-mece" style="animation-delay:-2.9s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#ea4335" opacity=".45"/></g></g>
+      <g transform="translate(668,42) scale(.6)"><g class="mv-crece" style="animation-delay:.15s"><path class="mv-mece" style="animation-delay:-.9s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#34a853" opacity=".62"/></g></g>
+      <g transform="translate(776,42) scale(.55)"><g class="mv-crece" style="animation-delay:1.3s"><path class="mv-mece" style="animation-delay:-4.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#1e8e3e" opacity=".6"/></g></g>
+      <g transform="translate(884,42) scale(.5)"><g class="mv-crece" style="animation-delay:.7s"><path class="mv-mece" style="animation-delay:-2.5s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+      <g transform="translate(992,42) scale(.6)"><g class="mv-crece" style="animation-delay:.4s"><path class="mv-mece" style="animation-delay:-3.9s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+      <g transform="translate(1100,42) scale(.55)"><g class="mv-crece" style="animation-delay:1.6s"><path class="mv-mece" style="animation-delay:-1.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".62"/></g></g>
+      <g transform="translate(1196,42) scale(.5)"><g class="mv-crece" style="animation-delay:.9s"><path class="mv-mece" style="animation-delay:-5.1s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#1e8e3e" opacity=".55"/></g></g>
+      <g transform="translate(1252,42) scale(.55)"><g class="mv-crece" style="animation-delay:.25s"><path class="mv-mece" style="animation-delay:-3.1s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#ea4335" opacity=".5"/></g></g>
+    </svg></div>
+  </div>
+
+  <div class="cuerpo-desglose">
+
+    <!-- Los tres conmutadores son la lámina: el comercial arma el escenario
+         delante del colegio. Por eso no hay título de lámina ni marca: el
+         escenario elegido ES el título, y sale en la misma foto que los
+         importes cuando alguien fotografía la pantalla en una junta. -->
+    <div class="ctrl">
+      <div class="cg">
+        <span class="cl">Paquete</span>
+        <div class="seg chica" id="segPaqDes" role="group" aria-label="Elegir paquete">
+          <button type="button" data-pkg="edu" style="--segc:var(--blue)" aria-pressed="true">Edu</button>
+          <button type="button" data-pkg="plus" style="--segc:var(--plus)" aria-pressed="false">Edu Plus</button>
+        </div>
+      </div>
+      <div class="cg">
+        <span class="cl">Equipo y plazo</span>
+        <div class="seg chica" id="segTerm" role="group" aria-label="Elegir equipo y plazo"><!-- lo arma armaControles() --></div>
+      </div>
+      <div class="cg">
+        <span class="cl">Modalidad</span>
+        <div class="seg chica" id="segMod" role="group" aria-label="Elegir modalidad"><!-- lo arma armaControles() --></div>
+      </div>
+    </div>
+
+    <div class="desg-bloque">
+      <header class="desg-titulo">
+        <h1 id="dTitulo"><!-- lo arma renderDesglose() --></h1>
+        <p class="desg-nota" id="dNota"><!-- lo arma renderDesglose() --></p>
+      </header>
+      <div class="dcards" id="dCards" role="group"
+           aria-label="Desglose año por año del escenario elegido, por alumno y con las tres formas de pago"
+           aria-live="polite"><!-- lo arma renderDesglose() --></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ LÁMINA · El precio por alumno ════════════════ -->
+<section class="lamina compacta" id="lMat" role="group" aria-roledescription="diapositiva" aria-label="Lámina 2 de 3: Precio por alumno según equipo, plazo y modalidad" aria-hidden="true">
+
+  <div class="bg" aria-hidden="true">
+    <span class="shape" style="width:420px;height:420px;left:-180px;top:-200px;background:var(--yel-t);opacity:.5"></span>
+    <span class="shape" style="width:320px;height:320px;right:-130px;top:-150px;background:var(--grn-t);opacity:.5"></span>
+    <div class="mv-pasto corta"><svg viewBox="0 0 1280 42" preserveAspectRatio="none">
+      <rect x="0" y="39.5" width="1280" height="2.5" fill="#34a853" opacity=".28"/>
+      <g transform="translate(30,42) scale(.55)"><g class="mv-crece" style="animation-delay:.2s"><path class="mv-mece" style="animation-delay:-1.2s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".6"/></g></g>
+      <g transform="translate(74,42) scale(.5)"><g class="mv-crece" style="animation-delay:1.1s"><path class="mv-mece" style="animation-delay:-3.4s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+      <g transform="translate(150,42) scale(.6)"><g class="mv-crece" style="animation-delay:.5s"><path class="mv-mece" style="animation-delay:-.6s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#1e8e3e" opacity=".62"/></g></g>
+      <g transform="translate(238,42) scale(.5)"><g class="mv-crece" style="animation-delay:1.4s"><path class="mv-mece" style="animation-delay:-2.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+      <g transform="translate(340,42) scale(.6)"><g class="mv-crece" style="animation-delay:.3s"><path class="mv-mece" style="animation-delay:-1.8s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#34a853" opacity=".6"/></g></g>
+      <g transform="translate(452,42) scale(.55)"><g class="mv-crece" style="animation-delay:1s"><path class="mv-mece" style="animation-delay:-5.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#fbbc04" opacity=".6"/></g></g>
+      <g transform="translate(560,42) scale(.5)"><g class="mv-crece" style="animation-delay:.6s"><path class="mv-mece" style="animation-delay:-2.9s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#ea4335" opacity=".45"/></g></g>
+      <g transform="translate(668,42) scale(.6)"><g class="mv-crece" style="animation-delay:.15s"><path class="mv-mece" style="animation-delay:-.9s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#34a853" opacity=".62"/></g></g>
+      <g transform="translate(776,42) scale(.55)"><g class="mv-crece" style="animation-delay:1.3s"><path class="mv-mece" style="animation-delay:-4.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#1e8e3e" opacity=".6"/></g></g>
+      <g transform="translate(884,42) scale(.5)"><g class="mv-crece" style="animation-delay:.7s"><path class="mv-mece" style="animation-delay:-2.5s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+      <g transform="translate(992,42) scale(.6)"><g class="mv-crece" style="animation-delay:.4s"><path class="mv-mece" style="animation-delay:-3.9s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+      <g transform="translate(1100,42) scale(.55)"><g class="mv-crece" style="animation-delay:1.6s"><path class="mv-mece" style="animation-delay:-1.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".62"/></g></g>
+      <g transform="translate(1196,42) scale(.5)"><g class="mv-crece" style="animation-delay:.9s"><path class="mv-mece" style="animation-delay:-5.1s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#1e8e3e" opacity=".55"/></g></g>
+      <g transform="translate(1252,42) scale(.55)"><g class="mv-crece" style="animation-delay:.25s"><path class="mv-mece" style="animation-delay:-3.1s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#ea4335" opacity=".5"/></g></g>
+    </svg></div>
+  </div>
+
+  <header class="ph">
+    <div class="ph-t">
+      <span class="eyebrow y">Precio de lista · por alumno y por año</span>
+      <h1>El precio por <span class="g1">a</span><span class="g2">l</span><span class="g3">u</span><span class="g4">m</span><span class="g1">n</span><span class="g2">o</span></h1>
+      <p class="ph-sub">Cada colegio elige <b>equipo, plazo y modalidad</b> —cuántos alumnos comparten un equipo—. El importe es anual, por alumno, IVA incluido.</p>
+    </div>
+    <div class="seg" id="segPaqMat" role="group" aria-label="Elegir paquete">
+      <button type="button" data-pkg="edu" style="--segc:var(--blue)" aria-pressed="true">Upgrade Edu</button>
+      <button type="button" data-pkg="plus" style="--segc:var(--plus)" aria-pressed="false">Upgrade Edu Plus</button>
+    </div>
+  </header>
+
+  <div class="cuerpo-matriz">
+    <table class="matriz">
+      <caption class="sr-only" style="position:absolute;left:-9999px">Precio de lista por alumno y por año, según equipo, plazo y modalidad</caption>
+      <thead>
+        <tr>
+          <th scope="col">Equipo y plazo</th>
+          <th scope="col"><span class="mh" style="color:var(--blue-d)"><b>1 : 4</b><span>un equipo por cada 4 alumnos</span></span></th>
+          <th scope="col"><span class="mh" style="color:var(--red-d)"><b>1 : 3</b><span>un equipo por cada 3 alumnos</span></span></th>
+          <th scope="col"><span class="mh" style="color:var(--yel-d)"><b>1 : 2</b><span>un equipo por cada 2 alumnos</span></span></th>
+          <th scope="col"><span class="mh" style="color:var(--grn-d)"><b>1 : 1</b><span>un equipo por alumno</span></span></th>
+        </tr>
+      </thead>
+      <tbody id="mBody"><!-- lo arma renderMatriz() --></tbody>
+    </table>
+
+    <div class="sineq">
+      <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/></svg></span>
+      <span class="tx"><b>Sin equipos</b> — solo licenciamiento, plataformas, capacitación y acompañamiento. El mismo precio con cualquier plazo.</span>
+      <span class="pr num" id="sineqPrecio">$3,000<span>por alumno al año</span></span>
+    </div>
+
+    <div class="vol">
+      <div class="vol-cab">
+        <span class="eyebrow g">Redes de colegios · descuento especial por volumen</span>
+        <span class="rule"></span>
+        <span class="vol-nota"><b>Referencia comercial:</b> se valida y confirma antes de entrar a una propuesta.</span>
+      </div>
+      <div class="vol-fila" id="volFila"><!-- lo arma renderVolumen() --></div>
+    </div>
+
+    <!-- OJO · estas dos referencias son POSICIONALES: nombran láminas por su
+         número. El orden ya cambió una vez (el desglose pasó de la 3 a la 1);
+         si vuelve a cambiar, se corrigen aquí. -->
+    <p class="pie-nota">Importes de <b>lista</b>, con equipos incluidos. El descuento lo pone la forma de pago (<b>lámina 3</b>) y, en contratos a 3 o 4 años, cada año escala con el plazo: el desglose completo está en la <b>lámina 1</b>.</p>
+  </div>
+</section>
+
+<!-- ════════════════ LÁMINA · Dos paquetes, sin equipos ════════════════ -->
+<section class="lamina" id="lPaq" role="group" aria-roledescription="diapositiva" aria-label="Lámina 3 de 3: Los dos paquetes sin equipos y las formas de pago" aria-hidden="true">
 
   <div class="bg" aria-hidden="true">
     <span class="shape" style="width:460px;height:460px;left:-190px;top:-210px;background:var(--blue-t);opacity:.6"></span>
@@ -383,14 +546,14 @@ h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
 
   <header class="ph">
     <div class="ph-t">
-      <span class="eyebrow b">Precios · Ciclo escolar 2026–2027</span>
-      <h1>Dos <span class="g1">p</span><span class="g2">a</span><span class="g3">q</span><span class="g4">u</span><span class="g1">e</span><span class="g2">t</span><span class="g3">e</span><span class="g4">s</span>, un ecosistema</h1>
-      <p class="ph-sub">Un solo precio <b>por alumno al año</b> que lo incluye todo: equipos, licenciamiento, plataformas, capacitación y acompañamiento. Pesos mexicanos, <b>IVA incluido</b>.</p>
+      <span class="eyebrow b">Precios · Programa sin equipos · Ciclo escolar 2026–2027</span>
+      <h1>Dos <span class="g1">p</span><span class="g2">a</span><span class="g3">q</span><span class="g4">u</span><span class="g1">e</span><span class="g2">t</span><span class="g3">e</span><span class="g4">s</span>, sin equipos</h1>
+      <p class="ph-sub">El precio anual del programa cuando el colegio <b>ya tiene sus propios equipos</b> —Chromebooks, iPads o los que use—: licenciamiento, plataformas, capacitación y acompañamiento, por alumno al año. Pesos mexicanos, <b>IVA incluido</b>.</p>
     </div>
     <div class="marca"><b>activa</b>Google for Education<br>Partner</div>
   </header>
 
-  <div class="l1-cuerpo">
+  <div class="cuerpo-paquetes">
     <div class="paqs mo-stagger" id="paqs">
 
       <div class="twrap"><article class="paq edu">
@@ -407,7 +570,7 @@ h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
           </div>
         </div>
         <ul class="paq-areas">
-          <li><b class="ar ti">TI</b><div><b>Tecnologías de la Información</b><span>Equipos con seguro y stock de reemplazo, Chrome Education Upgrade, Google Workspace for Education Plus y soporte TI sin límite.</span></div></li>
+          <li><b class="ar ti">TI</b><div><b>Tecnologías de la Información</b><span>Chrome Education Upgrade, Google Workspace for Education Plus y soporte TI sin límite sobre los equipos que ya tiene el colegio.</span></div></li>
           <li><b class="ar ip">IP</b><div><b>Innovación y Proyectos</b><span>Securly, Wayground, Canva, impulsa, motiva, beta English, integra y certificación oficial de estudiantes.</span></div></li>
           <li><b class="ar dp">DP</b><div><b>Desarrollo Profesional</b><span>Capacitación docente virtual y presencial, eleva, webinars, bootcamps y vouchers de certificación Google N1 y N2.</span></div></li>
         </ul>
@@ -428,9 +591,13 @@ h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
         </div>
         <span class="paq-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Todo Upgrade Edu <b class="num">&nbsp;+$500</b>&nbsp;por alumno, y además:</span>
         <ul class="paq-areas">
-          <li><b class="ar pl">＋</b><div><b>Everway — Read&amp;Write, Orbit Note y Equatio</b><span>Suite de accesibilidad y apoyo al aprendizaje para trabajo inclusivo; una licencia por usuario.</span></div></li>
-          <li><b class="ar pl">＋</b><div><b>Escuela para Padres y Docentes</b><span>Taller presencial sobre motiva y estrategias socioemocionales para la comunidad educativa.</span></div></li>
-          <li><b class="ar pl">＋</b><div><b>Certificación docente en inglés (TKT)</b><span>60 horas de capacitación y preparación para el examen oficial de certificación.</span></div></li>
+          <!-- Un icono por partida, no tres signos «+» iguales: accesibilidad,
+               comunidad e idioma se distinguen de un vistazo. Las siglas TI/IP/DP
+               de la otra tarjeta sí se quedan como letra: son los nombres de las
+               tres áreas, los mismos del catálogo y de la carta de entrega. -->
+          <li><b class="ar pl ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg></b><div><b>Everway — Read&amp;Write, Orbit Note y Equatio</b><span>Suite de accesibilidad y apoyo al aprendizaje para trabajo inclusivo; una licencia por usuario.</span></div></li>
+          <li><b class="ar pl ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91zM4 13a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm1.13 1.1A6.6 6.6 0 0 0 4 14c-.99 0-1.93.21-2.78.58A2.01 2.01 0 0 0 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29zM20 13a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm4 3.43c0-.81-.48-1.53-1.22-1.85A6.95 6.95 0 0 0 20 14c-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24v-1.57zM12 6a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg></b><div><b>Escuela para Padres y Docentes</b><span>Taller presencial sobre motiva y estrategias socioemocionales para la comunidad educativa.</span></div></li>
+          <li><b class="ar pl ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7 1.62-4.33L19.12 17h-3.24z"/></svg></b><div><b>Certificación docente en inglés (TKT)</b><span>60 horas de capacitación y preparación para el examen oficial de certificación.</span></div></li>
         </ul>
       </article></div>
 
@@ -442,168 +609,29 @@ h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
         <span class="rule"></span>
         <span class="pagos-lema">El descuento lo pone <b>la fecha de firma</b> · aplica a todos los años del contrato</span>
       </div>
+      <!-- Los tres rótulos van escritos: esta lámina tiene que leerse aunque
+           no cargue el script. sincronizaRotulosPago() los reescribe desde CFG
+           al arrancar, para que una fecha nueva no haya que tocarla dos veces. -->
       <div class="pagos-fila mo-stagger" id="pagos">
         <div class="pago grn">
           <span class="pago-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></span>
-          <div class="pago-tx"><b>Contado en agosto</b><span>Pago único, sin mensualidades</span></div>
+          <div class="pago-tx"><b data-pago="0">Contado en agosto 2027</b><span>Pago único, sin mensualidades</span></div>
           <span class="pago-badge num">−10%</span>
         </div>
         <div class="pago blu">
           <span class="pago-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM10.53 17.29l-2.83-2.83 1.06-1.06 1.77 1.77 4.71-4.71 1.06 1.06-5.77 5.77z"/></svg></span>
-          <div class="pago-tx"><b>Firma antes del 19 de marzo de 2027</b><span>50% en agosto + 10 mensualidades</span></div>
+          <div class="pago-tx"><b data-pago="1">Firma antes del 19 mar 2027</b><span>50% en agosto + 10 mensualidades</span></div>
           <span class="pago-badge num">−5%</span>
         </div>
         <div class="pago gris">
           <span class="pago-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></span>
-          <div class="pago-tx"><b>Firma a partir del 19 de marzo de 2027</b><span>50% en agosto + 10 mensualidades</span></div>
+          <div class="pago-tx"><b data-pago="2">Firma a partir del 19 mar 2027</b><span>50% en agosto + 10 mensualidades</span></div>
           <span class="pago-badge">Precio de lista</span>
         </div>
       </div>
     </div>
 
     <p class="legal">Precios del ciclo escolar 2026–2027 en pesos mexicanos por alumno, IVA incluido. Sujetos a confirmación contractual.</p>
-  </div>
-</section>
-
-<!-- ════════════════ LÁMINA 2 · El precio por alumno ════════════════ -->
-<section class="lamina compacta" id="l2" role="group" aria-roledescription="diapositiva" aria-label="Lámina 2 de 3: Precio por alumno según equipo, plazo y modalidad" aria-hidden="true">
-
-  <div class="bg" aria-hidden="true">
-    <span class="shape" style="width:420px;height:420px;left:-180px;top:-200px;background:var(--yel-t);opacity:.5"></span>
-    <span class="shape" style="width:320px;height:320px;right:-130px;top:-150px;background:var(--grn-t);opacity:.5"></span>
-    <div class="mv-pasto corta"><svg viewBox="0 0 1280 42" preserveAspectRatio="none">
-      <rect x="0" y="39.5" width="1280" height="2.5" fill="#34a853" opacity=".28"/>
-      <g transform="translate(30,42) scale(.55)"><g class="mv-crece" style="animation-delay:.2s"><path class="mv-mece" style="animation-delay:-1.2s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".6"/></g></g>
-      <g transform="translate(74,42) scale(.5)"><g class="mv-crece" style="animation-delay:1.1s"><path class="mv-mece" style="animation-delay:-3.4s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
-      <g transform="translate(150,42) scale(.6)"><g class="mv-crece" style="animation-delay:.5s"><path class="mv-mece" style="animation-delay:-.6s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#1e8e3e" opacity=".62"/></g></g>
-      <g transform="translate(238,42) scale(.5)"><g class="mv-crece" style="animation-delay:1.4s"><path class="mv-mece" style="animation-delay:-2.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#4285f4" opacity=".5"/></g></g>
-      <g transform="translate(340,42) scale(.6)"><g class="mv-crece" style="animation-delay:.3s"><path class="mv-mece" style="animation-delay:-1.8s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#34a853" opacity=".6"/></g></g>
-      <g transform="translate(452,42) scale(.55)"><g class="mv-crece" style="animation-delay:1s"><path class="mv-mece" style="animation-delay:-5.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#fbbc04" opacity=".6"/></g></g>
-      <g transform="translate(560,42) scale(.5)"><g class="mv-crece" style="animation-delay:.6s"><path class="mv-mece" style="animation-delay:-2.9s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#ea4335" opacity=".45"/></g></g>
-      <g transform="translate(668,42) scale(.6)"><g class="mv-crece" style="animation-delay:.15s"><path class="mv-mece" style="animation-delay:-.9s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#34a853" opacity=".62"/></g></g>
-      <g transform="translate(776,42) scale(.55)"><g class="mv-crece" style="animation-delay:1.3s"><path class="mv-mece" style="animation-delay:-4.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#1e8e3e" opacity=".6"/></g></g>
-      <g transform="translate(884,42) scale(.5)"><g class="mv-crece" style="animation-delay:.7s"><path class="mv-mece" style="animation-delay:-2.5s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#4285f4" opacity=".5"/></g></g>
-      <g transform="translate(992,42) scale(.6)"><g class="mv-crece" style="animation-delay:.4s"><path class="mv-mece" style="animation-delay:-3.9s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
-      <g transform="translate(1100,42) scale(.55)"><g class="mv-crece" style="animation-delay:1.6s"><path class="mv-mece" style="animation-delay:-1.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".62"/></g></g>
-      <g transform="translate(1196,42) scale(.5)"><g class="mv-crece" style="animation-delay:.9s"><path class="mv-mece" style="animation-delay:-5.1s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#1e8e3e" opacity=".55"/></g></g>
-      <g transform="translate(1252,42) scale(.55)"><g class="mv-crece" style="animation-delay:.25s"><path class="mv-mece" style="animation-delay:-3.1s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#ea4335" opacity=".5"/></g></g>
-    </svg></div>
-  </div>
-
-  <header class="ph">
-    <div class="ph-t">
-      <span class="eyebrow y">Precio de lista · por alumno y por año</span>
-      <h1>El precio por <span class="g1">a</span><span class="g2">l</span><span class="g3">u</span><span class="g4">m</span><span class="g1">n</span><span class="g2">o</span></h1>
-      <p class="ph-sub">Cada colegio elige <b>equipo, plazo y modalidad</b> —cuántos alumnos comparten un equipo—. El importe es anual, por alumno, IVA incluido.</p>
-    </div>
-    <div class="seg" id="segPaq2" role="group" aria-label="Elegir paquete">
-      <button type="button" data-pkg="edu" style="--segc:var(--blue)" aria-pressed="true">Upgrade Edu</button>
-      <button type="button" data-pkg="plus" style="--segc:var(--plus)" aria-pressed="false">Upgrade Edu Plus</button>
-    </div>
-  </header>
-
-  <div class="l2-cuerpo">
-    <table class="matriz">
-      <caption class="sr-only" style="position:absolute;left:-9999px">Precio de lista por alumno y por año, según equipo, plazo y modalidad</caption>
-      <thead>
-        <tr>
-          <th scope="col">Equipo y plazo</th>
-          <th scope="col"><span class="mh" style="color:var(--blue-d)"><b>1 : 4</b><span>un equipo por cada 4 alumnos</span></span></th>
-          <th scope="col"><span class="mh" style="color:var(--red-d)"><b>1 : 3</b><span>un equipo por cada 3 alumnos</span></span></th>
-          <th scope="col"><span class="mh" style="color:var(--yel-d)"><b>1 : 2</b><span>un equipo por cada 2 alumnos</span></span></th>
-          <th scope="col"><span class="mh" style="color:var(--grn-d)"><b>1 : 1</b><span>un equipo por alumno</span></span></th>
-        </tr>
-      </thead>
-      <tbody id="mBody"><!-- lo arma renderMatriz() --></tbody>
-    </table>
-
-    <div class="sineq">
-      <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/></svg></span>
-      <span class="tx"><b>Sin equipos</b> — solo licenciamiento, plataformas, capacitación y acompañamiento. El mismo precio con cualquier plazo.</span>
-      <span class="pr num" id="sineqPrecio">$3,000<span>por alumno al año</span></span>
-    </div>
-
-    <div class="vol">
-      <div class="vol-cab">
-        <span class="eyebrow g">Redes de colegios · descuento especial por volumen</span>
-        <span class="rule"></span>
-        <span class="vol-nota"><b>Referencia comercial:</b> se valida y confirma antes de entrar a una propuesta.</span>
-      </div>
-      <div class="vol-fila" id="volFila"><!-- lo arma renderVolumen() --></div>
-    </div>
-
-    <p class="pie-nota">Importes de <b>lista</b>: el descuento lo pone la forma de pago (lámina 1) y, en contratos a 3 o 4 años, cada año escala con el plazo — el desglose completo está en la <b>lámina 3</b>.</p>
-  </div>
-</section>
-
-<!-- ════════════════ LÁMINA 3 · El desglose, año por año ════════════════ -->
-<section class="lamina compacta" id="l3" role="group" aria-roledescription="diapositiva" aria-label="Lámina 3 de 3: Desglose año por año con descuentos" aria-hidden="true">
-
-  <div class="bg" aria-hidden="true">
-    <span class="shape" style="width:420px;height:420px;left:-180px;top:-200px;background:var(--plus-t);opacity:.5"></span>
-    <span class="shape" style="width:320px;height:320px;right:-130px;top:-150px;background:var(--blue-t);opacity:.55"></span>
-    <div class="mv-pasto corta"><svg viewBox="0 0 1280 42" preserveAspectRatio="none">
-      <rect x="0" y="39.5" width="1280" height="2.5" fill="#34a853" opacity=".28"/>
-      <g transform="translate(30,42) scale(.55)"><g class="mv-crece" style="animation-delay:.2s"><path class="mv-mece" style="animation-delay:-1.2s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".6"/></g></g>
-      <g transform="translate(74,42) scale(.5)"><g class="mv-crece" style="animation-delay:1.1s"><path class="mv-mece" style="animation-delay:-3.4s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
-      <g transform="translate(150,42) scale(.6)"><g class="mv-crece" style="animation-delay:.5s"><path class="mv-mece" style="animation-delay:-.6s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#1e8e3e" opacity=".62"/></g></g>
-      <g transform="translate(238,42) scale(.5)"><g class="mv-crece" style="animation-delay:1.4s"><path class="mv-mece" style="animation-delay:-2.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#4285f4" opacity=".5"/></g></g>
-      <g transform="translate(340,42) scale(.6)"><g class="mv-crece" style="animation-delay:.3s"><path class="mv-mece" style="animation-delay:-1.8s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#34a853" opacity=".6"/></g></g>
-      <g transform="translate(452,42) scale(.55)"><g class="mv-crece" style="animation-delay:1s"><path class="mv-mece" style="animation-delay:-5.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#fbbc04" opacity=".6"/></g></g>
-      <g transform="translate(560,42) scale(.5)"><g class="mv-crece" style="animation-delay:.6s"><path class="mv-mece" style="animation-delay:-2.9s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#ea4335" opacity=".45"/></g></g>
-      <g transform="translate(668,42) scale(.6)"><g class="mv-crece" style="animation-delay:.15s"><path class="mv-mece" style="animation-delay:-.9s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#34a853" opacity=".62"/></g></g>
-      <g transform="translate(776,42) scale(.55)"><g class="mv-crece" style="animation-delay:1.3s"><path class="mv-mece" style="animation-delay:-4.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#1e8e3e" opacity=".6"/></g></g>
-      <g transform="translate(884,42) scale(.5)"><g class="mv-crece" style="animation-delay:.7s"><path class="mv-mece" style="animation-delay:-2.5s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#4285f4" opacity=".5"/></g></g>
-      <g transform="translate(992,42) scale(.6)"><g class="mv-crece" style="animation-delay:.4s"><path class="mv-mece" style="animation-delay:-3.9s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
-      <g transform="translate(1100,42) scale(.55)"><g class="mv-crece" style="animation-delay:1.6s"><path class="mv-mece" style="animation-delay:-1.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".62"/></g></g>
-      <g transform="translate(1196,42) scale(.5)"><g class="mv-crece" style="animation-delay:.9s"><path class="mv-mece" style="animation-delay:-5.1s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#1e8e3e" opacity=".55"/></g></g>
-      <g transform="translate(1252,42) scale(.55)"><g class="mv-crece" style="animation-delay:.25s"><path class="mv-mece" style="animation-delay:-3.1s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#ea4335" opacity=".5"/></g></g>
-    </svg></div>
-  </div>
-
-  <header class="ph">
-    <div class="ph-t">
-      <span class="eyebrow p">Desglose · contratos a 2, 3 y 4 años</span>
-      <h1>El <span class="g1">d</span><span class="g2">e</span><span class="g3">s</span><span class="g4">g</span><span class="g1">l</span><span class="g2">o</span><span class="g3">s</span><span class="g4">e</span>, año por año</h1>
-      <p class="ph-sub">En los contratos multi-año el precio <b>arranca por debajo de la lista</b> y sube suave cada ciclo. Elige un escenario y compara las tres formas de pago.</p>
-    </div>
-    <div class="marca"><b>activa</b>Google for Education<br>Partner</div>
-  </header>
-
-  <div class="l3-cuerpo">
-    <div class="ctrl">
-      <div class="cg">
-        <span class="cl">Paquete</span>
-        <div class="seg chica" id="segPaq3" role="group" aria-label="Elegir paquete">
-          <button type="button" data-pkg="edu" style="--segc:var(--blue)" aria-pressed="true">Edu</button>
-          <button type="button" data-pkg="plus" style="--segc:var(--plus)" aria-pressed="false">Edu Plus</button>
-        </div>
-      </div>
-      <div class="cg">
-        <span class="cl">Equipo y plazo</span>
-        <div class="seg chica" id="segTerm" role="group" aria-label="Elegir equipo y plazo"><!-- lo arma armaControles() --></div>
-      </div>
-      <div class="cg">
-        <span class="cl">Modalidad</span>
-        <div class="seg chica" id="segMod" role="group" aria-label="Elegir modalidad"><!-- lo arma armaControles() --></div>
-      </div>
-    </div>
-
-    <table class="desg" aria-live="polite">
-      <caption class="sr-only" style="position:absolute;left:-9999px">Desglose año por año del escenario elegido, por alumno y con las tres formas de pago</caption>
-      <thead>
-        <tr>
-          <th scope="col" style="width:250px">Año del contrato</th>
-          <th scope="col" style="--hc:var(--grn-d);--ht:var(--grn-t)"><span class="dh"><b>Contado en agosto</b><span class="num">−10%</span></span></th>
-          <th scope="col" style="--hc:var(--blue-d);--ht:var(--blue-t)"><span class="dh"><b>Firma antes del 19 mar 2027</b><span class="num">−5%</span></span></th>
-          <th scope="col" style="--hc:var(--ink2);--ht:#f1f3f4"><span class="dh"><b>Firma a partir del 19 mar 2027</b><span>Precio de lista</span></span></th>
-        </tr>
-      </thead>
-      <tbody id="dBody"><!-- lo arma renderDesglose() --></tbody>
-      <tfoot id="dFoot"></tfoot>
-    </table>
-
-    <p class="pie-nota" id="dNota">Importes por alumno, IVA incluido. Las mensualidades corren de septiembre a junio. El descuento de la forma de pago aplica a cada año del contrato.</p>
   </div>
 </section>
 
@@ -615,9 +643,9 @@ h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg>
   </button>
   <div class="dots" id="dots">
-    <button type="button" data-i="0" aria-label="Ir a la lámina 1: Paquetes" aria-current="true"></button>
+    <button type="button" data-i="0" aria-label="Ir a la lámina 1: Desglose año por año" aria-current="true"></button>
     <button type="button" data-i="1" aria-label="Ir a la lámina 2: Precio por alumno"></button>
-    <button type="button" data-i="2" aria-label="Ir a la lámina 3: Desglose año por año"></button>
+    <button type="button" data-i="2" aria-label="Ir a la lámina 3: Los dos paquetes"></button>
   </div>
   <button type="button" id="navNext" aria-label="Lámina siguiente">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4 4.6 4.6z"/></svg>
@@ -634,6 +662,12 @@ h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
 const CFG = {
   ciclo: "2026–2027",
   firmaTemprana: "19 de marzo de 2027",
+  firmaTempranaCorta: "19 mar 2027",
+  /* La primera exhibición cae en agosto, cuando se entregan los equipos: el
+     cotizador lo fija en APP_CONFIG.cycle.delivery = "15 de agosto de 2027".
+     El año va escrito porque el corte de firma temprana (marzo 2027) es
+     ANTERIOR a ese agosto, y sin año la lámina se lee al revés. */
+  primeraExhibicion: "agosto 2027",
   /* precio de lista por alumno y por año: paquete → fila de equipo → modalidad
      (índices: 0 = sin equipos, 1 = 1:4, 2 = 1:3, 3 = 1:2, 4 = 1:1) */
   pricing: {
@@ -646,9 +680,9 @@ const CFG = {
   factores: { three:[0.94,1.02,1.10], four:[0.90,0.97,1.04,1.11], twoFlat:[1,1] },
   /* descuentos por forma de pago, y su calendario */
   pagos: [
-    {k:"contado", disc:0.10, agosto:1,  mensualidades:0,  cls:"con"},
-    {k:"antes",   disc:0.05, agosto:.5, mensualidades:10, cls:"ant"},
-    {k:"despues", disc:0,    agosto:.5, mensualidades:10, cls:"des"}
+    {k:"contado", disc:0.10, agosto:1,  mensualidades:0,  cls:"con", insignia:"−10%"},
+    {k:"antes",   disc:0.05, agosto:.5, mensualidades:10, cls:"ant", insignia:"−5%"},
+    {k:"despues", disc:0,    agosto:.5, mensualidades:10, cls:"des", insignia:"Precio de lista", suave:true}
   ],
   /* referencia de descuento por volumen para redes de colegios (validación
      comercial requerida, igual que en el cotizador) */
@@ -672,6 +706,20 @@ const COL = [
   {c:"var(--yel-d)",  t:"var(--yel-t)",  dot:"#f9ab00"},
   {c:"var(--grn-d)",  t:"var(--grn-t)",  dot:"#34a853"}
 ];
+/* Los rótulos de las tres formas de pago se derivan de las fechas de arriba:
+   escribirlos a mano en la lámina y en el CFG fue como el año de agosto acabó
+   faltando. Se usan en las tarjetas del desglose y en la lámina de paquetes. */
+CFG.pagos[0].titulo = "Contado en " + CFG.primeraExhibicion;
+CFG.pagos[1].titulo = "Firma antes del " + CFG.firmaTempranaCorta;
+CFG.pagos[2].titulo = "Firma a partir del " + CFG.firmaTempranaCorta;
+
+/* un icono por columna del desglose: el año, y las tres formas de pago */
+const ICOS_PAGO = {
+  anio:'<path d="M19 3h-1V1h-2v2H8V1H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 16H5V8h14v11z"/>',
+  con:'<path d="M21 18v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1h-9a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9zm-9-2h10V8H12v8zm4-2.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>',
+  ant:'<path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 16H5V8h14v11zm-8.47-1.71-2.83-2.83 1.06-1.06 1.77 1.77 4.71-4.71 1.06 1.06-5.77 5.77z"/>',
+  des:'<path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>'
+};
 const ICOS = {
   laptop:'<path d="M4 5h16a1 1 0 0 1 1 1v9H3V6a1 1 0 0 1 1-1zm1 2v6h14V7H5zM1.5 16.5h21l-.9 1.8a1.2 1.2 0 0 1-1.1.7H3.5a1.2 1.2 0 0 1-1.1-.7l-.9-1.8z"/>',
   flip:'<path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/>',
@@ -735,38 +783,65 @@ function armaControles(){
   document.getElementById("segMod").innerHTML = MODS.map(m =>
     `<button type="button" data-mod="${m.i}" aria-pressed="${m.i===S.d.mod}">${m.label}</button>`).join("");
 }
+/* Cuatro columnas-tarjeta: el año, y las tres formas de pago. NO lleva total
+   del contrato a propósito —decisión comercial—: en la primera visita se enseña
+   el importe anual por alumno, no la suma de los cuatro años.
+   El escenario elegido es el título de la lámina, para que salga en la misma
+   foto que los importes. */
 function renderDesglose(){
   const t = TERMS.find(x => x.k === S.d.term);
   const lista = CFG.pricing[S.d.pkg][t.row][S.d.mod];
   const filas = t.sched.map((factor,i) => ({
-    i, factor,
-    lista: roundCurrency(roundFinancial(lista * factor)),
-    pagos: CFG.pagos.map(p => calcAnio(lista, factor, p))
+    i, factor, pagos: CFG.pagos.map(p => calcAnio(lista, factor, p))
   }));
-  document.getElementById("dBody").innerHTML = filas.map(f => `
-    <tr>
-      <th scope="row"><span class="ydot" style="--yc:${COL[f.i%4].dot}"></span>Año ${f.i+1}
-        <em class="num">× ${f.factor.toFixed(2)}</em></th>
-      ${f.pagos.map((r,j) => `<td class="${CFG.pagos[j].cls}">
-        <b class="num">${money(r.net)}</b>
-        <span class="num">${r.mensual ? `agosto ${money(r.agosto)} + 10 × ${money(r.mensual)}` : "pago único en agosto"}</span>
-      </td>`).join("")}
-    </tr>`).join("");
-  const totLista = roundCurrency(filas.reduce((s,f) => s + f.lista, 0));
-  const tot = CFG.pagos.map((p,j) => roundCurrency(filas.reduce((s,f) => s + f.pagos[j].net, 0)));
-  document.getElementById("dFoot").innerHTML = `
-    <tr>
-      <th scope="row">Total del contrato<br><em style="font-style:normal;font-size:10px;font-weight:500;color:var(--ink2)">por alumno · ${t.years} años</em></th>
-      <td class="con"><b class="num">${money(tot[0])}</b><span class="num">ahorras ${money(totLista - tot[0])}</span></td>
-      <td class="ant"><b class="num">${money(tot[1])}</b><span class="num">ahorras ${money(totLista - tot[1])}</span></td>
-      <td class="des"><b class="num">${money(tot[2])}</b><span>precio de lista</span></td>
-    </tr>`;
-  const paqNombre = S.d.pkg === "plus" ? "Upgrade Edu Plus" : "Upgrade Edu";
-  const modLabel = S.d.mod === 0 ? "sin equipos" : "modalidad " + MODS[S.d.mod].label;
+
+  const col = (cls, ico, titulo, insignia, suave, celdas) => `
+    <article class="dcard dcard--${cls}">
+      <header class="dcard-cab">
+        <span class="dcard-ico" aria-hidden="true"><svg viewBox="0 0 24 24">${ICOS_PAGO[ico]}</svg></span>
+        <span class="dcard-k">${titulo}</span>
+        <span class="dcard-b${suave?" suave":""}">${insignia}</span>
+      </header>
+      <div class="dcard-filas">${celdas}</div>
+    </article>`;
+
+  const colAnios = col("anio", "anio", "Año de contrato", `${t.years} años`, true,
+    filas.map(f => `<div class="dfila">
+        <span class="ya">Año ${f.i+1}</span>
+        <span class="yf">× ${f.factor.toFixed(2)}</span>
+      </div>`).join(""));
+
+  const colsPago = CFG.pagos.map((p,j) => col(p.cls, p.cls, p.titulo, p.insignia, p.suave,
+    filas.map(f => {
+      const r = f.pagos[j];
+      const calendario = r.mensual
+        ? `agosto ${money(r.agosto)} + 10 × ${money(r.mensual)}`
+        : "pago único en agosto";
+      /* leído en voz alta el importe llega solo: sin el año y sin la forma
+         de pago sería una cifra suelta, porque aquí las columnas son tarjetas */
+      return `<div class="dfila" aria-label="Año ${f.i+1}, ${p.titulo}: ${money(r.net)}, ${calendario}">
+        <b class="imp">${money(r.net)}</b>
+        <span class="cal">${calendario}</span>
+      </div>`;
+    }).join(""))).join("");
+
+  document.getElementById("dCards").innerHTML = colAnios + colsPago;
+
+  /* el escenario, de título */
+  const esPlus = S.d.pkg === "plus";
+  const tit = document.getElementById("dTitulo");
+  tit.style.setProperty("--tc", esPlus ? "var(--plus-d)" : "var(--blue-d)");
+  /* Sin equipos NO se nombra el equipo: el precio de la modalidad 0 es el mismo
+     en las cuatro filas de equipo, y anunciar «Flip-Touch seminueva · sin equipos»
+     se contradice en la misma línea. El plazo sí se queda: manda sobre los años. */
+  const tramos = S.d.mod === 0
+    ? ["Sin equipos", `${t.years} años`]
+    : [t.nombre, "modalidad " + MODS[S.d.mod].label, `${t.years} años`];
+  tit.innerHTML = `<span class="paqn">Upgrade Edu${esPlus ? " Plus" : ""}</span>` +
+    tramos.map(x => `<span class="sep">·</span>${x}`).join("");
   document.getElementById("dNota").innerHTML =
-    `<b>${paqNombre} · ${t.nombre} · ${modLabel} · ${t.years} años.</b> ` +
-    `Importes por alumno, IVA incluido. Las mensualidades corren de septiembre a junio. ` +
-    `El descuento de la forma de pago aplica a cada año del contrato.`;
+    `Importes <b>por alumno y por año</b>, IVA incluido. Las mensualidades corren de ` +
+    `septiembre a junio. El descuento de la forma de pago aplica a cada año del contrato.`;
 }
 
 /* cableado de los segmentos. Cada botón solo cambia el estado y se repinta:
@@ -781,15 +856,25 @@ function segmento(id, marca, aplica){
     marca();
   });
 }
-segmento("segPaq2", renderMatriz,   b => { S.pkg2 = b.dataset.pkg; });
-segmento("segPaq3", renderDesglose, b => { S.d.pkg = b.dataset.pkg; });
+segmento("segPaqMat", renderMatriz,   b => { S.pkg2 = b.dataset.pkg; });
+segmento("segPaqDes", renderDesglose, b => { S.d.pkg = b.dataset.pkg; });
 segmento("segTerm", renderDesglose, b => { S.d.term = b.dataset.term; });
 segmento("segMod",  renderDesglose, b => { S.d.mod = Number(b.dataset.mod); });
+
+/* Los rótulos de la lámina de paquetes están en el markup para que se lea sin
+   script; aquí se realinean con CFG, que es de donde salen los del desglose. */
+function sincronizaRotulosPago(){
+  document.querySelectorAll("[data-pago]").forEach(el => {
+    const p = CFG.pagos[Number(el.dataset.pago)];
+    if(p) el.textContent = p.titulo;
+  });
+}
 
 armaControles();
 renderMatriz();
 renderVolumen();
 renderDesglose();
+sincronizaRotulosPago();
 
 /* ═══════════ navegación entre láminas ═══════════ */
 const LAMS = [...document.querySelectorAll(".lamina")];
@@ -803,9 +888,10 @@ function go(i){
   LAMS.forEach((l,j) => { l.classList.toggle("on", j === cur); l.setAttribute("aria-hidden", String(j !== cur)); });
   pinta();
   if(typeof fija === "function") fija();
-  /* al volver a la lámina 1, su cascada se relanza; las tablas de las
-     láminas 2 y 3 no llevan cascada: números quietos, siempre */
-  if(window.Motion && cur === 0){
+  /* la cascada se relanza al volver a la lámina de PAQUETES —se busca por id,
+     no por índice: el orden de las láminas ya cambió una vez—. Las tablas de la
+     matriz y del desglose no llevan cascada: números quietos, siempre. */
+  if(window.Motion && LAMS[cur].id === "lPaq"){
     Motion.replay(document.getElementById("paqs"));
     Motion.replay(document.getElementById("pagos"));
   }
@@ -820,7 +906,9 @@ bNext.addEventListener("click", () => go(cur + 1));
 dots.forEach(d => d.addEventListener("click", () => go(Number(d.dataset.i))));
 pinta();
 
-/* enlace directo a una lámina: …/precios/#2 abre la matriz, #3 el desglose.
+/* enlace directo a una lámina: …/precios/#1 abre el desglose, #2 la matriz y
+   #3 los paquetes. OJO: el orden cambió —el desglose pasó de la 3 a la 1—, así
+   que un enlace #3 repartido antes de ese cambio ahora abre otra lámina.
    replaceState y no location.hash: navegar no debe llenar el historial. */
 function fija(){ try{ history.replaceState(null, "", "#" + (cur + 1)); }catch(e){} }
 const hashN = parseInt((location.hash || "").slice(1), 10);
