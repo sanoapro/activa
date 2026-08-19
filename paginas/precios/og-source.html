@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Molde og.png · Precios</title>
+<!-- Molde de la vista previa de WhatsApp (1200×630). No se abre en público:
+     solo sirve para regenerar og.png con Chrome sin cabeza (ver README.md). -->
+<style>
+:root{
+  --blue:#1a73e8; --blue-d:#174ea6; --blue-t:#e8f0fe;
+  --red-t:#fce8e6; --yel-t:#fef7e0; --yel-d:#b06000;
+  --grn:#1e8e3e;  --grn-d:#0d652d; --grn-t:#e6f4ea;
+  --plus:#6c3cc4; --plus-d:#4a2790; --plus-t:#f0e9fb;
+  --ink:#202124; --ink2:#5f6368; --ink3:#80868b; --line:#dadce0;
+  --font:"Google Sans","Product Sans",Roboto,"Segoe UI",system-ui,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1200px;height:630px;overflow:hidden;background:#fff;
+  font-family:var(--font);color:var(--ink);position:relative;
+  display:flex;flex-direction:column;padding:64px 72px 56px}
+body::before{content:"";position:absolute;left:0;top:0;right:0;height:10px;
+  background:linear-gradient(90deg,#4285f4 0 25%,#ea4335 25% 50%,#fbbc04 50% 75%,#34a853 75% 100%)}
+.shape{position:absolute;border-radius:50%;z-index:0}
+/* las manchas son posicionadas y pintarían encima del texto estático:
+   el contenido se sube a su propia capa */
+.eyebrow,h1,.sub{position:relative;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:19px;font-weight:700;
+  letter-spacing:2.6px;text-transform:uppercase;color:var(--blue)}
+.eyebrow::before{content:"";width:30px;height:5px;border-radius:3px;background:currentColor}
+h1{font-size:84px;line-height:1.02;font-weight:500;letter-spacing:-3.5px;margin:18px 0 16px}
+.g1{color:#4285f4}.g2{color:#ea4335}.g3{color:#fbbc04}.g4{color:#34a853}
+.sub{font-size:27px;color:var(--ink2);line-height:1.35;max-width:900px}
+.sub b{font-weight:600;color:var(--ink)}
+.fila{display:flex;gap:18px;margin-top:auto;position:relative;z-index:2}
+.chip{display:flex;flex-direction:column;gap:4px;padding:18px 26px;border-radius:20px;
+  border:1px solid var(--line);background:#fff;box-shadow:0 2px 6px rgba(60,64,67,.08),0 14px 34px -12px rgba(60,64,67,.20)}
+.chip b{font-size:31px;font-weight:700;letter-spacing:-1px}
+.chip span{font-size:16.5px;color:var(--ink2)}
+.chip.azul b{color:var(--blue-d)} .chip.morado b{color:var(--plus-d)}
+.chip.verde b{color:var(--grn-d)} .chip.ambar b{color:var(--yel-d)}
+.marca{position:absolute;right:72px;top:56px;text-align:right;font-size:17px;color:var(--ink3);line-height:1.4}
+.marca b{display:block;font-size:26px;font-weight:600;color:var(--ink);letter-spacing:-.5px}
+.pasto{position:absolute;left:0;right:0;bottom:0;height:64px}
+.pasto svg{display:block;width:100%;height:100%}
+</style>
+</head>
+<body>
+<span class="shape" style="width:520px;height:520px;left:-200px;top:-240px;background:var(--blue-t);opacity:.6"></span>
+<span class="shape" style="width:400px;height:400px;right:-150px;top:-160px;background:var(--plus-t);opacity:.6"></span>
+<span class="shape" style="width:340px;height:340px;right:-120px;bottom:-40px;background:var(--yel-t);opacity:.5"></span>
+
+<span class="eyebrow">Precios · Ciclo escolar 2026–2027</span>
+<h1>Paquetes y <span class="g1">p</span><span class="g2">r</span><span class="g3">e</span><span class="g4">c</span><span class="g1">i</span><span class="g2">o</span><span class="g3">s</span></h1>
+<p class="sub">Los dos paquetes y el <b>precio por alumno</b>, con el desglose año por año a 2, 3 y 4 años y sus <b>descuentos</b>. Tres láminas.</p>
+
+<div class="marca"><b>activa</b>Google for Education<br>Partner</div>
+
+<div class="fila">
+  <div class="chip azul"><b>Desde $3,000</b><span>Upgrade Edu · por alumno al año</span></div>
+  <div class="chip morado"><b>Desde $3,500</b><span>Upgrade Edu Plus</span></div>
+  <div class="chip verde"><b>−10%</b><span>de contado en agosto</span></div>
+  <div class="chip ambar"><b>−5%</b><span>por firma temprana</span></div>
+</div>
+
+<div class="pasto"><svg viewBox="0 0 1200 64" preserveAspectRatio="none">
+  <rect x="0" y="61.5" width="1200" height="2.5" fill="#34a853" opacity=".28"/>
+  <g transform="translate(40,64) scale(.8)"><path d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".6"/></g>
+  <g transform="translate(90,64) scale(.7)"><path d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#fbbc04" opacity=".55"/></g>
+  <g transform="translate(170,64) scale(.85)"><path d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#1e8e3e" opacity=".62"/></g>
+  <g transform="translate(270,64) scale(.7)"><path d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#4285f4" opacity=".5"/></g>
+  <g transform="translate(380,64) scale(.8)"><path d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#34a853" opacity=".6"/></g>
+  <g transform="translate(500,64) scale(.75)"><path d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#fbbc04" opacity=".6"/></g>
+  <g transform="translate(610,64) scale(.7)"><path d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#ea4335" opacity=".45"/></g>
+  <g transform="translate(720,64) scale(.85)"><path d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#34a853" opacity=".62"/></g>
+  <g transform="translate(840,64) scale(.75)"><path d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#1e8e3e" opacity=".6"/></g>
+  <g transform="translate(950,64) scale(.7)"><path d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#4285f4" opacity=".5"/></g>
+  <g transform="translate(1060,64) scale(.8)"><path d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#fbbc04" opacity=".55"/></g>
+  <g transform="translate(1160,64) scale(.75)"><path d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".62"/></g>
+</svg></div>
+</body>
+</html>

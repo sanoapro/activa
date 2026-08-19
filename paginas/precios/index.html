@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>activa · Precios — paquetes y desglose 2026–2027</title>
+<meta name="description" content="Los dos paquetes de activa y su precio por alumno: matriz por equipo y modalidad, desglose año por año a 2, 3 y 4 años, y descuentos por forma de pago.">
+<meta name="theme-color" content="#ffffff">
+<!-- Lleva el precio por alumno y los descuentos: se manda por enlace, no se busca. -->
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Vista previa al compartir (WhatsApp, Slack, iMessage). Igual que el resto de
+     páginas: og:image tiene que ser URL absoluta y pública, y el og.png vive en
+     esta misma carpeta (docs/estructura.md). Si cambia el dominio, se actualizan
+     las cuatro de aquí abajo. -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="activa">
+<meta property="og:url" content="https://sanoapro.github.io/activa/paginas/precios/">
+<meta property="og:title" content="Precios 2026–2027 · activa">
+<meta property="og:description" content="Los dos paquetes y el precio por alumno, con el desglose año por año y sus descuentos. Tres láminas.">
+<meta property="og:image" content="https://sanoapro.github.io/activa/paginas/precios/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="activa · Precios — paquetes, precio por alumno y desglose 2026–2027.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Precios 2026–2027 · activa">
+<meta name="twitter:description" content="Los dos paquetes y el precio por alumno, con el desglose año por año y sus descuentos.">
+<meta name="twitter:image" content="https://sanoapro.github.io/activa/paginas/precios/og.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='11' height='11' rx='3' fill='%234285f4'/%3E%3Crect x='18' y='3' width='11' height='11' rx='3' fill='%23ea4335'/%3E%3Crect x='3' y='18' width='11' height='11' rx='3' fill='%23fbbc04'/%3E%3Crect x='18' y='18' width='11' height='11' rx='3' fill='%2334a853'/%3E%3C/svg%3E">
+
+<!-- Motor de movimiento compartido (docs/normativa-motion.md). Script clásico
+     a propósito: la página se abre con doble clic desde file://. Si no carga,
+     nada se oculta: las láminas se ven completas y quietas (regla 4). -->
+<link rel="stylesheet" href="../../compartidos/css/motion.css">
+<script src="../../compartidos/js/motion.js"></script>
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   PRECIOS · tres láminas de 1280×720, sin scroll.
+   Hereda el sistema de diseño del kit comercial: mismos tokens
+   Google, misma tipografía, manchas pastel y pradera al pie.
+   Los importes salen de una copia consciente del APP_CONFIG del
+   cotizador (ver el bloque CFG en el script, con su advertencia).
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --blue:#1a73e8; --blue-d:#174ea6; --blue-t:#e8f0fe; --blue-l:#4285f4;
+  --red:#ea4335;  --red-d:#b31412;  --red-t:#fce8e6;  --red-l:#f28b82;
+  --yel:#f9ab00;  --yel-d:#b06000;  --yel-t:#fef7e0;  --yel-l:#fdd663;
+  --grn:#1e8e3e;  --grn-d:#0d652d;  --grn-t:#e6f4ea;  --grn-l:#34a853;
+  /* el morado de Upgrade Edu Plus es el mismo del cotizador */
+  --plus:#6c3cc4; --plus-d:#4a2790; --plus-t:#f0e9fb;
+  --plum:#7b1fa2; --plum-t:#f6ecfd;
+  --white:#fff; --ink:#202124; --ink2:#5f6368; --ink3:#80868b;
+  --line:#dadce0; --line2:#e8eaed; --wash:#f8f9fa;
+  --sh1:0 1px 2px rgba(60,64,67,.10), 0 4px 12px -4px rgba(60,64,67,.18);
+  --sh2:0 2px 6px rgba(60,64,67,.10), 0 14px 34px -12px rgba(60,64,67,.24);
+  --font:"Google Sans","Product Sans","Google Sans Text",Roboto,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#1b1c1e;font-family:var(--font);color:var(--ink);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- escenario: tres láminas fijas, escaladas al viewport ----------
+   #stage es solo el marco que se escala; cada .lamina trae su propio fondo
+   blanco, su filete y su pradera. Así, al imprimir, las tres se apilan una
+   por página sin pelearse con el transform del escenario. */
+#stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;
+  transform:translate(-50%,-50%) scale(1);transform-origin:center center}
+.lamina{position:absolute;inset:0;background:var(--white);border-radius:12px;
+  overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.55);
+  display:none;flex-direction:column;padding:30px 46px 72px}
+.lamina.on{display:flex}
+/* láminas 2 y 3: pradera corta, y el espacio se lo quedan las tablas */
+.lamina.compacta{padding:26px 46px 52px}
+/* filete Google en el canto superior */
+.lamina::before{content:"";position:absolute;left:0;top:0;right:0;height:5px;z-index:9;
+  background:linear-gradient(90deg,#4285f4 0 25%,#ea4335 25% 50%,#fbbc04 50% 75%,#34a853 75% 100%)}
+
+/* ---------- fondo ---------- */
+.bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.shape{position:absolute;border-radius:50%}
+
+/* pasto (heredado del deck y del kit): cada brizna es un <g> doble — el
+   exterior fija sitio y tamaño, el interior crece desde el suelo una vez y
+   el path se mece a perpetuidad. */
+.mv-pasto{position:absolute;left:0;right:0;bottom:0;height:74px}
+.mv-pasto.corta{height:42px}
+.mv-pasto svg{display:block;width:100%;height:100%}
+.mv-crece{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);
+  animation:crece 2.4s cubic-bezier(.2,.7,.25,1) both}
+@keyframes crece{to{transform:scaleY(1)}}
+.mv-mece{transform-box:fill-box;transform-origin:50% 100%;
+  animation:mece 6.5s ease-in-out infinite}
+@keyframes mece{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+
+/* ---------- tipografía ---------- */
+h1{font-size:36px;line-height:1.04;font-weight:500;letter-spacing:-1.4px}
+.compacta h1{font-size:30px}
+.g1{color:#4285f4}.g2{color:#ea4335}.g3{color:#fbbc04}.g4{color:#34a853}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;
+  letter-spacing:1.6px;text-transform:uppercase;color:var(--ink3)}
+.eyebrow::before{content:"";width:18px;height:3px;border-radius:2px;background:currentColor}
+.eyebrow.b{color:var(--blue)} .eyebrow.y{color:var(--yel-d)}
+.eyebrow.p{color:var(--plus)} .eyebrow.g{color:var(--grn)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- cabecera de cada lámina ---------- */
+.ph{position:relative;z-index:2;display:flex;align-items:flex-end;
+  justify-content:space-between;gap:26px;flex-shrink:0;padding-bottom:13px;
+  border-bottom:1px solid var(--line2);margin-bottom:14px}
+.ph-t{display:flex;flex-direction:column;gap:7px;min-width:0}
+.ph-sub{font-size:13px;color:var(--ink2);line-height:1.35;max-width:760px}
+.ph-sub b{font-weight:600;color:var(--ink)}
+.marca{flex-shrink:0;text-align:right;font-size:11px;line-height:1.4;color:var(--ink3)}
+.marca b{display:block;font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-.2px}
+
+/* ---------- control segmentado (paquete, equipo, modalidad) ---------- */
+.seg{display:inline-flex;background:var(--wash);border:1px solid var(--line);
+  border-radius:12px;padding:3px;gap:3px;flex-shrink:0}
+.seg button{border:0;background:transparent;border-radius:9px;padding:0 13px;height:30px;
+  font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--ink2);cursor:pointer;
+  white-space:nowrap;transition:background .2s,color .2s,box-shadow .2s}
+.seg button:hover{color:var(--ink)}
+.seg button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.seg button[aria-pressed="true"]{background:var(--segc,var(--ink));color:#fff;
+  box-shadow:0 3px 10px -3px var(--segc,var(--ink))}
+.seg.chica button{height:27px;font-size:11.5px;padding:0 10px}
+
+/* ═══════════ LÁMINA 1 · paquetes y formas de pago ═══════════ */
+.l1-cuerpo{position:relative;z-index:2;flex:1;min-height:0;
+  display:flex;flex-direction:column;gap:13px}
+.paqs{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+/* envoltura doble, como en el kit: la cascada (mo-stagger) anima .twrap y la
+   inclinación escribe su propio transform en la .paq de adentro. Sin la
+   envoltura, los dos transforms se pisarían en el mismo elemento. */
+.twrap{display:flex;min-width:0;min-height:0}
+.twrap .paq{flex:1 1 auto;min-width:0}
+
+.paq{position:relative;display:flex;flex-direction:column;gap:10px;
+  padding:16px 18px 14px;border-radius:18px;background:var(--white);
+  border:1px solid var(--line);box-shadow:var(--sh1);overflow:hidden;isolation:isolate}
+/* velo de color que sigue al cursor, como en las tarjetas del kit */
+.paq::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;
+  background:radial-gradient(460px 260px at var(--mx,50%) var(--my,0%),var(--tint),transparent 70%);
+  transition:opacity .25s}
+.paq:hover::before{opacity:1}
+.paq:hover{box-shadow:var(--sh2)}
+/* filete de color al pie, crece al pasar el cursor */
+.paq::after{content:"";position:absolute;left:18px;bottom:0;height:4px;width:38px;
+  border-radius:99px 99px 0 0;background:var(--c);transition:width .28s cubic-bezier(.2,.8,.2,1)}
+.paq:hover::after{width:calc(100% - 36px)}
+.paq.edu{--c:var(--blue);--cd:var(--blue-d);--tint:var(--blue-t)}
+.paq.plus{--c:var(--plus);--cd:var(--plus-d);--tint:var(--plus-t)}
+
+.paq-cab{display:flex;align-items:center;gap:13px}
+.paq-ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;flex-shrink:0;
+  background:linear-gradient(135deg,var(--cd) 0%,var(--c) 100%);
+  box-shadow:0 6px 16px -6px var(--c)}
+.paq-ico svg{width:26px;height:26px;fill:#fff;display:block}
+.paq-id{flex:1;min-width:0}
+.paq-n{font-size:19px;font-weight:600;letter-spacing:-.4px;line-height:1.1}
+.paq-d{font-size:11.5px;color:var(--ink2);margin-top:2px}
+.paq-precio{text-align:right;flex-shrink:0}
+.paq-precio .desde{display:block;font-size:10px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--ink3)}
+.paq-precio b{display:block;font-size:27px;font-weight:600;letter-spacing:-1px;color:var(--cd)}
+.paq-precio .uni{display:block;font-size:10.5px;color:var(--ink2)}
+.paq-chip{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;
+  font-size:10.5px;font-weight:700;letter-spacing:.3px;color:var(--cd);
+  background:var(--tint);border-radius:99px;padding:4px 10px}
+.paq-chip svg{width:12px;height:12px;fill:currentColor}
+
+/* las tres filas se reparten el alto sobrante de la tarjeta: sin esto, el
+   contenido se apila arriba y el pie queda como un hueco sin propósito */
+.paq-areas{list-style:none;flex:1;display:flex;flex-direction:column;
+  justify-content:space-evenly;gap:8px;margin-top:2px}
+.paq-areas li{display:flex;gap:10px;align-items:flex-start}
+.ar{flex-shrink:0;width:30px;height:22px;border-radius:7px;display:grid;place-items:center;
+  font-size:10.5px;font-weight:700;letter-spacing:.5px}
+.ar.ti{background:var(--blue-t);color:var(--blue-d)}
+.ar.ip{background:var(--red-t);color:var(--red-d)}
+.ar.dp{background:var(--grn-t);color:var(--grn-d)}
+.ar.pl{background:var(--plus-t);color:var(--plus-d)}
+.paq-areas b{display:block;font-size:12px;font-weight:600;letter-spacing:-.1px;line-height:1.25}
+.paq-areas span{display:block;font-size:11px;color:var(--ink2);line-height:1.35}
+
+/* ---------- formas de pago ---------- */
+.pagos{flex-shrink:0;display:flex;flex-direction:column;gap:7px}
+.pagos-cab{display:flex;align-items:center;gap:12px}
+.pagos-cab .rule{flex:1;height:1px;background:var(--line2)}
+.pagos-lema{font-size:11px;color:var(--ink2)}
+.pagos-lema b{font-weight:600;color:var(--ink)}
+.pagos-fila{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pago{position:relative;display:flex;align-items:center;gap:11px;padding:10px 13px;
+  border-radius:14px;background:var(--white);border:1px solid var(--line);box-shadow:var(--sh1)}
+.pago::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:4px;
+  border-radius:0 4px 4px 0;background:var(--c)}
+.pago.grn{--c:var(--grn);--cd:var(--grn-d);--tint:var(--grn-t)}
+.pago.blu{--c:var(--blue);--cd:var(--blue-d);--tint:var(--blue-t)}
+.pago.gris{--c:#9aa0a6;--cd:var(--ink2);--tint:#f1f3f4}
+.pago-ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--tint);color:var(--cd)}
+.pago-ico svg{width:19px;height:19px;fill:currentColor}
+.pago-tx{flex:1;min-width:0}
+.pago-tx b{display:block;font-size:12.5px;font-weight:600;letter-spacing:-.2px;line-height:1.2}
+.pago-tx span{display:block;font-size:10.5px;color:var(--ink2);line-height:1.3;margin-top:1px}
+.pago-badge{flex-shrink:0;font-size:14px;font-weight:700;letter-spacing:-.4px;color:var(--cd);
+  background:var(--tint);border-radius:99px;padding:5px 11px}
+.pago.gris .pago-badge{font-size:10.5px;font-weight:600;letter-spacing:.2px}
+.legal{font-size:10px;color:var(--ink3);text-align:center;flex-shrink:0}
+
+/* ═══════════ LÁMINA 2 · matriz de precios ═══════════ */
+.l2-cuerpo{position:relative;z-index:2;flex:1;min-height:0;
+  display:flex;flex-direction:column;gap:10px}
+.matriz{width:100%;border-collapse:separate;border-spacing:0;flex-shrink:0}
+.matriz th,.matriz td{padding:0}
+.matriz thead th{padding:7px 10px;font-size:11px;font-weight:700;letter-spacing:.3px;
+  text-align:center;border-bottom:2px solid var(--line2)}
+.matriz thead th:first-child{text-align:left;font-size:10.5px;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--ink3)}
+.matriz thead .mh b{display:block;font-size:15px;letter-spacing:-.3px}
+.matriz thead .mh span{display:block;font-weight:500;font-size:10px;color:var(--ink2);letter-spacing:0}
+.matriz tbody th{padding:9px 10px 9px 0;text-align:left;border-bottom:1px solid var(--line2)}
+.matriz tbody td{padding:9px 6px;text-align:center;border-bottom:1px solid var(--line2)}
+.matriz tbody tr:last-child th,.matriz tbody tr:last-child td{border-bottom:0}
+.meq{display:flex;align-items:center;gap:10px}
+.meq .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--tint);color:var(--cd)}
+.meq .ic svg{width:19px;height:19px;fill:currentColor}
+.meq b{display:block;font-size:13px;font-weight:600;letter-spacing:-.2px;line-height:1.15}
+.meq span{display:block;font-size:10.5px;color:var(--ink2);margin-top:1px}
+.mcell{display:inline-block;min-width:112px;padding:7px 10px;border-radius:11px;background:var(--mt)}
+.mcell b{display:block;font-size:16.5px;font-weight:600;letter-spacing:-.5px;color:var(--mc)}
+.mcell span{display:block;font-size:9.5px;color:var(--ink2)}
+
+/* sin equipos: una sola cifra, no una fila de celdas repetidas */
+.sineq{flex-shrink:0;display:flex;align-items:center;gap:12px;padding:9px 14px;
+  border-radius:14px;border:1px dashed var(--line);background:var(--wash)}
+.sineq .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--line2);color:var(--ink2)}
+.sineq .ic svg{width:17px;height:17px;fill:currentColor}
+.sineq .tx{flex:1;min-width:0;font-size:11.5px;color:var(--ink2);line-height:1.3}
+.sineq .tx b{font-weight:600;color:var(--ink)}
+.sineq .pr{flex-shrink:0;font-size:19px;font-weight:600;letter-spacing:-.6px;color:var(--ink)}
+.sineq .pr span{font-size:10px;font-weight:500;letter-spacing:0;color:var(--ink2);margin-left:5px}
+
+/* redes de colegios: escalera de descuentos por volumen */
+.vol{flex-shrink:0;display:flex;flex-direction:column;gap:6px;margin-top:auto}
+.vol-cab{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.vol-cab .rule{flex:1;height:1px;background:var(--line2);align-self:center}
+.vol-nota{font-size:10px;color:var(--ink3)}
+.vol-nota b{font-weight:700;color:var(--yel-d)}
+.vol-fila{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.vstep{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 4px 6px;
+  border-radius:11px;border:1px solid var(--line);background:var(--white)}
+.vstep .p{font-size:15px;font-weight:700;letter-spacing:-.4px;color:var(--vc)}
+.vstep .r{font-size:9.5px;color:var(--ink2);white-space:nowrap}
+.vstep .bar{width:100%;height:4px;border-radius:99px;background:var(--line2);overflow:hidden}
+.vstep .bar i{display:block;height:100%;border-radius:99px;background:var(--vc);width:var(--w)}
+
+.pie-nota{font-size:10.5px;color:var(--ink3);flex-shrink:0}
+.pie-nota b{font-weight:600;color:var(--ink2)}
+
+/* ═══════════ LÁMINA 3 · desglose año por año ═══════════ */
+/* centrado vertical: con 2 años la tabla es corta y con 4 llena; el aire
+   sobrante se reparte arriba y abajo en vez de acumularse antes del pasto */
+.l3-cuerpo{position:relative;z-index:2;flex:1;min-height:0;
+  display:flex;flex-direction:column;justify-content:center;gap:13px}
+.ctrl{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;flex-shrink:0}
+.cg{display:flex;flex-direction:column;gap:4px}
+.cl{font-size:9.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3)}
+
+.desg{width:100%;border-collapse:separate;border-spacing:0;flex-shrink:0}
+.desg thead th{padding:8px 10px;font-size:11px;font-weight:700;text-align:center;
+  border-bottom:2px solid var(--line2)}
+.desg thead th:first-child{text-align:left}
+.desg thead .dh{display:flex;flex-direction:column;align-items:center;gap:3px}
+.desg thead .dh b{font-size:12.5px;letter-spacing:-.2px;color:var(--hc)}
+.desg thead .dh span{font-size:13px;font-weight:700;color:var(--hc);
+  background:var(--ht);border-radius:99px;padding:2px 11px}
+.desg tbody th{padding:8px 10px 8px 0;text-align:left;border-bottom:1px solid var(--line2);
+  font-size:13px;font-weight:600;white-space:nowrap}
+.desg tbody th em{font-style:normal;font-size:10.5px;font-weight:600;color:var(--ink2);
+  background:var(--wash);border:1px solid var(--line2);border-radius:99px;padding:2px 8px;margin-left:8px}
+.ydot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--yc);
+  margin-right:8px;vertical-align:1px}
+.desg tbody td{padding:8px 6px;text-align:center;border-bottom:1px solid var(--line2)}
+.desg td b{display:block;font-size:15.5px;font-weight:600;letter-spacing:-.4px}
+.desg td span{display:block;font-size:9.5px;color:var(--ink2);margin-top:1px}
+.desg .con b{color:var(--grn-d)} .desg .ant b{color:var(--blue-d)} .desg .des b{color:var(--ink)}
+.desg tfoot th,.desg tfoot td{padding:9px 6px;border-top:2px solid var(--line2)}
+.desg tfoot th{text-align:left;font-size:12px;font-weight:700;letter-spacing:.2px}
+.desg tfoot td{text-align:center}
+.desg tfoot td b{display:block;font-size:16.5px;font-weight:700;letter-spacing:-.5px}
+.desg tfoot td span{display:block;font-size:9.5px;margin-top:1px;color:var(--ink2)}
+.desg tfoot .con span,.desg tfoot .ant span{font-weight:700}
+.desg tfoot .con span{color:var(--grn-d)} .desg tfoot .ant span{color:var(--blue-d)}
+
+/* ---------- navegación entre láminas (fuera del escenario) ---------- */
+#nav{position:fixed;right:22px;bottom:16px;z-index:50;display:flex;align-items:center;gap:10px;color:#fff}
+#nav button{width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;
+  background:rgba(255,255,255,.14);color:#fff;display:grid;place-items:center;
+  transition:background .2s,opacity .2s}
+#nav button:hover{background:rgba(255,255,255,.28)}
+#nav button:focus-visible{outline:2px solid #8ab4f8;outline-offset:2px}
+#nav button[disabled]{opacity:.35;cursor:default}
+#nav button svg{width:20px;height:20px;fill:currentColor}
+.dots{display:flex;gap:8px}
+.dots button{width:12px;height:12px;border-radius:50%;border:0;padding:0;cursor:pointer;
+  background:rgba(255,255,255,.3);transition:background .2s,transform .2s}
+.dots button[aria-current="true"]{background:#fff;transform:scale(1.25)}
+.dots button:focus-visible{outline:2px solid #8ab4f8;outline-offset:2px}
+#hint{position:fixed;left:22px;bottom:22px;z-index:50;font-size:11.5px;color:rgba(255,255,255,.55)}
+#hint b{color:rgba(255,255,255,.85);font-weight:600}
+
+/* ---------- impresión: una lámina por hoja ----------
+   Las animaciones propias (pasto) se anulan aquí porque motion.css solo
+   cubre las clases mo-*; y como viven en paths y grupos del SVG, se nombran
+   las clases, no el contenedor (docs/normativa-motion.md, prohibiciones). */
+@media print{
+  @page{size:1280px 720px;margin:0}
+  body{background:#fff;overflow:visible}
+  #stage{position:static;width:auto;height:auto;transform:none!important}
+  .lamina{display:flex!important;position:relative;inset:auto;width:1280px;height:720px;
+    margin:0 auto;box-shadow:none;border-radius:0;break-after:page;page-break-after:always}
+  .lamina:last-of-type{break-after:auto;page-break-after:auto}
+  .mv-crece,.mv-mece{animation:none!important}
+  .mv-crece{transform:none!important}
+  #nav,#hint{display:none!important}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  /* sin la animación, la brizna se quedaría en su estado inicial —scaleY(0)—
+     y la pradera desaparecería: se monta ya crecida, que es su estado final */
+  .mv-crece{transform:none!important}
+  .paq,.pago{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="stage">
+
+<!-- ════════════════ LÁMINA 1 · Dos paquetes, un ecosistema ════════════════ -->
+<section class="lamina on" id="l1" role="group" aria-roledescription="diapositiva" aria-label="Lámina 1 de 3: Paquetes y formas de pago">
+
+  <div class="bg" aria-hidden="true">
+    <span class="shape" style="width:460px;height:460px;left:-190px;top:-210px;background:var(--blue-t);opacity:.6"></span>
+    <span class="shape" style="width:340px;height:340px;right:-130px;top:-140px;background:var(--plus-t);opacity:.6"></span>
+    <span class="shape" style="width:300px;height:300px;right:-120px;bottom:40px;background:var(--yel-t);opacity:.45"></span>
+    <div class="mv-pasto"><svg viewBox="0 0 1280 74" preserveAspectRatio="none">
+      <rect x="0" y="71.5" width="1280" height="2.5" fill="#34a853" opacity=".28"/>
+      <g transform="translate(24,74) scale(.9)"><g class="mv-crece" style="animation-delay:.2s"><path class="mv-mece" style="animation-delay:-1.2s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".6"/></g></g>
+      <g transform="translate(52,74) scale(.9)"><g class="mv-crece" style="animation-delay:1.1s"><path class="mv-mece" style="animation-delay:-3.4s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+      <g transform="translate(108,74)"><g class="mv-crece" style="animation-delay:.5s"><path class="mv-mece" style="animation-delay:-.6s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#1e8e3e" opacity=".62"/></g></g>
+      <g transform="translate(166,74) scale(.8)"><g class="mv-crece" style="animation-delay:1.4s"><path class="mv-mece" style="animation-delay:-2.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+      <g transform="translate(196,74) scale(.85)"><g class="mv-crece" style="animation-delay:.8s"><path class="mv-mece" style="animation-delay:-4.8s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#34a853" opacity=".55"/></g></g>
+      <g transform="translate(254,74)"><g class="mv-crece" style="animation-delay:.3s"><path class="mv-mece" style="animation-delay:-1.8s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#34a853" opacity=".6"/></g></g>
+      <g transform="translate(328,74) scale(.95)"><g class="mv-crece" style="animation-delay:1s"><path class="mv-mece" style="animation-delay:-5.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#fbbc04" opacity=".6"/></g></g>
+      <g transform="translate(358,74) scale(.9)"><g class="mv-crece" style="animation-delay:.6s"><path class="mv-mece" style="animation-delay:-2.9s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#ea4335" opacity=".45"/></g></g>
+      <g transform="translate(434,74) scale(.9)"><g class="mv-crece" style="animation-delay:.15s"><path class="mv-mece" style="animation-delay:-.9s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#34a853" opacity=".62"/></g></g>
+      <g transform="translate(514,74)"><g class="mv-crece" style="animation-delay:1.3s"><path class="mv-mece" style="animation-delay:-4.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#1e8e3e" opacity=".6"/></g></g>
+      <g transform="translate(544,74) scale(.85)"><g class="mv-crece" style="animation-delay:.7s"><path class="mv-mece" style="animation-delay:-2.5s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+      <g transform="translate(612,74) scale(.85)"><g class="mv-crece" style="animation-delay:.4s"><path class="mv-mece" style="animation-delay:-3.9s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+      <g transform="translate(684,74) scale(.9)"><g class="mv-crece" style="animation-delay:1.6s"><path class="mv-mece" style="animation-delay:-1.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".62"/></g></g>
+      <g transform="translate(714,74) scale(.8)"><g class="mv-crece" style="animation-delay:.9s"><path class="mv-mece" style="animation-delay:-5.1s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#1e8e3e" opacity=".55"/></g></g>
+      <g transform="translate(786,74) scale(.95)"><g class="mv-crece" style="animation-delay:.25s"><path class="mv-mece" style="animation-delay:-3.1s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#ea4335" opacity=".5"/></g></g>
+      <g transform="translate(862,74)"><g class="mv-crece" style="animation-delay:1.2s"><path class="mv-mece" style="animation-delay:-2.2s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".6"/></g></g>
+      <g transform="translate(892,74) scale(.9)"><g class="mv-crece" style="animation-delay:.55s"><path class="mv-mece" style="animation-delay:-4.5s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+      <g transform="translate(964,74) scale(.9)"><g class="mv-crece" style="animation-delay:1.5s"><path class="mv-mece" style="animation-delay:-.4s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#1e8e3e" opacity=".62"/></g></g>
+      <g transform="translate(1036,74) scale(.85)"><g class="mv-crece" style="animation-delay:.35s"><path class="mv-mece" style="animation-delay:-3.6s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+      <g transform="translate(1102,74) scale(.9)"><g class="mv-crece" style="animation-delay:1s"><path class="mv-mece" style="animation-delay:-1.9s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#34a853" opacity=".6"/></g></g>
+      <g transform="translate(1158,74)"><g class="mv-crece" style="animation-delay:.65s"><path class="mv-mece" style="animation-delay:-5.8s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#34a853" opacity=".62"/></g></g>
+      <g transform="translate(1222,74) scale(.9)"><g class="mv-crece" style="animation-delay:1.35s"><path class="mv-mece" style="animation-delay:-2.7s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+      <g transform="translate(1256,74) scale(.8)"><g class="mv-crece" style="animation-delay:.75s"><path class="mv-mece" style="animation-delay:-4.2s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#1e8e3e" opacity=".55"/></g></g>
+    </svg></div>
+  </div>
+
+  <header class="ph">
+    <div class="ph-t">
+      <span class="eyebrow b">Precios · Ciclo escolar 2026–2027</span>
+      <h1>Dos <span class="g1">p</span><span class="g2">a</span><span class="g3">q</span><span class="g4">u</span><span class="g1">e</span><span class="g2">t</span><span class="g3">e</span><span class="g4">s</span>, un ecosistema</h1>
+      <p class="ph-sub">Un solo precio <b>por alumno al año</b> que lo incluye todo: equipos, licenciamiento, plataformas, capacitación y acompañamiento. Pesos mexicanos, <b>IVA incluido</b>.</p>
+    </div>
+    <div class="marca"><b>activa</b>Google for Education<br>Partner</div>
+  </header>
+
+  <div class="l1-cuerpo">
+    <div class="paqs mo-stagger" id="paqs">
+
+      <div class="twrap"><article class="paq edu">
+        <div class="paq-cab">
+          <span class="paq-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z"/></svg></span>
+          <div class="paq-id">
+            <div class="paq-n">Upgrade Edu</div>
+            <div class="paq-d">El ecosistema digital completo</div>
+          </div>
+          <div class="paq-precio">
+            <span class="desde">Desde</span>
+            <b class="num">$3,000</b>
+            <span class="uni">por alumno al año</span>
+          </div>
+        </div>
+        <ul class="paq-areas">
+          <li><b class="ar ti">TI</b><div><b>Tecnologías de la Información</b><span>Equipos con seguro y stock de reemplazo, Chrome Education Upgrade, Google Workspace for Education Plus y soporte TI sin límite.</span></div></li>
+          <li><b class="ar ip">IP</b><div><b>Innovación y Proyectos</b><span>Securly, Wayground, Canva, impulsa, motiva, beta English, integra y certificación oficial de estudiantes.</span></div></li>
+          <li><b class="ar dp">DP</b><div><b>Desarrollo Profesional</b><span>Capacitación docente virtual y presencial, eleva, webinars, bootcamps y vouchers de certificación Google N1 y N2.</span></div></li>
+        </ul>
+      </article></div>
+
+      <div class="twrap"><article class="paq plus">
+        <div class="paq-cab">
+          <span class="paq-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg></span>
+          <div class="paq-id">
+            <div class="paq-n">Upgrade Edu Plus</div>
+            <div class="paq-d">Accesibilidad, familias e inglés docente</div>
+          </div>
+          <div class="paq-precio">
+            <span class="desde">Desde</span>
+            <b class="num">$3,500</b>
+            <span class="uni">por alumno al año</span>
+          </div>
+        </div>
+        <span class="paq-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Todo Upgrade Edu <b class="num">&nbsp;+$500</b>&nbsp;por alumno, y además:</span>
+        <ul class="paq-areas">
+          <li><b class="ar pl">＋</b><div><b>Everway — Read&amp;Write, Orbit Note y Equatio</b><span>Suite de accesibilidad y apoyo al aprendizaje para trabajo inclusivo; una licencia por usuario.</span></div></li>
+          <li><b class="ar pl">＋</b><div><b>Escuela para Padres y Docentes</b><span>Taller presencial sobre motiva y estrategias socioemocionales para la comunidad educativa.</span></div></li>
+          <li><b class="ar pl">＋</b><div><b>Certificación docente en inglés (TKT)</b><span>60 horas de capacitación y preparación para el examen oficial de certificación.</span></div></li>
+        </ul>
+      </article></div>
+
+    </div>
+
+    <div class="pagos">
+      <div class="pagos-cab">
+        <span class="eyebrow y">Formas de pago</span>
+        <span class="rule"></span>
+        <span class="pagos-lema">El descuento lo pone <b>la fecha de firma</b> · aplica a todos los años del contrato</span>
+      </div>
+      <div class="pagos-fila mo-stagger" id="pagos">
+        <div class="pago grn">
+          <span class="pago-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></span>
+          <div class="pago-tx"><b>Contado en agosto</b><span>Pago único, sin mensualidades</span></div>
+          <span class="pago-badge num">−10%</span>
+        </div>
+        <div class="pago blu">
+          <span class="pago-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM10.53 17.29l-2.83-2.83 1.06-1.06 1.77 1.77 4.71-4.71 1.06 1.06-5.77 5.77z"/></svg></span>
+          <div class="pago-tx"><b>Firma antes del 19 de marzo de 2027</b><span>50% en agosto + 10 mensualidades</span></div>
+          <span class="pago-badge num">−5%</span>
+        </div>
+        <div class="pago gris">
+          <span class="pago-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></span>
+          <div class="pago-tx"><b>Firma a partir del 19 de marzo de 2027</b><span>50% en agosto + 10 mensualidades</span></div>
+          <span class="pago-badge">Precio de lista</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="legal">Precios del ciclo escolar 2026–2027 en pesos mexicanos por alumno, IVA incluido. Sujetos a confirmación contractual.</p>
+  </div>
+</section>
+
+<!-- ════════════════ LÁMINA 2 · El precio por alumno ════════════════ -->
+<section class="lamina compacta" id="l2" role="group" aria-roledescription="diapositiva" aria-label="Lámina 2 de 3: Precio por alumno según equipo, plazo y modalidad" aria-hidden="true">
+
+  <div class="bg" aria-hidden="true">
+    <span class="shape" style="width:420px;height:420px;left:-180px;top:-200px;background:var(--yel-t);opacity:.5"></span>
+    <span class="shape" style="width:320px;height:320px;right:-130px;top:-150px;background:var(--grn-t);opacity:.5"></span>
+    <div class="mv-pasto corta"><svg viewBox="0 0 1280 42" preserveAspectRatio="none">
+      <rect x="0" y="39.5" width="1280" height="2.5" fill="#34a853" opacity=".28"/>
+      <g transform="translate(30,42) scale(.55)"><g class="mv-crece" style="animation-delay:.2s"><path class="mv-mece" style="animation-delay:-1.2s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".6"/></g></g>
+      <g transform="translate(74,42) scale(.5)"><g class="mv-crece" style="animation-delay:1.1s"><path class="mv-mece" style="animation-delay:-3.4s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+      <g transform="translate(150,42) scale(.6)"><g class="mv-crece" style="animation-delay:.5s"><path class="mv-mece" style="animation-delay:-.6s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#1e8e3e" opacity=".62"/></g></g>
+      <g transform="translate(238,42) scale(.5)"><g class="mv-crece" style="animation-delay:1.4s"><path class="mv-mece" style="animation-delay:-2.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+      <g transform="translate(340,42) scale(.6)"><g class="mv-crece" style="animation-delay:.3s"><path class="mv-mece" style="animation-delay:-1.8s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#34a853" opacity=".6"/></g></g>
+      <g transform="translate(452,42) scale(.55)"><g class="mv-crece" style="animation-delay:1s"><path class="mv-mece" style="animation-delay:-5.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#fbbc04" opacity=".6"/></g></g>
+      <g transform="translate(560,42) scale(.5)"><g class="mv-crece" style="animation-delay:.6s"><path class="mv-mece" style="animation-delay:-2.9s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#ea4335" opacity=".45"/></g></g>
+      <g transform="translate(668,42) scale(.6)"><g class="mv-crece" style="animation-delay:.15s"><path class="mv-mece" style="animation-delay:-.9s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#34a853" opacity=".62"/></g></g>
+      <g transform="translate(776,42) scale(.55)"><g class="mv-crece" style="animation-delay:1.3s"><path class="mv-mece" style="animation-delay:-4.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#1e8e3e" opacity=".6"/></g></g>
+      <g transform="translate(884,42) scale(.5)"><g class="mv-crece" style="animation-delay:.7s"><path class="mv-mece" style="animation-delay:-2.5s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+      <g transform="translate(992,42) scale(.6)"><g class="mv-crece" style="animation-delay:.4s"><path class="mv-mece" style="animation-delay:-3.9s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+      <g transform="translate(1100,42) scale(.55)"><g class="mv-crece" style="animation-delay:1.6s"><path class="mv-mece" style="animation-delay:-1.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".62"/></g></g>
+      <g transform="translate(1196,42) scale(.5)"><g class="mv-crece" style="animation-delay:.9s"><path class="mv-mece" style="animation-delay:-5.1s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#1e8e3e" opacity=".55"/></g></g>
+      <g transform="translate(1252,42) scale(.55)"><g class="mv-crece" style="animation-delay:.25s"><path class="mv-mece" style="animation-delay:-3.1s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#ea4335" opacity=".5"/></g></g>
+    </svg></div>
+  </div>
+
+  <header class="ph">
+    <div class="ph-t">
+      <span class="eyebrow y">Precio de lista · por alumno y por año</span>
+      <h1>El precio por <span class="g1">a</span><span class="g2">l</span><span class="g3">u</span><span class="g4">m</span><span class="g1">n</span><span class="g2">o</span></h1>
+      <p class="ph-sub">Cada colegio elige <b>equipo, plazo y modalidad</b> —cuántos alumnos comparten un equipo—. El importe es anual, por alumno, IVA incluido.</p>
+    </div>
+    <div class="seg" id="segPaq2" role="group" aria-label="Elegir paquete">
+      <button type="button" data-pkg="edu" style="--segc:var(--blue)" aria-pressed="true">Upgrade Edu</button>
+      <button type="button" data-pkg="plus" style="--segc:var(--plus)" aria-pressed="false">Upgrade Edu Plus</button>
+    </div>
+  </header>
+
+  <div class="l2-cuerpo">
+    <table class="matriz">
+      <caption class="sr-only" style="position:absolute;left:-9999px">Precio de lista por alumno y por año, según equipo, plazo y modalidad</caption>
+      <thead>
+        <tr>
+          <th scope="col">Equipo y plazo</th>
+          <th scope="col"><span class="mh" style="color:var(--blue-d)"><b>1 : 4</b><span>un equipo por cada 4 alumnos</span></span></th>
+          <th scope="col"><span class="mh" style="color:var(--red-d)"><b>1 : 3</b><span>un equipo por cada 3 alumnos</span></span></th>
+          <th scope="col"><span class="mh" style="color:var(--yel-d)"><b>1 : 2</b><span>un equipo por cada 2 alumnos</span></span></th>
+          <th scope="col"><span class="mh" style="color:var(--grn-d)"><b>1 : 1</b><span>un equipo por alumno</span></span></th>
+        </tr>
+      </thead>
+      <tbody id="mBody"><!-- lo arma renderMatriz() --></tbody>
+    </table>
+
+    <div class="sineq">
+      <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/></svg></span>
+      <span class="tx"><b>Sin equipos</b> — solo licenciamiento, plataformas, capacitación y acompañamiento. El mismo precio con cualquier plazo.</span>
+      <span class="pr num" id="sineqPrecio">$3,000<span>por alumno al año</span></span>
+    </div>
+
+    <div class="vol">
+      <div class="vol-cab">
+        <span class="eyebrow g">Redes de colegios · descuento especial por volumen</span>
+        <span class="rule"></span>
+        <span class="vol-nota"><b>Referencia comercial:</b> se valida y confirma antes de entrar a una propuesta.</span>
+      </div>
+      <div class="vol-fila" id="volFila"><!-- lo arma renderVolumen() --></div>
+    </div>
+
+    <p class="pie-nota">Importes de <b>lista</b>: el descuento lo pone la forma de pago (lámina 1) y, en contratos a 3 o 4 años, cada año escala con el plazo — el desglose completo está en la <b>lámina 3</b>.</p>
+  </div>
+</section>
+
+<!-- ════════════════ LÁMINA 3 · El desglose, año por año ════════════════ -->
+<section class="lamina compacta" id="l3" role="group" aria-roledescription="diapositiva" aria-label="Lámina 3 de 3: Desglose año por año con descuentos" aria-hidden="true">
+
+  <div class="bg" aria-hidden="true">
+    <span class="shape" style="width:420px;height:420px;left:-180px;top:-200px;background:var(--plus-t);opacity:.5"></span>
+    <span class="shape" style="width:320px;height:320px;right:-130px;top:-150px;background:var(--blue-t);opacity:.55"></span>
+    <div class="mv-pasto corta"><svg viewBox="0 0 1280 42" preserveAspectRatio="none">
+      <rect x="0" y="39.5" width="1280" height="2.5" fill="#34a853" opacity=".28"/>
+      <g transform="translate(30,42) scale(.55)"><g class="mv-crece" style="animation-delay:.2s"><path class="mv-mece" style="animation-delay:-1.2s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".6"/></g></g>
+      <g transform="translate(74,42) scale(.5)"><g class="mv-crece" style="animation-delay:1.1s"><path class="mv-mece" style="animation-delay:-3.4s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+      <g transform="translate(150,42) scale(.6)"><g class="mv-crece" style="animation-delay:.5s"><path class="mv-mece" style="animation-delay:-.6s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#1e8e3e" opacity=".62"/></g></g>
+      <g transform="translate(238,42) scale(.5)"><g class="mv-crece" style="animation-delay:1.4s"><path class="mv-mece" style="animation-delay:-2.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+      <g transform="translate(340,42) scale(.6)"><g class="mv-crece" style="animation-delay:.3s"><path class="mv-mece" style="animation-delay:-1.8s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#34a853" opacity=".6"/></g></g>
+      <g transform="translate(452,42) scale(.55)"><g class="mv-crece" style="animation-delay:1s"><path class="mv-mece" style="animation-delay:-5.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#fbbc04" opacity=".6"/></g></g>
+      <g transform="translate(560,42) scale(.5)"><g class="mv-crece" style="animation-delay:.6s"><path class="mv-mece" style="animation-delay:-2.9s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#ea4335" opacity=".45"/></g></g>
+      <g transform="translate(668,42) scale(.6)"><g class="mv-crece" style="animation-delay:.15s"><path class="mv-mece" style="animation-delay:-.9s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#34a853" opacity=".62"/></g></g>
+      <g transform="translate(776,42) scale(.55)"><g class="mv-crece" style="animation-delay:1.3s"><path class="mv-mece" style="animation-delay:-4.1s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#1e8e3e" opacity=".6"/></g></g>
+      <g transform="translate(884,42) scale(.5)"><g class="mv-crece" style="animation-delay:.7s"><path class="mv-mece" style="animation-delay:-2.5s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#4285f4" opacity=".5"/></g></g>
+      <g transform="translate(992,42) scale(.6)"><g class="mv-crece" style="animation-delay:.4s"><path class="mv-mece" style="animation-delay:-3.9s" d="M7 0 C2 -25 -7 -42 -16 -54 C-7 -36 -3 -19 -7 0 Z" fill="#fbbc04" opacity=".55"/></g></g>
+      <g transform="translate(1100,42) scale(.55)"><g class="mv-crece" style="animation-delay:1.6s"><path class="mv-mece" style="animation-delay:-1.5s" d="M-8 0 C-5 -25 -2 -42 0 -58 C2 -42 5 -25 8 0 Z" fill="#34a853" opacity=".62"/></g></g>
+      <g transform="translate(1196,42) scale(.5)"><g class="mv-crece" style="animation-delay:.9s"><path class="mv-mece" style="animation-delay:-5.1s" d="M-6 0 C-4 -15 -1 -26 0 -36 C1 -26 4 -15 6 0 Z" fill="#1e8e3e" opacity=".55"/></g></g>
+      <g transform="translate(1252,42) scale(.55)"><g class="mv-crece" style="animation-delay:.25s"><path class="mv-mece" style="animation-delay:-3.1s" d="M-7 0 C-2 -25 7 -42 16 -54 C7 -36 3 -19 7 0 Z" fill="#ea4335" opacity=".5"/></g></g>
+    </svg></div>
+  </div>
+
+  <header class="ph">
+    <div class="ph-t">
+      <span class="eyebrow p">Desglose · contratos a 2, 3 y 4 años</span>
+      <h1>El <span class="g1">d</span><span class="g2">e</span><span class="g3">s</span><span class="g4">g</span><span class="g1">l</span><span class="g2">o</span><span class="g3">s</span><span class="g4">e</span>, año por año</h1>
+      <p class="ph-sub">En los contratos multi-año el precio <b>arranca por debajo de la lista</b> y sube suave cada ciclo. Elige un escenario y compara las tres formas de pago.</p>
+    </div>
+    <div class="marca"><b>activa</b>Google for Education<br>Partner</div>
+  </header>
+
+  <div class="l3-cuerpo">
+    <div class="ctrl">
+      <div class="cg">
+        <span class="cl">Paquete</span>
+        <div class="seg chica" id="segPaq3" role="group" aria-label="Elegir paquete">
+          <button type="button" data-pkg="edu" style="--segc:var(--blue)" aria-pressed="true">Edu</button>
+          <button type="button" data-pkg="plus" style="--segc:var(--plus)" aria-pressed="false">Edu Plus</button>
+        </div>
+      </div>
+      <div class="cg">
+        <span class="cl">Equipo y plazo</span>
+        <div class="seg chica" id="segTerm" role="group" aria-label="Elegir equipo y plazo"><!-- lo arma armaControles() --></div>
+      </div>
+      <div class="cg">
+        <span class="cl">Modalidad</span>
+        <div class="seg chica" id="segMod" role="group" aria-label="Elegir modalidad"><!-- lo arma armaControles() --></div>
+      </div>
+    </div>
+
+    <table class="desg" aria-live="polite">
+      <caption class="sr-only" style="position:absolute;left:-9999px">Desglose año por año del escenario elegido, por alumno y con las tres formas de pago</caption>
+      <thead>
+        <tr>
+          <th scope="col" style="width:250px">Año del contrato</th>
+          <th scope="col" style="--hc:var(--grn-d);--ht:var(--grn-t)"><span class="dh"><b>Contado en agosto</b><span class="num">−10%</span></span></th>
+          <th scope="col" style="--hc:var(--blue-d);--ht:var(--blue-t)"><span class="dh"><b>Firma antes del 19 mar 2027</b><span class="num">−5%</span></span></th>
+          <th scope="col" style="--hc:var(--ink2);--ht:#f1f3f4"><span class="dh"><b>Firma a partir del 19 mar 2027</b><span>Precio de lista</span></span></th>
+        </tr>
+      </thead>
+      <tbody id="dBody"><!-- lo arma renderDesglose() --></tbody>
+      <tfoot id="dFoot"></tfoot>
+    </table>
+
+    <p class="pie-nota" id="dNota">Importes por alumno, IVA incluido. Las mensualidades corren de septiembre a junio. El descuento de la forma de pago aplica a cada año del contrato.</p>
+  </div>
+</section>
+
+</div><!-- /#stage -->
+
+<!-- ── navegación, fuera del escenario: no se escala con las láminas ── -->
+<nav id="nav" aria-label="Navegación entre láminas">
+  <button type="button" id="navPrev" aria-label="Lámina anterior">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg>
+  </button>
+  <div class="dots" id="dots">
+    <button type="button" data-i="0" aria-label="Ir a la lámina 1: Paquetes" aria-current="true"></button>
+    <button type="button" data-i="1" aria-label="Ir a la lámina 2: Precio por alumno"></button>
+    <button type="button" data-i="2" aria-label="Ir a la lámina 3: Desglose año por año"></button>
+  </div>
+  <button type="button" id="navNext" aria-label="Lámina siguiente">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4 4.6 4.6z"/></svg>
+  </button>
+</nav>
+<p id="hint"><b>← →</b> cambian de lámina · <b>1–3</b> van directo · <b>F</b> pantalla completa</p>
+
+<script>
+/* ═══════════ LA CONFIGURACIÓN DEL CICLO ═══════════
+   COPIA CONSCIENTE del APP_CONFIG del cotizador (paginas/cotizador/index.html,
+   busca «CONFIGURACIÓN FIJA DEL CICLO»). El cotizador es la fuente de verdad:
+   si allá cambian precios, factores, descuentos o fechas, HAY QUE actualizar
+   este bloque a mano. Todo lo demás de esta página se calcula desde aquí. */
+const CFG = {
+  ciclo: "2026–2027",
+  firmaTemprana: "19 de marzo de 2027",
+  /* precio de lista por alumno y por año: paquete → fila de equipo → modalidad
+     (índices: 0 = sin equipos, 1 = 1:4, 2 = 1:3, 3 = 1:2, 4 = 1:1) */
+  pricing: {
+    edu :{n3:[3000,4225,4633.333333,5450,7900], n4:[3000,3975,4300,4950,6900],
+          flip:[3000,3300,3400,3600,4200], tab:[3000,3300,3400,3600,4200]},
+    plus:{n3:[3500,4725,5133.333333,5950,8400], n4:[3500,4475,4800,5450,7400],
+          flip:[3500,3875,4000,4250,5000], tab:[3500,3875,4000,4250,5000]}
+  },
+  /* cómo escala el precio de lista año con año, según el plazo */
+  factores: { three:[0.94,1.02,1.10], four:[0.90,0.97,1.04,1.11], twoFlat:[1,1] },
+  /* descuentos por forma de pago, y su calendario */
+  pagos: [
+    {k:"contado", disc:0.10, agosto:1,  mensualidades:0,  cls:"con"},
+    {k:"antes",   disc:0.05, agosto:.5, mensualidades:10, cls:"ant"},
+    {k:"despues", disc:0,    agosto:.5, mensualidades:10, cls:"des"}
+  ],
+  /* referencia de descuento por volumen para redes de colegios (validación
+     comercial requerida, igual que en el cotizador) */
+  volumen: [["500 – 999",10],["1,000 – 1,499",15],["1,500 – 1,999",20],
+            ["2,000 – 2,499",30],["2,500 – 2,999",40],["3,000 – 4,999",45],["5,000 +",55]]
+};
+const TERMS = [
+  {k:"cb3", row:"n3",  years:3, sched:CFG.factores.three,   nombre:"Chromebook nueva",           plazo:"3 años", corto:"Chromebook · 3 años", ico:"laptop"},
+  {k:"cb4", row:"n4",  years:4, sched:CFG.factores.four,    nombre:"Chromebook nueva",           plazo:"4 años", corto:"Chromebook · 4 años", ico:"laptop"},
+  {k:"fl2", row:"flip",years:2, sched:CFG.factores.twoFlat, nombre:"Chromebook Flip-Touch seminueva", plazo:"2 años", corto:"Flip-Touch · 2 años", ico:"flip"},
+  {k:"tb3", row:"tab", years:3, sched:CFG.factores.three,   nombre:"Tablet",                     plazo:"3 años", corto:"Tablet · 3 años", ico:"tablet"}
+];
+const MODS = [
+  {i:0, label:"Sin equipos"},
+  {i:1, label:"1:4"}, {i:2, label:"1:3"}, {i:3, label:"1:2"}, {i:4, label:"1:1"}
+];
+/* colores por columna de modalidad y por año, los mismos cuatro del deck */
+const COL = [
+  {c:"var(--blue-d)", t:"var(--blue-t)", dot:"#4285f4"},
+  {c:"var(--red-d)",  t:"var(--red-t)",  dot:"#ea4335"},
+  {c:"var(--yel-d)",  t:"var(--yel-t)",  dot:"#f9ab00"},
+  {c:"var(--grn-d)",  t:"var(--grn-t)",  dot:"#34a853"}
+];
+const ICOS = {
+  laptop:'<path d="M4 5h16a1 1 0 0 1 1 1v9H3V6a1 1 0 0 1 1-1zm1 2v6h14V7H5zM1.5 16.5h21l-.9 1.8a1.2 1.2 0 0 1-1.1.7H3.5a1.2 1.2 0 0 1-1.1-.7l-.9-1.8z"/>',
+  flip:'<path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/>',
+  tablet:'<path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm1 3v12.6h10V5H7zm5 14a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/>'
+};
+
+/* ═══════════ aritmética: la misma cadena del cotizador ═══════════
+   precio → factor anual → descuento, en precisión completa, y solo se
+   redondea al final (ver calculatePaymentYear en el cotizador). */
+const roundFinancial = n => Math.round((Number(n) + Number.EPSILON) * 1e6) / 1e6;
+const roundCurrency  = n => Math.round((Number(n) + Number.EPSILON) * 100) / 100;
+const money = n => roundCurrency(Number(n) || 0).toLocaleString("es-MX",
+  {style:"currency", currency:"MXN", minimumFractionDigits:2, maximumFractionDigits:2});
+/* para la matriz: sin centavos cuando el importe es redondo */
+const moneyCompact = n => {
+  const v = roundCurrency(Number(n) || 0);
+  return v.toLocaleString("es-MX", {style:"currency", currency:"MXN",
+    minimumFractionDigits: Number.isInteger(v) ? 0 : 2, maximumFractionDigits:2});
+};
+function calcAnio(lista, factor, pago){
+  const net = roundCurrency(roundFinancial(lista * factor * (1 - pago.disc)));
+  if(!pago.mensualidades) return {net, agosto:net, mensual:0};
+  const mensual = roundCurrency(net * (1 - pago.agosto) / pago.mensualidades);
+  const agosto  = roundCurrency(net - mensual * pago.mensualidades);
+  return {net, agosto, mensual};
+}
+
+/* ═══════════ estado de las dos láminas con datos ═══════════ */
+const S = { pkg2:"edu", d:{pkg:"edu", term:"cb4", mod:4} };
+
+/* ═══════════ lámina 2: la matriz ═══════════ */
+function renderMatriz(){
+  const P = CFG.pricing[S.pkg2];
+  document.getElementById("mBody").innerHTML = TERMS.map(t => `
+    <tr>
+      <th scope="row"><span class="meq" style="--tint:${S.pkg2==="plus"?"var(--plus-t)":"var(--blue-t)"};--cd:${S.pkg2==="plus"?"var(--plus-d)":"var(--blue-d)"}">
+        <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">${ICOS[t.ico]}</svg></span>
+        <span><b>${t.nombre}</b><span>Contrato a ${t.plazo}</span></span>
+      </span></th>
+      ${[1,2,3,4].map(m => `<td><span class="mcell" style="--mc:${COL[m-1].c};--mt:${COL[m-1].t}">
+        <b class="num">${moneyCompact(P[t.row][m])}</b><span>por alumno / año</span>
+      </span></td>`).join("")}
+    </tr>`).join("");
+  document.getElementById("sineqPrecio").innerHTML =
+    `${moneyCompact(P.n3[0])}<span>por alumno al año</span>`;
+}
+function renderVolumen(){
+  const max = CFG.volumen[CFG.volumen.length-1][1];
+  document.getElementById("volFila").innerHTML = CFG.volumen.map(([rango,p],i) => `
+    <div class="vstep" style="--vc:${COL[i%4].dot};--w:${Math.round(p/max*100)}%">
+      <span class="p num">${p}%</span>
+      <span class="bar"><i></i></span>
+      <span class="r">${rango} alumnos</span>
+    </div>`).join("");
+}
+
+/* ═══════════ lámina 3: el desglose ═══════════ */
+function armaControles(){
+  document.getElementById("segTerm").innerHTML = TERMS.map(t =>
+    `<button type="button" data-term="${t.k}" aria-pressed="${t.k===S.d.term}">${t.corto}</button>`).join("");
+  document.getElementById("segMod").innerHTML = MODS.map(m =>
+    `<button type="button" data-mod="${m.i}" aria-pressed="${m.i===S.d.mod}">${m.label}</button>`).join("");
+}
+function renderDesglose(){
+  const t = TERMS.find(x => x.k === S.d.term);
+  const lista = CFG.pricing[S.d.pkg][t.row][S.d.mod];
+  const filas = t.sched.map((factor,i) => ({
+    i, factor,
+    lista: roundCurrency(roundFinancial(lista * factor)),
+    pagos: CFG.pagos.map(p => calcAnio(lista, factor, p))
+  }));
+  document.getElementById("dBody").innerHTML = filas.map(f => `
+    <tr>
+      <th scope="row"><span class="ydot" style="--yc:${COL[f.i%4].dot}"></span>Año ${f.i+1}
+        <em class="num">× ${f.factor.toFixed(2)}</em></th>
+      ${f.pagos.map((r,j) => `<td class="${CFG.pagos[j].cls}">
+        <b class="num">${money(r.net)}</b>
+        <span class="num">${r.mensual ? `agosto ${money(r.agosto)} + 10 × ${money(r.mensual)}` : "pago único en agosto"}</span>
+      </td>`).join("")}
+    </tr>`).join("");
+  const totLista = roundCurrency(filas.reduce((s,f) => s + f.lista, 0));
+  const tot = CFG.pagos.map((p,j) => roundCurrency(filas.reduce((s,f) => s + f.pagos[j].net, 0)));
+  document.getElementById("dFoot").innerHTML = `
+    <tr>
+      <th scope="row">Total del contrato<br><em style="font-style:normal;font-size:10px;font-weight:500;color:var(--ink2)">por alumno · ${t.years} años</em></th>
+      <td class="con"><b class="num">${money(tot[0])}</b><span class="num">ahorras ${money(totLista - tot[0])}</span></td>
+      <td class="ant"><b class="num">${money(tot[1])}</b><span class="num">ahorras ${money(totLista - tot[1])}</span></td>
+      <td class="des"><b class="num">${money(tot[2])}</b><span>precio de lista</span></td>
+    </tr>`;
+  const paqNombre = S.d.pkg === "plus" ? "Upgrade Edu Plus" : "Upgrade Edu";
+  const modLabel = S.d.mod === 0 ? "sin equipos" : "modalidad " + MODS[S.d.mod].label;
+  document.getElementById("dNota").innerHTML =
+    `<b>${paqNombre} · ${t.nombre} · ${modLabel} · ${t.years} años.</b> ` +
+    `Importes por alumno, IVA incluido. Las mensualidades corren de septiembre a junio. ` +
+    `El descuento de la forma de pago aplica a cada año del contrato.`;
+}
+
+/* cableado de los segmentos. Cada botón solo cambia el estado y se repinta:
+   los números no se animan (docs/normativa-motion.md, prohibiciones). */
+function segmento(id, marca, aplica){
+  const caja = document.getElementById(id);
+  caja.addEventListener("click", e => {
+    const b = e.target.closest("button");
+    if(!b) return;
+    aplica(b);
+    caja.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    marca();
+  });
+}
+segmento("segPaq2", renderMatriz,   b => { S.pkg2 = b.dataset.pkg; });
+segmento("segPaq3", renderDesglose, b => { S.d.pkg = b.dataset.pkg; });
+segmento("segTerm", renderDesglose, b => { S.d.term = b.dataset.term; });
+segmento("segMod",  renderDesglose, b => { S.d.mod = Number(b.dataset.mod); });
+
+armaControles();
+renderMatriz();
+renderVolumen();
+renderDesglose();
+
+/* ═══════════ navegación entre láminas ═══════════ */
+const LAMS = [...document.querySelectorAll(".lamina")];
+const dots = [...document.querySelectorAll("#dots button")];
+const bPrev = document.getElementById("navPrev"), bNext = document.getElementById("navNext");
+let cur = 0;
+function go(i){
+  i = Math.max(0, Math.min(LAMS.length - 1, i));
+  if(i === cur && LAMS[i].classList.contains("on")) { pinta(); return; }
+  cur = i;
+  LAMS.forEach((l,j) => { l.classList.toggle("on", j === cur); l.setAttribute("aria-hidden", String(j !== cur)); });
+  pinta();
+  if(typeof fija === "function") fija();
+  /* al volver a la lámina 1, su cascada se relanza; las tablas de las
+     láminas 2 y 3 no llevan cascada: números quietos, siempre */
+  if(window.Motion && cur === 0){
+    Motion.replay(document.getElementById("paqs"));
+    Motion.replay(document.getElementById("pagos"));
+  }
+}
+function pinta(){
+  dots.forEach((d,j) => { if(j === cur) d.setAttribute("aria-current","true"); else d.removeAttribute("aria-current"); });
+  bPrev.disabled = cur === 0;
+  bNext.disabled = cur === LAMS.length - 1;
+}
+bPrev.addEventListener("click", () => go(cur - 1));
+bNext.addEventListener("click", () => go(cur + 1));
+dots.forEach(d => d.addEventListener("click", () => go(Number(d.dataset.i))));
+pinta();
+
+/* enlace directo a una lámina: …/precios/#2 abre la matriz, #3 el desglose.
+   replaceState y no location.hash: navegar no debe llenar el historial. */
+function fija(){ try{ history.replaceState(null, "", "#" + (cur + 1)); }catch(e){} }
+const hashN = parseInt((location.hash || "").slice(1), 10);
+if(hashN >= 1 && hashN <= LAMS.length) go(hashN - 1);
+addEventListener("hashchange", () => {
+  const n = parseInt((location.hash || "").slice(1), 10);
+  if(n >= 1 && n <= LAMS.length && n - 1 !== cur) go(n - 1);
+});
+
+addEventListener("keydown", e => {
+  if(e.metaKey || e.ctrlKey || e.altKey) return;
+  const tag = document.activeElement && document.activeElement.tagName;
+  if(tag === "INPUT" || tag === "TEXTAREA") return;
+  if(e.key === "ArrowRight" || e.key === "PageDown"){ e.preventDefault(); go(cur + 1); return; }
+  if(e.key === "ArrowLeft"  || e.key === "PageUp"){ e.preventDefault(); go(cur - 1); return; }
+  if(e.key === "Home"){ e.preventDefault(); go(0); return; }
+  if(e.key === "End"){ e.preventDefault(); go(LAMS.length - 1); return; }
+  const n = parseInt(e.key, 10);
+  if(n >= 1 && n <= LAMS.length){ go(n - 1); return; }
+  if(e.key === "f" || e.key === "F"){
+    if(document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen?.();
+  }
+});
+
+/* ═══════════ escalado del escenario ═══════════
+   Las láminas miden siempre 1280×720 y se encogen para caber enteras:
+   nunca hay scroll, ni en un monitor 4K ni en un celular. */
+const stage = document.getElementById("stage");
+function escalar(){
+  const m = window.innerWidth < 700 ? 10 : 26;
+  const k = Math.min((window.innerWidth - m*2)/1280, (window.innerHeight - m*2)/720);
+  window.__scale = k;
+  stage.style.transform = `translate(-50%,-50%) scale(${k})`;
+}
+escalar();
+addEventListener("resize", escalar);
+
+/* ═══════════ velo de color que sigue al cursor ═══════════
+   El patrón de la normativa (regla 2): el evento solo guarda coordenadas,
+   la geometría se lee una vez por frame dentro del bucle del motor. Sin
+   motor no hay bucle, así que ahí se pinta directo (regla 4). */
+const velo = { activa:null, x:0, y:0 };
+function veloPinta(el, cx, cy){
+  const r = el.getBoundingClientRect(), k = window.__scale || 1;
+  el.style.setProperty("--mx", ((cx - r.left) / k) + "px");
+  el.style.setProperty("--my", ((cy - r.top)  / k) + "px");
+}
+document.querySelectorAll(".paq").forEach(el => {
+  el.addEventListener("pointermove", e => {
+    if(window.Motion){ velo.activa = el; velo.x = e.clientX; velo.y = e.clientY; return; }
+    veloPinta(el, e.clientX, e.clientY);
+  });
+  el.addEventListener("pointerleave", () => { if(velo.activa === el) velo.activa = null; });
+});
+
+/* ═══════════ movimiento (motor compartido) ═══════════
+   docs/normativa-motion.md. Opcional por diseño: si motion.js no cargó, las
+   láminas ya se ven completas y quietas (regla 4). Solo la lámina 1 lleva
+   cascada e inclinación; las tablas de precios de las láminas 2 y 3 quedan
+   quietas a propósito: la precisión no se decora. */
+if(window.Motion){
+  Motion.stagger(document.getElementById("paqs"),  120, 90);
+  Motion.stagger(document.getElementById("pagos"),  90, 380);
+  /* sin scroll no hace falta margen de anticipación: umbral cero */
+  Motion.revealAll(".mo-stagger > *", { threshold: 0, rootMargin: "0px" });
+  document.querySelectorAll(".paq").forEach(p => Motion.tilt(p, 3));
+  Motion.onFrame(() => { if(velo.activa) veloPinta(velo.activa, velo.x, velo.y); });
+  Motion.start();   /* siempre lo último */
+}
+</script>
+</body>
+</html>

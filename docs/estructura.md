@@ -27,9 +27,14 @@ Presentacion-activa/
 │   ├── padres-de-familia/        Deck de 22 diapositivas para juntas con familias
 │   │   ├── index.html
 │   │   └── README.md
-│   └── cotizador/                Herramienta para armar la propuesta
+│   ├── cotizador/                Herramienta para armar la propuesta
+│   │   ├── index.html
+│   │   ├── og.png
+│   │   └── README.md
+│   └── precios/                  Tres láminas: paquetes, precio por alumno y desglose
 │       ├── index.html
-│       ├── og.png
+│       ├── og.png                Su vista previa de WhatsApp (generada)
+│       ├── og-source.html        El molde de esa vista previa
 │       └── README.md
 │
 ├── compartidos/                  ← LO QUE USA MÁS DE UNA PÁGINA
@@ -76,9 +81,9 @@ retirarla se quedó sin consumidores; se borró. Lo único compartido en present
 
 ## Nada de esto se indexa
 
-Las cinco páginas llevan `<meta name="robots" content="noindex">`. No es paranoia: el cotizador
-tiene el precio por alumno, los descuentos y los datos bancarios de la empresa, y los decks
-llevan la propuesta completa de un colegio concreto. Todo se abre desde el kit o se manda por
+Las seis páginas llevan `<meta name="robots" content="noindex">`. No es paranoia: el cotizador
+y la página de precios tienen el precio por alumno y los descuentos —el cotizador, además, los
+datos bancarios de la empresa— y los decks llevan la propuesta completa de un colegio concreto. Todo se abre desde el kit o se manda por
 enlace; nada se busca.
 
 **No sirve poner un `robots.txt` en este repositorio.** El sitio se publica en
@@ -124,6 +129,7 @@ El sitio se sirve desde la rama `main` tal cual, así que **la ruta del reposito
 | upgrade edu | https://sanoapro.github.io/activa/paginas/upgrade-edu/ |
 | Padres de familia | https://sanoapro.github.io/activa/paginas/padres-de-familia/ |
 | Cotizador | https://sanoapro.github.io/activa/paginas/cotizador/ |
+| Precios | https://sanoapro.github.io/activa/paginas/precios/ |
 
 Al mover una página hay que revisar tres lugares: sus propias etiquetas `og:`, las tarjetas del
 portal, y las listas del kit comercial.
