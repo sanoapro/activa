@@ -158,6 +158,16 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
    nota de arriba: las descripciones de esa fila se mantienen en una idea corta
    (≤ 2 líneas a 10.5 px) para no rebasar los ≈106 px de alto de la rejilla. */
 .kc-grid.g5{grid-template-columns:repeat(5,1fr)}
+/* Seis accesos de venta: el cotizador de compra directa entro a esta fila
+   porque es herramienta de venta, no interna. */
+.kc-grid.g6{grid-template-columns:repeat(6,1fr)}
+.kc-grid.g6 .tile{gap:8px;padding:10px 11px 9px}
+.kc-grid.g6 .t-ico{width:32px;height:32px;border-radius:10px}
+.kc-grid.g6 .t-ico svg{width:19px;height:19px}
+.kc-grid.g6 .t-tx{padding-right:24px}
+.kc-grid.g6 .t-name{font-size:12.5px}
+.kc-grid.g6 .t-desc{font-size:10px;line-height:1.26}
+.kc-grid.g6 .t-host{font-size:9.5px;padding:2px 6px}
 .kc-grid.g5 .tile{gap:9px;padding:11px 12px 10px}
 .kc-grid.g5 .t-ico{width:34px;height:34px;border-radius:11px}
 .kc-grid.g5 .t-ico svg{width:20px;height:20px}
@@ -458,16 +468,16 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
       <div class="kc-sechead">
         <span class="eyebrow b">Herramientas de venta</span>
         <span class="rule"></span>
-        <span class="cnt">05</span>
+        <span class="cnt" id="cntVenta">05</span>
       </div>
-      <div class="kc-grid g5 mo-stagger" id="gVenta"></div>
+      <div class="kc-grid g6 mo-stagger" id="gVenta"></div>
     </section>
 
     <section class="kc-sec eventos">
       <div class="kc-sechead">
         <span class="eyebrow y">Eventos</span>
         <span class="rule"></span>
-        <span class="cnt">03</span>
+        <span class="cnt" id="cntEventos">03</span>
       </div>
       <div class="kc-grid g3 mo-stagger" id="gEventos"></div>
     </section>
@@ -481,9 +491,9 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
           Descargables
           <span class="n">01</span>
         </a>
-        <span class="cnt">04</span>
+        <span class="cnt" id="cntInterna">04</span>
       </div>
-      <div class="kc-grid g4 mo-stagger" id="gInterna"></div>
+      <div class="kc-grid g3 mo-stagger" id="gInterna"></div>
     </section>
 
   </main>
@@ -587,6 +597,10 @@ const VENTA = [
     desc:'El deck de venta upgrade edu, listo para proyectar.',
     host:'sanoapro.github.io',
     url:'https://sanoapro.github.io/activa/paginas/upgrade-edu' },
+  { id:'compra', nombre:'Compra directa', color:'--blue', color2:'#0d47a1', tinte:'--blue-t',
+    desc:'Cotizador de compras por partida, con el IVA al final.',
+    host:'sanoapro.github.io',
+    url:'https://sanoapro.github.io/activa/paginas/compra/' },
   { id:'papas', nombre:'Presentación a papás', color:'--teal', color2:'#004d40', tinte:'--teal-t',
     desc:'Para juntas con familias: qué cambia y qué no.',
     host:'sanoapro.github.io',
@@ -625,13 +639,6 @@ const INTERNA = [
     desc:'Tus gastos de viaje y comprobantes.',
     host:'AppSheet',
     url:'https://www.appsheet.com/newshortcut/501547d4-9b8d-49ee-a247-bf4ce5d48cc4' },
-  /* Es una herramienta de venta, pero vive aquí porque la fila VENTA ya está
-     llena (cinco accesos en .g5; una sexta no cabe — ver el README). Esta
-     fila pasó de .g3 a .g4 para recibirla. */
-  { id:'compra', nombre:'Compra directa', color:'--grn', color2:'#0b5c28', tinte:'--grn-t',
-    desc:'Cotizador de compras por partida, con el IVA al final.',
-    host:'sanoapro.github.io',
-    url:'https://sanoapro.github.io/activa/paginas/compra/' }
 ];
 
 const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
@@ -776,6 +783,10 @@ function pintar(cont, lista){
   lista.forEach(it => box.appendChild(tarjeta(it)));
 }
 pintar('gVenta',   VENTA);
+/* Los contadores de cada franja salen de las listas: escritos a mano quedaron
+   mintiendo en cuanto una tarjeta cambio de fila. */
+const cnt=(id,n)=>{const e=document.getElementById(id);if(e)e.textContent=String(n).padStart(2,'0');};
+cnt('cntVenta',VENTA.length);cnt('cntEventos',EVENTOS.length);cnt('cntInterna',INTERNA.length);
 pintar('gEventos', EVENTOS);
 pintar('gInterna', INTERNA);
 

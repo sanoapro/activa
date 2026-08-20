@@ -63,6 +63,10 @@
   --disp:"Google Sans","Product Sans",Roboto,Arial,sans-serif;
   --body:Roboto,Arial,Helvetica,sans-serif;
   --mono:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  /* Ancho de la aplicacion. El documento impreso es A4 por @page y la vista
+     de propuesta lleva su propio ancho de lectura (940 px): nada de eso
+     depende de este numero, asi que la herramienta puede respirar. */
+  --app-max:1560px;
   --action-bar-height:82px;
   --sticky-header-height:150px;
 }
@@ -70,7 +74,7 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:calc(var(--action-bar-height) + env(safe-area-inset-bottom))}
 body.modal-open{overflow:hidden}
-h1,h2,h3,h4,.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+h1,h2,h3,h4,.wrap{max-width:var(--app-max);margin:0 auto;padding:0 24px}
 .num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 .muted{color:var(--mute);font-size:12.5px}
 :focus-visible{outline:3px solid var(--acc-d);outline-offset:2px;border-radius:4px}
@@ -81,7 +85,7 @@ h1,h2,h3,h4,.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
 
 /* ---------- encabezado ---------- */
 header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdrop-filter:saturate(1.6) blur(10px);border-bottom:1px solid var(--line)}
-.hbar{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:9px 24px}
+.hbar{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:var(--app-max);margin:0 auto;padding:7px 24px}
 .logo{display:flex;align-items:center;gap:11px}
 .brand-logo-img{display:block;width:154px;height:auto;max-height:44px;object-fit:contain;object-position:left center}
 .brand-partner{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--mute);white-space:nowrap}
@@ -89,7 +93,7 @@ header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdro
 /* Etiqueta de versión visible: identifica el archivo de un vistazo, la misma
    lección del cotizador (copias viejas abiertas por accidente). */
 .vertag{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.4px;color:var(--acc-d);background:var(--acc-t);border:1px solid #aecbfa;border-radius:99px;padding:2px 9px;align-self:center}
-.hnav{display:flex;gap:18px;font-size:13px}
+.hnav{display:flex;gap:18px;font-size:13px;white-space:nowrap}
 .hnav a{color:var(--mute);text-decoration:none;padding:3px 0;border-bottom:2px solid transparent}
 .hnav a:hover{color:var(--ink);border-color:var(--acc)}
 .btn{font-family:var(--disp);font-size:13px;font-weight:500;border:1px solid var(--field-line);background:#fff;color:var(--ink2);padding:8px 14px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.15s;white-space:nowrap;min-height:40px}
@@ -109,7 +113,7 @@ header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdro
 
 /* ---------- barra de resumen fija (la "barra de configuración" de esta página) ---------- */
 .cfgbar{position:relative;border-top:1px solid var(--soft);background:linear-gradient(180deg,var(--acc-t),rgba(255,255,255,0))}
-.cfgin{max-width:1200px;margin:0 auto;padding:10px 24px;display:grid;grid-template-columns:1fr 1fr 1fr 1.4fr;gap:14px;align-items:end}
+.cfgin{max-width:var(--app-max);margin:0 auto;padding:8px 24px;display:grid;grid-template-columns:1fr 1fr 1fr 1.4fr;gap:14px;align-items:end}
 .cfgf>span.k{display:block;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin-bottom:3px}
 .cfgf b{font-family:var(--mono);font-size:16px;font-weight:600;color:var(--ink2);letter-spacing:-.3px}
 .cfgprice{text-align:right;padding-left:10px;border-left:1px solid var(--line)}
@@ -120,7 +124,7 @@ header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdro
 .btn:disabled.mo-hover-eleva:hover{transform:none;box-shadow:none}
 
 /* ---------- hero ---------- */
-.hero{padding:34px 0 20px}
+.hero{padding:26px 0 16px}
 .tag{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);color:var(--mute);font-size:12.5px;font-weight:500;padding:6px 14px;border-radius:999px;margin-bottom:14px}
 .gdots{display:grid;grid-template-columns:repeat(2,6px);grid-gap:2px}
 .gdots i{width:6px;height:6px;border-radius:50%;display:block}
@@ -132,8 +136,13 @@ header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdro
 .iva{display:inline-flex;align-items:center;gap:7px;background:var(--g-yel-t);color:var(--g-yel-d);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:500}
 .iva svg{width:15px;height:15px;fill:var(--g-yel-d)}
 .scope{font-size:12.5px;color:var(--mute)}
-.workmeta{margin-top:15px;display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;font-size:12px;color:var(--mute)}
-.workmeta b{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+/* Identidad de la cotización dentro del encabezado: pequeña, permanente y sin
+   robar una franja entera de pantalla como hacía el hero. */
+.workmeta{display:flex;align-items:center;gap:4px 12px;flex-wrap:wrap;font-size:11.5px;color:var(--mute);margin-left:auto;justify-content:flex-end}
+.workmeta b{font-family:var(--mono);font-size:11.5px;color:var(--ink);font-weight:600}
+.workmeta span{white-space:nowrap}
+.workmeta .wr{padding-left:12px;border-left:1px solid var(--line)}
+.workmeta .save-state{padding-left:12px;border-left:1px solid var(--line)}
 .save-state[data-state="saving"]{color:var(--g-blue-d)}
 .save-state[data-state="error"]{color:var(--g-red-d)}
 .save-state[data-state="saved"]{color:var(--g-grn-d)}
@@ -141,22 +150,33 @@ header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdro
 .storage-conflict{color:var(--g-red-d)!important;font-weight:700}
 #storageBanner{margin:14px auto 0;background:var(--g-red-t);border:1px solid #f5c6c0;border-radius:10px;padding:10px 12px;color:var(--g-red-d);font-size:12.5px;font-weight:500}
 
-section{padding:40px 0;scroll-margin-top:var(--sticky-header-height)}
+section{padding:26px 0 32px;scroll-margin-top:var(--sticky-header-height)}
 main section{scroll-margin-top:var(--sticky-header-height)}
 .alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.shead{margin:0 0 22px;max-width:760px}
-.shead .kick{font-family:var(--disp);font-size:11.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--acc-d);margin-bottom:7px}
-.shead h2{font-size:26px;margin:0 0 7px;font-weight:700}
-.shead p{color:var(--mute);margin:0;font-size:14.5px}
+.shead{margin:0 0 14px;max-width:760px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.shead .kick{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--acc-d)}
+.shead h2{font-size:21px;margin:0;font-weight:700;padding:0}
+.shead p{color:var(--mute);margin:0;font-size:12.5px}
 
 /* ---------- catálogo y captura ----------
    Una sola tabla densa: el boton de la izquierda agrega y esa misma celda pasa
    a ser el campo de cantidad. Sustituye a la rejilla de tarjetas, que pedia
    seis pantallas de scroll para 37 partidas, y al editor aparte del antiguo
    paso 2, que obligaba a ir y venir por cada renglon. */
-.catbar{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:flex-end;margin-bottom:12px}
-.catbar .fsearch{flex:1 1 300px;max-width:420px}
-.catfilters{display:flex;flex-wrap:wrap;gap:6px}
+/* Una sola línea de trabajo: buscar · filtrar · saber cuántas hay. Sin título
+   de sección, sin instrucciones: quien la usa ya sabe cotizar. */
+.catbar{display:grid;grid-template-columns:minmax(220px,330px) 1fr;grid-template-areas:"buscar meta" "filtros filtros";gap:9px 16px;align-items:center;padding:14px 0 12px}
+.catbar .fsearch{grid-area:buscar}
+.catmeta{grid-area:meta}
+.catfilters{grid-area:filtros}
+.catbar .fsearch{position:relative}
+.catbar .fsearch .si{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;height:16px;fill:var(--faint);pointer-events:none}
+.catbar .fsearch input{width:100%;padding:9px 12px 9px 34px;border:1px solid var(--field-line);border-radius:9px;font-family:var(--body);font-size:13.5px;background:#fff;color:var(--ink)}
+.catbar .fsearch input::-webkit-search-cancel-button{cursor:pointer}
+.catmeta{display:flex;align-items:center;justify-content:flex-end;gap:10px;white-space:nowrap}
+.catmeta .iva{background:var(--g-yel-t);color:var(--g-yel-d);border:1px solid var(--g-yel-b);border-radius:7px;padding:3px 9px;font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.catmeta .catcount{font-size:11.5px;color:var(--mute);font-family:var(--mono)}
+.catfilters{display:flex;flex-wrap:wrap;gap:6px;min-width:0;max-width:100%}
 .fchip{font-family:var(--disp);font-size:12px;font-weight:500;border:1px solid var(--field-line);background:#fff;color:var(--ink2);border-radius:999px;padding:6px 13px;cursor:pointer;min-height:36px;white-space:nowrap;transition:.15s}
 .fchip:hover{background:var(--bg)}
 .fchip[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
@@ -164,13 +184,25 @@ main section{scroll-margin-top:var(--sticky-header-height)}
 .fchip.added[aria-pressed="true"]{background:var(--g-grn);border-color:var(--g-grn)}
 .catcount{font-size:12.5px;color:var(--mute);margin-bottom:10px}
 .cattbl{width:100%;border-collapse:collapse;font-size:13.5px}
-.cattbl th,.cattbl td{padding:9px 12px;text-align:right;white-space:nowrap;vertical-align:middle}
-.cattbl thead th{position:sticky;top:calc(var(--sticky-header-height) - 8px);z-index:3}
+.cattbl th,.cattbl td{padding:7px 12px;text-align:right;white-space:nowrap;vertical-align:middle}
+/* El encabezado se queda a la vista al bajar. Para que funcione, ningun
+   ancestro puede ser contenedor de desplazamiento: por eso .catscroll no lleva
+   overflow en escritorio (ver el corte de 1080 px). */
+.cattbl thead th{position:sticky;top:calc(var(--sticky-header-height) - 8px);z-index:3;box-shadow:0 1px 0 var(--line)}
+.catscroll{overflow:visible}
+/* Igual que .tbox pero SIN overflow:hidden: cualquier overflow distinto de
+   visible en un ancestro convierte a ese ancestro en el marco del encabezado
+   pegajoso, y el encabezado se iba 130 px hacia abajo dejando una banda en
+   blanco. Las esquinas se redondean en las celdas de los extremos. */
+.catbox{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh1)}
+.catbox .cattbl tbody tr:last-child td:first-child{border-bottom-left-radius:13px}
+.catbox .cattbl tbody tr:last-child td:last-child{border-bottom-right-radius:13px}
+.catbox .tfoot{border-radius:0 0 13px 13px}
 .cattbl th.txt,.cattbl td.txt{text-align:left;white-space:normal;min-width:250px}
 .cattbl tbody td{border-bottom:1px solid var(--soft)}
 /* Encabezado de familia: es una fila de la misma tabla para que las columnas no
    se desalineen entre grupos. */
-.famrow th{background:#fff;text-align:left;padding:16px 12px 8px;border-bottom:1px solid var(--line)}
+.famrow th{background:#fff;text-align:left;padding:13px 12px 6px;border-bottom:1px solid var(--line)}
 .famrow .fh{display:flex;align-items:center;gap:11px}
 .famrow .aico{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:none}
 .famrow .aico svg{width:16px;height:16px;fill:#fff}
@@ -201,10 +233,10 @@ main section{scroll-margin-top:var(--sticky-header-height)}
 .addbtn{width:38px;height:38px;border:1px solid var(--acc);border-radius:9px;background:#fff;color:var(--acc-d);font-size:21px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.15s;margin:0 auto}
 .addbtn:hover{background:var(--acc);color:#fff}
 .qwrap input{width:100%;padding:7px 8px;border:1px solid var(--field-line);border-radius:8px;font-family:var(--mono);font-size:14px;font-weight:600;text-align:center;background:#fff;color:var(--ink)}
-.qwrap .u{display:block;font-size:10px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--faint);margin-top:3px}
+.qwrap .u{display:block;font-size:9.5px;font-weight:600;letter-spacing:.2px;text-transform:uppercase;color:var(--faint);margin-top:2px}
 .ycell{width:80px}
 .ycell input{width:100%;padding:7px 6px;border:1px solid var(--field-line);border-radius:8px;font-family:var(--mono);font-size:14px;font-weight:600;text-align:center;background:#fff;color:var(--ink)}
-.ycell .u{display:block;font-size:10px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--g-yel-d);margin-top:3px}
+.ycell .u{display:block;font-size:9.5px;font-weight:600;letter-spacing:.2px;text-transform:uppercase;color:var(--g-yel-d);margin-top:2px}
 .ycell .dash{color:var(--faint)}
 .acts{width:100px;white-space:nowrap;text-align:right}
 .acts .lbtn{width:30px;height:30px;border:1px solid var(--field-line);border-radius:7px;background:#fff;color:var(--ink2);font-size:14px;cursor:pointer;display:inline-grid;place-items:center;vertical-align:middle;margin-left:3px}
@@ -300,7 +332,7 @@ body.calc-invalid .cfg,body.calc-invalid .cfgprice{opacity:.55;filter:grayscale(
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .f label,.fl{display:block;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
-select,input[type=text],input[type=number],input[type=email],input[type=date],input[type=tel],input[type=search],textarea{width:100%;padding:10px 12px;border:1px solid var(--field-line);border-radius:9px;font-family:var(--body);font-size:14px;color:var(--ink);background:#fff}
+select,input[type=text],input[type=email],input[type=date],input[type=tel],input[type=search],textarea{width:100%;padding:10px 12px;border:1px solid var(--field-line);border-radius:9px;font-family:var(--body);font-size:14px;color:var(--ink);background:#fff}
 select{font-family:var(--disp);cursor:pointer}
 input:focus,select:focus{outline:2px solid var(--acc-d);outline-offset:0;border-color:var(--acc-d)}
 input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--g-red);box-shadow:0 0 0 1px var(--g-red)}
@@ -311,9 +343,12 @@ input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--g-red)
 .contact-card{border:1px solid var(--soft);border-radius:11px;padding:12px;margin:0 0 10px;background:#fcfcfd}
 .contact-card legend{font-family:var(--disp);font-size:11px;font-weight:700;color:var(--ink2);padding:0 6px;text-transform:uppercase;letter-spacing:.4px}
 .contact-card label{display:block;font-size:10.5px;font-weight:700;color:var(--mute);margin:0 0 5px;text-transform:uppercase;letter-spacing:.4px}
-.crow{display:grid;grid-template-columns:1.05fr 1.35fr .85fr;gap:8px;margin-bottom:8px}
-.crow input{font-size:13px;padding:8px 11px}
-.contact-card .crow{margin-bottom:0}
+/* Renglon de contacto. Se llamaba .crow y chocaba con la fila de la tabla del
+   catalogo, que tambien es .crow: la regla de abajo convertia cada <tr> del
+   catalogo en una rejilla de tres columnas y la tabla salia encimada. */
+.ccrow{display:grid;grid-template-columns:1.05fr 1.35fr .85fr;gap:8px;margin-bottom:8px}
+.ccrow input{font-size:13px;padding:8px 11px}
+.contact-card .ccrow{margin-bottom:0}
 .quote-status{border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-family:var(--disp);font-size:11.5px;font-weight:600;cursor:pointer;white-space:nowrap;background:#fff}
 .quote-status--ready{background:var(--g-grn-t);border-color:#a8d5b5;color:var(--g-grn-d)}
 .quote-status--warning{background:var(--g-yel-t);border-color:var(--g-yel-b);color:#7a4300}
@@ -332,9 +367,12 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 
 /* ---------- barra de acciones fija ---------- */
 .actbar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(255,255,255,.97);backdrop-filter:saturate(1.6) blur(10px);border-top:1px solid var(--line);box-shadow:0 -2px 12px rgba(60,64,67,.10)}
-.actin{max-width:1200px;margin:0 auto;padding:11px 24px calc(11px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:16px}
+.actin{max-width:var(--app-max);margin:0 auto;padding:11px 24px calc(11px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:16px}
 .actprice{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;min-width:0}
 .actprice .k{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--faint)}
+/* Total parcial: la etiqueta cambia de color porque el importe de al lado ya
+   no es la cotizacion completa. */
+.actprice .k.partial{color:var(--g-yel-d);background:var(--g-yel-t);border:1px solid var(--g-yel-b);border-radius:6px;padding:2px 8px}
 .actprice b{font-family:var(--mono);font-size:24px;font-weight:600;letter-spacing:-.5px;color:var(--acc-d)}
 .actprice .s{font-size:12px;color:var(--mute)}
 .actbtns{display:flex;gap:9px;flex-wrap:wrap}
@@ -473,8 +511,12 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 
 /* ---------- responsive ---------- */
 @media(max-width:1080px){
-  .cfgin{grid-template-columns:1fr 1fr;gap:10px}
-  .cfgprice{grid-column:1/-1;text-align:left;border-left:none;border-top:1px solid var(--line);padding:8px 0 0}
+  /* Aqui la tabla ya no cabe: se recupera el desplazamiento horizontal y, con
+     el, se pierde el encabezado pegajoso (no puede haber las dos cosas). */
+  .catscroll{overflow-x:auto}
+  .catscroll:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+  .cattbl thead th{position:static}
+  .cfgin{gap:10px}
   .result{grid-template-columns:1fr}
   .res-side{border-right:none;border-bottom:1px solid var(--soft)}
   .hnav{display:none}
@@ -486,6 +528,18 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
    las acciones debajo. Antes que un scroll horizontal de seis columnas, que en
    360 px no se puede usar con una mano. */
 @media(max-width:760px){
+  /* En el teléfono el folio y la revisión partían el encabezado en cuatro
+     renglones. Se quedan en el documento y en Cotizaciones; aquí sobra todo
+     menos saber si se está guardando. */
+  .workmeta .wf,.workmeta .wr{display:none}
+  .workmeta .save-state{padding-left:0;border-left:none}
+  /* El encabezado se desbordaba en 390 px: marca, etiqueta de versión, estado
+     y dos botones no caben en una línea. Los botones quedan como iconos. */
+  .hbar{flex-wrap:wrap;gap:6px 10px;padding:6px 14px}
+  .brand-partner{display:none}
+  .brand-logo-img{width:116px}
+  .hbtns .btn span{display:none}
+  .hbtns .btn{padding:8px 11px}
   .cattbl thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
   .cattbl tbody td{display:block;padding:0;border:none;text-align:left;white-space:normal;background:transparent}
   .crow{display:grid;grid-template-columns:92px minmax(0,1fr) auto;
@@ -506,12 +560,18 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   .crow.out{background:#fcfcfd}
   .famrow th{padding:14px 13px 7px}
   .detrow td{padding:0 13px 14px}
-  .catbar{flex-direction:column;align-items:stretch}
-  .catbar .fsearch{max-width:none}
-  .catfilters{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+  .catbar{grid-template-columns:1fr;grid-template-areas:"buscar" "filtros" "meta";gap:8px}
+  .catmeta{justify-content:flex-start}
+  .catfilters{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;min-width:0;max-width:100%;-webkit-overflow-scrolling:touch}
+  .catfilters .fchip{flex:none}
   .acts .lbtn{width:36px;height:36px}
 }
 @media(max-width:900px){
+  /* Recien aqui el resumen se parte en dos: antes cabia entero. */
+  .cfgin{grid-template-columns:1fr 1fr}
+  .cfgprice{grid-column:1/-1;text-align:left;border-left:none;border-top:1px solid var(--line);padding:8px 0 0}
+  .workmeta{font-size:11px;gap:3px 9px}
+  .workmeta .wr,.workmeta .save-state{padding-left:9px}
   .manage-grid{grid-template-columns:1fr}
   .action-state{width:100%;justify-content:space-between}
 }
@@ -519,7 +579,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   .wrap{padding:0 16px}
   .res-side,.res-main{padding:18px 16px}
   .grid2,.grid3,.p-contact,.catsearch{grid-template-columns:1fr}
-  .crow{grid-template-columns:1fr!important}
+  .ccrow{grid-template-columns:1fr!important}
   .hbtns .btn span{display:none}
   .prop-in{padding:22px 18px 28px}
   .p-client{grid-template-columns:1fr}
@@ -748,16 +808,21 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
       <span class="vertag" title="Cotizador de compra directa · versión del archivo">v1.2</span>
     </div>
     <nav class="hnav">
-      <a href="#s1">Catálogo y captura</a>
+      <a href="#s1">Catálogo</a>
       <a href="#s2">Cierre</a>
       <a href="#s3">Datos</a>
     </nav>
+    <div class="workmeta" aria-live="polite">
+      <span class="wf">Folio <b id="quoteFolio">—</b></span>
+      <span class="wr" id="quoteRevision">Revisión 1</span>
+      <span class="save-state" id="saveState" data-state="saving">Guardando…</span>
+    </div>
     <div class="hbtns">
       <button class="btn" id="btnManage" title="Gestionar cotizaciones y borradores" aria-label="Gestionar cotizaciones y borradores">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
         <span>Cotizaciones</span></button>
       <button class="btn" id="btnShare" title="Copiar enlace del escenario" aria-label="Compartir escenario sin datos del colegio">
-        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
         <span>Compartir</span></button>
     </div>
   </div>
@@ -784,44 +849,26 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 <div class="wrap"><div id="storageBanner" role="alert" hidden></div></div>
 <form id="quoteForm" class="mo-stagger" novalidate>
 
-<!-- ================= HERO ================= -->
-<div class="hero wrap">
-  <span class="tag"><span class="gdots"><i></i><i></i><i></i><i></i></span> <span id="catalogTag">Catálogo de compra directa</span></span>
-  <h1>Cotizador de <em>compra directa</em></h1>
-  <div class="herorow">
-    <span class="iva"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg> Precios netos, sin IVA · el IVA se agrega una sola vez, al final</span>
-    <span class="scope" id="heroScope">—</span>
-  </div>
-  <div class="workmeta" aria-live="polite">
-    <span>Folio <b id="quoteFolio">—</b></span>
-    <span id="quoteRevision">Revisión 1</span>
-    <span class="save-state" id="saveState" data-state="saving">Guardando…</span>
-  </div>
-</div>
-
 <!-- ================= 1 · CATÁLOGO Y CAPTURA =================
      Un solo paso: se busca, se agrega con + y se captura la cantidad en la
      misma fila. Antes eran dos pasos y un viaje de scroll por renglon. -->
 <section id="s1">
   <div class="wrap">
-    <div class="shead">
-      <div class="kick">Paso 1</div>
-      <h2>Catálogo y captura</h2>
-      <p>Busca la partida, agrégala con <b>+</b> y captura ahí mismo la cantidad —la tabla dice en qué unidad— y los <b>años</b> de las licencias anuales. Todos los precios son <b>netos, sin IVA</b>; el IVA se agrega al final sobre el subtotal.</p>
-    </div>
-
     <div class="catbar">
-      <div class="f fsearch">
-        <label for="fSearch">Buscar por concepto o número de parte</label>
-        <input type="search" id="fSearch" placeholder="chromebook, seguro, soporte, CEU…" autocomplete="off" aria-describedby="catSearchHint">
-        <div class="hint" id="catSearchHint">Pulsa <b>/</b> para buscar desde cualquier punto de la página. Si queda una sola coincidencia, <b>Enter</b> la agrega.</div>
+      <div class="fsearch">
+        <label class="sr-only" for="fSearch">Buscar por concepto o número de parte</label>
+        <svg class="si" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+        <input type="search" id="fSearch" placeholder="Buscar partida o número de parte  ·  /" autocomplete="off" title="Pulsa / para buscar desde cualquier punto. Con una sola coincidencia, Enter la agrega.">
       </div>
       <div class="catfilters" role="group" aria-label="Filtrar el catálogo por familia" id="catFilters"></div>
+      <div class="catmeta">
+        <span class="iva" title="Todos los precios del catálogo son netos; el IVA se calcula una sola vez sobre el subtotal">sin IVA</span>
+        <span class="catcount" id="catCount" aria-live="polite">—</span>
+      </div>
     </div>
-    <div class="catcount" id="catCount" aria-live="polite">—</div>
 
-    <div class="tbox">
-      <div class="tscroll" tabindex="0" role="region" aria-label="Catálogo de partidas (desplazable horizontalmente)">
+    <div class="catbox">
+      <div class="catscroll" role="region" aria-label="Catálogo de partidas">
         <table class="cattbl" id="tblCat">
           <caption class="sr-only">Catálogo de compra directa: agrega partidas y captura las cantidades</caption>
           <thead>
@@ -839,7 +886,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
       </div>
       <div class="tfoot" id="catFoot">—</div>
     </div>
-    <div class="cat-empty" id="catEmpty" hidden>Ninguna partida coincide con la búsqueda o con el filtro. Revisa la ortografía, busca por número de parte o quita el filtro de familia.</div>
+    <div class="cat-empty" id="catEmpty" hidden></div>
 
     <!-- Región viva: las advertencias del cálculo se anuncian a lectores de pantalla -->
     <div class="warns" id="warnBox" role="status" aria-live="polite" aria-relevant="additions text" aria-label="Advertencias del cálculo"></div>
@@ -851,8 +898,8 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   <div class="wrap">
     <div class="shead">
       <div class="kick">Paso 2</div>
-      <h2>Cierre de la cotización</h2>
-      <p>El IVA se calcula <b>sobre el subtotal</b>, no partida por partida, para no arrastrar centavos.</p>
+      <h2>Cierre</h2>
+      <p>El IVA se calcula sobre el subtotal, no partida por partida.</p>
     </div>
     <div class="cfg">
       <div class="result">
@@ -904,13 +951,13 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   <div class="wrap">
     <div class="shead">
       <div class="kick">Paso 3</div>
-      <h2>Datos para la propuesta</h2>
-      <p>Lo que encabeza y cierra el documento que recibe el colegio.</p>
+      <h2>Datos de la propuesta</h2>
+      <p>Lo que encabeza y cierra el documento del colegio.</p>
     </div>
 
     <details class="fold" id="foldCli" open>
       <summary>
-        <span class="fi" style="background:var(--g-blue-t)"><svg viewBox="0 0 24 24" style="fill:var(--g-blue)"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
+        <span class="fi" style="background:var(--g-blue-t)"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" style="fill:var(--g-blue)"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
         <span class="ft"><b>Colegio y contactos</b><i id="foldCliSum">—</i></span>
         <span class="fc"></span>
       </summary>
@@ -927,7 +974,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 
     <details class="fold" id="foldVig">
       <summary>
-        <span class="fi" style="background:var(--g-red-t)"><svg viewBox="0 0 24 24" style="fill:var(--g-red)"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM7 11h5v5H7v-5z"/></svg></span>
+        <span class="fi" style="background:var(--g-red-t)"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" style="fill:var(--g-red)"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM7 11h5v5H7v-5z"/></svg></span>
         <span class="ft"><b>Vigencia, entrega y firma</b><i id="foldVigSum">—</i></span>
         <span class="fc"></span>
       </summary>
@@ -963,7 +1010,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 
     <details class="fold" id="foldFis">
       <summary>
-        <span class="fi" style="background:var(--g-yel-t)"><svg viewBox="0 0 24 24" style="fill:var(--g-yel-d)"><path d="M4 10h3v7H4zM10.5 10h3v7h-3zM2 19h20v3H2zM17 10h3v7h-3zM12 1L2 6v2h20V6z"/></svg></span>
+        <span class="fi" style="background:var(--g-yel-t)"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" style="fill:var(--g-yel-d)"><path d="M4 10h3v7H4zM10.5 10h3v7h-3zM2 19h20v3H2zM17 10h3v7h-3zM12 1L2 6v2h20V6z"/></svg></span>
         <span class="ft"><b>Datos fiscales y bancarios</b><i id="foldFisSum">—</i></span>
         <span class="fc"></span>
       </summary>
@@ -1017,13 +1064,13 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
     <div class="action-state" role="status" aria-live="polite"><button type="button" class="quote-status quote-status--warning" id="btnStatus">Revisando…</button></div>
     <div class="actbtns">
       <button type="button" class="btn" id="btnProp" aria-label="Ver propuesta">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
         <span>Ver propuesta</span></button>
       <button type="button" class="btn" id="btnPdf" aria-label="Generar PDF o imprimir">
-        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
         <span>Generar PDF</span></button>
       <button type="button" class="btn grn" id="btnMail" aria-label="Preparar correo">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         <span>Preparar correo</span></button>
     </div>
   </div>
@@ -1034,13 +1081,13 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   <div class="propbar">
     <div class="wrap propbarin">
       <button class="btn" id="btnBack">
-        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Volver</button>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg> Volver</button>
       <div class="muted" id="propTitle">Propuesta</div>
       <div class="actbtns">
         <button type="button" class="btn" id="btnPdf2" aria-label="Generar PDF o imprimir">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg><span>Generar PDF</span></button>
         <button type="button" class="btn grn" id="btnMail2" aria-label="Preparar correo">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><span>Preparar correo</span></button>
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><span>Preparar correo</span></button>
       </div>
     </div>
   </div>
@@ -1056,7 +1103,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   <div class="modal">
     <div class="gbar"><i></i><i></i><i></i><i></i></div>
     <div class="modal-h">
-      <div class="mh-ico"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+      <div class="mh-ico"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
       <div><h3 id="mailTitle">Preparar el correo</h3>
         <p>Genera el PDF, prepara el mensaje y ábrelo en el correo que prefieras.</p></div>
     </div>
@@ -1080,7 +1127,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
           <h4>Genera la cotización en PDF</h4>
           <p>Se abre el diálogo de impresión. Elige <b>Guardar como PDF</b> y quedará listo para adjuntar.</p>
           <button class="btn" id="btnMailPdf">
-            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Generar PDF / imprimir</button>
+            <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Generar PDF / imprimir</button>
         </div>
       </div>
       <div class="stepbox">
@@ -1090,7 +1137,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
           <p>Copia el mensaje con su diseño, abre tu correo, pega con <b>Ctrl+V</b> y adjunta el PDF.</p>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
             <button class="btn grn" id="btnCopyMail">
-              <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
               Copiar correo con diseño</button>
           </div>
           <details class="mailfold">
@@ -1102,8 +1149,8 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
     </div>
     <div class="modal-f">
       <button class="btn" id="btnCloseMail">Cerrar</button>
-      <button class="btn" id="btnGmail"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> Abrir en Gmail</button>
-      <button class="btn grn" id="btnSend"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg> Abrir en mi correo</button>
+      <button class="btn" id="btnGmail"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> Abrir en Gmail</button>
+      <button class="btn grn" id="btnSend"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg> Abrir en mi correo</button>
     </div>
   </div>
 </div>
@@ -1840,6 +1887,10 @@ let PRINT_READY_SIGNATURE="";
 let PRINT_NOTICE_SHOWN=false;
 let APP_STATE;let CURRENT_RESULT;let FIELD_ERRORS=new Map();let renderFrame=0;let pendingRender="all";let originalTitle=document.title;let DIRTY=false;let STORAGE_CONFLICT=false;let LAST_RECOVERY_KEY="";const CONFLICT_STATE={status:"none",remoteUpdatedAt:"",detectedAt:"",recoveryKey:""};const focusStack=[];
 const L=()=>APP_STATE.lines;
+/* Una sola fuente para la versión: la etiqueta que el comercial ve en el
+   encabezado. Si se actualiza ahí, se actualiza en la pestaña y en el informe
+   de pruebas. */
+const APP_VERSION=(document.querySelector(".vertag")?.textContent||"").trim()||"v1.0";
 /* Comparación inmediata antes de escribir: una pestaña obsoleta no puede
    sobrescribir una versión más nueva aunque el evento storage llegue tarde. */
 function assertFreshStoredVersion({allowConflictOverwrite=false}={}){
@@ -1916,6 +1967,9 @@ function saveStateNow(showToast=false,{allowConflictOverwrite=false}={}){
     if(error.message==="STORAGE_CONFLICT"){
       $("#saveState").classList.add("storage-conflict");
       toast("Otra pestaña guardó una versión más reciente de esta cotización. Abre Cotizaciones para revisar el conflicto; tu edición quedó respaldada como recuperación.","error");
+      /* El conflicto es el estado más peligroso: a partir de aquí NINGÚN
+         guardado vuelve a funcionar. El toast se va solo; el banner se queda. */
+      showStorageBanner("Otra pestaña guardó una versión más reciente: desde ahora nada se está guardando. Abre Cotizaciones para resolver el conflicto o exporta el JSON antes de cerrar.");
     }
     else if(error.message==="DRAFT_LIMIT")toast(`Ya existen ${MAX_DRAFTS} cotizaciones. Exporta o elimina una antes de crear otra.`,"error");
     else if(error.message==="DUPLICATE_VISIBLE_FOLIO")toast("Ya existe otra cotización con el mismo folio y revisión.","error");
@@ -2135,8 +2189,25 @@ function setFieldError(id,message=""){const input=document.getElementById(id);if
 /* "" no se interpreta como 0 y solo se aceptan dígitos decimales. Cuando el
    texto es inválido, el llamador escribe null en el estado: input y estado
    nunca divergen — un renglón con captura inválida simplemente NO SUMA. */
+/* Se aceptan las separaciones que la gente teclea de verdad —«3,000», «3 000»,
+   «3.000» con espacio fino incluido— y el campo se reescribe ya normalizado,
+   para que lo capturado sea exactamente lo que se ve. Lo que NO se acepta se
+   queda escrito y con su mensaje: vaciar el campo sin explicación era lo que
+   convertía un error de dedo en un renglón que no suma. */
+function normalizeIntegerText(value){
+  return String(value==null?"":value)
+    .replace(/[\s\u00a0\u2007\u202f]/g,"")
+    .replace(/[,']/g,"");
+}
 function validateIntegerInput(input,{min=1,max=999999,label="Cantidad",allowBlank=true}={}){
-  const raw=input.value.trim();
+  const raw=normalizeIntegerText(input.value);
+  if(raw!==input.value&&/^\d+$/.test(raw)){
+    /* Solo se reescribe cuando el resultado es un entero limpio: si el texto
+       sigue siendo inválido se deja tal cual para que se vea qué se escribió. */
+    const caret=raw.length;
+    input.value=raw;
+    try{input.setSelectionRange(caret,caret);}catch(error){}
+  }
   if(raw===""){
     if(allowBlank){setFieldError(input.id,"");return{ok:false,blank:true};}
     setFieldError(input.id,`${label} no puede quedar en blanco.`);
@@ -2278,7 +2349,7 @@ function bindInstitutionField(){
   });
 }
 function initControls(){
-  $("#contactRows").innerHTML=[1,2,3].map(n=>`<fieldset class="contact-card"><legend>Contacto ${n}</legend><div class="crow"><div><label for="qC${n}n">Nombre</label><input type="text" id="qC${n}n" maxlength="100" autocomplete="name"></div><div><label for="qC${n}m">Correo</label><input type="email" id="qC${n}m" maxlength="254" autocomplete="email"></div><div><label for="qC${n}t">Teléfono</label><input type="tel" id="qC${n}t" maxlength="30" autocomplete="tel"></div></div></fieldset>`).join("");
+  $("#contactRows").innerHTML=[1,2,3].map(n=>`<fieldset class="contact-card"><legend>Contacto ${n}</legend><div class="ccrow"><div><label for="qC${n}n">Nombre</label><input type="text" id="qC${n}n" maxlength="100" autocomplete="name"></div><div><label for="qC${n}m">Correo</label><input type="email" id="qC${n}m" maxlength="254" autocomplete="email"></div><div><label for="qC${n}t">Teléfono</label><input type="tel" id="qC${n}t" maxlength="30" autocomplete="tel"></div></div></fieldset>`).join("");
 }
 function bindStateToForm(){
   $("#fInst").value=APP_STATE.client.institution||"";
@@ -2338,11 +2409,11 @@ function catRowHTML(entry, row, needle, ctx){
   const sinPrecio = !(Number(entry.price) > 0);
   const nombre = row ? (row.line.concept || entry.n) : entry.n;
   const qcell = row
-    ? `<div class="qwrap"><label class="sr-only" for="lqty-${id}">Cantidad de ${esc(entry.unit.p)} · ${esc(nombre)}</label><input type="number" id="lqty-${id}" data-lqty="${id}" inputmode="numeric" min="${APP_CONFIG.limits.qty.min}" max="${APP_CONFIG.limits.qty.max}" step="1" value="${row.line.qty === null ? "" : row.line.qty}" placeholder="0"><span class="u">${esc(entry.unit.p)}</span></div>`
+    ? `<div class="qwrap"><label class="sr-only" for="lqty-${id}">Cantidad de ${esc(entry.unit.p)} · ${esc(nombre)}</label><input type="text" id="lqty-${id}" data-lqty="${id}" inputmode="numeric" autocomplete="off" enterkeyhint="done" maxlength="9" value="${row.line.qty === null ? "" : row.line.qty}" placeholder="0"><span class="u">${esc(entry.unit.p)}</span></div>`
     : `<button type="button" class="addbtn" data-add="${esc(entry.k)}" title="Agregar a la cotización" aria-label="Agregar ${esc(entry.n)} a la cotización">+</button>`;
   const ycell = entry.annual
     ? (row
-      ? `<label class="sr-only" for="lyrs-${id}">Años de ${esc(nombre)}</label><input type="number" id="lyrs-${id}" data-lyrs="${id}" inputmode="numeric" min="${APP_CONFIG.limits.years.min}" max="${APP_CONFIG.limits.years.max}" step="1" value="${row.line.years === null ? "" : row.line.years}" placeholder="0"><span class="u">años</span>`
+      ? `<label class="sr-only" for="lyrs-${id}">Años de ${esc(nombre)}</label><input type="text" id="lyrs-${id}" data-lyrs="${id}" inputmode="numeric" autocomplete="off" enterkeyhint="done" maxlength="2" value="${row.line.years === null ? "" : row.line.years}" placeholder="0"><span class="u">años</span>`
       : `<span class="dash" aria-hidden="true">—</span><span class="sr-only">Se capturan al agregar</span>`)
     : `<span class="dash" aria-hidden="true">—</span><span class="sr-only">No aplica</span>`;
   const mover = ctx.ordenable
@@ -2433,6 +2504,13 @@ function renderCatalog(result){
   if(firma !== CAT_SIGNATURE){ CAT_SIGNATURE = firma; body.innerHTML = html; }
 
   $("#catEmpty").hidden = visibles > 0;
+  /* «Solo agregadas» sin renglones no es una búsqueda sin resultados: es una
+     cotización vacía, y el mensaje tiene que decir eso. */
+  $("#catEmpty").textContent = CAT_ONLY_ADDED
+    ? (needle || CAT_FAM
+      ? "Ningún renglón de la cotización coincide con la búsqueda o el filtro. Quítalos para ver la cotización completa."
+      : "La cotización está vacía. Quita el filtro «Solo agregadas» y agrega partidas del catálogo con el botón +.")
+    : "Ninguna partida coincide con la búsqueda o con el filtro. Revisa la ortografía, busca por número de parte o quita el filtro de familia.";
   $("#catCount").textContent = CAT_ONLY_ADDED
     ? `${visibles} renglón(es) en la cotización`
     : (needle || CAT_FAM) ? `${visibles} de ${CATALOG.length} partidas a la vista` : `${CATALOG.length} partidas · precios netos sin IVA`;
@@ -2492,7 +2570,14 @@ function removeLine(id){
 
 /* ---------- totales y estado ---------- */
 function renderTotals(result){
-  $("#barCount").textContent=String(result.lineCount);
+  /* Cuando hay renglones sin capturar, el importe visible NO es la cotizacion
+     completa. Decirlo aqui —en la cuenta, en la etiqueta del total y en el
+     subtitulo— es lo unico que evita que alguien lea en voz alta un precio
+     corto: el bloqueo del PDF llega tarde para una llamada. */
+  const parcial=result.incompleteCount>0&&result.complete>0;
+  $("#barCount").textContent=parcial
+    ?`${result.complete} de ${result.lineCount}`
+    :String(result.lineCount);
   $("#barSubtotal").textContent=result.complete>0?money(result.subtotal):"—";
   $("#barIva").textContent=result.complete>0?money(result.iva):"—";
   $("#barTotal").textContent=result.complete>0?money(result.total):"—";
@@ -2508,16 +2593,22 @@ function renderTotals(result){
   }else{
     note.innerHTML="";
   }
-  const actSubText=`${result.complete} renglón(es) · subtotal ${result.complete>0?money(result.subtotal):"—"} + ${APP_CONFIG.vat.label}`;
+  const faltan=result.incompleteCount===1?"falta 1 renglón":`faltan ${result.incompleteCount} renglones`;
+  $("#actLbl").textContent=parcial?`Total parcial · ${faltan}`:"Total con IVA";
+  $("#actLbl").classList.toggle("partial",parcial);
+  const actSubText=parcial
+    ?`${faltan} por capturar · suman ${result.complete} de ${result.lineCount} · subtotal ${money(result.subtotal)} + ${APP_CONFIG.vat.label}`
+    :`${result.complete} renglón(es) · subtotal ${result.complete>0?money(result.subtotal):"—"} + ${APP_CONFIG.vat.label}`;
   $("#actSub").dataset.ok=actSubText;
   $("#actSub").textContent=actSubText;
   $("#actPrice").textContent=result.complete>0?money(result.total):"—";
-  $("#heroScope").textContent=`${result.lineCount} renglón(es) · catálogo del ${longDateFromISO(APP_CONFIG.catalog.updatedISO)}`;
+  /* La cuenta de renglones vive en la barra de configuración (#barCount) y la
+     fecha del catálogo en el pie de la tabla: no hacen falta otra vez. */
 }
 /* Tabla de revision del paso 3: es lo mismo que va a leer el colegio en la
    propuesta, con las mismas funciones de formato que el documento impreso
    (printQtyLabel / printUnitPrice / moneyOrFree). Solo lectura: la captura
-   vive en el paso 2. */
+   vive en el paso 1, en la tabla del catalogo. */
 function renderReviewTable(result){
   const body=$("#tblLinesBody"),foot=$("#tblLinesFoot"),count=$("#revCount");
   if(!body)return;
@@ -2804,7 +2895,29 @@ function openProposal(){
   $("#propBody").innerHTML=buildProposal();const d=docData();$("#propTitle").textContent=`${d.inst} · folio ${d.folio}`;openOverlay("#propOv","#btnBack");$("#propOv").scrollTop=0;
 }
 function closeProposal(){closeOverlay("#propOv");}
-async function waitForPrintImages(root){const images=[...root.querySelectorAll("img")];await Promise.all(images.map(async image=>{if(image.complete&&image.naturalWidth>0)return;try{await image.decode();}catch{await new Promise(resolve=>{image.addEventListener("load",resolve,{once:true});image.addEventListener("error",resolve,{once:true});});}}));}
+/* Espera a que las imágenes del documento estén listas, pero NUNCA para siempre:
+   una imagen que ya falló (complete con naturalWidth 0) tiene su evento `error`
+   disparado y no volverá a emitirlo, así que la espera por evento no despierta
+   sola. Sin este tope, Ctrl+P se quedaba pulsado sin imprimir y sin decir nada.
+   Vencido el plazo se imprime igual: mejor el documento sin logotipo que ningún
+   documento. */
+const PRINT_IMAGE_TIMEOUT_MS=3000;
+async function waitForPrintImages(root,timeoutMs=PRINT_IMAGE_TIMEOUT_MS){
+  const images=[...root.querySelectorAll("img")];
+  let vencidas=0;
+  await Promise.all(images.map(async image=>{
+    if(image.complete&&image.naturalWidth>0)return;
+    const espera=(async()=>{
+      try{await image.decode();}
+      catch{await new Promise(resolve=>{image.addEventListener("load",resolve,{once:true});image.addEventListener("error",resolve,{once:true});});}
+    })();
+    let reloj;
+    const tope=new Promise(resolve=>{reloj=setTimeout(()=>{vencidas++;resolve();},timeoutMs);});
+    await Promise.race([espera,tope]);
+    clearTimeout(reloj);
+  }));
+  return{total:images.length,vencidas};
+}
 async function preparePrint(){
   if(!requireDocumentReady())return false;
   if(!PRINT_NOTICE_SHOWN){PRINT_NOTICE_SHOWN=true;toast("El PDF del navegador puede no incluir etiquetado estructural; la vista HTML permanece disponible como alternativa accesible.","info");}
@@ -3170,7 +3283,32 @@ const QuoteTests={
   assert(condition,label){if(!condition)throw new Error(label);},
   assertClose(actual,expected,tolerance=1e-6,label="valor"){if(!Number.isFinite(actual)||!Number.isFinite(expected))throw new Error(`${label}: valor no finito`);if(Math.abs(actual-expected)>tolerance)throw new Error(`${label}: esperado ${expected}, recibido ${actual}`);},
   expectThrow(fn,label){let threw=false;try{fn();}catch{threw=true;}if(!threw)throw new Error(`${label}: debía fallar`);},
-  test(name,fn){const started=performance.now();try{fn();this.results.push({name,ok:true,ms:performance.now()-started});}catch(error){this.results.push({name,ok:false,error:error.message,ms:performance.now()-started});}},
+  /* Una función async devuelve una promesa que este corredor NO espera: la
+     prueba se aprobaría sin haber comprobado nada. Se rechaza de frente y para
+     lo asíncrono existe asyncTest(). */
+  test(name,fn){const started=performance.now();try{const salida=fn();if(salida&&typeof salida.then==="function")throw new Error("prueba asíncrona registrada con test(); usa asyncTest()");this.results.push({name,ok:true,ms:performance.now()-started});}catch(error){this.results.push({name,ok:false,error:error.message,ms:performance.now()-started});}},
+  /* Las asíncronas se encolan y se resuelven al final de runAll: el informe se
+     vuelve a pintar cuando terminan. */
+  asyncQueue:[],
+  asyncTest(name,fn){this.asyncQueue.push({name,fn});},
+  async settleAsync(show){
+    const cola=this.asyncQueue;this.asyncQueue=[];
+    for(const {name,fn} of cola){
+      const started=performance.now();
+      /* Con plazo: una prueba que se queda pendiente tiene que salir en rojo.
+         Sin esto, desaparecía del informe y solo cambiaba el total. */
+      let reloj;
+      const plazo=new Promise((_,reject)=>{reloj=setTimeout(()=>reject(new Error("la prueba asíncrona no terminó en 5 s")),5000);});
+      try{await Promise.race([fn(),plazo]);this.results.push({name,ok:true,ms:performance.now()-started});}
+      catch(error){this.results.push({name,ok:false,error:error.message,ms:performance.now()-started});}
+      finally{clearTimeout(reloj);}
+    }
+    if(cola.length){
+      const passed=this.results.filter(item=>item.ok).length;
+      if(show)this.renderReport();
+      console.info(`QuoteTests compra directa (con asíncronas): ${passed}/${this.results.length} aprobadas`);
+    }
+  },
   mkLine(cat,qty=null,years=null,concept=""){return{id:uuid(),cat,concept,qty,years};},
   storageSnapshot(){const entries=[];if(!HAS_STORAGE)return entries;for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key?.startsWith("activa.compra."))entries.push([key,localStorage.getItem(key)]);}return entries;},
   restoreStorage(snapshot){if(!HAS_STORAGE)return;const keys=[];for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key?.startsWith("activa.compra."))keys.push(key);}keys.forEach(key=>{try{localStorage.removeItem(key);}catch(error){console.error("restore/remove",key,error);}});snapshot.forEach(([key,value])=>{try{localStorage.setItem(key,value);}catch(error){console.error("restore/set",key,error);}});},
@@ -3187,6 +3325,7 @@ const QuoteTests={
   withStorageSandbox(fn){const snapshot=this.storageSnapshot(),state=APP_STATE?clone(APP_STATE):null,result=CURRENT_RESULT?clone(CURRENT_RESULT):null,dirty=DIRTY,conflict=STORAGE_CONFLICT,lastRecovery=LAST_RECOVERY_KEY;try{return fn();}finally{this.restoreStorage(snapshot);APP_STATE=state;CURRENT_RESULT=result;DIRTY=dirty;STORAGE_CONFLICT=conflict;LAST_RECOVERY_KEY=lastRecovery;if(APP_STATE){bindStateToForm();renderAll();}}},
   runAll({show=true}={}){
     this.results=[];
+    this.asyncQueue=[];
     TESTS_RUNNING=true;
     try{
     /* Canario: si alguna prueba borrara claves ajenas a esta herramienta
@@ -3246,7 +3385,9 @@ const QuoteTests={
     });
     this.test("Las bajas del 19-ago-2026 no están en el catálogo",()=>{
       const texto=CATALOG.map(e=>`${e.part} ${e.n}`).join(" | ").toLowerCase();
-      for(const prohibido of ["brainpop","wevideo","merge ","wayground profesor","educationplus 85"])
+      /* Solo bajas: el precio de EducationPlus lo cubre la tabla de precios.
+         Buscarlo aquí como texto era una aserción que no podía fallar. */
+      for(const prohibido of ["brainpop","wevideo","merge ","wayground profesor"])
         this.assert(!texto.includes(prohibido),`el catálogo recuperó una baja: ${prohibido}`);
     });
     this.test("Seminuevos: el neto reproduce el precio original con IVA (±1 centavo)",()=>{
@@ -3456,6 +3597,113 @@ const QuoteTests={
       this.assert(html.includes("10 equipos × 1 año"),"la licencia anual no declara sus años en la cantidad");
     }));
     this.test("El documento de impresión lleva folio en el pie repetido y fecha de catálogo",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";APP_STATE.lines=[this.mkLine("cb-essential",10)];CURRENT_RESULT=computeQuote(L());const html=buildPrintDocument();this.assert(html.includes("print-runfoot"),"falta el pie repetido");this.assert(html.includes(folioDisplay()),"el pie no lleva folio");this.assert(html.includes(longDateFromISO(APP_CONFIG.catalog.updatedISO)),"el documento no estampa la fecha del catálogo");this.assert(html.includes("IVA incluido"),"la portada no declara que el total incluye IVA");}));
+    this.test("Con un renglón sin capturar, el total se declara parcial",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();
+      APP_STATE.client.institution="Colegio";APP_STATE.client.city="Querétaro";
+      APP_STATE.lines=[this.mkLine("cb-essential",30),this.mkLine("ceu",30),this.mkLine("eduplus",null,1)];
+      renderAll();
+      /* El PDF ya estaba bloqueado; lo que faltaba era que la cifra grande
+         dijera que le falta un renglón. Un precio corto leído en voz alta no
+         lo detiene un botón deshabilitado. */
+      this.assert($("#actLbl").textContent!=="Total con IVA","la etiqueta del total no puede afirmar que está completo");
+      this.assert(/parcial/i.test($("#actLbl").textContent),"la etiqueta del total debe decir que es parcial");
+      this.assert($("#barCount").textContent==="2 de 3",`la barra debe decir «2 de 3», dice «${$("#barCount").textContent}»`);
+      this.assert(/falta/i.test($("#actSub").textContent),"el subtítulo del precio debe nombrar lo que falta");
+      this.assert(getReadiness().documentReady===false,"con un renglón sin capturar el documento sigue bloqueado");
+      /* Y al completarlo, todo vuelve a su sitio. */
+      APP_STATE.lines[2].qty=420;
+      renderAll();
+      this.assert($("#actLbl").textContent==="Total con IVA","completa, la etiqueta debe volver a la normal");
+      this.assert($("#barCount").textContent==="3",`completa, la barra debe decir «3», dice «${$("#barCount").textContent}»`);
+    }));
+    this.test("El separador de millares se acepta, no se traga",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();
+      const line=newLine("cb-essential");APP_STATE.lines=[line];
+      renderAll();
+      const input=document.getElementById(`lqty-${line.id}`);
+      this.assert(Boolean(input),"el campo de cantidad debe existir");
+      this.assert(input.type!=="number","con type=number el navegador vacía «3,000» antes de validarlo");
+      for(const escrito of ["3,000","3 000","3 000"]){
+        input.value=escrito;input.dispatchEvent(new Event("input",{bubbles:true}));
+        this.assert(line.qty===3000,`«${escrito}» debía capturarse como 3000, quedó ${line.qty}`);
+        this.assert(input.value==="3000",`el campo debía reescribirse normalizado, muestra «${input.value}»`);
+        this.assert(!FIELD_ERRORS.has(`lqty-${line.id}`),`«${escrito}» no debía marcar error`);
+      }
+      /* Lo que sigue siendo inválido conserva el texto Y el mensaje: vaciar el
+         campo sin explicación era el defecto. */
+      for(const malo of ["3px","1e3","-2","3.5"]){
+        input.value=malo;input.dispatchEvent(new Event("input",{bubbles:true}));
+        this.assert(line.qty===null,`«${malo}» no debía capturarse`);
+        this.assert(input.value===malo,`«${malo}» debía quedar a la vista, quedó «${input.value}»`);
+        this.assert(FIELD_ERRORS.has(`lqty-${line.id}`),`«${malo}» debía marcar error visible`);
+      }
+    }));
+    this.asyncTest("Una imagen rota no deja la impresión colgada",async()=>{
+      const caja=document.createElement("div");
+      const img=document.createElement("img");
+      /* Una imagen que YA falló: complete en true, naturalWidth en 0 y su
+         evento «error» disparado hace rato. Esperar ese evento no despierta. */
+      Object.defineProperty(img,"complete",{get:()=>true});
+      Object.defineProperty(img,"naturalWidth",{get:()=>0});
+      img.decode=()=>Promise.reject(new Error("decode falló"));
+      caja.appendChild(img);
+      const resultado=await waitForPrintImages(caja,30);
+      this.assert(resultado&&resultado.vencidas===1,"la espera debía vencer por tiempo en vez de quedarse pendiente");
+    });
+    this.test("El conflicto entre pestañas deja un aviso que no se va solo",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";
+      saveStateNow(false);
+      const clave=STORAGE_KEYS.quotePrefix+APP_STATE.identity.quoteId;
+      const ajeno=JSON.parse(localStorage.getItem(clave));
+      ajeno.identity.updatedAt=new Date(Date.now()+60000).toISOString();
+      localStorage.setItem(clave,JSON.stringify(ajeno));
+      APP_STATE.client.institution="Colegio editado después";
+      this.assert(saveStateNow(false)===false,"el guardado obsoleto no debía prosperar");
+      this.assert(!$("#storageBanner").hidden,"el conflicto tiene que dejar banner, no solo un toast que se va");
+      this.assert(/otra pestaña/i.test($("#storageBanner").textContent),"el banner no explica el conflicto");
+    }));
+    /* ===== Escapado =====
+       Estas tres existen porque una mutación de un carácter en esc() —cambiar
+       su clase de caracteres— dejaba la suite entera en verde mientras el
+       documento impreso y el correo empezaban a inyectar el texto del cliente
+       tal cual. Cubren los tres caminos por donde sale ese texto. */
+    this.test("esc() escapa los cinco caracteres, siempre",()=>{
+      this.assert(esc('&<>"\'')==="&amp;&lt;&gt;&quot;&#39;","esc() dejó pasar alguno de los cinco caracteres");
+      this.assert(esc(null)===""&&esc(undefined)==="","esc() de vacío debe ser cadena vacía");
+      this.assert(esc("A & B")==="A &amp; B","el ampersand suelto no se escapó");
+    });
+    this.test("El documento impreso no acepta marcado del cliente",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();
+      APP_STATE.client.institution='<script>window.__x=1<\/script>';
+      APP_STATE.client.city='Ciudad "><img src=x onerror=alert(1)>';
+      APP_STATE.lines=[this.mkLine("cb-essential",3)];
+      APP_STATE.lines[0].concept='<b>Concepto</b> & "comillas"';
+      CURRENT_RESULT=computeQuote(L());
+      const html=buildProposal()+buildPrintDocument();
+      const caja=document.createElement("div");caja.innerHTML=html;
+      this.assert(!/<script/i.test(html)&&!caja.querySelector("script"),"el documento impreso dejó pasar una etiqueta script");
+      this.assert(!caja.querySelector("[onerror],[onload],[onclick]"),"el documento impreso dejó pasar un manejador de eventos");
+      this.assert(caja.querySelectorAll("img").length===caja.querySelectorAll("img[src^='data:']").length,"apareció una imagen que no es la marca embebida");
+      this.assert(html.includes("&lt;script&gt;"),"el nombre del colegio debe aparecer escapado, como texto");
+      this.assert(html.includes("&amp;"),"el ampersand del concepto no se escapó");
+    }));
+    this.test("El correo no acepta marcado del cliente",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();
+      APP_STATE.client.institution='<script>window.__y=1<\/script>';
+      APP_STATE.client.contacts=[{name:'Directora "><img src=x onerror=alert(1)>',email:"d@colegio.mx",phone:"55"}];
+      APP_STATE.seller.name='<img src=x onerror=alert(1)>';
+      APP_STATE.lines=[this.mkLine("cb-essential",3)];
+      CURRENT_RESULT=computeQuote(L());
+      const model=buildMailModel();
+      const sobre=document.createElement("div");sobre.innerHTML=model.html;
+      this.assert(!/<script/i.test(model.html)&&!sobre.querySelector("script"),"el correo dejó pasar una etiqueta script");
+      this.assert(!sobre.querySelector("[onerror],[onload],[onclick]"),"el correo dejó pasar un manejador de eventos");
+      this.assert([...sobre.querySelectorAll("a")].every(a=>/^(mailto:|https:\/\/)/.test(a.getAttribute("href")||"")),"el correo lleva un enlace con protocolo inesperado");
+      /* El asunto y el cuerpo viajan por encodeURIComponent, así que un salto
+         de línea metido desde un JSON importado no puede inyectar encabezados. */
+      const url=buildMailClientUrl("gmail",mailLinks());
+      this.assert(!/[\r\n]/.test(url),"la URL del cliente de correo lleva saltos de línea sin codificar");
+    }));
     this.test("Las llaves de almacenamiento son propias y versionadas",()=>{
       for(const value of Object.values(STORAGE_KEYS))this.assert(value.startsWith("activa.compra.")&&value.includes(".v1"),`llave fuera de contrato: ${value}`);
     });
@@ -3465,10 +3713,13 @@ const QuoteTests={
     if(HAS_STORAGE&&!DIRTY&&!STORAGE_CONFLICT){$("#saveState").textContent="Guardado localmente";$("#saveState").dataset.state="saved";$("#saveState").classList.remove("storage-conflict");}
     if(show)this.renderReport();
     console.info(`QuoteTests compra directa: ${passed}/${this.results.length} aprobadas`,this.results);
+    /* Las asíncronas corren después y repintan el informe; el resumen síncrono
+       se devuelve igual para que Diagnostics siga funcionando. */
+    this.settleAsync(show).catch(error=>console.error("pruebas asíncronas",error));
     if(failed)throw new Error(`${failed} prueba(s) fallaron`);
     return{passed,failed,results:clone(this.results)};
   },
-  renderReport(){const box=$("#testReport");if(!box)return;const passed=this.results.filter(item=>item.ok).length;box.hidden=false;box.innerHTML=`<button type="button" class="btn" id="btnCloseTests" style="float:right">Cerrar</button><h2>Pruebas internas · compra directa v1.2</h2><p class="${passed===this.results.length?"test-pass":"test-fail"}">${passed} de ${this.results.length} aprobadas</p><pre>${esc(this.results.map(result=>`${result.ok?"✓":"✕"} ${result.name}${result.error?": "+result.error:""}`).join("\n"))}</pre>`;$("#btnCloseTests").addEventListener("click",()=>box.hidden=true);}
+  renderReport(){const box=$("#testReport");if(!box)return;const passed=this.results.filter(item=>item.ok).length;box.hidden=false;box.innerHTML=`<button type="button" class="btn" id="btnCloseTests" style="float:right">Cerrar</button><h2>Pruebas internas · compra directa ${esc(APP_VERSION)}</h2><p class="${passed===this.results.length?"test-pass":"test-fail"}">${passed} de ${this.results.length} aprobadas</p><pre>${esc(this.results.map(result=>`${result.ok?"✓":"✕"} ${result.name}${result.error?": "+result.error:""}`).join("\n"))}</pre>`;$("#btnCloseTests").addEventListener("click",()=>box.hidden=true);}
 };
 const Diagnostics={run(){const index=listIndex(),keys=allQuoteKeys(),recoveries=allRecoveryKeys(),orphans=keys.filter(k=>!index.some(i=>k.endsWith(i.quoteId)));let tests={skipped:true,failed:0};if(confirm("El diagnóstico ejecutará las pruebas internas del cotizador de compra.\n\nNo modifica tu cotización ni tus borradores, pero puede tardar unos segundos.\n\nRecomendación: cierra las demás pestañas de esta herramienta antes de continuar. ¿Continuar?")){try{tests=QuoteTests.runAll({show:false});}catch(error){tests={failed:1,error:error.message};}}const report={version:APP_CONFIG.schemaVersion,catalog:APP_CONFIG.catalog.updatedISO,protocol:location.protocol,storage:HAS_STORAGE,draftsInIndex:index.length,quoteKeys:keys.length,recoveries:recoveries.length,orphans:orphans.length,current:APP_STATE?.identity?.quoteId,dirty:DIRTY,conflict:STORAGE_CONFLICT,tests};alert(`Diagnóstico activa · Compra directa v1.0\n\nAlmacenamiento: ${HAS_STORAGE?"disponible":"no disponible"}\nBorradores índice: ${index.length}\nClaves encontradas: ${keys.length}\nHuérfanos: ${orphans.length}\nRecuperaciones: ${recoveries.length}\nPruebas fallidas: ${tests.failed||0}`);console.info("Diagnóstico activa compra",report);return report;}};
 
@@ -3476,11 +3727,13 @@ const Diagnostics={run(){const index=listIndex(),keys=allQuoteKeys(),recoveries=
    para que no puedan divergir. */
 function syncStaticCopy(){
   const set=(selector,text)=>{const el=$(selector);if(el)el.textContent=text;};
-  set("#catalogTag",`Compra directa · catálogo del ${longDateFromISO(APP_CONFIG.catalog.updatedISO)}`);
   set("#hValidity",`Se sugiere ${APP_CONFIG.validityDays} días`);
   set("#totIvaLbl",APP_CONFIG.vat.label);
   set("#footerLegal",`Precios de compra directa en pesos mexicanos, netos y sin IVA; el total incluye ${APP_CONFIG.vat.label}. Catálogo del ${longDateFromISO(APP_CONFIG.catalog.updatedISO)}. Sujetos a confirmación contractual.`);
-  document.title=`activa · Cotizador de compra directa · v1.0`;
+  /* La versión sale del <title> del documento, que es el que se edita al
+     publicar: tenerla escrita aquí a mano dejó la pestaña anunciando v1.0
+     mientras la etiqueta del encabezado decía otra cosa. */
+  document.title=`activa · Cotizador de compra directa · ${APP_VERSION}`;
   originalTitle=document.title;
 }
 function applyBrandAssets(){const header=$("#headerBrandLogo"),footer=$("#footerBrandLogo"),google=$("#headerGoogleMark");if(header)header.src=BRAND.activa;if(footer)footer.src=BRAND.activa;if(google)google.style.backgroundImage=`url(${BRAND.google})`;}

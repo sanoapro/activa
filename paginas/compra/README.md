@@ -15,7 +15,8 @@ y se recarga.
 | Archivo | Qué es |
 |---|---|
 | `index.html` | Todo: markup, CSS, catálogo, motor de cálculo, persistencia, impresión y pruebas. |
-| `og.png` | Vista previa de WhatsApp (1200×630). **Todavía no existe** — ver el final de este archivo. |
+| `og.png` | Vista previa de WhatsApp (1200×630). |
+| `og-source.html` | La lámina de 1200×630 con la que se genera `og.png`. |
 
 Las etiquetas `og:` apuntan a `og.png` con **URL absoluta**: WhatsApp no lee rutas relativas. La
 imagen va junto a la página, como manda [`docs/estructura.md`](../../docs/estructura.md).
@@ -91,7 +92,13 @@ como herramienta rota.
 Todo en `localStorage`, con prefijo `activa.compra.*`: cotización actual, índice, una entrada
 por cotización, contador diario del folio, perfil del vendedor, copias de recuperación y máximo
 de revisión. Sin `localStorage` la herramienta **sigue cotizando**; solo deja de guardar, y lo
-dice en el estado de guardado del hero.
+dice en el estado de guardado del encabezado.
+
+El límite son **20 borradores** (`MAX_DRAFTS`). Al llegar, la herramienta **se niega a crear el
+21** en vez de desalojar el más viejo en silencio, y avisa dos antes. Si el navegador se queda
+sin espacio, el guardado falla con banner permanente y copia de recuperación; si otra pestaña
+guardó una versión más nueva, **no se sobrescribe**: se conserva la ajena, se respalda la tuya y
+el banner se queda puesto hasta resolverlo.
 
 ## Impresión
 
@@ -100,12 +107,40 @@ completo dentro de `#printRoot`, y con `body.pp-on` el `@media print` **oculta l
 entera** y muestra solo el documento: portada acotada a una hoja, encabezado repetido y pie
 fijo.
 
+La espera de imágenes lleva **tope de 3 segundos por imagen**. Sin él, una imagen que ya había
+fallado dejaba la promesa pendiente para siempre —su evento `error` ya se disparó y no vuelve— y
+`Ctrl+P` se quedaba pulsado sin imprimir y sin explicar nada. Vencido el plazo se imprime igual:
+mejor el documento sin logotipo que ningún documento.
+
+Verificado en Chrome con **1, 40 y 200 partidas**: sin hojas en blanco y con la portada
+completa.
+
 ## Pruebas internas
 
-Se abren con **`?test=1`**: 42 pruebas sobre el IVA, el catálogo contra la tabla confirmada el
-19-ago-2026, las bajas, los seminuevos, los mínimos, la persistencia y el documento. Toda pasada
-de presentación tiene que dejarlas igual: **si una cambia de resultado, se tocó lógica y se
-revierte**.
+Se abren con **`?test=1`**: 49 pruebas sobre el IVA, el catálogo contra la tabla confirmada el
+19-ago-2026, las bajas, los seminuevos, los mínimos, la persistencia, el escapado y el
+documento. Toda pasada de presentación tiene que dejarlas igual: **si una cambia de resultado,
+se tocó lógica y se revierte**.
+
+Siete de las 49 nacieron de una revisión adversarial el 20-ago-2026, y cada una existe porque un
+defecto introducido a propósito pasaba desapercibido:
+
+| Prueba | El defecto que atrapa |
+|---|---|
+| `esc() escapa los cinco caracteres, siempre` | Cambiar un carácter del regex de `esc()` dejaba la suite entera en verde |
+| `El documento impreso no acepta marcado del cliente` | Lo mismo, en la salida que llega al colegio |
+| `El correo no acepta marcado del cliente` | Lo mismo, en el HTML del correo |
+| `Con un renglón sin capturar, el total se declara parcial` | La cifra grande afirmaba «Total con IVA» faltando renglones |
+| `El separador de millares se acepta, no se traga` | «3,000» vaciaba el campo sin decir por qué |
+| `Una imagen rota no deja la impresión colgada` | `Ctrl+P` se quedaba esperando para siempre |
+| `El conflicto entre pestañas deja un aviso que no se va solo` | El estado más peligroso solo avisaba con un toast |
+
+El corredor **rechaza las pruebas asíncronas registradas con `test()`**: una función `async` que
+él no espera se aprobaría sin comprobar nada. Para eso está `asyncTest()`, que las encola, las
+resuelve con plazo de 5 s y repinta el informe.
+
+> En jsdom sin navegador, `Autoguardado normal realiza tres escrituras` falla por los
+> temporizadores del entorno, no por el código. **En Chrome pasan las 49.**
 
 ---
 
@@ -174,17 +209,50 @@ Con 37 partidas y seis familias, escribir es más rápido que buscar con el ojo:
   que se imprime— y **solo ahí** aparecen las flechas de reordenar, porque solo ahí ese orden
   significa algo.
 
-### El chip del hero avisa, no afirma
+### Sin hero, y por qué
 
-El `.iva` del cotizador dice «Todos los precios incluyen IVA» **en verde**. Aquí no puede: los
-precios son netos. Dice **«Precios netos, sin IVA · el IVA se agrega una sola vez, al final»** y
-va en tono de advertencia (`--g-yel-t` / `--g-yel-d`). El verde afirma; esto avisa. Por lo mismo,
-el `.cv-cap` de la portada impresa es amarillo y no verde.
+La página abría con etiqueta, título, chip de IVA, alcance, folio, revisión, estado de guardado,
+«Paso 1», otro título y un párrafo de instrucciones: **doce renglones de presentación antes de
+la primera partida**. Quien la usa es un comercial que ya sabe cotizar y abre la herramienta
+veinte veces al día.
+
+Ahora el encabezado lleva la marca, la navegación y —a la derecha— folio, revisión y estado de
+guardado en pequeño; debajo, la barra de resumen con las cuatro cifras; y enseguida la línea de
+trabajo: buscar, filtrar, contar. **La primera fila del catálogo entra en la primera pantalla.**
+
+El aviso de IVA sobrevive porque es una advertencia, no un adorno: es el chip **`SIN IVA`** en
+ámbar (`--g-yel-t` / `--g-yel-d`) a la derecha de los filtros. El verde afirma; esto avisa. Por
+lo mismo, el `.cv-cap` de la portada impresa es amarillo y no verde.
+
+### El ancho
+
+La aplicación usa `--app-max: 1560px`, no los 1200 px que heredó del deck. El documento impreso
+es A4 por `@page` y la vista de propuesta tiene su propio ancho de lectura de 940 px: **ninguno
+de los dos depende del ancho de la aplicación**, así que la tabla del catálogo puede respirar.
+
+### Dos trampas de esta tabla, para que no se repitan
+
+- **`.crow` estaba definida dos veces.** El renglón de contacto (`display:grid` de tres
+  columnas) y la fila del catálogo compartían nombre, y la regla de contactos convertía cada
+  `<tr>` en una rejilla: la tabla salía con el encabezado por un lado y las celdas encimadas por
+  otro. El renglón de contacto ahora se llama **`.ccrow`**.
+- **El encabezado pegajoso no tolera ancestros con `overflow`.** `position:sticky` se mide
+  contra el contenedor de desplazamiento más cercano, y tanto `overflow-x:auto` como
+  `overflow:hidden` crean uno. Con `.tscroll` y `.tbox` encima, el encabezado se iba 130 px
+  hacia abajo y dejaba una banda en blanco. Por eso el catálogo usa **`.catbox`** (sin
+  `overflow`) y **`.catscroll`** (visible en escritorio); el desplazamiento horizontal vuelve
+  solo por debajo de 1080 px, y ahí el encabezado deja de ser pegajoso, porque no pueden
+  coexistir.
 
 ### La sumatoria y la tabla de revisión
 
 El `.res-side` dice **Total** con el importe **con IVA** en `--mono` a 33 px, el `.sub` aclara
 «IVA 16 % incluido», y bajo el filete van dos `.kv`: subtotal sin IVA e IVA. Nada más.
+
+**Cuando falta capturar un renglón, el precio lo dice.** La barra de resumen pasa de «3» a
+«2 de 3», la etiqueta sobre el importe deja de decir «Total con IVA» y pasa a **«Total parcial ·
+falta 1 renglón»** en ámbar, y el subtítulo nombra lo que falta. El PDF ya estaba bloqueado, pero
+un botón deshabilitado no detiene a quien lee la cifra en voz alta por teléfono.
 
 A su derecha, el `.res-main` lleva la **tabla de revisión**: es literalmente lo que va a leer el
 colegio, con las columnas **Cantidad · Concepto · No. de parte · Precio unitario · Importe** —las
@@ -208,23 +276,24 @@ el revelado; `prefers-reduced-motion` apaga todo.
 
 ## Accesibilidad
 
-Bordes de campo con `--field-line` (contraste ≥ 3:1), foco visible siempre, `.tscroll` enfocable
-por teclado, `::after` de −10 px en los cierres de `.chip` y 28 px de área táctil en
+Los campos de cantidad y años son **`type="text"` con `inputmode="numeric"`**, no `type="number"`.
+Con `type=number` el navegador se come «3,000» antes de que la validación lo vea: el campo
+quedaba vacío, sin mensaje, y el renglón dejaba de sumar en silencio. Ahora «3,000», «3 000» y
+« 7 » se capturan y el campo se reescribe normalizado; lo que sigue siendo inválido **conserva el
+texto y muestra el error**. Se pierden las flechitas del navegador; se gana no cotizar de menos.
+
+Bordes de campo con `--field-line` (contraste ≥ 3:1), foco visible siempre, `.catscroll`
+enfocable por teclado cuando lleva desplazamiento, `::after` de −10 px en los cierres de `.chip` y 28 px de área táctil en
 `pointer:coarse`, `aria-live` en el estado de guardado y en la caja de avisos, y `aria-hidden`
 más `focusable="false"` en los `svg` decorativos.
 
 ## Dónde está dada de alta
 
 - **Portal** (`index.html` de la raíz): tarjeta «Cotizador de compra directa».
+- **Kit comercial**: fila **HERRAMIENTAS DE VENTA**, que pasó de cinco a seis accesos para
+  recibirla. Vivía en la fila interna solo porque la de venta estaba llena, y eso contradecía la
+  decisión del 19-ago-2026. Los contadores de cada franja se calculan de las listas.
 - [`docs/estructura.md`](../../docs/estructura.md): carpeta y URL de publicación.
-
-## Pendiente
-
-**Falta `og.png`.** Las cuatro etiquetas `og:`/`twitter:` ya apuntan a
-`https://sanoapro.github.io/activa/paginas/compra/og.png`, pero el archivo no existe: al
-compartir el enlace por WhatsApp no sale vista previa. Se genera como en
-[`paginas/arrendamiento/`](../arrendamiento/), con un `og-source.html` de 1200×630 que se
-captura.
 
 ## Al tocar esta página
 
@@ -232,5 +301,9 @@ captura.
 2. Imprime con `Ctrl+P` completo: portada, partidas, datos bancarios y firmas.
 3. Ábrela en ventana privada: con tu `localStorage` lleno no ves lo que ve un comercial que
    entra por primera vez.
-4. Zoom al 200 % y ventana de 360 px.
+4. Zoom al 200 % y ventana de 360 px: **sin desbordamiento horizontal** (verificado a 1440,
+   1280, 1024, 900 y 390 px).
 5. Sin red y sin `localStorage`: tiene que seguir cotizando.
+6. Si tocas la tabla del catálogo, comprueba que el encabezado siga pegado al bajar y que **no
+   aparezca una banda en blanco** arriba: es la señal de que volviste a meter un ancestro con
+   `overflow`.
