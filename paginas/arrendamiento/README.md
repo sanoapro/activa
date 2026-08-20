@@ -245,6 +245,50 @@ conflicto entre pestañas y rollback de escrituras.
 
 **Conviene correrla después de tocar precios o reglas.**
 
+## La pantalla es del vendedor; el papel es del colegio
+
+Son dos superficies con dueños distintos y se diseñaron por separado.
+
+**La herramienta no la ve el colegio.** Por eso el 20-ago-2026 se quitó el hero completo —etiqueta,
+título grande, chip de IVA, alcance y bloque de folio: doce renglones de bienvenida antes de la
+primera cifra— y los párrafos explicativos de cada paso. Folio, revisión y estado de guardado se
+mudaron al encabezado, en pequeño. La cotización completa entra ahora en una pantalla y la
+página mide 2 200 px en vez de 2 800. El ancho pasó de 1 200 a **1 560 px** (`--app-max`).
+
+El panel de inversión abre el desglose que el vendedor necesita para defender la cifra por
+teléfono: subtotal mensual, IVA y total a pagar, en renglones legibles en vez de apretados en un
+subtítulo. Y lo dice con todas sus letras: **el total a pagar es dato de trabajo y no sale en la
+propuesta ni en el correo.**
+
+### Ningún texto suelto
+
+Regla de esta pasada, en las dos superficies: si algo hay que explicar, se explica **dentro de la
+tarjeta a la que pertenece**. Para eso está `.cardnote` en la aplicación y `.p-card` en el
+documento. La pista de los carritos bajó a la caja de cotejo; las tres notas sueltas del
+documento se volvieron una tarjeta de **Condiciones** con viñetas y su advertencia dentro; la
+tabla de inclusiones vive en `.p-tblcard`; los contactos y las firmas, en su propia tarjeta.
+
+## El documento no enseña el total general
+
+**Decisión del 20-ago-2026.** La propuesta y el correo muestran **la mensualidad y cuántas son**,
+y nada más:
+
+- La portada: la renta mensual grande, y entre los tres datos duros «Mensualidades · 36 iguales»
+  donde antes iba el total a pagar.
+- La sección de inversión: dos tarjetas, la renta mensual con su IVA desglosado y, al lado, el
+  plazo en grande —`36` sobre «mensualidades iguales y consecutivas»— con la explicación de cómo
+  corren.
+- El correo: la mensualidad y el número de mensualidades.
+
+El porqué: un arrendamiento se decide por la mensualidad y por cuántas son. Poner la suma de las
+36 al lado invita a compararla contra el precio de contado, que es otra operación y otra
+decisión. El motor **sigue calculando** `totalPagar` —lo necesita el vendedor y lo cubren las
+pruebas—; simplemente no se imprime.
+
+Y el documento dice qué se está adquiriendo: cada renglón de la tabla lleva **el concepto y su
+descripción** —modelo, memoria, pantalla, qué cubre el seguro, qué hace Securly, para cuántos
+equipos es el carrito—, no solo el nombre.
+
 ## Sistema visual
 
 La página aplica el sistema de [`paginas/cotizador/`](../cotizador/): mismos tokens en su

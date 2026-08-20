@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>activa · Arrendamiento de equipo — Cotizador · v1.1</title>
+<title>activa · Arrendamiento de equipo — Cotizador · v1.2</title>
 <meta name="description" content="Cotizador de arrendamiento de equipo Chromebook para colegios: mensualidad y total a pagar con IVA desglosado, a 3 o 4 años.">
 <!-- Fuera de los buscadores: esta herramienta la opera el equipo comercial.
      Se comparte por enlace, nunca se busca. -->
@@ -63,6 +63,7 @@
   --disp:"Google Sans","Product Sans",Roboto,Arial,sans-serif;
   --body:Roboto,Arial,Helvetica,sans-serif;
   --mono:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --app-max:1560px;
   --action-bar-height:82px;
   --sticky-header-height:150px;
 }
@@ -70,7 +71,10 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:calc(var(--action-bar-height) + env(safe-area-inset-bottom))}
 body.modal-open{overflow:hidden}
-h1,h2,h3,h4,.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+  /* Ancho de la aplicacion. El documento impreso es A4 por @page y la vista
+     de propuesta lleva su propio ancho de lectura: nada de eso depende de este
+     numero. */
+h1,h2,h3,h4,.wrap{max-width:var(--app-max);margin:0 auto;padding:0 24px}
 .num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 .muted{color:var(--mute);font-size:12.5px}
 :focus-visible{outline:3px solid var(--acc-d);outline-offset:2px;border-radius:4px}
@@ -84,7 +88,7 @@ h1,h2,h3,h4,.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
 
 /* ---------- encabezado ---------- */
 header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdrop-filter:saturate(1.6) blur(10px);border-bottom:1px solid var(--line)}
-.hbar{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:9px 24px}
+.hbar{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:var(--app-max);margin:0 auto;padding:7px 24px}
 .logo{display:flex;align-items:center;gap:11px}
 .gdots{display:grid;grid-template-columns:repeat(2,8px);grid-gap:3px}
 .gdots i{width:8px;height:8px;border-radius:50%;display:block}
@@ -113,7 +117,7 @@ header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdro
 
 /* ---------- barra de configuración ---------- */
 .cfgbar{border-top:1px solid var(--soft);background:linear-gradient(180deg,var(--acc-t),rgba(255,255,255,0));position:relative}
-.cfgin{max-width:1200px;margin:0 auto;padding:10px 24px;display:grid;grid-template-columns:132px 132px 1fr 168px auto;gap:14px;align-items:end}
+.cfgin{max-width:var(--app-max);margin:0 auto;padding:10px 24px;display:grid;grid-template-columns:132px 132px 1fr 168px auto;gap:14px;align-items:end}
 .cfgf{min-width:0}
 .cfgf>label{display:block;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin-bottom:5px}
 .cfgf select,.cfgf input{width:100%;padding:8px 10px;border:1px solid var(--field-line);border-radius:8px;font-size:13.5px;font-family:var(--body);background:#fff;color:var(--ink)}
@@ -142,20 +146,24 @@ header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdro
 .iva{display:inline-flex;align-items:center;gap:7px;background:var(--g-grn-t);color:var(--g-grn-d);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:500}
 .iva svg{width:15px;height:15px;fill:var(--g-grn)}
 .scope{font-size:12.5px;color:var(--mute)}
-.workmeta{margin-top:15px;display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;font-size:12px;color:var(--mute)}
+/* Identidad de la cotización dentro del encabezado: pequeña y permanente, sin
+   robar una franja entera de pantalla como hacía el hero. */
+.workmeta{display:flex;align-items:center;gap:4px 12px;flex-wrap:wrap;font-size:11.5px;color:var(--mute);margin-left:auto;justify-content:flex-end}
+.workmeta span{white-space:nowrap}
+.workmeta .wr,.workmeta .save-state{padding-left:12px;border-left:1px solid var(--line)}
 .workmeta b{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
 .save-state[data-state="saving"]{color:var(--g-blue-d)}
 .save-state[data-state="error"]{color:var(--g-red-d)}
 .save-state[data-state="saved"]{color:var(--g-grn-d)}
 .storage-conflict{color:var(--g-red-d)!important;font-weight:700}
 
-section{padding:38px 0;scroll-margin-top:var(--sticky-header-height)}
+section{padding:24px 0 30px;scroll-margin-top:var(--sticky-header-height)}
 main section{scroll-margin-top:var(--sticky-header-height)}
 .alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.shead{margin:0 0 22px;max-width:760px}
-.shead .kick{font-family:var(--disp);font-size:11.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--acc-d);margin-bottom:7px}
-.shead h2{font-size:26px;margin:0 0 7px;font-weight:700}
-.shead p{color:var(--mute);margin:0;font-size:14.5px}
+.shead{margin:0 0 14px;max-width:none;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.shead .kick{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--acc-d)}
+.shead h2{font-size:21px;margin:0;font-weight:700;padding:0}
+.shead p{color:var(--mute);margin:0;font-size:12.5px}
 #storageBanner{margin:14px auto 0;background:var(--g-red-t);border:1px solid #f5c6c0;border-radius:10px;padding:10px 12px;color:var(--g-red-d);font-size:12.5px;font-weight:500}
 
 /* ---------- resultado (lo que ve el cliente) ----------
@@ -173,6 +181,12 @@ main section{scroll-margin-top:var(--sticky-header-height)}
 .kv{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12.5px;padding:5px 0}
 .kv span{color:var(--mute)}.kv b{font-family:var(--mono);font-weight:500;white-space:nowrap}
 .kv.save b{color:var(--g-grn)}
+/* Renglon de cierre del panel: el total a pagar es dato del vendedor, no del
+   documento, y se separa para que se lea como lo que es. */
+.kv.tot{margin-top:5px;padding-top:9px;border-top:1px solid var(--line)}
+.kv.tot span{color:var(--ink2);font-weight:600}
+.kv.tot b{font-size:14px}
+.res-side .cardnote{margin-top:14px;border-top:none;padding-top:0;font-size:11px}
 .res-main{padding:22px 20px}
 .res-main .licgrid+.igrid{margin-top:11px}
 .rowhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;flex-wrap:wrap;gap:8px}
@@ -234,6 +248,10 @@ main section{scroll-margin-top:var(--sticky-header-height)}
 .fold[open] .fc::after{height:0}
 .fold[open] summary{border-bottom:1px solid var(--soft)}
 .foldb{padding:18px}
+/* Nota al pie de una tarjeta. Existe para que ningún texto quede suelto sobre
+   el fondo de la página: si algo hay que explicar, se explica dentro de la caja
+   a la que pertenece. */
+.cardnote{margin:12px 0 0;font-size:11.5px;line-height:1.5;color:var(--faint);border-top:1px dashed var(--line);padding-top:9px}
 .miniLbl{font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin-bottom:9px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .tagx{font-family:var(--body);font-size:9.5px;font-weight:600;letter-spacing:.2px;text-transform:none;background:var(--g-blue-t);color:var(--g-blue-d);border-radius:5px;padding:2px 7px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -249,8 +267,10 @@ input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--g-red)
 .contact-card{border:1px solid var(--soft);border-radius:11px;padding:12px;margin:0 0 10px;background:#fcfcfd}
 .contact-card legend{font-family:var(--disp);font-size:11px;font-weight:700;color:var(--ink2);padding:0 6px;text-transform:uppercase;letter-spacing:.4px}
 .contact-card label{display:block;font-size:10.5px;font-weight:700;color:var(--mute);margin:0 0 5px;text-transform:uppercase;letter-spacing:.4px}
-.crow{display:grid;grid-template-columns:1.05fr 1.35fr .85fr;gap:8px;margin-bottom:0}
-.crow input{font-size:13px;padding:8px 11px}
+/* Renglon de contacto. Se llama .ccrow y no .crow: en el cotizador de compra
+   ese nombre choco con la fila de la tabla del catalogo y la desarmo entera. */
+.ccrow{display:grid;grid-template-columns:1.05fr 1.35fr .85fr;gap:8px;margin-bottom:0}
+.ccrow input{font-size:13px;padding:8px 11px}
 .inline-action{margin-top:7px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
 /* ---------- advertencias ---------- */
@@ -301,7 +321,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 
 /* ---------- barra de acciones fija ---------- */
 .actbar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(255,255,255,.97);backdrop-filter:saturate(1.6) blur(10px);border-top:1px solid var(--line);box-shadow:0 -2px 12px rgba(60,64,67,.10)}
-.actin{max-width:1200px;margin:0 auto;padding:11px 24px calc(11px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:16px}
+.actin{max-width:var(--app-max);margin:0 auto;padding:11px 24px calc(11px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:16px}
 .actprice{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;min-width:0}
 .actprice .k{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--faint)}
 .actprice b{font-family:var(--mono);font-size:24px;font-weight:600;letter-spacing:-.5px;color:var(--acc-d)}
@@ -364,6 +384,25 @@ body.calc-first .inv::after{
 .pi-break{margin-top:8px;border-top:1px solid rgba(13,101,45,.2);padding-top:6px;display:grid;gap:2px;font-size:11.5px}
 .pi-break div{display:flex;justify-content:space-between;gap:10px;color:var(--ink2)}
 .pi-break b{font-family:var(--mono);font-weight:500}
+/* La inversión: la mensualidad manda y el plazo la acompaña. No hay tercera
+   cifra: el total a pagar no entra en el documento del colegio. */
+.p-brand-lockup img{width:132px;height:auto;max-height:38px;object-fit:contain}
+.pp-body .p-brand-lockup img{width:40mm;max-height:11mm}
+.print-brand-logo{width:150px;height:auto;max-height:44px;object-fit:contain;object-position:left center;display:block;margin-bottom:22px}
+.p-card--sign{margin-top:18px}
+.p-invwrap{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;margin-top:6px}
+.p-plazocard{background:#fff;border:1px solid var(--line);border-left:5px solid var(--g-grn);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;justify-content:center}
+.pz-n{font-family:var(--mono);font-size:34px;font-weight:700;line-height:1;color:var(--g-grn-d);letter-spacing:-1px}
+.pz-t{font-family:var(--disp);font-size:12.5px;font-weight:600;color:var(--ink2);margin-top:4px}
+.pz-s{font-size:11px;color:var(--mute);margin-top:6px;line-height:1.5}
+/* Ningún texto suelto: toda nota del documento vive en una tarjeta. */
+.p-card{border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-top:10px;font-size:11.5px;color:var(--ink2);line-height:1.6;background:#fff}
+.p-card--soft{background:#fbfcfe;color:var(--mute)}
+.pc-h{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+.pc-list{margin:0;padding-left:17px;display:grid;gap:5px}
+.pc-list li{font-size:11.5px;line-height:1.55}
+.pc-warn{margin-top:10px;background:var(--g-yel-t);border:1px solid var(--g-yel-b);border-radius:8px;padding:8px 10px;color:#6b4500;font-weight:500}
+.p-tblcard{border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .p-note{font-size:11.5px;color:var(--mute);margin-top:9px}
 .p-note--important{background:var(--g-yel-t);border:1px solid var(--g-yel-b);border-radius:8px;padding:8px 10px;color:#6b4500}
 .p-contact{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:12px;overflow:hidden}
@@ -460,6 +499,14 @@ body.calc-first .inv::after{
   .action-state{width:100%;justify-content:space-between}
 }
 @media(max-width:700px){
+  .workmeta .wf,.workmeta .wr{display:none}
+  .workmeta .save-state{padding-left:0;border-left:none}
+  .hbar{flex-wrap:wrap;gap:6px 10px;padding:6px 14px}
+  .brand-partner{display:none}
+  .brand-logo-img{width:116px}
+  .hbtns .btn span{display:none}
+  .hbtns .btn{padding:8px 11px}
+  .p-invwrap{grid-template-columns:1fr}
   .wrap{padding:0 16px}
   /* Los botones del plazo dejan el nowrap: con dos etiquetas largas en una
      rejilla angosta reventaban el ancho de la página entera. */
@@ -471,7 +518,7 @@ body.calc-first .inv::after{
   .brand-partner{display:none}
   .brand-logo-img{width:120px}
   .footer-brand img{width:135px}
-  .crow{grid-template-columns:1fr!important}
+  .ccrow{grid-template-columns:1fr!important}
   .cartrow{grid-template-columns:1fr 90px 44px}
   .p-client,.p-inv,.p-sign{grid-template-columns:1fr}
   .p-client>div{border-right:none;border-bottom:1px solid var(--soft)}
@@ -569,6 +616,19 @@ body.calc-first .inv::after{
 .pp-body .ptbl tbody th{padding:2mm 2.8mm;font-size:8.8pt;background:transparent;color:#202124;border-bottom:1px solid #eef0f2}
 .pp-body .ptbl .art{font-family:var(--disp);font-weight:500;font-size:9pt;line-height:1.32}
 .pp-body .ptbl .desc{color:#5f6368;font-size:8.4pt;margin-top:.5mm;line-height:1.42}
+.print-cover .print-brand-logo{width:48mm;max-height:14mm;margin-bottom:8mm}
+.pp-body .p-invwrap{display:grid;grid-template-columns:1.25fr 1fr;gap:3mm;margin-top:1.5mm;break-inside:avoid}
+.pp-body .p-plazocard{background:#fff;border:1px solid #dadce0;border-left:1.6mm solid #188038;border-radius:2.5mm;padding:3.2mm 3.8mm;display:flex;flex-direction:column;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.pp-body .pz-n{font-family:var(--mono);font-size:26pt;font-weight:700;line-height:1;color:#0d652d;letter-spacing:-1px}
+.pp-body .pz-t{font-family:var(--disp);font-size:9pt;font-weight:600;color:#3c4043;margin-top:1mm}
+.pp-body .pz-s{font-size:7.6pt;color:#5f6368;margin-top:1.4mm;line-height:1.45}
+.pp-body .p-card{border:1px solid #dadce0;border-radius:2.5mm;padding:2.8mm 3.6mm;margin-top:2.4mm;font-size:8.4pt;color:#3c4043;line-height:1.55;background:#fff;break-inside:avoid}
+.pp-body .p-card--soft{background:#f8fafc;color:#5f6368}
+.pp-body .pc-h{font-family:var(--disp);font-size:7.4pt;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#5f6368;margin-bottom:1.6mm}
+.pp-body .pc-list{margin:0;padding-left:4.2mm;display:grid;gap:1.1mm}
+.pp-body .pc-list li{font-size:8.4pt;line-height:1.5}
+.pp-body .pc-warn{margin-top:2.2mm;background:#fef7e0;border:1px solid #fdd663;border-radius:1.8mm;padding:1.8mm 2.6mm;color:#8a4b00;font-weight:500}
+.pp-body .p-tblcard{border:1px solid #dadce0;border-radius:2.5mm;overflow:hidden}
 .pp-body .p-note{font-size:8.5pt;color:#5f6368;margin-top:2.2mm;line-height:1.5}
 .pp-body .p-note--important{background:#fef7e0;border:1px solid #fdd663;border-radius:1.8mm;padding:1.8mm 2.8mm;color:#8a4b00}
 .pp-body .p-client{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border:1px solid #dadce0;border-radius:2mm;overflow:hidden;margin:5mm 0 2.5mm}
@@ -676,13 +736,18 @@ body.calc-first .inv::after{
       <span class="brand-partner"><span class="google-g" aria-hidden="true" id="headerGoogleMark"></span>Google for Education Partner</span>
       <!-- Etiqueta de versión visible: identifica el archivo de un vistazo cuando
            circulan copias descargadas (lección del cotizador, F-27 · UX-5). -->
-      <span class="vertag" title="Cotizador de arrendamiento activa · versión del archivo">v1.1</span>
+      <span class="vertag" title="Cotizador de arrendamiento activa · versión del archivo">v1.2</span>
     </div>
     <nav class="hnav">
       <a href="#s1">Inversión</a>
       <a href="#s2">Carritos</a>
       <a href="#s3">Datos</a>
     </nav>
+    <div class="workmeta" aria-live="polite">
+      <span class="wf">Folio <b id="quoteFolio">—</b></span>
+      <span class="wr" id="quoteRevision">Revisión 1</span>
+      <span class="save-state" id="saveState" data-state="saving">Guardando…</span>
+    </div>
     <div class="hbtns">
       <button type="button" class="btn" id="btnManage" aria-label="Gestionar cotizaciones y borradores">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
@@ -730,28 +795,13 @@ body.calc-first .inv::after{
 <div class="wrap"><div id="storageBanner" role="alert" hidden></div></div>
 <form id="quoteForm" class="mo-stagger" novalidate>
 
-<!-- ================= HERO ================= -->
-<div class="hero wrap">
-  <span class="tag"><span class="gdots"><i></i><i></i><i></i><i></i></span> Arrendamiento de equipo Chromebook</span>
-  <h1>Renta mensual fija, <em>equipo nuevo</em> para el colegio</h1>
-  <div class="herorow">
-    <span class="iva"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Importes en MXN con IVA desglosado</span>
-    <span class="scope" id="heroScope">—</span>
-  </div>
-  <div class="workmeta" aria-live="polite">
-    <span>Folio <b id="quoteFolio">—</b></span>
-    <span id="quoteRevision">Revisión 1</span>
-    <span class="save-state" id="saveState" data-state="saving">Guardando…</span>
-  </div>
-</div>
-
 <!-- ================= 1 · INVERSIÓN ================= -->
 <section id="s1">
   <div class="wrap">
     <div class="shead">
       <div class="kick">Paso 1</div>
       <h2>Inversión mensual</h2>
-      <p>Las dos cifras que ve el colegio: el total mensual y el total a pagar, con su IVA desglosado. Abajo, todo lo que incluye.</p>
+      <p>La mensualidad y todo lo que ampara.</p>
     </div>
 
     <div class="cfg">
@@ -760,16 +810,19 @@ body.calc-first .inv::after{
         <!-- Solo dos cifras. Ni tasa, ni precio unitario, ni monto financiado,
              ni anualidad: eso vive en el modo interno y solo ahí. -->
         <div class="res-side">
-          <div class="lbl">Total mensual</div>
+          <div class="lbl">Total mensual · IVA incluido</div>
           <div class="big num" id="invMensual">$0</div>
           <div class="sub" id="invMensualPer">—</div>
           <hr>
-          <div class="kv"><span>Total a pagar</span><b class="num" id="invTotal">$0</b></div>
+          <div class="kv"><span>Subtotal mensual</span><b class="num" id="invSub">$0</b></div>
+          <div class="kv"><span>IVA 16 %</span><b class="num" id="invIva">$0</b></div>
+          <div class="kv tot"><span id="invTotalLbl">Total a pagar</span><b class="num" id="invTotal">$0</b></div>
+          <p class="cardnote" id="invNote">El total a pagar es dato de trabajo: <b>no sale en la propuesta ni en el correo</b>.</p>
         </div>
         <div class="res-main">
           <div class="rowhead">
             <h3>Qué incluye esta cotización</h3>
-            <div class="muted">Sin desglose de precios por componente</div>
+            <div class="muted" id="heroScope">—</div>
           </div>
           <div class="licgrid">
             <label class="lic" id="svcSeguro">
@@ -798,7 +851,7 @@ body.calc-first .inv::after{
     <div class="shead">
       <div class="kick">Paso 2</div>
       <h2>Carritos de carga</h2>
-      <p>Se pueden mezclar capacidades en la misma cotización: por ejemplo, un carrito de 30 y tres de 20. Su costo entra a la cotización y se refleja en la mensualidad.</p>
+      <p>Se mezclan capacidades; su costo entra en la mensualidad.</p>
     </div>
 
     <details class="fold" id="foldCart" open>
@@ -814,9 +867,9 @@ body.calc-first .inv::after{
           <button type="button" class="btn" id="btnAddCart">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
             Agregar carrito</button>
-          <span class="hint">La capacidad se compara contra los equipos cotizados; si no cuadra se avisa, sin bloquear.</span>
         </div>
         <div class="calcbox" id="cartBox"></div>
+        <p class="cardnote">La capacidad se compara contra los equipos cotizados. Si no cuadra se avisa, pero no bloquea: hay colegios que comparten carrito entre grupos.</p>
       </div>
     </details>
   </div>
@@ -827,8 +880,8 @@ body.calc-first .inv::after{
   <div class="wrap">
     <div class="shead">
       <div class="kick">Paso 3</div>
-      <h2>Datos para la propuesta</h2>
-      <p>Lo que encabeza y cierra el documento que recibe el colegio.</p>
+      <h2>Datos de la propuesta</h2>
+      <p>Lo que encabeza y cierra el documento del colegio.</p>
     </div>
 
     <details class="fold" id="foldCli" open>
@@ -1349,6 +1402,9 @@ const STORAGE_KEYS={
 };
 function storageAvailable(){try{const key="__activa_arr_test__";localStorage.setItem(key,"1");localStorage.removeItem(key);return true;}catch{return false;}}
 const HAS_STORAGE=storageAvailable();
+/* Una sola fuente para la versión: la etiqueta que el comercial ve en el
+   encabezado. Si se actualiza ahí, se actualiza en el informe de pruebas. */
+const APP_VERSION=(document.querySelector(".vertag")?.textContent||"").trim()||"v1.0";
 const isPlainObject=value=>value!==null&&typeof value==="object"&&!Array.isArray(value)&&Object.getPrototypeOf(value)===Object.prototype;
 function strictString(value,{field="texto",max=250,min=0,optional=false}={}){if(value==null&&optional)return "";if(typeof value!=="string")throw new Error(`${field}: debe ser texto`);const clean=value.trim();if(!optional&&clean.length<min)throw new Error(`${field}: es obligatorio`);if(clean.length>max)throw new Error(`${field}: excede ${max} caracteres`);return clean;}
 function strictBoolean(value,field="booleano"){if(typeof value!=="boolean")throw new Error(`${field}: debe ser verdadero o falso`);return value;}
@@ -1969,9 +2025,10 @@ function renderAll(){
   $("#invMensual").textContent=okPrice?money(r.mensualidad.total):"—";
   /* El plazo y el IVA van en el subtítulo de la cifra, no en renglones aparte:
      el cliente lee dos importes, no una sumatoria. */
-  $("#invMensualPer").textContent=okPrice
-    ?`${r.meses} mensualidades · subtotal ${money(r.mensualidad.sub)} + IVA ${money(r.mensualidad.iva)}`
-    :`${r.meses} mensualidades`;
+  $("#invMensualPer").textContent=`${r.meses} mensualidades iguales`;
+  $("#invSub").textContent=okPrice?money(r.mensualidad.sub):"—";
+  $("#invIva").textContent=okPrice?money(r.mensualidad.iva):"—";
+  $("#invTotalLbl").textContent=`Total a pagar · ${r.meses} meses`;
   $("#invTotal").textContent=okPrice?money(r.totalPagar.total):"—";
   renderIncludes(r);
   renderCartBox(r);
@@ -2142,23 +2199,44 @@ function buildProposal(){
   const grouped=new Map();
   r.carritos.forEach(c=>grouped.set(c.cap,(grouped.get(c.cap)||0)+c.qty));
   for(const [cap,qty] of grouped)incRows.push(`<tr><td><div class="art">Carrito de carga y almacenamiento para ${cap} Chromebooks</div><div class="desc">Resguardo, traslado y carga simultánea de los equipos del aula.</div></td><td>${qty.toLocaleString("es-MX")} carrito(s)</td></tr>`);
-  const invCard=(title,parts,sub)=>`<div class="p-invcard"><div class="pi-title">${esc(title)}</div><div class="pi-price">${money(parts.total)}</div><div class="pi-sub">${esc(sub)}</div><div class="pi-break"><div><span>Subtotal</span><b>${money(parts.sub)}</b></div><div><span>IVA (16%)</span><b>${money(parts.iva)}</b></div><div><span>Total con IVA</span><b>${money(parts.total)}</b></div></div></div>`;
-  return `${preliminary}<div class="p-brand-lockup"><span class="gdots" aria-hidden="true"><i></i><i></i><i></i><i></i></span><b>activa</b><span class="p-sub">Google for Education Partner</span></div>
+  /* Una sola tarjeta y una sola cifra: la mensualidad. El total a pagar no
+     entra en la propuesta —ver el README—; lo que el colegio necesita saber
+     es cuanto paga al mes y cuantas veces. */
+  const invBlock=()=>`<div class="p-invwrap">
+    <div class="p-invcard">
+      <div class="pi-title">Renta mensual · IVA incluido</div>
+      <div class="pi-price">${money(r.mensualidad.total)}</div>
+      <div class="pi-sub">La misma cantidad cada mes, durante todo el contrato.</div>
+      <div class="pi-break"><div><span>Subtotal mensual</span><b>${money(r.mensualidad.sub)}</b></div><div><span>IVA (16%)</span><b>${money(r.mensualidad.iva)}</b></div><div><span>Total mensual</span><b>${money(r.mensualidad.total)}</b></div></div>
+    </div>
+    <div class="p-plazocard">
+      <div class="pz-n">${r.meses}</div>
+      <div class="pz-t">mensualidades iguales y consecutivas</div>
+      <div class="pz-s">Contrato a ${r.anios} años. La primera se cubre a la entrega de los equipos y las demás corren mes a mes, sin variación durante el plazo.</div>
+    </div>
+  </div>`;
+  return `${preliminary}<div class="p-brand-lockup"><img src="${BRAND_ASSETS.activa}" alt="activa"><span class="p-sub">Google for Education Partner</span></div>
   <div class="p-top"><div><div class="p-slogan">Arrendamiento de equipo</div><div class="p-title">Propuesta de arrendamiento</div><div class="p-sub">Equipo Chromebook en renta mensual fija para el colegio</div></div><div class="p-meta">Folio <b>${esc(d.folio)}</b><br>${APP_STATE.identity.revision>1?`Revisión <b>${APP_STATE.identity.revision}</b> · sustituye versiones anteriores<br>`:""}Fecha <b>${esc(d.dDate)}</b><br>Válida hasta <b>${esc(d.dValid)}</b></div></div>
   <div class="p-client"><div><div class="k">Cliente</div><div class="v">${esc(d.inst)}</div></div><div><div class="k">Ciudad</div><div class="v">${esc(d.city)}</div></div><div><div class="k">Equipos</div><div class="v n">${r.totalEquipos.toLocaleString("es-MX")}</div></div><div><div class="k">Plazo</div><div class="v n">${r.anios} años</div></div></div>
   <div class="p-chip">${r.totalEquipos.toLocaleString("es-MX")} equipos · ${r.meses} mensualidades · ${r.seguro?"con":"sin"} seguro · ${r.securly?"con":"sin"} Securly</div>
   <div class="p-h"><span class="n">1</span> Qué incluye el arrendamiento</div>
-  <table class="ptbl"><caption class="sr-only">Equipos y servicios incluidos</caption><thead><tr><th scope="col">Concepto</th><th scope="col">Cantidad</th></tr></thead><tbody>${incRows.join("")}</tbody></table>
-  <div class="p-note">El arrendamiento ampara la totalidad de los equipos y servicios listados durante los ${r.meses} meses del contrato. La entrega de los equipos en el colegio está incluida.</div>
+  <div class="p-tblcard"><table class="ptbl"><caption class="sr-only">Equipos y servicios incluidos</caption><thead><tr><th scope="col">Concepto</th><th scope="col">Cantidad</th></tr></thead><tbody>${incRows.join("")}</tbody></table></div>
+  <div class="p-card p-card--soft"><b>Todo lo anterior está amparado por la misma renta mensual</b>, durante los ${r.meses} meses del contrato. No hay cargos por separado ni costos de instalación.</div>
   <div class="p-h"><span class="n">2</span> Inversión</div>
-  <div class="p-inv">${invCard("Total mensual",r.mensualidad,`por mes, durante ${r.meses} meses`)}${invCard("Total a pagar",r.totalPagar,`suma de las ${r.meses} mensualidades`)}</div>
-  <div class="p-note">${r.meses} mensualidades iguales y consecutivas en pesos mexicanos. El total a pagar es la mensualidad multiplicada por los ${r.meses} meses del contrato.</div>
-  <div class="p-note">Las condiciones de término del contrato —opción a compra, valor residual o devolución del equipo— se establecen en el contrato de arrendamiento correspondiente.</div>
-  <div class="p-note p-note--important">Propuesta sujeta a aprobación de crédito y a la firma del contrato de arrendamiento correspondiente.</div>
+  ${invBlock()}
+  <div class="p-card p-card--terms">
+    <div class="pc-h">Condiciones</div>
+    <ul class="pc-list">
+      <li><b>Importes en pesos mexicanos</b>, con IVA desglosado. La mensualidad no cambia durante el plazo.</li>
+      <li><b>Entrega incluida</b> en el colegio, sin cargo adicional.</li>
+      <li><b>Cierre del contrato:</b> las condiciones de término —opción a compra, valor residual o devolución del equipo— se establecen en el contrato de arrendamiento correspondiente.</li>
+    </ul>
+    <div class="pc-warn">Propuesta sujeta a aprobación de crédito y a la firma del contrato de arrendamiento.</div>
+  </div>
   <div class="p-h"><span class="n">3</span> Vigencia y contacto</div>
   <div class="p-contact"><div><span class="k">Preparado por</span><span class="v">${esc(d.by)}${d.role?" · "+esc(d.role):""}</span></div><div><span class="k">Cotización válida hasta</span><span class="v">${esc(d.dValid)}</span></div><div><span class="k">Teléfono</span><span class="v">${esc(d.phone)}</span></div><div><span class="k">Correo</span><span class="v">${esc(d.mail)}</span></div></div>
-  ${d.contacts.length?`<div class="p-note"><b>Contactos del colegio:</b> ${d.contacts.map(c=>esc([c.name,c.email,c.phone].filter(Boolean).join(" · "))).join(" | ")}</div>`:""}
-  <div class="p-sign"><div class="p-signb"><div class="n">${esc(d.by)}</div><div class="r">${esc(d.role||"activa")} · activa · Google for Education Partner</div></div><div class="p-signl">Aceptación del colegio · nombre, cargo y fecha</div></div>
+  ${d.contacts.length?`<div class="p-card p-card--soft"><b>Contactos del colegio:</b> ${d.contacts.map(c=>esc([c.name,c.email,c.phone].filter(Boolean).join(" · "))).join(" · ")}</div>`:""}
+  <div class="p-card p-card--sign"><div class="pc-h">Firmas</div><div class="p-sign"><div class="p-signb"><div class="n">${esc(d.by)}</div><div class="r">${esc(d.role||"activa")} · activa · Google for Education Partner</div></div><div class="p-signl">Aceptación del colegio · nombre, cargo y fecha</div></div></div>
   <div class="p-foot">activa · Google for Education Partner${d.web?` · ${esc(d.web)}`:""}</div>`;
 }
 function buildPrintDocument(){
@@ -2168,7 +2246,7 @@ function buildPrintDocument(){
   const runfoot=`<div class="print-runfoot" aria-hidden="true"><span>activa · Arrendamiento de equipo</span><span>Folio ${esc(d.folio)} · ${esc(d.inst)}</span><span>Vigente hasta ${esc(d.dValid)}</span></div>`;
   const runhead=`<div class="print-runhead"><span class="rh-brand"><b>activa</b> · Google for Education Partner</span><span class="rh-folio">Folio ${esc(d.folio)}</span><span class="rh-valid">Vigente hasta ${esc(d.dValid)}</span></div><div class="gbar gbar--thin" aria-hidden="true"><i></i><i></i><i></i><i></i></div>`;
   const coverChips=`<div class="cv-chips"><span class="cv-chip cv-chip--blue">${r.totalEquipos.toLocaleString("es-MX")} equipos Chromebook</span><span class="cv-chip cv-chip--green">${r.anios} años · ${r.meses} mensualidades</span>${r.seguro?`<span class="cv-chip cv-chip--yellow">Con seguro contra daños</span>`:""}${r.securly?`<span class="cv-chip cv-chip--yellow">Con Securly</span>`:""}</div>`;
-  return `<article class="print-document">${runfoot}<section class="print-cover"><div class="gbar gbar--cover"><i></i><i></i><i></i><i></i></div><div class="print-cover__inner"><div class="p-brand-lockup"><span class="gdots" aria-hidden="true"><i></i><i></i><i></i><i></i></span><b>activa</b></div><div class="cv-eyebrow">Arrendamiento de equipo</div><div class="cv-for">Propuesta preparada para</div><h1 class="cv-name" data-len="${nameScale}">${esc(d.inst)}</h1><div class="cv-city">${esc(d.city)}</div>${coverChips}<div class="cv-price"><div class="gbar gbar--card" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="cv-price__inner"><div><div class="cv-pl">Total mensual · IVA incluido</div><div class="cv-pv">${money(r.mensualidad.total)}</div><div class="cv-pn">Subtotal ${money(r.mensualidad.sub)} + IVA ${money(r.mensualidad.iva)} · por mes, durante ${r.meses} meses</div></div></div></div><div class="cv-facts"><div class="cv-fact" style="border-color:#4285F4"><div class="k">Equipos</div><div class="v">${r.totalEquipos.toLocaleString("es-MX")}</div></div><div class="cv-fact" style="border-color:#34A853"><div class="k">Contrato</div><div class="v">${r.anios} años</div></div><div class="cv-fact" style="border-color:#EA4335"><div class="k">Total a pagar</div><div class="v">${money(r.totalPagar.total)}</div></div></div><div class="cv-meta"><div>Folio<b>${esc(d.folio)}</b></div>${APP_STATE.identity.revision>1?`<div>Revisión<b>${APP_STATE.identity.revision} · sustituye anteriores</b></div>`:""}<div>Fecha<b>${esc(d.dDate)}</b></div><div>Vigencia<b>${esc(d.dValid)}</b></div></div></div></section><table class="print-shell"><thead><tr><td>${runhead}</td></tr></thead><tbody><tr><td><section class="print-content pp-body">${buildProposal()}</section></td></tr></tbody></table></article>`;
+  return `<article class="print-document">${runfoot}<section class="print-cover"><div class="gbar gbar--cover"><i></i><i></i><i></i><i></i></div><div class="print-cover__inner"><img class="print-brand-logo" src="${BRAND_ASSETS.activa}" alt="activa"><div class="cv-eyebrow">Arrendamiento de equipo</div><div class="cv-for">Propuesta preparada para</div><h1 class="cv-name" data-len="${nameScale}">${esc(d.inst)}</h1><div class="cv-city">${esc(d.city)}</div>${coverChips}<div class="cv-price"><div class="gbar gbar--card" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="cv-price__inner"><div><div class="cv-pl">Total mensual · IVA incluido</div><div class="cv-pv">${money(r.mensualidad.total)}</div><div class="cv-pn">Subtotal ${money(r.mensualidad.sub)} + IVA ${money(r.mensualidad.iva)} · la misma cantidad los ${r.meses} meses</div></div></div></div><div class="cv-facts"><div class="cv-fact" style="border-color:#4285F4"><div class="k">Equipos</div><div class="v">${r.totalEquipos.toLocaleString("es-MX")}</div></div><div class="cv-fact" style="border-color:#34A853"><div class="k">Contrato</div><div class="v">${r.anios} años</div></div><div class="cv-fact" style="border-color:#EA4335"><div class="k">Mensualidades</div><div class="v">${r.meses} iguales</div></div></div><div class="cv-meta"><div>Folio<b>${esc(d.folio)}</b></div>${APP_STATE.identity.revision>1?`<div>Revisión<b>${APP_STATE.identity.revision} · sustituye anteriores</b></div>`:""}<div>Fecha<b>${esc(d.dDate)}</b></div><div>Vigencia<b>${esc(d.dValid)}</b></div></div></div></section><table class="print-shell"><thead><tr><td>${runhead}</td></tr></thead><tbody><tr><td><section class="print-content pp-body">${buildProposal()}</section></td></tr></tbody></table></article>`;
 }
 function openProposal(){
   if(!requireNoPendingInstitution())return;
@@ -2215,7 +2293,7 @@ function buildMailModel(){
     `Securly: ${r.securly?"incluido":"no incluido"}`,
     `Carritos: ${cartSummaryText(r)}`,
     `Total mensual: ${money(r.mensualidad.total)} (subtotal ${money(r.mensualidad.sub)} + IVA ${money(r.mensualidad.iva)})`,
-    `Total a pagar: ${money(r.totalPagar.total)} en ${r.meses} meses`,
+    `Mensualidades: ${r.meses} iguales y consecutivas`,
     `Vigencia: ${d.dValid}`,"",
     `Adjunto la cotización detallada en PDF. Archivo sugerido: ${d.folio}.pdf`,"",
     "Quedamos atentos a sus comentarios y con gusto la revisamos juntos.","","Saludos,",d.by,d.role||"activa",d.phone,d.mail,d.web
@@ -2235,7 +2313,7 @@ function buildMailModel(){
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:16px"><tr><td style="background:#E6F4EA;border:1px solid #A8DAB5;border-radius:12px;padding:14px 18px">
       <div style="font-size:11px;font-weight:700;letter-spacing:.8px;color:#0D652D;font-family:'Google Sans',Roboto,Arial,sans-serif">TOTAL MENSUAL · IVA INCLUIDO</div>
       <div style="font-size:26px;font-weight:700;color:#1a73e8;font-family:'Roboto Mono',Consolas,monospace;margin-top:4px">${money(r.mensualidad.total)}</div>
-      <div style="font-size:11.5px;color:#5F6368;margin-top:2px">Subtotal ${money(r.mensualidad.sub)} + IVA ${money(r.mensualidad.iva)} · total a pagar ${money(r.totalPagar.total)} en ${r.meses} meses</div>
+      <div style="font-size:11.5px;color:#5F6368;margin-top:2px">Subtotal ${money(r.mensualidad.sub)} + IVA ${money(r.mensualidad.iva)} · ${r.meses} mensualidades iguales</div>
     </td></tr></table>
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:14px"><tr><td style="background:#F8F9FA;border:1px solid #DADCE0;border-radius:12px;padding:12px 16px"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
       <td style="background:#1a73e8;border-radius:8px;width:40px;height:40px;text-align:center;vertical-align:middle;color:#ffffff;font-family:'Google Sans',Roboto,Arial,sans-serif;font-size:11px;font-weight:700">PDF</td>
@@ -2510,7 +2588,7 @@ function setupDynamicOffsets() {
    FORMULARIO: CABLEADO DE EVENTOS Y VINCULACIÓN DE ESTADO
    ============================================================ */
 function initControls(){
-  $("#contactRows").innerHTML=[1,2].map(n=>`<fieldset class="contact-card"><legend>Contacto ${n}</legend><div class="crow"><div><label for="qC${n}n">Nombre</label><input type="text" id="qC${n}n" maxlength="100" autocomplete="name"></div><div><label for="qC${n}m">Correo</label><input type="email" id="qC${n}m" maxlength="254" autocomplete="email"></div><div><label for="qC${n}t">Teléfono</label><input type="tel" id="qC${n}t" maxlength="30" autocomplete="tel"></div></div></fieldset>`).join("");
+  $("#contactRows").innerHTML=[1,2].map(n=>`<fieldset class="contact-card"><legend>Contacto ${n}</legend><div class="ccrow"><div><label for="qC${n}n">Nombre</label><input type="text" id="qC${n}n" maxlength="100" autocomplete="name"></div><div><label for="qC${n}m">Correo</label><input type="email" id="qC${n}m" maxlength="254" autocomplete="email"></div><div><label for="qC${n}t">Teléfono</label><input type="tel" id="qC${n}t" maxlength="30" autocomplete="tel"></div></div></fieldset>`).join("");
 }
 function renderCartRows(){
   /* Los errores de renglones que ya no existen se limpian antes de reconstruir. */
@@ -2947,7 +3025,7 @@ const LeaseTests={
     if(failed)throw new Error(`${failed} prueba(s) fallaron`);
     return{passed,failed,results:clone(this.results)};
   },
-  renderReport(){const box=$("#testReport");if(!box)return;const passed=this.results.filter(item=>item.ok).length;box.hidden=false;box.innerHTML=`<button type="button" class="btn" id="btnCloseTests" style="float:right">Cerrar</button><h2>Pruebas internas · arrendamiento v1.1</h2><p class="${passed===this.results.length?"test-pass":"test-fail"}">${passed} de ${this.results.length} aprobadas</p><pre>${esc(this.results.map(result=>`${result.ok?"✓":"✕"} ${result.name}${result.error?": "+result.error:""}`).join("\n"))}</pre>`;$("#btnCloseTests").addEventListener("click",()=>box.hidden=true);}
+  renderReport(){const box=$("#testReport");if(!box)return;const passed=this.results.filter(item=>item.ok).length;box.hidden=false;box.innerHTML=`<button type="button" class="btn" id="btnCloseTests" style="float:right">Cerrar</button><h2>Pruebas internas · arrendamiento ${esc(APP_VERSION)}</h2><p class="${passed===this.results.length?"test-pass":"test-fail"}">${passed} de ${this.results.length} aprobadas</p><pre>${esc(this.results.map(result=>`${result.ok?"✓":"✕"} ${result.name}${result.error?": "+result.error:""}`).join("\n"))}</pre>`;$("#btnCloseTests").addEventListener("click",()=>box.hidden=true);}
 };
 
 /* ============================================================
