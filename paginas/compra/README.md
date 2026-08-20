@@ -223,9 +223,35 @@ filtros en una **rejilla de cuatro columnas** que se lee como índice del catál
 una tira de píldoras de anchos distintos. **La primera fila del catálogo entra en la primera
 pantalla.**
 
-Cada partida ocupa **un solo renglón de 51 px**: el nombre y sus etiquetas van en la misma línea
-—usando el ancho que sobra a la derecha en vez de crecer hacia abajo— y la unidad se lee al lado
-del campo de cantidad, no debajo.
+Cada partida ocupa un renglón compacto: **el nombre en negritas** con sus etiquetas en la misma
+línea —usando el ancho que sobra a la derecha en vez de crecer hacia abajo—, la unidad al lado
+del campo de cantidad, y debajo **la descripción de lo que el colegio está comprando**.
+
+### De dónde salen los nombres y las descripciones
+
+`CATALOG` es la única fuente, y su texto se cotejó contra tres lugares, en este orden de
+autoridad:
+
+1. **`docs/descripcion-de-productos/catalogo-productos.md`** — la ficha comercial. Manda en el
+   *qué es* y en el nombre canónico del producto.
+2. **`docs/Costos activa sin IVA.xlsx`** — manda en el dato duro: modelo, capacidad, vigencia,
+   número de parte y precio.
+3. **[`paginas/cotizador/`](../cotizador/)** — se usó como cotejo de redacción para los
+   productos que las dos herramientas comparten (Chrome Education Upgrade, Education Plus,
+   Teaching & Learning, Securly, Wayground, Everway, motiva, beta e impulsa), para que el
+   colegio no lea dos descripciones distintas del mismo producto según quién le cotice.
+
+De ahí salieron seis correcciones de nombre —`Securly Filter + Securly Classroom`,
+`Google Workspace for Education Teaching & Learning`, `Asus Chromebook Rugged CZ1104`,
+`Everway (antes TextHelp) · Read&Write, EquatIO y OrbitNote`, `WriQ para Chrome` y los cinco
+escalones de seminuevo, que ahora nombran el modelo real (`Chromebook Lenovo 300e G4
+seminueva · N años de uso`) en vez de «flip/touch».
+
+La descripción se muestra a **dos líneas** en la fila; el botón de ficha completa abre el texto
+entero y la nota comercial. Es el mismo campo `d` que imprime el documento y la tabla de
+revisión, así que **lo que el comercial lee en pantalla es exactamente lo que va a leer el
+colegio en el PDF**. La búsqueda también mira ahí: escribir «classroom» encuentra Securly y los
+dos impulsa, y resalta la coincidencia dentro de la descripción.
 
 El aviso de IVA sobrevive porque es una advertencia, no un adorno: es el chip **`SIN IVA`** en
 ámbar (`--g-yel-t` / `--g-yel-d`) a la derecha de los filtros. El verde afirma; esto avisa. Por

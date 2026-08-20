@@ -223,10 +223,15 @@ main section{scroll-margin-top:var(--sticky-header-height)}
 /* Nombre y etiquetas en la MISMA linea: la fila usa el ancho que sobra a la
    derecha en vez de crecer hacia abajo. */
 .crow .cline{display:flex;align-items:center;gap:5px 9px;flex-wrap:wrap;min-width:0}
-.crow .cname{font-family:var(--disp);font-size:13.4px;font-weight:500;line-height:1.3}
+.crow .cname{font-family:var(--disp);font-size:13.4px;font-weight:700;line-height:1.3;color:var(--ink)}
+/* Lo que el colegio esta comprando, en la propia fila. Dos lineas como maximo:
+   la ficha completa se abre con el boton de detalle. */
+.crow .cdesc{font-size:11.8px;line-height:1.4;color:var(--mute);margin-top:2px;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.crow.out .cdesc{color:var(--faint)}
 .crow.out .cname{color:var(--faint)}
 .crow .cmeta{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
 .crow mark{background:#fff2a8;color:inherit;border-radius:3px;padding:0 1px}
+.crow .cdesc mark{background:#fff6c9}
 .cnum{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .cunitprice{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .cunitprice small{display:block;font-family:var(--body);font-size:10px;font-weight:400;color:var(--faint)}
@@ -1381,74 +1386,74 @@ const CATALOG = deepFreeze([
   /* ---------- Equipos y accesorios ---------- */
   {k:"ceu", part:"CEU Edu", fam:"equipos",
    n:"Licencia Perpetua Chrome Education Upgrade",
-   d:"Licencia perpetua de gestión educativa por dispositivo: administración y control centralizado del parque desde la consola de Google Admin.",
+   d:"Una licencia de gestión educativa por Chromebook, perpetua: administración centralizada desde la Consola de Google Admin —políticas, aplicaciones, actualizaciones y control de la flota—.",
    price:750, unit:{s:"equipo",p:"equipos"}, annual:false,
    note:"Licencia perpetua: pago único por equipo."},
   {k:"cb-rugged", part:"CZ1104FM4A-NS0074", fam:"equipos",
-   n:"Asus Chromebook rugged CZ1104",
-   d:"MediaTek Kompanio 540, 8 GB de RAM y 64 GB eMMC, pantalla táctil de 11.6 pulgadas, cámara 720p con obturador de privacidad, cámara frontal de 5 MP y 19 horas de batería. Licencia CEU permanente integrada.",
+   n:"Asus Chromebook Rugged CZ1104",
+   d:"Chromebook reforzada para uso rudo en el aula: MediaTek Kompanio 540, 8 GB de RAM y 64 GB eMMC, pantalla táctil de 11.6\u00a0pulgadas, cámara 720p con obturador de privacidad, cámara frontal de 5\u00a0MP y 19 horas de batería. Incluye la licencia Chrome Education Upgrade integrada.",
    price:7740, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"cb-essential", part:"CX3402CBA-i38G256-C1", fam:"equipos",
    n:"Asus Chromebook Essential CX3402",
-   d:"Intel Core i3-1315U, 8 GB de RAM y 256 GB UFS, pantalla táctil de 14 pulgadas FHD antirreflejante, Wi-Fi 6E y Bluetooth 5.4.",
+   d:"Chromebook de trabajo para docentes y bachillerato: Intel Core i3-1315U, 8 GB de RAM y 256 GB UFS, pantalla táctil de 14\u00a0pulgadas FHD antirreflejante, Wi-Fi 6E y Bluetooth 5.4.",
    price:9450, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"carrito40", part:"ACCHC40", fam:"equipos",
    n:"Carrito de carga y almacenamiento para 40 Chromebooks",
-   d:"Carrito con cargador múltiple para resguardo, traslado y carga simultánea de 40 equipos.",
+   d:"Resguardo, traslado y carga simultánea de hasta 40 equipos. Aplica cuando el aula comparte los equipos en vez de asignarlos uno por alumno.",
    price:31720.50, unit:{s:"carrito",p:"carritos"}, annual:false},
   {k:"carrito30", part:"ACCHC30", fam:"equipos",
    n:"Carrito de carga y almacenamiento para 30 Chromebooks",
-   d:"Carrito con cargador múltiple para resguardo, traslado y carga simultánea de 30 equipos.",
+   d:"Resguardo, traslado y carga simultánea de hasta 30 equipos. Aplica cuando el aula comparte los equipos en vez de asignarlos uno por alumno.",
    price:26600.70, unit:{s:"carrito",p:"carritos"}, annual:false},
   {k:"carrito20", part:"ACHCC20", fam:"equipos",
    n:"Carrito de carga y almacenamiento para 20 Chromebooks",
-   d:"Carrito con cargador múltiple para resguardo, traslado y carga simultánea de 20 equipos.",
+   d:"Resguardo, traslado y carga simultánea de hasta 20 equipos. Aplica cuando el aula comparte los equipos en vez de asignarlos uno por alumno.",
    price:24374.70, unit:{s:"carrito",p:"carritos"}, annual:false},
   {k:"carrito-tab30", part:"ACMC30I", fam:"equipos",
    n:"Carrito de carga y almacenamiento para 30 tablets",
-   d:"Carrito con cargador múltiple para resguardo, traslado y carga simultánea de 30 tablets.",
+   d:"Resguardo, traslado y carga simultánea de hasta 30 tablets. Aplica cuando el aula comparte los equipos en vez de asignarlos uno por alumno.",
    price:22482.60, unit:{s:"carrito",p:"carritos"}, annual:false},
 
   /* ---------- Protección y filtrado ---------- */
   {k:"seguro1", part:"Seguro1", fam:"proteccion",
    n:"Seguro contra daños accidentales · 1 año",
-   d:"Póliza contra daños accidentales por equipo. Pago único que cubre 1 año.",
+   d:"Póliza contra daños accidentales del equipo —caídas, golpes y derrames— vigente 1 año desde la entrega. Pago único por equipo, no es licencia anual.",
    price:490, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"seguro3", part:"Seguro3", fam:"proteccion",
    n:"Seguro contra daños accidentales · 3 años",
-   d:"Póliza contra daños accidentales por equipo. Pago único que cubre 3 años.",
+   d:"Póliza contra daños accidentales del equipo —caídas, golpes y derrames— vigente 3 años desde la entrega. Pago único por equipo, no es licencia anual.",
    price:1390, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"seguro4", part:"Seguro4", fam:"proteccion",
    n:"Seguro contra daños accidentales · 4 años",
-   d:"Póliza contra daños accidentales por equipo. Pago único que cubre 4 años.",
+   d:"Póliza contra daños accidentales del equipo —caídas, golpes y derrames— vigente 4 años desde la entrega. Pago único por equipo, no es licencia anual.",
    price:1870, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"securly", part:"SecurlyFilter", fam:"proteccion",
-   n:"Securly + Classroom Monitor + Cloud Filter",
-   d:"Filtrado de contenido, monitoreo activo de navegación y gestión del aula digital. Licencia anual por equipo.",
+   n:"Securly Filter + Securly Classroom",
+   d:"Filtrado de contenido y monitoreo activo de la navegación, dentro y fuera del plantel, más las herramientas de gestión del aula digital en tiempo real. Licencia anual por equipo.",
    price:350, unit:{s:"equipo",p:"equipos"}, annual:true,
    note:"Para 3 o 4 años se capturan los años: 350 × 3 = 1,050 y 350 × 4 = 1,400, los mismos precios multianuales de lista."},
 
   /* ---------- Plataformas y licencias ---------- */
   {k:"everway", part:"TextHelp_Toolkit", fam:"plataformas",
-   n:"Paquete Everway (antes TextHelp)",
-   d:"EquatIO, FluencyTutor, Read&Write y OrbitNote para Chrome, más Read&Write para Windows, Mac y iPad. Licencia anual por usuario.",
+   n:"Everway (antes TextHelp) · Read&Write, EquatIO y OrbitNote",
+   d:"Suite de accesibilidad y apoyo al aprendizaje para trabajo inclusivo: EquatIO, FluencyTutor, Read&Write y OrbitNote para Chrome, más Read&Write para Windows, Mac y iPad. Licencia anual por usuario.",
    price:192, unit:{s:"usuario",p:"usuarios"}, annual:true},
   {k:"wriq", part:"WriQ", fam:"plataformas",
-   n:"WriQ for Chrome",
-   d:"Evaluación y seguimiento automatizado de la escritura. Licencia anual por usuario.",
+   n:"WriQ para Chrome",
+   d:"Evaluación y seguimiento automatizado de la escritura en inglés: mide fluidez, precisión y progreso de cada alumno dentro de Google Docs. Licencia anual por usuario.",
    price:92, unit:{s:"usuario",p:"usuarios"}, annual:true},
   {k:"wayground-est", part:"Wayground estudiante", fam:"plataformas",
    n:"Wayground (antes Quizizz) · estudiantes",
-   d:"Actividades formativas y sumativas, gamificado y con inteligencia artificial. Licencia anual por estudiante.",
+   d:"Evaluación formativa gamificada con diagnóstico en vivo del grupo: actividades formativas y sumativas con apoyo de inteligencia artificial. Licencia anual por estudiante.",
    price:130, unit:{s:"estudiante",p:"estudiantes"}, annual:true},
   {k:"eduplus", part:"EducationPlus", fam:"plataformas",
    n:"Google Workspace for Education Plus",
-   d:"Suite completa con funciones avanzadas de seguridad, análisis y enseñanza. Licencia anual por estudiante y debe cubrir todo el dominio del colegio.",
+   d:"Edición completa de Google Workspace for Education: panel de seguridad, Meet ampliado, analítica avanzada y herramientas superiores de enseñanza. Licencia anual por estudiante y debe cubrir todo el dominio del colegio.",
    price:102, unit:{s:"estudiante",p:"estudiantes"}, annual:true,
    note:"Debe ser todo el dominio. Precio actualizado el 19-ago-2026 (el Excel decía 85.00)."},
   {k:"gwtl", part:"Teaching&Learning", fam:"plataformas",
-   n:"Google Workspace Teaching & Learning",
-   d:"Complemento de enseñanza y aprendizaje para el personal docente. Licencia anual por docente.",
+   n:"Google Workspace for Education Teaching & Learning",
+   d:"Cobertura avanzada de enseñanza y aprendizaje para el personal docente, cuando el programa entra por área y no por dominio completo. Licencia anual por docente.",
    price:1225, unit:{s:"docente",p:"docentes"}, annual:true,
    note:"Precio actualizado el 19-ago-2026 (el Excel decía 680.00)."},
 
@@ -1458,53 +1463,53 @@ const CATALOG = deepFreeze([
      no se venden. Confirmado el 19-ago-2026. */
   {k:"motiva-est", part:"motiva", fam:"programas",
    n:"motiva · estudiantes",
-   d:"Programa integral de aprendizaje socioemocional: autoconciencia, autorregulación, toma de decisiones responsables, construcción de identidad y relaciones saludables. Licencia anual por estudiante.",
+   d:"Acompañamiento socioemocional guiado por psicólogos educativos certificados y diferenciado por nivel escolar: autoconciencia, autorregulación, toma de decisiones responsables, identidad y relaciones saludables. Licencia anual por estudiante.",
    price:400, unit:{s:"estudiante",p:"estudiantes"}, annual:true},
   {k:"motiva-doc", part:"motiva", fam:"programas",
    n:"motiva · docentes",
-   d:"Programa socioemocional para docentes. Incluye cursos autogestivos impulsa y sesión de implementación. Licencia anual por docente.",
+   d:"El programa socioemocional en la versión para la plantilla docente, con psicólogo educativo certificado. Incluye los cursos autogestivos de impulsa y la sesión de implementación. Licencia anual por docente.",
    price:400, unit:{s:"docente",p:"docentes"}, annual:true, minQty:10,
    note:"Mínimo 10 docentes: por debajo, esta licencia no se vende."},
   {k:"beta-est", part:"beta", fam:"programas",
    n:"beta · estudiantes",
-   d:"Ecosistema de aprendizaje integral para dominar el inglés a través de la tecnología, el rigor académico y la inteligencia emocional. Licencia anual por estudiante.",
+   d:"Enseñanza del inglés por fases, alineada al Marco Común Europeo y con ruta hacia certificaciones Cambridge, IELTS y TOEFL, apoyada en tecnología y rigor académico. Licencia anual por estudiante.",
    price:400, unit:{s:"estudiante",p:"estudiantes"}, annual:true},
   {k:"beta-doc", part:"beta", fam:"programas",
    n:"beta · docentes",
-   d:"Ecosistema de inglés para docentes. Incluye cursos autogestivos impulsa y sesión de implementación. Licencia anual por docente.",
+   d:"El programa de inglés en la versión para la plantilla docente, alineado al Marco Común Europeo. Incluye los cursos autogestivos de impulsa y la sesión de implementación. Licencia anual por docente.",
    price:400, unit:{s:"docente",p:"docentes"}, annual:true, minQty:10,
    note:"Mínimo 10 docentes: por debajo, esta licencia no se vende."},
   {k:"impulsa-est", part:"impulsa", fam:"programas",
    n:"impulsa · estudiantes",
-   d:"Plataforma con proyectos educativos con uso de tecnología alineados a la Nueva Escuela Mexicana. Licencia anual por estudiante.",
+   d:"Proyectos educativos en línea alineados a la Nueva Escuela Mexicana —campos formativos, ejes articuladores, PDA y Programa Analítico— con publicación directa en Google Classroom. Licencia anual por estudiante.",
    price:990, unit:{s:"estudiante",p:"estudiantes"}, annual:true},
   {k:"impulsa-doc", part:"impulsa", fam:"programas",
    n:"impulsa · docentes",
-   d:"Proyectos educativos para docentes. Incluye cursos autogestivos impulsa y sesión de implementación. Licencia anual por docente.",
+   d:"Los proyectos alineados a la Nueva Escuela Mexicana en la versión para la plantilla docente, con publicación directa en Google Classroom. Incluye los cursos autogestivos y la sesión de implementación. Licencia anual por docente.",
    price:990, unit:{s:"docente",p:"docentes"}, annual:true, minQty:10,
    note:"Mínimo 10 docentes: por debajo, esta licencia no se vende."},
 
   /* ---------- Servicios, soporte y acompañamiento ---------- */
   {k:"soporte1ti", part:"Soporte1TI", fam:"servicios",
    n:"Soporte TI · mesa de ayuda (11 meses, agosto a junio)",
-   d:"Mesa de ayuda con folio de atención personalizada al cliente. Incluye una capacitación TI de 4 horas sobre consola de Google y licencias compradas, en nivel A.",
+   d:"Mesa de ayuda por ticket con folio personalizado, de agosto a junio (11 meses): asistencia remota de lunes a viernes con respuesta en menos de 24 horas hábiles y solicitudes sin límite. Incluye una capacitación TI de 4 horas sobre la Consola de Google y las licencias compradas, en nivel A.",
    price:36750, unit:{s:"año",p:"años"}, annual:false,
    note:"La cantidad son los años de servicio: no lleva campo de años aparte."},
   {k:"soporte2ti", part:"Soporte2TI", fam:"servicios",
-   n:"Atención TI / capacitación · por hora",
-   d:"Capacitación o atención técnica por hora.",
+   n:"Atención TI y capacitación · por hora",
+   d:"Hora de atención técnica o de capacitación al área de TI del colegio, remota o presencial según se acuerde.",
    price:3500, unit:{s:"hora",p:"horas"}, annual:false},
   {k:"soporte3ti", part:"Soporte3TI", fam:"servicios",
    n:"Atención TI especializada · Redes, Looker, AppSheet",
-   d:"Capacitación o asistencia por hora en especialidades: redes, Looker y AppSheet.",
+   d:"Hora de asistencia especializada: redes, Looker Studio y AppSheet. Es el nivel que atiende lo que la mesa de ayuda escala.",
    price:4000, unit:{s:"hora",p:"horas"}, annual:false},
   {k:"hora-coach", part:"hora coach", fam:"servicios",
    n:"Hora coach para talleres o consultoría",
-   d:"Hora de coach certificado para talleres o consultoría pedagógica.",
+   d:"Hora de coach certificado para talleres, consultoría pedagógica o acompañamiento a dirección y docentes.",
    price:3500, unit:{s:"hora",p:"horas"}, annual:false},
   {k:"hora-ti", part:"hora TI", fam:"servicios",
    n:"Hora TI para talleres o consultoría",
-   d:"Hora de especialista TI para talleres o consultoría técnica.",
+   d:"Hora de especialista de TI para talleres o consultoría técnica fuera del alcance de la mesa de ayuda.",
    price:3000, unit:{s:"hora",p:"horas"}, annual:false},
 
   /* ---------- Equipo seminuevo · costo residual ----------
@@ -1515,45 +1520,45 @@ const CATALOG = deepFreeze([
      para documentarlo y probarlo: al reponer el 16 % se reproduce al peso,
      salvo profe3, que da $4,999.99 (un centavo abajo; aceptado). */
   {k:"flip1", part:"flip1", fam:"seminuevo",
-   n:"Chromebook flip/touch reacondicionada · 1 año de uso",
-   d:"Costo residual de equipo Lenovo 300e G4 reacondicionado. Pago único por equipo.",
+   n:"Chromebook Lenovo 300e G4 seminueva · 1 año de uso",
+   d:"Chromebook Lenovo 300e G4 convertible y táctil, reacondicionada y con garantía de operación. Precio de costo residual tras 1 año de uso. Pago único por equipo.",
    price:6034.48, grossRef:7000, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"flip2", part:"flip2", fam:"seminuevo",
-   n:"Chromebook flip/touch reacondicionada · 2 años de uso",
-   d:"Costo residual de equipo Lenovo 300e G4 reacondicionado. Pago único por equipo.",
+   n:"Chromebook Lenovo 300e G4 seminueva · 2 años de uso",
+   d:"Chromebook Lenovo 300e G4 convertible y táctil, reacondicionada y con garantía de operación. Precio de costo residual tras 2 años de uso. Pago único por equipo.",
    price:4482.76, grossRef:5200, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"flip3", part:"flip3", fam:"seminuevo",
-   n:"Chromebook flip/touch reacondicionada · 3 años de uso",
-   d:"Costo residual de equipo Lenovo 300e G4 reacondicionado. Pago único por equipo.",
+   n:"Chromebook Lenovo 300e G4 seminueva · 3 años de uso",
+   d:"Chromebook Lenovo 300e G4 convertible y táctil, reacondicionada y con garantía de operación. Precio de costo residual tras 3 años de uso. Pago único por equipo.",
    price:3017.24, grossRef:3500, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"flip4", part:"flip4", fam:"seminuevo",
-   n:"Chromebook flip/touch reacondicionada · 4 años de uso",
-   d:"Costo residual de equipo Lenovo 300e G4 reacondicionado. Pago único por equipo.",
+   n:"Chromebook Lenovo 300e G4 seminueva · 4 años de uso",
+   d:"Chromebook Lenovo 300e G4 convertible y táctil, reacondicionada y con garantía de operación. Precio de costo residual tras 4 años de uso. Pago único por equipo.",
    price:1379.31, grossRef:1600, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"flip5", part:"flip5", fam:"seminuevo",
-   n:"Chromebook flip/touch reacondicionada · 5 años de uso",
-   d:"Costo residual de equipo Lenovo 300e G4 reacondicionado. Pago único por equipo.",
+   n:"Chromebook Lenovo 300e G4 seminueva · 5 años de uso",
+   d:"Chromebook Lenovo 300e G4 convertible y táctil, reacondicionada y con garantía de operación. Precio de costo residual tras 5 años de uso. Pago único por equipo.",
    price:862.07, grossRef:1000, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"profe1", part:"profe1", fam:"seminuevo",
    n:"Equipo premium para profesores · 1 año de uso",
-   d:"Acer Spin, Acer de 14 pulgadas o Fortis 14, para el cierre de upgrAde. Pago único por equipo.",
+   d:"Equipo premium para profesores —Acer Spin, Acer de 14\u00a0pulgadas o Fortis 14— reacondicionado al cierre del programa upgrade edu. Precio de costo residual tras 1 año de uso. Pago único por equipo.",
    price:7844.83, grossRef:9100, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"profe2", part:"profe2", fam:"seminuevo",
    n:"Equipo premium para profesores · 2 años de uso",
-   d:"Acer Spin, Acer de 14 pulgadas o Fortis 14, para el cierre de upgrAde. Pago único por equipo.",
+   d:"Equipo premium para profesores —Acer Spin, Acer de 14\u00a0pulgadas o Fortis 14— reacondicionado al cierre del programa upgrade edu. Precio de costo residual tras 2 años de uso. Pago único por equipo.",
    price:5827.59, grossRef:6760, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"profe3", part:"profe3", fam:"seminuevo",
    n:"Equipo premium para profesores · 3 años de uso",
-   d:"Acer Spin, Acer de 14 pulgadas o Fortis 14, para el cierre de upgrAde. Pago único por equipo.",
+   d:"Equipo premium para profesores —Acer Spin, Acer de 14\u00a0pulgadas o Fortis 14— reacondicionado al cierre del programa upgrade edu. Precio de costo residual tras 3 años de uso. Pago único por equipo.",
    price:4310.34, grossRef:5000, unit:{s:"equipo",p:"equipos"}, annual:false,
    note:"Al reponer el IVA da $4,999.99: un centavo abajo del precio original con IVA. Aceptado el 19-ago-2026."},
   {k:"profe4", part:"profe4", fam:"seminuevo",
    n:"Equipo premium para profesores · 4 años de uso",
-   d:"Acer Spin, Acer de 14 pulgadas o Fortis 14, para el cierre de upgrAde. Pago único por equipo.",
+   d:"Equipo premium para profesores —Acer Spin, Acer de 14\u00a0pulgadas o Fortis 14— reacondicionado al cierre del programa upgrade edu. Precio de costo residual tras 4 años de uso. Pago único por equipo.",
    price:1793.10, grossRef:2080, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"profe5", part:"profe5", fam:"seminuevo",
    n:"Equipo premium para profesores · 5 años de uso",
-   d:"Acer Spin, Acer de 14 pulgadas o Fortis 14, para el cierre de upgrAde. Pago único por equipo.",
+   d:"Equipo premium para profesores —Acer Spin, Acer de 14\u00a0pulgadas o Fortis 14— reacondicionado al cierre del programa upgrade edu. Precio de costo residual tras 5 años de uso. Pago único por equipo.",
    price:1379.31, grossRef:1600, unit:{s:"equipo",p:"equipos"}, annual:false}
 ]);
 const CAT_BY_KEY = Object.fromEntries(CATALOG.map(entry => [entry.k, entry]));
@@ -2429,13 +2434,13 @@ function catRowHTML(entry, row, needle, ctx){
     : "";
   const acciones = row
     ? `${mover}<button type="button" class="lbtn" data-det="l:${id}" aria-expanded="${open}" aria-label="Detalle y concepto de «${esc(nombre)}»" title="Detalle y concepto">✎</button><button type="button" class="lbtn del" data-remove="${id}" aria-label="Quitar «${esc(nombre)}» de la cotización" title="Quitar de la cotización">×</button>`
-    : `<button type="button" class="lbtn" data-det="c:${esc(entry.k)}" aria-expanded="${open}" aria-label="Ver la descripción de ${esc(entry.n)}" title="Ver descripción">▸</button>`;
+    : `<button type="button" class="lbtn" data-det="c:${esc(entry.k)}" aria-expanded="${open}" aria-label="Ver la ficha completa de ${esc(entry.n)}" title="Ficha completa">▸</button>`;
   const detalle = open
     ? `<tr class="detrow"><td colspan="6"><div class="dd">${esc(entry.d)}</div>${entry.note ? `<div class="dnote">${esc(entry.note)}</div>` : ""}${row ? `<div class="dcon"><label for="lcon-${id}">Concepto tal como saldrá en la propuesta</label><input type="text" id="lcon-${id}" data-lcon="${id}" maxlength="${APP_CONFIG.limits.concept.max}" value="${esc(row.line.concept)}"></div><div class="inline-action"><button type="button" class="btn text" data-add="${esc(entry.k)}">Agregar otro renglón de esta partida</button></div>` : ""}</td></tr>`
     : "";
   return `<tr class="crow${row ? " on" : ""}${sinPrecio && !row ? " out" : ""}" data-crow="${row ? id : ""}" data-cat="${esc(entry.k)}">
     <td class="qcell">${qcell}</td>
-    <td class="txt"><div class="cline"><span class="cname">${catHighlight(nombre, needle)}</span>${row ? `<svg class="cok" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span class="sr-only">en la cotización</span>` : ""}<span class="cmeta">${catBadges(entry)}</span></div></td>
+    <td class="txt"><div class="cline"><b class="cname">${catHighlight(nombre, needle)}</b>${row ? `<svg class="cok" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span class="sr-only">en la cotización</span>` : ""}<span class="cmeta">${catBadges(entry)}</span></div><div class="cdesc">${catHighlight(entry.d, needle)}</div></td>
     <td class="cunitprice">${money(entry.price)}<small>sin IVA${entry.annual ? " · por año" : ""}</small></td>
     <td class="ycell">${ycell}</td>
     <td><span class="cimp none" data-limp="${row ? id : ""}">—</span></td>
