@@ -1259,7 +1259,7 @@ function leaseQuote(input){
       securly: securly ? plan.securly : 0
     };
     const unit = roundFinancial(comp.equipo + comp.ceu + comp.seguro + comp.securly);
-    return { tipo:key, label:eq.label, modelo:eq.modelo, desc:eq.desc, ceuIncluida:!eq.ceu, qty, comp, unit,
+    return { tipo:key, label:eq.label, modelo:eq.modelo, desc:eq.desc, qty, comp, unit,
              subtotal: roundFinancial(unit * qty),
              mensualidadUnit: leasePayment(unit, meses),
              anualidadUnit: roundFinancial(leasePayment(unit, meses) * 12) };
@@ -2135,7 +2135,7 @@ function buildProposal(){
   const incRows=[];
   for(const row of r.rows){
     if(row.qty<=0)continue;
-    incRows.push(`<tr><td><div class="art">${esc(row.label)} — ${esc(row.modelo)}</div><div class="desc">${esc(row.desc)}${row.tipo==="docente"?" Incluye licencia Chrome Education Upgrade.":""}</div></td><td>${row.qty.toLocaleString("es-MX")} equipos</td></tr>`);
+    incRows.push(`<tr><td><div class="art">${esc(row.label)} — ${esc(row.modelo)}</div><div class="desc">${esc(row.desc)}</div></td><td>${row.qty.toLocaleString("es-MX")} equipos</td></tr>`);
   }
   if(r.seguro)incRows.push(`<tr><td><div class="art">Seguro contra daños accidentales</div><div class="desc">Cobertura para todos los equipos durante los ${r.anios} años del contrato.</div></td><td>${r.totalEquipos.toLocaleString("es-MX")} equipos</td></tr>`);
   if(r.securly)incRows.push(`<tr><td><div class="art">Securly + Classroom Monitor + Cloud Filter</div><div class="desc">Filtrado de contenido, monitoreo activo y gestión del aula digital, licenciado por ${r.anios} años.</div></td><td>${r.totalEquipos.toLocaleString("es-MX")} equipos</td></tr>`);
@@ -2149,10 +2149,11 @@ function buildProposal(){
   <div class="p-chip">${r.totalEquipos.toLocaleString("es-MX")} equipos · ${r.meses} mensualidades · ${r.seguro?"con":"sin"} seguro · ${r.securly?"con":"sin"} Securly</div>
   <div class="p-h"><span class="n">1</span> Qué incluye el arrendamiento</div>
   <table class="ptbl"><caption class="sr-only">Equipos y servicios incluidos</caption><thead><tr><th scope="col">Concepto</th><th scope="col">Cantidad</th></tr></thead><tbody>${incRows.join("")}</tbody></table>
-  <div class="p-note">El arrendamiento ampara la totalidad de los equipos y servicios listados durante los ${r.meses} meses del contrato.</div>
+  <div class="p-note">El arrendamiento ampara la totalidad de los equipos y servicios listados durante los ${r.meses} meses del contrato. La entrega de los equipos en el colegio está incluida.</div>
   <div class="p-h"><span class="n">2</span> Inversión</div>
   <div class="p-inv">${invCard("Total mensual",r.mensualidad,`por mes, durante ${r.meses} meses`)}${invCard("Total a pagar",r.totalPagar,`suma de las ${r.meses} mensualidades`)}</div>
   <div class="p-note">${r.meses} mensualidades iguales y consecutivas en pesos mexicanos. El total a pagar es la mensualidad multiplicada por los ${r.meses} meses del contrato.</div>
+  <div class="p-note">Las condiciones de término del contrato —opción a compra, valor residual o devolución del equipo— se establecen en el contrato de arrendamiento correspondiente.</div>
   <div class="p-note p-note--important">Propuesta sujeta a aprobación de crédito y a la firma del contrato de arrendamiento correspondiente.</div>
   <div class="p-h"><span class="n">3</span> Vigencia y contacto</div>
   <div class="p-contact"><div><span class="k">Preparado por</span><span class="v">${esc(d.by)}${d.role?" · "+esc(d.role):""}</span></div><div><span class="k">Cotización válida hasta</span><span class="v">${esc(d.dValid)}</span></div><div><span class="k">Teléfono</span><span class="v">${esc(d.phone)}</span></div><div><span class="k">Correo</span><span class="v">${esc(d.mail)}</span></div></div>
@@ -2713,6 +2714,32 @@ const LeaseTests={
       }
       const sin=leaseQuote({equipos:{estudiante:1,docente:0},plazo:3,seguro:false,securly:false,carritos:[]});
       this.assert(sin.rows[0].comp.seguro===0&&sin.rows[0].comp.securly===0,"sin servicios no hay cargo");
+    });
+    /* Los cuatro casos del Excel validan la FÓRMULA con PV que esta herramienta
+       no puede producir (13,460 mezcla el seguro a 3 y a 4 años: es uno de los
+       borradores cruzados de la hoja). Esta prueba clava la COMPOSICIÓN: los
+       números están escritos a mano, NO leídos de CATALOG, para que un precio
+       mal transcrito o asignado al equipo equivocado tumbe la suite. */
+    this.test("Composición del precio unitario: cifras clavadas a mano",()=>{
+      /* 1 docente a 3 años con seguro y Securly: 9,450 + 750 + 1,390 + 1,050 */
+      const a=leaseQuote({equipos:{estudiante:0,docente:1},plazo:3,seguro:true,securly:true,carritos:[]});
+      this.assertClose(a.rows.find(x=>x.tipo==="docente").unit,12640,1e-6,"unitario docente 3 años");
+      this.assertClose(a.mensualidad.sub,495.90,0,"mensualidad docente 3 años");
+      this.assertClose(a.mensualidad.iva,79.34,0,"IVA docente 3 años");
+      this.assertClose(a.mensualidad.total,575.24,0,"mensualidad con IVA docente 3 años");
+      this.assertClose(a.totalPagar.total,20708.64,0,"total a pagar docente 3 años");
+      /* 1 docente a 4 años con seguro y Securly: 9,450 + 750 + 1,870 + 1,400 */
+      const b=leaseQuote({equipos:{estudiante:0,docente:1},plazo:4,seguro:true,securly:true,carritos:[]});
+      this.assertClose(b.rows.find(x=>x.tipo==="docente").unit,13470,1e-6,"unitario docente 4 años");
+      this.assertClose(b.mensualidad.total,509.41,0,"mensualidad con IVA docente 4 años");
+      this.assertClose(b.totalPagar.total,24451.68,0,"total a pagar docente 4 años");
+      /* 1 estudiante pelón a 3 años: 7,740 y nada más (la CEU va integrada) */
+      const c=leaseQuote({equipos:{estudiante:1,docente:0},plazo:3,seguro:false,securly:false,carritos:[]});
+      this.assertClose(c.rows.find(x=>x.tipo==="estudiante").unit,7740,1e-6,"unitario estudiante sin servicios");
+      this.assertClose(c.mensualidad.sub,303.66,0,"mensualidad estudiante 3 años");
+      /* Un carrito de 20, solo: 24,374.70 */
+      const d=leaseQuote({equipos:{estudiante:1,docente:0},plazo:3,seguro:false,securly:false,carritos:[{cap:20,qty:1}]});
+      this.assertClose(d.internal.totalFinanciado-c.internal.totalFinanciado,24374.70,1e-6,"costo del carrito de 20");
     });
 
     /* ===== Estados de preparación y avisos ===== */

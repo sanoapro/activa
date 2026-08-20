@@ -27,14 +27,23 @@ de compra y los datos bancarios de la empresa. Se manda por enlace, no se busca.
 
 ## Cómo está organizado por dentro
 
-Cuatro pasos, en el orden en que el comercial los recorre:
+Tres pasos, en el orden en que el comercial los recorre:
 
 | Sección | Título | Qué se hace ahí |
 |---|---|---|
-| `#s1` | Catálogo | Busca la partida por concepto o número de parte y la agrega |
-| `#s2` | Partidas de la cotización | Captura cantidades y años, reordena, ajusta el concepto |
-| `#s3` | Cierre de la cotización | Total, desglose de IVA y la tabla tal como la verá el colegio |
-| `#s4` | Datos para la propuesta | Colegio, contactos, vigencia, firma, datos fiscales y bancarios |
+| `#s1` | Catálogo y captura | Busca, agrega con `+` y captura cantidad y años en la misma fila |
+| `#s2` | Cierre de la cotización | Total, desglose de IVA y la tabla tal como la verá el colegio |
+| `#s3` | Datos para la propuesta | Colegio, contactos, vigencia, firma, datos fiscales y bancarios |
+
+**Buscar y agregar eran dos pasos y dejaron de serlo.** Antes el catálogo era una
+rejilla de 37 tarjetas —seis pantallas de scroll— y la cantidad se capturaba en un
+paso 2 aparte: por cada renglón había un viaje de ida y vuelta. Ahora es una sola
+tabla densa donde el botón de la izquierda agrega y esa misma celda pasa a ser el
+campo de cantidad.
+
+Hay una razón técnica que obligaba a elegir uno de los dos sitios: el motor manda
+el foco al primer error usando el `id` `lqty-<renglón>`, y ese `id` solo puede
+existir una vez en el documento.
 
 El catálogo son **37 partidas** repartidas en seis familias (`FAMILIES`): equipos y accesorios,
 protección y filtrado, plataformas y licencias, programas activa, servicios y soporte, y equipo
@@ -68,8 +77,9 @@ recuperarse del Excel: ya no se venden.
 ## Qué bloquea qué
 
 Un renglón sin cantidad —o una licencia anual sin años— **no suma al total** y no aparece en la
-tabla de revisión ni en la propuesta; el paso 2 lo marca como pendiente y el paso 3 lo avisa.
-Un renglón por debajo de su `minQty` marca error y bloquea el documento.
+tabla de revisión ni en la propuesta; su propia fila lo dice en la columna de importe —«Falta la
+cantidad», «Faltan los años»— y el cierre lo avisa. Un renglón por debajo de su `minQty` tiñe la
+fila y bloquea el documento.
 
 Cuando el cálculo no es confiable, `body.calc-invalid` **atenúa todo el bloque financiero** y el
 motivo viaja pegado al total, en el subtítulo de la barra de acciones: es lo único que el
@@ -115,31 +125,54 @@ el estado «guardado».
 
 **Componentes reusados tal cual:** `.gbar`, `.gdots`, `.hbar`/`.logo`/`.vertag`, la marca
 embebida, `.hnav`, `.cfgbar`/`.cfgin`/`.cfgf`/`.cfgprice`, `.hero`/`.tag`/`.iva`/`.herorow`,
-`.shead`/`.kick`, `.cfg`, `.result`/`.res-side`/`.res-main`/`.kv`/`.rowhead`,
-`.area`/`.ahead`/`.aico`/`.acount`/`.igrid`/`.item`/`.item.out`, `details.fold`,
+`.shead`/`.kick`, `.cfg`, `.result`/`.res-side`/`.res-main`/`.kv`/`.rowhead`, `details.fold`,
 `.grid2`/`.grid3`/`.f`/`.hint`/`.field-error`, `.miniLbl`/`.tagx`, `.btn` y variantes,
 `.inline-action`, `.chip`, `.warns`/`.warn`, `.toast`, `.tbox`/`.tscroll`/`.tfoot`/`.gh`,
 `.actbar`/`.actprice`, el pie, y el documento imprimible completo (`p-*` y `cv-*`).
 
-**Lo que hubo que adaptar o crear, y por qué:**
+**Lo que hubo que crear, y por qué:**
 
-- **`.item--part`**, la variante de tarjeta de esta página. El `.item` del cotizador describe una
-  inclusión —icono y texto—; aquí la tarjeta **vende una partida** y necesita pie con precio y
-  botón. Misma caja, mismos tokens, una sola columna, y adentro `.cpart`, `.cunit`, `.cyear`,
-  `.cmin`, `.cnote`, `.cfoot` y `.cprice`, todos con tokens de allá. `.item.out` marca la partida
-  sin precio de lista.
+- **`.cattbl` y `.crow`**, la tabla del catálogo. Cuelga de `.tbox`/`.tscroll`/`.tfoot` y usa los
+  `.gh` del cotizador como encabezado, pero **no existe allá**: el cotizador no vende partidas
+  sueltas ni captura renglones libres. Sustituye a la rejilla `.igrid`/`.item`, que se probó
+  primero y resultó demasiado espaciosa para 37 partidas.
+- **`.qcell`**: la celda de cantidad. El botón `.addbtn` y el campo ocupan el mismo sitio y la
+  misma altura, para que la fila **no salte** al agregar.
+- **`.famrow`**: el encabezado de familia es una fila de la propia tabla, no un bloque aparte,
+  para que las columnas no se desalineen entre grupos. Lleva el `.aico` y el `.acount` del
+  cotizador dentro.
+- **`.detrow`**: la descripción larga sirve una vez, la primera. Ocupar sitio permanente por ella
+  es lo que volvía el catálogo ilegible, así que se pliega, y en los renglones ya agregados esa
+  misma fila hospeda el campo de **concepto** y el botón de duplicar la partida.
+- **`.fchip`**: filtro por familia. El `.seg` del cotizador es para dos o tres opciones; aquí son
+  siete y tienen que envolver. Usa `aria-pressed`, como el `.seg`.
 - **Las tablas cuelgan de `.tbox`, no de `table` suelto.** En el cotizador las reglas de `table`,
   `th` y `td` son globales; aquí eso repintaría también las tablas del documento impreso y de la
   vista previa del correo, que traen las suyas.
 - **`.tbox th.txt`/`td.txt`**: la columna de concepto no es una cifra, así que no se alinea a la
-  derecha ni se recorta en una línea, al revés que las tres numéricas.
-- **`.lrow` y compañía** (el editor de partidas del paso 2) no tienen equivalente en el
-  cotizador, que no captura renglones libres. Se conservan, repasados con los tokens.
+  derecha ni se recorta en una línea, al revés que las numéricas.
+
+En 760 px la tabla **deja de ser tabla**: cada partida se vuelve un bloque con la cantidad a la
+izquierda, y el nombre y el importe arriba. Un scroll horizontal de seis columnas no se puede
+usar con una mano.
 
 **Lo que no se copió:** el acento morado `--plus` y `body[data-pkg="plus"]`, la escalera de años
 (`.ladder`/`.rung`/`.yrchip`), el volumen de redes (`.vgrid`/`.vrow`/`.vtrack`), las áreas
 TI/IP/DP, los esquemas `.cfg-pay`, `.pay`, `.cartopt`, `.lic` y la navegación de seis pasos.
-Aquí son cuatro pasos y una sola lista de partidas.
+Aquí son tres pasos y una sola tabla.
+
+### La búsqueda, y por qué tiene atajos
+
+Con 37 partidas y seis familias, escribir es más rápido que buscar con el ojo:
+
+- **`/`** enfoca el buscador desde cualquier punto de la página, salvo si ya estás escribiendo.
+- **`Enter`** agrega cuando la búsqueda dejó **una sola** coincidencia y deja el foco en la
+  cantidad. Con varias, no adivina: lo dice y espera.
+- La coincidencia se **resalta** en el concepto, para ver por qué salió esa fila.
+- Los **chips de familia** acotan sin borrar lo escrito.
+- **«Solo agregadas»** convierte la tabla en la cotización: se ordena por renglón —el orden en
+  que se imprime— y **solo ahí** aparecen las flechas de reordenar, porque solo ahí ese orden
+  significa algo.
 
 ### El chip del hero avisa, no afirma
 
@@ -156,9 +189,8 @@ El `.res-side` dice **Total** con el importe **con IVA** en `--mono` a 33 px, el
 A su derecha, el `.res-main` lleva la **tabla de revisión**: es literalmente lo que va a leer el
 colegio, con las columnas **Cantidad · Concepto · No. de parte · Precio unitario · Importe** —las
 tres numéricas en `--mono`, a la derecha— y las dos últimas agrupadas bajo un `.gh.c2` que repite
-que son precios sin IVA. Es de **solo lectura**: la captura vive en el paso 2, porque meter
-inputs en celdas empeora la captura en pantallas angostas. Usa las mismas funciones de formato
-que el documento impreso (`printQtyLabel`, `printUnitPrice`, `moneyOrFree`), así que no puede
+que son precios sin IVA. Es de **solo lectura**: la captura vive en el paso 1, en la tabla del
+catálogo. Usa las mismas funciones de formato que el documento impreso (`printQtyLabel`, `printUnitPrice`, `moneyOrFree`), así que no puede
 divergir de lo que se imprime. La vigencia del catálogo va en el `.tfoot`.
 
 ## Movimiento

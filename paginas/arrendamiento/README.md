@@ -123,6 +123,15 @@ propósito para obligarte a revalidar contra una hoja nueva.
    entra al monto financiado —aritméticamente idéntico al prorrateo `M20` del Excel—. El aviso
    de capacidad (no alcanza / sobra un carrito completo o más) es **informativo y nunca
    bloquea**: mezclar capacidades o dejar holgura puede ser intencional.
+7. **Seguro y Securly son todo o nada.** No se marcan por tipo de equipo: dependen del
+   dispositivo y aplican a todos los equipos de la cotización, docentes incluidos.
+8. **El aviso de capacidad cuenta todos los equipos**, docentes incluidos, y así se queda: es
+   informativo y el vendedor decide si mezcla capacidades o deja holgura.
+9. **La entrega en el colegio está incluida en el precio** y el documento lo dice; no es un
+   renglón cotizable aparte.
+10. **La propuesta viaja como PDF o como correo, nunca como enlace a esta herramienta.** El
+    catálogo y la tasa viven en el `<script>`: quien abra el enlace y mire el código fuente los
+    lee. El enlace y el código `ARRENDA1:` son para mover escenarios entre vendedores.
 
 ## La aritmética
 
@@ -138,6 +147,14 @@ cliente: subtotal = redondeo(mensualidad) ; IVA = redondeo(subtotal × 0.16) ; t
 
 Redondeo con el criterio del cotizador (F-10): `roundFinancial` (6 decimales) en la cadena,
 `roundCurrency` (centavos) solo en la frontera con el cliente.
+
+Los cuatro casos de regresión validan la **fórmula**, no el catálogo: sus PV no los puede
+producir esta herramienta (13,460 mezcla el seguro a 3 y a 4 años, uno de los borradores
+cruzados de la hoja). La **composición** del precio unitario la clava una prueba aparte, con las
+cifras escritas a mano y no leídas de `CATALOG`, para que un precio mal transcrito o asignado al
+equipo equivocado tumbe la suite: docente a 3 años con seguro y Securly = 12,640 → 575.24 al mes
+con IVA; a 4 años = 13,470 → 509.41; estudiante pelón = 7,740 → 303.66 sin IVA; y el carrito de
+20 suma 24,374.70 al financiado.
 
 **Casos de regresión clavados** (suite `?test=1`, del propio Excel):
 
@@ -210,15 +227,16 @@ Camino propio, idéntico en estructura al del cotizador:
 2. Con `body.pp-on`, el `@media print` **oculta la aplicación entera** y muestra solo el
    documento; sin `pp-on`, imprimir muestra el aviso de usar «Generar PDF».
 3. El documento: portada (colegio, mensualidad con IVA, plazo, folio, vigencia), qué incluye,
-   inversión desglosada, condiciones, contacto y firmas; pie repetido con folio en cada hoja
+   inversión desglosada, condiciones —el cierre del contrato (opción a compra, residual o
+   devolución) se remite al contrato de arrendamiento; aquí no se promete nada—, contacto y firmas; pie repetido con folio en cada hoja
    (`position:fixed`) y encabezado repetido vía `<thead>` de `.print-shell`.
 
 `Ctrl+P` directo también funciona cuando el documento está listo (guard en `beforeprint`).
 
 ## Pruebas internas
 
-`?test=1` corre la suite y la dibuja en `#testReport` — **32 pruebas**: los cuatro casos de
-regresión, la linealidad de PMT, el prorrateo de carritos mixtos, el desglose de IVA, CEU solo
+`?test=1` corre la suite y la dibuja en `#testReport` — **33 pruebas**: los cuatro casos de
+regresión, la composición del precio unitario, la linealidad de PMT, el prorrateo de carritos mixtos, el desglose de IVA, CEU solo
 docente, seguro/Securly por plazo, el precio visible en una cotización recién abierta, que el
 aviso de carritos nunca bloquea, que el modo interno arranca apagado / no viaja / se elimina del
 DOM, que documento, correo y escenario no contienen datos internos, tipos estrictos en la

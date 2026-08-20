@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>activa · Cotizador de compra directa · v1.1</title>
+<title>activa · Cotizador de compra directa · v1.2</title>
 <meta name="description" content="Cotizador de compra directa de activa: catálogo abierto de equipos, licencias, programas y servicios. Precios netos, IVA al final.">
 <!-- Fuera de los buscadores: esta página lleva el catálogo de precios de compra
      y los datos bancarios de la empresa. Se comparte por enlace, nunca se busca. -->
@@ -149,67 +149,85 @@ main section{scroll-margin-top:var(--sticky-header-height)}
 .shead h2{font-size:26px;margin:0 0 7px;font-weight:700}
 .shead p{color:var(--mute);margin:0;font-size:14.5px}
 
-/* ---------- catálogo ---------- */
-.catsearch{display:grid;grid-template-columns:minmax(0,560px) auto;gap:10px;align-items:end;margin-bottom:22px}
-.catsearch .f label{display:block;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
-.catcount{font-size:12.5px;color:var(--mute);padding-bottom:10px}
-.area{margin-bottom:28px}
-.ahead{display:flex;align-items:center;gap:12px;margin:0 0 14px}
-.aico{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;flex:none}
-.aico svg{width:20px;height:20px;fill:#fff}
-.ahead h3{margin:0;font-size:17px;padding:0}.ahead p{margin:1px 0 0;font-size:12px;color:var(--mute)}
-.acount{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--mute);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:3px 9px}
-.igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(292px,1fr));gap:11px}
-.item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 15px;position:relative;transition:.18s;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
-.item:hover{box-shadow:var(--sh1)}
-.item h4{margin:0 0 4px;font-size:13.6px;font-weight:500;padding-right:16px;line-height:1.3}
-.item p{margin:0;font-size:12.1px;color:var(--mute);line-height:1.5}
-.item .ok{position:absolute;top:12px;right:11px;width:15px;height:15px;fill:var(--g-grn)}
-.item.out{background:#fcfcfd;border-style:dashed;border-color:var(--soft)}
-.item.out h4,.item.out p{color:var(--faint)}
-/* .item--part: la variante de esta pagina. El .item del cotizador describe una
-   inclusion (icono + texto); aqui la tarjeta vende una partida y necesita pie
-   con precio y boton. Misma caja y mismos tokens, una sola columna. */
-.item--part{display:flex;flex-direction:column;gap:7px;border-top:3px solid var(--fc,var(--line))}
-.item--part h4{padding-right:0;line-height:1.35;margin:0}
-.item--part .cd{margin:0;font-size:12px;color:var(--mute);line-height:1.5}
-.item--part .cmeta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+/* ---------- catálogo y captura ----------
+   Una sola tabla densa: el boton de la izquierda agrega y esa misma celda pasa
+   a ser el campo de cantidad. Sustituye a la rejilla de tarjetas, que pedia
+   seis pantallas de scroll para 37 partidas, y al editor aparte del antiguo
+   paso 2, que obligaba a ir y venir por cada renglon. */
+.catbar{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:flex-end;margin-bottom:12px}
+.catbar .fsearch{flex:1 1 300px;max-width:420px}
+.catfilters{display:flex;flex-wrap:wrap;gap:6px}
+.fchip{font-family:var(--disp);font-size:12px;font-weight:500;border:1px solid var(--field-line);background:#fff;color:var(--ink2);border-radius:999px;padding:6px 13px;cursor:pointer;min-height:36px;white-space:nowrap;transition:.15s}
+.fchip:hover{background:var(--bg)}
+.fchip[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
+.fchip .n{font-family:var(--mono);font-size:10.5px;opacity:.75;margin-left:5px}
+.fchip.added[aria-pressed="true"]{background:var(--g-grn);border-color:var(--g-grn)}
+.catcount{font-size:12.5px;color:var(--mute);margin-bottom:10px}
+.cattbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.cattbl th,.cattbl td{padding:9px 12px;text-align:right;white-space:nowrap;vertical-align:middle}
+.cattbl thead th{position:sticky;top:calc(var(--sticky-header-height) - 8px);z-index:3}
+.cattbl th.txt,.cattbl td.txt{text-align:left;white-space:normal;min-width:250px}
+.cattbl tbody td{border-bottom:1px solid var(--soft)}
+/* Encabezado de familia: es una fila de la misma tabla para que las columnas no
+   se desalineen entre grupos. */
+.famrow th{background:#fff;text-align:left;padding:16px 12px 8px;border-bottom:1px solid var(--line)}
+.famrow .fh{display:flex;align-items:center;gap:11px}
+.famrow .aico{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:none}
+.famrow .aico svg{width:16px;height:16px;fill:#fff}
+.famrow b{font-family:var(--disp);font-size:14.5px;font-weight:600;color:var(--ink)}
+.famrow i{font-style:normal;font-size:11.5px;color:var(--mute);font-weight:400}
+.famrow .acount{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--mute);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:3px 9px;font-weight:400}
+/* Fila de partida */
+.crow td{background:#fff}
+.crow:hover td{background:#fafbff}
+.crow.on td{background:var(--acc-t)}
+.crow.on:hover td{background:var(--acc-t)}
+.crow.err td{background:var(--g-red-t)}
+.crow.out td{background:#fcfcfd}
+.crow .cname{font-family:var(--disp);font-size:13.4px;font-weight:500;line-height:1.3;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.crow.out .cname{color:var(--faint)}
+.crow .cmeta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.crow mark{background:#fff2a8;color:inherit;border-radius:3px;padding:0 1px}
+.cnum{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.cunitprice{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.cunitprice small{display:block;font-family:var(--body);font-size:10px;font-weight:400;color:var(--faint)}
+.cimp{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:14.5px;font-weight:600;color:var(--ink)}
+.cimp.free{font-family:var(--disp);font-size:12.5px;font-weight:500;color:var(--g-grn-d)}
+.cimp.pending{font-family:var(--body);font-size:11.5px;font-weight:500;color:var(--g-red-d);white-space:normal}
+.cimp.none{color:var(--faint);font-weight:400}
+/* Celda de cantidad: el boton + y el campo ocupan el mismo sitio, para que la
+   fila no salte al agregar. */
+.qcell{width:104px;text-align:center}
+.addbtn{width:38px;height:38px;border:1px solid var(--acc);border-radius:9px;background:#fff;color:var(--acc-d);font-size:21px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.15s;margin:0 auto}
+.addbtn:hover{background:var(--acc);color:#fff}
+.qwrap input{width:100%;padding:7px 8px;border:1px solid var(--field-line);border-radius:8px;font-family:var(--mono);font-size:14px;font-weight:600;text-align:center;background:#fff;color:var(--ink)}
+.qwrap .u{display:block;font-size:10px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--faint);margin-top:3px}
+.ycell{width:80px}
+.ycell input{width:100%;padding:7px 6px;border:1px solid var(--field-line);border-radius:8px;font-family:var(--mono);font-size:14px;font-weight:600;text-align:center;background:#fff;color:var(--ink)}
+.ycell .u{display:block;font-size:10px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--g-yel-d);margin-top:3px}
+.ycell .dash{color:var(--faint)}
+.acts{width:100px;white-space:nowrap;text-align:right}
+.acts .lbtn{width:30px;height:30px;border:1px solid var(--field-line);border-radius:7px;background:#fff;color:var(--ink2);font-size:14px;cursor:pointer;display:inline-grid;place-items:center;vertical-align:middle;margin-left:3px}
+.acts .lbtn:hover{background:var(--bg)}
+.acts .lbtn:disabled{opacity:.3;cursor:not-allowed}
+.acts .lbtn.del{color:var(--g-red-d)}
+.acts .lbtn.del:hover{background:var(--g-red-t)}
+.acts .lbtn[aria-expanded="true"]{background:var(--acc-t);border-color:var(--acc);color:var(--acc-d)}
+/* Detalle plegado: la descripcion larga sirve una vez, la primera. Ocupar sitio
+   permanente por ella es lo que volvia el catalogo ilegible. */
+.detrow td{background:#fbfcfe;border-bottom:1px solid var(--soft);white-space:normal;text-align:left;padding:14px 16px 16px}
+.detrow .dd{font-size:12.5px;color:var(--mute);line-height:1.55;max-width:760px}
+.detrow .dnote{margin-top:7px;font-size:11.5px;color:var(--g-yel-d);background:var(--g-yel-t);border:1px solid var(--g-yel-b);border-radius:8px;padding:7px 10px;max-width:760px}
+.detrow .dcon{margin-top:12px;max-width:520px}
+.detrow .dcon label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--faint);margin-bottom:5px}
+.detrow .dcon input{width:100%;padding:8px 11px;border:1px solid var(--field-line);border-radius:8px;font-family:var(--disp);font-size:13.5px;background:#fff;color:var(--ink)}
 .cpart{font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--ink2);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
 .cunit{font-size:10.5px;font-weight:600;color:var(--g-blue-d);background:var(--g-blue-t);border-radius:6px;padding:2px 7px}
 .cyear{font-size:10.5px;font-weight:600;color:var(--g-yel-d);background:var(--g-yel-t);border-radius:6px;padding:2px 7px}
 .cmin{font-size:10.5px;font-weight:600;color:var(--g-red-d);background:var(--g-red-t);border-radius:6px;padding:2px 7px}
-.cnote{font-size:11px;color:var(--faint);line-height:1.45}
-.cfoot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px}
-.cprice{font-family:var(--mono);font-size:15.5px;font-weight:600;color:var(--ink)}
-.cprice small{display:block;font-family:var(--body);font-size:10px;font-weight:400;color:var(--faint)}
-.cat-empty{font-size:13px;color:var(--mute);background:#fff;border:1px dashed var(--line);border-radius:12px;padding:18px;margin-top:4px}
-
-/* ---------- partidas de la cotización ---------- */
-.lines{display:grid;gap:12px}
-.lrow{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh1);padding:14px 16px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px 14px;align-items:start}
-.lrow.err{border-color:#f5b5b0}
-.lidx{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--faint);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:3px 8px;margin-top:6px}
-.lmain{min-width:0;display:grid;gap:8px}
-.lconcept{width:100%;padding:9px 11px;border:1px solid var(--field-line);border-radius:8px;font-family:var(--disp);font-size:14px;font-weight:500;color:var(--ink);background:#fff}
-.lmeta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:11px;color:var(--faint)}
-.lfields{display:grid;grid-template-columns:150px 120px minmax(150px,auto);gap:10px;align-items:end}
-.lfields .f label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
-.lfields input{width:100%;padding:8px 10px;border:1px solid var(--field-line);border-radius:8px;font-family:var(--mono);font-size:13.5px;text-align:center;font-weight:600;color:var(--ink);background:#fff}
-.limp{text-align:right}
-.limp .k{display:block;font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
-.limp b{font-family:var(--mono);font-size:16.5px;font-weight:600;color:var(--ink);letter-spacing:-.3px}
-.limp b.free{color:var(--g-grn-d);font-family:var(--disp);font-size:13px}
-.limp b.pending{color:var(--faint);font-family:var(--disp);font-size:12px;font-weight:500}
-.lacts{display:flex;flex-direction:column;gap:6px;align-items:end}
-.lmove{display:flex;gap:6px}
-.lbtn{width:34px;height:34px;border:1px solid var(--field-line);border-radius:8px;background:#fff;color:var(--ink2);font-size:15px;cursor:pointer;display:grid;place-items:center}
-.lbtn:hover{background:var(--bg)}
-.lbtn:disabled{opacity:.35;cursor:not-allowed}
-.lbtn.del{color:var(--g-red-d)}
-.lbtn.del:hover{background:var(--g-red-t)}
+.cok{width:14px;height:14px;fill:var(--g-grn);flex:none}
+.cat-empty{font-size:13px;color:var(--mute);background:#fff;border:1px dashed var(--line);border-radius:12px;padding:18px;margin-top:12px}
 .empty-state{font-size:12.5px;color:var(--mute);margin:8px 0}
-.lines-empty{background:#fff;border:1px dashed var(--line);border-radius:14px;padding:26px 22px;text-align:center;color:var(--mute);font-size:13.5px}
-.lines-empty b{display:block;font-family:var(--disp);font-size:15px;color:var(--ink2);margin-bottom:4px}
 
 /* ---------- cierre: resultado (panel del cotizador) ---------- */
 .cfg{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh2);overflow:hidden}
@@ -463,11 +481,39 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   .p-client{grid-template-columns:1fr 1fr}
   .p-sign{grid-template-columns:1fr}
 }
+/* En pantallas angostas la tabla deja de ser tabla: cada partida es un bloque
+   con la cantidad a la izquierda, el nombre y el importe arriba, y los años y
+   las acciones debajo. Antes que un scroll horizontal de seis columnas, que en
+   360 px no se puede usar con una mano. */
+@media(max-width:760px){
+  .cattbl thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+  .cattbl tbody td{display:block;padding:0;border:none;text-align:left;white-space:normal;background:transparent}
+  .crow{display:grid;grid-template-columns:92px minmax(0,1fr) auto;
+        grid-template-areas:"qty nombre importe" "qty precio acciones" "qty anios anios";
+        gap:3px 12px;padding:12px 13px;border-bottom:1px solid var(--soft);align-items:center}
+  .crow td.qcell{grid-area:qty;align-self:start;text-align:center;width:auto}
+  .crow td.txt{grid-area:nombre;min-width:0;align-self:start}
+  .crow td.cunitprice{grid-area:precio;font-size:12px;color:var(--mute)}
+  .crow td.cunitprice small{display:inline;margin-left:5px}
+  .crow td.ycell{grid-area:anios;width:auto;display:flex;align-items:center;gap:8px}
+  .crow td.ycell input{width:76px}
+  .crow td.ycell .dash{display:none}
+  .crow td:nth-child(5){grid-area:importe;justify-self:end;text-align:right}
+  .crow td.acts{grid-area:acciones;justify-self:end;text-align:right;width:auto}
+  .crow:hover td{background:transparent}
+  .crow.on{background:var(--acc-t)}
+  .crow.err{background:var(--g-red-t)}
+  .crow.out{background:#fcfcfd}
+  .famrow th{padding:14px 13px 7px}
+  .detrow td{padding:0 13px 14px}
+  .catbar{flex-direction:column;align-items:stretch}
+  .catbar .fsearch{max-width:none}
+  .catfilters{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+  .acts .lbtn{width:36px;height:36px}
+}
 @media(max-width:900px){
   .manage-grid{grid-template-columns:1fr}
   .action-state{width:100%;justify-content:space-between}
-  .lfields{grid-template-columns:1fr 1fr}
-  .limp{grid-column:1/-1;text-align:left}
 }
 @media(max-width:700px){
   .wrap{padding:0 16px}
@@ -489,8 +535,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   .draft-actions{width:100%;justify-content:flex-end}
   .manage-grid,.modal-b{padding-left:16px;padding-right:16px}
   .draft-list{padding-left:16px;padding-right:16px}
-  .lrow{grid-template-columns:minmax(0,1fr) auto}
-  .lidx{display:none}
 }
 @media(max-width:420px){
   header{position:static}
@@ -701,13 +745,12 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
     <div class="logo">
       <img class="brand-logo-img" id="headerBrandLogo" alt="activa" width="154" height="43">
       <span class="brand-partner"><span class="google-g" aria-hidden="true" id="headerGoogleMark"></span>Google for Education Partner</span>
-      <span class="vertag" title="Cotizador de compra directa · versión del archivo">v1.1</span>
+      <span class="vertag" title="Cotizador de compra directa · versión del archivo">v1.2</span>
     </div>
     <nav class="hnav">
-      <a href="#s1">Catálogo</a>
-      <a href="#s2">Partidas</a>
-      <a href="#s3">Cierre</a>
-      <a href="#s4">Datos</a>
+      <a href="#s1">Catálogo y captura</a>
+      <a href="#s2">Cierre</a>
+      <a href="#s3">Datos</a>
     </nav>
     <div class="hbtns">
       <button class="btn" id="btnManage" title="Gestionar cotizaciones y borradores" aria-label="Gestionar cotizaciones y borradores">
@@ -756,46 +799,58 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   </div>
 </div>
 
-<!-- ================= 1 · CATÁLOGO ================= -->
+<!-- ================= 1 · CATÁLOGO Y CAPTURA =================
+     Un solo paso: se busca, se agrega con + y se captura la cantidad en la
+     misma fila. Antes eran dos pasos y un viaje de scroll por renglon. -->
 <section id="s1">
   <div class="wrap">
     <div class="shead">
       <div class="kick">Paso 1</div>
-      <h2>Catálogo</h2>
-      <p>Busca la partida y agrégala a la cotización. Todos los precios del catálogo son <b>netos, sin IVA</b>; el IVA se agrega al final sobre el subtotal.</p>
+      <h2>Catálogo y captura</h2>
+      <p>Busca la partida, agrégala con <b>+</b> y captura ahí mismo la cantidad —la tabla dice en qué unidad— y los <b>años</b> de las licencias anuales. Todos los precios son <b>netos, sin IVA</b>; el IVA se agrega al final sobre el subtotal.</p>
     </div>
-    <div class="catsearch">
-      <div class="f">
-        <label for="fSearch">Buscar por concepto o número de parte</label>
-        <input type="search" id="fSearch" placeholder="chromebook, seguro, soporte, CEU…" autocomplete="off">
-      </div>
-      <div class="catcount" id="catCount" aria-live="polite">—</div>
-    </div>
-    <div id="catBox"></div>
-    <div class="cat-empty" id="catEmpty" hidden>Ninguna partida coincide con la búsqueda. Revisa la ortografía o busca por número de parte.</div>
-  </div>
-</section>
 
-<!-- ================= 2 · PARTIDAS ================= -->
-<section id="s2" class="alt">
-  <div class="wrap">
-    <div class="shead">
-      <div class="kick">Paso 2</div>
-      <h2>Partidas de la cotización</h2>
-      <p>Captura la cantidad de cada renglón —la interfaz te dice en qué unidad— y los <b>años</b> de las licencias anuales. Puedes reordenar los renglones y ajustar el texto del concepto sin tocar el catálogo.</p>
+    <div class="catbar">
+      <div class="f fsearch">
+        <label for="fSearch">Buscar por concepto o número de parte</label>
+        <input type="search" id="fSearch" placeholder="chromebook, seguro, soporte, CEU…" autocomplete="off" aria-describedby="catSearchHint">
+        <div class="hint" id="catSearchHint">Pulsa <b>/</b> para buscar desde cualquier punto de la página. Si queda una sola coincidencia, <b>Enter</b> la agrega.</div>
+      </div>
+      <div class="catfilters" role="group" aria-label="Filtrar el catálogo por familia" id="catFilters"></div>
     </div>
-    <div class="lines" id="linesBox"></div>
-    <div class="lines-empty" id="linesEmpty"><b>La cotización está vacía</b>Agrega partidas desde el catálogo del paso 1.</div>
+    <div class="catcount" id="catCount" aria-live="polite">—</div>
+
+    <div class="tbox">
+      <div class="tscroll" tabindex="0" role="region" aria-label="Catálogo de partidas (desplazable horizontalmente)">
+        <table class="cattbl" id="tblCat">
+          <caption class="sr-only">Catálogo de compra directa: agrega partidas y captura las cantidades</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="gh c3 qcell">Cantidad</th>
+              <th scope="col" class="gh c3 txt">Partida</th>
+              <th scope="col" class="gh c3">Precio unitario</th>
+              <th scope="col" class="gh c3 ycell">Años</th>
+              <th scope="col" class="gh c3">Importe</th>
+              <th scope="col" class="gh c3 acts"><span class="sr-only">Acciones del renglón</span></th>
+            </tr>
+          </thead>
+          <tbody id="catBody"></tbody>
+        </table>
+      </div>
+      <div class="tfoot" id="catFoot">—</div>
+    </div>
+    <div class="cat-empty" id="catEmpty" hidden>Ninguna partida coincide con la búsqueda o con el filtro. Revisa la ortografía, busca por número de parte o quita el filtro de familia.</div>
+
     <!-- Región viva: las advertencias del cálculo se anuncian a lectores de pantalla -->
     <div class="warns" id="warnBox" role="status" aria-live="polite" aria-relevant="additions text" aria-label="Advertencias del cálculo"></div>
   </div>
 </section>
 
-<!-- ================= 3 · CIERRE ================= -->
-<section id="s3">
+<!-- ================= 2 · CIERRE ================= -->
+<section id="s2" class="alt">
   <div class="wrap">
     <div class="shead">
-      <div class="kick">Paso 3</div>
+      <div class="kick">Paso 2</div>
       <h2>Cierre de la cotización</h2>
       <p>El IVA se calcula <b>sobre el subtotal</b>, no partida por partida, para no arrastrar centavos.</p>
     </div>
@@ -844,11 +899,11 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   </div>
 </section>
 
-<!-- ================= 4 · DATOS ================= -->
-<section id="s4" class="alt">
+<!-- ================= 3 · DATOS ================= -->
+<section id="s3">
   <div class="wrap">
     <div class="shead">
-      <div class="kick">Paso 4</div>
+      <div class="kick">Paso 3</div>
       <h2>Datos para la propuesta</h2>
       <p>Lo que encabeza y cierra el documento que recibe el colegio.</p>
     </div>
@@ -2233,7 +2288,7 @@ function bindStateToForm(){
      aria-describedby quede apuntando a un contenedor vacío. */
   [...FIELD_ERRORS.keys()].forEach(id=>setFieldError(id,""));
   FIELD_ERRORS.clear(); $$(".field-error").forEach(x=>x.textContent=""); $$('[aria-invalid="true"]').forEach(x=>x.setAttribute("aria-invalid","false"));
-  LINES_SIGNATURE="";/* fuerza reconstrucción de los renglones */
+  CAT_SIGNATURE="";CAT_OPEN.clear();/* fuerza reconstrucción de la tabla */
 }
 function markChanged(){DIRTY=true;LAST_RECOVERY_KEY="";PRINT_READY_SIGNATURE="";$("#saveState").textContent="Guardando…";$("#saveState").dataset.state="saving";saveStateDebounced();}
 function scheduleRender(scope="all"){
@@ -2247,46 +2302,157 @@ function catalogMatches(entry,needle){
   const hay=`${entry.n} ${entry.part} ${entry.d}`.toLowerCase();
   return needle.split(/\s+/).every(tok=>hay.includes(tok));
 }
-function renderCatalog(){
-  const needle=String($("#fSearch").value||"").trim().toLowerCase();
-  let shown=0;
-  const html=FAMILIES.map(fam=>{
-    const items=CATALOG.filter(entry=>entry.fam===fam.k&&catalogMatches(entry,needle));
-    if(!items.length)return "";
-    shown+=items.length;
-    const cards=items.map(entry=>{
-      const badges=[
-        `<span class="cpart">${esc(entry.part)}</span>`,
-        `<span class="cunit">por ${esc(entry.unit.s)}</span>`,
-        entry.annual?`<span class="cyear">anual · exige años</span>`:"",
-        entry.minQty?`<span class="cmin">mínimo ${entry.minQty} ${esc(entry.unit.p)}</span>`:""
-      ].filter(Boolean).join("");
-      // .out marca la partida sin precio de lista: se ve, pero no se puede
-      // cotizar todavia. Mismo estado que el .item.out del cotizador.
-      const sinPrecio=!(Number(entry.price)>0);
-      return `<div class="item item--part${sinPrecio?" out":""}" style="--fc:${G[fam.c]}">
-        <h4>${esc(entry.n)}</h4>
-        <p class="cd">${esc(entry.d)}</p>
-        <div class="cmeta">${badges}</div>
-        ${entry.note?`<div class="cnote">${esc(entry.note)}</div>`:""}
-        <div class="cfoot">
-          <span class="cprice num">${money(entry.price)}<small>sin IVA${entry.annual?" · por año":""}</small></span>
-          <button type="button" class="btn primary" data-add="${entry.k}" aria-label="Agregar ${esc(entry.n)} a la cotización">Agregar</button>
-        </div>
-      </div>`;
-    }).join("");
-    return `<div class="area">
-      <div class="ahead">
-        <div class="aico" style="background:${G[fam.c]}">${svg(fam.i,"#fff")}</div>
-        <div><h3>${esc(fam.n)}</h3><p>${esc(fam.d)}</p></div>
-        <div class="acount">${items.length} partida${items.length===1?"":"s"}</div>
-      </div>
-      <div class="igrid">${cards}</div>
-    </div>`;
-  }).join("");
-  $("#catBox").innerHTML=html;
-  $("#catEmpty").hidden=shown>0;
-  $("#catCount").textContent=needle?`${shown} de ${CATALOG.length} partidas`:`${CATALOG.length} partidas · precios netos sin IVA`;
+/* ---------- catalogo y captura ----------
+   Una sola tabla. Cada partida del catalogo es una fila; si ya esta en la
+   cotizacion, la celda de la izquierda deja de ser el boton + y pasa a ser el
+   campo de cantidad, con el mismo id `lqty-<renglon>` que el motor usa para
+   mandar el foco al primer error. Ese id solo puede existir una vez en el
+   documento: por eso el editor de partidas aparte desaparecio. */
+let CAT_FAM = "";              // "" = todas las familias
+let CAT_ONLY_ADDED = false;    // filtro «solo agregadas»; en ese modo se reordena
+const CAT_OPEN = new Set();    // detalles abiertos, por renglon o por partida
+let CAT_SIGNATURE = "";        // evita reconstruir la tabla mientras se teclea
+
+function catHighlight(text, needle){
+  const safe = esc(text);
+  if(!needle) return safe;
+  const tokens = [...new Set(needle.split(/\s+/).filter(Boolean))];
+  return tokens.reduce((acc, tok) => {
+    const rx = new RegExp("(" + tok.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "gi");
+    return acc.replace(rx, "<mark>$1</mark>");
+  }, safe);
+}
+function catBadges(entry){
+  return [
+    `<span class="cpart">${esc(entry.part)}</span>`,
+    `<span class="cunit">por ${esc(entry.unit.s)}</span>`,
+    entry.annual ? `<span class="cyear">anual · exige años</span>` : "",
+    entry.minQty ? `<span class="cmin">mínimo ${entry.minQty} ${esc(entry.unit.p)}</span>` : ""
+  ].filter(Boolean).join("");
+}
+/* Una fila. `row` es el renglon de computeQuote cuando la partida ya se agrego,
+   y null cuando solo esta disponible en el catalogo. */
+function catRowHTML(entry, row, needle, ctx){
+  const id = row ? esc(row.line.id) : "";
+  const open = CAT_OPEN.has(row ? `l:${row.line.id}` : `c:${entry.k}`);
+  const sinPrecio = !(Number(entry.price) > 0);
+  const nombre = row ? (row.line.concept || entry.n) : entry.n;
+  const qcell = row
+    ? `<div class="qwrap"><label class="sr-only" for="lqty-${id}">Cantidad de ${esc(entry.unit.p)} · ${esc(nombre)}</label><input type="number" id="lqty-${id}" data-lqty="${id}" inputmode="numeric" min="${APP_CONFIG.limits.qty.min}" max="${APP_CONFIG.limits.qty.max}" step="1" value="${row.line.qty === null ? "" : row.line.qty}" placeholder="0"><span class="u">${esc(entry.unit.p)}</span></div>`
+    : `<button type="button" class="addbtn" data-add="${esc(entry.k)}" title="Agregar a la cotización" aria-label="Agregar ${esc(entry.n)} a la cotización">+</button>`;
+  const ycell = entry.annual
+    ? (row
+      ? `<label class="sr-only" for="lyrs-${id}">Años de ${esc(nombre)}</label><input type="number" id="lyrs-${id}" data-lyrs="${id}" inputmode="numeric" min="${APP_CONFIG.limits.years.min}" max="${APP_CONFIG.limits.years.max}" step="1" value="${row.line.years === null ? "" : row.line.years}" placeholder="0"><span class="u">años</span>`
+      : `<span class="dash" aria-hidden="true">—</span><span class="sr-only">Se capturan al agregar</span>`)
+    : `<span class="dash" aria-hidden="true">—</span><span class="sr-only">No aplica</span>`;
+  const mover = ctx.ordenable
+    ? `<button type="button" class="lbtn" data-move-up="${id}" aria-label="Subir «${esc(nombre)}» en la cotización">↑</button><button type="button" class="lbtn" data-move-down="${id}" aria-label="Bajar «${esc(nombre)}» en la cotización">↓</button>`
+    : "";
+  const acciones = row
+    ? `${mover}<button type="button" class="lbtn" data-det="l:${id}" aria-expanded="${open}" aria-label="Detalle y concepto de «${esc(nombre)}»" title="Detalle y concepto">✎</button><button type="button" class="lbtn del" data-remove="${id}" aria-label="Quitar «${esc(nombre)}» de la cotización" title="Quitar de la cotización">×</button>`
+    : `<button type="button" class="lbtn" data-det="c:${esc(entry.k)}" aria-expanded="${open}" aria-label="Ver la descripción de ${esc(entry.n)}" title="Ver descripción">▸</button>`;
+  const detalle = open
+    ? `<tr class="detrow"><td colspan="6"><div class="dd">${esc(entry.d)}</div>${entry.note ? `<div class="dnote">${esc(entry.note)}</div>` : ""}${row ? `<div class="dcon"><label for="lcon-${id}">Concepto tal como saldrá en la propuesta</label><input type="text" id="lcon-${id}" data-lcon="${id}" maxlength="${APP_CONFIG.limits.concept.max}" value="${esc(row.line.concept)}"></div><div class="inline-action"><button type="button" class="btn text" data-add="${esc(entry.k)}">Agregar otro renglón de esta partida</button></div>` : ""}</td></tr>`
+    : "";
+  return `<tr class="crow${row ? " on" : ""}${sinPrecio && !row ? " out" : ""}" data-crow="${row ? id : ""}" data-cat="${esc(entry.k)}">
+    <td class="qcell">${qcell}</td>
+    <td class="txt"><div class="cname">${catHighlight(nombre, needle)}${row ? `<svg class="cok" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span class="sr-only">en la cotización</span>` : ""}</div><div class="cmeta">${catBadges(entry)}</div></td>
+    <td class="cunitprice">${money(entry.price)}<small>sin IVA${entry.annual ? " · por año" : ""}</small></td>
+    <td class="ycell">${ycell}</td>
+    <td><span class="cimp none" data-limp="${row ? id : ""}">—</span></td>
+    <td class="acts">${acciones}</td>
+  </tr>${detalle}`;
+}
+function renderFilters(result){
+  const box = $("#catFilters");
+  if(!box) return;
+  const agregadas = result ? result.rows.filter(r => r.entry).length : 0;
+  const chips = [`<button type="button" class="fchip" data-fam="" aria-pressed="${CAT_FAM === "" && !CAT_ONLY_ADDED}">Todas<span class="n">${CATALOG.length}</span></button>`];
+  for(const fam of FAMILIES){
+    const n = CATALOG.filter(e => e.fam === fam.k).length;
+    chips.push(`<button type="button" class="fchip" data-fam="${esc(fam.k)}" aria-pressed="${CAT_FAM === fam.k && !CAT_ONLY_ADDED}">${esc(fam.n)}<span class="n">${n}</span></button>`);
+  }
+  chips.push(`<button type="button" class="fchip added" data-only-added="1" aria-pressed="${CAT_ONLY_ADDED}" title="Ver solo lo que lleva la cotización, en el orden en que se imprime">Solo agregadas<span class="n">${agregadas}</span></button>`);
+  const firma = chips.join("");
+  if(box.dataset.firma === firma) return;
+  /* Los chips se reconstruyen al cambiar de filtro; sin esto el foco del
+     teclado caia al body y se perdia el recorrido. */
+  const activo = document.activeElement;
+  const sel = activo && box.contains(activo)
+    ? (activo.dataset.onlyAdded ? "[data-only-added]" : `[data-fam="${activo.dataset.fam || ""}"]`)
+    : "";
+  box.innerHTML = firma;
+  box.dataset.firma = firma;
+  if(sel){ const vuelve = box.querySelector(sel); if(vuelve) vuelve.focus(); }
+}
+function renderCatalog(result){
+  const r = result || CURRENT_RESULT || computeQuote(L());
+  const needle = String($("#fSearch") ? $("#fSearch").value : "").trim().toLowerCase();
+  const body = $("#catBody");
+  if(!body) return;
+  renderFilters(r);
+
+  const conRenglon = new Map();
+  r.rows.forEach(row => {
+    if(!row.entry) return;
+    const list = conRenglon.get(row.entry.k) || [];
+    list.push(row);
+    conRenglon.set(row.entry.k, list);
+  });
+
+  /* «Solo agregadas» ordena por renglon, no por catalogo: en ese modo la tabla
+     ES la cotizacion, y por eso ahi —y solo ahi— se puede reordenar. */
+  let html = "", visibles = 0;
+  if(CAT_ONLY_ADDED){
+    const filas = r.rows.filter(row => row.entry && catalogMatches(row.entry, needle) && (!CAT_FAM || row.entry.fam === CAT_FAM));
+    visibles = filas.length;
+    if(filas.length){
+      html = `<tr class="famrow"><th colspan="6" scope="colgroup"><div class="fh"><div><b>Renglones de la cotización</b><br><i>en el orden en que se imprimen</i></div><span class="acount">${filas.length}</span></div></th></tr>`
+        + filas.map(row => catRowHTML(row.entry, row, needle, {ordenable: true})).join("");
+    }
+  }else{
+    for(const fam of FAMILIES){
+      if(CAT_FAM && fam.k !== CAT_FAM) continue;
+      const items = CATALOG.filter(e => e.fam === fam.k && catalogMatches(e, needle));
+      if(!items.length) continue;
+      visibles += items.length;
+      const filas = items.map(entry => {
+        const rows = conRenglon.get(entry.k);
+        return rows && rows.length
+          ? rows.map(row => catRowHTML(entry, row, needle, {ordenable: false})).join("")
+          : catRowHTML(entry, null, needle, {ordenable: false});
+      }).join("");
+      html += `<tr class="famrow"><th colspan="6" scope="colgroup"><div class="fh"><div class="aico" style="background:${G[fam.c]}">${svg(fam.i, "#fff")}</div><div><b>${esc(fam.n)}</b><br><i>${esc(fam.d)}</i></div><span class="acount">${items.length} partida${items.length === 1 ? "" : "s"}</span></div></th></tr>` + filas;
+    }
+  }
+
+  /* Solo se reconstruye si cambio la ESTRUCTURA. Teclear una cantidad no la
+     cambia, y asi el campo no pierde el foco a media captura. */
+  const firma = [needle, CAT_FAM, CAT_ONLY_ADDED, [...CAT_OPEN].sort().join(","),
+    r.rows.map(row => `${row.line.id}:${row.entry ? row.entry.k : "?"}`).join("|")].join("§");
+  if(firma !== CAT_SIGNATURE){ CAT_SIGNATURE = firma; body.innerHTML = html; }
+
+  $("#catEmpty").hidden = visibles > 0;
+  $("#catCount").textContent = CAT_ONLY_ADDED
+    ? `${visibles} renglón(es) en la cotización`
+    : (needle || CAT_FAM) ? `${visibles} de ${CATALOG.length} partidas a la vista` : `${CATALOG.length} partidas · precios netos sin IVA`;
+  $("#catFoot").textContent = `Catálogo del ${longDateFromISO(APP_CONFIG.catalog.updatedISO)}, en pesos mexicanos y sin IVA. Un renglón sin cantidad —o sin años en las licencias anuales— no suma al total ni sale en la propuesta.`;
+
+  /* Lo dinamico se actualiza en sitio, sin tocar el marcado. */
+  r.rows.forEach(row => {
+    if(!row.entry) return;
+    const imp = body.querySelector(`[data-limp="${row.line.id}"]`);
+    if(imp){
+      if(row.ok && row.importe === 0){ imp.textContent = "Sin costo"; imp.className = "cimp free"; }
+      else if(row.ok){ imp.textContent = money(row.importe); imp.className = "cimp"; }
+      else { imp.textContent = row.entry.annual && row.qtyOk && !row.yearsOk ? "Faltan los años" : "Falta la cantidad"; imp.className = "cimp pending"; }
+    }
+    const tr = body.querySelector(`tr[data-crow="${row.line.id}"]`);
+    if(tr) tr.classList.toggle("err", Boolean(row.ok && row.entry.minQty && row.line.qty < row.entry.minQty));
+    const up = body.querySelector(`[data-move-up="${row.line.id}"]`), down = body.querySelector(`[data-move-down="${row.line.id}"]`);
+    if(up) up.disabled = row.index === 0;
+    if(down) down.disabled = row.index === r.rows.length - 1;
+  });
 }
 function addLine(catKey){
   const entry=CAT_BY_KEY[catKey];
@@ -2301,69 +2467,6 @@ function addLine(catKey){
 }
 
 /* ---------- renglones ---------- */
-let LINES_SIGNATURE="";
-function lineRowHTML(row){
-  const {line,entry,index}=row;
-  if(!entry){
-    return `<article class="lrow err" data-line="${esc(line.id)}">
-      <span class="lidx">${index+1}</span>
-      <div class="lmain"><div class="lmeta"><span class="cpart">${esc(line.cat)}</span> <span style="color:var(--g-red-d);font-weight:600">Partida desconocida: elimínala y agrégala de nuevo del catálogo.</span></div></div>
-      <div class="lacts"><button type="button" class="lbtn del" data-remove="${esc(line.id)}" aria-label="Eliminar renglón ${index+1}">×</button></div>
-    </article>`;
-  }
-  const yearsField=entry.annual?`<div class="f"><label for="lyrs-${esc(line.id)}">Años <span class="tagx">obligatorio</span></label><input type="number" id="lyrs-${esc(line.id)}" data-lyrs="${esc(line.id)}" min="${APP_CONFIG.limits.years.min}" max="${APP_CONFIG.limits.years.max}" step="1" inputmode="numeric" value="${line.years==null?"":line.years}" placeholder="—"></div>`:"";
-  return `<article class="lrow" data-line="${esc(line.id)}">
-    <span class="lidx" aria-hidden="true">${index+1}</span>
-    <div class="lmain">
-      <label class="sr-only" for="lcon-${esc(line.id)}">Concepto del renglón ${index+1}</label>
-      <input type="text" class="lconcept" id="lcon-${esc(line.id)}" data-lcon="${esc(line.id)}" maxlength="${APP_CONFIG.limits.concept.max}" value="${esc(line.concept)}">
-      <div class="lmeta">
-        <span class="cpart">${esc(entry.part)}</span>
-        <span class="cunit">por ${esc(entry.unit.s)}${entry.annual?" · anual":""}</span>
-        <span>${money(entry.price)} sin IVA${entry.annual?" por año":""}</span>
-        ${entry.minQty?`<span class="cmin">mínimo ${entry.minQty} ${esc(entry.unit.p)}</span>`:""}
-      </div>
-      <div class="lfields">
-        <div class="f"><label for="lqty-${esc(line.id)}">${esc(entry.unit.p)} <span class="tagx">obligatorio</span></label><input type="number" id="lqty-${esc(line.id)}" data-lqty="${esc(line.id)}" min="${APP_CONFIG.limits.qty.min}" max="${APP_CONFIG.limits.qty.max}" step="1" inputmode="numeric" value="${line.qty==null?"":line.qty}" placeholder="—"></div>
-        ${yearsField}
-        <div class="limp"><span class="k">Importe (sin IVA)</span><b class="num" data-limp="${esc(line.id)}">—</b></div>
-      </div>
-    </div>
-    <div class="lacts">
-      <div class="lmove">
-        <button type="button" class="lbtn" data-move-up="${esc(line.id)}" aria-label="Subir el renglón ${index+1}">↑</button>
-        <button type="button" class="lbtn" data-move-down="${esc(line.id)}" aria-label="Bajar el renglón ${index+1}">↓</button>
-      </div>
-      <button type="button" class="lbtn del" data-remove="${esc(line.id)}" aria-label="Eliminar renglón ${index+1}">×</button>
-    </div>
-  </article>`;
-}
-function renderLines(result){
-  const box=$("#linesBox");
-  const signature=result.rows.map(r=>`${r.line.id}:${r.entry?r.entry.k:"?"}`).join("|");
-  if(signature!==LINES_SIGNATURE){
-    LINES_SIGNATURE=signature;
-    box.innerHTML=result.rows.map(lineRowHTML).join("");
-  }
-  $("#linesEmpty").hidden=result.rows.length>0;
-  /* Lo dinámico se actualiza en sitio para no tirar el foco mientras se teclea. */
-  result.rows.forEach(row=>{
-    const el=box.querySelector(`[data-limp="${row.line.id}"]`);
-    if(el){
-      if(row.ok&&row.importe===0){el.textContent="Sin costo";el.className="num free";}
-      else if(row.ok){el.textContent=money(row.importe);el.className="num";}
-      else{el.textContent=row.entry&&row.entry.annual&&row.qtyOk&&!row.yearsOk?"Faltan los años":"Falta la cantidad";el.className="num pending";}
-    }
-    const art=box.querySelector(`article[data-line="${row.line.id}"]`);
-    if(art&&row.entry){
-      const minBad=row.ok&&row.entry.minQty&&row.line.qty<row.entry.minQty;
-      art.classList.toggle("err",Boolean(minBad));
-    }
-    const up=box.querySelector(`[data-move-up="${row.line.id}"]`),down=box.querySelector(`[data-move-down="${row.line.id}"]`);
-    if(up)up.disabled=row.index===0;
-    if(down)down.disabled=row.index===result.rows.length-1;
-  });
-}
 function moveLine(id,delta){
   const lines=L();
   const index=lines.findIndex(line=>line.id===id);
@@ -2382,6 +2485,7 @@ function removeLine(id){
   const entry=CAT_BY_KEY[line.cat];
   lines.splice(index,1);
   setFieldError(`lqty-${id}`,"");setFieldError(`lyrs-${id}`,"");setFieldError(`lcon-${id}`,"");
+  CAT_OPEN.delete(`l:${id}`);
   renderAll();markChanged();
   toast(`Renglón eliminado${entry?`: ${entry.n}`:""}.`,"info");
 }
@@ -2486,7 +2590,7 @@ function renderDocumentMeta(){
 }
 function renderAll(){
   CURRENT_RESULT=computeQuote(L());
-  renderLines(CURRENT_RESULT);
+  renderCatalog(CURRENT_RESULT);
   renderTotals(CURRENT_RESULT);
   renderWarns(CURRENT_RESULT);
   renderDocumentMeta();
@@ -2497,12 +2601,35 @@ function renderAll(){
 /* ---------- eventos ---------- */
 function bindEvents(){
   $("#quoteForm").addEventListener("submit",event=>event.preventDefault());
-  $("#fSearch").addEventListener("input",debounce(renderCatalog,120));
-  $("#catBox").addEventListener("click",event=>{
-    const btn=event.target.closest("[data-add]");
-    if(btn)addLine(btn.dataset.add);
+  $("#fSearch").addEventListener("input",debounce(()=>renderCatalog(),120));
+  /* Enter agrega cuando la busqueda dejo una sola partida: buscar, Enter,
+     cantidad, y el renglon quedo. Con varias coincidencias no adivina. */
+  $("#fSearch").addEventListener("keydown",event=>{
+    if(event.key!=="Enter")return;
+    event.preventDefault();
+    const needle=String($("#fSearch").value||"").trim().toLowerCase();
+    if(!needle)return;
+    const hits=CATALOG.filter(entry=>catalogMatches(entry,needle)&&(!CAT_FAM||entry.fam===CAT_FAM));
+    if(hits.length===1){addLine(hits[0].k);return;}
+    toast(hits.length?`${hits.length} partidas coinciden: afina la búsqueda o agrégalas con +.`:"Ninguna partida coincide con la búsqueda.","info");
   });
-  $("#linesBox").addEventListener("input",event=>{
+  /* «/» enfoca el buscador desde cualquier punto, salvo si ya estas escribiendo. */
+  document.addEventListener("keydown",event=>{
+    if(event.key!=="/"||event.ctrlKey||event.metaKey||event.altKey)return;
+    const t=event.target;
+    if(t&&(t.matches("input,textarea,select")||t.isContentEditable))return;
+    event.preventDefault();
+    const box=$("#fSearch");
+    if(box){box.focus();box.select();}
+  });
+  $("#catFilters").addEventListener("click",event=>{
+    const chip=event.target.closest("[data-fam],[data-only-added]");
+    if(!chip)return;
+    if(chip.dataset.onlyAdded){CAT_ONLY_ADDED=!CAT_ONLY_ADDED;if(CAT_ONLY_ADDED)CAT_FAM="";}
+    else{CAT_FAM=chip.dataset.fam||"";CAT_ONLY_ADDED=false;}
+    renderCatalog();
+  });
+  $("#tblCat").addEventListener("input",event=>{
     const qtyInput=event.target.closest("[data-lqty]");
     if(qtyInput){
       const line=L().find(l=>l.id===qtyInput.dataset.lqty);
@@ -2532,7 +2659,16 @@ function bindEvents(){
       scheduleRender("document");markChanged();
     }
   });
-  $("#linesBox").addEventListener("click",event=>{
+  $("#tblCat").addEventListener("click",event=>{
+    const add=event.target.closest("[data-add]");
+    if(add){addLine(add.dataset.add);return;}
+    const det=event.target.closest("[data-det]");
+    if(det){
+      const key=det.dataset.det;
+      CAT_OPEN.has(key)?CAT_OPEN.delete(key):CAT_OPEN.add(key);
+      renderCatalog();
+      return;
+    }
     const up=event.target.closest("[data-move-up]");
     if(up){moveLine(up.dataset.moveUp,-1);return;}
     const down=event.target.closest("[data-move-down]");
@@ -3332,7 +3468,7 @@ const QuoteTests={
     if(failed)throw new Error(`${failed} prueba(s) fallaron`);
     return{passed,failed,results:clone(this.results)};
   },
-  renderReport(){const box=$("#testReport");if(!box)return;const passed=this.results.filter(item=>item.ok).length;box.hidden=false;box.innerHTML=`<button type="button" class="btn" id="btnCloseTests" style="float:right">Cerrar</button><h2>Pruebas internas · compra directa v1.1</h2><p class="${passed===this.results.length?"test-pass":"test-fail"}">${passed} de ${this.results.length} aprobadas</p><pre>${esc(this.results.map(result=>`${result.ok?"✓":"✕"} ${result.name}${result.error?": "+result.error:""}`).join("\n"))}</pre>`;$("#btnCloseTests").addEventListener("click",()=>box.hidden=true);}
+  renderReport(){const box=$("#testReport");if(!box)return;const passed=this.results.filter(item=>item.ok).length;box.hidden=false;box.innerHTML=`<button type="button" class="btn" id="btnCloseTests" style="float:right">Cerrar</button><h2>Pruebas internas · compra directa v1.2</h2><p class="${passed===this.results.length?"test-pass":"test-fail"}">${passed} de ${this.results.length} aprobadas</p><pre>${esc(this.results.map(result=>`${result.ok?"✓":"✕"} ${result.name}${result.error?": "+result.error:""}`).join("\n"))}</pre>`;$("#btnCloseTests").addEventListener("click",()=>box.hidden=true);}
 };
 const Diagnostics={run(){const index=listIndex(),keys=allQuoteKeys(),recoveries=allRecoveryKeys(),orphans=keys.filter(k=>!index.some(i=>k.endsWith(i.quoteId)));let tests={skipped:true,failed:0};if(confirm("El diagnóstico ejecutará las pruebas internas del cotizador de compra.\n\nNo modifica tu cotización ni tus borradores, pero puede tardar unos segundos.\n\nRecomendación: cierra las demás pestañas de esta herramienta antes de continuar. ¿Continuar?")){try{tests=QuoteTests.runAll({show:false});}catch(error){tests={failed:1,error:error.message};}}const report={version:APP_CONFIG.schemaVersion,catalog:APP_CONFIG.catalog.updatedISO,protocol:location.protocol,storage:HAS_STORAGE,draftsInIndex:index.length,quoteKeys:keys.length,recoveries:recoveries.length,orphans:orphans.length,current:APP_STATE?.identity?.quoteId,dirty:DIRTY,conflict:STORAGE_CONFLICT,tests};alert(`Diagnóstico activa · Compra directa v1.0\n\nAlmacenamiento: ${HAS_STORAGE?"disponible":"no disponible"}\nBorradores índice: ${index.length}\nClaves encontradas: ${keys.length}\nHuérfanos: ${orphans.length}\nRecuperaciones: ${recoveries.length}\nPruebas fallidas: ${tests.failed||0}`);console.info("Diagnóstico activa compra",report);return report;}};
 
