@@ -165,7 +165,7 @@ main section{scroll-margin-top:var(--sticky-header-height)}
    paso 2, que obligaba a ir y venir por cada renglon. */
 /* Una sola línea de trabajo: buscar · filtrar · saber cuántas hay. Sin título
    de sección, sin instrucciones: quien la usa ya sabe cotizar. */
-.catbar{display:grid;grid-template-columns:minmax(220px,330px) 1fr;grid-template-areas:"buscar meta" "filtros filtros";gap:9px 16px;align-items:center;padding:14px 0 12px}
+.catbar{display:grid;grid-template-columns:1fr minmax(240px,340px);grid-template-areas:"meta buscar" "filtros filtros";gap:10px 16px;align-items:center;padding:14px 0 12px}
 .catbar .fsearch{grid-area:buscar}
 .catmeta{grid-area:meta}
 .catfilters{grid-area:filtros}
@@ -173,18 +173,22 @@ main section{scroll-margin-top:var(--sticky-header-height)}
 .catbar .fsearch .si{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;height:16px;fill:var(--faint);pointer-events:none}
 .catbar .fsearch input{width:100%;padding:9px 12px 9px 34px;border:1px solid var(--field-line);border-radius:9px;font-family:var(--body);font-size:13.5px;background:#fff;color:var(--ink)}
 .catbar .fsearch input::-webkit-search-cancel-button{cursor:pointer}
-.catmeta{display:flex;align-items:center;justify-content:flex-end;gap:10px;white-space:nowrap}
+.catmeta{display:flex;align-items:center;gap:10px;white-space:nowrap}
 .catmeta .iva{background:var(--g-yel-t);color:var(--g-yel-d);border:1px solid var(--g-yel-b);border-radius:7px;padding:3px 9px;font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
 .catmeta .catcount{font-size:11.5px;color:var(--mute);font-family:var(--mono)}
-.catfilters{display:flex;flex-wrap:wrap;gap:6px;min-width:0;max-width:100%}
-.fchip{font-family:var(--disp);font-size:12px;font-weight:500;border:1px solid var(--field-line);background:#fff;color:var(--ink2);border-radius:999px;padding:6px 13px;cursor:pointer;min-height:36px;white-space:nowrap;transition:.15s}
+/* Rejilla regular en vez de tira de pildoras: ocho filtros de ancho parejo se
+   leen como indice del catalogo y no se descolocan al cambiar de idioma o de
+   nombre de familia. */
+.catfilters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;min-width:0;max-width:100%}
+.fchip{display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:var(--disp);font-size:12.5px;font-weight:500;border:1px solid var(--field-line);background:#fff;color:var(--ink2);border-radius:9px;padding:7px 12px;cursor:pointer;min-height:38px;text-align:left;line-height:1.2;transition:.14s}
 .fchip:hover{background:var(--bg)}
 .fchip[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
-.fchip .n{font-family:var(--mono);font-size:10.5px;opacity:.75;margin-left:5px}
+.fchip .n{font-family:var(--mono);font-size:11px;font-weight:600;opacity:.7;flex:none;background:var(--bg);border-radius:5px;padding:1px 6px}
+.fchip[aria-pressed="true"] .n{background:rgba(255,255,255,.22);opacity:1}
 .fchip.added[aria-pressed="true"]{background:var(--g-grn);border-color:var(--g-grn)}
 .catcount{font-size:12.5px;color:var(--mute);margin-bottom:10px}
 .cattbl{width:100%;border-collapse:collapse;font-size:13.5px}
-.cattbl th,.cattbl td{padding:7px 12px;text-align:right;white-space:nowrap;vertical-align:middle}
+.cattbl th,.cattbl td{padding:6px 12px;text-align:right;white-space:nowrap;vertical-align:middle}
 /* El encabezado se queda a la vista al bajar. Para que funcione, ningun
    ancestro puede ser contenedor de desplazamiento: por eso .catscroll no lleva
    overflow en escritorio (ver el corte de 1080 px). */
@@ -216,9 +220,12 @@ main section{scroll-margin-top:var(--sticky-header-height)}
 .crow.on:hover td{background:var(--acc-t)}
 .crow.err td{background:var(--g-red-t)}
 .crow.out td{background:#fcfcfd}
-.crow .cname{font-family:var(--disp);font-size:13.4px;font-weight:500;line-height:1.3;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+/* Nombre y etiquetas en la MISMA linea: la fila usa el ancho que sobra a la
+   derecha en vez de crecer hacia abajo. */
+.crow .cline{display:flex;align-items:center;gap:5px 9px;flex-wrap:wrap;min-width:0}
+.crow .cname{font-family:var(--disp);font-size:13.4px;font-weight:500;line-height:1.3}
 .crow.out .cname{color:var(--faint)}
-.crow .cmeta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.crow .cmeta{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
 .crow mark{background:#fff2a8;color:inherit;border-radius:3px;padding:0 1px}
 .cnum{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .cunitprice{font-family:var(--mono);font-variant-numeric:tabular-nums}
@@ -229,14 +236,16 @@ main section{scroll-margin-top:var(--sticky-header-height)}
 .cimp.none{color:var(--faint);font-weight:400}
 /* Celda de cantidad: el boton + y el campo ocupan el mismo sitio, para que la
    fila no salte al agregar. */
-.qcell{width:104px;text-align:center}
+.qcell{width:168px;text-align:center}
 .addbtn{width:38px;height:38px;border:1px solid var(--acc);border-radius:9px;background:#fff;color:var(--acc-d);font-size:21px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.15s;margin:0 auto}
 .addbtn:hover{background:var(--acc);color:#fff}
-.qwrap input{width:100%;padding:7px 8px;border:1px solid var(--field-line);border-radius:8px;font-family:var(--mono);font-size:14px;font-weight:600;text-align:center;background:#fff;color:var(--ink)}
-.qwrap .u{display:block;font-size:9.5px;font-weight:600;letter-spacing:.2px;text-transform:uppercase;color:var(--faint);margin-top:2px}
-.ycell{width:80px}
-.ycell input{width:100%;padding:7px 6px;border:1px solid var(--field-line);border-radius:8px;font-family:var(--mono);font-size:14px;font-weight:600;text-align:center;background:#fff;color:var(--ink)}
-.ycell .u{display:block;font-size:9.5px;font-weight:600;letter-spacing:.2px;text-transform:uppercase;color:var(--g-yel-d);margin-top:2px}
+.qwrap{display:flex;align-items:center;gap:7px;min-width:0}
+.qcell .qwrap input{width:58px;flex:none;padding:6px 7px;border:1px solid var(--field-line);border-radius:8px;font-family:var(--mono);font-size:14px;font-weight:600;text-align:center;background:#fff;color:var(--ink)}
+.qwrap .u{font-size:9px;font-weight:700;letter-spacing:.2px;text-transform:uppercase;color:var(--faint);text-align:left;line-height:1.05;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ycell{width:116px}
+.ycell .ywrap{display:flex;align-items:center;gap:6px;justify-content:flex-end}
+.ycell .ywrap input{width:48px;flex:none;padding:6px 5px;border:1px solid var(--field-line);border-radius:8px;font-family:var(--mono);font-size:14px;font-weight:600;text-align:center;background:#fff;color:var(--ink)}
+.ycell .u{font-size:9px;white-space:nowrap;font-weight:700;letter-spacing:.2px;text-transform:uppercase;color:var(--g-yel-d);line-height:1.15}
 .ycell .dash{color:var(--faint)}
 .acts{width:100px;white-space:nowrap;text-align:right}
 .acts .lbtn{width:30px;height:30px;border:1px solid var(--field-line);border-radius:7px;background:#fff;color:var(--ink2);font-size:14px;cursor:pointer;display:inline-grid;place-items:center;vertical-align:middle;margin-left:3px}
@@ -562,8 +571,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   .detrow td{padding:0 13px 14px}
   .catbar{grid-template-columns:1fr;grid-template-areas:"buscar" "filtros" "meta";gap:8px}
   .catmeta{justify-content:flex-start}
-  .catfilters{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;min-width:0;max-width:100%;-webkit-overflow-scrolling:touch}
-  .catfilters .fchip{flex:none}
+  .catfilters{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
   .acts .lbtn{width:36px;height:36px}
 }
 @media(max-width:900px){
@@ -855,16 +863,16 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 <section id="s1">
   <div class="wrap">
     <div class="catbar">
+      <div class="catmeta">
+        <span class="iva" title="Todos los precios del catálogo son netos; el IVA se calcula una sola vez sobre el subtotal">sin IVA</span>
+        <span class="catcount" id="catCount" aria-live="polite">—</span>
+      </div>
       <div class="fsearch">
         <label class="sr-only" for="fSearch">Buscar por concepto o número de parte</label>
         <svg class="si" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
         <input type="search" id="fSearch" placeholder="Buscar partida o número de parte  ·  /" autocomplete="off" title="Pulsa / para buscar desde cualquier punto. Con una sola coincidencia, Enter la agrega.">
       </div>
       <div class="catfilters" role="group" aria-label="Filtrar el catálogo por familia" id="catFilters"></div>
-      <div class="catmeta">
-        <span class="iva" title="Todos los precios del catálogo son netos; el IVA se calcula una sola vez sobre el subtotal">sin IVA</span>
-        <span class="catcount" id="catCount" aria-live="polite">—</span>
-      </div>
     </div>
 
     <div class="catbox">
@@ -2413,7 +2421,7 @@ function catRowHTML(entry, row, needle, ctx){
     : `<button type="button" class="addbtn" data-add="${esc(entry.k)}" title="Agregar a la cotización" aria-label="Agregar ${esc(entry.n)} a la cotización">+</button>`;
   const ycell = entry.annual
     ? (row
-      ? `<label class="sr-only" for="lyrs-${id}">Años de ${esc(nombre)}</label><input type="text" id="lyrs-${id}" data-lyrs="${id}" inputmode="numeric" autocomplete="off" enterkeyhint="done" maxlength="2" value="${row.line.years === null ? "" : row.line.years}" placeholder="0"><span class="u">años</span>`
+      ? `<label class="sr-only" for="lyrs-${id}">Años de ${esc(nombre)}</label><span class="ywrap"><input type="text" id="lyrs-${id}" data-lyrs="${id}" inputmode="numeric" autocomplete="off" enterkeyhint="done" maxlength="2" value="${row.line.years === null ? "" : row.line.years}" placeholder="0"><span class="u">años</span></span>`
       : `<span class="dash" aria-hidden="true">—</span><span class="sr-only">Se capturan al agregar</span>`)
     : `<span class="dash" aria-hidden="true">—</span><span class="sr-only">No aplica</span>`;
   const mover = ctx.ordenable
@@ -2427,7 +2435,7 @@ function catRowHTML(entry, row, needle, ctx){
     : "";
   return `<tr class="crow${row ? " on" : ""}${sinPrecio && !row ? " out" : ""}" data-crow="${row ? id : ""}" data-cat="${esc(entry.k)}">
     <td class="qcell">${qcell}</td>
-    <td class="txt"><div class="cname">${catHighlight(nombre, needle)}${row ? `<svg class="cok" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span class="sr-only">en la cotización</span>` : ""}</div><div class="cmeta">${catBadges(entry)}</div></td>
+    <td class="txt"><div class="cline"><span class="cname">${catHighlight(nombre, needle)}</span>${row ? `<svg class="cok" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span class="sr-only">en la cotización</span>` : ""}<span class="cmeta">${catBadges(entry)}</span></div></td>
     <td class="cunitprice">${money(entry.price)}<small>sin IVA${entry.annual ? " · por año" : ""}</small></td>
     <td class="ycell">${ycell}</td>
     <td><span class="cimp none" data-limp="${row ? id : ""}">—</span></td>

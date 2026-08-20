@@ -218,7 +218,14 @@ veinte veces al día.
 
 Ahora el encabezado lleva la marca, la navegación y —a la derecha— folio, revisión y estado de
 guardado en pequeño; debajo, la barra de resumen con las cuatro cifras; y enseguida la línea de
-trabajo: buscar, filtrar, contar. **La primera fila del catálogo entra en la primera pantalla.**
+trabajo: **buscador arriba a la derecha**, chip de IVA y contador a la izquierda, y los ocho
+filtros en una **rejilla de cuatro columnas** que se lee como índice del catálogo en vez de como
+una tira de píldoras de anchos distintos. **La primera fila del catálogo entra en la primera
+pantalla.**
+
+Cada partida ocupa **un solo renglón de 51 px**: el nombre y sus etiquetas van en la misma línea
+—usando el ancho que sobra a la derecha en vez de crecer hacia abajo— y la unidad se lee al lado
+del campo de cantidad, no debajo.
 
 El aviso de IVA sobrevive porque es una advertencia, no un adorno: es el chip **`SIN IVA`** en
 ámbar (`--g-yel-t` / `--g-yel-d`) a la derecha de los filtros. El verde afirma; esto avisa. Por
@@ -236,6 +243,11 @@ de los dos depende del ancho de la aplicación**, así que la tabla del catálog
   columnas) y la fila del catálogo compartían nombre, y la regla de contactos convertía cada
   `<tr>` en una rejilla: la tabla salía con el encabezado por un lado y las celdas encimadas por
   otro. El renglón de contacto ahora se llama **`.ccrow`**.
+- **Los campos de la tabla necesitan especificidad.** Desde que la cantidad y los años son
+  `type="text"`, la regla global de formularios (`input[type=text]{width:100%}`) **empata** en
+  especificidad con `.qwrap input` y gana por ir después: el campo se comía la celda entera y la
+  unidad quedaba recortada a cero. Por eso las reglas van ancladas a su celda
+  (`.qcell .qwrap input`, `.ycell .ywrap input`).
 - **El encabezado pegajoso no tolera ancestros con `overflow`.** `position:sticky` se mide
   contra el contenedor de desplazamiento más cercano, y tanto `overflow-x:auto` como
   `overflow:hidden` crean uno. Con `.tscroll` y `.tbox` encima, el encabezado se iba 130 px
