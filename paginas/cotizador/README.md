@@ -175,9 +175,67 @@ Es la salida que llega al cliente, así que tiene camino propio:
 2. `preparePrint()` construye el documento completo dentro de `#printRoot`.
 3. Con `body.pp-on`, el `@media print` **oculta toda la aplicación** y muestra solo `#printRoot`.
 
-El documento impreso lleva portada con folio, revisión, fecha y vigencia, el desglose por áreas,
-la inversión, los esquemas de pago, los accesos a plataformas, los datos bancarios con su
-advertencia de verificación del titular, y el bloque de firmas.
+El documento impreso lleva portada con folio, revisión, fecha y vigencia, y seis secciones:
+
+| # | Sección | Qué lleva |
+|---|---|---|
+| 1 | Todo lo que incluye el programa | Tira de conteos del acompañamiento y las tres áreas TI · IP · DP |
+| 2 | Alcance del programa | Conteos de estudiantes, equipos, docentes y usuarios con licencia, más las reglas en viñetas |
+| 3 | Inversión | La cifra del esquema elegido en una tarjeta `.p-hero`; los comparativos que el vendedor marcó, en tarjetas menores |
+| 4 | Esquema de pago | El desglose año por año del esquema o esquemas visibles |
+| 5 | Accesos a plataformas | Tarjetas con logotipo y dirección |
+| 6 | Datos bancarios y contacto | Transferencia con advertencia de titular, contacto y firmas |
+
+**La hoja interior no repite la portada** (21-ago-2026). El cuerpo arranca directo en la sección
+1: ni logotipo, ni folio, ni cliente, ni ciudad. Esos datos viven en la portada y en el
+encabezado y el pie corridos de cada hoja; repetirlos costaba media hoja y no decía nada nuevo.
+En pantalla la identidad la lleva la barra del overlay, que ya rotula institución y folio.
+
+### El documento no imprime cómo se armó el precio
+
+**Decisión de Martín, 21-ago-2026.** El colegio debe ver **qué recibe** y **cuánto paga**, no la
+mecánica del precio. Salieron de la propuesta, del PDF y del correo:
+
+- la **tabla de conciliación** (precio base, licencias retiradas −$, adicionales +$, carritos +$,
+  redondeo a centavos): era el menú con el que un cliente renegocia renglón por renglón;
+- la nota del **precio exacto a seis decimales**;
+- la nota de **cómo se aplica el descuento** del esquema;
+- la lista de **licencias retiradas con su importe**: el documento enumera lo que se incluye, no
+  lo que se descontó;
+- el precio sin descuento etiquetado **«Precio regular»** —el badge quedó como «Esquema
+  estándar»— y la línea «Sin descuento aplicado»: enseñaban el techo desde el cual pedir más;
+- el **rastro de autorización del carrito** (quién lo autorizó y cuándo), que es dato interno del
+  vendedor. El compromiso sigue en el papel, como chip: «N carritos de M equipos · incluidos sin
+  costo».
+
+Los **conteos sí se quedan** —son lo que el colegio contrata— pero en una tira de tarjetas
+`.p-kpis`, no en una tabla que se leía como hoja de cálculo. El motor sigue calculando todo: lo
+que cambió es qué se imprime. Lo clava la prueba «El documento no imprime cómo se armó el
+precio», que busca cada uno de esos rastros por su nombre y falla si reaparece.
+
+### Papelería v5
+
+El vocabulario de tarjetas y chips del documento vive entre las marcas
+`/* ===== PAPELERÍA v5 · inicio ===== */` y `/* ===== PAPELERÍA v5 · fin ===== */` al final del
+`<style>`, y es **byte a byte el mismo bloque** que el de `paginas/arrendamiento/` (y el que
+llevará `paginas/compra/` cuando termine su edición). Para comprobar que no se separaron:
+
+```sh
+for p in cotizador arrendamiento; do
+  sed -n '/PAPELERÍA v5 · inicio/,/PAPELERÍA v5 · fin/p' paginas/$p/index.html > /tmp/$p.css
+done
+diff /tmp/cotizador.css /tmp/arrendamiento.css   # debe salir vacío
+```
+
+No se extrajo a `compartidos/css/`: el PDF es el entregable y una hoja externa que no cargue lo
+rompería en silencio. El bloque trae dos capas del mismo marcado —pantalla en px para el overlay
+y papel en mm/pt bajo `.pp-body`— con `.p-card` y su familia, `.p-tblcard`, `.p-kpis`,
+`.p-fchips` y `.p-hero`. La regla que lo gobierna: **`.p-note` es una línea de 140 caracteres
+como máximo**; lo más largo es una `.p-card--terms` con viñetas, o sobra.
+
+En la misma pasada la franja Google de la portada bajó de **10 mm a 2 mm** —a esa altura leía
+como error de maquetación, no como marca— y los 8 mm liberados se devolvieron al aire de la hoja.
+Entre eso y la cabecera repetida, el PDF de una cotización típica pasó de **seis hojas a cinco**.
 
 ---
 

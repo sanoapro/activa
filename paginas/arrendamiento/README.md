@@ -249,6 +249,12 @@ Camino propio, idéntico en estructura al del cotizador:
    devolución) se remite al contrato de arrendamiento; aquí no se promete nada—, contacto y firmas; pie repetido con folio en cada hoja
    (`position:fixed`) y encabezado repetido vía `<thead>` de `.print-shell`.
 
+**La hoja interior no repite la portada** (21-ago-2026). El cuerpo arranca directo en la
+sección 1: ni logotipo, ni folio, ni cliente, ni ciudad. Esos datos viven en la portada y en el
+encabezado y el pie corridos de cada hoja; repetirlos costaba media hoja y no decía nada nuevo.
+En pantalla la identidad la lleva la barra del overlay, que ya rotula institución y folio. Lo
+clava la prueba «La hoja interior no repite la portada».
+
 `Ctrl+P` directo también funciona cuando el documento está listo (guard en `beforeprint`).
 
 ## Pruebas internas
@@ -310,6 +316,34 @@ tarjeta a la que pertenece**. Los tres párrafos que describían cada paso se re
 documento. La pista de los carritos bajó a la caja de cotejo; las tres notas sueltas del
 documento se volvieron una tarjeta de **Condiciones** con viñetas y su advertencia dentro; la
 tabla de inclusiones vive en `.p-tblcard`; los contactos y las firmas, en su propia tarjeta.
+
+### Papelería v5
+
+**21-ago-2026.** El vocabulario de tarjetas y chips del documento dejó de ser de esta página y
+pasó a ser el de la empresa: vive entre las marcas `/* ===== PAPELERÍA v5 · inicio ===== */` y
+`/* ===== PAPELERÍA v5 · fin ===== */` al final del `<style>`, y es **byte a byte el mismo
+bloque** que el del cotizador (y el que llevará compra cuando termine su edición). Para
+comprobar que no se separaron:
+
+```sh
+for p in cotizador arrendamiento; do
+  sed -n '/PAPELERÍA v5 · inicio/,/PAPELERÍA v5 · fin/p' paginas/$p/index.html > /tmp/$p.css
+done
+diff /tmp/cotizador.css /tmp/arrendamiento.css   # debe salir vacío
+```
+
+No se extrajo a `compartidos/css/`: el PDF es el entregable y una hoja externa que no cargue lo
+rompería en silencio. El bloque trae dos capas del mismo marcado —pantalla en px para el overlay
+y papel en mm/pt bajo `.pp-body`— con `.p-card` y su familia, `.p-tblcard`, `.p-kpis` (tira de
+conteos), `.p-fchips` (chips de dato) y `.p-hero` (la tarjeta de una sola cifra). La regla que lo
+gobierna: **`.p-note` es una línea de 140 caracteres como máximo**; lo más largo es una
+`.p-card--terms` con viñetas, o sobra.
+
+Dos cambios de portada en la misma pasada: la franja Google bajó de **10 mm a 2 mm** —a esa
+altura leía como error de maquetación, no como marca— y los 8 mm liberados se devolvieron al aire
+de la hoja. Y el pie del documento y la tarjeta de firmas, que venían **sin capa de papel** y
+heredaban píxeles de pantalla, ya tienen la suya: el pie abría con 26 px de margen y empujaba las
+firmas a una hoja propia casi vacía.
 
 ## El documento no enseña el total general
 

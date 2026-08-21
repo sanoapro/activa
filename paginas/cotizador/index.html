@@ -331,19 +331,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .prop-in{padding:32px 40px 40px}
 
 /* ---------- documento (pantalla) ---------- */
-.p-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
-.p-slogan{font-family:var(--disp);font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--acc)}
-.p-title{font-family:var(--disp);font-size:25px;font-weight:700;margin:6px 0 4px;line-height:1.2}
-.p-sub{font-size:13px;color:var(--mute)}
-.p-meta{font-size:12px;text-align:right;color:var(--mute);line-height:1.8;min-width:200px}
-.p-meta b{color:var(--ink);font-family:var(--mono);font-weight:500}
-.p-client{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:22px 0 8px}
-.p-client>div{padding:13px 16px;border-right:1px solid var(--soft)}
-.p-client>div:last-child{border-right:none}
-.p-client .k{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--faint)}
-.p-client .v{font-family:var(--disp);font-size:15px;font-weight:500;margin-top:3px}
-.p-client .v.n{font-family:var(--mono)}
-.p-chip{display:inline-block;background:var(--acc-t);color:var(--acc-d);border-radius:7px;padding:5px 11px;font-size:12px;font-weight:500;font-family:var(--disp)}
 .p-h{font-family:var(--disp);font-size:16px;font-weight:700;margin:30px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--acc);display:flex;align-items:center;gap:9px}
 .p-h .n{width:22px;height:22px;border-radius:6px;background:var(--acc);color:#fff;display:grid;place-items:center;font-size:11px;font-family:var(--mono);font-weight:600}
 .ptbl{width:100%;border-collapse:collapse;font-size:12.5px}
@@ -354,7 +341,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .ptbl .art{font-family:var(--disp);font-weight:500;font-size:12.8px}
 .ptbl .desc{color:var(--mute);font-size:11.5px;margin-top:2px;line-height:1.45}
 .p-area{margin-bottom:14px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.p-areah{display:flex;align-items:center;gap:11px;padding:10px 14px;border-bottom:2px solid}
 .p-areaico{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex:none}
 .p-areaico svg{width:15px;height:15px}
 .p-areat{display:flex;flex-direction:column;line-height:1.25;flex:1}
@@ -367,19 +353,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .p-ic{width:26px;height:26px;border-radius:7px;display:inline-grid;place-items:center}
 .p-ic svg{width:14px;height:14px}
 .p-plus{font-family:var(--disp);font-size:9px;font-weight:700;color:var(--plus-d);background:var(--plus-t);border-radius:4px;padding:1px 5px;vertical-align:middle}
-.p-acomp{border:1px solid #c6dafc;background:var(--g-blue-t);border-radius:12px;padding:13px 16px;margin-bottom:14px}
-.p-acompt{font-family:var(--disp);font-size:12px;font-weight:700;color:var(--g-blue-d);text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px}
-.p-acompg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.p-acompg>div{display:flex;flex-direction:column;gap:2px}
-.p-acompg .k{font-size:10.5px;color:var(--g-blue-d);opacity:.85}
-.p-acompg .v{font-family:var(--disp);font-size:13px;font-weight:600;color:var(--ink)}
-.p-price{display:grid;grid-template-columns:1.25fr 1fr 1fr;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:6px}
-.p-price>div{padding:16px 18px;border-right:1px solid var(--soft)}
-.p-price>div:last-child{border-right:none}
-.p-price .k{font-size:10.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--faint);min-height:26px}
-.p-price .v{font-family:var(--mono);font-size:24px;font-weight:600;margin-top:5px;letter-spacing:-.5px}
-.p-price .c1{background:var(--g-grn-t)}.p-price .c1 .v{color:var(--g-grn-d)}
-.p-price .c2{background:var(--g-blue-t)}.p-price .c2 .v{color:var(--g-blue-d)}
 .p-note{font-size:11.5px;color:var(--mute);margin-top:9px}
 /* F-24 · P2/P4 · Tarjetas de inversión (pantalla) */
 .p-invest{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:6px}
@@ -463,9 +436,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   .res-side{border-right:none;border-bottom:1px solid var(--soft)}
   .vgrid{grid-template-columns:1fr}
   .hnav{display:none}
-  .p-client{grid-template-columns:1fr 1fr}
-  .p-price,.p-sign{grid-template-columns:1fr}
-  .p-price>div{border-right:none;border-bottom:1px solid var(--soft)}
+  .p-sign{grid-template-columns:1fr}
 }
 @media(max-width:700px){
   /* En el telefono el folio y la revision partian el encabezado en cuatro
@@ -545,7 +516,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .print-runhead .rh-folio{font-family:var(--mono);color:#174ea6;font-weight:600}
 .print-runhead span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gbar--thin{height:.8mm;margin-bottom:4mm}
-.gbar--cover{height:10mm}
+.gbar--cover{height:2mm}
 
 /* ---------- contenido de las hojas · rediseño Google for Education ---------- */
 /* F-23 · Prompt 2 + M-17 · Jerarquía: cuerpo 10pt, títulos de sección 13pt en azul
@@ -563,13 +534,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .pp-body .p-h{font-family:var(--disp);font-size:13pt;font-weight:700;color:var(--secd);margin:7mm 0 3.4mm;padding-bottom:1.8mm;border-bottom:.6mm solid var(--sec);display:flex;align-items:center;gap:2.6mm;break-after:avoid}
 .pp-body>*:first-child.p-h{margin-top:0}
 .pp-body .p-h .n{width:6mm;height:6mm;border-radius:50%;background:var(--sec);color:#fff;display:grid;place-items:center;font-size:8pt;font-family:var(--mono);font-weight:700}
-.pp-body .p-client{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border:1px solid #dadce0;border-radius:2mm;overflow:hidden;margin:5mm 0 2.5mm}
-.pp-body .p-client>div{padding:2.6mm 3.4mm;border-right:1px solid #e8eaed}
-.pp-body .p-client>div:last-child{border-right:none}
-.pp-body .p-client .k{font-size:7.5pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#5f6368}
-.pp-body .p-client .v{font-family:var(--disp);font-size:10pt;font-weight:500;margin-top:.6mm}
-.pp-body .p-client .v.n{font-family:var(--mono)}
-.pp-body .p-chip{display:inline-block;background:#e8f0fe;color:#174ea6;border-radius:1.6mm;padding:1.6mm 3mm;font-size:8.2pt;font-weight:500;font-family:var(--disp)}
 .pp-body .ptbl{width:100%;border-collapse:collapse;font-size:9pt}
 /* F-23 · Prompt 2 · Encabezados de columna en azul suave Google */
 .pp-body .ptbl th{background:#e8f0fe;color:#174ea6;font-size:7.2pt;letter-spacing:.5px;text-transform:uppercase;padding:2.1mm 2.8mm;text-align:left;font-weight:700;border-bottom:1px solid #c6dafc;white-space:normal}
@@ -610,11 +574,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .pp-body .p-ic{width:4.6mm;height:4.6mm;border-radius:1.2mm;display:grid;place-items:center}
 .pp-body .p-ic svg{width:2.6mm;height:2.6mm}
 .pp-body .p-plus{font-size:5.6pt;padding:.2mm 1mm}
-.pp-body .p-acomp{border:1px solid #c6dafc;background:#e8f0fe;border-radius:2.5mm;padding:2.8mm 3.4mm;margin-bottom:3.4mm;break-inside:avoid;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.pp-body .p-acompt{font-family:var(--disp);font-size:7.4pt;font-weight:700;color:#174ea6;text-transform:uppercase;letter-spacing:.5px;margin-bottom:1.8mm}
-.pp-body .p-acompg{display:grid;grid-template-columns:repeat(4,1fr);gap:2.2mm}
-.pp-body .p-acompg .k{font-size:6.8pt;color:#174ea6}
-.pp-body .p-acompg .v{font-family:var(--disp);font-size:8.8pt;font-weight:600;color:#202124}
 /* F-24 · P2/P4 · Tarjetas de inversión: una por esquema incluido, con etiqueta de
    decisión comercial (Mayor ahorro / Recomendado / Precio regular). */
 .pp-body .p-invest{display:grid;grid-template-columns:repeat(auto-fit,minmax(46mm,1fr));gap:3mm;margin-top:1.5mm}
@@ -856,7 +815,7 @@ body.calc-first .tbox:has(#tblBreak)::after{
   .areatbl th:last-child,.areatbl td:last-child{width:auto!important;white-space:normal!important;overflow-wrap:anywhere}
   .ptbl:not(.areatbl) th:last-child,.ptbl:not(.areatbl) td:last-child{width:28%;white-space:normal!important;overflow-wrap:anywhere}
   .ptbl .art,.ptbl .desc{overflow-wrap:anywhere;word-break:break-word}
-  .p-client,.p-price,.p-contact{min-width:0}
+  .p-contact{min-width:0}
   /* F-23 · H-13 · El primer viewport de 320×568 quedaba ocupado casi por completo
      por encabezado y configuración: se compacta y el precio duplicado se retira
      (ya existe en la barra de acciones inferior). */
@@ -910,10 +869,7 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
 .areatbl .col-brand{width:96px}
 .areatbl .col-qty{width:14%}
 .p-brandmark,.areatbl td.ic{width:96px;min-width:96px;padding-right:0;vertical-align:middle;text-align:left}
-.p-total{margin:10px 0 4px}
 .p-brandmark img{display:block;max-width:82px;max-height:26px;width:auto;height:auto;object-fit:contain;object-position:left center}
-.p-brand-lockup{display:flex;align-items:center;gap:12px;margin-bottom:15px}
-.p-brand-lockup img{width:155px;height:auto;max-height:45px;object-fit:contain}
 .print-brand-logo{width:48mm;height:auto;max-height:14mm;object-fit:contain;margin-bottom:8mm}
 .platform-logo{height:25px;max-width:105px;object-fit:contain;object-position:left center;margin-bottom:5px;align-self:flex-start}
 .p-link:not(:has(.platform-logo))::before{content:"";display:block;height:25px;margin-bottom:5px}
@@ -935,8 +891,6 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
 .test-report h2{margin-top:0}.test-report pre{white-space:pre-wrap;font:12px/1.5 var(--mono);background:#f1f3f4;padding:12px;border-radius:9px}
 .test-pass{color:var(--g-grn-d)}.test-fail{color:var(--g-red-d)}
 .storage-conflict{color:var(--g-red-d)!important;font-weight:700}
-.p-adjustments{margin:10px 0 14px}
-.p-adjustments .positive{color:var(--g-red-d)}.p-adjustments .negative{color:var(--g-grn-d)}
 .logo-strip{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:15px}
 .logo-strip img{height:28px;max-width:110px;object-fit:contain}
 @media(max-width:700px){.brand-logo-img{width:120px}.brand-partner{display:none!important}.brandmark img{max-width:130px}.cartgrid{grid-template-columns:1fr}.footer-brand img{width:135px}}
@@ -980,7 +934,7 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
     border-radius:3mm
   }
   .print-cover .gbar{flex:none}
-  .print-cover .gbar--cover{height:10mm;border-radius:3mm 3mm 0 0}
+  .print-cover .gbar--cover{height:2mm;border-radius:3mm 3mm 0 0}
   /* F-24 · P2 · Encabezado repetido de hojas interiores: thead de .print-shell.
      El tr contenedor DEBE poder fragmentarse entre páginas. */
   .print-shell{width:100%;border-collapse:collapse}
@@ -1010,14 +964,13 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
   .print-runfoot span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:33%}
   .print-cover__inner{
     flex:1;display:flex;flex-direction:column;justify-content:center;
-    padding:10mm 9mm 8mm
+    padding:14mm 12mm 10mm
   }
 
   .print-content,.print-content *{overflow:visible!important}
   .print-content{display:block!important}
   /* La última hoja deja 7mm de espacio en el flujo para no chocar con el pie fijo. */
   .print-content.pp-body{padding:0 0 7mm!important;overflow:visible!important;display:block!important}
-  .print-content .p-top{margin-bottom:4mm}
   .print-content .p-h{
     break-after:avoid;page-break-after:avoid;margin-top:5mm
   }
@@ -1031,21 +984,17 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
   .print-content .p-contact{
     break-inside:auto!important;page-break-inside:auto!important
   }
-  .print-content .p-areah,
   .print-content .p-schh,
   .print-content thead,
-  .print-content .p-price,
   .print-content .p-bank,
   .print-content .p-sign,
-  .print-content .p-adjustments{
+  .print-content .p-card,
+  .print-content .p-hero,
+  .print-content .p-kpis{
     break-inside:avoid!important;page-break-inside:avoid!important
   }
-  .print-content .p-areah,
   .print-content .p-schh{
     break-after:avoid!important;page-break-after:avoid!important
-  }
-  .print-content .p-acomp{
-    break-inside:avoid;page-break-inside:avoid
   }
   .print-content .p-links{grid-template-columns:repeat(4,1fr)}
   /* F-23 · M-17 · Encabezados de fila legibles en papel */
@@ -1109,6 +1058,81 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
 /* Impresión: el motor ya anula revelados y cascadas en @media print; aquí se
    anula lo que agrega esta página. (Al imprimir solo se muestra #printRoot.) */
 @media print{.mo-progress{display:none!important}}
+
+/* ===== PAPELERÍA v5 · inicio ================================================
+   BLOQUE IDÉNTICO en paginas/cotizador/ y paginas/arrendamiento/ (y en
+   paginas/compra/ en cuanto termine su edición en otra sesión). Se copia
+   verbatim: es la papelería de la empresa, no el estilo de una herramienta. Para
+   comprobar que no se separaron, el diff entre los dos bloques debe salir vacío;
+   el sed y el diff exactos están en el README de cualquiera de las dos páginas.
+
+   Vocabulario común del documento que recibe el colegio. Son DOS capas sobre
+   el MISMO marcado que produce buildProposal(): la de pantalla (px, overlay
+   #propBody) y la de papel (.pp-body, mm/pt, #printRoot). Lo propio de cada
+   cotizador —áreas, esquemas, bancarios, plazo— vive fuera de estas marcas.
+
+   Regla de oro: NINGÚN TEXTO SUELTO. .p-note es una sola línea de 140
+   caracteres como máximo; cualquier cosa más larga es una .p-card--terms con
+   viñetas cortas, o sobra en el documento.
+   ========================================================================== */
+
+/* ---------- capa de pantalla ---------- */
+.p-card{border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-top:10px;font-size:11.5px;color:var(--ink2);line-height:1.6;background:#fff}
+.p-card--soft{background:#fbfcfe;color:var(--mute)}
+.pc-h{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+.pc-list{margin:0;padding-left:17px;display:grid;gap:5px}
+.pc-list li{font-size:11.5px;line-height:1.55}
+.pc-warn{margin-top:10px;background:var(--g-yel-t);border:1px solid var(--g-yel-b);border-radius:8px;padding:8px 10px;color:#6b4500;font-weight:500}
+.p-tblcard{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+/* Tira de conteos: el dato manda, la etiqueta lo nombra. Sustituye a las
+   tablas de conciliación, que se leían como una hoja de cálculo. */
+.p-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(126px,1fr));gap:10px;margin-top:6px}
+.p-kpi{border:1px solid var(--line);border-top:3px solid var(--kc,var(--acc));border-radius:12px;padding:11px 13px;background:#fff}
+.p-kpi .v{font-family:var(--mono);font-size:22px;font-weight:700;line-height:1.05;letter-spacing:-.5px;color:var(--kc,var(--acc-d))}
+.p-kpi .k{font-family:var(--disp);font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--faint);margin-top:5px}
+/* Chips de dato: lo que antes era media línea de texto entre paréntesis. */
+.p-fchips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.p-fchip{display:inline-flex;align-items:baseline;gap:6px;border-radius:999px;padding:5px 12px;font-family:var(--disp);font-size:11.5px;font-weight:600;background:var(--g-blue-t);color:var(--g-blue-d);border:1px solid #c6dafc}
+.p-fchip b{font-family:var(--mono);font-weight:700}
+.p-fchip--green{background:var(--g-grn-t);color:var(--g-grn-d);border-color:#a8dab5}
+.p-fchip--yellow{background:var(--g-yel-t);color:#6b4500;border-color:var(--g-yel-b)}
+/* Tarjeta de cierre: UNA cifra grande y, debajo, su desglose. Es el único
+   lugar del documento donde un número puede ocupar una línea entera. */
+.p-hero{border:1px solid #c6dafc;background:var(--g-blue-t);border-radius:14px;padding:18px 20px;margin-top:6px}
+.ph-k{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--g-blue-d)}
+.ph-v{font-family:var(--mono);font-size:32px;font-weight:700;line-height:1;letter-spacing:-1px;color:var(--g-blue-d);margin-top:6px}
+.ph-s{font-size:11.5px;color:var(--mute);margin-top:5px}
+.ph-break{margin-top:11px;border-top:1px solid #c6dafc;padding-top:8px;display:grid;gap:3px;font-size:11.5px}
+.ph-break div{display:flex;justify-content:space-between;gap:10px;color:var(--ink2)}
+.ph-break b{font-family:var(--mono);font-weight:600}
+.ph-break .tot b,.ph-break .tot span{font-weight:700;color:var(--g-blue-d)}
+
+/* ---------- capa de papel ---------- */
+.pp-body .p-card{border:1px solid #dadce0;border-radius:2.5mm;padding:2.8mm 3.6mm;margin-top:2.4mm;font-size:8.4pt;color:#3c4043;line-height:1.55;background:#fff;break-inside:avoid}
+.pp-body .p-card--soft{background:#f8fafc;color:#5f6368}
+.pp-body .pc-h{font-family:var(--disp);font-size:7.4pt;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#5f6368;margin-bottom:1.6mm}
+.pp-body .pc-list{margin:0;padding-left:4.2mm;display:grid;gap:1.1mm}
+.pp-body .pc-list li{font-size:8.4pt;line-height:1.5}
+.pp-body .pc-warn{margin-top:2.2mm;background:#fef7e0;border:1px solid #fdd663;border-radius:1.8mm;padding:1.8mm 2.6mm;color:#8a4b00;font-weight:500}
+.pp-body .p-tblcard{border:1px solid #dadce0;border-radius:2.5mm;overflow:hidden}
+.pp-body .p-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(28mm,1fr));gap:2.6mm;margin-top:1.5mm;break-inside:avoid}
+.pp-body .p-kpi{border:1px solid #dadce0;border-top:.9mm solid var(--kc,#1a73e8);border-radius:2mm;padding:2.4mm 2.8mm;background:#fff;box-shadow:0 1px 2.5px rgba(60,64,67,.10)}
+.pp-body .p-kpi .v{font-family:var(--mono);font-size:15pt;font-weight:700;line-height:1.05;letter-spacing:-.6px;color:var(--kc,#174ea6)}
+.pp-body .p-kpi .k{font-family:var(--disp);font-size:6.8pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#5f6368;margin-top:1.2mm}
+.pp-body .p-fchips{display:flex;flex-wrap:wrap;gap:2mm;margin-top:2.2mm}
+.pp-body .p-fchip{display:inline-flex;align-items:baseline;gap:1.6mm;border-radius:999px;padding:1.3mm 3.2mm;font-family:var(--disp);font-size:8pt;font-weight:600;background:#e8f0fe;color:#174ea6;border:1px solid #c6dafc}
+.pp-body .p-fchip b{font-family:var(--mono);font-weight:700}
+.pp-body .p-fchip--green{background:#e6f4ea;color:#0d652d;border-color:#a8dab5}
+.pp-body .p-fchip--yellow{background:#fef7e0;color:#8a4b00;border-color:#fdd663}
+.pp-body .p-hero{border:1px solid #c6dafc;background:#e8f0fe;border-radius:3mm;padding:4mm 4.6mm;margin-top:1.5mm;break-inside:avoid;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.pp-body .ph-k{font-family:var(--disp);font-size:7.4pt;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#174ea6}
+.pp-body .ph-v{font-family:var(--mono);font-size:26pt;font-weight:700;line-height:1;letter-spacing:-1.2px;color:#174ea6;margin-top:1.4mm}
+.pp-body .ph-s{font-size:8pt;color:#5f6368;margin-top:1.2mm}
+.pp-body .ph-break{margin-top:2.6mm;border-top:1px solid #c6dafc;padding-top:1.8mm;display:grid;gap:.7mm;font-size:8.2pt}
+.pp-body .ph-break div{display:flex;justify-content:space-between;gap:3mm;color:#3c4043}
+.pp-body .ph-break b{font-family:var(--mono);font-weight:600}
+.pp-body .ph-break .tot b,.pp-body .ph-break .tot span{font-weight:700;color:#174ea6}
+/* ===== PAPELERÍA v5 · fin ================================================= */
 </style>
 </head>
 <body>
@@ -3326,71 +3350,73 @@ function buildProposal(){
      cada esquema con su color Google sólido. M-10: mensualidades desde PAYS. */
   const scheme=(key,title,bg,fg)=>{const rows=r.schemes[key],defer=PAYS[key].installments>0;return `<div class="p-schbox p-schbox-${key}"><div class="p-schh" style="background:${bg};color:${fg}"><span>${esc(title)}</span><span style="font-weight:400;font-size:11.5px">por alumno · IVA incluido</span></div><table class="ptbl"><caption class="sr-only">${esc(title)}</caption><thead><tr><th scope="col">Año</th><th scope="col">${defer?"Total del año":"Pago único en agosto"}</th>${defer?`<th scope="col">50% en agosto</th><th scope="col">${PAYS[key].installments} mensualidades</th>`:""}</tr></thead><tbody>${rows.map((y,i)=>`<tr><th scope="row"><span class="yearcell"><span class="ydot" style="background:${YEAR_C[i%4]}"></span>Año ${i+1}</span></th><td>${money(y.net)}</td>${defer?`<td>${money(y.agosto)}</td><td>${money(y.mensual)}</td>`:""}</tr>`).join("")}</tbody></table></div>`;};
   const platforms=PLATFORMS.filter(pl=>!pl.when||pl.when(L,d.isPlus));
-  const removed=LICS.filter(l=>!(l.plusOnly&&!d.isPlus)&&L[l.k]===false);const removedBlock=removed.length?`<div class="p-note p-note--important"><b>Licencias retiradas:</b> ${removed.map(l=>`${esc(l.n)}${l.disc?` (−${money(l.disc)})`:""}`).join(", ")}. Ajuste total: <b>−${money(r.discLic)} por alumno/año</b>.</div>`:`<div class="p-note">No se retiraron licencias con descuento comercial.</div>`;
-  /* F-11 · Los renglones se redondean a centavos ANTES de sumarse y el total se
-   construye con esa suma, de modo que la tabla del PDF siempre cuadre. */
-  const adjRows=[["Precio base",r.base,"base"],["Licencias retiradas",-r.discLic,"negative"],["Docentes y equipos docentes adicionales",r.adjEqDoc,"positive"],["Equipos adicionales de estudiantes",r.adjStuExtra,"positive"],["Carritos",r.adjCart,"positive"]]
-    .filter(([n,v])=>n==="Precio base"||Math.abs(v)>0.000001)
-    .map(([n,v,c])=>[n,roundCurrency(v),c]);
-  const adjSum=roundCurrency(adjRows.reduce((acc,[,v])=>acc+v,0));
-  const adjRound=roundCurrency(roundCurrency(r.list)-adjSum);
-  if(Math.abs(adjRound)>0.000001)adjRows.push(["Redondeo a centavos",adjRound,adjRound<0?"negative":"positive"]);
-  /* F-23 · M-01 · Los importes anuales derivan del precio exacto (6 decimales), no
-     del redondeado a centavos: sin esta nota la diferencia de hasta un centavo al
-     recalcular a mano parece un error de cálculo. */
-  const exactList=roundFinancial(r.listRaw);
-  const precisionNote=`<div class="p-note">Los importes anuales se calculan sobre el precio exacto por alumno (${exactList.toLocaleString("es-MX",{minimumFractionDigits:6,maximumFractionDigits:6})} MXN) y se redondean a centavos únicamente al final. Por eso pueden diferir hasta en un centavo del resultado de multiplicar el precio de lista redondeado por el factor del año.</div>`;
-  const adjustments=[...adjRows,["Precio final de lista",roundCurrency(adjRows.reduce((acc,[,v])=>acc+v,0)),"base"]];const adjustmentBlock=`<table class="ptbl p-adjustments"><caption class="sr-only">Conciliación del precio por alumno y año</caption><thead><tr><th scope="col">Ajuste</th><th scope="col">Importe por alumno/año</th></tr></thead><tbody>${adjustments.map(([n,v,c])=>`<tr><th scope="row">${esc(n)}</th><td class="${c}">${v<0?"−":""}${money(Math.abs(v))}</td></tr>`).join("")}</tbody></table>${precisionNote}`;
-  /* F-23 · C-04 · La regla "solicitar menos equipos no baja el precio" ahora viaja
-     al documento que firma el colegio, igual que ya viajaba la regla 1:1 sin cargo.
-     Antes el PDF mostraba "incluidos 65 / solicitados 60" sin explicación. */
-  /* F-25 · P4 · Ya no existe el caso "solicitó menos de los incluidos": el total
-     incluido es fijo y el comercial solo puede sumar adicionales. */
-  const teacherDeviceRows=r.hasDev?`<tr><th scope="row">Equipos docentes incluidos · ${esc(teacherModelLabel(r.teacherModel).toLowerCase())}</th><td>${r.eqDocInc}</td></tr>${r.eqDocX?`<tr><th scope="row">Adicionales docentes · modelo docente</th><td>${r.eqDocX}</td></tr>`:""}${r.eqStuX?`<tr><th scope="row">Adicionales docentes · modelo estudiante</th><td>${r.eqStuX}</td></tr>`:""}<tr><th scope="row">Total del parque de equipos</th><td>${r.totalEq}</td></tr>`:"";
-  /* F-25 · P1/P2/P3 · La propuesta explica las tres reglas que el colegio necesita
-     entender: docentes con licencia 1:10, equipos docentes según el modelo elegido, y
-     que cada equipo docente adicional suma un usuario con licencia. */
-  const teacherRulesNote=r.hasDev?`<div class="p-note"><b>Cómo se calculan docentes y sus equipos:</b> el programa incluye <b>${r.docInc} docente(s) con licencia</b> (1 por cada ${APP_CONFIG.equipment.includedTeacherRatio} estudiantes), con acceso completo a plataformas, capacitación y certificación. Los <b>equipos</b> para esos docentes se entregan en <b>${esc(teacherModelLabel(r.teacherModel).toLowerCase())}</b>: ${r.eqDocInc} equipo(s), 1 por cada ${r.teacherRatio} estudiantes. Las licencias de esos equipos ya están comprendidas en los ${r.docInc} docentes incluidos y no se cobran por separado.</div>`:`<div class="p-note"><b>Docentes:</b> el programa incluye ${r.docInc} docente(s) con licencia (1 por cada ${APP_CONFIG.equipment.includedTeacherRatio} estudiantes). La modalidad sin equipos no entrega dispositivos.</div>`;
-  const teacherExtrasNote=r.teacherDeviceExtras?`<div class="p-note p-note--important"><b>Equipos docentes adicionales:</b> ${r.teacherDeviceExtras} equipo(s) fuera de lo incluido${r.eqDocX?` (${r.eqDocX} modelo docente)`:""}${r.eqStuX?` (${r.eqStuX} modelo estudiante)`:""}. Cada uno suma un <b>usuario con licencia</b> al programa y se cobra a costo de catálogo, con el licenciamiento ya comprendido en ese precio.</div>`:"";
-  const studentExtrasNote=r.stuExtra?`<div class="p-note"><b>Equipos de estudiante adicionales:</b> ${r.stuExtra} equipo(s) por encima de los ${r.stuIncl} que incluye la modalidad ${esc(d.modLbl)}.${r.stuChg?` Se cobran al ${percent(APP_CONFIG.equipment.extraStudentDeviceFactor)} del precio base.`:` En modalidad ${esc(d.modLbl)} no modifican el precio por alumno.`}</div>`:"";
-  const equipmentBlock=r.hasDev?`<table class="ptbl"><caption class="sr-only">Conciliación de equipos para estudiantes</caption><thead><tr><th scope="col">Concepto</th><th scope="col">Cantidad</th></tr></thead><tbody><tr><th scope="row">Equipos de estudiante incluidos por modalidad</th><td>${r.stuIncl}</td></tr><tr><th scope="row">Equipos de estudiante entregados</th><td>${r.stuReq}</td></tr><tr><th scope="row">Equipos de estudiante adicionales</th><td>${r.stuExtra}</td></tr><tr><th scope="row">Adicionales cobrables</th><td>${r.stuChg}</td></tr>${teacherDeviceRows}<tr><th scope="row">Docentes incluidos (1 por cada ${APP_CONFIG.equipment.includedTeacherRatio} estudiantes)</th><td>${r.docInc}</td></tr>${r.docExtra?`<tr><th scope="row">Docentes extra sin equipo</th><td>${r.docExtra}</td></tr>`:""}${r.teacherDeviceExtras?`<tr><th scope="row">Docentes por equipos adicionales</th><td>${r.teacherDeviceExtras}</td></tr>`:""}<tr><th scope="row">Docentes con licencia · total</th><td>${r.docTot}</td></tr><tr><th scope="row">Usuarios con licencia</th><td>${r.users.toLocaleString("es-MX")}</td></tr></tbody></table>${teacherRulesNote}${studentExtrasNote}${teacherExtrasNote}`:`${teacherRulesNote}`;
-  const auth=S().cartFreeAuthorization;const cartNote=r.cartFreeValid?`<div class="p-note p-note--important"><b>Autorización comercial:</b> ${r.carts} carrito(s) de ${S().cartCap} equipos incluidos sin costo. Autorizó ${esc(auth.authorizedBy)} el ${esc(new Date(auth.authorizedAt).toLocaleString("es-MX"))}.</div>`:"";
-  /* F-24 · P3 · Se retiró la tabla de totales completos del contrato (por alumno ×
-     años × estudiantes): decisión comercial expresa — los importes de millones
-     asustan al cliente. La facturación es por alumno y así se comunica. */
-  /* F-24 · P4 · El documento muestra únicamente el esquema elegido más los que el
-     vendedor marcó para comparación. Una opción vencida o de más confunde. */
+  /* ==========================================================================
+     PAPELERÍA v5 · Qué SALE del documento y por qué (decisión de Martín,
+     21-ago-2026). El colegio debe ver QUÉ recibe y CUÁNTO paga; no cómo se
+     armó el precio. Se retiraron de la propuesta:
+       · la tabla de conciliación del precio (precio base, licencias
+         retiradas −$, adicionales +$, carritos +$, redondeo): era el menú
+         con el que un cliente renegocia renglón por renglón;
+       · la nota del precio exacto a seis decimales;
+       · la nota de cómo se aplica el descuento del esquema;
+       · la lista de licencias retiradas CON su importe: el documento
+         enumera lo que se incluye, no lo que se descontó;
+       · el precio sin descuento etiquetado «Precio regular»: enseñaba el
+         techo desde el cual pedir más;
+       · el rastro de autorización del carrito (quién y cuándo): dato interno
+         del vendedor, no del colegio.
+     Los conteos SÍ se quedan —son lo que el colegio contrata— pero en una
+     tira de tarjetas, no en una tabla que se leía como hoja de cálculo.
+     ========================================================================== */
+  /* Sección 1 · El acompañamiento asignado deja la rejilla de etiquetas y pasa
+     a ser una tira de conteos: la cifra manda y la etiqueta la nombra. */
+  const acompKpis=`<div class="p-kpis"><div class="p-kpi" style="--kc:#1a73e8"><div class="v">${r.cap.h}</div><div class="k">Horas de capacitación al año</div></div><div class="p-kpi" style="--kc:#d93025"><div class="v">${r.cap.vis}</div><div class="k">Visitas presenciales de coach</div></div>${d.isPlus&&L.motiva!==false?`<div class="p-kpi" style="--kc:#8a4b00"><div class="v">${r.cap.esc}</div><div class="k">Escuela para padres y docentes</div></div>`:""}<div class="p-kpi" style="--kc:#188038"><div class="v">${r.docTot.toLocaleString("es-MX")}</div><div class="k">Docentes con licencia</div></div></div>`;
+  /* El compromiso del carrito sin costo sigue en el papel —es a favor del
+     colegio— pero como chip, sin el nombre de quien lo autorizó ni la hora. */
+  const cartChip=r.cartFreeValid?`<div class="p-fchips"><span class="p-fchip p-fchip--green"><b>${r.carts}</b> carrito(s) de ${S().cartCap} equipos · incluidos sin costo</span></div>`:"";
+  /* Sección 2 · Alcance: los conteos que el colegio contrata, sin un importe. */
+  /* El parque docente solo se rotula cuando el modelo ya está elegido: sin él,
+     la vista preliminar imprimía «0 equipos docentes» y «en sin definir». */
+  const conParqueDocente=r.hasDev&&Boolean(r.teacherModel);
+  const scopeKpis=`<div class="p-kpis"><div class="p-kpi" style="--kc:#1a73e8"><div class="v">${r.stu.toLocaleString("es-MX")}</div><div class="k">Estudiantes</div></div>${r.hasDev?`<div class="p-kpi" style="--kc:#188038"><div class="v">${r.stuReq.toLocaleString("es-MX")}</div><div class="k">Equipos de estudiante</div></div>`:""}${conParqueDocente?`<div class="p-kpi" style="--kc:#8a4b00"><div class="v">${(r.eqDocInc+r.eqDocX+r.eqStuX).toLocaleString("es-MX")}</div><div class="k">Equipos docentes</div></div>`:""}<div class="p-kpi" style="--kc:#d93025"><div class="v">${r.docTot.toLocaleString("es-MX")}</div><div class="k">Docentes con licencia</div></div><div class="p-kpi" style="--kc:#174ea6"><div class="v">${r.users.toLocaleString("es-MX")}</div><div class="k">Usuarios con licencia</div></div></div>`;
+  const scopeRules=r.hasDev?`<div class="p-card p-card--terms"><div class="pc-h">Cómo se cuentan docentes y equipos</div><ul class="pc-list"><li>1 docente con licencia por cada ${APP_CONFIG.equipment.includedTeacherRatio} estudiantes, con plataformas, capacitación y certificación.</li>${conParqueDocente?`<li>Equipos docentes en <b>${esc(teacherModelLabel(r.teacherModel).toLowerCase())}</b>: 1 por cada ${r.teacherRatio} estudiantes, con su licencia ya incluida.</li>`:""}${r.teacherDeviceExtras?`<li>Cada equipo docente adicional suma un usuario con licencia al programa.</li>`:""}</ul></div>`:`<div class="p-card p-card--terms"><div class="pc-h">Cómo se cuentan los docentes</div><ul class="pc-list"><li>1 docente con licencia por cada ${APP_CONFIG.equipment.includedTeacherRatio} estudiantes.</li><li>La modalidad ${esc(d.modLbl)} no entrega equipos.</li></ul></div>`;
+  /* F-24 · P4 · El documento muestra el esquema elegido y, solo si el vendedor
+     los marcó, los que pidió comparar. Una opción vencida o de más confunde.
+     PAPELERÍA v5 · «Precio regular» pasó a «Esquema estándar»: el badge ya no
+     nombra un techo de precio. */
   const included=visibleSchemes();
   const SCHEME_META={
     contado:{badge:"Mayor ahorro",bg:"#e6f4ea",border:"#a8dab5",color:"#0d652d",bar:"#34a853"},
     antes:{badge:"Recomendado",bg:"#e8f0fe",border:"#aecbfa",color:"#174ea6",bar:"#4285f4"},
-    despues:{badge:"Precio regular",bg:"#f1f3f4",border:"#dadce0",color:"#3c4043",bar:"#9aa0a6"}
+    despues:{badge:"Esquema estándar",bg:"#f1f3f4",border:"#dadce0",color:"#3c4043",bar:"#9aa0a6"}
   };
-  const investCards=included.map(key=>{
-    const y=r.schemes[key][0],m=SCHEME_META[key],featured=key===S().pay;
-    /* F-27 · V4-11 · Decisión cerrada (opción "a" de la auditoría): el ahorro se calcula
-       restando los dos precios YA REDONDEADOS que el cliente tiene enfrente (`net` sale
-       redondeado a centavos de calculatePaymentYear), de modo que su propia resta cuadre:
-       $6,535.38 − $5,881.85 = $653.53. El costo aceptado es que el importe difiera un
-       centavo del porcentaje nominal aplicado sobre el precio mostrado (10% de $6,535.38
-       sería $653.54): el descuento real se aplica en precisión completa antes de redondear. */
-    const save=PAYS[key].disc?`Ahorra ${percent(PAYS[key].disc)} (−${money(r.schemes.despues[0].net-y.net)} por alumno)`:"Sin descuento aplicado";
-    return `<div class="p-invcard${featured?" featured":""}" style="--sc:${m.color};--sb:${m.bg};--sd:${m.border};--sbar:${m.bar}"><div class="pi-badge">${esc(m.badge)}${featured?" · esquema elegido":""}</div><div class="pi-title">${esc(PAYS[key].title)}</div><div class="pi-price">${money(y.net)}</div><div class="pi-sub">por alumno · año 1 · IVA incluido</div><div class="pi-save">${esc(save)}</div></div>`;
-  }).join("");
-  const investBlock=`<div class="p-invest" data-count="${included.length}">${investCards}</div>`;
-  /* F-07 · Regla comercial confirmada: el descuento del esquema se calcula sobre el
-     precio final por alumno, por lo que alcanza tambien a los ajustes. */
-  const discountNote=`<div class="p-note"><b>Cómo se aplica el descuento:</b> el descuento del esquema de pago se calcula sobre el precio final por alumno, de modo que también alcanza a los ajustes de esta cotización: equipos adicionales, docentes extra, carritos y licencias retiradas.</div>`;
+  /* Sección 3 · UNA cifra grande: la del esquema elegido. Los comparativos que
+     el vendedor haya marcado la acompañan en tarjetas menores. */
+  const chosen=S().pay,chosenYear=r.schemes[chosen][0];
+  const heroCaps=`${PAYS[chosen].disc?`<span class="p-fchip p-fchip--green">${percent(PAYS[chosen].disc)} de descuento aplicado</span>`:""}${chosen==="antes"?`<span class="p-fchip p-fchip--yellow">Firma antes del ${esc(earlySignatureDeadlineLabel())}</span>`:""}`;
+  const heroCard=`<div class="p-hero"><div class="ph-k">Inversión por alumno · año 1 · IVA incluido</div><div class="ph-v">${money(chosenYear.net)}</div><div class="ph-s">${esc(PAYS[chosen].title)} · paquete ${esc(d.pkgName)} · modelo ${esc(d.modLbl)} · contrato a ${r.yrs} años</div>${heroCaps?`<div class="p-fchips">${heroCaps}</div>`:""}</div>`;
+  const compared=included.filter(key=>key!==chosen);
+  /* F-27 · V4-11 · El ahorro se calcula restando los dos precios YA REDONDEADOS
+     que el cliente tiene enfrente, para que su propia resta cuadre. Solo se
+     emite para esquemas CON descuento: «sin descuento aplicado» era una
+     invitación a pedirlo. */
+  const compareCards=compared.length?`<div class="p-invest" data-count="${compared.length}">${compared.map(key=>{
+    const y=r.schemes[key][0],m=SCHEME_META[key];
+    const save=PAYS[key].disc?`<div class="pi-save">Ahorra ${percent(PAYS[key].disc)} (−${money(r.schemes.despues[0].net-y.net)} por alumno)</div>`:"";
+    return `<div class="p-invcard" style="--sc:${m.color};--sb:${m.bg};--sd:${m.border};--sbar:${m.bar}"><div class="pi-badge">${esc(m.badge)}</div><div class="pi-title">${esc(PAYS[key].title)}</div><div class="pi-price">${money(y.net)}</div><div class="pi-sub">por alumno · año 1 · IVA incluido</div>${save}</div>`;
+  }).join("")}</div>`:"";
   const readiness=getReadiness();
   const preliminary=readiness.documentReady?"":`<div class="warn w" role="status" style="margin-bottom:14px"><span><b>Vista preliminar incompleta.</b> Faltan ${readiness.documentErrors.length} dato(s) documentales. Podrás revisar el contenido, pero PDF y correo permanecerán bloqueados.</span></div>`;
-  return `${preliminary}<div class="p-brand-lockup"><img src="${BRAND_ASSETS.activa}" alt="activa"><span class="p-sub">Google for Education Partner</span></div><div class="p-top"><div><div class="p-slogan">${esc(d.slogan)}</div><div class="p-title">Cotización institucional</div><div class="p-sub">Dispositivos, licenciamiento, capacitación y soporte</div></div><div class="p-meta">Folio <b>${esc(d.folio)}</b><br>${APP_STATE.identity.revision>1?`Revisión <b>${APP_STATE.identity.revision}</b> · sustituye versiones anteriores<br>`:""}Fecha <b>${esc(d.dDate)}</b><br>Válida hasta <b>${esc(d.dValid)}</b></div></div>
-  <div class="p-client"><div><div class="k">Cliente</div><div class="v">${esc(d.inst)}</div></div><div><div class="k">Ciudad</div><div class="v">${esc(d.city)}</div></div><div><div class="k">Estudiantes</div><div class="v n">${r.stu.toLocaleString("es-MX")}</div></div><div><div class="k">Docentes</div><div class="v n">${r.docTot.toLocaleString("es-MX")}</div></div></div><div class="p-chip">Paquete ${esc(d.pkgName)} · Modelo ${esc(d.modLbl)} · ${esc(r.t.label)} · esquema destacado: ${esc(PAYS[S().pay].title)}</div>${removedBlock}${cartNote}
-  <div class="p-h" data-sec="1"><span class="n">1</span> Todo lo que incluye el programa</div><div class="p-acomp"><div class="p-acompt">Acompañamiento asignado para ${r.stu.toLocaleString("es-MX")} estudiantes</div><div class="p-acompg"><div><span class="k">Capacitación virtual</span><span class="v">${r.cap.h} horas al año</span></div><div><span class="k">Visitas presenciales de coach</span><span class="v">${esc(r.cap.det)}</span></div>${d.isPlus&&S().lic.motiva!==false?`<div><span class="k">Escuela para Padres y Docentes</span><span class="v">${r.cap.esc} visita(s) al año</span></div>`:""}<div><span class="k">Docentes con licencia (total)</span><span class="v">${r.docTot}</span></div></div></div>${AREAS.map(areaBlock).join("")}
-  <div class="p-h" data-sec="2"><span class="n">2</span> Conciliación de equipos y ajustes</div>${equipmentBlock}${adjustmentBlock}${discountNote}
-  <div class="p-h" data-sec="3"><span class="n">3</span> Inversión</div>${investBlock}<div class="p-note">Paquete ${esc(d.pkgName)} · modelo ${esc(d.modLbl)} · contrato a ${r.yrs} años · IVA incluido. La facturación se realiza por alumno conforme al calendario del esquema elegido.</div>
+  /* PAPELERÍA v5 · El cuerpo NO repite la portada: ni logotipo, ni folio, ni
+     cliente, ni ciudad. Todo eso vive en la hoja 1 y en el encabezado y el pie
+     corridos de cada hoja. En pantalla, la identidad la lleva la barra del
+     overlay (#propTitle), que ya rotula institución y folio. */
+  return `${preliminary}<div class="p-h" data-sec="1"><span class="n">1</span> Todo lo que incluye el programa</div>${acompKpis}${cartChip}${AREAS.map(areaBlock).join("")}
+  <div class="p-h" data-sec="2"><span class="n">2</span> Alcance del programa</div>${scopeKpis}${scopeRules}
+  <div class="p-h" data-sec="3"><span class="n">3</span> Inversión</div>${heroCard}${compareCards}<div class="p-note">La facturación se realiza por alumno, conforme al calendario del esquema elegido.</div>
   <div class="p-h" data-sec="4"><span class="n">4</span> ${included.length>1?"Esquemas de pago solicitados":"Esquema de pago"}</div><div class="p-sch">${included.map(key=>scheme(key,key==="despues"?PAYS.despues.title:`${PAYS[key].title} · descuento ${percent(PAYS[key].disc)}`,SCHEME_META[key].bg,SCHEME_META[key].color)).join("")}</div>${included.some(key=>PAYS[key].installments>0)?`<div class="p-note">Pago inicial en agosto más ${PAYS.antes.installments} mensualidades de septiembre a junio, salvo contado.</div>`:`<div class="p-note">Pago único en agosto, sin mensualidades.</div>`}
   <div class="p-h" data-sec="5"><span class="n">5</span> Accesos a plataformas</div><div class="p-links">${platforms.map(pl=>{const src=BRAND_ASSETS[pl.asset];return`<div class="p-link">${src?`<img class="platform-logo" src="${src}" alt="${esc(pl.n)}">`:""}<span class="pl-n">${esc(pl.n)}</span><span class="pl-u">${esc(pl.u)}</span></div>`;}).join("")}</div>
-  <div class="p-h" data-sec="6"><span class="n">6</span> Datos bancarios y contacto</div><div class="p-bank"><div class="p-bankt">${svg(P.bank,"#174ea6")} Datos para transferencia · pesos mexicanos</div><div class="p-bankg"><div><div class="k">Titular</div><div class="v" style="font-size:11px;font-family:var(--disp)">${esc(d.bank.t)}</div></div><div><div class="k">Banco</div><div class="v" style="font-size:11px;font-family:var(--disp)">${esc(d.bank.n)}</div></div><div><div class="k">Cuenta</div><div class="v">${esc(d.bank.c)}</div></div><div><div class="k">CLABE</div><div class="v">${esc(d.bank.k)}</div></div></div><div class="p-bankwarn">⚠ Antes de transferir, verifica que el titular de la cuenta coincida: <b>${esc(d.bank.t)}</b>.</div><div class="p-banklegal"><b>${esc(d.legal)}${d.rfc?" · RFC "+esc(d.rfc):""}</b><br>${esc(d.addr)}</div></div><div class="p-contact" style="margin-top:12px"><div><span class="k">Preparado por</span><span class="v">${esc(d.by)}${d.role?" · "+esc(d.role):""}</span></div><div><span class="k">Cotización válida hasta</span><span class="v">${esc(d.dValid)}</span></div><div><span class="k">Teléfono</span><span class="v">${esc(d.phone)}</span></div><div><span class="k">Tiempo de entrega</span><span class="v">${esc(d.deliver)}</span></div><div><span class="k">Correo</span><span class="v">${esc(d.mail)}</span></div><div><span class="k">Incluye envío</span><span class="v">${esc(d.ship)}</span></div></div>${d.contacts.length?`<div class="p-note"><b>Contactos del colegio:</b> ${d.contacts.map(c=>esc([c.name,c.email,c.phone].filter(Boolean).join(" · "))).join(" | ")}</div>`:""}<div class="p-sign"><div class="p-signb"><div class="n">${esc(d.by)}</div><div class="r">${esc(d.role||"activa")} · activa · Google for Education Partner</div></div><div class="p-signl">Aceptación del colegio · nombre, cargo y fecha</div></div>`;
+  <div class="p-h" data-sec="6"><span class="n">6</span> Datos bancarios y contacto</div><div class="p-bank"><div class="p-bankt">${svg(P.bank,"#174ea6")} Datos para transferencia · pesos mexicanos</div><div class="p-bankg"><div><div class="k">Titular</div><div class="v" style="font-size:11px;font-family:var(--disp)">${esc(d.bank.t)}</div></div><div><div class="k">Banco</div><div class="v" style="font-size:11px;font-family:var(--disp)">${esc(d.bank.n)}</div></div><div><div class="k">Cuenta</div><div class="v">${esc(d.bank.c)}</div></div><div><div class="k">CLABE</div><div class="v">${esc(d.bank.k)}</div></div></div><div class="p-bankwarn">⚠ Antes de transferir, verifica que el titular de la cuenta coincida: <b>${esc(d.bank.t)}</b>.</div><div class="p-banklegal"><b>${esc(d.legal)}${d.rfc?" · RFC "+esc(d.rfc):""}</b><br>${esc(d.addr)}</div></div><div class="p-contact" style="margin-top:12px"><div><span class="k">Preparado por</span><span class="v">${esc(d.by)}${d.role?" · "+esc(d.role):""}</span></div><div><span class="k">Cotización válida hasta</span><span class="v">${esc(d.dValid)}</span></div><div><span class="k">Teléfono</span><span class="v">${esc(d.phone)}</span></div><div><span class="k">Tiempo de entrega</span><span class="v">${esc(d.deliver)}</span></div><div><span class="k">Correo</span><span class="v">${esc(d.mail)}</span></div><div><span class="k">Incluye envío</span><span class="v">${esc(d.ship)}</span></div></div>${d.contacts.length?`<div class="p-card p-card--soft"><b>Contactos del colegio:</b> ${d.contacts.map(c=>esc([c.name,c.email,c.phone].filter(Boolean).join(" · "))).join(" | ")}</div>`:""}<div class="p-sign"><div class="p-signb"><div class="n">${esc(d.by)}</div><div class="r">${esc(d.role||"activa")} · activa · Google for Education Partner</div></div><div class="p-signl">Aceptación del colegio · nombre, cargo y fecha</div></div>`;
 }
 function buildPrintDocument(){
   const d=docData(),r=d.r;
@@ -4097,7 +4123,12 @@ const QuoteTests={
       this.assert(vistos.has("TEACHER_MODEL"),"el escenario sin modelo docente dejó de emitir TEACHER_MODEL");
     });
     this.test("F-25 · P5 · Sin equipos no exige modelo docente",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const r=quote({pkg:"edu",term:"cb4",mod:0,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:null,docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assert(!r.warns.some(w=>w.code==="TEACHER_MODEL"),"la modalidad sin equipos no debe exigir modelo docente");});
-    this.test("F-25 · El PDF documenta las reglas de docentes y los adicionales",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";S().mod=4;S().stu=200;S().teacherDeviceModel="docente";S().eqDoc=1;S().eqStu=1;S().stuExtra=3;CURRENT_RESULT=quote(S());const html=buildProposal();this.assert(/Cómo se calculan docentes y sus equipos/.test(html),"falta la nota de reglas de docentes");this.assert(/Adicionales docentes · modelo docente/.test(html),"falta el renglón de adicionales modelo docente");this.assert(/Adicionales docentes · modelo estudiante/.test(html),"falta el renglón de adicionales modelo estudiante");this.assert(/suma un <b>usuario con licencia<\/b>/.test(html),"la propuesta no explica que el adicional suma licencia");this.assert(!/Equipos incluidos no solicitados/.test(html),"reapareció el renglón de LESS_DEVICES");}));
+    /* PAPELERÍA v5 · Antes esta prueba clavaba las notas largas de reglas de
+       docentes y los renglones de la tabla de conciliación. Esas reglas siguen
+       en el documento, pero como conteos y viñetas cortas: lo que se protege
+       ahora es que el ALCANCE (cuántos equipos, cuántas licencias) se imprima
+       y que las reglas se digan sin un solo importe. */
+    this.test("F-25 · El PDF documenta el alcance y las reglas de docentes",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";S().mod=4;S().stu=200;S().teacherDeviceModel="docente";S().eqDoc=1;S().eqStu=1;S().stuExtra=3;CURRENT_RESULT=quote(S());const r=CURRENT_RESULT,html=buildProposal();this.assert(html.includes("Alcance del programa"),"falta la sección de alcance");this.assert(/class="p-kpis"/.test(html),"el alcance no se imprime como tira de conteos");this.assert(html.includes(`<div class="v">${(r.eqDocInc+r.eqDocX+r.eqStuX).toLocaleString("es-MX")}</div><div class="k">Equipos docentes</div>`),"el conteo de equipos docentes no cuadra");this.assert(html.includes(`<div class="v">${r.users.toLocaleString("es-MX")}</div><div class="k">Usuarios con licencia</div>`),"falta el conteo de usuarios con licencia");this.assert(/Cómo se cuentan docentes y equipos/.test(html),"faltan las reglas de docentes");this.assert(/Cada equipo docente adicional suma un usuario con licencia/.test(html),"la propuesta no explica que el adicional suma licencia");this.assert(!/Equipos incluidos no solicitados/.test(html),"reapareció el renglón de LESS_DEVICES");}));
     this.test("F-25 · Migración v3 a v4 conserva la aritmética histórica",()=>{const legado={v:3,cycle:APP_CONFIG.cycle.id,pkg:"plus",term:"cb4",mod:4,pay:"contado",stu:65,stuRequested:71,docExtra:0,eqDoc:0,eqStu:4,cartCap:30,cartP:{20:0,30:0,40:0},lic:Object.fromEntries(LICS.map(l=>[l.k,true]))};const compartido={...legado,mod:3,stu:850,stuRequested:465};const s=sanitizeScenarioPayload(compartido,{allowLegacy:true});this.assert(s.stuExtra===40,`stuRequested 465 sobre 425 incluidos debía migrar a 40 adicionales, dio ${s.stuExtra}`);this.assert(sanitizeScenarioPayload(legado,{allowLegacy:true}).stuExtra===0,"en 1:1 los adicionales deben normalizarse a 0");this.assert(s.teacherDeviceModel==="docente","la migración debe fijar el modelo docente histórico 1:20");const bajo=sanitizeScenarioPayload({...compartido,stuRequested:400},{allowLegacy:true});this.assert(bajo.stuExtra===0,"un legado por debajo de lo incluido debe migrar a 0 adicionales, sin bloqueo ni aviso");});
     this.test("F-25 · El escenario compartible viaja con modelo y adicionales",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();S().mod=3;S().teacherDeviceModel="estudiante";S().stuExtra=9;const ida=scenarioPayload();this.assert(ida.v===4,"el escenario debe ser v4");const vuelta=sanitizeScenarioPayload(ida,{allowLegacy:false});this.assert(vuelta.teacherDeviceModel==="estudiante","el modelo docente no sobrevivió al viaje");this.assert(vuelta.stuExtra===9,"los adicionales no sobrevivieron al viaje");this.expectThrow(()=>sanitizeScenarioPayload({...ida,teacherDeviceModel:"otro"},{allowLegacy:false}),"modelo docente inválido");}));
     /* ===== F-26 · Ajustes de interfaz y reglas de captura ===== */
@@ -4148,9 +4179,21 @@ const QuoteTests={
     /* F-27 · V4-13 · Y la prueba inversa: durante la suite, el manejador debe ignorar los eventos. */
     this.test("F-27 · V4-13 · handleStorageConflict se silencia durante la suite",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();const before=STORAGE_CONFLICT;handleStorageConflict({key:STORAGE_KEYS.quotePrefix+APP_STATE.identity.quoteId,newValue:null});this.assert(STORAGE_CONFLICT===before,"el manejador reaccionó a un evento generado por la propia suite");}));
     this.test("El documento de impresión lleva folio en el pie repetido",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";CURRENT_RESULT=quote(S());const html=buildPrintDocument();this.assert(html.includes("print-runfoot"),"falta el pie repetido");this.assert(html.includes(folioDisplay()),"el pie no lleva folio");}));
+    /* PAPELERÍA v5 · La hoja 2 arranca en la sección 1. Si alguien vuelve a
+       pegar la cabecera en el cuerpo, el folio y el cliente saldrían tres veces
+       en la misma hoja y el documento crece media página sin decir nada nuevo:
+       la identidad ya viaja en la portada y en el encabezado corrido. */
+    this.test("La hoja interior no repite la portada",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";CURRENT_RESULT=quote(S());const html=buildProposal();for(const clase of ["p-brand-lockup","p-top","p-client","p-chip"])this.assert(!html.includes(clase),`el cuerpo volvió a llevar ${clase}`);this.assert(html.includes(`<div class="p-h" data-sec="1">`),"el cuerpo no arranca en la sección 1");this.assert(buildPrintDocument().includes("print-cover"),"la portada desapareció del documento");}));
     /* ===== F-24 · Pruebas de la segunda ronda (correo, esquemas, variantes) ===== */
-    this.test("La propuesta muestra solo el esquema elegido",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";CURRENT_RESULT=quote(S());let html=buildProposal();this.assert(html.includes("p-schbox-contado"),"falta el esquema elegido");this.assert(!html.includes("p-schbox-antes")&&!html.includes("p-schbox-despues"),"aparecieron esquemas no solicitados");this.assert((html.match(/p-invcard/g)||[]).length===1,"más de una tarjeta de inversión sin solicitarla");S().showSchemes.antes=true;html=buildProposal();this.assert(html.includes("p-schbox-antes"),"el esquema adicional marcado no apareció");this.assert((html.match(/p-invcard/g)||[]).length===2,"faltó la tarjeta del esquema adicional");}));
-    this.test("Los totales completos del contrato no se imprimen",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";CURRENT_RESULT=quote(S());const html=buildProposal();this.assert(!html.includes("Inversión total del contrato"),"la tabla de totales del contrato reapareció");this.assert(!/p-total/.test(html),"bloque p-total residual");}));
+    /* PAPELERÍA v5 · El esquema elegido ya no es una tarjeta más entre otras:
+       es LA cifra del documento (.p-hero). Las .p-invcard quedaron para los
+       comparativos que el vendedor marque a mano, así que su cuenta es la de
+       esquemas EXTRA, no la de esquemas visibles. */
+    this.test("La propuesta muestra solo el esquema elegido",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";CURRENT_RESULT=quote(S());let html=buildProposal();this.assert(html.includes("p-schbox-contado"),"falta el esquema elegido");this.assert(!html.includes("p-schbox-antes")&&!html.includes("p-schbox-despues"),"aparecieron esquemas no solicitados");this.assert((html.match(/class="p-hero"/g)||[]).length===1,"la cifra del esquema elegido no es una sola tarjeta hero");this.assert((html.match(/p-invcard/g)||[]).length===0,"apareció una tarjeta comparativa sin solicitarla");S().showSchemes.antes=true;html=buildProposal();this.assert(html.includes("p-schbox-antes"),"el esquema adicional marcado no apareció");this.assert((html.match(/p-invcard/g)||[]).length===1,"faltó la tarjeta comparativa del esquema adicional");}));
+    /* PAPELERÍA v5 · Decisión comercial del 21-ago-2026: el documento dice QUÉ
+       recibe el colegio y CUÁNTO paga, nunca cómo se armó el precio. Esta
+       prueba es la que impide que la conciliación vuelva a colarse. */
+    this.test("El documento no imprime cómo se armó el precio",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";S().stu=300;S().lic.motiva=false;CURRENT_RESULT=quote(S());const html=buildProposal()+buildPrintDocument();this.assert(!html.includes("Inversión total del contrato"),"la tabla de totales del contrato reapareció");this.assert(!/p-total|p-adjustments/.test(html),"bloque de conciliación residual");for(const rastro of ["Precio base","Redondeo a centavos","Precio final de lista","Licencias retiradas","Precio regular","Sin descuento aplicado","Cómo se aplica el descuento","precio exacto por alumno"])this.assert(!html.includes(rastro),`el documento volvió a imprimir "${rastro}"`);this.assert(!/\d\.\d{6}/.test(html),"reapareció un precio con seis decimales");}));
     this.test("El correo HTML lleva chips, precio destacado y botón de respuesta",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";CURRENT_RESULT=quote(S());const model=buildMailModel();this.assert(model.html.includes("GOOGLE FOR EDUCATION"),"falta el eyebrow de marca");this.assert(model.html.includes("Folio "),"falta el chip de folio");this.assert(model.html.includes("Responder para agendar"),"falta el botón de respuesta");this.assert(model.html.includes("PRECIO POR ALUMNO"),"falta el precio destacado");this.assert(model.plainText.includes(`Folio: ${folioDisplay()}`),"el texto plano perdió el folio");}));
     this.test("El modo varias cotizaciones redacta en plural",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";CURRENT_RESULT=quote(S());APP_STATE.mail.multiQuote=true;const model=buildMailModel();this.assert(/las cotizaciones solicitadas/.test(model.plainText),"el texto plano no quedó en plural");this.assert(model.html.includes("Cotizaciones adjuntas"),"la tarjeta del adjunto no quedó en plural");}));
     this.test("La variante de plazo crea folio nuevo con el plazo elegido",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();DIRTY=true;this.assert(saveStateNow(false),"guardado inicial");const prevRoot=APP_STATE.identity.folioRoot,prevId=APP_STATE.identity.quoteId;this.assert(createTermVariant("tb3"),"no se creó la variante");this.assert(APP_STATE.identity.folioRoot!==prevRoot,"la variante no generó folio nuevo");this.assert(S().term==="tb3","la variante no cambió el plazo");this.assert(APP_STATE.identity.parentQuoteId===prevId,"la variante no registró su origen");this.assert(APP_STATE.mail.multiQuote===true,"la variante no activó el correo múltiple");}));
