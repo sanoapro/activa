@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>activa · Arrendamiento de equipo — Cotizador · v1.2</title>
+<title>activa · Arrendamiento de equipo — Cotizador · v1.3</title>
 <meta name="description" content="Cotizador de arrendamiento de equipo Chromebook para colegios: mensualidad y total a pagar con IVA desglosado, a 3 o 4 años.">
 <!-- Fuera de los buscadores: esta herramienta la opera el equipo comercial.
      Se comparte por enlace, nunca se busca. -->
@@ -416,6 +416,14 @@ body.calc-first .inv::after{
 .p-signb .n{font-family:var(--disp);font-size:14.5px;font-weight:600}
 .p-signb .r{font-size:12px;color:var(--mute);margin-top:2px}
 .p-signl{border-top:1px solid var(--line);padding-top:10px;font-size:12px;color:var(--mute)}
+.p-fiscal{border:1px solid var(--line);background:var(--acc-t);border-radius:12px;padding:14px 16px;margin-top:12px}
+.p-fiscalt{font-family:var(--disp);font-size:11.5px;font-weight:700;color:var(--acc-d);text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.p-fiscalt svg{width:14px;height:14px}
+.p-fiscalg{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.p-fiscalg .k{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--acc-d)}
+.p-fiscalg .v{font-family:var(--disp);font-size:13px;font-weight:600;color:var(--ink);margin-top:2px}
+.p-fiscalg .v.mono{font-family:var(--mono)}
+.p-fiscaladdr{margin-top:10px;padding-top:8px;border-top:1px solid #c6dafc;font-size:11px;line-height:1.45;color:var(--faint)}
 .p-foot{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);text-align:center;line-height:1.7}
 .p-brand-lockup{display:flex;align-items:center;gap:12px;margin-bottom:15px}
 .p-brand-lockup .gdots{grid-template-columns:repeat(2,9px)}
@@ -652,6 +660,14 @@ body.calc-first .inv::after{
 .pp-body .p-contact>div:nth-last-child(-n+2){border-bottom:none}
 .pp-body .p-contact .k{color:#5f6368}
 .pp-body .p-contact .v{font-family:var(--disp);font-weight:500;text-align:right}
+.pp-body .p-fiscal{border:1px solid #aecbfa;background:#e8f0fe;border-radius:2.5mm;padding:3mm 3.6mm;margin-top:2.5mm;break-inside:avoid}
+.pp-body .p-fiscalt{font-family:var(--disp);font-size:7.5pt;font-weight:700;color:#174ea6;text-transform:uppercase;letter-spacing:.6px;margin-bottom:2mm;display:flex;align-items:center;gap:1.8mm}
+.pp-body .p-fiscalt svg{width:3.4mm;height:3.4mm}
+.pp-body .p-fiscalg{display:grid;grid-template-columns:2fr 1fr;gap:2.6mm}
+.pp-body .p-fiscalg .k{font-size:6.2pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#174ea6}
+.pp-body .p-fiscalg .v{font-family:var(--disp);font-size:9pt;font-weight:600;color:#202124;margin-top:.6mm}
+.pp-body .p-fiscalg .v.mono{font-family:var(--mono)}
+.pp-body .p-fiscaladdr{margin-top:1.8mm;padding-top:1.5mm;border-top:1px solid #c6dafc;font-size:8.2pt;line-height:1.45;color:#5f6368}
 .pp-body .p-sign{display:grid;grid-template-columns:1fr 1fr;gap:8mm;margin-top:6mm;break-inside:avoid}
 .pp-body .p-signb{border-top:.6mm solid #1a73e8;padding-top:2.4mm}
 .pp-body .p-signb .n{font-family:var(--disp);font-size:10.5pt;font-weight:600}
@@ -719,7 +735,8 @@ body.calc-first .inv::after{
   .print-content tr{break-inside:avoid!important;page-break-inside:avoid!important}
   .print-content .p-inv,
   .print-content .p-sign,
-  .print-content .p-client{break-inside:avoid!important;page-break-inside:avoid!important}
+  .print-content .p-client,
+  .print-content .p-fiscal{break-inside:avoid!important;page-break-inside:avoid!important}
   .test-report{display:none!important}
   .mo-progress{display:none!important}
   #sInterno{display:none!important}
@@ -736,7 +753,7 @@ body.calc-first .inv::after{
       <span class="brand-partner"><span class="google-g" aria-hidden="true" id="headerGoogleMark"></span>Google for Education Partner</span>
       <!-- Etiqueta de versión visible: identifica el archivo de un vistazo cuando
            circulan copias descargadas (lección del cotizador, F-27 · UX-5). -->
-      <span class="vertag" title="Cotizador de arrendamiento activa · versión del archivo">v1.2</span>
+      <span class="vertag" title="Cotizador de arrendamiento activa · versión del archivo">v1.3</span>
     </div>
     <nav class="hnav">
       <a href="#s1">Inversión</a>
@@ -898,6 +915,22 @@ body.calc-first .inv::after{
         </div>
         <div class="miniLbl">Contactos del colegio <span class="tagx">se precargan al enviar el correo</span></div>
         <div id="contactRows"></div>
+      </div>
+    </details>
+
+    <details class="fold" id="foldFis">
+      <summary>
+        <span class="fi" style="background:var(--g-yel-t)"><svg viewBox="0 0 24 24" style="fill:var(--g-yel-d)" aria-hidden="true" focusable="false"><path d="M4 10h3v7H4zM10.5 10h3v7h-3zM2 19h20v3H2zM17 10h3v7h-3zM12 1L2 6v2h20V6z"/></svg></span>
+        <span class="ft"><b>Datos fiscales de la empresa</b><i id="foldFisSum">—</i></span>
+        <span class="fc"></span>
+      </summary>
+      <div class="foldb">
+        <div class="grid2" style="margin-bottom:10px">
+          <div class="f"><label for="fLegal">Razón social</label><input type="text" id="fLegal" maxlength="160"></div>
+          <div class="f"><label for="fRfc">RFC</label><input type="text" id="fRfc" maxlength="13" autocapitalize="characters" spellcheck="false"></div>
+        </div>
+        <div class="f"><label for="fAddr">Domicilio fiscal</label><input type="text" id="fAddr" maxlength="250">
+          <div class="hint">Se imprimen en la propuesta y la razón social va en el pie de cada hoja del PDF.</div></div>
       </div>
     </details>
 
@@ -1079,7 +1112,7 @@ body.calc-first .inv::after{
         </div>
       </section>
     </div>
-    <p class="privacy-note"><b>Datos guardados en este equipo.</b> Los borradores incluyen los contactos del colegio en texto plano y sin cifrar, dentro de este navegador. Si compartes la computadora, usa <b>Eliminar otros borradores</b> al terminar la jornada.</p>
+    <p class="privacy-note"><b>Datos guardados en este equipo.</b> Los borradores incluyen los contactos del colegio y los datos fiscales de la empresa en texto plano y sin cifrar, dentro de este navegador. Si compartes la computadora, usa <b>Eliminar otros borradores</b> al terminar la jornada.</p>
     <div class="miniLbl" style="padding:0 24px">Borradores guardados</div>
     <div class="draft-list" id="draftList"></div>
     <div class="miniLbl recovery-heading" style="padding:0 24px">Copias de recuperación</div>
@@ -1126,7 +1159,8 @@ const P = {
  calendar:"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM7 11h5v5H7v-5z",
  check:"M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z",
  warn:"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z",
- info:"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+ info:"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z",
+ bank:"M4 10h3v7H4zM10.5 10h3v7h-3zM2 19h20v3H2zM17 10h3v7h-3zM12 1L2 6v2h20V6z"
 };
 /* Marca embebida (misma imagen del cotizador y del kit): va en el archivo para
    que la herramienta se vea igual sin red. */
@@ -1450,6 +1484,25 @@ function newIdentity(sellerName,dateISO){
   return{quoteId:uuid(),folioRoot,revision:1,createdAt:now,updatedAt:now,parentQuoteId:null};
 }
 const DEFAULT_SELLER=deepFreeze({name:"Martín Maldonado",role:"Director Comercial",phone:"55 2725 9300",email:"martin@activa.la",website:"activa.la"});
+/* Datos fiscales de la empresa que emite la propuesta. NO son información
+   interna: viajan en el documento igual que en el cotizador de compra. Se
+   editan por cotización y se guardan con el borrador. Aquí no hay datos
+   bancarios: el arrendamiento se factura y se cobra conforme al contrato. */
+const DEFAULT_SUPPLIER=deepFreeze({
+  legalName:"IQU TECHNOLOGIES SAPI DE CV",
+  rfc:"ITE2109227E6",
+  address:"Bosque de Radiatas 54 Int 201, Bosques de las Lomas, Cuajimalpa de Morelos, 05120 Ciudad de México, CDMX"
+});
+const RFC_RE=/^([A-ZÑ&]{3,4})(\d{2})(0[1-9]|1[0-2])([0-2]\d|3[01])([A-Z\d]{3})$/;
+/* El RFC, además del formato, exige que la fecha exista en el calendario. */
+function rfcOk(value){
+  const v=String(value||"").trim().toUpperCase();
+  const m=v.match(RFC_RE);
+  if(!m)return false;
+  const yy=Number(m[2]),mm=Number(m[3]),dd=Number(m[4]),year=2000+yy;
+  const d=new Date(Date.UTC(year,mm-1,dd));
+  return d.getUTCFullYear()===year&&d.getUTCMonth()===mm-1&&d.getUTCDate()===dd;
+}
 function loadSellerProfile(){if(!HAS_STORAGE)return clone(DEFAULT_SELLER);try{const raw=JSON.parse(localStorage.getItem(STORAGE_KEYS.seller)||"null");if(!isPlainObject(raw))return clone(DEFAULT_SELLER);return{name:strictString(raw.name??DEFAULT_SELLER.name,{field:"Vendedor",max:100,min:1}),role:strictString(raw.role??DEFAULT_SELLER.role,{field:"Puesto",max:80,optional:true}),phone:strictString(raw.phone??DEFAULT_SELLER.phone,{field:"Teléfono",max:30,optional:true}),email:cleanEmail(raw.email??DEFAULT_SELLER.email,{field:"Correo del vendedor"}),website:strictString(raw.website??DEFAULT_SELLER.website,{field:"Sitio web",max:120,optional:true})};}catch(error){console.warn("Perfil de vendedor inválido; se usarán valores predeterminados",error);return clone(DEFAULT_SELLER);}}
 function saveSellerProfile(seller){
   if(!HAS_STORAGE)return false;
@@ -1470,6 +1523,7 @@ function defaultState(generateIdentity=true){
     client:{institution:"",shortName:"",city:"",contacts:[{name:"",email:"",phone:""},{name:"",email:"",phone:""}]},
     validity:{quoteDate:today,validUntil:addDaysISO(today,VALIDITY_DAYS),validUntilAuto:true},
     seller,
+    supplier:clone(DEFAULT_SUPPLIER),
     mail:{recipients:[],excludedRecipients:[],subjectOverride:"",subjectMode:"auto"}
   };
 }
@@ -1525,6 +1579,12 @@ function sanitizeImportedState(raw,{regenerateIdentity=false,draftMode=false}={}
     phone:readText(sellerRaw.phone??"",{field:"Teléfono vendedor",max:30,optional:true}),
     email:readEmail(sellerRaw.email??"",{field:"Correo vendedor",optional:true}),
     website:readText(sellerRaw.website??"",{field:"Sitio web",max:120,optional:true})
+  };
+  const supplierRaw=isPlainObject(raw.supplier)?raw.supplier:{};
+  state.supplier={
+    legalName:readText(supplierRaw.legalName??DEFAULT_SUPPLIER.legalName,{field:"Razón social",max:160,min:1,optional:draftMode}),
+    rfc:readText(supplierRaw.rfc??DEFAULT_SUPPLIER.rfc,{field:"RFC",max:13,min:1,optional:draftMode}).toUpperCase(),
+    address:readText(supplierRaw.address??DEFAULT_SUPPLIER.address,{field:"Domicilio fiscal",max:250,min:1,optional:draftMode})
   };
   const client=isPlainObject(raw.client)?raw.client:{};
   state.client={
@@ -1893,10 +1953,14 @@ function getReadiness(){
     ["fDate",APP_STATE.validity.quoteDate,"Captura la fecha de cotización."],
     ["fValid",APP_STATE.validity.validUntil,"Captura la vigencia."],
     ["fBy",APP_STATE.seller.name,"Captura el nombre de quien firma."],
-    ["fMail",APP_STATE.seller.email,"Captura el correo del vendedor."]
+    ["fMail",APP_STATE.seller.email,"Captura el correo del vendedor."],
+    ["fLegal",APP_STATE.supplier.legalName,"Captura la razón social de la empresa."],
+    ["fRfc",APP_STATE.supplier.rfc,"Captura el RFC de la empresa."],
+    ["fAddr",APP_STATE.supplier.address,"Captura el domicilio fiscal de la empresa."]
   ];
   required.forEach(([id,value,message])=>{if(!String(value||"").trim())errors.push({id,message,type:"document"});});
   if(APP_STATE.seller.email&&!EMAIL_RE.test(APP_STATE.seller.email))errors.push({id:"fMail",message:"El correo del vendedor no es válido.",type:"document"});
+  if(APP_STATE.supplier.rfc&&!rfcOk(APP_STATE.supplier.rfc))errors.push({id:"fRfc",message:"El RFC de la empresa no tiene un formato o una fecha válidos.",type:"document"});
   if(APP_STATE.seller.website&&!/^[\w.-]+\.[a-z]{2,}(\/\S*)?$/i.test(String(APP_STATE.seller.website).trim()))errors.push({id:"fWeb",message:"El sitio web debe ser un dominio válido, sin http:// ni espacios (ej. activa.la).",type:"document"});
   if(!validISODate(APP_STATE.validity.quoteDate))errors.push({id:"fDate",message:"La fecha de cotización no es válida.",type:"document"});
   if(!validISODate(APP_STATE.validity.validUntil))errors.push({id:"fValid",message:"La fecha de vigencia no es válida.",type:"document"});
@@ -1991,13 +2055,15 @@ function bindInstitutionField(){
 const TEXT_BINDINGS={
   fShort:"client.shortName",fCity:"client.city",
   fDate:"validity.quoteDate",fValid:"validity.validUntil",
-  fBy:"seller.name",fRole:"seller.role",fPhone:"seller.phone",fMail:"seller.email",fWeb:"seller.website"
+  fBy:"seller.name",fRole:"seller.role",fPhone:"seller.phone",fMail:"seller.email",fWeb:"seller.website",
+  fLegal:"supplier.legalName",fRfc:"supplier.rfc",fAddr:"supplier.address"
 };
 function docData(){
   const r=CURRENT_RESULT||leaseQuote(S());
   return {r,
     inst:APP_STATE.client.institution||"Institución educativa",short:APP_STATE.client.shortName,city:APP_STATE.client.city||"—",
     by:APP_STATE.seller.name||"activa",role:APP_STATE.seller.role,phone:APP_STATE.seller.phone||"—",mail:APP_STATE.seller.email||"—",web:APP_STATE.seller.website,
+    legal:APP_STATE.supplier.legalName||"activa",rfc:APP_STATE.supplier.rfc,addr:APP_STATE.supplier.address,
     dDate:fmtDate(APP_STATE.validity.quoteDate),dValid:fmtDate(APP_STATE.validity.validUntil),
     contacts:APP_STATE.client.contacts.filter(c=>c.name||c.email||c.phone),folio:folioDisplay()};
 }
@@ -2087,6 +2153,7 @@ function renderDocumentMeta(){
   $("#quoteFolio").textContent=d.folio;$("#quoteRevision").textContent=`Revisión ${APP_STATE.identity.revision}`;
   $("#foldCliSum").textContent=(APP_STATE.client.institution||"sin institución")+(d.contacts.length?` · ${d.contacts.length} contacto(s)`:"");
   $("#foldVigSum").textContent=`Vigente al ${d.dValid} · firma ${d.by}`;
+  $("#foldFisSum").textContent=`${APP_STATE.supplier.legalName||"—"} · RFC ${rfcOk(APP_STATE.supplier.rfc)?"válido":"por revisar"}`;
   renderStatus();
 }
 /* Distingue el PRIMER USO (nunca ha habido un cálculo válido) de un cálculo
@@ -2235,6 +2302,7 @@ function buildProposal(){
   </div>
   <div class="p-h"><span class="n">3</span> Vigencia y contacto</div>
   <div class="p-contact"><div><span class="k">Preparado por</span><span class="v">${esc(d.by)}${d.role?" · "+esc(d.role):""}</span></div><div><span class="k">Cotización válida hasta</span><span class="v">${esc(d.dValid)}</span></div><div><span class="k">Teléfono</span><span class="v">${esc(d.phone)}</span></div><div><span class="k">Correo</span><span class="v">${esc(d.mail)}</span></div></div>
+  <div class="p-fiscal"><div class="p-fiscalt">${svg(P.bank,"var(--acc-d)")} Datos fiscales de la empresa</div><div class="p-fiscalg"><div><div class="k">Razón social</div><div class="v">${esc(d.legal)}</div></div><div><div class="k">RFC</div><div class="v mono">${esc(d.rfc||"—")}</div></div></div><div class="p-fiscaladdr"><b>Domicilio fiscal:</b> ${esc(d.addr||"—")}</div></div>
   ${d.contacts.length?`<div class="p-card p-card--soft"><b>Contactos del colegio:</b> ${d.contacts.map(c=>esc([c.name,c.email,c.phone].filter(Boolean).join(" · "))).join(" · ")}</div>`:""}
   <div class="p-card p-card--sign"><div class="pc-h">Firmas</div><div class="p-sign"><div class="p-signb"><div class="n">${esc(d.by)}</div><div class="r">${esc(d.role||"activa")} · activa · Google for Education Partner</div></div><div class="p-signl">Aceptación del colegio · nombre, cargo y fecha</div></div></div>
   <div class="p-foot">activa · Google for Education Partner${d.web?` · ${esc(d.web)}`:""}</div>`;
@@ -2243,7 +2311,7 @@ function buildPrintDocument(){
   const d=docData(),r=d.r;
   const nameLen=String(d.inst||"").length;
   const nameScale=nameLen>90?"xxl":nameLen>60?"xl":nameLen>36?"l":"m";
-  const runfoot=`<div class="print-runfoot" aria-hidden="true"><span>activa · Arrendamiento de equipo</span><span>Folio ${esc(d.folio)} · ${esc(d.inst)}</span><span>Vigente hasta ${esc(d.dValid)}</span></div>`;
+  const runfoot=`<div class="print-runfoot" aria-hidden="true"><span>${esc(d.legal)} · Arrendamiento de equipo</span><span>Folio ${esc(d.folio)} · ${esc(d.inst)}</span><span>Vigente hasta ${esc(d.dValid)}</span></div>`;
   const runhead=`<div class="print-runhead"><span class="rh-brand"><b>activa</b> · Google for Education Partner</span><span class="rh-folio">Folio ${esc(d.folio)}</span><span class="rh-valid">Vigente hasta ${esc(d.dValid)}</span></div><div class="gbar gbar--thin" aria-hidden="true"><i></i><i></i><i></i><i></i></div>`;
   const coverChips=`<div class="cv-chips"><span class="cv-chip cv-chip--blue">${r.totalEquipos.toLocaleString("es-MX")} equipos Chromebook</span><span class="cv-chip cv-chip--green">${r.anios} años · ${r.meses} mensualidades</span>${r.seguro?`<span class="cv-chip cv-chip--yellow">Con seguro contra daños</span>`:""}${r.securly?`<span class="cv-chip cv-chip--yellow">Con Securly</span>`:""}</div>`;
   return `<article class="print-document">${runfoot}<section class="print-cover"><div class="gbar gbar--cover"><i></i><i></i><i></i><i></i></div><div class="print-cover__inner"><img class="print-brand-logo" src="${BRAND_ASSETS.activa}" alt="activa"><div class="cv-eyebrow">Arrendamiento de equipo</div><div class="cv-for">Propuesta preparada para</div><h1 class="cv-name" data-len="${nameScale}">${esc(d.inst)}</h1><div class="cv-city">${esc(d.city)}</div>${coverChips}<div class="cv-price"><div class="gbar gbar--card" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="cv-price__inner"><div><div class="cv-pl">Total mensual · IVA incluido</div><div class="cv-pv">${money(r.mensualidad.total)}</div><div class="cv-pn">Subtotal ${money(r.mensualidad.sub)} + IVA ${money(r.mensualidad.iva)} · la misma cantidad los ${r.meses} meses</div></div></div></div><div class="cv-facts"><div class="cv-fact" style="border-color:#4285F4"><div class="k">Equipos</div><div class="v">${r.totalEquipos.toLocaleString("es-MX")}</div></div><div class="cv-fact" style="border-color:#34A853"><div class="k">Contrato</div><div class="v">${r.anios} años</div></div><div class="cv-fact" style="border-color:#EA4335"><div class="k">Mensualidades</div><div class="v">${r.meses} iguales</div></div></div><div class="cv-meta"><div>Folio<b>${esc(d.folio)}</b></div>${APP_STATE.identity.revision>1?`<div>Revisión<b>${APP_STATE.identity.revision} · sustituye anteriores</b></div>`:""}<div>Fecha<b>${esc(d.dDate)}</b></div><div>Vigencia<b>${esc(d.dValid)}</b></div></div></div></section><table class="print-shell"><thead><tr><td>${runhead}</td></tr></thead><tbody><tr><td><section class="print-content pp-body">${buildProposal()}</section></td></tr></tbody></table></article>`;
@@ -2675,11 +2743,17 @@ function bindEvents(){
   for(const [id,path] of Object.entries(TEXT_BINDINGS)){
     const el=$("#"+id); if(!el)continue;
     const handler=()=>{
-      const value=el.value.trim();
+      let value=el.value.trim();
+      if(id==="fRfc"){
+        value=value.toUpperCase();
+        if(el.value!==value){el.value=value;try{el.setSelectionRange(value.length,value.length);}catch(error){}}
+      }
       setByPath(APP_STATE,path,value);
       if(id==="fValid")APP_STATE.validity.validUntilAuto=false;
       if(id==="fDate"&&APP_STATE.validity.validUntilAuto){APP_STATE.validity.validUntil=addDaysISO(value,VALIDITY_DAYS);$("#fValid").value=APP_STATE.validity.validUntil;}
-      if(id==="fMail"&&value&&!EMAIL_RE.test(value))setFieldError(id,"Captura un correo válido.");else setFieldError(id,"");
+      if(id==="fMail"&&value&&!EMAIL_RE.test(value))setFieldError(id,"Captura un correo válido.");
+      else if(id==="fRfc"&&value&&!rfcOk(value))setFieldError(id,"Revisa el formato y la fecha del RFC.");
+      else setFieldError(id,"");
       scheduleRender("document");markChanged();
     };
     const eventName=el.matches("select, input[type='date']")?"change":"input";el.addEventListener(eventName,handler);
@@ -2889,6 +2963,48 @@ const LeaseTests={
       }finally{
         if(INTERNAL_MODE)toggleInternalMode();
       }
+    }));
+
+    /* ===== Datos fiscales de la empresa ===== */
+    this.test("El RFC exige formato y una fecha que exista",()=>{
+      this.assert(rfcOk(DEFAULT_SUPPLIER.rfc),"el RFC predeterminado fue rechazado");
+      this.assert(!rfcOk("ABC230231XXX"),"un 31 de febrero fue aceptado");
+      this.assert(!rfcOk(""),"un RFC vacío fue aceptado");
+      this.assert(rfcOk("ite2109227e6"),"el RFC en minúsculas debía aceptarse");
+    });
+    this.test("El documento lleva razón social, RFC y domicilio fiscal",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();CURRENT_RESULT=leaseQuote(S());
+      const doc=buildPrintDocument();
+      for(const campo of [APP_STATE.supplier.legalName,APP_STATE.supplier.rfc,APP_STATE.supplier.address])
+        this.assert(doc.includes(esc(campo)),`el documento no imprime "${campo}"`);
+      this.assert(doc.includes("Datos fiscales de la empresa"),"falta el encabezado del bloque fiscal");
+      this.assertNoInternal(doc,"el documento con datos fiscales");
+    }));
+    this.test("Sin datos fiscales no se puede emitir el PDF",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();CURRENT_RESULT=leaseQuote(S());
+      for(const [campo,id] of [["legalName","fLegal"],["rfc","fRfc"],["address","fAddr"]]){
+        const previo=APP_STATE.supplier[campo];
+        APP_STATE.supplier[campo]="";
+        const ready=getReadiness();
+        this.assert(!ready.documentReady,`faltando ${campo} el documento seguía listo`);
+        this.assert(ready.documentErrors.some(e=>e.id===id),`faltando ${campo} nadie señaló ${id}`);
+        this.assert(ready.calculable,`faltando ${campo} se cayó el precio, y eso es documental (F-28)`);
+        APP_STATE.supplier[campo]=previo;
+      }
+      APP_STATE.supplier.rfc="ABC230231XXX";
+      const conRfcMalo=getReadiness();
+      this.assert(conRfcMalo.documentErrors.some(e=>e.id==="fRfc"),"un RFC con fecha imposible pasó la revisión");
+      this.assert(!conRfcMalo.documentReady,"un RFC inválido no bloqueó el documento");
+    }));
+    this.test("Los datos fiscales sobreviven a exportar e importar",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();
+      APP_STATE.supplier.legalName="OTRA RAZON SOCIAL SA DE CV";
+      const copia=sanitizeImportedState(clone(APP_STATE),{draftMode:true});
+      this.assert(copia.supplier.legalName==="OTRA RAZON SOCIAL SA DE CV","la razón social no viajó");
+      this.assert(copia.supplier.rfc===DEFAULT_SUPPLIER.rfc,"el RFC no viajó");
+      this.assert(copia.supplier.address===DEFAULT_SUPPLIER.address,"el domicilio no viajó");
+      const minusculas=sanitizeImportedState({...clone(APP_STATE),supplier:{legalName:"X SA DE CV",rfc:"ite2109227e6",address:"Calle 1"}},{draftMode:true});
+      this.assert(minusculas.supplier.rfc==="ITE2109227E6","el RFC importado debía guardarse en mayúsculas");
     }));
 
     /* ===== Nada interno en documento, correo ni escenario ===== */

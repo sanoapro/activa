@@ -175,7 +175,7 @@ con IVA; a 4 años = 13,470 → 509.41; estudiante pelón = 7,740 → 303.66 sin
 | Estado | Qué habilita | Qué lo rompe |
 |---|---|---|
 | `calculable` | Que se **vean las dos cifras** | Solo lo financiero: cero equipos, cantidades inválidas, escenario corrupto (`blocks:"price"`) |
-| `documentReady` | **PDF** y **correo** | Lo anterior, más los datos documentales: institución, ciudad, fechas, vendedor y su correo |
+| `documentReady` | **PDF** y **correo** | Lo anterior, más los datos documentales: institución, ciudad, fechas, vendedor y su correo, y los **datos fiscales de la empresa** (razón social, RFC con fecha válida y domicilio) |
 
 **La regla que costó cara en el cotizador (F-28) se respeta desde el diseño**: un dato solo
 bloquea el precio si de verdad entra en el importe. Una cotización recién abierta trae 30
@@ -211,6 +211,24 @@ activa.arrendamiento.seller-profile.v1 el perfil del vendedor
 - Sin `localStorage`, `HAS_STORAGE` queda en falso y **la herramienta sigue cotizando** sin
   guardar; el aviso vive en `#storageBanner`, persistente.
 
+## Datos fiscales de la empresa
+
+El pliegue **«Datos fiscales de la empresa»** guarda la **razón social**, el **RFC** y el
+**domicilio fiscal** de quien emite la propuesta, igual que el cotizador de
+[compra](../compra/). Predeterminados en `DEFAULT_SUPPLIER` (busca esa constante), editables por
+cotización y guardados con el borrador.
+
+- **No son información interna**: viajan en el documento a propósito. Se imprimen en el bloque
+  «Datos fiscales de la empresa» de la sección 3 y la razón social encabeza el **pie repetido de
+  cada hoja** del PDF.
+- El **RFC** se teclea siempre en mayúsculas y se valida con `rfcOk()`: formato *y* que la fecha
+  exista en el calendario (un `230231` se rechaza). Un RFC inválido **bloquea el PDF y el
+  correo**, no el precio.
+- **Aquí no hay datos bancarios**, a diferencia de compra: el arrendamiento se factura y se
+  cobra conforme al contrato con la arrendadora, y una cuenta impresa en la propuesta invitaría
+  al colegio a depositar por el canal equivocado. Si algún día se deciden, van en este mismo
+  pliegue y en el mismo bloque del documento.
+
 ## Compartir un escenario
 
 El escenario viaja en el fragmento como `#scenario=<código>` (`schemaVersion: 1`): equipos,
@@ -235,13 +253,15 @@ Camino propio, idéntico en estructura al del cotizador:
 
 ## Pruebas internas
 
-`?test=1` corre la suite y la dibuja en `#testReport` — **33 pruebas**: los cuatro casos de
+`?test=1` corre la suite y la dibuja en `#testReport` — **37 pruebas**: los cuatro casos de
 regresión, la composición del precio unitario, la linealidad de PMT, el prorrateo de carritos mixtos, el desglose de IVA, CEU solo
 docente, seguro/Securly por plazo, el precio visible en una cotización recién abierta, que el
 aviso de carritos nunca bloquea, que el modo interno arranca apagado / no viaja / se elimina del
 DOM, que documento, correo y escenario no contienen datos internos, tipos estrictos en la
 importación, borradores incompletos que sobreviven a exportar/importar, folio, revisiones,
-conflicto entre pestañas y rollback de escrituras.
+conflicto entre pestañas, rollback de escrituras, y los datos fiscales de la empresa (RFC con
+fecha real, presencia en el documento, bloqueo del PDF si faltan, y que sobreviven a exportar e
+importar).
 
 **Conviene correrla después de tocar precios o reglas.**
 
