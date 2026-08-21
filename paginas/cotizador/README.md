@@ -151,6 +151,7 @@ activa.cotizador.counter.v3.<…>  consecutivos de folio
 activa.cotizador.revmax.v3.<…>   revisión máxima emitida
 activa.cotizador.recovery.v3.<…> recuperaciones ante fallo
 activa.cotizador.seller-profile.v3  el perfil del vendedor
+activa.cotizador.archivo-pendiente.v1  cotizaciones impresas y aún no archivadas en Drive
 ```
 
 - Máximo **20 borradores** (`MAX_DRAFTS`); la importación acepta hasta 2 MB.
@@ -273,6 +274,29 @@ como máximo**; lo más largo es una `.p-card--terms` con viñetas, o sobra.
 En la misma pasada la franja Google de la portada bajó de **10 mm a 2 mm** —a esa altura leía
 como error de maquetación, no como marca— y los 8 mm liberados se devolvieron al aire de la hoja.
 Entre eso y la cabecera repetida, el PDF de una cotización típica pasó de **seis hojas a cinco**.
+
+---
+
+## El archivo en Drive
+
+Cada PDF generado puede además quedar **archivado en Google Drive**, en
+`1. upgrade_edu/‹correo del vendedor›/`, con su JSON al lado para reabrirlo después. El diseño
+completo vive en [`docs/drive-PDF/`](../../docs/drive-PDF/); la lógica es una sola copia para
+los tres cotizadores: [`compartidos/js/archivo-drive.js`](../../compartidos/js/archivo-drive.js).
+El enganche es idéntico al de [arrendamiento](../arrendamiento/), cuyo README lo describe
+completo; aquí son las mismas cinco piezas: el contenedor `#archivoDrive` (al final del paso 3),
+el `<script>` del módulo, `ArchivoDrive.montar({page:"cotizador", …})`, y las tres llamadas —
+`capturar()` en `preparePrint()` y en la ruta de `Ctrl+P`, `mostrar()` en `afterprint`,
+`revisarPendiente()` en `renderDocumentMeta()`—. La huella de impresión ya existía en esta
+página; el archivo solo la aprovecha.
+
+- El bloque no existe hasta generar un PDF; `datos()` se congela **al imprimir**, no al subir.
+- El JSON archivado viaja con el sobre de Exportar (`fileType:"activa-quote"`), así que se
+  reabre con **Importar JSON** tal cual.
+- Lo no subido queda marcado bajo `activa.cotizador.archivo-pendiente.v1` y el bloque reaparece
+  en ámbar al reabrir la cotización — se vuelve a elegir el PDF, sin reimprimir.
+- Si el módulo no carga o el puente no responde, la página cotiza igual que hoy: el archivo es
+  una capa encima, nunca un requisito.
 
 ---
 

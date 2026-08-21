@@ -17,19 +17,27 @@ nadie tenga que acordarse de subirla a mano.
 
 ## Estado por fases
 
-El plan tenía cuatro fases. Van dos y media.
+El plan tenía cuatro fases. **Están las cuatro.**
 
 | | Fase | Estado |
 |---|---|---|
 | 1 | **El puente** (Apps Script) desplegado y probado | ✅ **Hecho** — responde y ve la carpeta raíz |
 | 2 | **Arrendamiento** enganchado de punta a punta | ✅ **Hecho** — en `main`, publicado |
-| 3 | **La prueba real** con una cotización de verdad en Drive | ⏳ **Pendiente** — ya es posible, aún no se ha corrido |
-| 4 | **Compra y cotizador** | ❌ **No empezado** |
+| 3 | **La prueba real** con escritura en Drive | ✅ **Hecha el 21-ago-2026** — escritura real, rechazo de dominio y candado bajo concurrencia, todo contra el puente vivo. Queda una pasada manual de cortesía desde la URL publicada (abajo) |
+| 4 | **Compra y cotizador** | ✅ **Hecho el 21-ago-2026** — el mismo módulo sin tocarle una línea; solo el contenedor, el `<script>`, `montar()` y las tres llamadas por página. Verificado con subida real a `3. Compra/…` y `1. upgrade_edu/…` (carpeta `prueba@activa.la`), suites 55/55 y 87/87 |
 
-> **Lo más importante para quien revise:** la fase 3 **no está hecha**. Nadie ha subido todavía un
-> archivo real a Drive desde la página publicada. El puente contesta a un `GET` de diagnóstico,
-> pero la escritura real (`POST` con PDF + JSON) no se ha ejercitado ni una sola vez fuera de un
-> simulador. Ver «Lo que está verificado» abajo.
+La replicación de la fase 4 era la prueba de fuego del módulo compartido: *si replicar duele, el
+módulo quedó mal*. No dolió — el diff por página son el contenedor, la etiqueta `<script>`, el
+bloque `montar()` con su sobre de exportación propio, y una llamada en cada uno de cuatro
+lugares que ya existían.
+
+> **La escritura real ya se ejercitó.** El 21-ago-2026 se subieron archivos de verdad a Drive a
+> través del módulo corriendo en un navegador (fetch + CORS + la redirección de Apps Script,
+> como en producción), contra la carpeta desechable `prueba@activa.la`. Ver «Lo que está
+> verificado». Lo único que ningún humano ha hecho todavía es el flujo completo con las manos:
+> abrir `https://sanoapro.github.io/activa/paginas/arrendamiento/`, generar un PDF real con
+> *Guardar como PDF* y subirlo con el botón. Es una confirmación de experiencia, no de mecánica —
+> la mecánica ya está probada.
 
 ---
 
@@ -66,9 +74,11 @@ Dibuja el bloque «Guardar en el archivo» con sus estados (oculto, listo, subie
 pendiente en ámbar), valida el archivo elegido, hace el `POST` y administra la marca de
 pendientes en `localStorage`.
 
-### 3. El enganche en la página — [`paginas/arrendamiento/index.html`](../../paginas/arrendamiento/index.html)
+### 3. El enganche en cada página — ya en las tres
 
-Todo lo que otra página necesita replicar son **cinco cosas**:
+[`arrendamiento`](../../paginas/arrendamiento/index.html) (21-ago-2026),
+[`compra`](../../paginas/compra/index.html) y [`cotizador`](../../paginas/cotizador/index.html)
+(mismo día, fase 4). El enganche por página son **cinco cosas**:
 
 1. Un contenedor vacío: `<div id="archivoDrive"></div>`.
 2. El `<script src="../../compartidos/js/archivo-drive.js">`.
@@ -118,12 +128,14 @@ Cotizaciones → Importar JSON.
 
 ## Lo que está verificado, y cómo
 
-La lista de aceptación son 14 pruebas. **11 verificadas, 3 sin correr.**
+La lista de aceptación son 14 pruebas. **14 verificadas.**
 
-Verificadas con tres métodos: la suite interna de la página corriendo automatizada en un navegador
+Con cuatro métodos: la suite interna de la página corriendo automatizada en un navegador
 sin cabeza (**41/41**), un arnés funcional con el puente simulado (un `fetch` falso que devuelve
-lo mismo que el `.gs`, incluidos sus errores), y la página real servida por `http://` — no abierta
-con doble clic.
+lo mismo que el `.gs`, incluidos sus errores), la página real servida por `http://` — no abierta
+con doble clic—, y el 21-ago-2026 **el puente vivo escribiendo en Drive de verdad**: el módulo
+corriendo en un navegador subió a la carpeta desechable `prueba@activa.la` (fetch + CORS + la
+redirección de Apps Script, la misma mecánica que en producción).
 
 | # | Prueba | Estado |
 |---|---|---|
@@ -139,18 +151,20 @@ con doble clic.
 | 13 | El PDF salió idéntico al de antes del cambio | ✅ |
 | 14 | Suite interna | ✅ 41/41 |
 
-### Las 3 que faltan correr
+### Las 3 del puente, corridas el 21-ago-2026 contra Drive de verdad
 
-Estas tres son **lógica del puente**, no de la página. Hasta hace unas horas eran imposibles de
-probar porque el Apps Script no estaba desplegado. **Ya se puede: nadie las ha corrido todavía.**
-
-| # | Prueba | Qué falta |
+| # | Prueba | Resultado |
 |---|---|---|
-| 4 | Que caiga en `2. Arrendamiento/‹correo›/` como `001._….pdf` + `001.1_….json` | El *sobre* que manda la página ya se cotejó campo por campo contra lo que valida `readRequest_()`. Falta ver la escritura real en Drive. |
-| 8 | Rechazo de correo que no sea `@activa.la` | Media prueba hecha (el error textual del `.gs` simulado). Falta contra el puente vivo. |
-| 12 | Dos subidas → dos números correlativos, nada borrado | Es el candado `LockService` del puente. Nunca se ha ejercitado. |
+| 4 | Que caiga en `2. Arrendamiento/‹correo›/` como `001._….pdf` + `001.1_….json` | ✅ El puente respondió `ok:true, numero:"001"`, `folder.path: "2. Arrendamiento/prueba@activa.la"`; en Drive quedaron `001._PRUEBA - borrar · 2026-08-21 · PRB-… r1.pdf` y su `001.1_….json` al lado. Subido **a través del módulo en un navegador**, no con un cliente a mano. |
+| 8 | Rechazo de correo que no sea `@activa.la` | ✅ Un `POST` con un gmail devolvió textual `{"ok":false,"error":"El correo debe ser de activa.la."}` y no escribió nada. |
+| 12 | Dos subidas → dos números correlativos, nada borrado | ✅ Segunda subida de la misma cotización → `002`, nombre e ID de Drive distintos, la primera intacta. Y **el candado bajo concurrencia real**: dos `POST` disparados al mismo tiempo salieron `003` y `004`, sin colisión — que es exactamente la carrera para la que existe el `LockService`. |
 
-**Lo único que sí se probó contra el puente real** es un `GET` de diagnóstico, que respondió:
+Detalle que salió a la luz y es **comportamiento escrito del `.gs`**, no un error: el nombre del
+archivo termina en ` r1` aunque sea la primera revisión, porque `baseName_()` solo omite la
+revisión cuando vale `'0'` y en las páginas la revisión arranca en 1. Si molesta, el cambio es
+una línea del `.gs` (omitir también `'1'`) **más un redespliegue**; mientras, es informativo.
+
+El `GET` de diagnóstico sigue respondiendo:
 
 ```json
 {"ok":true,"service":"archivo-activa",
@@ -158,28 +172,27 @@ probar porque el Apps Script no estaba desplegado. **Ya se puede: nadie las ha c
  "rootUrl":"https://drive.google.com/drive/folders/1sUoQ2kvv7Jk6qInvOZhSQM3OcUFVA4Zx"}
 ```
 
-Eso confirma que el despliegue está vivo y que el ID de la carpeta raíz sirve. **No confirma que
-escribir funcione.**
-
 ---
 
 ## Lo que NO está hecho
 
-1. **La prueba real (fase 3).** Las tres pruebas de arriba, con una cotización de verdad desde
-   `https://sanoapro.github.io/activa/paginas/arrendamiento/`. Es el siguiente paso y bloquea al
-   que sigue: *nada se replica hasta que esto funcione*.
-2. **Compra y el cotizador (fase 4).** El módulo compartido ya existe; falta el contenedor, el
-   `<script>`, el `montar()` con sus tres líneas de configuración, las tres llamadas y —en las que
-   no la tengan— la huella de impresión. Debería ser mecánico; si no lo es, el módulo quedó mal.
-3. **Borrar la carpeta `prueba@activa.la`** que dejó la función `probar()` del `.gs` al pedir
-   permisos.
-4. **Bajar a los cuatro vendedores de Editor a Lector** en la carpeta de Drive. Pueden subir igual
+1. **La pasada manual desde la URL publicada.** La mecánica completa ya está probada contra
+   Drive (ver arriba); falta que una persona haga el flujo con las manos una vez —abrir
+   `https://sanoapro.github.io/activa/paginas/arrendamiento/`, cotizar algo real, *Guardar como
+   PDF*, subirlo con el botón y abrir el enlace que devuelve—. Confirma la experiencia, no la
+   mecánica. Cinco minutos.
+2. **Borrar las tres carpetas `prueba@activa.la`** — una por carpeta maestra. La de
+   `2. Arrendamiento/` la dejó `probar()` y las pruebas le dejaron **8 archivos** (`001` a `004`
+   con sus `.json`); las de `3. Compra/` y `1. upgrade_edu/` las dejó la verificación de la
+   fase 4, con **2 archivos** cada una. Todos dicen «PRUEBA - borrar» en el nombre. Borrar las
+   carpetas enteras cuando ya no haga falta enseñarlas.
+3. **Bajar a los cuatro vendedores de Editor a Lector** en la carpeta de Drive. Pueden subir igual
    —quien escribe es la cuenta del despliegue— y así nadie puede vaciar el archivo, ni por
    accidente ni al irse de la empresa.
-5. **Decidir si la raíz se mueve a una unidad compartida.** Hoy el archivo **pertenece a una
+4. **Decidir si la raíz se mueve a una unidad compartida.** Hoy el archivo **pertenece a una
    persona**: si esa cuenta se cierra, se va con ella. Conviene resolverlo antes de que haya mucho
    adentro. *(Riesgo real, no cosmético.)*
-6. **Decidir qué pasa con las cotizaciones viejas.** Lo ya cotizado este año no entra solo.
+5. **Decidir qué pasa con las cotizaciones viejas.** Lo ya cotizado este año no entra solo.
    Propuesta en [`plan.md`](plan.md): que el archivo empiece de cero.
 
 ---

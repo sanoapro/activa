@@ -50,9 +50,8 @@ Presentacion-activa/
 ├── compartidos/                  ← LO QUE USA MÁS DE UNA PÁGINA
 │   ├── css/motion.css            Clases mo-* de movimiento. Sin colores.
 │   ├── js/archivo-drive.js       El archivo de cotizaciones en Drive: el bloque
-│   │                             «Guardar en el archivo» de los cotizadores.
-│   │                             Hoy lo usa arrendamiento; compra y cotizador
-│   │                             siguen. Diseño y puente en docs/drive-PDF/.
+│   │                             «Guardar en el archivo» de los TRES cotizadores.
+│   │                             Diseño y puente en docs/drive-PDF/.
 │   ├── js/motion.js              EL MOTOR de animación. Lo usan las 4 páginas.
 │   ├── js/motion-lottie.js       Opcional: Lottie diferido. Hoy no lo carga nadie.
 │   ├── js/motion-particles.js    Opcional: campo de partículas 3D

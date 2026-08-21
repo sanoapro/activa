@@ -1474,6 +1474,12 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
       </div>
       <div class="tfoot" id="breakFoot"></div>
     </div>
+
+    <!-- Archivo en Drive (docs/drive-PDF/): nace vacío y solo se llena después
+         de generar el PDF. Lo opera compartidos/js/archivo-drive.js; si ese
+         módulo no carga, queda vacío y la página funciona igual que hoy. -->
+    <div id="archivoDrive"></div>
+
   </div>
 </section>
 
@@ -1717,6 +1723,10 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
 
 <div id="printRoot" aria-hidden="true"></div><section id="testReport" class="test-report" hidden aria-live="polite"></section>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- Archivo de cotizaciones en Drive (docs/drive-PDF/). Si no carga, ArchivoDrive
+     no existe, ARCHIVO queda en null y toda llamada va con ?.: la página cotiza
+     igual que hoy. El archivo es una capa encima, nunca un requisito. -->
+<script src="../../compartidos/js/archivo-drive.js"></script>
 <script>
 "use strict";
 
@@ -3291,6 +3301,10 @@ function renderDocumentMeta() {
   const ok=clabeOk(d.bank.k);$("#foldFisSum").textContent=`${d.legal||"—"} · CLABE ${ok?"válida":"por revisar"}`;
   $("#clabeChk").textContent=d.bank.k?(ok?"CLABE válida · dígito verificador correcto":"Revisa la CLABE: el dígito verificador no coincide"):"—";$("#clabeChk").style.color=d.bank.k?(ok?"var(--g-grn-d)":"var(--g-red-d)"):"";
   renderStatus();
+  /* Archivo en Drive: si esta cotización quedó marcada como no archivada,
+     el bloque reaparece en pendiente. Con la misma cotización en pantalla
+     la llamada no hace nada, así que puede vivir en cada render. */
+  ARCHIVO?.revisarPendiente(APP_STATE.identity.quoteId);
 }
 /* F-27 · UX-6 · Distingue el PRIMER USO (nunca ha habido un cálculo válido: cotización
    recién abierta en una máquina u origen nuevos, con el modelo docente aún sin elegir)
@@ -3481,7 +3495,7 @@ async function preparePrint(){
   if(!requireDocumentReady())return false;
   /* F-23 · M-21 · El aviso de accesibilidad del PDF se muestra una vez por sesión. */
   if(!PRINT_NOTICE_SHOWN){PRINT_NOTICE_SHOWN=true;toast("El PDF del navegador puede no incluir etiquetado estructural; la vista HTML permanece disponible como alternativa accesible.","info");}
-  await document.fonts?.ready;const root=$("#printRoot");root.innerHTML=buildPrintDocument();await waitForPrintImages(root);PRINT_READY_SIGNATURE=printSignature();document.body.classList.add("pp-on");originalTitle=document.title;document.title=`${folioDisplay()} · ${APP_STATE.client.shortName||APP_STATE.client.institution||"Cotización activa"}`;await nextFrame();await nextFrame();return true;
+  await document.fonts?.ready;const root=$("#printRoot");root.innerHTML=buildPrintDocument();await waitForPrintImages(root);PRINT_READY_SIGNATURE=printSignature();ARCHIVO?.capturar();document.body.classList.add("pp-on");originalTitle=document.title;document.title=`${folioDisplay()} · ${APP_STATE.client.shortName||APP_STATE.client.institution||"Cotización activa"}`;await nextFrame();await nextFrame();return true;
 }
 window.doPrint=async()=>{if(await preparePrint())window.print();};
 /* F-23 · C-03 · El documento de impresión se precalienta en segundo plano en cuanto
@@ -3509,11 +3523,42 @@ window.addEventListener("beforeprint",()=>{
   if(!getReadiness().documentReady)return;
   /* Si el precalentado aún no corrió (o quedó inválido), se construye al vuelo. */
   if(!$("#printRoot").firstChild||PRINT_READY_SIGNATURE!==printSignature())$("#printRoot").innerHTML=buildPrintDocument();
+  /* Ctrl+P es la otra ruta al PDF: también captura, o el archivo guardaría
+     el estado equivocado para esta impresión (docs/drive-PDF/). */
+  ARCHIVO?.capturar();
   document.body.classList.add("pp-on");
   originalTitle=document.title;
   document.title=`${folioDisplay()} · ${APP_STATE.client.shortName||APP_STATE.client.institution||"Cotización activa"}`;
 });
-window.addEventListener("afterprint",()=>{document.body.classList.remove("pp-on");document.title=originalTitle;});
+window.addEventListener("afterprint",()=>{document.body.classList.remove("pp-on");document.title=originalTitle;ARCHIVO?.mostrar();});
+
+/* ---------- archivo en Drive (docs/drive-PDF/) ---------- */
+/* La URL /exec del puente desplegado en script.google.com. El token es visible
+   a propósito: candado contra rastreadores, no cerradura — el muro real es que
+   el puente solo acepta correos @activa.la. */
+const ARCHIVO_ENDPOINT="https://script.google.com/macros/s/AKfycbxjMVgYfDjOVGfnwOUCoGF2AgLioBoywa8fSLEMZwHpxo8-8fANPhXELFpiugPh1OV79Q/exec";
+const ARCHIVO_TOKEN="rCgPsZv23PeC7XaIJ64buDStasFDDx0D";
+const ARCHIVO=window.ArchivoDrive?ArchivoDrive.montar({
+  page:"cotizador",
+  endpoint:ARCHIVO_ENDPOINT,
+  token:ARCHIVO_TOKEN,
+  contenedor:document.querySelector("#archivoDrive"),
+  /* Se invoca AL IMPRIMIR (capturar()), no al subir: si el vendedor edita
+     entre imprimir y subir, el JSON archivado sigue correspondiendo al PDF. */
+  datos:()=>({
+    sellerEmail:APP_STATE.seller.email,
+    institution:APP_STATE.client.institution,
+    quoteDate:APP_STATE.validity.quoteDate,
+    folio:APP_STATE.identity.folioRoot,
+    revision:String(APP_STATE.identity.revision),
+    quoteId:APP_STATE.identity.quoteId,
+    nombreSugerido:folioDisplay(),
+    /* El mismo sobre que Exportar JSON: lo archivado en Drive se reabre tal
+       cual con Cotizaciones → Importar JSON. Es "final" por construcción:
+       solo se imprime con documentReady. */
+    json:JSON.stringify({fileType:"activa-quote",schemaVersion:APP_CONFIG.schemaVersion,cycle:APP_CONFIG.cycle.id,exportKind:"final",exportedAt:new Date().toISOString(),data:APP_STATE},null,2)
+  })
+}):null;
 
 function automaticMailSubject(){return `Propuesta ${docData().pkgName} ${APP_CONFIG.cycle.id} · ${APP_STATE.client.institution||"Institución"} · ${folioDisplay()}`;}
 function mailSubject(){return APP_STATE.mail.subjectMode==="custom"&&APP_STATE.mail.subjectOverride?APP_STATE.mail.subjectOverride:automaticMailSubject();}

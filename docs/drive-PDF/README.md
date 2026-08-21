@@ -4,8 +4,9 @@ Cada cotización que sale de los tres cotizadores termina hoy en la laptop de qu
 carpeta contiene el diseño completo para que además termine **en Google Drive, en la carpeta de
 ese vendedor**, sin que nadie tenga que acordarse de subirla a mano.
 
-**El puente está desplegado y arrendamiento ya archiva** (21-ago-2026). Compra y el cotizador
-siguen: les falta el mismo enganche de tres llamadas.
+**El puente está desplegado y los tres cotizadores ya archivan** (21-ago-2026): arrendamiento,
+compra y el cotizador llevan el mismo módulo compartido y la escritura real está verificada
+contra las tres carpetas maestras.
 
 ## Los archivos
 
@@ -41,11 +42,15 @@ página, y no le hace nada a GitHub Pages.
 
 ## Lo que falta
 
-1. **Replicar el enganche en compra y en el cotizador.** La lógica ya es una sola copia
-   compartida en `compartidos/js/archivo-drive.js`; falta el contenedor y las tres llamadas.
-2. **Bajar a los cuatro vendedores de Editor a Lector** en la carpeta de Drive. Pueden subir
+Las tres páginas ya están enganchadas y la escritura real está verificada contra Drive
+([`estado.md`](estado.md) lleva el detalle). Lo que queda es operación, no construcción:
+
+1. **Bajar a los cuatro vendedores de Editor a Lector** en la carpeta de Drive. Pueden subir
    igual —quien escribe es la cuenta del despliegue, no la suya— y así nadie puede vaciar el
    archivo.
-3. Tres decisiones abiertas, al final de [`plan.md`](plan.md).
+2. **Borrar las tres carpetas `prueba@activa.la`** que dejaron las verificaciones, una por
+   carpeta maestra.
+3. Dos decisiones abiertas, al final de [`plan.md`](plan.md): las cotizaciones viejas y si
+   subir se vuelve obligatorio.
 4. Considerar mover la raíz a una **unidad compartida**. Hoy el archivo pertenece a una persona;
    si esa cuenta se cierra, se va con ella. Conviene hacerlo antes de que haya mucho adentro.

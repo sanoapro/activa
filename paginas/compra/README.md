@@ -228,6 +228,27 @@ la tabla lleva `table-layout:fixed` y un `<colgroup>` con el reparto explícito
 dejaron el `nowrap` con el que se encimaban. Los anchos se declaran **una sola vez**, sin
 duplicar por medio: el ancho de una columna no depende de si se ve en pantalla o en papel.
 
+## El archivo en Drive
+
+Cada PDF generado puede además quedar **archivado en Google Drive**, en
+`3. Compra/‹correo del vendedor›/`, con su JSON al lado para reabrirlo después. El diseño
+completo vive en [`docs/drive-PDF/`](../../docs/drive-PDF/); la lógica es una sola copia para
+los tres cotizadores: [`compartidos/js/archivo-drive.js`](../../compartidos/js/archivo-drive.js).
+El enganche es idéntico al de [arrendamiento](../arrendamiento/), cuyo README lo describe
+completo; aquí son las mismas cinco piezas: el contenedor `#archivoDrive` (al final del paso 3),
+el `<script>` del módulo, `ArchivoDrive.montar({page:"compra", …})`, y las tres llamadas —
+`capturar()` en `preparePrint()` y en la ruta de `Ctrl+P`, `mostrar()` en `afterprint`,
+`revisarPendiente()` en `renderDocumentMeta()`—. La huella de impresión ya existía en esta
+página; el archivo solo la aprovecha.
+
+- El bloque no existe hasta generar un PDF; `datos()` se congela **al imprimir**, no al subir.
+- El JSON archivado viaja con el sobre de Exportar (`fileType:"activa-compra-quote"`), así que
+  se reabre con **Importar JSON** tal cual.
+- Lo no subido queda marcado bajo `activa.compra.archivo-pendiente.v1` y el bloque reaparece en
+  ámbar al reabrir la cotización — se vuelve a elegir el PDF, sin reimprimir.
+- Si el módulo no carga o el puente no responde, la página cotiza igual que hoy: el archivo es
+  una capa encima, nunca un requisito.
+
 ## Pruebas internas
 
 Se abren con **`?test=1`**: 49 pruebas sobre el IVA, el catálogo contra la tabla confirmada el
