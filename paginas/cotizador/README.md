@@ -32,18 +32,62 @@ Seis secciones, en el orden en que el vendedor las recorre:
 
 | Sección | Título | Qué se hace ahí |
 |---|---|---|
-| `#s1` | Precio y formas de pago | Paquete, plazo, modelo docente, esquema de pago |
-| `#s2` | Todo lo que incluye | Desglose por área: TI, IP y DP |
-| `#s3` | Acompañamiento asignado | Horas de capacitación y visitas según número de alumnos |
-| `#s4` | Ajustes de la cotización | Conciliación de equipos, descuentos, cantidades |
-| `#s5` | Datos para la propuesta | Colegio, contactos, vendedor, vigencia |
+| `#s1` | Alumnos, docentes y equipos | Docentes extra, equipos, carritos y licencias |
+| `#s2` | Datos de la propuesta | Colegio, contactos, vigencia, fiscales y bancarios |
+| `#s3` | Precio y formas de pago | Esquema de pago y desglose año por año |
+| `#s4` | Todo lo que incluye | Desglose por área: TI, IP y DP |
+| `#s5` | Acompañamiento asignado | Horas de capacitación y visitas según número de alumnos |
 | `#s6` | Descuento especial por volumen de redes | Cotización de varios planteles |
+
+**La captura va primero y el precio después**, que es como transcurre una llamada: el vendedor
+apunta lo que el colegio le dicta y baja a ver la cifra. Antes el precio abría la página y los
+datos vivían en el paso 5, al final de todo.
 
 Las tres áreas —**TI** Tecnologías de la Información, **IP** Innovación y Proyectos, **DP**
 Desarrollo Profesional— son las mismas que firman la Carta de Entrega Comercial y las mismas del
 [catálogo de productos](../../docs/descripcion-de-productos/catalogo-productos.md).
 
 ---
+
+## La pantalla es del vendedor
+
+El colegio nunca ve esta herramienta: recibe el PDF. Por eso el 21-ago-2026 se retiró el hero
+completo —etiqueta de ciclo, título grande, chip de IVA, alcance y bloque de folio: **siete
+renglones de bienvenida antes de la primera cifra**— y los seis párrafos que explicaban cada
+paso. Quien la usa ya sabe cotizar.
+
+Lo que era el hero cabe ahora en una **segunda fila del encabezado** (`.idbar`) de unos 30 px, que
+además se queda pegada al bajar:
+
+```
+Upgrade Edu · 1:1 · Chromebooks nuevas · 4 años · 300 alumnos     Folio MM-… · Revisión 1 · Guardado
+```
+
+Conserva los ids `#heroPkg` y `#heroScope`, así que el JS que los escribe no cambió. El chip verde
+«Todos los precios incluyen IVA» no se perdió: es el sufijo de la etiqueta del precio en la barra
+de configuración, que ahora dice **«Precio por alumno · IVA incluido»**. La página bajó de 6 300 a
+5 250 px y el ancho pasó de 1 200 a **1 560 px** (`--app-max`).
+
+### Las tarjetas de captura tienen color
+
+Los cinco `details.fold` eran blanco sobre blanco: tarjeta blanca, cuerpo blanco, campos blancos
+y —en las secciones con `.alt`— fondo blanco. Cuatro capas del mismo color separadas por un borde
+de 1 px.
+
+Ahora cada tarjeta declara su color en dos variables locales, `--fc` y `--ft`, que pintan el filete
+superior de 3 px, el degradado del encabezado, el cuadrito del ícono y el filete de apertura:
+
+| Tarjeta | Color |
+|---|---|
+| Docentes, equipos y carritos | azul |
+| Licencias incluidas | verde |
+| Colegio y contactos | azul |
+| Vigencia, entrega y firma | rojo |
+| Datos fiscales y bancarios | amarillo |
+
+Y la zona de captura se hunde: `.foldb` va en gris azulado y los campos en blanco puro, para que
+lo que hay que llenar resalte. Dentro de las tarjetas largas, los bloques de campos se agrupan en
+`.fgroup` —una tarjeta blanca por bloque— en vez de flotar bajo un rótulo suelto.
 
 ## Dónde se cambian los precios y las reglas
 

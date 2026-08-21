@@ -56,12 +56,16 @@
   --disp:"Google Sans","Product Sans",Roboto,Arial,sans-serif;
   --body:Roboto,Arial,Helvetica,sans-serif;
   --mono:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  /* Ancho de la aplicacion. El documento impreso es A4 por @page y la vista de
+     propuesta lleva su propio ancho de lectura (940 px): ninguno depende de
+     este numero, asi que la herramienta puede respirar. */
+  --app-max:1560px;
 }
 body[data-pkg="plus"]{--acc:var(--plus);--acc-d:var(--plus-d);--acc-t:var(--plus-t);}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:82px}
-h1,h2,h3,h4,.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+h1,h2,h3,h4,.wrap{max-width:var(--app-max);margin:0 auto;padding:0 24px}
 .num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 .muted{color:var(--mute);font-size:12.5px}
 :focus-visible{outline:3px solid var(--acc);outline-offset:2px;border-radius:4px}
@@ -71,7 +75,7 @@ h1,h2,h3,h4,.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
 
 /* ---------- encabezado ---------- */
 header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdrop-filter:saturate(1.6) blur(10px);border-bottom:1px solid var(--line)}
-.hbar{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:9px 24px}
+.hbar{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:var(--app-max);margin:0 auto;padding:7px 24px}
 .logo{display:flex;align-items:center;gap:11px}
 .gdots{display:grid;grid-template-columns:repeat(2,8px);grid-gap:3px}
 .gdots i{width:8px;height:8px;border-radius:50%;display:block}
@@ -94,7 +98,7 @@ header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdro
 
 /* ---------- barra de configuración ---------- */
 .cfgbar{border-top:1px solid var(--soft);background:linear-gradient(180deg,var(--acc-t),rgba(255,255,255,0))}
-.cfgin{max-width:1200px;margin:0 auto;padding:10px 24px;display:grid;grid-template-columns:170px 1fr 1fr 110px auto;gap:14px;align-items:end}
+.cfgin{max-width:var(--app-max);margin:0 auto;padding:9px 24px;display:grid;grid-template-columns:170px 1fr 1fr 110px auto;gap:14px;align-items:end}
 .cfgf>label{display:block;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin-bottom:5px}
 .cfgf select,.cfgf input{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;font-family:var(--body);background:#fff;color:var(--ink)}
 .cfgf select{font-family:var(--disp);cursor:pointer}
@@ -117,22 +121,22 @@ header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdro
 .cfgprice b{font-size:22px;font-weight:600;color:var(--acc-d);letter-spacing:-.5px}
 
 /* ---------- hero ---------- */
-.hero{padding:34px 0 20px}
-.tag{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);color:var(--mute);font-size:12.5px;font-weight:500;padding:6px 14px;border-radius:999px;margin-bottom:14px}
-.tag .gdots{grid-template-columns:repeat(2,6px);grid-gap:2px}.tag .gdots i{width:6px;height:6px}
-.hero h1{font-size:clamp(27px,4vw,40px);font-weight:700;line-height:1.1;margin:0 0 12px}
-.hero h1 em{font-style:normal;color:var(--acc)}
-.herorow{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.iva{display:inline-flex;align-items:center;gap:7px;background:var(--g-grn-t);color:var(--g-grn-d);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:500}
-.iva svg{width:15px;height:15px;fill:var(--g-grn)}
-.scope{font-size:12.5px;color:var(--mute)}
+/* Segunda fila del encabezado: el paquete, el alcance de la cotizacion y su
+   identidad. Sustituye al hero entero —etiqueta, titulo grande, chip de IVA,
+   alcance y bloque de folio: siete renglones de bienvenida antes de la primera
+   cifra— en unos 30 px que ademas se quedan pegados al bajar. */
+.idbar{border-top:1px solid var(--soft);background:#fff}
+.idin{max-width:var(--app-max);margin:0 auto;padding:6px 24px;display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap;font-size:12px;color:var(--mute)}
+.idin .pkg{font-family:var(--disp);font-size:13.5px;font-weight:700;color:var(--acc-d);white-space:nowrap}
+.idin .scope{color:var(--ink2)}
 
-section{padding:40px 0;scroll-margin-top:var(--sticky-header-height)}
+section{padding:26px 0 32px;scroll-margin-top:var(--sticky-header-height)}
 .alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.shead{margin:0 0 22px;max-width:760px}
-.shead .kick{font-family:var(--disp);font-size:11.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--acc);margin-bottom:7px}
-.shead h2{font-size:26px;margin:0 0 7px;font-weight:700}
-.shead p{color:var(--mute);margin:0;font-size:14.5px}
+.shead{margin:0 0 14px;max-width:none;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.shead .kick{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--acc-d)}
+.shead h2{font-size:21px;margin:0;font-weight:700;padding:0}
+.shead p{color:var(--mute);margin:0;font-size:12.5px}
+.shead .volume-notice{flex-basis:100%}
 
 /* ---------- bloque de precio ---------- */
 .cfg{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh2);overflow:hidden}
@@ -218,11 +222,12 @@ tbody tr:hover td{background:#fafbff}
 .acard .v{font-family:var(--disp);font-size:20px;font-weight:600;margin-top:4px;line-height:1.2}
 
 /* ---------- plegables ---------- */
-.fold{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:var(--sh1)}
+.fold{--fc:var(--acc);--ft:var(--acc-t);background:#fff;border:1px solid var(--line);border-top:3px solid var(--fc);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:var(--sh2)}
+.fold summary{background:linear-gradient(180deg,var(--ft),#fff)}
 .fold summary{display:flex;align-items:center;gap:13px;padding:15px 18px;cursor:pointer;list-style:none}
 .fold summary::-webkit-details-marker{display:none}
-.fold .fi{width:34px;height:34px;border-radius:9px;background:var(--acc-t);display:grid;place-items:center;flex:none}
-.fold .fi svg{width:17px;height:17px;fill:var(--acc)}
+.fold .fi{width:34px;height:34px;border-radius:9px;background:var(--ft);display:grid;place-items:center;flex:none}
+.fold .fi svg{width:17px;height:17px;fill:var(--fc)}
 .fold .ft{flex:1;display:flex;flex-direction:column;line-height:1.3}
 .fold .ft b{font-family:var(--disp);font-size:14.5px;font-weight:500}
 .fold .ft i{font-style:normal;font-size:12px;color:var(--mute)}
@@ -231,8 +236,20 @@ tbody tr:hover td{background:#fafbff}
 .fold .fc::before{width:9px;height:1.5px}
 .fold .fc::after{width:1.5px;height:9px;transition:.2s}
 .fold[open] .fc::after{height:0}
-.fold[open] summary{border-bottom:1px solid var(--soft)}
-.foldb{padding:18px}
+.fold[open] summary{border-bottom:2px solid var(--fc)}
+/* La zona de captura se hunde: fondo gris muy claro para que los campos
+   blancos se lean como lo que hay que llenar. */
+.foldb{padding:18px;background:#f3f6fb;box-shadow:inset 0 1px 0 rgba(60,64,67,.06)}
+.foldb input,.foldb select,.foldb textarea{background:#fff}
+/* Bloque de campos dentro de una tarjeta larga: el mismo tratamiento que ya
+   usaba .contact-card, para que «Docentes», «Equipos» y «Carrito» se
+   distingan entre si en vez de flotar bajo un rotulo suelto. */
+.fgroup{background:#fff;border:1px solid var(--soft);border-radius:11px;padding:14px 15px;margin-bottom:12px;box-shadow:0 1px 2px rgba(60,64,67,.06)}
+.fgroup>.miniLbl{margin-bottom:10px}
+.fgroup:last-child{margin-bottom:0}
+/* Separacion entre bloques de campos dentro de una tarjeta sin .fgroup. */
+.foldb>.grid2,.foldb>.grid3,.foldb>.f{margin-bottom:16px}
+.foldb>*:last-child{margin-bottom:0}
 .miniLbl{font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin-bottom:9px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .tagx{font-family:var(--body);font-size:9.5px;font-weight:600;letter-spacing:.2px;text-transform:none;background:var(--g-yel-t);color:var(--g-yel-d);border-radius:5px;padding:2px 7px}
 .tagx.alt{background:var(--g-blue-t);color:var(--g-blue-d)}
@@ -260,7 +277,9 @@ input.ro{background:#f1f3f4;color:var(--mute);cursor:default;font-family:var(--m
 .cartopt input[type=number]{text-align:center;padding:6px 4px;font-size:12.5px;font-family:var(--mono)}
 .cartopt .nohint{font-size:10.5px;color:var(--faint);display:block;padding:7px 0}
 .cartopt.dim{opacity:.42;pointer-events:none}
-.crow{display:grid;grid-template-columns:1.05fr 1.35fr .85fr;gap:8px;margin-bottom:8px}
+/* Renglon de contacto. Se llama .ccrow y no .crow: en el cotizador de compra
+   ese nombre choco con la fila de la tabla del catalogo y la desarmo entera. */
+.ccrow{display:grid;grid-template-columns:1.05fr 1.35fr .85fr;gap:8px;margin-bottom:8px}
 .crow input{font-size:13px;padding:8px 11px}
 .licgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .lic{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;transition:.15s;font-size:13px}
@@ -296,7 +315,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 
 /* ---------- barra de acciones fija ---------- */
 .actbar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(255,255,255,.97);backdrop-filter:saturate(1.6) blur(10px);border-top:1px solid var(--line);box-shadow:0 -2px 12px rgba(60,64,67,.10)}
-.actin{max-width:1200px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.actin{max-width:var(--app-max);margin:0 auto;padding:11px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .actprice{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;min-width:0}
 .actprice .k{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--faint)}
 .actprice b{font-family:var(--mono);font-size:24px;font-weight:600;letter-spacing:-.5px;color:var(--acc-d)}
@@ -449,6 +468,17 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   .p-price>div{border-right:none;border-bottom:1px solid var(--soft)}
 }
 @media(max-width:700px){
+  /* En el telefono el folio y la revision partian el encabezado en cuatro
+     renglones. Se quedan en el documento y en Cotizaciones; aqui sobra todo
+     menos saber si se esta guardando. */
+  .workmeta .wf,.workmeta .wr{display:none}
+  .workmeta .save-state{padding-left:0;border-left:none}
+  .hbar{flex-wrap:wrap;gap:6px 10px;padding:6px 14px}
+  .brand-partner{display:none}
+  .brand-logo-img{width:116px}
+  .hbtns .btn span{display:none}
+  .hbtns .btn{padding:8px 11px}
+  .idin{padding:5px 16px;gap:6px 12px;font-size:11.5px}
   .wrap{padding:0 16px}
   .cfg-pay,.grid2,.grid3,.licgrid,.p-contact,.p-links{grid-template-columns:1fr}
   .cartgrid{grid-template-columns:repeat(2,1fr)}
@@ -668,8 +698,12 @@ select,input[type=text],input[type=number],input[type=email],input[type=date],in
 input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--g-red);box-shadow:0 0 0 1px var(--g-red)}
 .field-error{min-height:0;margin-top:5px;color:var(--g-red-d);font-size:11.5px;font-weight:500}
 .field-error:empty{display:none}
-.workmeta{margin-top:15px;display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;font-size:12px;color:var(--text-muted)}
-.workmeta b{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+/* Identidad de la cotizacion dentro del encabezado: pequena, permanente y sin
+   robar una franja entera de pantalla como hacia el hero. */
+.workmeta{display:flex;align-items:center;gap:4px 12px;flex-wrap:wrap;font-size:11.5px;color:var(--text-muted);margin-left:auto;justify-content:flex-end}
+.workmeta span{white-space:nowrap}
+.workmeta b{font-family:var(--mono);font-size:11.5px;color:var(--ink);font-weight:600}
+.workmeta .wr,.workmeta .save-state{padding-left:12px;border-left:1px solid var(--line)}
 .save-state[data-state="saving"]{color:var(--g-blue-d)}
 .save-state[data-state="error"]{color:var(--g-red-d)}
 .save-state[data-state="saved"]{color:var(--g-grn-d)}
@@ -681,7 +715,7 @@ input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--g-red)
 .contact-card{border:1px solid var(--soft);border-radius:11px;padding:12px;margin:0 0 10px;background:#fcfcfd}
 .contact-card legend{font-family:var(--disp);font-size:11px;font-weight:700;color:var(--text-secondary);padding:0 6px;text-transform:uppercase;letter-spacing:.4px}
 .contact-card label{display:block;font-size:10.5px;font-weight:700;color:var(--text-muted);margin:0 0 5px;text-transform:uppercase;letter-spacing:.4px}
-.contact-card .crow{margin-bottom:0}
+.contact-card .ccrow{margin-bottom:0}
 .inline-action{margin-top:7px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .btn.text{padding:4px 8px;min-height:30px;font-size:11.5px}
 .chip button{position:relative}
@@ -752,7 +786,7 @@ body.calc-first .tbox:has(#tblBreak)::after{
   .action-state{width:100%;justify-content:space-between}
 }
 @media(max-width:700px){
-  .crow{grid-template-columns:1fr!important}
+  .ccrow{grid-template-columns:1fr!important}
   .actin{flex-direction:column;align-items:stretch;gap:8px}
   .actprice{justify-content:space-between}
   .actbtns{display:grid;grid-template-columns:repeat(3,1fr);width:100%}
@@ -1089,14 +1123,14 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
            una copia anterior del archivo (descargas duplicadas "(1)", accesos directos
            viejos) y parecía que las mejoras no aplicaban. Ahora el archivo se identifica
            de un vistazo, sin abrir el diagnóstico. -->
-      <span class="vertag" title="Cotizador activa · versión del archivo">v4.0</span>
+      <span class="vertag" title="Cotizador activa · versión del archivo">v4.1</span>
     </div>
     <nav class="hnav">
-      <a href="#s1">Precio</a>
-      <a href="#s2">Qué incluye</a>
-      <a href="#s3">Acompañamiento</a>
-      <a href="#s4">Ajustes</a>
-      <a href="#s5">Datos</a>
+      <a href="#s1">Captura</a>
+      <a href="#s2">Datos</a>
+      <a href="#s3">Precio</a>
+      <a href="#s4">Incluye</a>
+      <a href="#s5">Acompañamiento</a>
       <a href="#s6">Volumen</a>
     </nav>
     <div class="hbtns">
@@ -1106,6 +1140,21 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
       <button class="btn" id="btnShare" title="Copiar enlace del escenario" aria-label="Compartir escenario sin datos personales">
         <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
         <span>Compartir</span></button>
+    </div>
+  </div>
+
+  <!-- Segunda fila: el paquete y el alcance a la izquierda, la identidad de la
+       cotizacion a la derecha. Aqui vivia el hero, que gastaba media pantalla
+       en decir lo que el vendedor ya sabe. -->
+  <div class="idbar">
+    <div class="idin">
+      <b class="pkg" id="heroPkg">Upgrade Edu</b>
+      <span class="scope" id="heroScope">—</span>
+      <div class="workmeta" aria-live="polite">
+        <span class="wf">Folio <b id="quoteFolio">—</b></span>
+        <span class="wr" id="quoteRevision">Revisión 1</span>
+        <span class="save-state" id="saveState" data-state="saving">Guardando…</span>
+      </div>
     </div>
   </div>
 
@@ -1123,7 +1172,7 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
       <div class="cfgf"><label for="fModel">Modelo</label><select id="fModel"></select></div>
       <div class="cfgf sm"><label for="fStu">Alumnos</label><input type="number" id="fStu" min="1" max="999999" step="1" inputmode="numeric" value="300" required></div>
       <div class="cfgprice">
-        <span class="k">Precio por alumno</span>
+        <span class="k">Precio por alumno · IVA incluido</span>
         <b class="num" id="barPrice">$0</b>
       </div>
     </div>
@@ -1137,28 +1186,200 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
 <!-- F-23 · C-02 · Banner persistente: el fallo de guardado no puede depender de un toast de 3 segundos -->
 <div class="wrap"><div id="storageBanner" role="alert" hidden></div></div>
 <form id="quoteForm" class="mo-stagger" novalidate>
-<!-- ================= HERO ================= -->
-<div class="hero wrap">
-  <span class="tag"><span class="gdots"><i></i><i></i><i></i><i></i></span> <span id="cycleTag">Ciclo escolar 2026–2027</span></span>
-  <h1>Ecosistema digital <em id="heroPkg">Upgrade Edu</em></h1>
-  <div class="herorow">
-    <span class="iva"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Todos los precios incluyen IVA</span>
-    <span class="scope" id="heroScope">—</span>
-  </div>
-  <div class="workmeta" aria-live="polite">
-    <span>Folio <b id="quoteFolio">—</b></span>
-    <span id="quoteRevision">Revisión 1</span>
-    <span class="save-state" id="saveState" data-state="saving">Guardando…</span>
-  </div>
-</div>
-
-<!-- ================= 1 · PRECIO ================= -->
+<!-- ================= 1 · ALUMNOS, DOCENTES Y EQUIPOS ================= -->
 <section id="s1">
   <div class="wrap">
     <div class="shead">
       <div class="kick">Paso 1</div>
+      <h2>Alumnos, docentes y equipos</h2>
+    </div>
+
+    <details class="fold" id="foldEq" style="--fc:var(--g-blue);--ft:var(--g-blue-t)">
+      <summary>
+        <span class="fi"><svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg></span>
+        <span class="ft"><b>Docentes, equipos y carritos</b><i id="foldEqSum">—</i></span>
+        <span class="fc"></span>
+      </summary>
+      <div class="foldb" id="eqBody">
+        <div class="fgroup">
+        <div class="miniLbl">Docentes</div>
+        <div class="grid3">
+          <div class="f"><label for="fDocInc">Docentes incluidos</label><output id="fDocInc" class="ro-output" for="fStu">0</output>
+            <div class="hint" id="hDocRatio">1 por cada 10 alumnos</div></div>
+          <div class="f"><label for="fDocX">Docentes extra <span class="tagx">sin equipo</span></label><input type="number" id="fDocX" min="0" max="999999" step="1" inputmode="numeric" value="0">
+            <div class="hint" id="hDocExtraCost">Con licencias, sin equipo. $2,500 al año cada uno</div></div>
+          <div class="f"><label for="fUsers">Usuarios con licencia</label><output id="fUsers" class="ro-output" for="fStu fDocX fEqDoc fEqStu">0</output>
+            <div class="hint" id="hUsers">Alumnos más docentes</div></div>
+        </div>
+
+        </div>
+
+        <div class="fgroup">
+        <div class="miniLbl">Equipos de estudiante</div>
+        <div class="grid2">
+          <div class="f"><label for="fStuIncl">Equipos de estudiante incluidos</label><output id="fStuIncl" class="ro-output" for="fStu fModel">0</output>
+            <div class="hint" id="hStuIncl">Fijo por modalidad: no se puede editar</div></div>
+          <div class="f"><label for="fStuX">Equipos de estudiante adicionales</label><input type="number" id="fStuX" min="0" max="999999" step="1" inputmode="numeric" value="0">
+            <div class="hint" id="hStuX">Se suman a los incluidos</div></div>
+        </div>
+
+        </div>
+
+        <div class="fgroup">
+        <div class="miniLbl">Equipos para docentes <span class="tagx alt" id="hEqCosts">costos de catálogo: docente $21,000 · estudiante $17,000</span></div>
+        <fieldset class="teachmodel" id="teacherModelGrid" tabindex="-1">
+          <legend>Modelo de los equipos docentes incluidos <span class="reqtag" id="tmReqTag">obligatorio</span></legend>
+          <div class="cartgrid tmgrid">
+            <fieldset class="cartopt" data-tm="docente"><legend>Modelo docente</legend>
+              <div class="cart-select"><input type="radio" id="tmDocente" name="teachermodel" value="docente"><label for="tmDocente">Usar modelo docente</label></div>
+              <span class="nohint" id="tmDocenteQty">1 por cada 20 alumnos</span></fieldset>
+            <fieldset class="cartopt" data-tm="estudiante"><legend>Modelo estudiante</legend>
+              <div class="cart-select"><input type="radio" id="tmEstudiante" name="teachermodel" value="estudiante"><label for="tmEstudiante">Usar modelo estudiante</label></div>
+              <span class="nohint" id="tmEstudianteQty">1 por cada 10 alumnos</span></fieldset>
+          </div>
+          <div class="hint" id="hTeacherModel">Elige uno: define qué equipo reciben los docentes incluidos. Los adicionales de abajo sí pueden mezclar ambos modelos.</div>
+        </fieldset>
+        <div class="grid3" style="margin-top:14px">
+          <div class="f"><label for="fEqDocInc">Equipos docentes incluidos</label><output id="fEqDocInc" class="ro-output" for="fStu">0</output>
+            <div class="hint" id="hEqDocInc">Elige primero el modelo</div></div>
+          <div class="f"><label for="fEqDoc">Adicionales · modelo docente</label><input type="number" id="fEqDoc" min="0" max="999999" step="1" inputmode="numeric" value="0">
+            <div class="hint">Equipo de mayor capacidad. Suma licencias</div></div>
+          <div class="f"><label for="fEqStu">Adicionales · modelo estudiante</label><input type="number" id="fEqStu" min="0" max="999999" step="1" inputmode="numeric" value="0">
+            <div class="hint">Mismo equipo que el alumno. Suma licencias</div></div>
+        </div>
+
+        </div>
+
+        <div class="fgroup">
+        <div class="miniLbl">Carrito de carga <span class="tagx alt">solo en modelos 1:2, 1:3 y 1:4</span></div>
+        <fieldset class="cartgrid" id="cartGrid"><legend class="sr-only">Capacidad y precio del carrito de carga</legend>
+          <fieldset class="cartopt" data-cap="20"><legend>Carrito de 20 equipos</legend><div class="cart-select"><input type="radio" id="cartCap20" name="cartcap" value="20"><label for="cartCap20">Usar capacidad de 20</label></div><label for="fCart20">Precio unitario</label><input type="number" id="fCart20" min="0" max="10000000" step="0.01" inputmode="decimal" value="0" placeholder="precio"></fieldset>
+          <fieldset class="cartopt on" data-cap="30"><legend>Carrito de 30 equipos</legend><div class="cart-select"><input type="radio" id="cartCap30" name="cartcap" value="30" checked><label for="cartCap30">Usar capacidad de 30</label></div><label for="fCart30">Precio unitario</label><input type="number" id="fCart30" min="0" max="10000000" step="0.01" inputmode="decimal" value="0" placeholder="precio"></fieldset>
+          <fieldset class="cartopt" data-cap="40"><legend>Carrito de 40 equipos</legend><div class="cart-select"><input type="radio" id="cartCap40" name="cartcap" value="40"><label for="cartCap40">Usar capacidad de 40</label></div><label for="fCart40">Precio unitario</label><input type="number" id="fCart40" min="0" max="10000000" step="0.01" inputmode="decimal" value="0" placeholder="precio"></fieldset>
+          <fieldset class="cartopt none" data-cap="0"><legend>Sin carrito</legend><div class="cart-select"><input type="radio" id="cartCap0" name="cartcap" value="0"><label for="cartCap0">No incluir carrito</label></div><span class="nohint">No se incluye en el cálculo</span></fieldset>
+        </fieldset>
+        <label class="lic cart-free" id="cartFreeWrap" hidden>
+          <input type="checkbox" id="fCartFree">
+          <span class="ln"><b>Autorizar carrito sin costo</b><br><small>La autorización queda ligada a esta configuración y se revoca si cambia.</small><span id="cartAuthMeta" class="cart-auth-meta"></span></span>
+        </label>
+        <div class="calcbox" id="cartBox" style="margin-top:14px"></div>
+        </div>
+      </div>
+    </details>
+
+    <details class="fold" id="foldLic" style="--fc:var(--g-grn);--ft:var(--g-grn-t)">
+      <summary>
+        <span class="fi"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></span>
+        <span class="ft"><b>Licencias incluidas</b><i id="foldLicSum">—</i></span>
+        <span class="fc"></span>
+      </summary>
+      <div class="foldb"><div class="licgrid" id="licGrid"></div></div>
+    </details>
+
+    <!-- F-23 · A-05 · Región viva: las advertencias del cálculo se anuncian a lectores de pantalla -->
+    <div class="warns" id="warnBox" role="status" aria-live="polite" aria-relevant="additions text" aria-label="Advertencias del cálculo"></div>
+  </div>
+</section>
+
+<!-- ================= 2 · DATOS DE LA PROPUESTA ================= -->
+<section id="s2" class="alt">
+  <div class="wrap">
+    <div class="shead">
+      <div class="kick">Paso 2</div>
+      <h2>Datos de la propuesta</h2>
+    </div>
+
+    <details class="fold" id="foldCli" style="--fc:var(--g-blue);--ft:var(--g-blue-t)" open>
+      <summary>
+        <span class="fi"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
+        <span class="ft"><b>Colegio y contactos</b><i id="foldCliSum">—</i></span>
+        <span class="fc"></span>
+      </summary>
+      <div class="foldb">
+        <div class="grid3">
+          <div class="f"><label for="fInst">Institución</label><input type="text" id="fInst" maxlength="120" autocomplete="organization" placeholder="Instituto Thomas Jefferson"></div>
+          <div class="f"><label for="fShort">Nombre corto</label><input type="text" id="fShort" maxlength="40" placeholder="ITJ Querétaro"><div class="hint">Se usa en títulos y en el nombre sugerido del PDF</div></div>
+          <div class="f"><label for="fCity">Ciudad</label><input type="text" id="fCity" maxlength="80" autocomplete="address-level2" placeholder="Querétaro, Qro."></div>
+        </div>
+        <div class="miniLbl">Contactos del colegio <span class="tagx alt">se precargan al enviar el correo</span></div>
+        <div id="contactRows"></div>
+      </div>
+    </details>
+
+    <details class="fold" id="foldVig" style="--fc:var(--g-red);--ft:var(--g-red-t)">
+      <summary>
+        <span class="fi"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM7 11h5v5H7v-5z"/></svg></span>
+        <span class="ft"><b>Vigencia, entrega y firma</b><i id="foldVigSum">—</i></span>
+        <span class="fc"></span>
+      </summary>
+      <div class="foldb">
+        <div class="grid2">
+          <div class="f"><label for="fDate">Fecha de la cotización</label><input type="date" id="fDate">
+            <div class="hint" id="hQuoteDate">Se usa la fecha de hoy al crear la cotización</div>
+            <div class="inline-action" id="staleDateWrap" hidden><button type="button" class="btn text" id="btnDateToday">Actualizar a hoy y recalcular la vigencia</button></div></div>
+          <div class="f"><label for="fValid">Válida hasta</label><input type="date" id="fValid"><div class="hint" id="hValidity">Se sugiere 31 días</div></div>
+        </div>
+        <div class="grid2">
+          <div class="f"><label for="fDeliver">Tiempo de entrega</label><input type="text" id="fDeliver" maxlength="120" value="15 de agosto de 2027"></div>
+          <div class="f"><label for="fShip">Incluye envío</label><select id="fShip"><option>Sí</option><option>No</option></select></div>
+        </div>
+        <div class="miniLbl">Quien firma la propuesta</div>
+        <div class="grid2">
+          <!-- F-23 · B-10 · Los datos del vendedor viven una sola vez, en APP_CONFIG.defaults.seller;
+               bindStateToForm() los escribe al arrancar. Se retiran los value duplicados del HTML. -->
+          <div class="f"><label for="fBy">Nombre</label><input type="text" id="fBy" maxlength="100" autocomplete="name"></div>
+          <div class="f"><label for="fRole">Puesto</label><input type="text" id="fRole" maxlength="80"></div>
+        </div>
+        <div class="grid3">
+          <div class="f"><label for="fPhone">Teléfono</label><input type="text" id="fPhone" maxlength="30" autocomplete="tel"></div>
+          <div class="f"><label for="fMail">Correo</label><input type="email" id="fMail" maxlength="254" autocomplete="email"></div>
+          <div class="f"><label for="fWeb">Sitio web</label><input type="text" id="fWeb" maxlength="120"></div>
+        </div>
+        <div class="inline-action">
+          <button type="button" class="btn text" id="btnAdoptSellerProfile">Usar estos datos como perfil predeterminado</button>
+          <span class="hint" id="sellerProfileState">El perfil predeterminado se usa al crear cotizaciones nuevas.</span>
+        </div>
+      </div>
+    </details>
+
+    <details class="fold" id="foldFis" style="--fc:var(--g-yel-d);--ft:var(--g-yel-t)">
+      <summary>
+        <span class="fi"><svg viewBox="0 0 24 24"><path d="M4 10h3v7H4zM10.5 10h3v7h-3zM2 19h20v3H2zM17 10h3v7h-3zM12 1L2 6v2h20V6z"/></svg></span>
+        <span class="ft"><b>Datos fiscales y bancarios</b><i id="foldFisSum">—</i></span>
+        <span class="fc"></span>
+      </summary>
+      <div class="foldb">
+        <div class="grid2">
+          <div class="f"><label for="fLegal">Razón social</label><input type="text" id="fLegal" maxlength="160" value="IQU TECHNOLOGIES SAPI DE CV"></div>
+          <div class="f"><label for="fRfc">RFC</label><input type="text" id="fRfc" maxlength="13" value="ITE2109227E6"></div>
+        </div>
+        <div class="f"><label for="fAddr">Domicilio fiscal</label>
+          <input type="text" id="fAddr" maxlength="250" value="Bosque de Radiatas 54 Int 201, Bosques de las Lomas, Cuajimalpa de Morelos, 05120 Ciudad de México, CDMX"></div>
+
+        <div class="miniLbl">Datos bancarios <span class="tagx alt">aparecen en la hoja de cierre de la propuesta</span></div>
+        <div class="grid2">
+          <div class="f"><label for="fBankT">Titular</label><input type="text" id="fBankT" maxlength="160" value="IQU TECHNOLOGIES SAPI DE CV"></div>
+          <div class="f"><label for="fBankN">Banco y moneda</label><input type="text" id="fBankN" maxlength="100" value="Banorte · pesos mexicanos"></div>
+        </div>
+        <div class="grid2">
+          <div class="f"><label for="fBankC">Cuenta</label><input type="text" id="fBankC" maxlength="30" inputmode="numeric" value="1299197237"></div>
+          <div class="f"><label for="fBankK">CLABE</label><input type="text" id="fBankK" maxlength="18" inputmode="numeric" value="072180012991972374">
+            <div class="hint" id="clabeChk">—</div></div>
+        </div>
+
+        <div class="f"><label for="fSlogan">Lema del documento</label>
+          <input type="text" id="fSlogan" maxlength="120" value="Transformando tu escuela con Google"></div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ================= 3 · PRECIO Y FORMAS DE PAGO ================= -->
+<section id="s3">
+  <div class="wrap">
+    <div class="shead">
+      <div class="kick">Paso 3</div>
       <h2>Precio y formas de pago</h2>
-      <p>Elige el esquema para ver el desglose año por año. Abajo aparecen los tres lado a lado.</p>
     </div>
 
     <div class="cfg">
@@ -1215,13 +1436,12 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
   </div>
 </section>
 
-<!-- ================= 2 · QUÉ INCLUYE ================= -->
-<section id="s2" class="alt">
+<!-- ================= 4 · TODO LO QUE INCLUYE ================= -->
+<section id="s4" class="alt">
   <div class="wrap">
     <div class="shead">
-      <div class="kick">Paso 2</div>
+      <div class="kick">Paso 4</div>
       <h2>Todo lo que incluye <span id="incPkg">Upgrade Edu</span> <span class="muted" id="incMod"></span></h2>
-      <p>Cada servicio muestra la cantidad que le corresponde al colegio. Los que no aplican en esta modalidad aparecen atenuados con el motivo.</p>
     </div>
 
     <div class="area mo-reveal">
@@ -1253,204 +1473,23 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
   </div>
 </section>
 
-<!-- ================= 3 · ACOMPAÑAMIENTO ================= -->
-<section id="s3">
+<!-- ================= 5 · ACOMPAÑAMIENTO ================= -->
+<section id="s5">
   <div class="wrap">
     <div class="shead">
-      <div class="kick">Paso 3</div>
+      <div class="kick">Paso 5</div>
       <h2>Acompañamiento asignado</h2>
-      <p>Se calcula automáticamente según el número de estudiantes del colegio.</p>
     </div>
     <div class="acomp mo-reveal" id="acompGrid"></div>
   </div>
 </section>
 
-<!-- ================= 4 · AJUSTES ================= -->
-<section id="s4" class="alt">
-  <div class="wrap">
-    <div class="shead">
-      <div class="kick">Paso 4</div>
-      <h2>Ajustes de la cotización</h2>
-      <p>Solo si el colegio pide algo fuera del estándar. Todo lo de aquí modifica el precio de arriba.</p>
-    </div>
-
-    <details class="fold" id="foldEq">
-      <summary>
-        <span class="fi"><svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg></span>
-        <span class="ft"><b>Docentes, equipos y carritos</b><i id="foldEqSum">—</i></span>
-        <span class="fc"></span>
-      </summary>
-      <div class="foldb" id="eqBody">
-        <div class="miniLbl">Docentes</div>
-        <div class="grid3" style="margin-bottom:18px">
-          <div class="f"><label for="fDocInc">Docentes incluidos</label><output id="fDocInc" class="ro-output" for="fStu">0</output>
-            <div class="hint" id="hDocRatio">1 por cada 10 alumnos</div></div>
-          <div class="f"><label for="fDocX">Docentes extra <span class="tagx">sin equipo</span></label><input type="number" id="fDocX" min="0" max="999999" step="1" inputmode="numeric" value="0">
-            <div class="hint" id="hDocExtraCost">Con licencias, sin equipo. $2,500 al año cada uno</div></div>
-          <div class="f"><label for="fUsers">Usuarios con licencia</label><output id="fUsers" class="ro-output" for="fStu fDocX fEqDoc fEqStu">0</output>
-            <div class="hint" id="hUsers">Alumnos más docentes</div></div>
-        </div>
-
-        <div class="miniLbl">Equipos de estudiante</div>
-        <div class="grid2" style="margin-bottom:18px">
-          <div class="f"><label for="fStuIncl">Equipos de estudiante incluidos</label><output id="fStuIncl" class="ro-output" for="fStu fModel">0</output>
-            <div class="hint" id="hStuIncl">Fijo por modalidad: no se puede editar</div></div>
-          <div class="f"><label for="fStuX">Equipos de estudiante adicionales</label><input type="number" id="fStuX" min="0" max="999999" step="1" inputmode="numeric" value="0">
-            <div class="hint" id="hStuX">Se suman a los incluidos</div></div>
-        </div>
-
-        <div class="miniLbl">Equipos para docentes <span class="tagx alt" id="hEqCosts">costos de catálogo: docente $21,000 · estudiante $17,000</span></div>
-        <fieldset class="teachmodel" id="teacherModelGrid" tabindex="-1">
-          <legend>Modelo de los equipos docentes incluidos <span class="reqtag" id="tmReqTag">obligatorio</span></legend>
-          <div class="cartgrid tmgrid">
-            <fieldset class="cartopt" data-tm="docente"><legend>Modelo docente</legend>
-              <div class="cart-select"><input type="radio" id="tmDocente" name="teachermodel" value="docente"><label for="tmDocente">Usar modelo docente</label></div>
-              <span class="nohint" id="tmDocenteQty">1 por cada 20 alumnos</span></fieldset>
-            <fieldset class="cartopt" data-tm="estudiante"><legend>Modelo estudiante</legend>
-              <div class="cart-select"><input type="radio" id="tmEstudiante" name="teachermodel" value="estudiante"><label for="tmEstudiante">Usar modelo estudiante</label></div>
-              <span class="nohint" id="tmEstudianteQty">1 por cada 10 alumnos</span></fieldset>
-          </div>
-          <div class="hint" id="hTeacherModel">Elige uno: define qué equipo reciben los docentes incluidos. Los adicionales de abajo sí pueden mezclar ambos modelos.</div>
-        </fieldset>
-        <div class="grid3" style="margin:14px 0 18px">
-          <div class="f"><label for="fEqDocInc">Equipos docentes incluidos</label><output id="fEqDocInc" class="ro-output" for="fStu">0</output>
-            <div class="hint" id="hEqDocInc">Elige primero el modelo</div></div>
-          <div class="f"><label for="fEqDoc">Adicionales · modelo docente</label><input type="number" id="fEqDoc" min="0" max="999999" step="1" inputmode="numeric" value="0">
-            <div class="hint">Equipo de mayor capacidad. Suma licencias</div></div>
-          <div class="f"><label for="fEqStu">Adicionales · modelo estudiante</label><input type="number" id="fEqStu" min="0" max="999999" step="1" inputmode="numeric" value="0">
-            <div class="hint">Mismo equipo que el alumno. Suma licencias</div></div>
-        </div>
-
-        <div class="miniLbl">Carrito de carga <span class="tagx alt">solo en modelos 1:2, 1:3 y 1:4</span></div>
-        <fieldset class="cartgrid" id="cartGrid"><legend class="sr-only">Capacidad y precio del carrito de carga</legend>
-          <fieldset class="cartopt" data-cap="20"><legend>Carrito de 20 equipos</legend><div class="cart-select"><input type="radio" id="cartCap20" name="cartcap" value="20"><label for="cartCap20">Usar capacidad de 20</label></div><label for="fCart20">Precio unitario</label><input type="number" id="fCart20" min="0" max="10000000" step="0.01" inputmode="decimal" value="0" placeholder="precio"></fieldset>
-          <fieldset class="cartopt on" data-cap="30"><legend>Carrito de 30 equipos</legend><div class="cart-select"><input type="radio" id="cartCap30" name="cartcap" value="30" checked><label for="cartCap30">Usar capacidad de 30</label></div><label for="fCart30">Precio unitario</label><input type="number" id="fCart30" min="0" max="10000000" step="0.01" inputmode="decimal" value="0" placeholder="precio"></fieldset>
-          <fieldset class="cartopt" data-cap="40"><legend>Carrito de 40 equipos</legend><div class="cart-select"><input type="radio" id="cartCap40" name="cartcap" value="40"><label for="cartCap40">Usar capacidad de 40</label></div><label for="fCart40">Precio unitario</label><input type="number" id="fCart40" min="0" max="10000000" step="0.01" inputmode="decimal" value="0" placeholder="precio"></fieldset>
-          <fieldset class="cartopt none" data-cap="0"><legend>Sin carrito</legend><div class="cart-select"><input type="radio" id="cartCap0" name="cartcap" value="0"><label for="cartCap0">No incluir carrito</label></div><span class="nohint">No se incluye en el cálculo</span></fieldset>
-        </fieldset>
-        <label class="lic cart-free" id="cartFreeWrap" hidden>
-          <input type="checkbox" id="fCartFree">
-          <span class="ln"><b>Autorizar carrito sin costo</b><br><small>La autorización queda ligada a esta configuración y se revoca si cambia.</small><span id="cartAuthMeta" class="cart-auth-meta"></span></span>
-        </label>
-        <div class="calcbox" id="cartBox" style="margin-top:14px"></div>
-      </div>
-    </details>
-
-    <details class="fold" id="foldLic">
-      <summary>
-        <span class="fi"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></span>
-        <span class="ft"><b>Licencias incluidas</b><i id="foldLicSum">—</i></span>
-        <span class="fc"></span>
-      </summary>
-      <div class="foldb"><div class="licgrid" id="licGrid"></div></div>
-    </details>
-
-    <!-- F-23 · A-05 · Región viva: las advertencias del cálculo se anuncian a lectores de pantalla -->
-    <div class="warns" id="warnBox" role="status" aria-live="polite" aria-relevant="additions text" aria-label="Advertencias del cálculo"></div>
-  </div>
-</section>
-
-<!-- ================= 5 · DATOS ================= -->
-<section id="s5">
-  <div class="wrap">
-    <div class="shead">
-      <div class="kick">Paso 5</div>
-      <h2>Datos para la propuesta</h2>
-      <p>Lo que encabeza y cierra el documento que recibe el colegio.</p>
-    </div>
-
-    <details class="fold" id="foldCli" open>
-      <summary>
-        <span class="fi" style="background:var(--g-blue-t)"><svg viewBox="0 0 24 24" style="fill:var(--g-blue)"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
-        <span class="ft"><b>Colegio y contactos</b><i id="foldCliSum">—</i></span>
-        <span class="fc"></span>
-      </summary>
-      <div class="foldb">
-        <div class="grid3" style="margin-bottom:18px">
-          <div class="f"><label for="fInst">Institución</label><input type="text" id="fInst" maxlength="120" autocomplete="organization" placeholder="Instituto Thomas Jefferson"></div>
-          <div class="f"><label for="fShort">Nombre corto</label><input type="text" id="fShort" maxlength="40" placeholder="ITJ Querétaro"><div class="hint">Se usa en títulos y en el nombre sugerido del PDF</div></div>
-          <div class="f"><label for="fCity">Ciudad</label><input type="text" id="fCity" maxlength="80" autocomplete="address-level2" placeholder="Querétaro, Qro."></div>
-        </div>
-        <div class="miniLbl">Contactos del colegio <span class="tagx alt">se precargan al enviar el correo</span></div>
-        <div id="contactRows"></div>
-      </div>
-    </details>
-
-    <details class="fold" id="foldVig">
-      <summary>
-        <span class="fi" style="background:var(--g-red-t)"><svg viewBox="0 0 24 24" style="fill:var(--g-red)"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM7 11h5v5H7v-5z"/></svg></span>
-        <span class="ft"><b>Vigencia, entrega y firma</b><i id="foldVigSum">—</i></span>
-        <span class="fc"></span>
-      </summary>
-      <div class="foldb">
-        <div class="grid2" style="margin-bottom:10px">
-          <div class="f"><label for="fDate">Fecha de la cotización</label><input type="date" id="fDate">
-            <div class="hint" id="hQuoteDate">Se usa la fecha de hoy al crear la cotización</div>
-            <div class="inline-action" id="staleDateWrap" hidden><button type="button" class="btn text" id="btnDateToday">Actualizar a hoy y recalcular la vigencia</button></div></div>
-          <div class="f"><label for="fValid">Válida hasta</label><input type="date" id="fValid"><div class="hint" id="hValidity">Se sugiere 31 días</div></div>
-        </div>
-        <div class="grid2" style="margin-bottom:18px">
-          <div class="f"><label for="fDeliver">Tiempo de entrega</label><input type="text" id="fDeliver" maxlength="120" value="15 de agosto de 2027"></div>
-          <div class="f"><label for="fShip">Incluye envío</label><select id="fShip"><option>Sí</option><option>No</option></select></div>
-        </div>
-        <div class="miniLbl">Quien firma la propuesta</div>
-        <div class="grid2" style="margin-bottom:10px">
-          <!-- F-23 · B-10 · Los datos del vendedor viven una sola vez, en APP_CONFIG.defaults.seller;
-               bindStateToForm() los escribe al arrancar. Se retiran los value duplicados del HTML. -->
-          <div class="f"><label for="fBy">Nombre</label><input type="text" id="fBy" maxlength="100" autocomplete="name"></div>
-          <div class="f"><label for="fRole">Puesto</label><input type="text" id="fRole" maxlength="80"></div>
-        </div>
-        <div class="grid3">
-          <div class="f"><label for="fPhone">Teléfono</label><input type="text" id="fPhone" maxlength="30" autocomplete="tel"></div>
-          <div class="f"><label for="fMail">Correo</label><input type="email" id="fMail" maxlength="254" autocomplete="email"></div>
-          <div class="f"><label for="fWeb">Sitio web</label><input type="text" id="fWeb" maxlength="120"></div>
-        </div>
-        <div class="inline-action">
-          <button type="button" class="btn text" id="btnAdoptSellerProfile">Usar estos datos como perfil predeterminado</button>
-          <span class="hint" id="sellerProfileState">El perfil predeterminado se usa al crear cotizaciones nuevas.</span>
-        </div>
-      </div>
-    </details>
-
-    <details class="fold" id="foldFis">
-      <summary>
-        <span class="fi" style="background:var(--g-yel-t)"><svg viewBox="0 0 24 24" style="fill:var(--g-yel-d)"><path d="M4 10h3v7H4zM10.5 10h3v7h-3zM2 19h20v3H2zM17 10h3v7h-3zM12 1L2 6v2h20V6z"/></svg></span>
-        <span class="ft"><b>Datos fiscales y bancarios</b><i id="foldFisSum">—</i></span>
-        <span class="fc"></span>
-      </summary>
-      <div class="foldb">
-        <div class="grid2" style="margin-bottom:10px">
-          <div class="f"><label for="fLegal">Razón social</label><input type="text" id="fLegal" maxlength="160" value="IQU TECHNOLOGIES SAPI DE CV"></div>
-          <div class="f"><label for="fRfc">RFC</label><input type="text" id="fRfc" maxlength="13" value="ITE2109227E6"></div>
-        </div>
-        <div class="f" style="margin-bottom:18px"><label for="fAddr">Domicilio fiscal</label>
-          <input type="text" id="fAddr" maxlength="250" value="Bosque de Radiatas 54 Int 201, Bosques de las Lomas, Cuajimalpa de Morelos, 05120 Ciudad de México, CDMX"></div>
-
-        <div class="miniLbl">Datos bancarios <span class="tagx alt">aparecen en la hoja de cierre de la propuesta</span></div>
-        <div class="grid2" style="margin-bottom:10px">
-          <div class="f"><label for="fBankT">Titular</label><input type="text" id="fBankT" maxlength="160" value="IQU TECHNOLOGIES SAPI DE CV"></div>
-          <div class="f"><label for="fBankN">Banco y moneda</label><input type="text" id="fBankN" maxlength="100" value="Banorte · pesos mexicanos"></div>
-        </div>
-        <div class="grid2" style="margin-bottom:18px">
-          <div class="f"><label for="fBankC">Cuenta</label><input type="text" id="fBankC" maxlength="30" inputmode="numeric" value="1299197237"></div>
-          <div class="f"><label for="fBankK">CLABE</label><input type="text" id="fBankK" maxlength="18" inputmode="numeric" value="072180012991972374">
-            <div class="hint" id="clabeChk">—</div></div>
-        </div>
-
-        <div class="f"><label for="fSlogan">Lema del documento</label>
-          <input type="text" id="fSlogan" maxlength="120" value="Transformando tu escuela con Google"></div>
-      </div>
-    </details>
-  </div>
-</section>
-
-<!-- ================= 6 · VOLUMEN ================= -->
+<!-- ================= BENEFICIO ADICIONAL · VOLUMEN DE REDES ================= -->
 <section id="s6" class="alt">
   <div class="wrap">
     <div class="shead">
       <div class="kick">Beneficio adicional</div>
       <h2>Descuento especial por volumen de redes</h2>
-      <p>Referencia comercial para redes de colegios. No modifica automáticamente el precio de esta cotización.</p>
       <div class="volume-notice"><b>Validación comercial requerida.</b> Los porcentajes se muestran como referencia y deben confirmarse antes de incorporarlos a una propuesta.</div>
     </div>
     <div class="vgrid">
@@ -2180,6 +2219,9 @@ const STORAGE_KEYS={
 const LEGACY_KEYS={current:"activa.cotizador.current.v2",index:"activa.cotizador.index.v2",quotePrefix:"activa.cotizador.quote.v2."};
 function storageAvailable(){try{const key="__activa_test__";localStorage.setItem(key,"1");localStorage.removeItem(key);return true;}catch{return false;}}
 const HAS_STORAGE=storageAvailable();
+/* Una sola fuente para la version: la etiqueta que el comercial ve en el
+   encabezado. Si se actualiza ahi, se actualiza en el informe de pruebas. */
+const APP_VERSION=(document.querySelector(".vertag")?.textContent||"").trim()||"v4.0";
 const isPlainObject=value=>value!==null&&typeof value==="object"&&!Array.isArray(value)&&Object.getPrototypeOf(value)===Object.prototype;
 function strictString(value,{field="texto",max=250,min=0,optional=false}={}){if(value==null&&optional)return "";if(typeof value!=="string")throw new Error(`${field}: debe ser texto`);const clean=value.trim();if(!optional&&clean.length<min)throw new Error(`${field}: es obligatorio`);if(clean.length>max)throw new Error(`${field}: excede ${max} caracteres`);return clean;}
 function strictBoolean(value,field="booleano"){if(typeof value!=="boolean")throw new Error(`${field}: debe ser verdadero o falso`);return value;}
@@ -2886,7 +2928,7 @@ function initControls() {
   /* F-24 · P4 · Casillas de esquemas incluidos en el documento. */
   $("#schemeShowRow").innerHTML=Object.entries(PAYS).map(([k,p])=>`<label data-scheme-label="${k}"><input type="checkbox" data-show-scheme="${k}"> ${esc(p.title)}</label>`).join("");
   $("#licGrid").innerHTML=LICS.map(l=>`<label class="lic" data-lic="${l.k}"><input type="checkbox" data-lic-in="${l.k}"><span class="ln">${esc(l.n)}</span>${l.plusOnly?'<span class="lp">PLUS</span>':""}${l.disc?`<span class="lc">−${money(l.disc)}</span>`:""}</label>`).join("");
-  $("#contactRows").innerHTML=[1,2,3].map(n=>`<fieldset class="contact-card"><legend>Contacto ${n}</legend><div class="crow"><div><label for="qC${n}n">Nombre</label><input type="text" id="qC${n}n" maxlength="100" autocomplete="name"></div><div><label for="qC${n}m">Correo</label><input type="email" id="qC${n}m" maxlength="254" autocomplete="email"></div><div><label for="qC${n}t">Teléfono</label><input type="tel" id="qC${n}t" maxlength="30" autocomplete="tel"></div></div></fieldset>`).join("");
+  $("#contactRows").innerHTML=[1,2,3].map(n=>`<fieldset class="contact-card"><legend>Contacto ${n}</legend><div class="ccrow"><div><label for="qC${n}n">Nombre</label><input type="text" id="qC${n}n" maxlength="100" autocomplete="name"></div><div><label for="qC${n}m">Correo</label><input type="email" id="qC${n}m" maxlength="254" autocomplete="email"></div><div><label for="qC${n}t">Teléfono</label><input type="tel" id="qC${n}t" maxlength="30" autocomplete="tel"></div></div></fieldset>`).join("");
   renderVolume();
 }
 function bindStateToForm() {
@@ -4127,7 +4169,7 @@ const QuoteTests={
     if(failed)throw new Error(`${failed} prueba(s) fallaron`);
     return{passed,failed,results:clone(this.results)};
   },
-  renderReport(){const box=$("#testReport");if(!box)return;const passed=this.results.filter(item=>item.ok).length;box.hidden=false;box.innerHTML=`<button type="button" class="btn" id="btnCloseTests" style="float:right">Cerrar</button><h2>Pruebas internas · final de producción</h2><p class="${passed===this.results.length?"test-pass":"test-fail"}">${passed} de ${this.results.length} aprobadas</p><pre>${esc(this.results.map(result=>`${result.ok?"✓":"✕"} ${result.name}${result.error?": "+result.error:""}`).join("\n"))}</pre>`;$("#btnCloseTests").addEventListener("click",()=>box.hidden=true);}
+  renderReport(){const box=$("#testReport");if(!box)return;const passed=this.results.filter(item=>item.ok).length;box.hidden=false;box.innerHTML=`<button type="button" class="btn" id="btnCloseTests" style="float:right">Cerrar</button><h2>Pruebas internas · cotizador ${esc(APP_VERSION)}</h2><p class="${passed===this.results.length?"test-pass":"test-fail"}">${passed} de ${this.results.length} aprobadas</p><pre>${esc(this.results.map(result=>`${result.ok?"✓":"✕"} ${result.name}${result.error?": "+result.error:""}`).join("\n"))}</pre>`;$("#btnCloseTests").addEventListener("click",()=>box.hidden=true);}
 };
 const Diagnostics={run(){const index=listIndex(),keys=allQuoteKeys(),recoveries=allRecoveryKeys(),orphans=keys.filter(k=>!index.some(i=>k.endsWith(i.quoteId)));let tests={skipped:true,failed:0};if(confirm("El diagnóstico ejecutará las pruebas internas del cotizador.\n\nNo modifica tu cotización ni tus borradores, pero puede tardar unos segundos.\n\nRecomendación: cierra las demás pestañas del cotizador antes de continuar. ¿Continuar?")){try{tests=QuoteTests.runAll({show:false});}catch(error){tests={failed:1,error:error.message};}}const report={version:APP_CONFIG.schemaVersion,protocol:location.protocol,storage:HAS_STORAGE,draftsInIndex:index.length,quoteKeys:keys.length,recoveries:recoveries.length,orphans:orphans.length,current:APP_STATE?.identity?.quoteId,dirty:DIRTY,conflict:STORAGE_CONFLICT,tests};alert(`Diagnóstico activa · Cotizador v4.0\n\nAlmacenamiento: ${HAS_STORAGE?"disponible":"no disponible"}\nBorradores índice: ${index.length}\nClaves encontradas: ${keys.length}\nHuérfanos: ${orphans.length}\nRecuperaciones: ${recoveries.length}\nPruebas fallidas: ${tests.failed||0}`);console.info("Diagnóstico activa",report);return report;}};
 /* F-20 · Los numeros comerciales viven una sola vez, en APP_CONFIG. Los textos
@@ -4147,7 +4189,6 @@ function syncStaticCopy(){
   set("#hValidity",`Se sugiere ${APP_CONFIG.cycle.validityDays} días`);
   /* F-23 · M-11 · El ciclo escolar del hero, el pie legal y el título del documento
      también se sincronizan desde APP_CONFIG; estaban escritos a mano. */
-  set("#cycleTag",APP_CONFIG.cycle.label);
   set("#footerLegal",`Precios del ${APP_CONFIG.cycle.label.toLowerCase()} en pesos mexicanos por alumno, IVA incluido. Sujetos a confirmación contractual.`);
   /* F-27 · UX-5 · El título de la pestaña es la verificación más rápida de qué archivo
      está abierto: las copias viejas dicen "Final producción". */
