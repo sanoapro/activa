@@ -199,6 +199,7 @@ activa.arrendamiento.counter.v1.<…>    consecutivos de folio por día
 activa.arrendamiento.revmax.v1.<…>     revisión máxima emitida por raíz de folio
 activa.arrendamiento.recovery.v1.<…>   copias de recuperación ante fallo o conflicto
 activa.arrendamiento.seller-profile.v1 el perfil del vendedor
+activa.arrendamiento.archivo-pendiente.v1  cotizaciones impresas y aún no archivadas en Drive
 ```
 
 - Máximo **20 borradores**; la importación acepta hasta 2 MB (`fileType:"activa-lease-quote"`).
@@ -263,9 +264,48 @@ clava la prueba «La hoja interior no repite la portada».
 
 `Ctrl+P` directo también funciona cuando el documento está listo (guard en `beforeprint`).
 
+**Huella de impresión** (agregada con el archivo en Drive, calcada de compra y del cotizador):
+`printSignature()` / `PRINT_READY_SIGNATURE` recuerdan con qué estado se construyó `#printRoot`;
+`markChanged()` la invalida y `beforeprint` solo reconstruye si cambió. Su papel importante es
+garantizar que la instantánea que congela el archivo en Drive corresponde al PDF que salió.
+
+## El archivo en Drive
+
+Cada PDF generado puede además quedar **archivado en Google Drive**, en la carpeta del correo
+del vendedor. El diseño completo vive en [`docs/drive-PDF/`](../../docs/drive-PDF/); la lógica
+es una sola copia para los tres cotizadores: [`compartidos/js/archivo-drive.js`](../../compartidos/js/archivo-drive.js).
+Esta página fue la primera en estrenarlo (compra y cotizador siguen).
+
+Cómo se engancha, y es todo lo que otra página necesita replicar:
+
+1. Un contenedor vacío (`#archivoDrive`, al final de la sección de inversión).
+2. `ArchivoDrive.montar({page, endpoint, token, contenedor, datos})` — busca
+   `archivo en Drive` en el `index.html`.
+3. Tres llamadas: `capturar()` al preparar la impresión (también en la ruta de `Ctrl+P`),
+   `mostrar()` en `afterprint`, y `revisarPendiente(quoteId)` en `renderDocumentMeta()` —es
+   idempotente: solo trabaja cuando cambia la cotización—.
+
+Lo que hay que saber:
+
+- **El bloque no existe hasta generar un PDF.** Aparece después del diálogo de impresión
+  (aunque el vendedor haya cancelado: pudo haber guardado) y ofrece elegir ese PDF y subirlo.
+- **`datos()` se congela al imprimir, no al subir.** Si se edita en medio, el JSON archivado
+  sigue correspondiendo al PDF. El JSON viaja con el sobre de Exportar
+  (`fileType:"activa-lease-quote"`), así que lo archivado se reabre con **Importar JSON** tal cual.
+- **Subir es opcional pero insistente**: al imprimir, la cotización se marca bajo
+  `activa.arrendamiento.archivo-pendiente.v1` y, si no se sube, el bloque reaparece en ámbar al
+  reabrirla — se vuelve a elegir el PDF (sigue en el disco), sin reimprimir. Al archivar con
+  éxito la marca se quita.
+- **El nombre del archivo en Drive lo arma el puente** (número correlativo + colegio · fecha ·
+  folio); la página solo coteja que el PDF elegido contenga el folio sugerido y avisa —sin
+  bloquear— si no coincide.
+- **`ARCHIVO_ENDPOINT` está vacío mientras el puente no se despliegue**: el bloque lo dice y
+  nada se rompe. Desde `file://` explica que hay que usar la URL publicada. Si el módulo
+  compartido no cargara, todas las llamadas van con `?.` y la página cotiza igual que hoy.
+
 ## Pruebas internas
 
-`?test=1` corre la suite y la dibuja en `#testReport` — **37 pruebas**: los cuatro casos de
+`?test=1` corre la suite y la dibuja en `#testReport` — **41 pruebas**: los cuatro casos de
 regresión, la composición del precio unitario, la linealidad de PMT, el prorrateo de carritos mixtos, el desglose de IVA, CEU solo
 docente, seguro/Securly por plazo, el precio visible en una cotización recién abierta, que el
 aviso de carritos nunca bloquea, que el modo interno arranca apagado / no viaja / se elimina del

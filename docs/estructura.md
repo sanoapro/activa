@@ -49,6 +49,10 @@ Presentacion-activa/
 │
 ├── compartidos/                  ← LO QUE USA MÁS DE UNA PÁGINA
 │   ├── css/motion.css            Clases mo-* de movimiento. Sin colores.
+│   ├── js/archivo-drive.js       El archivo de cotizaciones en Drive: el bloque
+│   │                             «Guardar en el archivo» de los cotizadores.
+│   │                             Hoy lo usa arrendamiento; compra y cotizador
+│   │                             siguen. Diseño y puente en docs/drive-PDF/.
 │   ├── js/motion.js              EL MOTOR de animación. Lo usan las 4 páginas.
 │   ├── js/motion-lottie.js       Opcional: Lottie diferido. Hoy no lo carga nadie.
 │   ├── js/motion-particles.js    Opcional: campo de partículas 3D
@@ -59,9 +63,11 @@ Presentacion-activa/
 │       ├── marcas/               18 logos de marca y de marcos curriculares (.webp)
 │       └── fotos-vendedores/     Retratos originales del equipo
 │
-├── docs/                         ← TEXTO, NO CÓDIGO
+├── docs/                         ← TEXTO, NO CÓDIGO (una excepción; ver abajo)
 │   ├── portafolio-activa.md      Documento maestro de producto (fuente de verdad)
 │   ├── descripcion-de-productos/ Catálogo y guiones de video
+│   ├── drive-PDF/                El archivo de cotizaciones en Drive: plan,
+│   │                             encargo y la copia del puente (.gs)
 │   ├── normativa-motion.md       Cómo se anima cualquier página. OBLIGATORIA.
 │   └── estructura.md             Este archivo
 │
@@ -71,6 +77,13 @@ Presentacion-activa/
 **Nada de esto se compila.** Todo el repositorio es HTML, CSS y JavaScript que el navegador lee
 tal cual: lo que está aquí es exactamente lo que se publica. No hay build, ni CI, ni
 `node_modules`.
+
+La única excepción a «todo corre en el navegador» es `docs/drive-PDF/archivo-drive.gs`: el
+puente que escribe las cotizaciones en Google Drive corre **en los servidores de Google**
+(pegado y desplegado en `script.google.com`), no aquí y no en el navegador. La copia del
+repositorio es texto inerte —no se ejecuta ni se enlaza desde ninguna página— y existe solo
+para tener historial de qué cambió y por qué. El [`README` de esa carpeta](drive-PDF/README.md)
+lo explica completo.
 
 ---
 
