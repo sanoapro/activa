@@ -33,8 +33,13 @@ Tres pasos, en el orden en que el comercial los recorre:
 | Sección | Título | Qué se hace ahí |
 |---|---|---|
 | `#s1` | Catálogo y captura | Busca, agrega con `+` y captura cantidad y años en la misma fila |
-| `#s2` | Cierre de la cotización | Total, desglose de IVA y la tabla tal como la verá el colegio |
-| `#s3` | Datos para la propuesta | Colegio, contactos, vigencia, firma, datos fiscales y bancarios |
+| `#s2` | Datos de la propuesta | Colegio, contactos, vigencia, firma, datos fiscales y bancarios |
+| `#s3` | Cierre | Total, desglose de IVA y la tabla tal como la verá el colegio |
+
+**Se captura arriba y se cierra abajo.** El 21-ago-2026 los datos del colegio pasaron delante del
+cierre, para que las tres herramientas se recorran igual: primero todo lo que se captura
+—partidas y colegio—, y al final la revisión de lo que se va a mandar. De paso `#s1` estrenó su
+«Paso 1»: la numeración visible arrancaba en el 2 desde que se fusionaron dos pasos.
 
 **Buscar y agregar eran dos pasos y dejaron de serlo.** Antes el catálogo era una
 rejilla de 37 tarjetas —seis pantallas de scroll— y la cantidad se capturaba en un
@@ -209,6 +214,31 @@ Con 37 partidas y seis familias, escribir es más rápido que buscar con el ojo:
   que se imprime— y **solo ahí** aparecen las flechas de reordenar, porque solo ahí ese orden
   significa algo.
 
+### La fila de identidad
+
+El encabezado lleva una segunda fila que dice de quién es la cotización y de qué catálogo sale:
+
+```
+Compra directa · Instituto Thomas Jefferson · Querétaro, Qro. · catálogo del 19 de agosto de 2026
+                                                    Folio MM-… · Revisión 1 · Guardado localmente
+```
+
+Sin colegio capturado dice **«sin institución»** en cursiva, que es información y no un guion
+mudo. Lo escribe `renderDocumentMeta()`, que ya se ocupaba del folio y la revisión. Existe porque
+con veinte borradores guardados la única forma de saber en cuál estabas era bajar al último paso
+y abrir un pliegue.
+
+### Las tarjetas de captura tienen color
+
+Los tres `details.fold` eran blanco sobre blanco y su único color vivía en un cuadrito de 34 px.
+Ahora cada tarjeta declara `--fc` y `--ft`, que pintan el filete superior de 3 px, el degradado
+del encabezado, el ícono y el filete de apertura: **azul** para colegio y contactos, **rojo** para
+vigencia y firma, **amarillo** para lo fiscal y bancario. La zona de captura se hunde en gris
+azulado con los campos en blanco puro, y los bloques largos se agrupan en `.fgroup`.
+
+> Las reglas quedan acotadas a `.fold`, `.foldb` y `.fgroup` a propósito: la tabla del catálogo
+> usa `.crow`, y un selector suelto que la alcanzara repetiría el desastre del commit `6125135`.
+
 ### Sin hero, y por qué
 
 La página abría con etiqueta, título, chip de IVA, alcance, folio, revisión, estado de guardado,
@@ -216,8 +246,8 @@ La página abría con etiqueta, título, chip de IVA, alcance, folio, revisión,
 la primera partida**. Quien la usa es un comercial que ya sabe cotizar y abre la herramienta
 veinte veces al día.
 
-Ahora el encabezado lleva la marca, la navegación y —a la derecha— folio, revisión y estado de
-guardado en pequeño; debajo, la barra de resumen con las cuatro cifras; y enseguida la línea de
+Ahora el encabezado lleva la marca y la navegación; debajo, la fila de identidad con el colegio
+y el folio; luego la barra de resumen con las cuatro cifras; y enseguida la línea de
 trabajo: **buscador arriba a la derecha**, chip de IVA y contador a la izquierda, y los ocho
 filtros en una **rejilla de cuatro columnas** que se lee como índice del catálogo en vez de como
 una tira de píldoras de anchos distintos. **La primera fila del catálogo entra en la primera
@@ -345,3 +375,6 @@ más `focusable="false"` en los `svg` decorativos.
 6. Si tocas la tabla del catálogo, comprueba que el encabezado siga pegado al bajar y que **no
    aparezca una banda en blanco** arriba: es la señal de que volviste a meter un ancestro con
    `overflow`.
+7. Si tocas los `@media`, **respeta el orden de mayor a menor**: 1080 → 900 → 760 → 700 → 420 →
+   359. Estuvieron desordenados y el bloque de 900 revertía en el teléfono lo que el de 760
+   acababa de poner.
