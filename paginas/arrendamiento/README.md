@@ -5,7 +5,7 @@ Cotiza **arrendamiento de equipo Chromebook para colegios**: renta mensual fija 
 comercial —guarda borradores, lleva folio y revisión— cuya salida (pantalla, PDF y correo) está
 diseñada para verse **frente al cliente**.
 
-Se publica en **https://sanoapro.github.io/activa/paginas/arrendamiento/**
+Se publica en **<https://sanoapro.github.io/activa/paginas/arrendamiento/>**
 
 No es una versión recortada del [cotizador Upgrade Edu](../cotizador/): es una herramienta nueva
 que hereda su lenguaje visual —**el mismo acento azul**, ver «Sistema visual» abajo—, su
@@ -244,6 +244,20 @@ manda el enlace al colegio, el colegio ve la vista de cliente. El código `ARREN
 modal de gestión es el mismo escenario para moverlo entre equipos. Al recargar, el borrador
 guardado siempre gana sobre el propio hash (lección F-01 del cotizador).
 
+**21-ago-2026 · El botón «Compartir» del encabezado se retiró.** Con el archivo en Drive, la
+forma natural de mover una cotización es su JSON completo, no el escenario pelón; en su lugar
+vive **«Insertar JSON»** (abajo). El escenario sigue funcionando por el hash de la URL y por el
+código `ARRENDA1` del modal de Cotizaciones — solo perdió su botón dedicado.
+
+## Insertar JSON
+
+El botón **«Insertar JSON»** del encabezado abre un diálogo con un área de texto: el vendedor
+abre el `.json` de una cotización en Drive (el archivo guarda uno junto a cada PDF), **copia
+todo el texto y lo pega**. Por dentro es el mismo camino que Cotizaciones → Importar JSON
+(`importQuotePayload()`, compartido por las dos puertas): mismas validaciones, mismo diálogo si
+el identificador ya existe, mismo respaldo antes de reemplazar. Un texto que no sea JSON
+completo avisa qué copiar, sin tocar la cotización abierta.
+
 ## Impresión
 
 Camino propio, idéntico en estructura al del cotizador:
@@ -253,8 +267,9 @@ Camino propio, idéntico en estructura al del cotizador:
    documento; sin `pp-on`, imprimir muestra el aviso de usar «Generar PDF».
 3. El documento: portada (colegio, mensualidad con IVA, plazo, folio, vigencia), qué incluye,
    inversión desglosada, condiciones —el cierre del contrato (opción a compra, residual o
-   devolución) se remite al contrato de arrendamiento; aquí no se promete nada— y contacto; pie repetido con los datos de la empresa y el folio en cada hoja
-   (`position:fixed`) y encabezado repetido vía `<thead>` de `.print-shell`.
+   devolución) se remite al contrato de arrendamiento; aquí no se promete nada— y contacto; pie
+   repetido con los datos de la empresa y el folio en cada hoja (`position:fixed`) y encabezado
+   repetido vía `<thead>` de `.print-shell`.
 
 **La hoja interior no repite la portada** (21-ago-2026). El cuerpo arranca directo en la
 sección 1: ni logotipo, ni folio, ni cliente, ni ciudad. Esos datos viven en la portada y en el
@@ -306,14 +321,14 @@ Lo que hay que saber:
 ## Pruebas internas
 
 `?test=1` corre la suite y la dibuja en `#testReport` — **41 pruebas**: los cuatro casos de
-regresión, la composición del precio unitario, la linealidad de PMT, el prorrateo de carritos mixtos, el desglose de IVA, CEU solo
-docente, seguro/Securly por plazo, el precio visible en una cotización recién abierta, que el
-aviso de carritos nunca bloquea, que el modo interno arranca apagado / no viaja / se elimina del
-DOM, que documento, correo y escenario no contienen datos internos, tipos estrictos en la
-importación, borradores incompletos que sobreviven a exportar/importar, folio, revisiones,
-conflicto entre pestañas, rollback de escrituras, y los datos fiscales de la empresa (RFC con
-fecha real, presencia en el documento, bloqueo del PDF si faltan, y que sobreviven a exportar e
-importar).
+regresión, la composición del precio unitario, la linealidad de PMT, el prorrateo de carritos
+mixtos, el desglose de IVA, CEU solo docente, seguro/Securly por plazo, el precio visible en una
+cotización recién abierta, que el aviso de carritos nunca bloquea, que el modo interno arranca
+apagado / no viaja / se elimina del DOM, que documento, correo y escenario no contienen datos
+internos, tipos estrictos en la importación, borradores incompletos que sobreviven a
+exportar/importar, folio, revisiones, conflicto entre pestañas, rollback de escrituras, y los datos
+fiscales de la empresa (RFC con fecha real, presencia en el documento, bloqueo del PDF si faltan, y
+que sobreviven a exportar e importar).
 
 **Conviene correrla después de tocar precios o reglas.**
 
@@ -358,10 +373,10 @@ propuesta ni en el correo.**
 
 Regla de esta pasada, en las dos superficies: si algo hay que explicar, se explica **dentro de la
 tarjeta a la que pertenece**. Los tres párrafos que describían cada paso se retiraron el
-21-ago-2026: quien usa esto ya sabe cotizar. Para eso está `.cardnote` en la aplicación y `.p-card` en el
-documento. La pista de los carritos bajó a la caja de cotejo; las tres notas sueltas del
-documento se volvieron una tarjeta de **Condiciones** con viñetas y su advertencia dentro; la
-tabla de inclusiones vive en `.p-tblcard`; los contactos, en su propia tarjeta.
+21-ago-2026: quien usa esto ya sabe cotizar. Para eso está `.cardnote` en la aplicación y `.p-card`
+en el documento. La pista de los carritos bajó a la caja de cotejo; las tres notas sueltas del
+documento se volvieron una tarjeta de **Condiciones** con viñetas y su advertencia dentro; la tabla
+de inclusiones vive en `.p-tblcard`; los contactos, en su propia tarjeta.
 
 ### El cierre del documento y el pie de cada hoja
 
@@ -388,17 +403,18 @@ tabla de inclusiones vive en `.p-tblcard`; los contactos, en su propia tarjeta.
   tres páginas**.
 
 El pie mide **11,3 mm** con un domicilio de una línea. Vive `position:fixed` **dentro del área de
-contenido**, así que hay que reservarle sitio en el flujo o la última línea de una hoja llena se le
-encima: por eso `.print-content.pp-body` pasó de 7 mm a **13 mm** de relleno inferior. Lo que no
-debe hacer nunca es invadir el margen de página —ahí Chromium lo fragmenta y su texto reaparece
-arriba de la hoja siguiente—, y por eso el `@page` conserva sus 16 mm.
+contenido**, y su sitio se reserva **en cada hoja** con un `tfoot` espaciador de **13 mm** en
+`.print-shell`, que Chromium repite al pie de todas las hojas igual que repite el `<thead>`.
+(Corrección del 21-ago-2026: antes la reserva era un relleno inferior del flujo, que solo
+protegía la última hoja — en una hoja intermedia llena, la última línea quedaba **debajo** del
+pie.) Lo que no debe hacer nunca es invadir el margen de página —ahí Chromium lo fragmenta y su
+texto reaparece arriba de la hoja siguiente—, y por eso el `@page` conserva sus 16 mm.
 
 La portada también bajó su tope de altura de 271 mm a **256 mm**. El pie ocupa los últimos
 11,3 mm del área de contenido, y sin ese tope la portada se metía debajo con un nombre de
 colegio largo: el renglón del folio quedaba tapado por el pie. Medido en el peor caso
 —96 caracteres de nombre, `data-len="xxl"`, tres contactos con correos largos— la portada
 ocupa 233 mm de contenido en una caja de 250 mm, así que sobra aire.
-
 
 ### Papelería v5
 
@@ -453,7 +469,7 @@ equipos es el carrito—, no solo el nombre.
 El encabezado lleva una segunda fila de unos 30 px que dice qué se está cotizando y para quién, y
 que se queda pegada al bajar:
 
-```
+```text
 Arrendamiento · 134 equipos · 3 años (36 mensualidades) · con seguro · con Securly · 4× carrito para 30
                                                     Folio MM-… · Revisión 1 · Guardado localmente
 ```

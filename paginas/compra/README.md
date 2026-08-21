@@ -5,7 +5,7 @@ programas y servicios— y produce la propuesta lista para imprimir o mandar. Es
 de trabajo, no una presentación: guarda borradores, lleva folio y revisión, y lo que imprime
 llega al cliente.
 
-Se publica en **https://sanoapro.github.io/activa/paginas/compra/**
+Se publica en **<https://sanoapro.github.io/activa/paginas/compra/>**
 
 Un solo archivo autocontenido, salvo el motor de movimiento compartido. No hay build: se edita
 y se recarga.
@@ -163,10 +163,12 @@ En pantalla la identidad la lleva la barra del overlay, que ya rotula instituci�
   tres páginas**.
 
 El pie mide **11,3 mm** con un domicilio de una línea. Vive `position:fixed` **dentro del área de
-contenido**, así que hay que reservarle sitio en el flujo o la última línea de una hoja llena se le
-encima: por eso `.print-content.pp-body` pasó de 7 mm a **13 mm** de relleno inferior. Lo que no
-debe hacer nunca es invadir el margen de página —ahí Chromium lo fragmenta y su texto reaparece
-arriba de la hoja siguiente—, y por eso el `@page` conserva sus 16 mm.
+contenido**, y su sitio se reserva **en cada hoja** con un `tfoot` espaciador de **13 mm** en
+`.print-shell`, que Chromium repite al pie de todas las hojas igual que repite el `<thead>`.
+(Corrección del 21-ago-2026: antes la reserva era un relleno inferior del flujo, que solo
+protegía la última hoja — en una hoja intermedia llena, la última línea quedaba **debajo** del
+pie.) Lo que no debe hacer nunca es invadir el margen de página —ahí Chromium lo fragmenta y su
+texto reaparece arriba de la hoja siguiente—, y por eso el `@page` conserva sus 16 mm.
 
 La portada también bajó su tope de altura de 271 mm a **256 mm**. El pie ocupa los últimos
 11,3 mm del área de contenido, y sin ese tope la portada se metía debajo con un nombre de
@@ -186,7 +188,6 @@ Los otros dos cotizadores **no** llevan esta leyenda, y es deliberado: en el cot
 Edu la entrega es una fecha del ciclo escolar (`APP_CONFIG.cycle.delivery`) que manda el
 calendario, y en arrendamiento el equipo se entrega al firmar el contrato y tras la aprobación
 de crédito. Poner ahí «después del pago» sería prometer algo falso.
-
 
 ### Papelería v5
 
@@ -243,7 +244,10 @@ página; el archivo solo la aprovecha.
 
 - El bloque no existe hasta generar un PDF; `datos()` se congela **al imprimir**, no al subir.
 - El JSON archivado viaja con el sobre de Exportar (`fileType:"activa-compra-quote"`), así que
-  se reabre con **Importar JSON** tal cual.
+  se reabre con **Importar JSON** tal cual — o con **«Insertar JSON»** del encabezado
+  (21-ago-2026, sustituyó al botón «Compartir»): el vendedor abre el `.json` en Drive, copia
+  todo el texto y lo pega. Las dos puertas comparten `importQuotePayload()`. El escenario
+  `COMPRA1` sigue disponible dentro de Cotizaciones.
 - Lo no subido queda marcado bajo `activa.compra.archivo-pendiente.v1` y el bloque reaparece en
   ámbar al reabrir la cotización — se vuelve a elegir el PDF, sin reimprimir.
 - Si el módulo no carga o el puente no responde, la página cotiza igual que hoy: el archivo es
@@ -347,7 +351,7 @@ Con 37 partidas y seis familias, escribir es más rápido que buscar con el ojo:
 
 El encabezado lleva una segunda fila que dice de quién es la cotización y de qué catálogo sale:
 
-```
+```text
 Compra directa · Instituto Thomas Jefferson · Querétaro, Qro. · catálogo del 19 de agosto de 2026
                                                     Folio MM-… · Revisión 1 · Guardado localmente
 ```
@@ -455,8 +459,9 @@ A su derecha, el `.res-main` lleva la **tabla de revisión**: es literalmente lo
 colegio, con las columnas **Cantidad · Concepto · No. de parte · Precio unitario · Importe** —las
 tres numéricas en `--mono`, a la derecha— y las dos últimas agrupadas bajo un `.gh.c2` que repite
 que son precios sin IVA. Es de **solo lectura**: la captura vive en el paso 1, en la tabla del
-catálogo. Usa las mismas funciones de formato que el documento impreso (`printQtyLabel`, `printUnitPrice`, `moneyOrFree`), así que no puede
-divergir de lo que se imprime. La vigencia del catálogo va en el `.tfoot`.
+catálogo. Usa las mismas funciones de formato que el documento impreso (`printQtyLabel`,
+`printUnitPrice`, `moneyOrFree`), así que no puede divergir de lo que se imprime. La vigencia del
+catálogo va en el `.tfoot`.
 
 ## Movimiento
 
@@ -479,10 +484,10 @@ quedaba vacío, sin mensaje, y el renglón dejaba de sumar en silencio. Ahora «
 « 7 » se capturan y el campo se reescribe normalizado; lo que sigue siendo inválido **conserva el
 texto y muestra el error**. Se pierden las flechitas del navegador; se gana no cotizar de menos.
 
-Bordes de campo con `--field-line` (contraste ≥ 3:1), foco visible siempre, `.catscroll`
-enfocable por teclado cuando lleva desplazamiento, `::after` de −10 px en los cierres de `.chip` y 28 px de área táctil en
-`pointer:coarse`, `aria-live` en el estado de guardado y en la caja de avisos, y `aria-hidden`
-más `focusable="false"` en los `svg` decorativos.
+Bordes de campo con `--field-line` (contraste ≥ 3:1), foco visible siempre, `.catscroll` enfocable
+por teclado cuando lleva desplazamiento, `::after` de −10 px en los cierres de `.chip` y 28 px de
+área táctil en `pointer:coarse`, `aria-live` en el estado de guardado y en la caja de avisos, y
+`aria-hidden` más `focusable="false"` en los `svg` decorativos.
 
 ## Dónde está dada de alta
 

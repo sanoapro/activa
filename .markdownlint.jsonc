@@ -1,0 +1,13 @@
+// Reglas de markdownlint para este repositorio.
+//
+// La prosa de estos documentos se escribe a ~96-100 columnas, no a 80. La regla
+// por defecto marcaba 1,609 lineas que no tienen nada de malo; aqui se ajusta al
+// ancho real. Tablas y bloques de codigo quedan fuera: ahi cortar la linea rompe
+// lo que se ve, no lo mejora.
+{
+  "MD013": {
+    "line_length": 100,
+    "tables": false,
+    "code_blocks": false
+  }
+}

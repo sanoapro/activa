@@ -5,9 +5,9 @@
 
 ---
 
-# 1 · El producto
+## 1 · El producto
 
-## Qué es
+### Qué es
 
 **impulsa** es la plataforma de **proyectos educativos y planeación** de activa. Resuelve las horas
 que un docente invierte en diseñar clases y buscar recursos: en lugar de partir de cero, entra a un
@@ -17,7 +17,7 @@ a su grupo y los publica.
 No es un repositorio de materiales sueltos. Cada proyecto llega con su estructura curricular
 mapeada desde el diseño, su secuencia, sus rúbricas y su evaluación.
 
-## Qué contiene
+### Qué contiene
 
 **Un acervo de más de 1,000 recursos** creados por expertos, con plantillas, rúbricas y guías de
 implementación.
@@ -38,14 +38,14 @@ implementación.
 - Aprendizaje Basado en Problemas
 - Aprendizaje Servicio
 
-## Cómo se usa
+### Cómo se usa
 
 1. El docente entra con **la cuenta institucional** del colegio.
 2. **Busca y filtra** por tema, fase o metodología.
 3. **Adapta** el proyecto a su visión pedagógica y a su grupo.
 4. **Publica directo en Google Classroom** — la clase le llega al alumno sin copiar ni pegar nada.
 
-## Qué gana el colegio
+### Qué gana el colegio
 
 - **Hasta 60 % menos tiempo de planeación docente.** Es el dato que sostiene toda la propuesta.
 - **Cumplimiento curricular demostrable.** Cuando llega la revisión, la alineación a la NEM está
@@ -54,7 +54,7 @@ implementación.
 - **La rotación de plantilla deja de doler**: un docente nuevo entra a proyectos ya construidos.
 - **Continuidad con lo que ya usan.** Vive dentro de Google Classroom, no al lado.
 
-## Cobertura y licenciamiento
+### Cobertura y licenciamiento
 
 | | |
 |---|---|
@@ -64,7 +64,7 @@ implementación.
 
 ---
 
-# 2 · Guion del video
+## 2 · Guion del video
 
 **Duración objetivo:** 55–60 s · **Locución:** 145 palabras
 
@@ -88,7 +88,7 @@ implementación.
 >
 > **impulsa.** Que planear deje de competir con enseñar.
 
-## Escaleta
+### Escaleta
 
 | Tiempo | En pantalla | Locución |
 |---|---|---|
@@ -100,7 +100,7 @@ implementación.
 | 0:50–0:57 | Cifra grande **−60 %**; corte a salón real, docente con alumnos | El resultado |
 | 0:57–1:00 | Logo impulsa + activa + Google for Education Partner | Cierre |
 
-## Notas de producción
+### Notas de producción
 
 - **Tono:** sereno y respetuoso con el docente. No es «tu planeación está mal», es «tu tiempo vale».
 - **La cifra del 60 % es el clímax**, no un dato al paso: dale silencio antes y aire después.

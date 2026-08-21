@@ -1,7 +1,7 @@
 # Presentación a padres de familia · 2026–2027
 
 Deck de 22 diapositivas para las juntas con familias del colegio.
-Se publica en **https://sanoapro.github.io/activa/paginas/padres-de-familia/**
+Se publica en **<https://sanoapro.github.io/activa/paginas/padres-de-familia/>**
 
 Markup, CSS y JS del deck viven dentro de `index.html`. Se abre con doble clic, sin servidor y
 sin compilar nada.

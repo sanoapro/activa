@@ -4,7 +4,7 @@ Arma la propuesta de un colegio —dispositivos, licenciamiento, capacitación y
 la cotización lista para imprimir o mandar. Es una **herramienta de trabajo**, no una
 presentación: guarda borradores, lleva folio y revisión, y lo que imprime llega al cliente.
 
-Se publica en **https://sanoapro.github.io/activa/paginas/cotizador/**
+Se publica en **<https://sanoapro.github.io/activa/paginas/cotizador/>**
 
 Un solo archivo de ~4 150 líneas, autocontenido salvo el motor de movimiento compartido. No hay
 build: se edita y se recarga.
@@ -59,7 +59,7 @@ paso. Quien la usa ya sabe cotizar.
 Lo que era el hero cabe ahora en una **segunda fila del encabezado** (`.idbar`) de unos 30 px, que
 además se queda pegada al bajar:
 
-```
+```text
 Upgrade Edu · 1:1 · Chromebooks nuevas · 4 años · 300 alumnos     Folio MM-… · Revisión 1 · Guardado
 ```
 
@@ -133,9 +133,9 @@ El motor es la única fuente de verdad: cada advertencia `t:"e"` declara en `blo
 > máquinas con borradores heredados de `v2`/`v3`, porque `migrateDeviceFields()` les fija `docente`.
 > La suite estaba en verde mientras tanto, porque una prueba afirmaba el comportamiento roto.
 
-Cuando el precio sí es incalculable, el motivo se escribe **junto al precio**, en `#actSub` de la barra
-de acciones, que es lo único siempre a la vista. Un `—` mudo con la causa cuatro secciones más abajo se
-lee como herramienta rota, y así se reportó.
+Cuando el precio sí es incalculable, el motivo se escribe **junto al precio**, en `#actSub` de la
+barra de acciones, que es lo único siempre a la vista. Un `—` mudo con la causa cuatro secciones más
+abajo se lee como herramienta rota, y así se reportó.
 
 ---
 
@@ -143,7 +143,7 @@ lee como herramienta rota, y así se reportó.
 
 Guarda en `localStorage`, con estas llaves (versión `v3`, y migra desde `v2`):
 
-```
+```text
 activa.cotizador.current.v3      el borrador abierto
 activa.cotizador.index.v3        el índice de borradores
 activa.cotizador.quote.v3.<id>   cada cotización
@@ -167,6 +167,13 @@ activa.cotizador.archivo-pendiente.v1  cotizaciones impresas y aún no archivada
 El estado completo viaja en el fragmento de la URL como `#scenario=<código>`, sincronizado con
 `debounce` y escuchado con `hashchange`. Compartir es mandar el enlace: quien lo abre ve la misma
 cotización. El esquema es `schemaVersion: 4` y hay migración desde la 3, cubierta por pruebas.
+
+**21-ago-2026 · El botón «Compartir» del encabezado se retiró.** Con el archivo en Drive, la
+forma natural de mover una cotización es su JSON completo; en su lugar vive **«Insertar JSON»**:
+un diálogo donde el vendedor pega el texto del `.json` copiado del visor de Drive (o de un
+export). Por dentro es el mismo camino que Cotizaciones → Importar JSON
+(`importQuotePayload()`, compartido por las dos puertas). El escenario sigue funcionando por el
+hash de la URL y por el código `ACTIVA3` del modal de Cotizaciones — solo perdió su botón.
 
 ## Impresión
 
@@ -239,17 +246,18 @@ precio», que busca cada uno de esos rastros por su nombre y falla si reaparece.
   tres páginas**.
 
 El pie mide **11,3 mm** con un domicilio de una línea. Vive `position:fixed` **dentro del área de
-contenido**, así que hay que reservarle sitio en el flujo o la última línea de una hoja llena se le
-encima: por eso `.print-content.pp-body` pasó de 7 mm a **13 mm** de relleno inferior. Lo que no
-debe hacer nunca es invadir el margen de página —ahí Chromium lo fragmenta y su texto reaparece
-arriba de la hoja siguiente—, y por eso el `@page` conserva sus 16 mm.
+contenido**, y su sitio se reserva **en cada hoja** con un `tfoot` espaciador de **13 mm** en
+`.print-shell`, que Chromium repite al pie de todas las hojas igual que repite el `<thead>`.
+(Corrección del 21-ago-2026: antes la reserva era un relleno inferior del flujo, que solo
+protegía la última hoja — en una hoja intermedia llena, la última línea quedaba **debajo** del
+pie.) Lo que no debe hacer nunca es invadir el margen de página —ahí Chromium lo fragmenta y su
+texto reaparece arriba de la hoja siguiente—, y por eso el `@page` conserva sus 16 mm.
 
 La portada también bajó su tope de altura de 271 mm a **256 mm**. El pie ocupa los últimos
 11,3 mm del área de contenido, y sin ese tope la portada se metía debajo con un nombre de
 colegio largo: el renglón del folio quedaba tapado por el pie. Medido en el peor caso
 —96 caracteres de nombre, `data-len="xxl"`, tres contactos con correos largos— la portada
 ocupa 233 mm de contenido en una caja de 250 mm, así que sobra aire.
-
 
 ### Papelería v5
 
@@ -304,7 +312,7 @@ página; el archivo solo la aprovecha.
 
 La página trae su propia suite. Se corre agregando `?test=1` a la URL:
 
-```
+```text
 http://127.0.0.1:8123/paginas/cotizador/?test=1
 ```
 

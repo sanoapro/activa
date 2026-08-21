@@ -698,11 +698,11 @@ input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--g-red)
 .conflict-actions[hidden]{display:none!important}
 .btn.danger{border-color:var(--g-red);color:var(--g-red-d);background:#fff}
 .btn.danger:hover{background:var(--g-red-t)}
-#propOv[aria-hidden="true"],#mailOv[aria-hidden="true"],#manageOv[aria-hidden="true"],#choiceOv[aria-hidden="true"]{display:none}
-#propOv.on,#mailOv.on,#manageOv.on,#choiceOv.on{display:flex}
+#propOv[aria-hidden="true"],#mailOv[aria-hidden="true"],#manageOv[aria-hidden="true"],#choiceOv[aria-hidden="true"],#insertOv[aria-hidden="true"]{display:none}
+#propOv.on,#mailOv.on,#manageOv.on,#choiceOv.on,#insertOv.on{display:flex}
 #propOv.on{display:block}
 #choiceOv{z-index:320}
-#propOv:focus,#mailOv:focus,#manageOv:focus,#choiceOv:focus{outline:none}
+#propOv:focus,#mailOv:focus,#manageOv:focus,#choiceOv:focus,#insertOv:focus{outline:none}
 /* F-23 · A-07 · Con un error de cálculo, TODO el bloque financiero se marca como
    no confiable en lugar de dejar tablas con importes del último cálculo válido. */
 body.calc-invalid #ladder,
@@ -944,20 +944,22 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
     border:none!important;background:transparent!important;
     font-family:var(--body);font-size:10pt;font-variant-numeric:normal
   }
-  /* F-23 · A-11 · Pie repetido en cada hoja: los elementos fixed se reimprimen en
-     todas las páginas en Chrome y Edge. Debe permanecer DENTRO del área de contenido
-     (bottom:0): si invade el margen de página, Chromium lo fragmenta y su texto
+  /* 21-ago-2026 · La banda del pie se reserva EN CADA HOJA con el tfoot
+     espaciador del shell: se repite al pie de todas las hojas, igual que el
+     thead arriba. Un relleno en el flujo solo protegía la última hoja y en
+     las intermedias llenas la última línea quedaba DEBAJO del pie fijo. */
+  .print-shell>tfoot{display:table-footer-group}
+  .print-shell>tfoot>tr>td{height:13mm;padding:0!important;border:none!important;background:transparent!important}
   /* Norma de la empresa (21-ago-2026): TODA cotización identifica a quien la
      emite en el pie de CADA hoja. Dos filas: arriba la empresa —razón social,
      RFC y domicilio fiscal—, abajo el documento. La fila de la empresa no
      lleva ellipsis, porque el domicilio tiene que poder envolver, y por eso el
      pie pasó de una fila flex a un bloque de dos.
      Medido, el pie ocupa 11,3mm con un domicilio de una línea. Vive fixed
-     DENTRO del área de contenido, así que hay que reservarle sitio en el flujo
-     o la última línea de una hoja llena se le encima: por eso
-     `.print-content.pp-body` pasó de 7mm a 13mm de relleno inferior. Lo que NO
-     debe hacer nunca es invadir el margen de página: ahí Chromium lo fragmenta
-     y su texto reaparece arriba de la hoja siguiente. */
+     DENTRO del área de contenido —los fixed se reimprimen en todas las hojas
+     en Chrome y Edge— y dibuja SOBRE la banda que reserva el tfoot de arriba.
+     Lo que NO debe hacer nunca es invadir el margen de página: ahí Chromium lo
+     fragmenta y su texto reaparece arriba de la hoja siguiente. */
   .print-runfoot{
     display:block;position:fixed;left:0;right:0;bottom:0;
     font:7pt Roboto,Arial,sans-serif;color:#5f6368;
@@ -978,8 +980,9 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
 
   .print-content,.print-content *{overflow:visible!important}
   .print-content{display:block!important}
-  /* La última hoja deja 7mm de espacio en el flujo para no chocar con el pie fijo. */
-  .print-content.pp-body{padding:0 0 13mm!important;overflow:visible!important;display:block!important}
+  /* El sitio del pie lo reserva el tfoot del shell en cada hoja; aquí solo
+     queda un respiro cosmético al final del flujo. */
+  .print-content.pp-body{padding:0 0 2mm!important;overflow:visible!important;display:block!important}
   .print-content .p-h{
     break-after:avoid;page-break-after:avoid;margin-top:5mm
   }
@@ -1178,9 +1181,12 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
       <button class="btn" id="btnManage" title="Gestionar cotizaciones y borradores" aria-label="Gestionar cotizaciones y borradores">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
         <span>Cotizaciones</span></button>
-      <button class="btn" id="btnShare" title="Copiar enlace del escenario" aria-label="Compartir escenario sin datos personales">
-        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
-        <span>Compartir</span></button>
+      <!-- 21-ago-2026 · Aquí vivía «Compartir» (enlace del escenario). Con el archivo
+           en Drive, el JSON completo viaja mejor que el escenario pelón; el código
+           ACTIVA3 sigue disponible dentro de Cotizaciones. -->
+      <button type="button" class="btn" id="btnInsertJson" aria-label="Insertar el JSON de una cotización archivada en Drive">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 2h-4.18C14.4.84 13.3 0 12 0c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm7 18H5V4h2v3h10V4h2v16z"/></svg>
+        <span>Insertar JSON</span></button>
     </div>
   </div>
 
@@ -1708,6 +1714,31 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
     <div class="draft-list recovery-list" id="recoveryList"></div>
     <div class="manage-note"><span id="manageStorageNote"></span><div id="conflictActions" class="conflict-actions" hidden><strong>Conflicto con otra pestaña</strong><span>Elige qué versión conservar antes de cambiar de cotización.</span><div class="manage-actions"><button type="button" class="btn" id="btnLoadRemoteVersion">Abrir versión guardada</button><button type="button" class="btn" id="btnExportConflict">Exportar esta versión</button><button type="button" class="btn danger" id="btnOverwriteConflict">Sobrescribir bajo confirmación</button></div></div><div class="manage-actions" style="margin-top:8px"><button type="button" class="btn text" id="btnRepairIndex">Reparar índice</button><button type="button" class="btn text" id="btnRunDiagnostics">Diagnóstico</button><button type="button" class="btn text" id="btnClearLocal">Eliminar otros borradores</button><button type="button" class="btn text" id="btnClearRecoveries">Eliminar recuperaciones</button></div></div>
     <div class="modal-f"><button type="button" class="btn" id="btnCloseManage">Cerrar</button></div>
+  </div>
+</div>
+
+
+<!-- ================= INSERTAR JSON (archivo en Drive · docs/drive-PDF/) =================
+     El .json que el archivo guarda junto a cada PDF se abre en Drive como texto: el
+     vendedor lo copia completo y lo pega aquí. Mismo camino de validación que
+     Cotizaciones → Importar JSON; solo cambia la puerta de entrada. -->
+<div class="ov" id="insertOv" role="dialog" aria-modal="true" aria-labelledby="insertTitle" aria-describedby="insertHint" aria-hidden="true" tabindex="-1">
+  <div class="modal">
+    <div class="gbar"><i></i><i></i><i></i><i></i></div>
+    <div class="modal-h">
+      <div class="mh-ico"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 2h-4.18C14.4.84 13.3 0 12 0c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm7 18H5V4h2v3h10V4h2v16z"/></svg></div>
+      <div><h3 id="insertTitle">Insertar el JSON de una cotización</h3>
+        <p>Abre el <b>.json</b> de la cotización en Drive, copia todo el texto y pégalo aquí. La cotización se abre completa y editable.</p></div>
+    </div>
+    <div class="modal-b" style="padding-bottom:16px">
+      <label class="sr-only" for="insertJsonText">Texto JSON de la cotización</label>
+      <textarea id="insertJsonText" class="manual-copy" style="min-height:240px;margin-top:12px" spellcheck="false" placeholder="Pega aquí el texto completo del .json, desde la primera llave hasta la última"></textarea>
+      <p class="hint" id="insertHint">También funciona con el contenido de un JSON exportado. Si descargaste el archivo en vez de copiarlo, Cotizaciones → Importar JSON hace lo mismo.</p>
+    </div>
+    <div class="modal-f">
+      <button type="button" class="btn" id="btnCloseInsert">Cancelar</button>
+      <button type="button" class="btn primary" id="btnDoInsert">Insertar la cotización</button>
+    </div>
   </div>
 </div>
 
@@ -3103,7 +3134,9 @@ function bindEvents() {
     });
   });
   $("#btnAdoptSellerProfile")?.addEventListener("click",()=>{try{if(!saveSellerProfile(APP_STATE.seller))throw new Error("No se pudo guardar el perfil");$("#sellerProfileState").textContent="Perfil predeterminado actualizado.";toast("Perfil del vendedor actualizado","success");}catch(error){toast(error.message||"No se pudo actualizar el perfil","error");}});
-  $("#btnShare").addEventListener("click",shareScenario);
+  $("#btnInsertJson").addEventListener("click",()=>{$("#insertJsonText").value="";openOverlay("#insertOv","#insertJsonText");});
+  $("#btnCloseInsert").addEventListener("click",()=>closeOverlay("#insertOv"));
+  $("#btnDoInsert").addEventListener("click",insertJsonFromText);
   $("#btnManage")?.addEventListener("click",openManage);
   $("#btnStatus")?.addEventListener("click",()=>{const r=getReadiness();if(r.errors[0])focusIssue(r.errors[0]);else toast("La cotización está lista","success");});
   $("#btnProp").addEventListener("click",()=>{const ready=getReadiness();if(ready.proposalReady){openProposal();return;}/* F-28 · Antes mandaba siempre a #fStu, que casi nunca era el problema. Ahora enfoca el primer error que de verdad bloquea la propuesta —el modelo docente, típicamente— y focusIssue() abre el fold que lo contiene. */const issue=ready.blockingErrors[0]||ready.errors[0];if(issue)focusIssue(issue);});
@@ -3479,7 +3512,7 @@ function buildPrintDocument(){
   /* La portada nombra a quien pidió la cotización, no solo al colegio. */
   const coverAtt=d.contacts.length?`<div class="cv-att"><div class="k">A la atención de</div>${d.contacts.map(c=>`<div class="v">${esc(c.name||"Sin nombre")}${c.email?`<small> · ${esc(c.email)}</small>`:""}</div>`).join("")}</div>`:"";
   const coverCaps=`${pay.disc?`<span class="cv-cap cv-cap--green">${percent(pay.disc)} de descuento aplicado</span>`:""}${S().pay==="antes"?`<span class="cv-cap cv-cap--yellow">Firma antes del ${esc(earlySignatureDeadlineLabel())}</span>`:""}`;
-  return `<article class="print-document">${runfoot}<section class="print-cover"><div class="gbar gbar--cover"><i></i><i></i><i></i><i></i></div><div class="print-cover__inner"><img class="print-brand-logo" src="${BRAND_ASSETS.activa}" alt="activa"><div class="cv-eyebrow">${esc(APP_CONFIG.cycle.label)}</div><div class="cv-for">Propuesta preparada para</div><h1 class="cv-name" data-len="${nameScale}">${esc(d.inst)}</h1><div class="cv-city">${esc(d.city)}</div>${coverAtt}${coverChips}<div class="cv-price"><div class="gbar gbar--card" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="cv-price__inner"><div><div class="cv-pl">Inversión por alumno · año 1 · ${esc(pay.title)}</div><div class="cv-pv">${money(r.schemes[S().pay][0].net)}</div><div class="cv-pn">IVA incluido</div><div class="cv-caps">${coverCaps}</div></div></div></div><div class="cv-facts"><div class="cv-fact" style="border-color:#4285F4"><div class="k">Estudiantes</div><div class="v">${r.stu.toLocaleString("es-MX")}</div></div><div class="cv-fact" style="border-color:#EA4335"><div class="k">Docentes</div><div class="v">${r.docTot.toLocaleString("es-MX")}</div></div><div class="cv-fact" style="border-color:#34A853"><div class="k">Contrato</div><div class="v">${r.yrs} años</div></div></div><div class="cv-meta"><div>Folio<b>${esc(d.folio)}</b></div>${APP_STATE.identity.revision>1?`<div>Revisión<b>${APP_STATE.identity.revision} · sustituye anteriores</b></div>`:""}<div>Fecha<b>${esc(d.dDate)}</b></div><div>Vigencia<b>${esc(d.dValid)}</b></div></div></div></section><table class="print-shell"><thead><tr><td>${runhead}</td></tr></thead><tbody><tr><td><section class="print-content pp-body">${buildProposal()}</section></td></tr></tbody></table></article>`;
+  return `<article class="print-document">${runfoot}<section class="print-cover"><div class="gbar gbar--cover"><i></i><i></i><i></i><i></i></div><div class="print-cover__inner"><img class="print-brand-logo" src="${BRAND_ASSETS.activa}" alt="activa"><div class="cv-eyebrow">${esc(APP_CONFIG.cycle.label)}</div><div class="cv-for">Propuesta preparada para</div><h1 class="cv-name" data-len="${nameScale}">${esc(d.inst)}</h1><div class="cv-city">${esc(d.city)}</div>${coverAtt}${coverChips}<div class="cv-price"><div class="gbar gbar--card" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="cv-price__inner"><div><div class="cv-pl">Inversión por alumno · año 1 · ${esc(pay.title)}</div><div class="cv-pv">${money(r.schemes[S().pay][0].net)}</div><div class="cv-pn">IVA incluido</div><div class="cv-caps">${coverCaps}</div></div></div></div><div class="cv-facts"><div class="cv-fact" style="border-color:#4285F4"><div class="k">Estudiantes</div><div class="v">${r.stu.toLocaleString("es-MX")}</div></div><div class="cv-fact" style="border-color:#EA4335"><div class="k">Docentes</div><div class="v">${r.docTot.toLocaleString("es-MX")}</div></div><div class="cv-fact" style="border-color:#34A853"><div class="k">Contrato</div><div class="v">${r.yrs} años</div></div></div><div class="cv-meta"><div>Folio<b>${esc(d.folio)}</b></div>${APP_STATE.identity.revision>1?`<div>Revisión<b>${APP_STATE.identity.revision} · sustituye anteriores</b></div>`:""}<div>Fecha<b>${esc(d.dDate)}</b></div><div>Vigencia<b>${esc(d.dValid)}</b></div></div></div></section><table class="print-shell"><thead><tr><td>${runhead}</td></tr></thead><tfoot class="print-shell-space" aria-hidden="true"><tr><td></td></tr></tfoot><tbody><tr><td><section class="print-content pp-body">${buildProposal()}</section></td></tr></tbody></table></article>`;
 }
 
 function openProposal() {
@@ -3682,8 +3715,27 @@ function resetImportedCopy(imported,sourceQuoteId,identityFactory=newIdentity){
   imported.mail.subjectMode="auto";
   return imported;
 }
+/* Insertar JSON: el texto del .json que el archivo de Drive guarda junto a
+   cada PDF, copiado del visor y pegado tal cual. */
+async function insertJsonFromText(){
+  const raw=$("#insertJsonText").value.trim();
+  if(!raw){toast("Pega primero el texto del JSON.","error");return;}
+  if(raw.length>MAX_IMPORT_BYTES){toast("El texto excede 2 MB.","error");return;}
+  let payload;
+  try{payload=JSON.parse(raw);}
+  catch(error){toast("El texto no es un JSON completo: cópialo desde la primera llave hasta la última.","error");return;}
+  closeOverlay("#insertOv");
+  try{await importQuotePayload(payload);}
+  catch(error){console.error(error);toast(error.message||"El texto no es una cotización compatible","error");}
+}
 async function importFile(file){
-  if(file.size>MAX_IMPORT_BYTES)throw new Error("El archivo excede 2 MB");if(!(file.name.toLowerCase().endsWith(".json")||file.type==="application/json"||!file.type))throw new Error("El archivo debe ser JSON");const payload=JSON.parse(await file.text());if(!isPlainObject(payload)||payload.fileType!=="activa-quote"||![2,3,4].includes(payload.schemaVersion)||payload.cycle!==APP_CONFIG.cycle.id)throw new Error("Archivo incompatible");
+  if(file.size>MAX_IMPORT_BYTES)throw new Error("El archivo excede 2 MB");if(!(file.name.toLowerCase().endsWith(".json")||file.type==="application/json"||!file.type))throw new Error("El archivo debe ser JSON");
+  await importQuotePayload(JSON.parse(await file.text()));
+}
+/* Camino común de importación: lo comparten Importar JSON (archivo) e
+   Insertar JSON (texto pegado del .json del archivo en Drive). */
+async function importQuotePayload(payload){
+  if(!isPlainObject(payload)||payload.fileType!=="activa-quote"||![2,3,4].includes(payload.schemaVersion)||payload.cycle!==APP_CONFIG.cycle.id)throw new Error("Archivo incompatible");
   /* F-02 · Primero se intenta la validacion estricta; si el archivo era un borrador
      a medio capturar se reabre en modo borrador en vez de perderlo. */
   let imported,importedAsDraft=false;
@@ -3855,7 +3907,6 @@ function setupManageEvents(){
   $("#btnClearRecoveries").addEventListener("click",()=>{const keys=allRecoveryKeys();if(!keys.length){toast("No hay recuperaciones para eliminar","info");return;}if(!confirm(`¿Eliminar ${keys.length} copia(s) de recuperación? Esta acción no puede deshacerse.`))return;keys.forEach(key=>localStorage.removeItem(key));LAST_RECOVERY_KEY="";CONFLICT_STATE.recoveryKey="";renderRecoveryList();toast("Recuperaciones eliminadas","success");});
 }
 
-async function shareScenario(){const code=encodeScenario(),scenarioCode=`ACTIVA3:${code}`,value=location.protocol==="file:"?scenarioCode:`${location.href.split("#")[0]}#scenario=${code}`;try{if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(value);else if(!legacyCopyText(value))throw new Error();toast(location.protocol==="file:"?"Código de escenario copiado":"Enlace del escenario copiado","success");}catch{if(legacyCopyText(scenarioCode))toast("Código de escenario copiado","success");else{openManage();$("#scenarioCode").focus();$("#scenarioCode").select();toast("Copia manualmente el código del escenario","info");}}}
 
 /* ============================================================
    DIÁLOGOS Y ACCESIBILIDAD
@@ -3863,7 +3914,7 @@ async function shareScenario(){const code=encodeScenario(),scenarioCode=`ACTIVA3
 function focusables(root) {return [...root.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(el=>!el.disabled&&!el.hidden&&el.offsetParent!==null);}
 function setBackgroundInert(active,except) {for(const selector of ["header","main","footer","#actBar","#propOv"]){const el=$(selector);if(!el||el===except||el.contains(except))continue;if(active)el.setAttribute("inert","");else el.removeAttribute("inert");}}
 function openOverlay(selector,focusSelector){const overlay=$(selector);focusStack.push({overlayId:overlay.id,returnTo:document.activeElement});overlay.classList.add("on");overlay.setAttribute("aria-hidden","false");setBackgroundInert(true,overlay);document.body.classList.add("modal-open");setTimeout(()=>{const target=typeof focusSelector==="string"?overlay.querySelector(focusSelector):null;(target||focusables(overlay)[0]||overlay).focus?.();},50);}
-function closeOverlay(selector){const overlay=$(selector);overlay.classList.remove("on");overlay.setAttribute("aria-hidden","true");const index=focusStack.map(x=>x.overlayId).lastIndexOf(overlay.id),entry=index>=0?focusStack.splice(index,1)[0]:null;setBackgroundInert(false,overlay);const remaining=["#mailOv","#manageOv","#propOv"].map($).find(el=>el?.classList.contains("on"));if(remaining){setBackgroundInert(true,remaining);document.body.classList.add("modal-open");}else document.body.classList.remove("modal-open");if(entry?.returnTo?.isConnected&&!entry.returnTo.hidden&&!entry.returnTo.disabled)entry.returnTo.focus();}
+function closeOverlay(selector){const overlay=$(selector);overlay.classList.remove("on");overlay.setAttribute("aria-hidden","true");const index=focusStack.map(x=>x.overlayId).lastIndexOf(overlay.id),entry=index>=0?focusStack.splice(index,1)[0]:null;setBackgroundInert(false,overlay);const remaining=["#mailOv","#manageOv","#insertOv","#propOv"].map($).find(el=>el?.classList.contains("on"));if(remaining){setBackgroundInert(true,remaining);document.body.classList.add("modal-open");}else document.body.classList.remove("modal-open");if(entry?.returnTo?.isConnected&&!entry.returnTo.hidden&&!entry.returnTo.disabled)entry.returnTo.focus();}
 /* F-23 · A-06 · Diálogo de decisión propio con botones. Sustituye a prompt() con
    palabras clave exactas, que Chrome/Edge permiten suprimir ("Impedir que esta
    página cree diálogos"), dejando inservibles el cambio de institución y la
@@ -3895,9 +3946,9 @@ function askChoice(title,text,options){
   });
 }
 function setupOverlayEvents() {
-  ["#mailOv","#manageOv"].forEach(selector=>$(selector).addEventListener("click",e=>{if(e.target===$(selector))closeOverlay(selector);}));
+  ["#mailOv","#manageOv","#insertOv"].forEach(selector=>$(selector).addEventListener("click",e=>{if(e.target===$(selector))closeOverlay(selector);}));
   document.addEventListener("keydown",e=>{
-    const active=["#choiceOv","#mailOv","#manageOv","#propOv"].map($).find(el=>el?.classList.contains("on"));if(!active)return;
+    const active=["#choiceOv","#mailOv","#manageOv","#insertOv","#propOv"].map($).find(el=>el?.classList.contains("on"));if(!active)return;
     if(e.key==="Escape"){e.preventDefault();if(active.id==="choiceOv")resolveChoice(null);else closeOverlay("#"+active.id);return;}
     if(e.key!=="Tab")return;const list=focusables(active);if(!list.length)return;const first=list[0],last=list[list.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
   });
@@ -4472,7 +4523,6 @@ window.addEventListener("error",event=>{console.error(event.error||event.message
      mismo narra reposo → trabajando → hecho. El guardado NO se toca: ya tiene
      su propio indicador (#saveState). */
   [
-    ["#btnShare",            "Copiando…",   "✓ Copiado"],
     ["#btnPdf",              "Preparando…", "✓ Listo"],
     ["#btnPdf2",             "Preparando…", "✓ Listo"],
     ["#btnMailPdf",          "Preparando…", "✓ Listo"],

@@ -1,7 +1,7 @@
 # upgrade edu 2026–2027
 
 Deck de 34 diapositivas del programa comercial, estilo Google for Education.
-Se publica en **https://sanoapro.github.io/activa/paginas/upgrade-edu/**
+Se publica en **<https://sanoapro.github.io/activa/paginas/upgrade-edu/>**
 
 Markup, CSS, JS e imágenes en base64 viven dentro de `index.html`. Se abre con doble clic, sin
 servidor y sin compilar nada.

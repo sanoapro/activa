@@ -5,9 +5,9 @@
 
 ---
 
-# 1 · El producto
+## 1 · El producto
 
-## Qué es
+### Qué es
 
 **motiva** es el programa de **Aprendizaje Socioemocional (SEL)** de activa, diseñado y guiado por
 **psicólogos educativos certificados**. Acompaña al alumno desde primaria hasta bachillerato con
@@ -17,7 +17,7 @@ joven que está eligiendo carrera.
 No es un taller suelto ni una plática anual. Es un programa con diagnóstico, contenido por nivel,
 seguimiento y resultados que se pueden medir.
 
-## Qué contiene
+### Qué contiene
 
 **Un diagnóstico de punto de partida.** Antes de dar contenido, mide de dónde parte cada grupo.
 Eso es lo que permite dirigir la intervención en lugar de improvisarla.
@@ -42,7 +42,7 @@ Eso es lo que permite dirigir la intervención en lugar de improvisarla.
 psicólogos educativos certificados. No queda en manos del docente resolver solo lo que no le
 corresponde.
 
-## Qué gana el colegio
+### Qué gana el colegio
 
 - **Una respuesta estructurada a lo que hoy más preocupa a las familias**: ansiedad, convivencia,
   decisiones, propósito. Deja de ser un tema que se atiende cuando estalla.
@@ -53,7 +53,7 @@ corresponde.
 - **Cierra el desarrollo integral del alumno** junto a impulsa en lo cognitivo, beta en lo
   lingüístico y la certificación digital.
 
-## Cobertura y licenciamiento
+### Cobertura y licenciamiento
 
 | | |
 |---|---|
@@ -62,14 +62,14 @@ corresponde.
 | **Paquete** | Incluida en upgrade edu y en upgrade edu PLUS |
 | **Complemento PLUS** | La **Escuela para Padres y Docentes**, taller presencial ligado a motiva, es exclusiva de PLUS y escala con la matrícula |
 
-## Lo que no se promete
+### Lo que no se promete
 
 motiva es un **programa educativo, no una terapia**. En cualquier material se dice que acompaña,
 desarrolla y da seguimiento; nunca que trata, diagnostica clínicamente o cura.
 
 ---
 
-# 2 · Guion del video
+## 2 · Guion del video
 
 **Duración objetivo:** 55–60 s · **Locución:** 150 palabras
 
@@ -91,7 +91,7 @@ desarrolla y da seguimiento; nunca que trata, diagnostica clínicamente o cura.
 >
 > **motiva.** Porque el bienestar de tus alumnos también se enseña, se practica y se acompaña.
 
-## Escaleta
+### Escaleta
 
 | Tiempo | En pantalla | Locución |
 |---|---|---|
@@ -102,7 +102,7 @@ desarrolla y da seguimiento; nunca que trata, diagnostica clínicamente o cura.
 | 0:40–0:52 | Tres escenas cortas por nivel: niños de primaria, adolescentes de secundaria, jóvenes de bachillerato | La progresión por etapa |
 | 0:52–1:00 | Logo motiva + activa | Cierre |
 
-## Notas de producción
+### Notas de producción
 
 - **Tono: cálido y sobrio.** Este es el tema más delicado del catálogo. Nada de música épica ni de
   dramatizar el malestar de un menor.

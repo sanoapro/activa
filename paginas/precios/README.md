@@ -8,7 +8,7 @@ siendo el [cotizador](../cotizador/).
 Abre por el **desglose** a propósito: es la lámina que se enseña en la junta, la que se
 fotografía y la que decide. Las otras dos sostienen la conversación cuando hace falta.
 
-Se publica en **https://sanoapro.github.io/activa/paginas/precios/**
+Se publica en **<https://sanoapro.github.io/activa/paginas/precios/>**
 
 No hay scroll: cada lámina se escala para caber entera en cualquier pantalla, igual que el
 [kit comercial](../kit-comercial/), del que hereda el sistema de diseño —tokens Google, título

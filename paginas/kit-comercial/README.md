@@ -1,7 +1,7 @@
 # Kit comercial
 
 Una sola lámina de 1280×720 con los accesos que el equipo comercial usa a diario.
-Se publica en **https://sanoapro.github.io/activa/paginas/kit-comercial/**
+Se publica en **<https://sanoapro.github.io/activa/paginas/kit-comercial/>**
 
 No hay scroll: la lámina se escala para caber entera en cualquier pantalla, igual
 que el deck de [upgrade-edu](../upgrade-edu/).
@@ -57,7 +57,10 @@ obligatorias.
 
 - Clic en una tarjeta → abre el destino en pestaña nueva.
 - Pasar el cursor y clic en **⧉** → copia el enlace al portapapeles (para mandarlo por WhatsApp).
-- Teclas **1–9** y **0** → abren el acceso correspondiente, en el orden en que se leen (izquierda a derecha, de arriba abajo). El **0** es el décimo, como en cualquier barra de tareas; con once accesos, el último (Reembolso) queda sin atajo — no hay más teclas de un dígito. **D** → descargables. **F** → pantalla completa.
+- Teclas **1–9** y **0** → abren el acceso correspondiente, en el orden en que se leen (izquierda a
+  derecha, de arriba abajo). El **0** es el décimo, como en cualquier barra de tareas; con once
+  accesos, el último (Reembolso) queda sin atajo — no hay más teclas de un dígito. **D** →
+  descargables. **F** → pantalla completa.
 - Botón **QR** (solo en las tarjetas que traen `qr`) → abre el código a pantalla completa sobre
   fondo blanco, para que la sala lo escanee. Se sale con el botón **← Volver al kit** (arriba a la
   izquierda, donde vive el «atrás» de cualquier navegador), con **Esc**, con la ✕ o tocando el fondo.
@@ -72,7 +75,8 @@ obligatorias.
 
 ## Cómo agregar o cambiar un enlace
 
-En `index.html`, al final, están las tres listas `VENTA`, `EVENTOS` e `INTERNA` —una por fila de la lámina—. Cada entrada es:
+En `index.html`, al final, están las tres listas `VENTA`, `EVENTOS` e `INTERNA` —una por fila de la
+lámina—. Cada entrada es:
 
 ```js
 { id:'cotizador',          // llave del icono en el objeto ICO

@@ -4,7 +4,7 @@ Repositorio de **todas las páginas web de activa**, Google for Education Partne
 completo en GitHub Pages: HTML, CSS y JavaScript tal cual, sin CI, sin bundler y sin ningún
 paso de compilación.
 
-**Portal:** https://sanoapro.github.io/activa/
+**Portal:** <https://sanoapro.github.io/activa/>
 
 | Página | URL | Qué es |
 |---|---|---|
@@ -22,7 +22,7 @@ Documento maestro de producto —fuente única y vigente— en
 
 Una carpeta por página en `paginas/`, y lo reutilizable en `compartidos/`:
 
-```
+```text
 index.html        Portal (índice de páginas)
 paginas/          Una carpeta por página, con TODO lo suyo dentro
 compartidos/      css · js · img/marcas · img/fotos-vendedores · lottie

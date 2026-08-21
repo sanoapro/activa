@@ -5,9 +5,9 @@
 
 ---
 
-# 1 · El producto
+## 1 · El producto
 
-## Qué es
+### Qué es
 
 **beta** es el programa de **inglés como segunda lengua** de activa. Lleva al alumno desde sus
 primeras palabras en primaria hasta un nivel **C1** en bachillerato, con una ruta continua y con el
@@ -17,7 +17,7 @@ Lo que lo distingue no es el idioma: es el método. En beta el inglés no se est
 aislada, se **usa** para crear, debatir y resolver. Esa es la metodología **CLIL** —aprender
 contenido a través del idioma— combinada con desarrollo socioemocional en cada fase.
 
-## Qué contiene
+### Qué contiene
 
 **Cuatro fases que acompañan el crecimiento del alumno**, cada una con su nivel MCER y su foco:
 
@@ -41,7 +41,7 @@ a la coordinación ver el programa entero y defenderlo ante una familia o una au
 
 **Ruta hacia certificación internacional:** Cambridge, IELTS y TOEFL.
 
-## Qué gana el colegio
+### Qué gana el colegio
 
 - **Un nivel de inglés verificable por un tercero.** El colegio deja de sostener su promesa
   bilingüe con su propia palabra y pasa a sostenerla con un estándar internacional.
@@ -53,7 +53,7 @@ a la coordinación ver el programa entero y defenderlo ante una familia o una au
 - **Alumnos que hablan.** El énfasis en producción oral es el reclamo más frecuente de las
   familias sobre los programas de inglés.
 
-## Cobertura y licenciamiento
+### Cobertura y licenciamiento
 
 | | |
 |---|---|
@@ -62,7 +62,7 @@ a la coordinación ver el programa entero y defenderlo ante una familia o una au
 | **Paquete** | Incluida en upgrade edu y en upgrade edu PLUS |
 | **Complemento PLUS** | La **preparación TKT** —60 horas para el *Teaching Knowledge Test* de la plantilla docente— es exclusiva de PLUS |
 
-## Lo que no se promete
+### Lo que no se promete
 
 La escala MCER describe **la progresión del programa**, no un resultado garantizado por alumno.
 Cambridge, IELTS y TOEFL se presentan como **ruta de certificación**, no como convenio, aval ni
@@ -70,7 +70,7 @@ patrocinio.
 
 ---
 
-# 2 · Guion del video
+## 2 · Guion del video
 
 **Duración objetivo:** 55–60 s · **Locución:** 154 palabras
 
@@ -91,7 +91,7 @@ patrocinio.
 >
 > **beta.** Que tus alumnos no solo estudien inglés: que lo certifiquen.
 
-## Escaleta
+### Escaleta
 
 | Tiempo | En pantalla | Locución |
 |---|---|---|
@@ -103,7 +103,7 @@ patrocinio.
 | 0:50–0:57 | Logos Cambridge · IELTS · TOEFL; alumno recibiendo su certificado | La ruta de certificación |
 | 0:57–1:00 | Logo beta + activa | Cierre |
 
-## Notas de producción
+### Notas de producción
 
 - **El clímax es el certificado en la mano.** Es lo que el padre y el director quieren ver: prueba
   externa, no una opinión del colegio.

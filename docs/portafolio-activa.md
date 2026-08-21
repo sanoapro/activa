@@ -1,6 +1,6 @@
 # activa — Portafolio de servicios
 
-### Documento maestro de referencia comercial · Ciclo escolar 2026–2027
+## Documento maestro de referencia comercial · Ciclo escolar 2026–2027
 
 > **Estado:** vigente y definitivo. Sustituye a la presentación `activa - upgrade edu presentación.pptx`
 > y a cualquier resumen anterior. Las cifras comerciales (precios, factores, descuentos y formas de
@@ -401,4 +401,4 @@ webinars semanales · hasta 8 vouchers de certificación oficial Google.
 ---
 
 **activa** · Google for Education Partner
-Contacto comercial: Martín Maldonado · Director Comercial · 55 2725 9300 · martin@activa.la · activa.la
+Contacto comercial: Martín Maldonado · Director Comercial · 55 2725 9300 · <martin@activa.la> · activa.la

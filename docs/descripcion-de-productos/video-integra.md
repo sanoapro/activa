@@ -5,9 +5,9 @@
 
 ---
 
-# 1 · El producto
+## 1 · El producto
 
-## Qué es
+### Qué es
 
 **integra** es la plataforma de **comunicación, control y gestión escolar** de activa. Reúne en un
 solo lugar lo que hoy suele estar repartido entre tres o cuatro sistemas que no se hablan entre sí:
@@ -16,16 +16,18 @@ los avisos a las familias, las calificaciones y la cobranza.
 Su diferencia de fondo está en una decisión de diseño: **integra convive con lo que el colegio ya
 usa, no lo reemplaza.** Se suma al ecosistema en lugar de exigir una migración.
 
-## Qué contiene
+### Qué contiene
 
-### Comunicación
+#### Comunicación
+
 Todo lo que el colegio necesita para hablar con su comunidad.
 
 - Avisos y notificaciones a las familias
 - Seguimiento de la comunicación con cada familia
 - Comunicación con dirección, docentes, alumnos y padres desde el mismo lugar
 
-### Control
+#### Control
+
 Lo académico, registrado y consultable.
 
 - Calificaciones
@@ -33,19 +35,21 @@ Lo académico, registrado y consultable.
 - Expediente del alumno
 - Control de acceso al plantel
 
-### Gestión
+#### Gestión
+
 La operación administrativa del colegio.
 
 - Colegiaturas
 - Cafetería
 - Extracurriculares
 
-### Y la pieza que ningún competidor comunica igual
+#### Y la pieza que ningún competidor comunica igual
+
 **Sincronización nativa con la Consola de Google.** Las cuentas de alumnos y docentes y la
 asignación de clases se dan de alta **una sola vez**. Sin doble captura, sin listas que se
 desincronizan entre el sistema escolar y el ecosistema de Google.
 
-## Qué gana el colegio
+### Qué gana el colegio
 
 - **Una sola fuente de verdad.** Se acaba el «depende de dónde lo consultes» entre el sistema
   administrativo y el académico.
@@ -57,14 +61,14 @@ desincronizan entre el sistema escolar y el ecosistema de Google.
   decisión no obliga a apagar nada el primer día.
 - **Alcance de institución completa**, no por licencia individual.
 
-## Cobertura y licenciamiento
+### Cobertura y licenciamiento
 
 | | |
 |---|---|
 | **Alcance** | Institución completa |
 | **Paquete** | Incluida en upgrade edu y en upgrade edu PLUS |
 
-## Lo que no se promete todavía
+### Lo que no se promete todavía
 
 ⚠ **integra es la licencia más reciente del portafolio.** Este documento solo afirma lo que el
 documento maestro da por confirmado. **Facturación electrónica CFDI y avisos o cobranza por
@@ -74,7 +78,7 @@ confirmarlas pronto; mientras tanto, prometerlas sería vender lo que no está.
 
 ---
 
-# 2 · Guion del video
+## 2 · Guion del video
 
 **Duración objetivo:** 55–60 s · **Locución:** 156 palabras
 
@@ -97,7 +101,7 @@ confirmarlas pronto; mientras tanto, prometerlas sería vender lo que no está.
 >
 > **integra.** Toda tu escuela, en el mismo lugar.
 
-## Escaleta
+### Escaleta
 
 | Tiempo | En pantalla | Locución |
 |---|---|---|
@@ -108,7 +112,7 @@ confirmarlas pronto; mientras tanto, prometerlas sería vender lo que no está.
 | 0:50–0:57 | Las herramientas que el colegio ya usa, alrededor y encendidas, no tachadas | Convive, no reemplaza |
 | 0:57–1:00 | Logo integra + activa | Cierre |
 
-## Notas de producción
+### Notas de producción
 
 - **El gancho está en los primeros diez segundos**: la misma lista capturada tres veces. Quien
   administra un colegio se reconoce ahí de inmediato.

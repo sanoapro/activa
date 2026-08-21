@@ -121,8 +121,12 @@ llamadas van con `?.`. La página cotiza igual que antes. Si `ARCHIVO_ENDPOINT` 
 bloque lo dice y nada se rompe.
 
 **El JSON archivado es el mismo sobre que «Exportar».**
-`fileType:"activa-lease-quote"`, así que lo archivado en Drive se reabre tal cual con
-Cotizaciones → Importar JSON.
+`fileType:"activa-lease-quote"` (y sus equivalentes en compra y el cotizador), así que lo
+archivado en Drive se reabre tal cual por dos puertas que comparten el mismo camino de
+validación (`importQuotePayload()`): **Cotizaciones → Importar JSON** con el archivo
+descargado, o el botón **«Insertar JSON»** del encabezado (21-ago-2026) pegando el texto
+copiado del visor de Drive. Ese botón sustituyó a «Compartir»: el enlace de escenario perdió
+su botón dedicado, aunque el hash y el código del modal de Cotizaciones siguen funcionando.
 
 ---
 
@@ -160,9 +164,10 @@ redirección de Apps Script, la misma mecánica que en producción).
 | 12 | Dos subidas → dos números correlativos, nada borrado | ✅ Segunda subida de la misma cotización → `002`, nombre e ID de Drive distintos, la primera intacta. Y **el candado bajo concurrencia real**: dos `POST` disparados al mismo tiempo salieron `003` y `004`, sin colisión — que es exactamente la carrera para la que existe el `LockService`. |
 
 Detalle que salió a la luz y es **comportamiento escrito del `.gs`**, no un error: el nombre del
-archivo termina en ` r1` aunque sea la primera revisión, porque `baseName_()` solo omite la
-revisión cuando vale `'0'` y en las páginas la revisión arranca en 1. Si molesta, el cambio es
-una línea del `.gs` (omitir también `'1'`) **más un redespliegue**; mientras, es informativo.
+archivo termina en un espacio y `r1` aunque sea la primera revisión, porque `baseName_()` solo
+omite la revisión cuando vale `'0'` y en las páginas la revisión arranca en 1. Si molesta, el
+cambio es una línea del `.gs` (omitir también `'1'`) **más un redespliegue**; mientras, es
+informativo.
 
 El `GET` de diagnóstico sigue respondiendo:
 

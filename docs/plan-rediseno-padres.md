@@ -271,6 +271,7 @@ pregunta al padre, que retóricamente funciona igual y no afirma nada que no se 
 **11 + 12 · Protección y privacidad** — *fusionar, y explicar Securly* **(petición explícita)**
 ⬛ Las dos láminas tratan lo mismo y ninguna llena la lámina. Se fusionan en una sola, sólida.
 📚 **Securly nunca se nombra**, y es exactamente lo que resuelve la inquietud (§4.6):
+
 - **Securly Filter** — filtrado y monitoreo **dentro y fuera del plantel**
 - **Securly Classroom** — el maestro **ve y guía las pantallas de su grupo en tiempo real**
 
@@ -284,6 +285,7 @@ epígrafe «Cuatro afirmaciones frontales» por lenguaje de padre.
 
 **13 · motiva** — *pobre para todo lo que hay detrás*
 📚 Usa tres etapas y una línea; el maestro (§6.3) tiene mucho más:
+
 - **Método en cuatro tiempos**: comprensión → aplicación → reflexión → repetición, *hasta
   volverlo hábito*
 - **Proceso**: diagnóstico → intervención → práctica → acompañamiento → **resultados medibles**
@@ -380,6 +382,7 @@ ISTE, del *Future of Jobs* del Foro Económico Mundial y de marcos de habilidade
 
 Decir «Referencia: estándares ISTE» al pie ya es impreciso; **poner el logo de ISTE encima lo
 haría afirmativo**. Hay que resolverlo antes de rediseñar:
+
 - ¿de qué marco salen realmente esas 10?
 - ¿se sustituyen por los 7 de ISTE (y el titular pasa a «7 competencias»)?
 - ¿o se mantienen 10 y se atribuyen correctamente a sus dos o tres fuentes?
@@ -427,6 +430,7 @@ que no se estorban, y una verificación que conviene hacer adversarial. La propu
 `Workflow` de cinco fases; el modelo por fase va indicado.
 
 ### Fase 0 · Congelar la verdad — *1 agente · Opus*
+
 Extrae de `portafolio-activa.md` **toda** afirmación relevante para un padre y la deja en una
 hoja de hechos estructurada: enunciado, sección de origen, y si tiene fuente externa o no.
 Todo lo demás se apoya en este artefacto, así que no se paraleliza: se hace bien una vez.
@@ -434,6 +438,7 @@ Todo lo demás se apoya en este artefacto, así que no se paraleliza: se hace bi
 **Salida:** `hechos.json` — `[{claim, seccion, tieneFuente, aplicaAPadres}]`
 
 ### Fase 1 · Auditoría por lentes — *5 agentes en paralelo · Fable*
+
 Cada uno recorre las 22 láminas con **una sola pregunta**. Son ciegos entre sí a propósito:
 la diversidad de lente es lo que hace que aparezca lo que un revisor único se salta.
 
@@ -448,12 +453,14 @@ la diversidad de lente es lo que hace que aparezca lo que un revisor único se s
 Fable encaja aquí: son barridos amplios, mecánicos y bien acotados.
 
 ### Fase 2 · Investigación externa — *4 agentes en paralelo · Opus + WebSearch*
+
 Una por pregunta abierta de §5: marcos ISTE/UNESCO, cifra de Workspace, datos de IA en el
 aula, tiempo de pantalla. Opus y no Fable: hay que **juzgar la calidad de la fuente**, no solo
 encontrarla. Cada agente devuelve la afirmación defendible, su fuente y su fecha —
 o **«no hay fuente sólida, hay que reformular»**, que es un resultado igual de válido.
 
 ### Fase 3 · Propuesta por lámina — *pipeline de 22 · Fable*
+
 Cada agente recibe una lámina, los hallazgos de las cinco lentes que le tocan, la hoja de
 hechos y los resultados de investigación. Devuelve una **especificación de rediseño**:
 titular, bloques, textos, iconos, logos, contenido nuevo con su sección de origen, y qué se
@@ -463,7 +470,9 @@ Es un *pipeline* y no un *parallel*: cada lámina puede pasar a verificarse en c
 sin esperar a las otras 21.
 
 ### Fase 4 · Verificación adversarial — *3 por lámina · Opus*
+
 Tres lentes distintas intentando **refutar** cada propuesta:
+
 1. **Hechos** — ¿toda cifra está en `hechos.json` o en la investigación?
 2. **Universalidad** — ¿pide algún dato, foto o logo del colegio? ¿promete algo exclusivo de
    PLUS sin decirlo?
@@ -472,6 +481,7 @@ Tres lentes distintas intentando **refutar** cada propuesta:
 Sobrevive lo que pasa 2 de 3.
 
 ### Fase 5 · Síntesis — *1 agente · Opus*
+
 Consolida en un solo documento de implementación, ordenado por lámina, con las correcciones de
 hecho primero y las mejoras visuales después.
 

@@ -71,7 +71,7 @@ anónima de escribir un archivo en Drive.
 
 El ID de la carpeta **es** su liga — el pedazo final de la URL de Drive:
 
-```
+```text
 https://drive.google.com/drive/folders/1sUoQ2kvv7Jk6qInvOZhSQM3OcUFVA4Zx
                                        └──────────── el ID ────────────┘
 ```
@@ -91,7 +91,7 @@ Una sola carpeta raíz. Adentro, **tres carpetas maestras** —una por cotizador
 una, **una subcarpeta por correo de vendedor**. Nadie las crea a mano: nacen la primera vez que
 ese vendedor sube algo.
 
-```
+```text
 11. Cotizaciones 2026-2027/            ← 1sUoQ2kvv7Jk6qInvOZhSQM3OcUFVA4Zx
 ├── 1. upgrade_edu/                    ← el cotizador
 │   └── josue@activa.la/
@@ -141,7 +141,7 @@ Tres detalles que hacen que eso funcione de verdad:
 cronológico, así que la fecha no necesita ir al frente. Lo que un vendedor busca con los ojos al
 abrir su carpeta es el nombre del colegio, no el día.
 
-```
+```text
 001._Colegio Cumbres · 2026-08-19 · MM-20260819-03-R01.pdf
      └─── colegio ──┘   └─ fecha ─┘   └───── folio ─────┘
 ```
@@ -192,7 +192,7 @@ que subir y solo estorba—. Cuatro estados, y cada uno dice exactamente qué pa
 
 | Estado | Qué dice |
 |---|---|
-| **listo** | «Guarda esta cotización en el archivo», con el destino a la vista: *arrendamiento / martin@activa.la*. Sabe dónde va a caer antes de mandarlo. |
+| **listo** | «Guarda esta cotización en el archivo», con el destino a la vista: *arrendamiento / <martin@activa.la>*. Sabe dónde va a caer antes de mandarlo. |
 | **subiendo** | «Subiendo…», y el botón se bloquea. Dos clics no deben producir dos archivos. |
 | **guardada** | «Guardada como la 002 de tu carpeta», con el enlace directo. Se verifica en el momento, y el número le dice al vendedor dónde va a encontrarla. |
 | **error** | El motivo concreto y qué hacer. Nunca «ocurrió un error». El PDF ya está en su disco: no se perdió nada, solo falta subirlo. |

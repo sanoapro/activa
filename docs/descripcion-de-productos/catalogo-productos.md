@@ -1,6 +1,6 @@
 # Catálogo de productos · upgrade edu
 
-### Ciclo escolar 2026–2027
+## Ciclo escolar 2026–2027
 
 Los productos, agrupados por las tres áreas que firman la Carta de Entrega Comercial.
 Sin cantidades: las de cada colegio salen del cotizador.

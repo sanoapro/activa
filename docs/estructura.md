@@ -9,7 +9,7 @@ Este repositorio guarda **todas las páginas web de activa**. Está armado con u
 
 ## El árbol
 
-```
+```text
 Presentacion-activa/
 ├── index.html                    Portal: el índice que lleva a todas las páginas
 │
@@ -149,14 +149,14 @@ El sitio se sirve desde la rama `main` tal cual, así que **la ruta del reposito
 
 | Página | URL |
 |---|---|
-| Portal | https://sanoapro.github.io/activa/ |
-| Kit comercial | https://sanoapro.github.io/activa/paginas/kit-comercial/ |
-| upgrade edu | https://sanoapro.github.io/activa/paginas/upgrade-edu/ |
-| Padres de familia | https://sanoapro.github.io/activa/paginas/padres-de-familia/ |
-| Cotizador | https://sanoapro.github.io/activa/paginas/cotizador/ |
-| Arrendamiento | https://sanoapro.github.io/activa/paginas/arrendamiento/ |
-| Compra directa | https://sanoapro.github.io/activa/paginas/compra/ |
-| Precios | https://sanoapro.github.io/activa/paginas/precios/ |
+| Portal | <https://sanoapro.github.io/activa/> |
+| Kit comercial | <https://sanoapro.github.io/activa/paginas/kit-comercial/> |
+| upgrade edu | <https://sanoapro.github.io/activa/paginas/upgrade-edu/> |
+| Padres de familia | <https://sanoapro.github.io/activa/paginas/padres-de-familia/> |
+| Cotizador | <https://sanoapro.github.io/activa/paginas/cotizador/> |
+| Arrendamiento | <https://sanoapro.github.io/activa/paginas/arrendamiento/> |
+| Compra directa | <https://sanoapro.github.io/activa/paginas/compra/> |
+| Precios | <https://sanoapro.github.io/activa/paginas/precios/> |
 
 Al mover una página hay que revisar tres lugares: sus propias etiquetas `og:`, las tarjetas del
 portal, y las listas del kit comercial.
