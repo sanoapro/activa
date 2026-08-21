@@ -265,6 +265,28 @@ importar).
 
 **Conviene correrla después de tocar precios o reglas.**
 
+## Los tres pasos
+
+| Sección | Título | Qué se hace ahí |
+|---|---|---|
+| `#s1` | Equipos y servicios | Seguro, Securly y los renglones de carrito |
+| `#s2` | Datos de la propuesta | Colegio, fiscales, vigencia y firma |
+| `#s3` | Inversión mensual | La mensualidad y todo lo que ampara |
+
+**Se captura arriba y se cotiza abajo**, que es como transcurre una llamada. El 21-ago-2026 las
+dos casillas que más mueven la mensualidad —Seguro contra daños y Securly— salieron de dentro de
+la tarjeta de resultado, donde estaban mezcladas con la lista de lo que incluye: se capturaban
+justo donde se lee el precio, que es al revés. Ahora abren el paso 1.
+
+El panel del modo interno se ancla al **elemento del precio**, no al número de sección:
+
+```js
+document.getElementById("invMensual").closest("section").insertAdjacentElement("afterend", section);
+```
+
+Enseña tasa, monto financiado y total pagado, así que pertenece junto a la Inversión. Anclarlo
+así lo deja donde debe aunque el orden vuelva a cambiar.
+
 ## La pantalla es del vendedor; el papel es del colegio
 
 Son dos superficies con dueños distintos y se diseñaron por separado.
@@ -283,7 +305,8 @@ propuesta ni en el correo.**
 ### Ningún texto suelto
 
 Regla de esta pasada, en las dos superficies: si algo hay que explicar, se explica **dentro de la
-tarjeta a la que pertenece**. Para eso está `.cardnote` en la aplicación y `.p-card` en el
+tarjeta a la que pertenece**. Los tres párrafos que describían cada paso se retiraron el
+21-ago-2026: quien usa esto ya sabe cotizar. Para eso está `.cardnote` en la aplicación y `.p-card` en el
 documento. La pista de los carritos bajó a la caja de cotejo; las tres notas sueltas del
 documento se volvieron una tarjeta de **Condiciones** con viñetas y su advertencia dentro; la
 tabla de inclusiones vive en `.p-tblcard`; los contactos y las firmas, en su propia tarjeta.
@@ -308,6 +331,36 @@ pruebas—; simplemente no se imprime.
 Y el documento dice qué se está adquiriendo: cada renglón de la tabla lleva **el concepto y su
 descripción** —modelo, memoria, pantalla, qué cubre el seguro, qué hace Securly, para cuántos
 equipos es el carrito—, no solo el nombre.
+
+## La fila de identidad
+
+El encabezado lleva una segunda fila de unos 30 px que dice qué se está cotizando y para quién, y
+que se queda pegada al bajar:
+
+```
+Arrendamiento · 134 equipos · 3 años (36 mensualidades) · con seguro · con Securly · 4× carrito para 30
+                                                    Folio MM-… · Revisión 1 · Guardado localmente
+```
+
+El resumen vivo (`#heroScope`) estaba escondido dentro de la tarjeta de resultado; ahora encabeza
+la página. El JS que lo escribe no cambió: mismo id, un solo elemento.
+
+## Las tarjetas de captura tienen color
+
+Los cuatro `details.fold` eran blanco sobre blanco —tarjeta blanca, cuerpo sin fondo, campos
+blancos— y su único color vivía en un cuadrito de 34 px. Ahora cada tarjeta declara `--fc` y
+`--ft`, que pintan el filete superior de 3 px, el degradado del encabezado, el ícono y el filete
+de apertura:
+
+| Tarjeta | Color |
+|---|---|
+| Carritos de carga | verde |
+| Colegio y contactos | azul |
+| Datos fiscales de la empresa | amarillo |
+| Vigencia y firma | rojo |
+
+La zona de captura se hunde en gris azulado con los campos en blanco puro, y dentro de los
+pliegues largos los bloques se agrupan en `.fgroup` en vez de flotar bajo un rótulo suelto.
 
 ## Sistema visual
 

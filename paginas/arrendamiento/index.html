@@ -136,16 +136,13 @@ header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.97);backdro
 .mo-progress{position:absolute;left:0;right:0;bottom:0;height:3px;pointer-events:none}
 .mo-progress-fill{display:block;height:100%;background:var(--acc);opacity:.85}
 
-/* ---------- hero ---------- */
-.hero{padding:34px 0 20px}
-.tag{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);color:var(--mute);font-size:12.5px;font-weight:500;padding:6px 14px;border-radius:999px;margin-bottom:14px}
-.tag .gdots{grid-template-columns:repeat(2,6px);grid-gap:2px}.tag .gdots i{width:6px;height:6px}
-.hero h1{font-size:clamp(27px,4vw,40px);font-weight:700;line-height:1.1;margin:0 0 12px}
-.hero h1 em{font-style:normal;color:var(--acc)}
-.herorow{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.iva{display:inline-flex;align-items:center;gap:7px;background:var(--g-grn-t);color:var(--g-grn-d);border-radius:8px;padding:6px 13px;font-size:12.5px;font-weight:500}
-.iva svg{width:15px;height:15px;fill:var(--g-grn)}
-.scope{font-size:12.5px;color:var(--mute)}
+/* ---------- fila de identidad ----------
+   Segunda fila del encabezado: que se esta cotizando y para quien. Sustituye
+   al hero, que gastaba media pantalla en decir lo que el vendedor ya sabe. */
+.idbar{border-top:1px solid var(--soft);background:#fff}
+.idin{max-width:var(--app-max);margin:0 auto;padding:6px 24px;display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap;font-size:12px;color:var(--mute)}
+.idin .pkg{font-family:var(--disp);font-size:13.5px;font-weight:700;color:var(--acc-d);white-space:nowrap}
+.idin .scope{color:var(--ink2)}
 /* Identidad de la cotización dentro del encabezado: pequeña y permanente, sin
    robar una franja entera de pantalla como hacía el hero. */
 .workmeta{display:flex;align-items:center;gap:4px 12px;flex-wrap:wrap;font-size:11.5px;color:var(--mute);margin-left:auto;justify-content:flex-end}
@@ -233,11 +230,12 @@ main section{scroll-margin-top:var(--sticky-header-height)}
 .empty-state{font-size:12.5px;color:var(--mute);margin:8px 0}
 
 /* ---------- plegables y formularios ---------- */
-.fold{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:var(--sh1)}
+.fold{--fc:var(--acc);--ft:var(--acc-t);background:#fff;border:1px solid var(--line);border-top:3px solid var(--fc);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:var(--sh2)}
+.fold summary{background:linear-gradient(180deg,var(--ft),#fff)}
 .fold summary{display:flex;align-items:center;gap:13px;padding:15px 18px;cursor:pointer;list-style:none}
 .fold summary::-webkit-details-marker{display:none}
-.fold .fi{width:34px;height:34px;border-radius:9px;background:var(--acc-t);display:grid;place-items:center;flex:none}
-.fold .fi svg{width:17px;height:17px;fill:var(--acc-d)}
+.fold .fi{width:34px;height:34px;border-radius:9px;background:var(--ft);display:grid;place-items:center;flex:none}
+.fold .fi svg{width:17px;height:17px;fill:var(--fc)}
 .fold .ft{flex:1;display:flex;flex-direction:column;line-height:1.3}
 .fold .ft b{font-family:var(--disp);font-size:14.5px;font-weight:500}
 .fold .ft i{font-style:normal;font-size:12px;color:var(--mute)}
@@ -246,8 +244,18 @@ main section{scroll-margin-top:var(--sticky-header-height)}
 .fold .fc::before{width:9px;height:1.5px}
 .fold .fc::after{width:1.5px;height:9px;transition:.2s}
 .fold[open] .fc::after{height:0}
-.fold[open] summary{border-bottom:1px solid var(--soft)}
-.foldb{padding:18px}
+.fold[open] summary{border-bottom:2px solid var(--fc)}
+/* La zona de captura se hunde: fondo gris azulado para que los campos blancos
+   se lean como lo que hay que llenar. */
+.foldb{padding:18px;background:#f3f6fb;box-shadow:inset 0 1px 0 rgba(60,64,67,.06)}
+.foldb input,.foldb select,.foldb textarea{background:#fff}
+/* Bloque de campos dentro de una tarjeta larga, para que no floten bajo un
+   rotulo suelto. */
+.fgroup{background:#fff;border:1px solid var(--soft);border-radius:11px;padding:14px 15px;margin-bottom:12px;box-shadow:0 1px 2px rgba(60,64,67,.06)}
+.fgroup>.miniLbl{margin-bottom:10px}
+.fgroup:last-child{margin-bottom:0}
+.foldb>.grid2,.foldb>.grid3,.foldb>.f{margin-bottom:16px}
+.foldb>*:last-child{margin-bottom:0}
 /* Nota al pie de una tarjeta. Existe para que ningún texto quede suelto sobre
    el fondo de la página: si algo hay que explicar, se explica dentro de la caja
    a la que pertenece. */
@@ -507,6 +515,10 @@ body.calc-first .inv::after{
   .action-state{width:100%;justify-content:space-between}
 }
 @media(max-width:700px){
+  /* Cinco campos en tres columnas se aprietan; aqui pasan a dos. */
+  .cfgin{grid-template-columns:1fr 1fr}
+  .cfgin>div:nth-of-type(3),.cfgin>div:nth-of-type(4){grid-column:1/-1}
+  .idin{padding:5px 16px;gap:6px 12px;font-size:11.5px}
   .workmeta .wf,.workmeta .wr{display:none}
   .workmeta .save-state{padding-left:0;border-left:none}
   .hbar{flex-wrap:wrap;gap:6px 10px;padding:6px 14px}
@@ -523,14 +535,11 @@ body.calc-first .inv::after{
   .grid2,.grid3,.licgrid,.p-contact{grid-template-columns:1fr}
   /* En pantallas angostas el subtítulo del logo no puede encogerse (flex
      min-width:auto) y empujaba el ancho de la página. */
-  .brand-partner{display:none}
-  .brand-logo-img{width:120px}
   .footer-brand img{width:135px}
   .ccrow{grid-template-columns:1fr!important}
   .cartrow{grid-template-columns:1fr 90px 44px}
   .p-client,.p-inv,.p-sign{grid-template-columns:1fr}
   .p-client>div{border-right:none;border-bottom:1px solid var(--soft)}
-  .hbtns .btn span{display:none}
   .actin{flex-direction:column;align-items:stretch;gap:8px}
   .actprice{justify-content:space-between}
   .actbtns{display:grid;grid-template-columns:repeat(3,1fr);width:100%}
@@ -753,18 +762,13 @@ body.calc-first .inv::after{
       <span class="brand-partner"><span class="google-g" aria-hidden="true" id="headerGoogleMark"></span>Google for Education Partner</span>
       <!-- Etiqueta de versión visible: identifica el archivo de un vistazo cuando
            circulan copias descargadas (lección del cotizador, F-27 · UX-5). -->
-      <span class="vertag" title="Cotizador de arrendamiento activa · versión del archivo">v1.3</span>
+      <span class="vertag" title="Cotizador de arrendamiento activa · versión del archivo">v1.4</span>
     </div>
     <nav class="hnav">
-      <a href="#s1">Inversión</a>
-      <a href="#s2">Carritos</a>
-      <a href="#s3">Datos</a>
+      <a href="#s1">Equipos</a>
+      <a href="#s2">Datos</a>
+      <a href="#s3">Inversión</a>
     </nav>
-    <div class="workmeta" aria-live="polite">
-      <span class="wf">Folio <b id="quoteFolio">—</b></span>
-      <span class="wr" id="quoteRevision">Revisión 1</span>
-      <span class="save-state" id="saveState" data-state="saving">Guardando…</span>
-    </div>
     <div class="hbtns">
       <button type="button" class="btn" id="btnManage" aria-label="Gestionar cotizaciones y borradores">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
@@ -772,6 +776,20 @@ body.calc-first .inv::after{
       <button type="button" class="btn" id="btnShare" aria-label="Copiar enlace del escenario, sin datos personales">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
         <span>Compartir</span></button>
+    </div>
+  </div>
+
+  <!-- Segunda fila: qué se está cotizando a la izquierda, para quién a la
+       derecha. Aquí vivía el hero. -->
+  <div class="idbar">
+    <div class="idin">
+      <b class="pkg">Arrendamiento</b>
+      <span class="scope" id="heroScope">—</span>
+      <div class="workmeta" aria-live="polite">
+        <span class="wf">Folio <b id="quoteFolio">—</b></span>
+        <span class="wr" id="quoteRevision">Revisión 1</span>
+        <span class="save-state" id="saveState" data-state="saving">Guardando…</span>
+      </div>
     </div>
   </div>
 
@@ -812,13 +830,136 @@ body.calc-first .inv::after{
 <div class="wrap"><div id="storageBanner" role="alert" hidden></div></div>
 <form id="quoteForm" class="mo-stagger" novalidate>
 
-<!-- ================= 1 · INVERSIÓN ================= -->
+<!-- ================= 1 · EQUIPOS Y SERVICIOS ================= -->
 <section id="s1">
   <div class="wrap">
     <div class="shead">
       <div class="kick">Paso 1</div>
+      <h2>Equipos y servicios</h2>
+    </div>
+
+    <div class="fgroup" style="margin-bottom:14px">
+      <div class="miniLbl">Servicios incluidos en la renta <span class="tagx">cambian la mensualidad</span></div>
+      <div class="licgrid">
+        <label class="lic" id="svcSeguro">
+          <input type="checkbox" id="fSeguro">
+          <span class="ln"><b>Seguro contra daños accidentales</b><small id="hSeguro">Cubre los equipos durante todo el plazo del contrato.</small></span>
+        </label>
+        <label class="lic" id="svcSecurly">
+          <input type="checkbox" id="fSecurly">
+          <span class="ln"><b>Securly + Classroom Monitor + Cloud Filter</b><small id="hSecurly">Filtrado de contenido y gestión del aula, licenciado al plazo del contrato.</small></span>
+        </label>
+      </div>
+    </div>
+    <details class="fold" id="foldCart" style="--fc:var(--g-grn);--ft:var(--g-grn-t)" open>
+      <summary>
+        <span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0020 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></span>
+        <span class="ft"><b>Carritos de carga y almacenamiento</b><i id="foldCartSum">—</i></span>
+        <span class="fc"></span>
+      </summary>
+      <div class="foldb">
+        <div class="miniLbl">Renglones de carrito <span class="tagx">capacidades de 20, 30 y 40 equipos</span></div>
+        <div class="cartrows" id="cartRows"></div>
+        <div class="inline-action">
+          <button type="button" class="btn" id="btnAddCart">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            Agregar carrito</button>
+        </div>
+        <div class="calcbox" id="cartBox"></div>
+        <p class="cardnote">La capacidad se compara contra los equipos cotizados. Si no cuadra se avisa, pero no bloquea: hay colegios que comparten carrito entre grupos.</p>
+      </div>
+    </details>
+
+    <!-- Región viva: las advertencias del cálculo se anuncian a lectores de pantalla -->
+    <div class="warns" id="warnBox" role="status" aria-live="polite" aria-relevant="additions text" aria-label="Advertencias del cálculo"></div>
+  </div>
+</section>
+
+<!-- ================= 2 · DATOS DE LA PROPUESTA ================= -->
+<section id="s2" class="alt">
+  <div class="wrap">
+    <div class="shead">
+      <div class="kick">Paso 2</div>
+      <h2>Datos de la propuesta</h2>
+    </div>
+
+    <details class="fold" id="foldCli" style="--fc:var(--g-blue);--ft:var(--g-blue-t)" open>
+      <summary>
+        <span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
+        <span class="ft"><b>Colegio y contactos</b><i id="foldCliSum">—</i></span>
+        <span class="fc"></span>
+      </summary>
+      <div class="foldb">
+        <div class="grid3" style="margin-bottom:18px">
+          <div class="f"><label for="fInst">Institución</label><input type="text" id="fInst" maxlength="120" autocomplete="organization" placeholder="Instituto Thomas Jefferson"></div>
+          <div class="f"><label for="fShort">Nombre corto</label><input type="text" id="fShort" maxlength="40" placeholder="ITJ Querétaro"><div class="hint">Se usa en títulos y en el nombre sugerido del PDF</div></div>
+          <div class="f"><label for="fCity">Ciudad</label><input type="text" id="fCity" maxlength="80" autocomplete="address-level2" placeholder="Querétaro, Qro."></div>
+        </div>
+        <div class="miniLbl">Contactos del colegio <span class="tagx">se precargan al enviar el correo</span></div>
+        <div id="contactRows"></div>
+      </div>
+    </details>
+
+    <details class="fold" id="foldFis" style="--fc:var(--g-yel-d);--ft:var(--g-yel-t)">
+      <summary>
+        <span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 10h3v7H4zM10.5 10h3v7h-3zM2 19h20v3H2zM17 10h3v7h-3zM12 1L2 6v2h20V6z"/></svg></span>
+        <span class="ft"><b>Datos fiscales de la empresa</b><i id="foldFisSum">—</i></span>
+        <span class="fc"></span>
+      </summary>
+      <div class="foldb">
+        <div class="grid2">
+          <div class="f"><label for="fLegal">Razón social</label><input type="text" id="fLegal" maxlength="160"></div>
+          <div class="f"><label for="fRfc">RFC</label><input type="text" id="fRfc" maxlength="13" autocapitalize="characters" spellcheck="false"></div>
+        </div>
+        <div class="f"><label for="fAddr">Domicilio fiscal</label><input type="text" id="fAddr" maxlength="250">
+          <div class="hint">Se imprimen en la propuesta y la razón social va en el pie de cada hoja del PDF.</div></div>
+      </div>
+    </details>
+
+    <details class="fold" id="foldVig" style="--fc:var(--g-red);--ft:var(--g-red-t)">
+      <summary>
+        <span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM7 11h5v5H7v-5z"/></svg></span>
+        <span class="ft"><b>Vigencia y firma</b><i id="foldVigSum">—</i></span>
+        <span class="fc"></span>
+      </summary>
+      <div class="foldb">
+        <div class="fgroup">
+        <div class="miniLbl">Vigencia de la cotización</div>
+        <div class="grid2">
+          <div class="f"><label for="fDate">Fecha de la cotización</label><input type="date" id="fDate">
+            <div class="hint" id="hQuoteDate">Se usa la fecha de hoy al crear la cotización</div>
+            <div class="inline-action" id="staleDateWrap" hidden><button type="button" class="btn text" id="btnDateToday">Actualizar a hoy y recalcular la vigencia</button></div></div>
+          <div class="f"><label for="fValid">Válida hasta</label><input type="date" id="fValid"><div class="hint" id="hValidity">Se sugiere 31 días</div></div>
+        </div>
+        </div>
+
+        <div class="fgroup">
+        <div class="miniLbl">Quien firma la propuesta</div>
+        <div class="grid2">
+          <div class="f"><label for="fBy">Nombre</label><input type="text" id="fBy" maxlength="100" autocomplete="name"></div>
+          <div class="f"><label for="fRole">Puesto</label><input type="text" id="fRole" maxlength="80"></div>
+        </div>
+        <div class="grid3">
+          <div class="f"><label for="fPhone">Teléfono</label><input type="text" id="fPhone" maxlength="30" autocomplete="tel"></div>
+          <div class="f"><label for="fMail">Correo</label><input type="email" id="fMail" maxlength="254" autocomplete="email"></div>
+          <div class="f"><label for="fWeb">Sitio web</label><input type="text" id="fWeb" maxlength="120"></div>
+        </div>
+        <div class="inline-action">
+          <button type="button" class="btn text" id="btnAdoptSellerProfile">Usar estos datos como perfil predeterminado</button>
+          <span class="hint" id="sellerProfileState">El perfil predeterminado se usa al crear cotizaciones nuevas.</span>
+        </div>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ================= 3 · INVERSIÓN MENSUAL ================= -->
+<section id="s3">
+  <div class="wrap">
+    <div class="shead">
+      <div class="kick">Paso 3</div>
       <h2>Inversión mensual</h2>
-      <p>La mensualidad y todo lo que ampara.</p>
     </div>
 
     <div class="cfg">
@@ -839,17 +980,6 @@ body.calc-first .inv::after{
         <div class="res-main">
           <div class="rowhead">
             <h3>Qué incluye esta cotización</h3>
-            <div class="muted" id="heroScope">—</div>
-          </div>
-          <div class="licgrid">
-            <label class="lic" id="svcSeguro">
-              <input type="checkbox" id="fSeguro">
-              <span class="ln"><b>Seguro contra daños accidentales</b><small id="hSeguro">Cubre los equipos durante todo el plazo del contrato.</small></span>
-            </label>
-            <label class="lic" id="svcSecurly">
-              <input type="checkbox" id="fSecurly">
-              <span class="ln"><b>Securly + Classroom Monitor + Cloud Filter</b><small id="hSecurly">Filtrado de contenido y gestión del aula, licenciado al plazo del contrato.</small></span>
-            </label>
           </div>
           <div class="igrid" id="incList"></div>
         </div>
@@ -857,112 +987,6 @@ body.calc-first .inv::after{
       <div class="tfoot">Mensualidades iguales y consecutivas en pesos mexicanos. Sujeto a aprobación de crédito y firma del contrato de arrendamiento.</div>
     </div>
 
-    <!-- Región viva: las advertencias del cálculo se anuncian a lectores de pantalla -->
-    <div class="warns" id="warnBox" role="status" aria-live="polite" aria-relevant="additions text" aria-label="Advertencias del cálculo"></div>
-  </div>
-</section>
-
-<!-- ================= 2 · CARRITOS ================= -->
-<section id="s2" class="alt">
-  <div class="wrap">
-    <div class="shead">
-      <div class="kick">Paso 2</div>
-      <h2>Carritos de carga</h2>
-      <p>Se mezclan capacidades; su costo entra en la mensualidad.</p>
-    </div>
-
-    <details class="fold" id="foldCart" open>
-      <summary>
-        <span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0020 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></span>
-        <span class="ft"><b>Carritos de carga y almacenamiento</b><i id="foldCartSum">—</i></span>
-        <span class="fc"></span>
-      </summary>
-      <div class="foldb">
-        <div class="miniLbl">Renglones de carrito <span class="tagx">capacidades de 20, 30 y 40 equipos</span></div>
-        <div class="cartrows" id="cartRows"></div>
-        <div class="inline-action">
-          <button type="button" class="btn" id="btnAddCart">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-            Agregar carrito</button>
-        </div>
-        <div class="calcbox" id="cartBox"></div>
-        <p class="cardnote">La capacidad se compara contra los equipos cotizados. Si no cuadra se avisa, pero no bloquea: hay colegios que comparten carrito entre grupos.</p>
-      </div>
-    </details>
-  </div>
-</section>
-
-<!-- ================= 3 · DATOS ================= -->
-<section id="s3">
-  <div class="wrap">
-    <div class="shead">
-      <div class="kick">Paso 3</div>
-      <h2>Datos de la propuesta</h2>
-      <p>Lo que encabeza y cierra el documento del colegio.</p>
-    </div>
-
-    <details class="fold" id="foldCli" open>
-      <summary>
-        <span class="fi" style="background:var(--g-blue-t)"><svg viewBox="0 0 24 24" style="fill:var(--g-blue)" aria-hidden="true" focusable="false"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
-        <span class="ft"><b>Colegio y contactos</b><i id="foldCliSum">—</i></span>
-        <span class="fc"></span>
-      </summary>
-      <div class="foldb">
-        <div class="grid3" style="margin-bottom:18px">
-          <div class="f"><label for="fInst">Institución</label><input type="text" id="fInst" maxlength="120" autocomplete="organization" placeholder="Instituto Thomas Jefferson"></div>
-          <div class="f"><label for="fShort">Nombre corto</label><input type="text" id="fShort" maxlength="40" placeholder="ITJ Querétaro"><div class="hint">Se usa en títulos y en el nombre sugerido del PDF</div></div>
-          <div class="f"><label for="fCity">Ciudad</label><input type="text" id="fCity" maxlength="80" autocomplete="address-level2" placeholder="Querétaro, Qro."></div>
-        </div>
-        <div class="miniLbl">Contactos del colegio <span class="tagx">se precargan al enviar el correo</span></div>
-        <div id="contactRows"></div>
-      </div>
-    </details>
-
-    <details class="fold" id="foldFis">
-      <summary>
-        <span class="fi" style="background:var(--g-yel-t)"><svg viewBox="0 0 24 24" style="fill:var(--g-yel-d)" aria-hidden="true" focusable="false"><path d="M4 10h3v7H4zM10.5 10h3v7h-3zM2 19h20v3H2zM17 10h3v7h-3zM12 1L2 6v2h20V6z"/></svg></span>
-        <span class="ft"><b>Datos fiscales de la empresa</b><i id="foldFisSum">—</i></span>
-        <span class="fc"></span>
-      </summary>
-      <div class="foldb">
-        <div class="grid2" style="margin-bottom:10px">
-          <div class="f"><label for="fLegal">Razón social</label><input type="text" id="fLegal" maxlength="160"></div>
-          <div class="f"><label for="fRfc">RFC</label><input type="text" id="fRfc" maxlength="13" autocapitalize="characters" spellcheck="false"></div>
-        </div>
-        <div class="f"><label for="fAddr">Domicilio fiscal</label><input type="text" id="fAddr" maxlength="250">
-          <div class="hint">Se imprimen en la propuesta y la razón social va en el pie de cada hoja del PDF.</div></div>
-      </div>
-    </details>
-
-    <details class="fold" id="foldVig">
-      <summary>
-        <span class="fi" style="background:var(--g-red-t)"><svg viewBox="0 0 24 24" style="fill:var(--g-red)" aria-hidden="true" focusable="false"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM7 11h5v5H7v-5z"/></svg></span>
-        <span class="ft"><b>Vigencia y firma</b><i id="foldVigSum">—</i></span>
-        <span class="fc"></span>
-      </summary>
-      <div class="foldb">
-        <div class="grid2" style="margin-bottom:18px">
-          <div class="f"><label for="fDate">Fecha de la cotización</label><input type="date" id="fDate">
-            <div class="hint" id="hQuoteDate">Se usa la fecha de hoy al crear la cotización</div>
-            <div class="inline-action" id="staleDateWrap" hidden><button type="button" class="btn text" id="btnDateToday">Actualizar a hoy y recalcular la vigencia</button></div></div>
-          <div class="f"><label for="fValid">Válida hasta</label><input type="date" id="fValid"><div class="hint" id="hValidity">Se sugiere 31 días</div></div>
-        </div>
-        <div class="miniLbl">Quien firma la propuesta</div>
-        <div class="grid2" style="margin-bottom:10px">
-          <div class="f"><label for="fBy">Nombre</label><input type="text" id="fBy" maxlength="100" autocomplete="name"></div>
-          <div class="f"><label for="fRole">Puesto</label><input type="text" id="fRole" maxlength="80"></div>
-        </div>
-        <div class="grid3">
-          <div class="f"><label for="fPhone">Teléfono</label><input type="text" id="fPhone" maxlength="30" autocomplete="tel"></div>
-          <div class="f"><label for="fMail">Correo</label><input type="email" id="fMail" maxlength="254" autocomplete="email"></div>
-          <div class="f"><label for="fWeb">Sitio web</label><input type="text" id="fWeb" maxlength="120"></div>
-        </div>
-        <div class="inline-action">
-          <button type="button" class="btn text" id="btnAdoptSellerProfile">Usar estos datos como perfil predeterminado</button>
-          <span class="hint" id="sellerProfileState">El perfil predeterminado se usa al crear cotizaciones nuevas.</span>
-        </div>
-      </div>
-    </details>
   </div>
 </section>
 
@@ -2241,7 +2265,7 @@ function renderInternalPanel(){
   section.className="alt mo-in";
   section.setAttribute("aria-label","Panel interno del vendedor");
   section.innerHTML=html;
-  $("#s1").insertAdjacentElement("afterend",section);
+  document.getElementById("invMensual").closest("section").insertAdjacentElement("afterend",section);
 }
 </script>
 <script>
