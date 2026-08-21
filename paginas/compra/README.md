@@ -120,6 +120,60 @@ mejor el documento sin logotipo que ningún documento.
 Verificado en Chrome con **1, 40 y 200 partidas**: sin hojas en blanco y con la portada
 completa.
 
+El documento lleva portada con folio, revisión, fecha y vigencia, y dos secciones:
+
+| # | Sección | Qué lleva |
+|---|---|---|
+| 1 | Partidas de la cotización | La tabla dentro de `.p-tblcard`, el cierre en una tarjeta `.p-hero` y las condiciones en viñetas |
+| 2 | Datos bancarios y contacto | Chips de entrega y envío, transferencia con advertencia de titular, contacto y firmas |
+
+**La hoja interior no repite la portada** (21-ago-2026). El cuerpo arranca directo en la sección
+1: ni logotipo, ni folio, ni cliente, ni ciudad. Esos datos viven en la portada y en el
+encabezado y el pie corridos de cada hoja; repetirlos costaba media hoja y no decía nada nuevo.
+En pantalla la identidad la lleva la barra del overlay, que ya rotula institución y folio. Entre
+eso y las tres notas sueltas que se volvieron tarjetas, el PDF de una cotización de nueve
+partidas pasó de **seis hojas a cuatro**.
+
+### Papelería v5
+
+**21-ago-2026.** El vocabulario de tarjetas y chips del documento dejó de ser de esta página y
+pasó a ser el de la empresa: vive entre las marcas `/* ===== PAPELERÍA v5 · inicio ===== */` y
+`/* ===== PAPELERÍA v5 · fin ===== */` al final del segundo `<style>`, y es **byte a byte el
+mismo bloque** que el de `paginas/cotizador/` y `paginas/arrendamiento/`. Para comprobar que no
+se separaron:
+
+```sh
+for p in cotizador arrendamiento compra; do
+  sed -n '/PAPELERÍA v5 · inicio/,/PAPELERÍA v5 · fin/p' paginas/$p/index.html > /tmp/$p.css
+done
+diff /tmp/cotizador.css /tmp/arrendamiento.css && diff /tmp/cotizador.css /tmp/compra.css
+```
+
+No se extrajo a `compartidos/css/`: el PDF es el entregable y una hoja externa que no cargue lo
+rompería en silencio. El bloque trae dos capas del mismo marcado —pantalla en px para el overlay
+y papel en mm/pt bajo `.pp-body`— con `.p-card` y su familia, `.p-tblcard`, `.p-kpis`,
+`.p-fchips` y `.p-hero`. La regla que lo gobierna: **`.p-note` es una línea de 140 caracteres
+como máximo**; lo más largo es una `.p-card--terms` con viñetas, o sobra.
+
+Qué cambió aquí en concreto:
+
+- La franja Google de la portada bajó de **10 mm a 2 mm** —a esa altura leía como error de
+  maquetación, no como marca— y los 8 mm liberados se devolvieron al aire de la hoja.
+- El cierre pasó de tres renglones sueltos (`.p-totals`) a **una tarjeta con el total en grande**
+  y el subtotal con su IVA debajo, en el orden en que se calculan.
+- La nota de cuatro renglones sobre el IVA se volvió una tarjeta **«Cómo leer los importes»** con
+  dos viñetas; las partidas sin costo, un **chip verde** sobre la tabla.
+- **Entrega y envío son condiciones comerciales, no datos de contacto**: salieron de la rejilla
+  de contacto —que quedó en cuatro celdas parejas— y abren la sección 2 como chips.
+
+Y un defecto que venía de antes y se corrigió en la misma pasada: **la columna de Concepto se
+quedaba en dos palabras por renglón.** El número de parte y los dos importes iban en `nowrap` y,
+con el ancho automático, se comían el espacio de la única columna que tiene algo que decir. Ahora
+la tabla lleva `table-layout:fixed` y un `<colgroup>` con el reparto explícito
+—16 / 35 / 16 / 16.5 / 16.5 %—, el número de parte puede partirse y los encabezados de importe
+dejaron el `nowrap` con el que se encimaban. Los anchos se declaran **una sola vez**, sin
+duplicar por medio: el ancho de una columna no depende de si se ve en pantalla o en papel.
+
 ## Pruebas internas
 
 Se abren con **`?test=1`**: 49 pruebas sobre el IVA, el catálogo contra la tabla confirmada el

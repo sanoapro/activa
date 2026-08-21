@@ -404,21 +404,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .prop-in{padding:32px 40px 40px}
 
 /* ---------- documento (pantalla) ---------- */
-.p-brand-lockup{display:flex;align-items:center;gap:12px;margin-bottom:15px}
-.p-brand-lockup img{width:155px;height:auto;max-height:45px;object-fit:contain}
-.p-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
-.p-slogan{font-family:var(--disp);font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--acc-d)}
-.p-title{font-family:var(--disp);font-size:25px;font-weight:700;margin:6px 0 4px;line-height:1.2;padding:0}
-.p-sub{font-size:13px;color:var(--mute)}
-.p-meta{font-size:12px;text-align:right;color:var(--mute);line-height:1.8;min-width:200px}
-.p-meta b{color:var(--ink);font-family:var(--mono);font-weight:500}
-.p-client{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:22px 0 8px}
-.p-client>div{padding:13px 16px;border-right:1px solid var(--soft)}
-.p-client>div:last-child{border-right:none}
-.p-client .k{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--faint)}
-.p-client .v{font-family:var(--disp);font-size:15px;font-weight:500;margin-top:3px}
-.p-client .v.n{font-family:var(--mono)}
-.p-chip{display:inline-block;background:var(--acc-t);color:var(--acc-d);border-radius:7px;padding:5px 11px;font-size:12px;font-weight:500;font-family:var(--disp)}
 .p-h{font-family:var(--disp);font-size:16px;font-weight:700;margin:30px 0 12px;padding:0 0 7px;border-bottom:2px solid var(--acc);display:flex;align-items:center;gap:9px}
 .p-h .n{width:22px;height:22px;border-radius:6px;background:var(--acc);color:#fff;display:grid;place-items:center;font-size:11px;font-family:var(--mono);font-weight:600}
 .ptbl{width:100%;border-collapse:collapse;font-size:12.5px}
@@ -430,13 +415,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .ptbl .numcell{text-align:right}
 .ptbl th.numhead{text-align:right}
 .ptbl .partcell{font-family:var(--mono);font-size:11px;white-space:nowrap}
-.p-totals{max-width:380px;margin-left:auto;margin-top:12px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.p-totals .trow{display:flex;justify-content:space-between;gap:14px;padding:9px 16px;border-bottom:1px solid var(--soft);font-size:13px}
-.p-totals .trow span{color:var(--mute)}
-.p-totals .trow b{font-family:var(--mono);font-weight:500}
-.p-totals .trow.total{background:var(--acc-t);border-bottom:none}
-.p-totals .trow.total span{color:var(--acc-d);font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:11.5px;letter-spacing:.5px;align-self:center}
-.p-totals .trow.total b{font-size:17px;font-weight:600;color:var(--acc-d)}
 .p-note{font-size:11.5px;color:var(--mute);margin-top:9px}
 .p-note--important{background:var(--g-yel-t);border:1px solid var(--g-yel-b);border-radius:8px;padding:8px 10px;color:#6b4500}
 .p-bank{border:1px solid #aecbfa;background:var(--g-blue-t);border-radius:12px;padding:15px 18px;margin-top:6px}
@@ -445,7 +423,10 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .p-bankt svg{width:15px;height:15px;fill:var(--g-blue-d)}
 .p-bankg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
 .p-bankg .k{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#174ea6}
-.p-bankg .v{font-family:var(--mono);font-size:14px;font-weight:600;color:#202124;margin-top:2px;word-break:break-all}
+/* `break-all` partia la razon social a media palabra («SAPI D / E CV»). Con
+   `anywhere` la cuenta y la CLABE siguen partiendose cuando no caben, pero los
+   nombres respetan sus palabras. Es la misma correccion que ya lleva el cotizador. */
+.p-bankg .v{font-family:var(--mono);font-size:14px;font-weight:600;color:#202124;margin-top:2px;word-break:normal;overflow-wrap:anywhere}
 .p-banklegal{margin-top:11px;padding-top:9px;border-top:1px solid #c6dafc;font-size:10.5px;line-height:1.45;color:#5f6368}
 .p-contact{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .p-contact>div{padding:13px 16px;border-right:1px solid var(--soft);border-bottom:1px solid var(--soft);display:flex;justify-content:space-between;gap:10px;font-size:12.5px}
@@ -538,7 +519,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   .result{grid-template-columns:1fr}
   .res-side{border-right:none;border-bottom:1px solid var(--soft)}
   .hnav{display:none}
-  .p-client{grid-template-columns:1fr 1fr}
   .p-sign{grid-template-columns:1fr}
 }
 @media(max-width:900px){
@@ -594,8 +574,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   .grid2,.grid3,.p-contact{grid-template-columns:1fr}
   .ccrow{grid-template-columns:1fr!important}
   .prop-in{padding:22px 18px 28px}
-  .p-client{grid-template-columns:1fr}
-  .p-client>div{border-right:none;border-bottom:1px solid var(--soft)}
   .actin{flex-direction:column;align-items:stretch;gap:8px}
   .actprice{justify-content:space-between}
   .actbtns{display:grid;grid-template-columns:repeat(3,1fr);width:100%}
@@ -683,7 +661,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .print-runhead .rh-folio{font-family:var(--mono);color:#174ea6;font-weight:600}
 .print-runhead span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gbar--thin{height:.8mm;margin-bottom:4mm}
-.gbar--cover{height:10mm}
+.gbar--cover{height:2mm}
 
 /* ---------- contenido de las hojas ---------- */
 .pp-body .p-h{font-family:var(--disp);font-size:13pt;font-weight:700;color:#174ea6;margin:7mm 0 3.4mm;padding:0 0 1.8mm;border-bottom:.6mm solid #1a73e8;display:flex;align-items:center;gap:2.6mm;break-after:avoid}
@@ -691,13 +669,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .pp-body .p-h .n{width:6mm;height:6mm;border-radius:50%;background:#1a73e8;color:#fff;display:grid;place-items:center;font-size:8pt;font-family:var(--mono);font-weight:700}
 /* Un solo acento para todos los bloques: el documento impreso no se pinta
    por seccion. data-sec se conserva en el marcado como ancla semantica. */
-.pp-body .p-client{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border:1px solid #dadce0;border-radius:2mm;overflow:hidden;margin:5mm 0 2.5mm}
-.pp-body .p-client>div{padding:2.6mm 3.4mm;border-right:1px solid #e8eaed}
-.pp-body .p-client>div:last-child{border-right:none}
-.pp-body .p-client .k{font-size:7.5pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#5f6368}
-.pp-body .p-client .v{font-family:var(--disp);font-size:10pt;font-weight:500;margin-top:.6mm}
-.pp-body .p-client .v.n{font-family:var(--mono)}
-.pp-body .p-chip{display:inline-block;background:#e8f0fe;color:#174ea6;border-radius:1.6mm;padding:1.6mm 3mm;font-size:8.2pt;font-weight:500;font-family:var(--disp)}
 .pp-body .ptbl{width:100%;border-collapse:collapse;font-size:9pt}
 .pp-body .ptbl th{background:#e8f0fe;color:#174ea6;font-size:7.2pt;letter-spacing:.5px;text-transform:uppercase;padding:2.1mm 2.8mm;text-align:left;font-weight:700;border-bottom:1px solid #aecbfa;white-space:normal}
 .pp-body .ptbl th.numhead{text-align:right;white-space:nowrap}
@@ -708,13 +679,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .pp-body .ptbl .qtycell,.pp-body .ptbl .numcell{font-family:var(--mono);font-size:8.8pt;white-space:nowrap}
 .pp-body .ptbl .numcell{text-align:right}
 .pp-body .ptbl .partcell{font-family:var(--mono);font-size:7.8pt;white-space:nowrap}
-.pp-body .p-totals{max-width:88mm;margin-left:auto;margin-top:3mm;border:1px solid #dadce0;border-radius:2.5mm;overflow:hidden;break-inside:avoid;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.pp-body .p-totals .trow{display:flex;justify-content:space-between;gap:6mm;padding:2mm 4mm;border-bottom:1px solid #eef0f2;font-size:9pt}
-.pp-body .p-totals .trow span{color:#5f6368}
-.pp-body .p-totals .trow b{font-family:var(--mono);font-weight:500}
-.pp-body .p-totals .trow.total{background:#1a73e8;border-bottom:none}
-.pp-body .p-totals .trow.total span{color:#fff;font-family:var(--disp);font-weight:700;text-transform:uppercase;font-size:8pt;letter-spacing:.5px;align-self:center}
-.pp-body .p-totals .trow.total b{font-size:12.5pt;font-weight:700;color:#fff}
 .pp-body .p-note{font-size:8.5pt;color:#5f6368;margin-top:2.2mm;line-height:1.5}
 .pp-body .p-note--important{background:#fef7e0;border:1px solid #fdd663;border-radius:1.8mm;padding:1.8mm 2.8mm;color:#6b4500}
 .pp-body .p-bank{border:1px solid #aecbfa;background:#e8f0fe;border-radius:2.5mm;padding:3.2mm 3.8mm;margin-top:1.5mm;break-inside:avoid;box-shadow:0 1px 3px rgba(0,0,0,.08)}
@@ -722,7 +686,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .pp-body .p-bankt svg{width:3.4mm;height:3.4mm;fill:#174ea6}
 .pp-body .p-bankg{display:grid;grid-template-columns:repeat(4,1fr);gap:2.6mm}
 .pp-body .p-bankg .k{font-size:6.2pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#174ea6}
-.pp-body .p-bankg .v{font-family:var(--mono);font-size:9pt;font-weight:600;color:#202124;margin-top:.6mm;word-break:break-all}
+.pp-body .p-bankg .v{font-family:var(--mono);font-size:9pt;font-weight:600;color:#202124;margin-top:.6mm;word-break:normal;overflow-wrap:anywhere}
 .pp-body .p-bankwarn{margin-top:2.4mm;background:#fef7e0;border:1px solid #fdd663;border-radius:1.8mm;padding:1.8mm 2.8mm;color:#8a4b00;font-size:8.5pt;font-weight:500}
 .pp-body .p-banklegal{margin-top:2mm;padding-top:1.6mm;border-top:1px solid #c6dafc;font-size:8.8pt;line-height:1.45;color:#5f6368}
 .pp-body .p-contact{display:grid;grid-template-columns:1fr 1fr;border:1px solid #dadce0;border-radius:2mm;overflow:hidden}
@@ -770,10 +734,10 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
     border-radius:3mm
   }
   .print-cover .gbar{flex:none}
-  .print-cover .gbar--cover{height:10mm;border-radius:3mm 3mm 0 0}
+  .print-cover .gbar--cover{height:2mm;border-radius:3mm 3mm 0 0}
   .print-cover__inner{
     flex:1;display:flex;flex-direction:column;justify-content:center;
-    padding:10mm 9mm 8mm
+    padding:14mm 12mm 10mm
   }
   /* Encabezado repetido de hojas interiores: thead de .print-shell. El tr
      contenedor DEBE poder fragmentarse entre páginas. */
@@ -800,19 +764,112 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   .print-content,.print-content *{overflow:visible!important}
   .print-content{display:block!important}
   .print-content.pp-body{padding:0 0 7mm!important;overflow:visible!important;display:block!important}
-  .print-content .p-top{margin-bottom:4mm}
   .print-content .p-h{break-after:avoid;page-break-after:avoid;margin-top:5mm}
   .print-content table{width:100%;border-collapse:collapse}
   .print-content thead{display:table-header-group}
   .print-content tr{break-inside:avoid!important;page-break-inside:avoid!important}
   .print-content .p-contact{break-inside:auto!important;page-break-inside:auto!important}
   .print-content thead,
-  .print-content .p-totals,
+  .print-content .p-card,
+  .print-content .p-hero,
+  .print-content .p-kpis,
   .print-content .p-bank,
   .print-content .p-sign{break-inside:avoid!important;page-break-inside:avoid!important}
   .test-report{display:none!important}
   .mo-progress{display:none!important}
 }
+
+/* ---------- reparto de columnas de la tabla de partidas ----------
+   La columna de CONCEPTO se quedaba en dos palabras por renglón: el número de
+   parte y los dos importes iban en `nowrap` y, con el ancho automático, se
+   comían el espacio. Ahora el reparto es fijo y el número de parte puede
+   partirse. Aplica a las dos capas —pantalla y papel— porque el ancho de las
+   columnas no depende del medio, sino del contenido. */
+.ptbl{table-layout:fixed}
+.ptbl col.c-qty{width:16%}
+.ptbl col.c-con{width:35%}
+.ptbl col.c-part{width:16%}
+.ptbl col.c-unit{width:16.5%}
+.ptbl col.c-imp{width:16.5%}
+.ptbl .qtycell,.pp-body .ptbl .qtycell{white-space:normal}
+.ptbl .partcell,.pp-body .ptbl .partcell{white-space:normal;overflow-wrap:break-word}
+/* Con reparto fijo, los dos encabezados de importe se encimaban en nowrap. */
+.ptbl th.numhead,.pp-body .ptbl th.numhead{white-space:normal}
+
+/* ===== PAPELERÍA v5 · inicio ================================================
+   BLOQUE IDÉNTICO en paginas/cotizador/, paginas/arrendamiento/ y
+   paginas/compra/. Se copia verbatim: es la papelería de la empresa, no el
+   estilo de una herramienta. Para comprobar que no se separaron, el diff entre
+   los tres bloques debe salir vacío; el sed y el diff exactos están en el
+   README de cualquiera de las tres páginas.
+
+   Vocabulario común del documento que recibe el colegio. Son DOS capas sobre
+   el MISMO marcado que produce buildProposal(): la de pantalla (px, overlay
+   #propBody) y la de papel (.pp-body, mm/pt, #printRoot). Lo propio de cada
+   cotizador —áreas, esquemas, bancarios, plazo— vive fuera de estas marcas.
+
+   Regla de oro: NINGÚN TEXTO SUELTO. .p-note es una sola línea de 140
+   caracteres como máximo; cualquier cosa más larga es una .p-card--terms con
+   viñetas cortas, o sobra en el documento.
+   ========================================================================== */
+
+/* ---------- capa de pantalla ---------- */
+.p-card{border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-top:10px;font-size:11.5px;color:var(--ink2);line-height:1.6;background:#fff}
+.p-card--soft{background:#fbfcfe;color:var(--mute)}
+.pc-h{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+.pc-list{margin:0;padding-left:17px;display:grid;gap:5px}
+.pc-list li{font-size:11.5px;line-height:1.55}
+.pc-warn{margin-top:10px;background:var(--g-yel-t);border:1px solid var(--g-yel-b);border-radius:8px;padding:8px 10px;color:#6b4500;font-weight:500}
+.p-tblcard{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+/* Tira de conteos: el dato manda, la etiqueta lo nombra. Sustituye a las
+   tablas de conciliación, que se leían como una hoja de cálculo. */
+.p-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(126px,1fr));gap:10px;margin-top:6px}
+.p-kpi{border:1px solid var(--line);border-top:3px solid var(--kc,var(--acc));border-radius:12px;padding:11px 13px;background:#fff}
+.p-kpi .v{font-family:var(--mono);font-size:22px;font-weight:700;line-height:1.05;letter-spacing:-.5px;color:var(--kc,var(--acc-d))}
+.p-kpi .k{font-family:var(--disp);font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--faint);margin-top:5px}
+/* Chips de dato: lo que antes era media línea de texto entre paréntesis. */
+.p-fchips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.p-fchip{display:inline-flex;align-items:baseline;gap:6px;border-radius:999px;padding:5px 12px;font-family:var(--disp);font-size:11.5px;font-weight:600;background:var(--g-blue-t);color:var(--g-blue-d);border:1px solid #c6dafc}
+.p-fchip b{font-family:var(--mono);font-weight:700}
+.p-fchip--green{background:var(--g-grn-t);color:var(--g-grn-d);border-color:#a8dab5}
+.p-fchip--yellow{background:var(--g-yel-t);color:#6b4500;border-color:var(--g-yel-b)}
+/* Tarjeta de cierre: UNA cifra grande y, debajo, su desglose. Es el único
+   lugar del documento donde un número puede ocupar una línea entera. */
+.p-hero{border:1px solid #c6dafc;background:var(--g-blue-t);border-radius:14px;padding:18px 20px;margin-top:6px}
+.ph-k{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--g-blue-d)}
+.ph-v{font-family:var(--mono);font-size:32px;font-weight:700;line-height:1;letter-spacing:-1px;color:var(--g-blue-d);margin-top:6px}
+.ph-s{font-size:11.5px;color:var(--mute);margin-top:5px}
+.ph-break{margin-top:11px;border-top:1px solid #c6dafc;padding-top:8px;display:grid;gap:3px;font-size:11.5px}
+.ph-break div{display:flex;justify-content:space-between;gap:10px;color:var(--ink2)}
+.ph-break b{font-family:var(--mono);font-weight:600}
+.ph-break .tot b,.ph-break .tot span{font-weight:700;color:var(--g-blue-d)}
+
+/* ---------- capa de papel ---------- */
+.pp-body .p-card{border:1px solid #dadce0;border-radius:2.5mm;padding:2.8mm 3.6mm;margin-top:2.4mm;font-size:8.4pt;color:#3c4043;line-height:1.55;background:#fff;break-inside:avoid}
+.pp-body .p-card--soft{background:#f8fafc;color:#5f6368}
+.pp-body .pc-h{font-family:var(--disp);font-size:7.4pt;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#5f6368;margin-bottom:1.6mm}
+.pp-body .pc-list{margin:0;padding-left:4.2mm;display:grid;gap:1.1mm}
+.pp-body .pc-list li{font-size:8.4pt;line-height:1.5}
+.pp-body .pc-warn{margin-top:2.2mm;background:#fef7e0;border:1px solid #fdd663;border-radius:1.8mm;padding:1.8mm 2.6mm;color:#8a4b00;font-weight:500}
+.pp-body .p-tblcard{border:1px solid #dadce0;border-radius:2.5mm;overflow:hidden}
+.pp-body .p-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(28mm,1fr));gap:2.6mm;margin-top:1.5mm;break-inside:avoid}
+.pp-body .p-kpi{border:1px solid #dadce0;border-top:.9mm solid var(--kc,#1a73e8);border-radius:2mm;padding:2.4mm 2.8mm;background:#fff;box-shadow:0 1px 2.5px rgba(60,64,67,.10)}
+.pp-body .p-kpi .v{font-family:var(--mono);font-size:15pt;font-weight:700;line-height:1.05;letter-spacing:-.6px;color:var(--kc,#174ea6)}
+.pp-body .p-kpi .k{font-family:var(--disp);font-size:6.8pt;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#5f6368;margin-top:1.2mm}
+.pp-body .p-fchips{display:flex;flex-wrap:wrap;gap:2mm;margin-top:2.2mm}
+.pp-body .p-fchip{display:inline-flex;align-items:baseline;gap:1.6mm;border-radius:999px;padding:1.3mm 3.2mm;font-family:var(--disp);font-size:8pt;font-weight:600;background:#e8f0fe;color:#174ea6;border:1px solid #c6dafc}
+.pp-body .p-fchip b{font-family:var(--mono);font-weight:700}
+.pp-body .p-fchip--green{background:#e6f4ea;color:#0d652d;border-color:#a8dab5}
+.pp-body .p-fchip--yellow{background:#fef7e0;color:#8a4b00;border-color:#fdd663}
+.pp-body .p-hero{border:1px solid #c6dafc;background:#e8f0fe;border-radius:3mm;padding:4mm 4.6mm;margin-top:1.5mm;break-inside:avoid;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.pp-body .ph-k{font-family:var(--disp);font-size:7.4pt;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#174ea6}
+.pp-body .ph-v{font-family:var(--mono);font-size:26pt;font-weight:700;line-height:1;letter-spacing:-1.2px;color:#174ea6;margin-top:1.4mm}
+.pp-body .ph-s{font-size:8pt;color:#5f6368;margin-top:1.2mm}
+.pp-body .ph-break{margin-top:2.6mm;border-top:1px solid #c6dafc;padding-top:1.8mm;display:grid;gap:.7mm;font-size:8.2pt}
+.pp-body .ph-break div{display:flex;justify-content:space-between;gap:3mm;color:#3c4043}
+.pp-body .ph-break b{font-family:var(--mono);font-weight:600}
+.pp-body .ph-break .tot b,.pp-body .ph-break .tot span{font-weight:700;color:#174ea6}
+/* ===== PAPELERÍA v5 · fin ================================================= */
 </style>
 </head>
 <body>
@@ -2899,12 +2956,18 @@ function proposalLineRow(row){
   </tr>`;
 }
 function proposalTotalsBlock(r){
-  /* El cierre, en renglones separados y en este orden. Sin descuentos:
-     decisión comercial del 19-ago-2026. */
-  return `<div class="p-totals">
-    <div class="trow"><span>Subtotal (sin IVA)</span><b>${money(r.subtotal)}</b></div>
-    <div class="trow"><span>${esc(APP_CONFIG.vat.label)}</span><b>${money(r.iva)}</b></div>
-    <div class="trow total"><span>Total</span><b>${money(r.total)}</b></div>
+  /* PAPELERÍA v5 · El cierre pasó de tres renglones sueltos a la tarjeta de una
+     sola cifra: el total manda y el subtotal con su IVA quedan debajo, en el
+     orden en que se calculan. Sin descuentos: decisión comercial del
+     19-ago-2026. */
+  return `<div class="p-hero">
+    <div class="ph-k">Inversión total · IVA incluido</div>
+    <div class="ph-v">${money(r.total)}</div>
+    <div class="ph-break">
+      <div><span>Subtotal (sin IVA)</span><b>${money(r.subtotal)}</b></div>
+      <div><span>${esc(APP_CONFIG.vat.label)}</span><b>${money(r.iva)}</b></div>
+      <div class="tot"><span>Total</span><b>${money(r.total)}</b></div>
+    </div>
   </div>`;
 }
 function buildProposal(){
@@ -2912,23 +2975,28 @@ function buildProposal(){
   const rows=r.rows.filter(row=>row.entry&&row.ok);
   const readiness=getReadiness();
   const preliminary=readiness.documentReady?"":`<div class="warn w" role="status" style="margin-bottom:14px"><span><b>Vista preliminar incompleta.</b> Faltan ${readiness.errors.length} dato(s). Podrás revisar el contenido, pero PDF y correo permanecerán bloqueados.</span></div>`;
-  const zeroNote=rows.some(row=>row.importe===0)?`<div class="p-note p-note--important"><b>Partidas sin costo:</b> los renglones marcados «Sin costo» se entregan sin cargo dentro de esta cotización.</div>`:"";
-  return `${preliminary}<div class="p-brand-lockup"><img src="${BRAND.activa}" alt="activa"><span class="p-sub">Google for Education Partner</span></div>
-  <div class="p-top"><div><div class="p-slogan">${esc(d.slogan)}</div><div class="p-title">Cotización de compra directa</div><div class="p-sub">Equipos, licencias, programas y servicios por partida</div></div><div class="p-meta">Folio <b>${esc(d.folio)}</b><br>${APP_STATE.identity.revision>1?`Revisión <b>${APP_STATE.identity.revision}</b> · sustituye versiones anteriores<br>`:""}Fecha <b>${esc(d.dDate)}</b><br>Válida hasta <b>${esc(d.dValid)}</b></div></div>
-  <div class="p-client"><div><div class="k">Cliente</div><div class="v">${esc(d.inst)}</div></div><div><div class="k">Ciudad</div><div class="v">${esc(d.city)}</div></div><div><div class="k">Partidas</div><div class="v n">${fmtInt(rows.length)}</div></div><div><div class="k">Entrega</div><div class="v" style="font-size:12px">${esc(d.deliver)}</div></div></div>
-  <div class="p-chip">Compra directa · catálogo de precios del ${esc(longDateFromISO(APP_CONFIG.catalog.updatedISO))} · envío ${esc(d.ship==="Sí"?"incluido":"no incluido")}</div>
-  <div class="p-h" data-sec="1"><span class="n">1</span> Partidas de la cotización</div>
-  <table class="ptbl"><caption class="sr-only">Partidas de la cotización</caption>
+  /* Las partidas sin costo son un término a favor del colegio: se anuncian
+     como chip verde, no como párrafo suelto debajo de la tabla. */
+  const sinCosto=rows.filter(row=>row.importe===0).length;
+  const zeroChip=sinCosto?`<div class="p-fchips"><span class="p-fchip p-fchip--green"><b>${fmtInt(sinCosto)}</b> partida${sinCosto===1?"":"s"} sin costo · incluida${sinCosto===1?"":"s"} en esta cotización</span></div>`:"";
+  /* Entrega y envío son condiciones comerciales, no datos de contacto: salen de
+     la rejilla de contacto y se anuncian como chips al abrir la sección. */
+  const termChips=`<div class="p-fchips"><span class="p-fchip">Entrega · ${esc(d.deliver)}</span><span class="p-fchip ${d.ship==="Sí"?"p-fchip--green":"p-fchip--yellow"}">Envío ${esc(d.ship==="Sí"?"incluido":"no incluido")}</span></div>`;
+  /* PAPELERÍA v5 · El cuerpo NO repite la portada: ni logotipo, ni folio, ni
+     cliente, ni ciudad. Todo eso vive en la hoja 1 y en el encabezado y el pie
+     corridos de cada hoja. En pantalla, la identidad la lleva la barra del
+     overlay (#propTitle), que ya rotula institución y folio. */
+  return `${preliminary}<div class="p-h" data-sec="1"><span class="n">1</span> Partidas de la cotización</div>${zeroChip}
+  <div class="p-tblcard"><table class="ptbl"><caption class="sr-only">Partidas de la cotización</caption><colgroup><col class="c-qty"><col class="c-con"><col class="c-part"><col class="c-unit"><col class="c-imp"></colgroup>
     <thead><tr><th scope="col">Cantidad</th><th scope="col">Concepto</th><th scope="col">No. de parte</th><th scope="col" class="numhead">Precio unitario (sin IVA)</th><th scope="col" class="numhead">Importe (sin IVA)</th></tr></thead>
     <tbody>${rows.map(proposalLineRow).join("")}</tbody>
-  </table>
+  </table></div>
   ${proposalTotalsBlock(r)}
-  <div class="p-note">Importes en pesos mexicanos. Los precios unitarios y el subtotal se expresan <b>sin IVA</b>; el ${esc(APP_CONFIG.vat.label)} se calcula una sola vez sobre el subtotal y el <b>total ya lo incluye</b>. Las licencias anuales declaran sus años en la columna de cantidad.</div>
-  ${zeroNote}
-  <div class="p-h" data-sec="2"><span class="n">2</span> Datos bancarios y contacto</div>
+  <div class="p-card p-card--terms"><div class="pc-h">Cómo leer los importes</div><ul class="pc-list"><li>Importes en pesos mexicanos. Los precios unitarios y el subtotal van <b>sin IVA</b>; el ${esc(APP_CONFIG.vat.label)} se calcula una sola vez sobre el subtotal y el <b>total ya lo incluye</b>.</li><li>Las licencias anuales declaran sus años en la columna de cantidad.</li></ul></div>
+  <div class="p-h" data-sec="2"><span class="n">2</span> Datos bancarios y contacto</div>${termChips}
   <div class="p-bank"><div class="p-bankt">${svg(P.bank,"#174ea6")} Datos para transferencia · pesos mexicanos</div><div class="p-bankg"><div><div class="k">Titular</div><div class="v" style="font-size:11px;font-family:var(--disp)">${esc(d.bank.t)}</div></div><div><div class="k">Banco</div><div class="v" style="font-size:11px;font-family:var(--disp)">${esc(d.bank.n)}</div></div><div><div class="k">Cuenta</div><div class="v">${esc(d.bank.c)}</div></div><div><div class="k">CLABE</div><div class="v">${esc(d.bank.k)}</div></div></div><div class="p-bankwarn">⚠ Antes de transferir, verifica que el titular de la cuenta coincida: <b>${esc(d.bank.t)}</b>.</div><div class="p-banklegal"><b>${esc(d.legal)}${d.rfc?" · RFC "+esc(d.rfc):""}</b><br>${esc(d.addr)}</div></div>
-  <div class="p-contact" style="margin-top:12px"><div><span class="k">Preparado por</span><span class="v">${esc(d.by)}${d.role?" · "+esc(d.role):""}</span></div><div><span class="k">Cotización válida hasta</span><span class="v">${esc(d.dValid)}</span></div><div><span class="k">Teléfono</span><span class="v">${esc(d.phone)}</span></div><div><span class="k">Tiempo de entrega</span><span class="v">${esc(d.deliver)}</span></div><div><span class="k">Correo</span><span class="v">${esc(d.mail)}</span></div><div><span class="k">Incluye envío</span><span class="v">${esc(d.ship)}</span></div></div>
-  ${d.contacts.length?`<div class="p-note"><b>Contactos del colegio:</b> ${d.contacts.map(c=>esc([c.name,c.email,c.phone].filter(Boolean).join(" · "))).join(" | ")}</div>`:""}
+  <div class="p-contact" style="margin-top:12px"><div><span class="k">Preparado por</span><span class="v">${esc(d.by)}${d.role?" · "+esc(d.role):""}</span></div><div><span class="k">Cotización válida hasta</span><span class="v">${esc(d.dValid)}</span></div><div><span class="k">Teléfono</span><span class="v">${esc(d.phone)}</span></div><div><span class="k">Correo</span><span class="v">${esc(d.mail)}</span></div></div>
+  ${d.contacts.length?`<div class="p-card p-card--soft"><b>Contactos del colegio:</b> ${d.contacts.map(c=>esc([c.name,c.email,c.phone].filter(Boolean).join(" · "))).join(" | ")}</div>`:""}
   <div class="p-sign"><div class="p-signb"><div class="n">${esc(d.by)}</div><div class="r">${esc(d.role||"activa")} · activa · Google for Education Partner</div></div><div class="p-signl">Aceptación del colegio · nombre, cargo y fecha</div></div>`;
 }
 function buildPrintDocument(){
@@ -3648,6 +3716,32 @@ const QuoteTests={
       const iSub=html.indexOf("Subtotal (sin IVA)"),iIva=html.indexOf(APP_CONFIG.vat.label),iTot=html.indexOf(">Total<");
       this.assert(iSub>-1&&iIva>iSub&&iTot>iIva,"el cierre no va en el orden Subtotal → IVA → Total");
       this.assert(html.includes("10 equipos × 1 año"),"la licencia anual no declara sus años en la cantidad");
+    }));
+    /* PAPELERÍA v5 · La hoja 2 arranca en la sección 1. Si alguien vuelve a
+       pegar la cabecera en el cuerpo, el folio y el cliente saldrían tres veces
+       en la misma hoja y el documento crece media página sin decir nada nuevo:
+       la identidad ya viaja en la portada y en el encabezado corrido. */
+    this.test("La hoja interior no repite la portada",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";
+      APP_STATE.lines=[this.mkLine("cb-essential",10)];
+      CURRENT_RESULT=computeQuote(L());
+      const html=buildProposal();
+      for(const clase of ["p-brand-lockup","p-top","p-client","p-chip"])
+        this.assert(!html.includes(clase),`el cuerpo volvió a llevar ${clase}`);
+      this.assert(html.includes(`<div class="p-h" data-sec="1">`),"el cuerpo no arranca en la sección 1");
+      this.assert(buildPrintDocument().includes("print-cover"),"la portada desapareció del documento");
+    }));
+    /* PAPELERÍA v5 · Ningún texto suelto: el cierre es una tarjeta de una sola
+       cifra y lo que había que explicar vive en viñetas dentro de su tarjeta. */
+    this.test("El cierre y las condiciones viven en tarjetas",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";
+      APP_STATE.lines=[this.mkLine("cb-essential",10)];
+      CURRENT_RESULT=computeQuote(L());
+      const html=buildProposal();
+      this.assert((html.match(/class="p-hero"/g)||[]).length===1,"el cierre no es una sola tarjeta hero");
+      this.assert(html.includes(`class="p-tblcard"`),"la tabla de partidas no va dentro de su tarjeta");
+      this.assert(html.includes(`class="p-card p-card--terms"`),"faltan las condiciones en tarjeta");
+      this.assert(!/p-totals|p-note--important/.test(html),"reapareció un bloque de la maqueta anterior");
     }));
     this.test("El documento de impresión lleva folio en el pie repetido y fecha de catálogo",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";APP_STATE.lines=[this.mkLine("cb-essential",10)];CURRENT_RESULT=computeQuote(L());const html=buildPrintDocument();this.assert(html.includes("print-runfoot"),"falta el pie repetido");this.assert(html.includes(folioDisplay()),"el pie no lleva folio");this.assert(html.includes(longDateFromISO(APP_CONFIG.catalog.updatedISO)),"el documento no estampa la fecha del catálogo");this.assert(html.includes("IVA incluido"),"la portada no declara que el total incluye IVA");}));
     this.test("Con un renglón sin capturar, el total se declara parcial",()=>this.withStorageSandbox(()=>{

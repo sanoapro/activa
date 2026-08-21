@@ -217,14 +217,14 @@ precio», que busca cada uno de esos rastros por su nombre y falla si reaparece.
 
 El vocabulario de tarjetas y chips del documento vive entre las marcas
 `/* ===== PAPELERÍA v5 · inicio ===== */` y `/* ===== PAPELERÍA v5 · fin ===== */` al final del
-`<style>`, y es **byte a byte el mismo bloque** que el de `paginas/arrendamiento/` (y el que
-llevará `paginas/compra/` cuando termine su edición). Para comprobar que no se separaron:
+`<style>`, y es **byte a byte el mismo bloque** que el de `paginas/arrendamiento/` y el de
+`paginas/compra/`. Para comprobar que no se separaron:
 
 ```sh
-for p in cotizador arrendamiento; do
+for p in cotizador arrendamiento compra; do
   sed -n '/PAPELERÍA v5 · inicio/,/PAPELERÍA v5 · fin/p' paginas/$p/index.html > /tmp/$p.css
 done
-diff /tmp/cotizador.css /tmp/arrendamiento.css   # debe salir vacío
+diff /tmp/cotizador.css /tmp/arrendamiento.css && diff /tmp/cotizador.css /tmp/compra.css
 ```
 
 No se extrajo a `compartidos/css/`: el PDF es el entregable y una hoja externa que no cargue lo
