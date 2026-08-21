@@ -1,6 +1,6 @@
 # Presentación a padres de familia · 2026–2027
 
-Deck de 22 diapositivas para las juntas con familias del colegio.
+Deck de 18 diapositivas para las juntas con familias del colegio.
 Se publica en **<https://sanoapro.github.io/activa/paginas/padres-de-familia/>**
 
 Markup, CSS y JS del deck viven dentro de `index.html`. Se abre con doble clic, sin servidor y
@@ -10,19 +10,21 @@ sin compilar nada.
 que viaja como carpeta o como zip, no como un `index.html` solo. Fue una decisión deliberada,
 para tener un único lugar donde arreglar el movimiento de las cuatro páginas. Fuera de eso no
 hay peticiones de red: ni fuentes por CDN, ni librerías de terceros, ni imágenes remotas.
+Las fotos y los logotipos que sí usa viven en `compartidos/img/` y se cargan por ruta
+relativa, igual que el motor: son locales, no remotos.
 
 ## Archivos
 
 | Archivo | Qué es |
 |---|---|
-| `index.html` | El deck completo. Sin imágenes: toda ilustración es SVG en línea dibujado con los tokens del sistema. |
+| `index.html` | El deck completo. La ilustración sigue siendo SVG en línea con los tokens del sistema; además carga seis fotografías y nueve logotipos de `compartidos/img/` por ruta relativa. |
 | `og.png` | Vista previa de WhatsApp (1200×630). **Generado** desde `og-source.html`. |
 | `og-source.html` | Molde de esa vista previa. No se abre en público. |
 
 ## Movimiento y fondo
 
 Usa el motor compartido de `compartidos/` y el vocabulario visual de
-[`../upgrade-edu/`](../upgrade-edu/README.md). **Ninguna de las 22 láminas queda en blanco**:
+[`../upgrade-edu/`](../upgrade-edu/README.md). **Ninguna de las 18 láminas queda en blanco**:
 todas llevan una capa `.mv-fondo` (z0, sorda al ratón) con círculos de tinte, iconos SVG
 temáticos muy tenues (birrete y libro en las de maestros, escudo y candado en protección,
 corazón en la socioemocional, globo terráqueo en la internacional…) y la decoración del
@@ -49,7 +51,7 @@ El detalle de qué va dónde y por qué está en
 [`docs/plan-rediseno-padres.md`](../../docs/plan-rediseno-padres.md) §8.
 
 **El barrido de capítulo se retiró** (agosto de 2026, a petición del cliente). Eran cuatro barras
-de color que cruzaban la lámina al cambiar de bloque narrativo, seis veces en las 22; en una junta
+de color que cruzaban la lámina al cambiar de bloque narrativo, seis veces en el deck; en una junta
 se leían como un parpadeo y no como puntuación. La estructura de los siete bloques ya la marcan el
 ritmo del contenido y el hilo multicolor de la barra de avance.
 
@@ -116,36 +118,74 @@ Se puede enlazar a una diapositiva concreta con el número en el hash: `…/padr
   columna. Un padre que abra el enlace en su teléfono lee texto de tamaño normal, no un 16:9
   encogido.
 - **Sin almacenamiento del navegador.** Todo el estado en variables en memoria.
-- **Un `</div>` de más, ya corregido.** La lámina 17 cerraba `#stage` antes de tiempo y las
-  láminas 18–22 quedaban fuera del escenario: se veían a sangre completa, sin escala y con la
-  decoración descolocada. Si el HTML se toca a mano, contar los cierres de esa zona.
-- **Impresión:** `Ctrl+P` saca una diapositiva por página en horizontal (22 páginas de
-  1280×720).
+- **Contar los cierres al editar a mano.** Hubo una vez un `</div>` de más que cerraba
+  `#stage` antes de tiempo y dejaba las últimas láminas fuera del escenario: a sangre
+  completa, sin escala y con la decoración descolocada. La lámina que lo contenía se
+  retiró en agosto de 2026, pero el modo de fallo sigue siendo posible y **no avisa**:
+  `.slide{overflow:hidden}` recorta en silencio. La comprobación es
+  `awk '{t+=gsub(/<div/,"&")-gsub(/<\/div>/,"&")}END{print t}' index.html`, que debe dar 0.
+- **Impresión:** `Ctrl+P` saca una diapositiva por página en horizontal (18 páginas de
+  1280×720). Las fotos sí se imprimen; la decoración que solo existe en movimiento, no.
 
 ## La narrativa: no se reordena
 
-Las 22 láminas son un embudo de gestión del cambio:
+Las 18 láminas son un embudo de gestión del cambio:
 credibilidad → disonancia → desarme → tranquilidad → solución → prueba social → acción.
 Cada `<section class="slide">` lleva un `data-bloque` con su fase, y el indicador de progreso se
 colorea a partir de él. **Mover una diapositiva rompe el argumento**, y el bloque D
-(«tranquilidad», láminas 9–13) es el corazón: es donde el padre baja la guardia.
+(«tranquilidad», láminas 9–12) es el corazón: es donde el padre baja la guardia.
 
 | Bloque | Láminas | `data-bloque` |
 |---|---|---|
 | A · Apertura | 1–2 | `apertura` |
 | B · Disonancia y desarme | 3–6 | `disonancia` |
 | C · Bisagra | 7–8 | `bisagra` |
-| D · Tranquilidad | 9–13 | `tranquilidad` |
-| E · Solución | 14–18 | `solucion` |
-| F · Resultado y prueba social | 19–20 | `resultado` |
-| G · Cierre | 21–22 | `cierre` |
+| D · Tranquilidad | 9–12 | `tranquilidad` |
+| E · Solución | 13–14 | `solucion` |
+| F · Resultado y prueba social | 15–16 | `resultado` |
+| G · Cierre | 17–18 | `cierre` |
+
+**El deck pasó de 22 a 18 láminas en agosto de 2026.** Se fusionaron protección con
+privacidad (hoy la 11, que estrena Securly) y metodologías con casos reales (hoy la 13,
+que estrena *impulsa*); se retiraron la del equipo y la de herramientas. Lo que valía de
+las dos retiradas no se perdió: el seguro contra daño y robo y el stock de reemplazo
+bajaron a la 11, y «no consumen contenido, lo crean» bajó a la 13. **La palabra «jugar»
+salió del deck**: a un padre preocupado por las pantallas no le tranquiliza.
+
+**El hash es posicional.** Un enlace `#13` repartido antes del cambio aterriza hoy en
+otra lámina.
 
 ## Se proyecta tal cual: no hay nada que completar
 
 El deck es **universal por requisito explícito**: cualquier colegio lo proyecta sin rellenar
-datos, sin conseguir fotos ni logotipos y sin actualizar nada nunca. No quedan marcadores de
-ningún tipo. Donde antes iba una foto o un logotipo hay SVG en línea o tratamiento
-tipográfico del propio sistema; donde antes iba una cifra del colegio, el punto está dicho en
-cualidad, no en cantidad, para que sea verdad en cualquier plantel. La única cifra proyectiva
-(«La mayoría de estos niños trabajará en profesiones que todavía no existen», lámina 6) se
-enuncia como proyección, no como medición, con su línea de honestidad al pie.
+datos, sin conseguir nada y sin actualizar nada nunca. No quedan marcadores de ningún tipo.
+Donde iría una cifra del colegio, el punto está dicho en cualidad y no en cantidad, para que
+sea verdad en cualquier plantel.
+
+**Desde agosto de 2026 el deck sí lleva fotografías y logotipos, y eso no rompe la regla.**
+Conviene tener clara la distinción, porque es la que decide qué puede entrar:
+
+- **Lo que sigue prohibido** es lo que cada colegio tendría que conseguir: su escudo, fotos
+  de su plantel, de sus maestros o de sus estudiantes, y sus cifras. Nada de eso entra.
+- **Lo que sí entra** son seis fotografías genéricas —un salón de los ochenta y uno de hoy,
+  una niña estudiando, una huella digital, un maestro, un cuaderno— y los logotipos de
+  terceros: Google for Education Partner, Securly, IELTS, TOEFL y los de nuestras propias
+  plataformas (*motiva*, *beta*, *impulsa*). **Son idénticos en cualquier plantel**, viajan
+  en la carpeta y nadie tiene que conseguirlos. Al contrario: son el anclaje de credibilidad
+  que al deck le faltaba.
+
+**Cambridge se queda como texto** porque no tenemos su logotipo, igual que en `upgrade-edu`.
+Y las tres marcas de certificación se presentan como **ruta**, nunca como aval ni patrocinio.
+
+**No se puso el logotipo de ISTE** aunque está disponible, y es deliberado: las diez
+competencias de la lámina 7 **no son** los siete estándares ISTE para estudiantes. Decirlo al
+pie en 13 px ya era impreciso; poner el logotipo encima lo volvería una afirmación. Queda
+pendiente resolver de qué marco salen realmente —ver `docs/plan-rediseno-padres.md` §5.1—
+antes de atribuirlas a nadie.
+
+La única cifra proyectiva (el **60 %** de la lámina 6) se enuncia como proyección y no como
+medición, con su línea de honestidad al pie. **Su atribución está pendiente de verificar:**
+la lámina nombra a *The Economist* sin título ni año porque no los tenemos, y la cifra que
+circula en la literatura es 65 %, atribuida al Foro Económico Mundial y a Cathy Davidson y
+bastante discutida. El 60 % es lo que dibujan las seis siluetas de diez. Si un padre pregunta
+por la referencia exacta, hoy no hay una que darle: hay que cerrarla antes de proyectar.

@@ -1,8 +1,9 @@
 # Plan de rediseño · Presentación a padres de familia
 
-> **Estado: en ejecución.** Aplicada la primera tanda — correcciones de hecho, vocabulario,
-> notas del presentador y la **capa de animación completa** (§8). Pendiente el rediseño de
-> contenido de la mayoría de las láminas, los logotipos y la fusión 11+12.
+> **Estado: segunda tanda aplicada (21-ago-2026).** El deck pasó de **22 a 18 láminas** y
+> estrenó fotografías y logotipos. Queda pendiente lo que no se puede resolver leyendo el
+> repositorio: la investigación de §5 —de dónde salen las diez competencias de la lámina 7 y
+> la fuente exacta del 60 % de la lámina 6— y las láminas nuevas de §4 bis.
 > Fuente de verdad del contenido: [`portafolio-activa.md`](portafolio-activa.md).
 > Deck a intervenir: [`paginas/padres-de-familia/`](../paginas/padres-de-familia/).
 > Cantera de contenido y de patrones visuales: [`paginas/upgrade-edu/`](../paginas/upgrade-edu/).
@@ -17,11 +18,16 @@
 | Capa de animación, las 12 ideas repartidas (§8) | ✅ aplicado |
 | Láminas 3, 4 y 9 rehechas | ✅ aplicado |
 | ¿Fusionar la 3 con la 4? | ⚠️ **no ejecutado — decisión pendiente**, ver §4.1 |
-| Investigación ISTE / UNESCO (§5.1) | ⬜ pendiente — **bloquea la lámina 7** |
-| Logotipos en base64 (§2.4) | ⬜ pendiente |
-| Fusión 11+12 y Securly (§4) | ⬜ pendiente |
-| Resto del rediseño de contenido (§4) | ⬜ pendiente |
-| Láminas nuevas (§4 bis) | ⬜ pendiente |
+| Investigación ISTE / UNESCO (§5.1) | ⬜ pendiente — por eso la 7 **no** lleva el logo de ISTE |
+| Logotipos (§2.4) | ✅ aplicado — **por ruta relativa, no en base64**: el deck ya viaja como carpeta |
+| Fusión 11+12 y Securly (§4) | ✅ aplicado — es la nueva lámina 11 |
+| Fusión 15+16 e *impulsa* | ✅ aplicado — es la nueva lámina 13 |
+| Láminas 14 (equipo) y 17 (herramientas) retiradas | ✅ aplicado — rescatando seguro, stock y «crean, no consumen» |
+| Fotografías en 5, 7, 8, 9 y 10 | ✅ aplicado |
+| Contenido real de beta, *impulsa*, *motiva* y certificación | ✅ aplicado |
+| Iconografía en las láminas que la pedían | ✅ aplicado |
+| Fuente del 60 % de la lámina 6 (§5.5) | ⚠️ **sin verificar** — nombra a *The Economist* sin título ni año |
+| Láminas nuevas (§4 bis) | ⬜ pendiente — el seguro ya entró en la 11; Everway y Escuela para Padres siguen fuera |
 
 ---
 

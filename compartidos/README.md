@@ -13,15 +13,33 @@ página en concreto: si algo solo le sirve a una, va dentro de su carpeta en `pa
 | `lottie/` | Animaciones Lottie (`.json`). |
 | `img/marcas/` | 18 logos de marca y de marcos curriculares, en `.webp`. |
 | `img/fotos-vendedores/` | Retratos originales del equipo comercial. |
+| `img/fotos-generales/` | Seis fotografías genéricas —dos salones, una niña estudiando, una huella digital, un maestro, un cuaderno— en `.webp` y en `.avif`. Las carga [el deck de padres de familia](../paginas/padres-de-familia/) por ruta relativa. |
 
-## Las imágenes son material de origen
+## Las imágenes: material de origen, y desde agosto de 2026 también material servido
 
-Ojo con `img/`: hoy **ninguna página la carga en tiempo de ejecución**. El deck de upgrade edu y
-el kit comercial llevan sus imágenes en base64 dentro del propio HTML, para poder abrirse sin
-servidor y mandarse por correo.
+Conviven dos formas de consumir `img/`, y la diferencia no es descuido:
 
-Estos archivos son la **fuente** de esos base64. No se borran: sin ellos no hay de dónde
-regenerar. Cada página documenta en su `README.md` cómo se regeneran los suyos.
+- **En base64, dentro del HTML.** Así lo hacen el deck de upgrade edu, el kit comercial y los
+  cotizadores, porque son documentos que se mandan **por correo como un archivo suelto** y
+  tienen que abrir en la máquina de quien los reciba. Para ellos, estos archivos son la
+  **fuente** de esos base64.
+- **Por ruta relativa, en tiempo de ejecución.** Así lo hace [el deck de padres de
+  familia](../paginas/padres-de-familia/) con seis fotografías y nueve logotipos. Puede
+  permitírselo porque ese deck **ya viaja como carpeta**: depende de `css/motion.css` y de
+  `js/motion.js` por ruta relativa desde antes. Embeber 750 KB para proteger una portabilidad
+  que esa página ya no ofrecía habría sido el peor de los dos tratos, y además deja los
+  `diff` de git ilegibles.
+
+La regla, entonces: **si la página se manda como archivo, base64; si viaja como carpeta, ruta
+relativa.**
+
+Estos archivos no se borran nunca: sin ellos no hay de dónde regenerar los base64, y ahora
+además hay una página que los sirve directamente. Cada página documenta en su `README.md`
+cómo se regeneran los suyos.
+
+**Los nombres son ASCII en kebab-case, sin espacios ni acentos**, y conviene que siga así:
+en cuanto un archivo se sirve por URL, un `salón antiguo.png` obliga a percent-encoding
+(`sal%C3%B3n%20antiguo.png`) que se rompe con solo mirarlo.
 
 ## El movimiento es normativo
 
