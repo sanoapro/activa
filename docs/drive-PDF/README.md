@@ -11,7 +11,8 @@ siguen: les falta el mismo enganche de tres llamadas.
 
 | Archivo | Qué es |
 |---|---|
-| [`plan.md`](plan.md) | El diseño completo: mecanismo, árbol de carpetas, contrato, reglas, casos raros y lo que el sistema no hace. **Se lee primero.** |
+| [`estado.md`](estado.md) | Dónde va todo: qué está construido, qué está verificado y con qué método, qué falta y qué riesgos quedan abiertos. **Se lee primero.** |
+| [`plan.md`](plan.md) | El diseño completo: mecanismo, árbol de carpetas, contrato, reglas, casos raros y lo que el sistema no hace. |
 | [`prompt.md`](prompt.md) | El encargo de implementación, autocontenido. Se le pasa a una sesión de Claude Code para construirlo. |
 | [`archivo-drive.gs`](archivo-drive.gs) | El puente. **No corre aquí**: se pega en `script.google.com`. Esta copia existe para tener historial de qué cambió y por qué. |
 
