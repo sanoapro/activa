@@ -4,7 +4,8 @@ Cada cotización que sale de los tres cotizadores termina hoy en la laptop de qu
 carpeta contiene el diseño completo para que además termine **en Google Drive, en la carpeta de
 ese vendedor**, sin que nadie tenga que acordarse de subirla a mano.
 
-**Nada de esto está construido todavía.** Es diseño cerrado y listo para ejecutar.
+**El puente está desplegado y arrendamiento ya archiva** (21-ago-2026). Compra y el cotizador
+siguen: les falta el mismo enganche de tres llamadas.
 
 ## Los archivos
 
@@ -39,7 +40,8 @@ página, y no le hace nada a GitHub Pages.
 
 ## Lo que falta
 
-1. **Desplegar el puente** y traer su URL `/exec`. Sin eso no hay a dónde mandar nada.
+1. **Replicar el enganche en compra y en el cotizador.** La lógica ya es una sola copia
+   compartida en `compartidos/js/archivo-drive.js`; falta el contenedor y las tres llamadas.
 2. **Bajar a los cuatro vendedores de Editor a Lector** en la carpeta de Drive. Pueden subir
    igual —quien escribe es la cuenta del despliegue, no la suya— y así nadie puede vaciar el
    archivo.

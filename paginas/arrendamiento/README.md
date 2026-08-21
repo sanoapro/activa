@@ -299,9 +299,9 @@ Lo que hay que saber:
 - **El nombre del archivo en Drive lo arma el puente** (número correlativo + colegio · fecha ·
   folio); la página solo coteja que el PDF elegido contenga el folio sugerido y avisa —sin
   bloquear— si no coincide.
-- **`ARCHIVO_ENDPOINT` está vacío mientras el puente no se despliegue**: el bloque lo dice y
-  nada se rompe. Desde `file://` explica que hay que usar la URL publicada. Si el módulo
-  compartido no cargara, todas las llamadas van con `?.` y la página cotiza igual que hoy.
+- **`ARCHIVO_ENDPOINT` ya apunta al puente desplegado** (21-ago-2026). Si se vaciara, el bloque
+  lo diría y nada se rompe. Desde `file://` explica que hay que usar la URL publicada. Si el
+  módulo compartido no cargara, todas las llamadas van con `?.` y la página cotiza igual que hoy.
 
 ## Pruebas internas
 
