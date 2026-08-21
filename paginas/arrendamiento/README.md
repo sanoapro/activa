@@ -213,6 +213,12 @@ activa.arrendamiento.seller-profile.v1 el perfil del vendedor
 
 ## Datos fiscales de la empresa
 
+**Desde el 21-ago-2026 los datos fiscales ya no llevan bloque propio en el cuerpo.** Viajan en
+el pie de **cada** hoja, que es la norma de la empresa, y repetirlos en una tarjeta de la
+última hoja era decir dos veces lo mismo. La prueba «El documento lleva razón social, RFC y
+domicilio fiscal» sigue exigiendo los tres campos, pero ahora los busca dentro de
+`.print-runfoot`.
+
 El pliegue **«Datos fiscales de la empresa»** guarda la **razón social**, el **RFC** y el
 **domicilio fiscal** de quien emite la propuesta, igual que el cotizador de
 [compra](../compra/). Predeterminados en `DEFAULT_SUPPLIER` (busca esa constante), editables por
@@ -246,7 +252,7 @@ Camino propio, idéntico en estructura al del cotizador:
    documento; sin `pp-on`, imprimir muestra el aviso de usar «Generar PDF».
 3. El documento: portada (colegio, mensualidad con IVA, plazo, folio, vigencia), qué incluye,
    inversión desglosada, condiciones —el cierre del contrato (opción a compra, residual o
-   devolución) se remite al contrato de arrendamiento; aquí no se promete nada—, contacto y firmas; pie repetido con folio en cada hoja
+   devolución) se remite al contrato de arrendamiento; aquí no se promete nada— y contacto; pie repetido con los datos de la empresa y el folio en cada hoja
    (`position:fixed`) y encabezado repetido vía `<thead>` de `.print-shell`.
 
 **La hoja interior no repite la portada** (21-ago-2026). El cuerpo arranca directo en la
@@ -276,7 +282,7 @@ importar).
 | Sección | Título | Qué se hace ahí |
 |---|---|---|
 | `#s1` | Equipos y servicios | Seguro, Securly y los renglones de carrito |
-| `#s2` | Datos de la propuesta | Colegio, fiscales, vigencia y firma |
+| `#s2` | Datos de la propuesta | Colegio, fiscales, vigencia y contacto |
 | `#s3` | Inversión mensual | La mensualidad y todo lo que ampara |
 
 **Se captura arriba y se cotiza abajo**, que es como transcurre una llamada. El 21-ago-2026 las
@@ -315,7 +321,44 @@ tarjeta a la que pertenece**. Los tres párrafos que describían cada paso se re
 21-ago-2026: quien usa esto ya sabe cotizar. Para eso está `.cardnote` en la aplicación y `.p-card` en el
 documento. La pista de los carritos bajó a la caja de cotejo; las tres notas sueltas del
 documento se volvieron una tarjeta de **Condiciones** con viñetas y su advertencia dentro; la
-tabla de inclusiones vive en `.p-tblcard`; los contactos y las firmas, en su propia tarjeta.
+tabla de inclusiones vive en `.p-tblcard`; los contactos, en su propia tarjeta.
+
+### El cierre del documento y el pie de cada hoja
+
+**21-ago-2026.** Cuatro correcciones de Martín al revisar los PDF de la papelería v5:
+
+- **El colegio va antes que el vendedor.** El documento cierra con dos bloques rotulados:
+  **«Contacto del colegio»** —una tarjeta `.pe` por contacto capturado, en vez de la línea corrida
+  separada por barras que a tres contactos era ilegible— y debajo **«Tu contacto en activa»** con
+  quien preparó la cotización, su teléfono, su correo y el sitio. Cierra diciendo con quién se
+  sigue la conversación.
+- **Sin firmas ni «Aceptación del colegio».** La cotización es virtual: se manda como PDF o como
+  correo y nadie la firma sobre el papel. Un renglón de firma prometía un acto que no ocurre. Lo
+  clava la prueba «El documento no pide firmas», que busca `p-sign` y el rótulo de aceptación.
+- **«Cotización válida hasta» salió de la rejilla de contacto**: ya viaja en la portada, en el
+  encabezado corrido y en el pie de cada hoja. Lo mismo con entrega y envío, que son condiciones
+  comerciales y ahora abren la sección como chips.
+- **La portada nombra a quien pidió la cotización.** Debajo del colegio y la ciudad va
+  **«A la atención de»** con los contactos capturados, uno por renglón: nombre y correo. Quien
+  la recibe tiene que reconocerse en la primera hoja, no en la última. El teléfono y el
+  resto se quedan en el bloque del cierre, para no engordar la portada.
+- **El pie de cada hoja identifica a la empresa**, que es norma de la casa. `.print-runfoot` pasó
+  de una fila a dos: arriba razón social, RFC y domicilio fiscal a 6,4 pt; abajo folio,
+  institución, tipo de cotización y vigencia. El bloque de CSS y el marcado son **idénticos en las
+  tres páginas**.
+
+El pie mide **11,3 mm** con un domicilio de una línea. Vive `position:fixed` **dentro del área de
+contenido**, así que hay que reservarle sitio en el flujo o la última línea de una hoja llena se le
+encima: por eso `.print-content.pp-body` pasó de 7 mm a **13 mm** de relleno inferior. Lo que no
+debe hacer nunca es invadir el margen de página —ahí Chromium lo fragmenta y su texto reaparece
+arriba de la hoja siguiente—, y por eso el `@page` conserva sus 16 mm.
+
+La portada también bajó su tope de altura de 271 mm a **256 mm**. El pie ocupa los últimos
+11,3 mm del área de contenido, y sin ese tope la portada se metía debajo con un nombre de
+colegio largo: el renglón del folio quedaba tapado por el pie. Medido en el peor caso
+—96 caracteres de nombre, `data-len="xxl"`, tres contactos con correos largos— la portada
+ocupa 233 mm de contenido en una caja de 250 mm, así que sobra aire.
+
 
 ### Papelería v5
 
@@ -390,7 +433,7 @@ de apertura:
 | Carritos de carga | verde |
 | Colegio y contactos | azul |
 | Datos fiscales de la empresa | amarillo |
-| Vigencia y firma | rojo |
+| Vigencia y contacto | rojo |
 
 La zona de captura se hunde en gris azulado con los campos en blanco puro, y dentro de los
 pliegues largos los bloques se agrupan en `.fgroup` en vez de flotar bajo un rótulo suelto.

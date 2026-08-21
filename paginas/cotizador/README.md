@@ -82,7 +82,7 @@ superior de 3 px, el degradado del encabezado, el cuadrito del ícono y el filet
 | Docentes, equipos y carritos | azul |
 | Licencias incluidas | verde |
 | Colegio y contactos | azul |
-| Vigencia, entrega y firma | rojo |
+| Vigencia, entrega y contacto | rojo |
 | Datos fiscales y bancarios | amarillo |
 
 Y la zona de captura se hunde: `.foldb` va en gris azulado y los campos en blanco puro, para que
@@ -184,7 +184,7 @@ El documento impreso lleva portada con folio, revisión, fecha y vigencia, y sei
 | 3 | Inversión | La cifra del esquema elegido en una tarjeta `.p-hero`; los comparativos que el vendedor marcó, en tarjetas menores |
 | 4 | Esquema de pago | El desglose año por año del esquema o esquemas visibles |
 | 5 | Accesos a plataformas | Tarjetas con logotipo y dirección |
-| 6 | Datos bancarios y contacto | Transferencia con advertencia de titular, contacto y firmas |
+| 6 | Datos bancarios y contacto | Chips de entrega y envío, transferencia con advertencia de titular, contacto del colegio y contacto en activa |
 
 **La hoja interior no repite la portada** (21-ago-2026). El cuerpo arranca directo en la sección
 1: ni logotipo, ni folio, ni cliente, ni ciudad. Esos datos viven en la portada y en el
@@ -212,6 +212,43 @@ Los **conteos sí se quedan** —son lo que el colegio contrata— pero en una t
 `.p-kpis`, no en una tabla que se leía como hoja de cálculo. El motor sigue calculando todo: lo
 que cambió es qué se imprime. Lo clava la prueba «El documento no imprime cómo se armó el
 precio», que busca cada uno de esos rastros por su nombre y falla si reaparece.
+
+### El cierre del documento y el pie de cada hoja
+
+**21-ago-2026.** Cuatro correcciones de Martín al revisar los PDF de la papelería v5:
+
+- **El colegio va antes que el vendedor.** El documento cierra con dos bloques rotulados:
+  **«Contacto del colegio»** —una tarjeta `.pe` por contacto capturado, en vez de la línea corrida
+  separada por barras que a tres contactos era ilegible— y debajo **«Tu contacto en activa»** con
+  quien preparó la cotización, su teléfono, su correo y el sitio. Cierra diciendo con quién se
+  sigue la conversación.
+- **Sin firmas ni «Aceptación del colegio».** La cotización es virtual: se manda como PDF o como
+  correo y nadie la firma sobre el papel. Un renglón de firma prometía un acto que no ocurre. Lo
+  clava la prueba «El documento no pide firmas», que busca `p-sign` y el rótulo de aceptación.
+- **«Cotización válida hasta» salió de la rejilla de contacto**: ya viaja en la portada, en el
+  encabezado corrido y en el pie de cada hoja. Lo mismo con entrega y envío, que son condiciones
+  comerciales y ahora abren la sección como chips.
+- **La portada nombra a quien pidió la cotización.** Debajo del colegio y la ciudad va
+  **«A la atención de»** con los contactos capturados, uno por renglón: nombre y correo. Quien
+  la recibe tiene que reconocerse en la primera hoja, no en la última. El teléfono y el
+  resto se quedan en el bloque del cierre, para no engordar la portada.
+- **El pie de cada hoja identifica a la empresa**, que es norma de la casa. `.print-runfoot` pasó
+  de una fila a dos: arriba razón social, RFC y domicilio fiscal a 6,4 pt; abajo folio,
+  institución, tipo de cotización y vigencia. El bloque de CSS y el marcado son **idénticos en las
+  tres páginas**.
+
+El pie mide **11,3 mm** con un domicilio de una línea. Vive `position:fixed` **dentro del área de
+contenido**, así que hay que reservarle sitio en el flujo o la última línea de una hoja llena se le
+encima: por eso `.print-content.pp-body` pasó de 7 mm a **13 mm** de relleno inferior. Lo que no
+debe hacer nunca es invadir el margen de página —ahí Chromium lo fragmenta y su texto reaparece
+arriba de la hoja siguiente—, y por eso el `@page` conserva sus 16 mm.
+
+La portada también bajó su tope de altura de 271 mm a **256 mm**. El pie ocupa los últimos
+11,3 mm del área de contenido, y sin ese tope la portada se metía debajo con un nombre de
+colegio largo: el renglón del folio quedaba tapado por el pie. Medido en el peor caso
+—96 caracteres de nombre, `data-len="xxl"`, tres contactos con correos largos— la portada
+ocupa 233 mm de contenido en una caja de 250 mm, así que sobra aire.
+
 
 ### Papelería v5
 

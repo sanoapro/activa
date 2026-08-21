@@ -416,7 +416,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .ptbl th.numhead{text-align:right}
 .ptbl .partcell{font-family:var(--mono);font-size:11px;white-space:nowrap}
 .p-note{font-size:11.5px;color:var(--mute);margin-top:9px}
-.p-note--important{background:var(--g-yel-t);border:1px solid var(--g-yel-b);border-radius:8px;padding:8px 10px;color:#6b4500}
 .p-bank{border:1px solid #aecbfa;background:var(--g-blue-t);border-radius:12px;padding:15px 18px;margin-top:6px}
 .p-bankwarn{margin-top:11px;background:var(--g-yel-t);border:1px solid var(--g-yel-b);border-radius:9px;padding:9px 12px;color:#8a4b00;font-size:11.5px;font-weight:500}
 .p-bankt{font-family:var(--disp);font-size:12px;font-weight:700;color:var(--g-blue-d);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
@@ -434,11 +433,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .p-contact>div:nth-last-child(-n+2){border-bottom:none}
 .p-contact .k{color:var(--mute)}
 .p-contact .v{font-family:var(--disp);font-weight:500;text-align:right}
-.p-sign{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:26px}
-.p-signb{border-top:2px solid var(--acc);padding-top:10px}
-.p-signb .n{font-family:var(--disp);font-size:14.5px;font-weight:600}
-.p-signb .r{font-size:12px;color:var(--mute);margin-top:2px}
-.p-signl{border-top:1px solid var(--line);padding-top:10px;font-size:12px;color:var(--mute)}
 
 /* ---------- modales ---------- */
 .ov{position:fixed;inset:0;background:rgba(32,33,36,.55);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}
@@ -519,7 +513,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   .result{grid-template-columns:1fr}
   .res-side{border-right:none;border-bottom:1px solid var(--soft)}
   .hnav{display:none}
-  .p-sign{grid-template-columns:1fr}
 }
 @media(max-width:900px){
   /* Recien aqui el resumen se parte en dos: antes cabia entero. */
@@ -630,6 +623,14 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .cv-name[data-len="xl"]{font-size:19pt;line-height:1.12}
 .cv-name[data-len="xxl"]{font-size:15pt;line-height:1.16}
 .cv-city{font-size:10pt;color:#5f6368;margin-bottom:6mm}
+/* A la atención de: quién pidió la cotización. La portada nombraba al colegio
+   y a la ciudad, pero no a la persona, y quien la recibe tiene que reconocerse
+   en la primera hoja. Va pegado al destinatario, antes de los chips de
+   configuración, y solo aparece si hay contactos capturados. */
+.cv-att{margin:-3mm 0 6mm;padding-left:3mm;border-left:.8mm solid #c6dafc}
+.cv-att .k{font-size:7.2pt;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#5f6368}
+.cv-att .v{font-family:var(--disp);font-size:9.5pt;font-weight:500;color:#202124;margin-top:1mm;line-height:1.35}
+.cv-att .v small{font-family:var(--body);font-size:8.4pt;font-weight:400;color:#5f6368}
 .cv-chips{display:flex;gap:2.4mm;flex-wrap:wrap}
 .cv-chip{display:inline-block;background:#e8f0fe;color:#174ea6;border-radius:999px;padding:2mm 4mm;font-size:9pt;font-weight:600;font-family:var(--disp)}
 .cv-chip--blue{background:#e8f0fe;color:#174ea6;border:1px solid #aecbfa}
@@ -680,7 +681,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .pp-body .ptbl .numcell{text-align:right}
 .pp-body .ptbl .partcell{font-family:var(--mono);font-size:7.8pt;white-space:nowrap}
 .pp-body .p-note{font-size:8.5pt;color:#5f6368;margin-top:2.2mm;line-height:1.5}
-.pp-body .p-note--important{background:#fef7e0;border:1px solid #fdd663;border-radius:1.8mm;padding:1.8mm 2.8mm;color:#6b4500}
 .pp-body .p-bank{border:1px solid #aecbfa;background:#e8f0fe;border-radius:2.5mm;padding:3.2mm 3.8mm;margin-top:1.5mm;break-inside:avoid;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .pp-body .p-bankt{font-family:var(--disp);font-size:7.5pt;font-weight:700;color:#174ea6;text-transform:uppercase;letter-spacing:.6px;margin-bottom:2.2mm;display:flex;align-items:center;gap:1.8mm}
 .pp-body .p-bankt svg{width:3.4mm;height:3.4mm;fill:#174ea6}
@@ -695,11 +695,6 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .pp-body .p-contact>div:nth-last-child(-n+2){border-bottom:none}
 .pp-body .p-contact .k{color:#5f6368}
 .pp-body .p-contact .v{font-family:var(--disp);font-weight:500;text-align:right}
-.pp-body .p-sign{display:grid;grid-template-columns:1fr 1fr;gap:8mm;margin-top:6mm;break-inside:avoid}
-.pp-body .p-signb{border-top:.6mm solid #1a73e8;padding-top:2.4mm}
-.pp-body .p-signb .n{font-family:var(--disp);font-size:10.5pt;font-weight:600}
-.pp-body .p-signb .r{font-size:8.5pt;color:#5f6368;margin-top:.5mm}
-.pp-body .p-signl{border-top:1px solid #767c85;padding-top:2.4mm;font-size:8.5pt;color:#5f6368}
 
 @media print{
   @page{size:A4;margin:12mm 15mm 16mm}
@@ -722,7 +717,10 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   .print-document{display:block!important;color:#202124;background:#fff}
   /* La portada se acota en altura para no desbordar jamás a una segunda hoja. */
   .print-cover{
-    min-height:250mm;max-height:271mm;overflow:hidden;
+    /* El tope baja de 271mm a 256mm: el pie repetido ocupa los ultimos
+       11,3mm del area de contenido (269mm) y la portada no debe meterse
+       debajo. Asi el pie queda LIMPIAMENTE por fuera del recuadro. */
+    min-height:250mm;max-height:256mm;overflow:hidden;
     break-after:page;page-break-after:always;
     display:flex;flex-direction:column;
     background:
@@ -751,19 +749,34 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
     border:none!important;background:transparent!important;
     font-family:var(--body);font-size:10pt;font-variant-numeric:normal
   }
-  /* Pie repetido en cada hoja: los elementos fixed se reimprimen en todas las
-     páginas en Chrome y Edge. Debe permanecer DENTRO del área de contenido. */
+  /* Norma de la empresa (21-ago-2026): TODA cotización identifica a quien la
+     emite en el pie de CADA hoja. Dos filas: arriba la empresa —razón social,
+     RFC y domicilio fiscal—, abajo el documento. La fila de la empresa no
+     lleva ellipsis, porque el domicilio tiene que poder envolver, y por eso el
+     pie pasó de una fila flex a un bloque de dos.
+     Medido, el pie ocupa 11,3mm con un domicilio de una línea. Vive fixed
+     DENTRO del área de contenido, así que hay que reservarle sitio en el flujo
+     o la última línea de una hoja llena se le encima: por eso
+     `.print-content.pp-body` pasó de 7mm a 13mm de relleno inferior. Lo que NO
+     debe hacer nunca es invadir el margen de página: ahí Chromium lo fragmenta
+     y su texto reaparece arriba de la hoja siguiente. */
   .print-runfoot{
-    display:flex;position:fixed;left:0;right:0;bottom:0;
-    justify-content:space-between;gap:6mm;
-    font:7.5pt Roboto,Arial,sans-serif;color:#5f6368;
-    border-top:.3mm solid #dadce0;padding-top:1.3mm;padding-bottom:.4mm;background:#fff
+    display:block;position:fixed;left:0;right:0;bottom:0;
+    font:7pt Roboto,Arial,sans-serif;color:#5f6368;
+    border-top:.3mm solid #dadce0;padding-top:1.2mm;padding-bottom:.4mm;background:#fff
   }
-  .print-runfoot span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:33%}
+  .print-runfoot .rf-empresa{font-size:6.4pt;line-height:1.35}
+  .print-runfoot .rf-empresa b{font-weight:600;color:#3c4043}
+  .print-runfoot .rf-doc{
+    display:flex;justify-content:space-between;gap:6mm;margin-top:.7mm
+  }
+  .print-runfoot .rf-doc span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .print-runfoot .rf-doc span:first-child{max-width:72%}
+  .print-runfoot .rf-doc span:last-child{flex:none}
 
   .print-content,.print-content *{overflow:visible!important}
   .print-content{display:block!important}
-  .print-content.pp-body{padding:0 0 7mm!important;overflow:visible!important;display:block!important}
+  .print-content.pp-body{padding:0 0 13mm!important;overflow:visible!important;display:block!important}
   .print-content .p-h{break-after:avoid;page-break-after:avoid;margin-top:5mm}
   .print-content table{width:100%;border-collapse:collapse}
   .print-content thead{display:table-header-group}
@@ -773,8 +786,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
   .print-content .p-card,
   .print-content .p-hero,
   .print-content .p-kpis,
-  .print-content .p-bank,
-  .print-content .p-sign{break-inside:avoid!important;page-break-inside:avoid!important}
+  .print-content .p-bank{break-inside:avoid!important;page-break-inside:avoid!important}
   .test-report{display:none!important}
   .mo-progress{display:none!important}
 }
@@ -844,6 +856,16 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .ph-break b{font-family:var(--mono);font-weight:600}
 .ph-break .tot b,.ph-break .tot span{font-weight:700;color:var(--g-blue-d)}
 
+/* Rótulo de bloque: nombra un grupo que no merece una sección numerada propia,
+   como los dos bloques de contacto del cierre. */
+.p-blocklabel{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin:16px 0 7px}
+/* Personas: una tarjeta por contacto del colegio. Antes iban en una sola línea
+   corrida separada por barras, que a tres contactos era ilegible. */
+.p-people{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.pe{border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff}
+.pe-n{font-family:var(--disp);font-size:12.5px;font-weight:600;color:var(--ink)}
+.pe-d{font-size:11.5px;color:var(--mute);margin-top:2px;overflow-wrap:anywhere}
+
 /* ---------- capa de papel ---------- */
 .pp-body .p-card{border:1px solid #dadce0;border-radius:2.5mm;padding:2.8mm 3.6mm;margin-top:2.4mm;font-size:8.4pt;color:#3c4043;line-height:1.55;background:#fff;break-inside:avoid}
 .pp-body .p-card--soft{background:#f8fafc;color:#5f6368}
@@ -869,6 +891,11 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .pp-body .ph-break div{display:flex;justify-content:space-between;gap:3mm;color:#3c4043}
 .pp-body .ph-break b{font-family:var(--mono);font-weight:600}
 .pp-body .ph-break .tot b,.pp-body .ph-break .tot span{font-weight:700;color:#174ea6}
+.pp-body .p-blocklabel{font-family:var(--disp);font-size:7.4pt;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#5f6368;margin:4mm 0 1.6mm}
+.pp-body .p-people{display:grid;grid-template-columns:repeat(auto-fit,minmax(38mm,1fr));gap:2.6mm;break-inside:avoid}
+.pp-body .pe{border:1px solid #dadce0;border-radius:2mm;padding:2.4mm 2.8mm;background:#fff}
+.pp-body .pe-n{font-family:var(--disp);font-size:9pt;font-weight:600;color:#202124}
+.pp-body .pe-d{font-size:8pt;color:#5f6368;margin-top:.5mm;overflow-wrap:anywhere}
 /* ===== PAPELERÍA v5 · fin ================================================= */
 </style>
 </head>
@@ -1008,7 +1035,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
     <details class="fold" id="foldVig" style="--fc:var(--g-red);--ft:var(--g-red-t)">
       <summary>
         <span class="fi"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM7 11h5v5H7v-5z"/></svg></span>
-        <span class="ft"><b>Vigencia, entrega y firma</b><i id="foldVigSum">—</i></span>
+        <span class="ft"><b>Vigencia, envío y contacto</b><i id="foldVigSum">—</i></span>
         <span class="fc"></span>
       </summary>
       <div class="foldb">
@@ -1021,13 +1048,12 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
           <div class="f"><label for="fValid">Válida hasta</label><input type="date" id="fValid"><div class="hint" id="hValidity">Se sugiere 31 días</div></div>
         </div>
         <div class="grid2">
-          <div class="f"><label for="fDeliver">Tiempo de entrega</label><input type="text" id="fDeliver" maxlength="120"></div>
-          <div class="f"><label for="fShip">Incluye envío</label><select id="fShip"><option>Sí</option><option>No</option></select></div>
+          <div class="f"><label for="fShip">Incluye envío</label><select id="fShip"><option>Sí</option><option>No</option></select><div class="hint">La entrega es siempre 15 días hábiles después de la confirmación del pago.</div></div>
         </div>
         </div>
 
         <div class="fgroup">
-        <div class="miniLbl">Quien firma la propuesta</div>
+        <div class="miniLbl">Quién prepara la propuesta</div>
         <div class="grid2">
           <!-- Los datos del vendedor viven una sola vez, en APP_CONFIG.defaults.seller;
                bindStateToForm() los escribe al arrancar. Sin value duplicados aquí. -->
@@ -1433,8 +1459,11 @@ const APP_CONFIG = deepFreeze({
     lines: {max:200},
     concept: {max:250}
   },
+  /* Norma comercial (21-ago-2026): en compra directa el disparador de la
+     entrega es el pago, y el plazo es el mismo para toda la cotización. Dejó
+     de ser un campo del vendedor para que nadie prometa otro por descuido. */
+  delivery: "15 días hábiles después de la confirmación del pago",
   defaults: {
-    delivery: "Por confirmar al recibir la orden de compra",
     shipping: "Sí",
     seller:{name:"Martín Maldonado",role:"Director Comercial",phone:"55 2725 9300",email:"martin@activa.la",website:"activa.la"},
     supplier:{legalName:"IQU TECHNOLOGIES SAPI DE CV",rfc:"ITE2109227E6",address:"Bosque de Radiatas 54 Int 201, Bosques de las Lomas, Cuajimalpa de Morelos, 05120 Ciudad de México, CDMX",slogan:"Transformando tu escuela con Google",bank:{holder:"IQU TECHNOLOGIES SAPI DE CV",name:"Banorte · pesos mexicanos",account:"1299197237",clabe:"072180012991972374"}}
@@ -1815,7 +1844,7 @@ function newLine(catKey){
   const entry=CAT_BY_KEY[catKey];
   return{id:uuid(),cat:catKey,concept:entry?entry.n:"",qty:null,years:null};
 }
-function defaultState(generateIdentity=true){const today=localISODate(new Date()),seller=loadSellerProfile();return{schemaVersion:APP_CONFIG.schemaVersion,catalogISO:APP_CONFIG.catalog.updatedISO,identity:generateIdentity?newIdentity(seller.name,today):{quoteId:"",folioRoot:"",revision:1,createdAt:"",updatedAt:"",parentQuoteId:null},lines:[],client:{institution:"",shortName:"",city:"",contacts:[{name:"",email:"",phone:""},{name:"",email:"",phone:""},{name:"",email:"",phone:""}]},validity:{quoteDate:today,validUntil:addDaysISO(today,APP_CONFIG.validityDays),validUntilAuto:true,delivery:APP_CONFIG.defaults.delivery,shipping:APP_CONFIG.defaults.shipping},seller,supplier:clone(APP_CONFIG.defaults.supplier),mail:{recipients:[],excludedRecipients:[],subjectOverride:"",subjectMode:"auto"}};}
+function defaultState(generateIdentity=true){const today=localISODate(new Date()),seller=loadSellerProfile();return{schemaVersion:APP_CONFIG.schemaVersion,catalogISO:APP_CONFIG.catalog.updatedISO,identity:generateIdentity?newIdentity(seller.name,today):{quoteId:"",folioRoot:"",revision:1,createdAt:"",updatedAt:"",parentQuoteId:null},lines:[],client:{institution:"",shortName:"",city:"",contacts:[{name:"",email:"",phone:""},{name:"",email:"",phone:""},{name:"",email:"",phone:""}]},validity:{quoteDate:today,validUntil:addDaysISO(today,APP_CONFIG.validityDays),validUntilAuto:true,shipping:APP_CONFIG.defaults.shipping},seller,supplier:clone(APP_CONFIG.defaults.supplier),mail:{recipients:[],excludedRecipients:[],subjectOverride:"",subjectMode:"auto"}};}
 function createSafeDefaultState(){
   try{return defaultState();}
   catch(error){
@@ -1882,7 +1911,6 @@ function sanitizeImportedState(raw,{regenerateIdentity=false,draftMode=false}={}
     quoteDate:readDate(val.quoteDate??today,"Fecha de cotización"),
     validUntil:readDate(val.validUntil??addDaysISO(val.quoteDate??today,APP_CONFIG.validityDays),"Vigencia"),
     validUntilAuto:typeof val.validUntilAuto==="boolean"?val.validUntilAuto:false,
-    delivery:readText(val.delivery??APP_CONFIG.defaults.delivery,{field:"Entrega",max:120,optional:true}),
     shipping:strictEnum(val.shipping??"Sí",["Sí","No"],"Envío")
   };
   const sup=isPlainObject(raw.supplier)?raw.supplier:{};
@@ -2372,7 +2400,7 @@ function renderInvalidFinancialState(reason=""){document.body.classList.add("cal
    ============================================================ */
 const TEXT_BINDINGS={
   fShort:"client.shortName",fCity:"client.city",
-  fDate:"validity.quoteDate",fValid:"validity.validUntil",fDeliver:"validity.delivery",fShip:"validity.shipping",
+  fDate:"validity.quoteDate",fValid:"validity.validUntil",fShip:"validity.shipping",
   fBy:"seller.name",fRole:"seller.role",fPhone:"seller.phone",fMail:"seller.email",fWeb:"seller.website",
   fLegal:"supplier.legalName",fRfc:"supplier.rfc",fAddr:"supplier.address",fSlogan:"supplier.slogan",
   fBankT:"supplier.bank.holder",fBankN:"supplier.bank.name",fBankC:"supplier.bank.account",fBankK:"supplier.bank.clabe"
@@ -2784,7 +2812,7 @@ function renderDocumentMeta(){
     scope.classList.toggle("vacio",!quien);
   }
   $("#foldCliSum").textContent=(APP_STATE.client.institution||"sin institución")+(d.contacts.length?` · ${d.contacts.length} contacto(s)`:"");
-  $("#foldVigSum").textContent=`Vigente al ${d.dValid} · firma ${d.by}`;
+  $("#foldVigSum").textContent=`Vigente al ${d.dValid} · prepara ${d.by}`;
   const ok=clabeOk(d.bank.k);$("#foldFisSum").textContent=`${d.legal||"—"} · CLABE ${ok?"válida":"por revisar"}`;
   $("#clabeChk").textContent=d.bank.k?(ok?"CLABE válida · dígito verificador correcto":"Revisa la CLABE: el dígito verificador no coincide"):"—";$("#clabeChk").style.color=d.bank.k?(ok?"var(--g-grn-d)":"var(--g-red-d)"):"";
   renderStatus();
@@ -2927,7 +2955,7 @@ function docData(){
   return {r,
     inst:APP_STATE.client.institution||"Institución educativa",short:APP_STATE.client.shortName,city:APP_STATE.client.city||"—",
     by:APP_STATE.seller.name||"activa",role:APP_STATE.seller.role,phone:APP_STATE.seller.phone||"—",mail:APP_STATE.seller.email||"—",web:APP_STATE.seller.website,
-    ship:APP_STATE.validity.shipping,deliver:APP_STATE.validity.delivery||"—",dDate:fmtDate(APP_STATE.validity.quoteDate),dValid:fmtDate(APP_STATE.validity.validUntil),
+    ship:APP_STATE.validity.shipping,deliver:APP_CONFIG.delivery,dDate:fmtDate(APP_STATE.validity.quoteDate),dValid:fmtDate(APP_STATE.validity.validUntil),
     legal:APP_STATE.supplier.legalName,rfc:APP_STATE.supplier.rfc,addr:APP_STATE.supplier.address,slogan:APP_STATE.supplier.slogan||APP_CONFIG.defaults.supplier.slogan,
     bank:{t:APP_STATE.supplier.bank.holder,n:APP_STATE.supplier.bank.name,c:APP_STATE.supplier.bank.account,k:APP_STATE.supplier.bank.clabe},
     contacts:APP_STATE.client.contacts.filter(c=>c.name||c.email||c.phone),folio:folioDisplay()};
@@ -2982,6 +3010,11 @@ function buildProposal(){
   /* Entrega y envío son condiciones comerciales, no datos de contacto: salen de
      la rejilla de contacto y se anuncian como chips al abrir la sección. */
   const termChips=`<div class="p-fchips"><span class="p-fchip">Entrega · ${esc(d.deliver)}</span><span class="p-fchip ${d.ship==="Sí"?"p-fchip--green":"p-fchip--yellow"}">Envío ${esc(d.ship==="Sí"?"incluido":"no incluido")}</span></div>`;
+  /* El colegio primero y el vendedor al final: el documento cierra diciendo
+     con quién se sigue la conversación, no quién lo firmó. Los contactos del
+     colegio dejaron la línea corrida separada por barras —ilegible a tres
+     contactos— por una tarjeta cada uno. */
+  const peopleBlock=d.contacts.length?`<div class="p-blocklabel">Contacto del colegio</div><div class="p-people">${d.contacts.map(c=>`<div class="pe"><div class="pe-n">${esc(c.name||"Sin nombre")}</div>${c.email?`<div class="pe-d">${esc(c.email)}</div>`:""}${c.phone?`<div class="pe-d">${esc(c.phone)}</div>`:""}</div>`).join("")}</div>`:"";
   /* PAPELERÍA v5 · El cuerpo NO repite la portada: ni logotipo, ni folio, ni
      cliente, ni ciudad. Todo eso vive en la hoja 1 y en el encabezado y el pie
      corridos de cada hoja. En pantalla, la identidad la lleva la barra del
@@ -2995,9 +3028,7 @@ function buildProposal(){
   <div class="p-card p-card--terms"><div class="pc-h">Cómo leer los importes</div><ul class="pc-list"><li>Importes en pesos mexicanos. Los precios unitarios y el subtotal van <b>sin IVA</b>; el ${esc(APP_CONFIG.vat.label)} se calcula una sola vez sobre el subtotal y el <b>total ya lo incluye</b>.</li><li>Las licencias anuales declaran sus años en la columna de cantidad.</li></ul></div>
   <div class="p-h" data-sec="2"><span class="n">2</span> Datos bancarios y contacto</div>${termChips}
   <div class="p-bank"><div class="p-bankt">${svg(P.bank,"#174ea6")} Datos para transferencia · pesos mexicanos</div><div class="p-bankg"><div><div class="k">Titular</div><div class="v" style="font-size:11px;font-family:var(--disp)">${esc(d.bank.t)}</div></div><div><div class="k">Banco</div><div class="v" style="font-size:11px;font-family:var(--disp)">${esc(d.bank.n)}</div></div><div><div class="k">Cuenta</div><div class="v">${esc(d.bank.c)}</div></div><div><div class="k">CLABE</div><div class="v">${esc(d.bank.k)}</div></div></div><div class="p-bankwarn">⚠ Antes de transferir, verifica que el titular de la cuenta coincida: <b>${esc(d.bank.t)}</b>.</div><div class="p-banklegal"><b>${esc(d.legal)}${d.rfc?" · RFC "+esc(d.rfc):""}</b><br>${esc(d.addr)}</div></div>
-  <div class="p-contact" style="margin-top:12px"><div><span class="k">Preparado por</span><span class="v">${esc(d.by)}${d.role?" · "+esc(d.role):""}</span></div><div><span class="k">Cotización válida hasta</span><span class="v">${esc(d.dValid)}</span></div><div><span class="k">Teléfono</span><span class="v">${esc(d.phone)}</span></div><div><span class="k">Correo</span><span class="v">${esc(d.mail)}</span></div></div>
-  ${d.contacts.length?`<div class="p-card p-card--soft"><b>Contactos del colegio:</b> ${d.contacts.map(c=>esc([c.name,c.email,c.phone].filter(Boolean).join(" · "))).join(" | ")}</div>`:""}
-  <div class="p-sign"><div class="p-signb"><div class="n">${esc(d.by)}</div><div class="r">${esc(d.role||"activa")} · activa · Google for Education Partner</div></div><div class="p-signl">Aceptación del colegio · nombre, cargo y fecha</div></div>`;
+  ${peopleBlock}<div class="p-blocklabel">Tu contacto en activa</div><div class="p-contact"><div><span class="k">Preparado por</span><span class="v">${esc(d.by)}${d.role?" · "+esc(d.role):""}</span></div><div><span class="k">Teléfono</span><span class="v">${esc(d.phone)}</span></div><div><span class="k">Correo</span><span class="v">${esc(d.mail)}</span></div><div><span class="k">Sitio web</span><span class="v">${esc(d.web||"activa.la")}</span></div></div>`;
 }
 function buildPrintDocument(){
   const d=docData(),r=d.r;
@@ -3005,10 +3036,13 @@ function buildPrintDocument(){
   const nameScale=nameLen>90?"xxl":nameLen>60?"xl":nameLen>36?"l":"m";
   const completeRows=r.rows.filter(row=>row.entry&&row.ok);
   /* Pie repetido con folio, institución y vigencia en TODAS las hojas. */
-  const runfoot=`<div class="print-runfoot" aria-hidden="true"><span>${esc(d.legal)} · Compra directa</span><span>Folio ${esc(d.folio)} · ${esc(d.inst)}</span><span>Vigente hasta ${esc(d.dValid)}</span></div>`;
+  /* Norma de la empresa: el pie identifica al emisor en CADA hoja. */
+  const runfoot=`<div class="print-runfoot" aria-hidden="true"><div class="rf-empresa"><b>${esc(d.legal)}</b>${d.rfc?` · RFC ${esc(d.rfc)}`:""}${d.addr?`<br>${esc(d.addr)}`:""}</div><div class="rf-doc"><span>Folio ${esc(d.folio)} · ${esc(d.inst)} · Compra directa</span><span>Vigente hasta ${esc(d.dValid)}</span></div></div>`;
   const runhead=`<div class="print-runhead"><span class="rh-brand"><b>activa</b> · Google for Education Partner</span><span class="rh-folio">Folio ${esc(d.folio)}</span><span class="rh-valid">Vigente hasta ${esc(d.dValid)}</span></div><div class="gbar gbar--thin" aria-hidden="true"><i></i><i></i><i></i><i></i></div>`;
   const coverChips=`<div class="cv-chips"><span class="cv-chip cv-chip--green">Compra directa</span><span class="cv-chip cv-chip--blue">${fmtInt(completeRows.length)} partida${completeRows.length===1?"":"s"}</span><span class="cv-chip cv-chip--yellow">Catálogo del ${esc(longDateFromISO(APP_CONFIG.catalog.updatedISO))}</span></div>`;
-  return `<article class="print-document">${runfoot}<section class="print-cover"><div class="gbar gbar--cover"><i></i><i></i><i></i><i></i></div><div class="print-cover__inner"><img class="print-brand-logo" src="${BRAND.activa}" alt="activa"><div class="cv-eyebrow">Cotización de compra directa</div><div class="cv-for">Propuesta preparada para</div><h1 class="cv-name" data-len="${nameScale}">${esc(d.inst)}</h1><div class="cv-city">${esc(d.city)}</div>${coverChips}<div class="cv-price"><div class="gbar gbar--card" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="cv-price__inner"><div><div class="cv-pl">Inversión total · IVA incluido</div><div class="cv-pv">${money(r.total)}</div><div class="cv-pn">Subtotal ${money(r.subtotal)} sin IVA + ${esc(APP_CONFIG.vat.label)} ${money(r.iva)}</div><div class="cv-caps"><span class="cv-cap cv-cap--yellow">Precios netos · el IVA se agrega al cierre</span></div></div></div></div><div class="cv-facts"><div class="cv-fact" style="border-color:#34A853"><div class="k">Partidas</div><div class="v">${fmtInt(completeRows.length)}</div></div><div class="cv-fact" style="border-color:#4285F4"><div class="k">Subtotal sin IVA</div><div class="v">${money(r.subtotal)}</div></div><div class="cv-fact" style="border-color:#FBBC04"><div class="k">Vigencia</div><div class="v" style="font-size:11pt">${esc(d.dValid)}</div></div></div><div class="cv-meta"><div>Folio<b>${esc(d.folio)}</b></div>${APP_STATE.identity.revision>1?`<div>Revisión<b>${APP_STATE.identity.revision} · sustituye anteriores</b></div>`:""}<div>Fecha<b>${esc(d.dDate)}</b></div><div>Vigencia<b>${esc(d.dValid)}</b></div></div></div></section><table class="print-shell"><thead><tr><td>${runhead}</td></tr></thead><tbody><tr><td><section class="print-content pp-body">${buildProposal()}</section></td></tr></tbody></table></article>`;
+  /* La portada nombra a quien pidió la cotización, no solo al colegio. */
+  const coverAtt=d.contacts.length?`<div class="cv-att"><div class="k">A la atención de</div>${d.contacts.map(c=>`<div class="v">${esc(c.name||"Sin nombre")}${c.email?`<small> · ${esc(c.email)}</small>`:""}</div>`).join("")}</div>`:"";
+  return `<article class="print-document">${runfoot}<section class="print-cover"><div class="gbar gbar--cover"><i></i><i></i><i></i><i></i></div><div class="print-cover__inner"><img class="print-brand-logo" src="${BRAND.activa}" alt="activa"><div class="cv-eyebrow">Cotización de compra directa</div><div class="cv-for">Propuesta preparada para</div><h1 class="cv-name" data-len="${nameScale}">${esc(d.inst)}</h1><div class="cv-city">${esc(d.city)}</div>${coverAtt}${coverChips}<div class="cv-price"><div class="gbar gbar--card" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="cv-price__inner"><div><div class="cv-pl">Inversión total · IVA incluido</div><div class="cv-pv">${money(r.total)}</div><div class="cv-pn">Subtotal ${money(r.subtotal)} sin IVA + ${esc(APP_CONFIG.vat.label)} ${money(r.iva)}</div><div class="cv-caps"><span class="cv-cap cv-cap--yellow">Precios unitarios sin IVA · el total ya lo incluye</span></div></div></div></div><div class="cv-facts"><div class="cv-fact" style="border-color:#34A853"><div class="k">Partidas</div><div class="v">${fmtInt(completeRows.length)}</div></div><div class="cv-fact" style="border-color:#4285F4"><div class="k">Subtotal sin IVA</div><div class="v">${money(r.subtotal)}</div></div><div class="cv-fact" style="border-color:#FBBC04"><div class="k">Vigencia</div><div class="v" style="font-size:11pt">${esc(d.dValid)}</div></div></div><div class="cv-meta"><div>Folio<b>${esc(d.folio)}</b></div>${APP_STATE.identity.revision>1?`<div>Revisión<b>${APP_STATE.identity.revision} · sustituye anteriores</b></div>`:""}<div>Fecha<b>${esc(d.dDate)}</b></div><div>Vigencia<b>${esc(d.dValid)}</b></div></div></div></section><table class="print-shell"><thead><tr><td>${runhead}</td></tr></thead><tbody><tr><td><section class="print-content pp-body">${buildProposal()}</section></td></tr></tbody></table></article>`;
 }
 
 function openProposal(){
@@ -3730,6 +3764,62 @@ const QuoteTests={
         this.assert(!html.includes(clase),`el cuerpo volvió a llevar ${clase}`);
       this.assert(html.includes(`<div class="p-h" data-sec="1">`),"el cuerpo no arranca en la sección 1");
       this.assert(buildPrintDocument().includes("print-cover"),"la portada desapareció del documento");
+    }));
+    /* 21-ago-2026 · La cotización es virtual: se manda como PDF o como correo
+       y nadie la firma sobre el papel. Un renglón de firma prometía un acto
+       que no ocurre y dejaba al colegio esperando un trámite inexistente. */
+    this.test("El documento no pide firmas",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";
+      APP_STATE.lines=[this.mkLine("cb-essential",10)];
+      CURRENT_RESULT=computeQuote(L());
+      const doc=buildProposal()+buildPrintDocument();
+      for(const rastro of ["p-sign","p-signb","p-signl","Aceptación del colegio","Firmas"])
+        this.assert(!doc.includes(rastro),`el documento volvió a pedir firma: "${rastro}"`);
+    }));
+    /* Norma de la empresa: TODA cotización identifica a quién la emite en el
+       pie de CADA hoja. El pie es fixed y Chromium lo reimprime en todas. */
+    this.test("El pie de cada hoja identifica a la empresa",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";
+      APP_STATE.lines=[this.mkLine("cb-essential",10)];
+      CURRENT_RESULT=computeQuote(L());
+      const doc=buildPrintDocument();
+      const pie=doc.slice(doc.indexOf('class="print-runfoot"'),doc.indexOf("print-cover"));
+      for(const campo of [APP_STATE.supplier.legalName,APP_STATE.supplier.rfc,APP_STATE.supplier.address])
+        this.assert(pie.includes(esc(campo)),`el pie no lleva "${campo}"`);
+      this.assert(pie.includes(folioDisplay()),"el pie no lleva folio");
+    }));
+    /* El colegio primero y el vendedor al final: el documento cierra diciendo
+       con quién se sigue la conversación. */
+    this.test("El colegio va antes que el vendedor",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";
+      APP_STATE.lines=[this.mkLine("cb-essential",10)];
+      CURRENT_RESULT=computeQuote(L());
+      APP_STATE.client.contacts[0]={name:"Ana Directora",email:"ana@colegio.mx",phone:"33 1234 5678"};
+      const html=buildProposal();
+      const colegio=html.indexOf("Contacto del colegio"),activa=html.indexOf("Tu contacto en activa");
+      this.assert(colegio>-1,"falta el bloque de contacto del colegio");
+      this.assert(activa>colegio,"el vendedor quedó arriba del colegio");
+      this.assert(html.includes("ana@colegio.mx"),"el contacto capturado no se imprime");
+      this.assert(html.indexOf("Tu contacto en activa")>html.indexOf("Contacto del colegio"),
+        "el orden del cierre se invirtió");
+      /* Y la portada nombra a quien pidió la cotización: quien la recibe tiene
+         que reconocerse en la primera hoja, no en la última. */
+      const portada=buildPrintDocument();
+      this.assert(portada.includes("A la atención de"),"la portada no nombra al destinatario");
+      this.assert(portada.indexOf("Ana Directora")<portada.indexOf("print-shell"),
+        "el destinatario no salió en la portada");
+    }));
+    /* La entrega dejó de ser un campo del vendedor: es una constante del
+       negocio, para que nadie prometa otro plazo por descuido. */
+    this.test("La entrega es una leyenda fija",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";
+      APP_STATE.lines=[this.mkLine("cb-essential",10)];
+      CURRENT_RESULT=computeQuote(L());
+      this.assert(APP_CONFIG.delivery==="15 días hábiles después de la confirmación del pago",
+        "cambió la leyenda de entrega");
+      this.assert(buildProposal().includes(esc(APP_CONFIG.delivery)),"el documento no imprime la entrega");
+      this.assert(APP_STATE.validity.delivery===undefined,"la entrega volvió al estado");
+      this.assert(!document.getElementById("fDeliver"),"el campo de entrega reapareció");
     }));
     /* PAPELERÍA v5 · Ningún texto suelto: el cierre es una tarjeta de una sola
        cifra y lo que había que explicar vive en viñetas dentro de su tarjeta. */

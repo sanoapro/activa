@@ -33,7 +33,7 @@ Tres pasos, en el orden en que el comercial los recorre:
 | Sección | Título | Qué se hace ahí |
 |---|---|---|
 | `#s1` | Catálogo y captura | Busca, agrega con `+` y captura cantidad y años en la misma fila |
-| `#s2` | Datos de la propuesta | Colegio, contactos, vigencia, firma, datos fiscales y bancarios |
+| `#s2` | Datos de la propuesta | Colegio, contactos, vigencia, datos fiscales y bancarios |
 | `#s3` | Cierre | Total, desglose de IVA y la tabla tal como la verá el colegio |
 
 **Se captura arriba y se cierra abajo.** El 21-ago-2026 los datos del colegio pasaron delante del
@@ -125,14 +125,68 @@ El documento lleva portada con folio, revisión, fecha y vigencia, y dos seccion
 | # | Sección | Qué lleva |
 |---|---|---|
 | 1 | Partidas de la cotización | La tabla dentro de `.p-tblcard`, el cierre en una tarjeta `.p-hero` y las condiciones en viñetas |
-| 2 | Datos bancarios y contacto | Chips de entrega y envío, transferencia con advertencia de titular, contacto y firmas |
+| 2 | Datos bancarios y contacto | Chips de entrega y envío, transferencia con advertencia de titular, contacto del colegio y contacto en activa |
 
 **La hoja interior no repite la portada** (21-ago-2026). El cuerpo arranca directo en la sección
 1: ni logotipo, ni folio, ni cliente, ni ciudad. Esos datos viven en la portada y en el
 encabezado y el pie corridos de cada hoja; repetirlos costaba media hoja y no decía nada nuevo.
-En pantalla la identidad la lleva la barra del overlay, que ya rotula institución y folio. Entre
-eso y las tres notas sueltas que se volvieron tarjetas, el PDF de una cotización de nueve
-partidas pasó de **seis hojas a cuatro**.
+En pantalla la identidad la lleva la barra del overlay, que ya rotula institución y folio.
+
+> **Al medir hojas, usa un perfil de Chrome limpio.** `--user-data-dir` reutilizado conserva
+> el `localStorage` de la corrida anterior, y el borrador guardado se suma al de la nueva: los
+> conteos crecen solos y el antes/después deja de significar nada. Con perfil limpio y una
+> cotización de cinco partidas, compra ocupa **tres hojas** antes y después de este cambio: lo
+> que se ganó fue aire dentro de las hojas, no hojas menos.
+
+### El cierre del documento y el pie de cada hoja
+
+**21-ago-2026.** Cuatro correcciones de Martín al revisar los PDF de la papelería v5:
+
+- **El colegio va antes que el vendedor.** El documento cierra con dos bloques rotulados:
+  **«Contacto del colegio»** —una tarjeta `.pe` por contacto capturado, en vez de la línea corrida
+  separada por barras que a tres contactos era ilegible— y debajo **«Tu contacto en activa»** con
+  quien preparó la cotización, su teléfono, su correo y el sitio. Cierra diciendo con quién se
+  sigue la conversación.
+- **Sin firmas ni «Aceptación del colegio».** La cotización es virtual: se manda como PDF o como
+  correo y nadie la firma sobre el papel. Un renglón de firma prometía un acto que no ocurre. Lo
+  clava la prueba «El documento no pide firmas», que busca `p-sign` y el rótulo de aceptación.
+- **«Cotización válida hasta» salió de la rejilla de contacto**: ya viaja en la portada, en el
+  encabezado corrido y en el pie de cada hoja. Lo mismo con entrega y envío, que son condiciones
+  comerciales y ahora abren la sección como chips.
+- **La portada nombra a quien pidió la cotización.** Debajo del colegio y la ciudad va
+  **«A la atención de»** con los contactos capturados, uno por renglón: nombre y correo. Quien
+  la recibe tiene que reconocerse en la primera hoja, no en la última. El teléfono y el
+  resto se quedan en el bloque del cierre, para no engordar la portada.
+- **El pie de cada hoja identifica a la empresa**, que es norma de la casa. `.print-runfoot` pasó
+  de una fila a dos: arriba razón social, RFC y domicilio fiscal a 6,4 pt; abajo folio,
+  institución, tipo de cotización y vigencia. El bloque de CSS y el marcado son **idénticos en las
+  tres páginas**.
+
+El pie mide **11,3 mm** con un domicilio de una línea. Vive `position:fixed` **dentro del área de
+contenido**, así que hay que reservarle sitio en el flujo o la última línea de una hoja llena se le
+encima: por eso `.print-content.pp-body` pasó de 7 mm a **13 mm** de relleno inferior. Lo que no
+debe hacer nunca es invadir el margen de página —ahí Chromium lo fragmenta y su texto reaparece
+arriba de la hoja siguiente—, y por eso el `@page` conserva sus 16 mm.
+
+La portada también bajó su tope de altura de 271 mm a **256 mm**. El pie ocupa los últimos
+11,3 mm del área de contenido, y sin ese tope la portada se metía debajo con un nombre de
+colegio largo: el renglón del folio quedaba tapado por el pie. Medido en el peor caso
+—96 caracteres de nombre, `data-len="xxl"`, tres contactos con correos largos— la portada
+ocupa 233 mm de contenido en una caja de 250 mm, así que sobra aire.
+
+**La entrega es una constante, no un campo.** Desde el 21-ago-2026 toda cotización de compra
+directa dice **«15 días hábiles después de la confirmación del pago»**: en compra el disparador
+real es el pago, y el plazo es el mismo para todas. Vive en `APP_CONFIG.delivery` y el campo
+«Tiempo de entrega» desapareció de la captura, junto con `validity.delivery` del estado, del
+saneador y de `TEXT_BINDINGS`: si nadie puede editarlo, nadie promete otro plazo por descuido.
+Los borradores anteriores traen la clave vieja; el saneador lee campo por campo y la descarta,
+así que importan sin migración. Lo clava la prueba «La entrega es una leyenda fija».
+
+Los otros dos cotizadores **no** llevan esta leyenda, y es deliberado: en el cotizador Upgrade
+Edu la entrega es una fecha del ciclo escolar (`APP_CONFIG.cycle.delivery`) que manda el
+calendario, y en arrendamiento el equipo se entrega al firmar el contrato y tras la aprobación
+de crédito. Poner ahí «después del pago» sería prometer algo falso.
+
 
 ### Papelería v5
 
@@ -287,7 +341,7 @@ y abrir un pliegue.
 Los tres `details.fold` eran blanco sobre blanco y su único color vivía en un cuadrito de 34 px.
 Ahora cada tarjeta declara `--fc` y `--ft`, que pintan el filete superior de 3 px, el degradado
 del encabezado, el ícono y el filete de apertura: **azul** para colegio y contactos, **rojo** para
-vigencia y firma, **amarillo** para lo fiscal y bancario. La zona de captura se hunde en gris
+vigencia y contacto, **amarillo** para lo fiscal y bancario. La zona de captura se hunde en gris
 azulado con los campos en blanco puro, y los bloques largos se agrupan en `.fgroup`.
 
 > Las reglas quedan acotadas a `.fold`, `.foldb` y `.fgroup` a propósito: la tabla del catálogo
@@ -420,7 +474,7 @@ más `focusable="false"` en los `svg` decorativos.
 ## Al tocar esta página
 
 1. Corre **`?test=1` antes y después**. Mismo resultado o se revierte.
-2. Imprime con `Ctrl+P` completo: portada, partidas, datos bancarios y firmas.
+2. Imprime con `Ctrl+P` completo: portada, partidas, datos bancarios y los dos bloques de contacto.
 3. Ábrela en ventana privada: con tu `localStorage` lleno no ves lo que ve un comercial que
    entra por primera vez.
 4. Zoom al 200 % y ventana de 360 px: **sin desbordamiento horizontal** (verificado a 1440,
