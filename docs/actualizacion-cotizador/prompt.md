@@ -3,6 +3,12 @@
 Prompt autocontenido para implementar la cotización a la medida en el cotizador Upgrade Edu. Se
 le pasa completo a una sesión de Claude Code parada en la raíz del repositorio.
 
+> **Documento histórico (22-ago-2026).** Este encargo ya se ejecutó, y los precios que
+> aparecen abajo eran los **provisionales** del 21 de agosto: $17,000 / $21,000 de Chromebook
+> nueva, $8,000 de seminueva, el `PENDIENTE` en cero. Todos quedaron superados por la lista
+> definitiva, que está en [`plan.md`](plan.md) y es la única que vale. Se conserva tal cual
+> porque documenta cómo se construyó, no cuánto cuestan hoy las cosas.
+
 **Antes de ejecutarlo, [`plan.md`](plan.md) tiene que estar leído.** Este documento dice *qué
 construir*; el plan dice *por qué así*, y sin eso las decisiones de aquí parecen arbitrarias.
 

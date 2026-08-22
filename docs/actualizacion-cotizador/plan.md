@@ -76,29 +76,48 @@ los campos. Tres capas custodiando la misma decisión.
 Estas cinco cosas no se podían deducir del código ni del Excel. Martín las cerró el 21 de agosto
 de 2026, y con ellas la implementación arranca.
 
-### A · El precio del equipo de alumno Flip-Touch seminuevo
+### A · B · C — Los precios · **lista definitiva del 22-ago-2026**
 
-**Decidido: `$8,000`, igual que el del docente.** Es el mismo equipo seminuevo; alumno y docente
-al mismo precio.
+Las tres decisiones de precio se cerraron el 21 de agosto con números provisionales y **quedaron
+todas superadas el 22**, cuando Martín entregó la lista definitiva. Esto es lo que vale:
 
-### B · Los precios de la Chromebook nueva siguen o cambian
+| Concepto | Precio, **con IVA** |
+|---|---|
+| Chromebook nueva · alumno | **$14,500** |
+| Chromebook nueva · docente | **$17,850** |
+| Flip-Touch seminueva · alumno | **$7,000** |
+| Flip-Touch seminueva · docente | **$9,000** |
+| Tablet nueva | **$10,000** |
+| Licencia Chrome Education Upgrade | **$870** |
+| Seguro · 2 años | **$1,050** |
+| Seguro · 3 años | **$1,600** |
+| Seguro · 4 años | **$2,150** |
+| Docente extra sin equipo | **$1,500 AL AÑO** |
 
-**Decidido: siguen.** `studentDeviceCost: 17000` y `teacherDeviceCost: 21000` (líneas 1927-1928)
-valen para la Chromebook nueva en los cuatro plazos, y el equipo docente del plazo de tablet —que
-por decisión es una Chromebook nueva— cuesta ese mismo `$21,000`.
+**Todos son precio final con IVA y se escriben tal cual en el código**, sin conversión.
 
-### C · El precio de la licencia CEU y del seguro, y el seguro a 2 años
+> **El precio de equipo va PELÓN.** Hasta el 22-ago-2026 traía dentro la licencia CEU y el
+> seguro (la Chromebook de alumno costaba $17,000 «con todo»). Ahora no: **cada equipo suma
+> su CEU y su seguro por separado, siempre y sin excepción**, entre por la puerta que entre.
+> Es lo que arregla la incoherencia de abajo.
 
-**Decidido: los precios de arrendamiento aplican tal cual, sin ajuste de IVA**, y el seguro a
-2 años se fija en **$910**, siguiendo la línea de 3→4 años (de $1,390 a $1,870 hay $480 por año;
-quitarle un año a $1,390 da $910).
+<details><summary>Qué se había decidido el 21 de agosto, y por qué cambió</summary>
 
-| Concepto | Precio | Nota |
-|---|---|---|
-| Licencia Chrome Education Upgrade | `$750` | Perpetua, por equipo |
-| Seguro · 2 años | `$910` | **Nuevo**, decidido el 21-ago-2026 |
-| Seguro · 3 años | `$1,390` | Cubre todo el plazo |
-| Seguro · 4 años | `$1,870` | Cubre todo el plazo |
+- **A** · La seminueva de alumno se fijó en $8,000, «igual que la de docente». Falso por partida
+  doble: la de alumno cuesta $7,000 y la de docente $9,000.
+- **B** · Se dio por bueno que la Chromebook nueva seguía en $17,000 / $21,000. Bajaron a
+  $14,500 / $17,850.
+- **C** · Se escribió que los precios de arrendamiento aplicaban **«tal cual, sin ajuste de
+  IVA»**, y así se implementó. Era el error: el catálogo de arrendamiento va **sin** IVA y este
+  cotizador trabaja **con** IVA de principio a fin, así que cada equipo cotizaba $120 de menos
+  por la licencia CEU y $299.20 de menos por el seguro a 4 años. Se detectó el 22 de agosto.
+  El seguro a 2 años, además, no estaba en ningún catálogo: se había extrapolado en $910 sin
+  IVA. El definitivo es $1,050 con IVA.
+
+**La lección que deja:** antes de traer un precio del cotizador de arrendamiento hay que
+multiplicarlo por 1.16. Allá el catálogo va sin IVA; aquí, todo lleva IVA.
+
+</details>
 
 ### D · Si el equipo prorrateado escala año con año
 
@@ -145,10 +164,10 @@ catálogo de dispositivos, con los plazos apuntándole:
 
 ```js
 const DEVICES = deepFreeze({
-  cbAlumno:  {label:"Chromebook nueva",                   cost:17000},   // ← decisión B · confirmado
-  cbDocente: {label:"Chromebook nueva · docente",         cost:21000},   // ← decisión B · confirmado
-  flAlumno:  {label:"Chromebook Flip-Touch seminueva",    cost:8000},    // ← decisión A · igual que docente
-  flDocente: {label:"Flip-Touch seminueva · docente",     cost:8000},
+  cbAlumno:  {label:"Chromebook nueva",                   cost:14500},
+  cbDocente: {label:"Chromebook nueva · docente",         cost:17850},
+  flAlumno:  {label:"Chromebook Flip-Touch seminueva",    cost:7000},
+  flDocente: {label:"Flip-Touch seminueva · docente",     cost:9000},
   tablet:    {label:"Tablet nueva",                       cost:10000}
 });
 ```
@@ -257,15 +276,15 @@ paquete Edu.** Con los precios de referencia de las decisiones B y C:
 
 | Concepto | Cuenta | Importe |
 |---|---|---|
-| Equipos de alumno | 30 × $17,000 | $510,000 |
-| Licencias CEU | 30 × $750 | $22,500 |
-| Seguro a 4 años | 30 × $1,870 | $56,100 |
+| Equipos de alumno | 30 × $14,500 | $435,000 |
+| Licencias CEU | 30 × $870 | $26,100 |
+| Seguro a 4 años | 30 × $2,150 | $64,500 |
 | Carrito | 1 × $26,600 | $26,600 |
-| **Costo del fierro** | | **$615,200** |
-| Entre 700 alumnos | $615,200 ÷ 700 | $878.86 por alumno |
-| Entre 4 años | $878.86 ÷ 4 | **$219.71 por alumno y año** |
+| **Costo del fierro** | | **$552,200** |
+| Entre 700 alumnos | $552,200 ÷ 700 | $788.86 por alumno |
+| Entre 4 años | $788.86 ÷ 4 | **$197.21 por alumno y año** |
 | Licencias, paquete Edu | base de la modalidad | $3,000 por alumno y año |
-| **Precio de lista** | $3,000 + $219.71 | **$3,219.71 por alumno y año** |
+| **Precio de lista** | $3,000 + $197.21 | **$3,197.21 por alumno y año** |
 
 Y el mismo colegio, si en vez de Chromebooks nuevas a 4 años pide **seminuevas a 2 años**, divide
 el mismo fierro entre 2 en vez de entre 4: el prorrateo se duplica. **El plazo, que hoy en la
@@ -285,11 +304,11 @@ dividido entre 4 se recupera al 100.5% si no hay descuento.
 
 Pero con descuento:
 
-| Esquema | Descuento | Se recupera del fierro | Sobre los $615,200 del ejemplo |
+| Esquema | Descuento | Se recupera del fierro | Sobre los $552,200 del ejemplo |
 |---|---|---|---|
-| Firma después del corte | 0% | 100.5% | +$3,082 |
-| Firma antes del corte | −5% | 95.5% | **−$27,842** |
-| **Contado en agosto** | **−10%** | **90.4%** | **−$58,700** |
+| Firma después del corte | 0% | 100.5% | +$2,761 |
+| Firma antes del corte | −5% | 95.5% | **−$24,984** |
+| **Contado en agosto** | **−10%** | **90.5%** | **−$52,735** |
 
 El colegio que paga de contado obtiene el 10% de descuento **también sobre el equipo**, y el
 equipo no tiene margen de dónde salir: es fierro comprado a un proveedor.
@@ -302,7 +321,7 @@ Hay dos caminos:
 
 | | Qué se hace | Recupera | Costo de implementarlo |
 |---|---|---|---|
-| **D-1** | El fierro entra a `list` y escala y se descuenta como todo lo demás | 90.4% a 100.5% según esquema | Una línea. Es lo que ya hace la herramienta |
+| **D-1** | El fierro entra a `list` y escala y se descuenta como todo lo demás | 90.5% a 100.5% según esquema | Una línea. Es lo que ya hace la herramienta |
 | **D-2** | El fierro se prorratea plano, **fuera** del factor anual y **fuera** del descuento, y se suma después | 100% exacto, siempre | `list` deja de ser un número que fluye por `calculatePaymentYear`; hay que partir el cálculo en dos |
 
 **Recomendación: D-1, más un aviso.** Mantiene una sola aritmética, es consistente con lo que la
@@ -313,7 +332,7 @@ Pero el vendedor no puede estar ciego a esto. Con D-1, la pantalla del vendedor 
 documento del cliente**— muestra junto al precio:
 
 ```text
-Fierro prorrateado: $219.71 por alumno y año · recupera 90.4% del costo con el descuento de contado
+Fierro prorrateado: $197.21 por alumno y año · recupera 90.5% del costo con el descuento de contado
 ```
 
 Si Martín prefiere D-2, se implementa D-2; pero entonces el plan crece y hay que rehacer el
@@ -369,7 +388,7 @@ completa: el costo del fierro, entre cuántos alumnos, entre cuántos años, y c
 precio por alumno. **El vendedor tiene que poder explicarle el número al colegio por teléfono sin
 abrir una hoja de cálculo.**
 
-El rótulo de los equipos —hoy fijo en «costos de catálogo: docente $21,000 · estudiante $17,000»,
+El rótulo de los equipos —hoy fijo en «costos de catálogo: docente $17,850 · estudiante $14,500»,
 línea 1268— pasa a escribirse desde el catálogo del plazo elegido.
 
 ---
@@ -395,7 +414,7 @@ Lo que sí hay que tocar:
 **Lo que no cambia:** el documento sigue sin imprimir cómo se armó el precio. La caja de cálculo
 del prorrateo es de la pantalla del vendedor y **no viaja** al PDF, al correo ni al escenario
 compartido. Esa regla se cerró el 21-ago-2026 y la custodia la prueba «El documento no imprime
-cómo se armó el precio». El colegio ve qué recibe y cuánto paga; los 30 × $17,000 son cuenta
+cómo se armó el precio». El colegio ve qué recibe y cuánto paga; los 30 × $14,500 son cuenta
 interna.
 
 ---
@@ -437,7 +456,7 @@ interna.
 La página corre su suite con `?test=1`. Hay que agregar, como mínimo:
 
 1. **La aritmética del ejemplo canónico.** 700 alumnos, 30 equipos, 1 carrito, 4 años → el
-   prorrateo da exactamente $219.71 por alumno y año, y `list` da $3,219.71.
+   prorrateo da exactamente $197.21 por alumno y año, y `list` da $3,197.21.
 2. **El plazo cambia el prorrateo.** El mismo fierro a 2 años cuesta el doble por alumno y año
    que a 4.
 3. **CEU y seguro son automáticos.** 30 equipos generan 30 CEU y 30 seguros sin que nadie los

@@ -100,9 +100,9 @@ esos objetos, no la lógica.
 | `APP_CONFIG.pricing` | **Los precios por alumno**, por paquete (`edu`, `plus`) y por fila de equipo (`n3`, `n4`, `flip`, `tab`) |
 | `APP_CONFIG.discounts` | Contado 10 %, firma temprana 5 % |
 | `APP_CONFIG.annualFactors` | Cómo escala el precio año con año según el plazo |
-| `APP_CONFIG.equipment` | Razón de docentes con licencia (1:10), cuota del docente extra, factor del adicional de alumno, y los precios de la **licencia CEU ($750)** y del **seguro por plazo** ($910 a 2 años, $1,390 a 3, $1,870 a 4) que la cotización a la medida suma sola por equipo. Los costos de equipo salieron de aquí: viven en `DEVICES` |
+| `APP_CONFIG.equipment` | Razón de docentes con licencia (1:10), cuota del docente extra ($1,500 al año), factor del adicional de alumno, y los precios de la **licencia CEU ($870)** y del **seguro por plazo** ($1,050 a 2 años, $1,600 a 3, $2,150 a 4) que la cotización a la medida suma sola por equipo. **Van con IVA, como todo aquí.** Ojo al tocarlos: el catálogo del cotizador de arrendamiento guarda estos mismos conceptos **sin** IVA, y copiarlos crudos fue el error del 22-ago-2026. Los costos de equipo salieron de aquí: viven en `DEVICES` |
 | `APP_CONFIG.limits` | Topes de cordura. `listPerStudent.max` bloquea el documento si el precio por alumno se sale de rango |
-| `DEVICES` | **El catálogo de dispositivos** (21-ago-2026): Chromebook nueva $17,000, Chromebook nueva docente $21,000, Flip-Touch seminueva $8,000 (alumno y docente), Tablet nueva $10,000. Sustituye a los retirados `teacherDeviceCost` y `studentDeviceCost` |
+| `DEVICES` | **El catálogo de dispositivos.** Lista definitiva del 22-ago-2026, **toda con IVA**: Chromebook nueva $14,500 (alumno) y $17,850 (docente), Flip-Touch seminueva $7,000 (alumno) y $9,000 (docente), Tablet nueva $10,000. Sustituye a los retirados `teacherDeviceCost` y `studentDeviceCost` |
 | `TERMS` | Los cuatro plazos: `cb3`, `cb4` (Chromebooks nuevas a 3 y 4 años), `fl2` (Flip-Touch seminueva a 2), `tb3` (Tablet a 3). **Cada plazo declara además qué equipos existen**: su equipo de alumno (`alumno`) y los modelos docentes elegibles (`docentes`, con su equipo y su razón). En `fl2` el docente solo puede ser seminuevo y en `tb3` solo Chromebook nueva: la opción que no existe no está en pantalla |
 | `TEACHER_MODELS` | Las etiquetas del modelo `docente` o `estudiante`; el equipo concreto y la razón de cada modelo los pone el plazo |
 | `PAYS` | Los tres esquemas: contado, firma antes del corte, firma después |
@@ -357,7 +357,7 @@ El resultado se dibuja en `#testReport`. Son **98 pruebas**. Cubren, entre otras
 migraciones de esquema v3 → v4 y v4 → v5 (esta última sin mover un centavo), que la importación
 externa conserve tipos estrictos, que un borrador incompleto sobreviva a exportar e importar, que
 la aritmética histórica no cambie, y la cotización a la medida completa: el ejemplo canónico
-(700 alumnos, 30 equipos, 1 carrito, 4 años → $3,219.71), que el plazo duplica el prorrateo a
+(700 alumnos, 30 equipos, 1 carrito, 4 años → $3,197.21), que el plazo duplica el prorrateo a
 2 años, que CEU y seguro se suman solos, que en `fl2` no existe el equipo docente nuevo y en
 `tb3` el docente es Chromebook nueva, que el documento nombra «seminueva» en la fila del equipo
 docente, y que el desglose del prorrateo no viaja al PDF ni al correo. **Conviene correrla

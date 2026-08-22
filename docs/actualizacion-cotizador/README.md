@@ -37,7 +37,7 @@ entonces cotiza 120 licencias en vez de 700 y el documento describe un colegio q
 > prorratea.
 
 Con los 700 alumnos del ejemplo, 30 Chromebooks nuevas y un carrito a 4 años: **$3,000 de
-licencias más $219.71 de fierro prorrateado = $3,219.71 por alumno y año.**
+licencias más $197.21 de fierro prorrateado = $3,197.21 por alumno y año.**
 
 ## El prorrateo ya existe
 
@@ -61,8 +61,7 @@ bandera `hasDev = mod > 0`.
 | Cantidad de carritos | Renglones explícitos en la modalidad a la medida; derivada de los equipos en 1:1 a 1:4, como hoy |
 | Plazo de 2 años | Flip-Touch **seminueva**. El docente **solo** puede ser seminuevo: la opción de nuevo no existe en pantalla |
 | Plazo de tablet | Tablet **nueva** a 3 años para el alumno; **Chromebook nueva** para el docente |
-| Flip-Touch seminueva docente | **$8,000** |
-| Tablet de alumno | **$10,000** |
+| Precios de equipo, CEU y seguro | **Lista definitiva del 22-ago-2026**, toda con IVA. Ver [`plan.md`](plan.md) |
 | El nombre de la modalidad | «Sin equipos incluidos · a la medida» |
 | Qué ve el colegio | Qué recibe y cuánto paga. **El desglose del prorrateo no sale de la pantalla del vendedor** |
 
@@ -72,9 +71,9 @@ Estaban abiertas y Martín las cerró. El detalle de cada una está en [`plan.md
 
 | | Qué se preguntaba | Qué se decidió |
 |---|---|---|
-| **A** | El precio del equipo de **alumno** Flip-Touch seminuevo | **$8,000**, igual que el docente |
-| **B** | Si la Chromebook nueva sigue en $17,000 y $21,000 | **Siguen**, incluido el docente del plazo de tablet a $21,000 |
-| **C** | Los precios de la licencia CEU y del seguro, **incluido el seguro a 2 años** | **Aplican los de arrendamiento tal cual, sin ajuste de IVA**: CEU $750, seguro $1,390 (3a) y $1,870 (4a). El de 2 años: **$910** |
+| **A** | El precio del equipo de **alumno** Flip-Touch seminuevo | **$7,000** (lista definitiva del 22-ago) |
+| **B** | Si la Chromebook nueva sigue en $17,000 y $21,000 | **No:** bajaron a **$14,500 / $17,850** el 22-ago |
+| **C** | Los precios de la licencia CEU y del seguro, **incluido el seguro a 2 años** | CEU **$870**, seguro **$1,050 / $1,600 / $2,150** a 2/3/4 años, **con IVA**. El 21-ago se habían tomado sin IVA del catálogo de arrendamiento: cotizaban de menos |
 | **D** | Si el fierro prorrateado escala año con año y se descuenta | **D-1: sí, con aviso en pantalla al vendedor** |
 | **E** | Si el stock de reemplazo aplica a la modalidad a la medida | **Sí, con la misma regla** |
 
@@ -83,11 +82,11 @@ Estaban abiertas y Martín las cerró. El detalle de cada una está en [`plan.md
 El prorrateo entra en el precio de lista, y el precio de lista recibe el descuento del esquema de
 pago. Con el descuento de contado del 10%:
 
-| Esquema | Descuento | Se recupera del fierro | Sobre los $615,200 del ejemplo |
+| Esquema | Descuento | Se recupera del fierro | Sobre los $552,200 del ejemplo |
 |---|---|---|---|
-| Firma después del corte | 0% | 100.5% | +$3,082 |
-| Firma antes del corte | −5% | 95.5% | −$27,842 |
-| **Contado en agosto** | **−10%** | **90.4%** | **−$58,700** |
+| Firma después del corte | 0% | 100.5% | +$2,761 |
+| Firma antes del corte | −5% | 95.5% | −$24,984 |
+| **Contado en agosto** | **−10%** | **90.5%** | **−$52,735** |
 
 El colegio que paga de contado obtiene el 10% **también sobre el equipo**, y el equipo no tiene
 margen de dónde salir. **Esto ya pasa hoy** con los equipos docentes adicionales; lo que cambia es
