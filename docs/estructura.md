@@ -69,6 +69,9 @@ Presentacion-activa/
 │   │                             encargo y la copia del puente (.gs)
 │   ├── actualizacion-cotizador/  La cotización a la medida del cotizador
 │   │                             Upgrade Edu: plan y encargo. Sin construir.
+│   ├── matriz-precios/           Una sola fuente de verdad de precios en los
+│   │                             tres cotizadores: plan y encargo. Implementada
+│   │                             el 22-ago-2026.
 │   ├── normativa-motion.md       Cómo se anima cualquier página. OBLIGATORIA.
 │   └── estructura.md             Este archivo
 │

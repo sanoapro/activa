@@ -91,26 +91,34 @@ lo que hay que llenar resalte. Dentro de las tarjetas largas, los bloques de cam
 
 ## Dónde se cambian los precios y las reglas
 
-Casi todo el negocio vive en objetos congelados con `deepFreeze` cerca de la línea 1764. Se editan
-esos objetos, no la lógica.
+Todos los importes viven en la **MATRIZ DE PRECIOS**: el objeto congelado **`PRECIOS`** (busca
+`MATRIZ DE PRECIOS` en `index.html`). La convención de esta página: **todo va CON IVA, de
+principio a fin** — los precios ya lo traen; no se agrega en ningún punto. Ojo al traer un
+precio del cotizador de **arrendamiento**: aquel catálogo va **sin** IVA, y copiarlo crudo fue
+el error del 22-ago-2026.
+
+Los objetos de abajo **derivan** de la matriz: cambiar un precio es editar `PRECIOS`, no ellos
+ni la lógica.
 
 | Objeto | Qué fija |
 |---|---|
-| `APP_CONFIG.cycle` | Ciclo `2026-2027`, fecha límite de firma temprana, vigencia (31 días), fecha de entrega, moneda y locale |
-| `APP_CONFIG.pricing` | **Los precios por alumno**, por paquete (`edu`, `plus`) y por fila de equipo (`n3`, `n4`, `flip`, `tab`) |
-| `APP_CONFIG.discounts` | Contado 10 %, firma temprana 5 % |
-| `APP_CONFIG.annualFactors` | Cómo escala el precio año con año según el plazo |
-| `APP_CONFIG.equipment` | Razón de docentes con licencia (1:10), cuota del docente extra ($1,500 al año), factor del adicional de alumno, y los precios de la **licencia CEU ($870)** y del **seguro por plazo** ($1,050 a 2 años, $1,600 a 3, $2,150 a 4) que la cotización a la medida suma sola por equipo. **Van con IVA, como todo aquí.** Ojo al tocarlos: el catálogo del cotizador de arrendamiento guarda estos mismos conceptos **sin** IVA, y copiarlos crudos fue el error del 22-ago-2026. Los costos de equipo salieron de aquí: viven en `DEVICES` |
-| `APP_CONFIG.limits` | Topes de cordura. `listPerStudent.max` bloquea el documento si el precio por alumno se sale de rango |
-| `DEVICES` | **El catálogo de dispositivos.** Lista definitiva del 22-ago-2026, **toda con IVA**: Chromebook nueva $14,500 (alumno) y $17,850 (docente), Flip-Touch seminueva $7,000 (alumno) y $9,000 (docente), Tablet nueva $10,000. Sustituye a los retirados `teacherDeviceCost` y `studentDeviceCost` |
-| `TERMS` | Los cuatro plazos: `cb3`, `cb4` (Chromebooks nuevas a 3 y 4 años), `fl2` (Flip-Touch seminueva a 2), `tb3` (Tablet a 3). **Cada plazo declara además qué equipos existen**: su equipo de alumno (`alumno`) y los modelos docentes elegibles (`docentes`, con su equipo y su razón). En `fl2` el docente solo puede ser seminuevo y en `tb3` solo Chromebook nueva: la opción que no existe no está en pantalla |
+| `PRECIOS` | **Todo el negocio**: `porAlumnoAnual` (los 40 precios por alumno), `equipos`, `porEquipo` (CEU y seguro por plazo), `carritos`, `docenteExtraAnual`, `adicionalAlumnoFactor`, `descuentosLicencia`, `pago`, `factoresAnuales`, `razones`, `stock`, `topePorAlumno`, `volumenRedes`, `acompanamiento`, `limites` y `vigenciaDias` |
+| `APP_CONFIG.cycle` | Ciclo `2026-2027`, fecha límite de firma temprana, vigencia (de la matriz) y fecha de entrega |
+| `APP_CONFIG.pricing` | La tabla `porAlumnoAnual` de la matriz, por paquete (`edu`, `plus`) y por fila de equipo (`n3`, `n4`, `flip`, `tab`) |
+| `APP_CONFIG.discounts` / `annualFactors` / `equipment` / `limits` | Derivan de `pago.descuentos`, `factoresAnuales`, `porEquipo`/`razones` y `limites`/`topePorAlumno` de la matriz |
+| `DEVICES` | Las etiquetas del catálogo de dispositivos; los costos los lee de `PRECIOS.equipos`. El precio del equipo va **pelón**: la CEU y el seguro se suman aparte en `deviceUnitCost()` |
+| `TERMS` | Los cuatro plazos: `cb3`, `cb4` (Chromebooks nuevas a 3 y 4 años), `fl2` (Flip-Touch seminueva a 2), `tb3` (Tablet a 3). **Cada plazo declara además qué equipos existen**: su equipo de alumno (`alumno`) y los modelos docentes elegibles (`docentes`, con su equipo y su razón, leída de `PRECIOS.razones`); el stock sale de `PRECIOS.stock` |
 | `TEACHER_MODELS` | Las etiquetas del modelo `docente` o `estudiante`; el equipo concreto y la razón de cada modelo los pone el plazo |
-| `PAYS` | Los tres esquemas: contado, firma antes del corte, firma después |
-| `LICS` (≈1991) | Las licencias y plataformas |
-| `ITEMS` (≈1860) | Cada partida del desglose, con su área, ícono y cantidad |
+| `PAYS` | Los tres esquemas: contado, firma antes del corte, firma después; descuentos, mensualidades y porcentaje de agosto salen de `PRECIOS.pago` |
+| `LICS` | Las licencias y plataformas; los descuentos al retirar salen de `PRECIOS.descuentosLicencia` |
+| `ITEMS` | Cada partida del desglose, con su área, ícono y cantidad |
 
-**Al cambiar de ciclo escolar** se toca `APP_CONFIG.cycle` y `APP_CONFIG.pricing`; las fechas están
-juntas a propósito para que sea un solo lugar.
+**Al cambiar de ciclo escolar** se toca `APP_CONFIG.cycle` y `PRECIOS.porAlumnoAnual`.
+
+⚠ **Copia manual declarada**: `compartidos/js/precios-ciclo.js` duplica la tabla
+`porAlumnoAnual` y la usan `paginas/precios/` y la lámina 33 del deck. Quien cambie un precio
+por alumno en la matriz tiene que actualizar ese archivo a mano; el aviso recíproco está en la
+cabecera de la matriz.
 
 ---
 

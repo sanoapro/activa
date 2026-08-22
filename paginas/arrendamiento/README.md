@@ -83,9 +83,12 @@ Lo que del Excel **no** se usa, a propósito:
 
 ## Dónde se cambian los precios y las reglas
 
-Todo el negocio vive en **un** objeto congelado con `deepFreeze`: **`CATALOG`** (busca
-`CATÁLOGO DEL ARRENDAMIENTO` en `index.html`, ~línea 780). Cambiar un precio es editar un número
-ahí y nada más; cada valor cita su celda:
+Todo el negocio vive en la **MATRIZ DE PRECIOS**: el objeto congelado **`PRECIOS`** (busca
+`MATRIZ DE PRECIOS` en `index.html`). La convención de esta página: **todos los importes van
+SIN IVA, como el Excel (Q2)**; el IVA se desglosa una sola vez, en `ivaParts()`. `CATALOG`
+(las descripciones comerciales), `LIMITS`, `PLAZOS`, `CART_CAPS` y la lista `FORBIDDEN` de las
+pruebas **derivan** de la matriz. Cambiar un precio es editar `PRECIOS` y nada más; cada valor
+cita su celda:
 
 | Campo | Celda | Valor |
 |---|---|---|
@@ -98,7 +101,7 @@ ahí y nada más; cada valor cita su celda:
 | `porPlazo[3].seguro` / `[4].seguro` | `Q10` / `Q11` | 1,390.00 / 1,870.00 |
 | `carritos[20]` / `[30]` / `[40]` | `Q13`–`Q15` | 24,374.70 / 26,600.70 / 31,720.50 |
 
-**Después de tocar `CATALOG`, corre `?test=1`.** Los cuatro casos de regresión del Excel están
+**Después de tocar `PRECIOS`, corre `?test=1`.** Los cuatro casos de regresión del Excel están
 clavados al centavo y no deben cambiar nunca; si cambias la tasa, esos casos fallarán a
 propósito para obligarte a revalidar contra una hoja nueva.
 

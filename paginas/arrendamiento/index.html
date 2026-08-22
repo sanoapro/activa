@@ -840,6 +840,7 @@ body.calc-first .inv::after{
       <div class="cfgf">
         <label id="lPlazo">Plazo del arrendamiento</label>
         <div class="seg" role="group" aria-labelledby="lPlazo" id="plazoSeg">
+          <!-- Los textos de plazo y el de capacidades los repone syncStaticCopy() desde PRECIOS -->
           <button type="button" data-plazo="3" aria-pressed="true">3 años · 36 meses</button>
           <button type="button" data-plazo="4" aria-pressed="false">4 años · 48 meses</button>
         </div>
@@ -897,7 +898,7 @@ body.calc-first .inv::after{
         <span class="fc"></span>
       </summary>
       <div class="foldb">
-        <div class="miniLbl">Renglones de carrito <span class="tagx">capacidades de 20, 30 y 40 equipos</span></div>
+        <div class="miniLbl">Renglones de carrito <span class="tagx" id="cartCapsTag">capacidades de 20, 30 y 40 equipos</span></div>
         <div class="cartrows" id="cartRows"></div>
         <div class="inline-action">
           <button type="button" class="btn" id="btnAddCart">
@@ -1339,38 +1340,27 @@ function getByPath(obj, path) {
   return path.split(".").reduce((acc, key) => acc == null ? undefined : acc[key], obj);
 }
 
-/* ============================================================
-   CATÁLOGO DEL ARRENDAMIENTO — ÚNICA FUENTE DE VERDAD
-   Cambiar un precio es editar un número aquí y nada más.
-   Todos los importes son SIN IVA, como el Excel (Q2). Cada
-   valor cita su celda de la hoja «Arrendamiento».
-
+/* ┌──────────────────────────────────────────────────────────────┐
+   │  MATRIZ DE PRECIOS · fuente única de verdad                  │
+   │  ⚠  TODOS LOS IMPORTES VAN SIN IVA                           │
+   │  Valores verificados el 22-ago-2026.                         │
+   │  Cambiar un precio es editar ESTE objeto, y nada más.        │
+   │  Aquí no se escriben cifras en prosa: el número vive abajo.  │
+   └──────────────────────────────────────────────────────────────┘
+   Sin IVA como el Excel (Q2); cada valor cita su celda de la hoja
+   «Arrendamiento».
    ⚠ TODO lo de este objeto es INFORMACIÓN INTERNA: solo puede
    pintarse dentro del panel del modo interno. El documento, el
    correo y el escenario compartido consumen únicamente los
-   totales de cliente que produce leaseQuote().
-   ============================================================ */
-const CATALOG = deepFreeze({
-  schemaVersion: 1,
-  iva: 0.16,
+   totales de cliente que produce leaseQuote(). */
+const PRECIOS = deepFreeze({
+  iva: 0.16,                 /* Q2 · el catálogo va sin IVA; se desglosa solo en ivaParts() */
   /* F4 · tasa anual del arrendamiento. FIJA por decisión de producto: es un
      término pactado con la arrendadora, no una palanca comercial. */
   tasaAnual: 0.24,
   equipos: {
-    estudiante: {
-      precio: 7740,          /* Q4 */
-      ceu: false,            /* la licencia CEU viene «permanente integrada» (P4) */
-      label: "Chromebook estudiante",
-      modelo: "Asus CZ1104FM4A-NS0074",
-      desc: "Rugged Chromebook MediaTek Kompanio 540, 8 GB / 64 GB eMMC, pantalla táctil 11.6\", cámara con obturador de privacidad y batería de 19 horas. Incluye licencia Chrome Education Upgrade permanente."
-    },
-    docente: {
-      precio: 9450,          /* Q5 */
-      ceu: true,             /* Q12 · el equipo docente NO trae CEU: se suma aparte */
-      label: "Chromebook docente",
-      modelo: "Asus Essential CX3402CVA",
-      desc: "Intel Core i3-1315U, 8 GB / 256 GB UFS, pantalla táctil 14\" FHD antirreflejante, Wi-Fi 6E. Incluye licencia Chrome Education Upgrade."
-    }
+    estudiante: { precio: 7740, ceu: false },  /* Q4 · la CEU viene «permanente integrada» (P4) */
+    docente:    { precio: 9450, ceu: true }    /* Q5 · NO trae CEU: se suma aparte (Q12) */
   },
   ceu: 750,                  /* Q12 · Licencia Chrome Education Upgrade */
   /* Decisión de producto: seguro y Securly se contratan SIEMPRE al plazo del
@@ -1384,12 +1374,41 @@ const CATALOG = deepFreeze({
   /* Q13–Q15 · carritos de carga y almacenamiento. Su costo total entra al
      monto financiado (M20 = N20/D17: prorrateo entre todos los equipos, que
      es aritméticamente idéntico a sumar el total al financiado). */
-  carritos: { 20: 24374.70, 30: 26600.70, 40: 31720.50 }
+  carritos: { 20: 24374.70, 30: 26600.70, 40: 31720.50 },
+  limites: { qty:{min:0,max:9999}, cartQty:{min:1,max:99}, cartRows:12 },
+  vigenciaDias: 31
 });
-const EQUIPO_KEYS = deepFreeze(["estudiante","docente"]);
-const CART_CAPS = deepFreeze([20,30,40]);
-const PLAZOS = deepFreeze([3,4]);
-const LIMITS = deepFreeze({ qty:{min:0,max:9999}, cartQty:{min:1,max:99}, cartRows:12 });
+
+/* Catálogo interno: descripciones comerciales de los equipos. Cada importe se
+   LEE de PRECIOS; aquí no vive ningún número de dinero. */
+const CATALOG = deepFreeze({
+  schemaVersion: 1,
+  iva: PRECIOS.iva,
+  tasaAnual: PRECIOS.tasaAnual,
+  equipos: {
+    estudiante: {
+      precio: PRECIOS.equipos.estudiante.precio,
+      ceu: PRECIOS.equipos.estudiante.ceu,
+      label: "Chromebook estudiante",
+      modelo: "Asus CZ1104FM4A-NS0074",
+      desc: "Rugged Chromebook MediaTek Kompanio 540, 8 GB / 64 GB eMMC, pantalla táctil 11.6\", cámara con obturador de privacidad y batería de 19 horas. Incluye licencia Chrome Education Upgrade permanente."
+    },
+    docente: {
+      precio: PRECIOS.equipos.docente.precio,
+      ceu: PRECIOS.equipos.docente.ceu,
+      label: "Chromebook docente",
+      modelo: "Asus Essential CX3402CVA",
+      desc: "Intel Core i3-1315U, 8 GB / 256 GB UFS, pantalla táctil 14\" FHD antirreflejante, Wi-Fi 6E. Incluye licencia Chrome Education Upgrade."
+    }
+  },
+  ceu: PRECIOS.ceu,
+  porPlazo: PRECIOS.porPlazo,
+  carritos: PRECIOS.carritos
+});
+const EQUIPO_KEYS = deepFreeze(Object.keys(PRECIOS.equipos));
+const CART_CAPS = deepFreeze(Object.keys(PRECIOS.carritos).map(Number).sort((a,b)=>a-b));
+const PLAZOS = deepFreeze(Object.keys(PRECIOS.porPlazo).map(Number).sort((a,b)=>a-b));
+const LIMITS = PRECIOS.limites;
 
 /* ============================================================
    MOTOR FINANCIERO PURO
@@ -1415,7 +1434,7 @@ function leaseQuote(input){
   const fallbacks = [];
   const warns = [];
   let plazo = PLAZOS.includes(q.plazo) ? q.plazo : null;
-  if(plazo === null){ fallbacks.push(`plazo desconocido "${q.plazo}"`); plazo = 3; }
+  if(plazo === null){ fallbacks.push(`plazo desconocido "${q.plazo}"`); plazo = PLAZOS[0]; }
   const plan = CATALOG.porPlazo[plazo];
   const meses = plan.meses;
   const seguro = q.seguro === true;
@@ -1490,7 +1509,7 @@ function leaseQuote(input){
      que nunca bloquea ni el precio ni el documento. */
   if(capacidad > 0 && totalEquipos > 0){
     if(capacidad < totalEquipos) warns.push({t:"w",code:"CART_SHORT",m:`Los carritos capturados guardan ${capacidad} equipos y la cotización lleva ${totalEquipos}: faltan ${totalEquipos-capacidad} espacios. No bloquea el precio; revisa si el colegio necesita otro carrito.`});
-    else if(capacidad - totalEquipos >= 20) warns.push({t:"i",code:"CART_EXCESS",m:`Los carritos guardan ${capacidad} equipos para ${totalEquipos} cotizados: sobran ${capacidad-totalEquipos} espacios, un carrito completo o más. Confirma que sea intencional.`});
+    else if(capacidad - totalEquipos >= CART_CAPS[0]) warns.push({t:"i",code:"CART_EXCESS",m:`Los carritos guardan ${capacidad} equipos para ${totalEquipos} cotizados: sobran ${capacidad-totalEquipos} espacios, un carrito completo o más. Confirma que sea intencional.`});
   }
   if(seguro || securly){
     const svc=[seguro?"seguro":"",securly?"Securly":""].filter(Boolean).join(" y ");
@@ -1608,7 +1627,7 @@ function saveSellerProfile(seller){
     localStorage.setItem(STORAGE_KEYS.seller,JSON.stringify(clean));return true;
   }catch(error){console.warn("No se pudo guardar el perfil del vendedor",error);return false;}
 }
-const VALIDITY_DAYS=31;
+const VALIDITY_DAYS=PRECIOS.vigenciaDias;
 function defaultState(generateIdentity=true){
   const today=localISODate(new Date()),seller=loadSellerProfile();
   return{
@@ -2010,7 +2029,7 @@ function stateFromHash(){
 function setFieldError(id,message=""){const input=$("#"+id);if(!input)return;let box=$("#"+id+"Error");if(!box){box=document.createElement("div");box.id=id+"Error";box.className="field-error";box.setAttribute("role","alert");input.insertAdjacentElement("afterend",box);}box.textContent=message;input.setAttribute("aria-invalid",message?"true":"false");if(message){const current=(input.getAttribute("aria-describedby")||"").split(/\s+/).filter(Boolean);if(!current.includes(box.id))current.push(box.id);input.setAttribute("aria-describedby",current.join(" "));FIELD_ERRORS.set(id,message);}else{FIELD_ERRORS.delete(id);const ids=(input.getAttribute("aria-describedby")||"").split(/\s+/).filter(x=>x&&x!==box.id);if(ids.length)input.setAttribute("aria-describedby",ids.join(" "));else input.removeAttribute("aria-describedby");}}
 /* "" no se interpreta como 0 y solo se aceptan dígitos: un campo vaciado marca
    error y NO escribe en el estado, para que input y estado nunca diverjan. */
-function validateIntegerInput(input,{min=0,max=9999,label="Cantidad"}={}){
+function validateIntegerInput(input,{min=0,max=LIMITS.qty.max,label="Cantidad"}={}){
   const raw=input.value.trim();
   if(raw===""){
     setFieldError(input.id,`${label} no puede quedar en blanco. Escribe 0 si no aplica.`);
@@ -2958,9 +2977,23 @@ const LeaseTests={
   withStorageSandbox(fn){const snapshot=this.storageSnapshot(),state=APP_STATE?clone(APP_STATE):null,result=CURRENT_RESULT?clone(CURRENT_RESULT):null,dirty=DIRTY,conflict=STORAGE_CONFLICT,lastRecovery=LAST_RECOVERY_KEY;try{return fn();}finally{this.restoreStorage(snapshot);APP_STATE=state;CURRENT_RESULT=result;DIRTY=dirty;STORAGE_CONFLICT=conflict;LAST_RECOVERY_KEY=lastRecovery;if(APP_STATE){bindStateToForm();renderAll();}}},
   baseScenario(extra={}){return {equipos:{estudiante:3,docente:2},plazo:3,seguro:true,securly:true,carritos:[{cap:20,qty:1}],...extra};},
   /* Cadenas que JAMÁS pueden aparecer en el documento, el correo ni el
-     escenario: precios de catálogo formateados, la tasa y el vocabulario del
-     panel interno. */
-  FORBIDDEN:["$7,740","$9,450","$24,374","$26,600","$31,720","$1,390","$1,050","$1,400","$1,870","$750.00","$490","24 %","0.24","24%","tasa","Tasa","TASA","financiado","Financiado","unitari","Unitari"],
+     escenario. Los importes se DERIVAN de PRECIOS —cada uno entra solo,
+     formateado con money(), y si un precio cambia la lista lo sigue—; el
+     vocabulario del panel interno sí va a mano, porque no es un número. */
+  FORBIDDEN:[
+    ...[PRECIOS.equipos.estudiante.precio,PRECIOS.equipos.docente.precio,
+        PRECIOS.ceu,
+        ...PLAZOS.flatMap(p=>[PRECIOS.porPlazo[p].securly,PRECIOS.porPlazo[p].seguro]),
+        ...CART_CAPS.map(cap=>PRECIOS.carritos[cap])].map(money),
+    String(PRECIOS.tasaAnual),
+    `${Math.round(PRECIOS.tasaAnual*100)}%`,`${Math.round(PRECIOS.tasaAnual*100)} %`,
+    "tasa","Tasa","TASA","financiado","Financiado","unitari","Unitari"],
+  /* Misma derivación para el escenario compartido, que viaja como JSON con los
+     números sin formato: equipos y carritos, truncados a enteros. Las cifras
+     chicas (CEU, seguros, Securly) no entran a propósito: chocarían con
+     cantidades legítimas de equipos. */
+  SCENARIO_LEAK_RE:new RegExp([PRECIOS.equipos.estudiante.precio,PRECIOS.equipos.docente.precio,
+    ...CART_CAPS.map(cap=>PRECIOS.carritos[cap])].map(n=>String(Math.trunc(n))).join("|")),
   assertNoInternal(text,label){for(const needle of this.FORBIDDEN)this.assert(!String(text).includes(needle),`${label} contiene el dato interno "${needle}"`);},
   runAll({show=true}={}){
     this.results=[];
@@ -3057,6 +3090,35 @@ const LeaseTests={
       /* Un carrito de 20, solo: 24,374.70 */
       const d=leaseQuote({equipos:{estudiante:1,docente:0},plazo:3,seguro:false,securly:false,carritos:[{cap:20,qty:1}]});
       this.assertClose(d.internal.totalFinanciado-c.internal.totalFinanciado,24374.70,1e-6,"costo del carrito de 20");
+    });
+    /* La prueba de la reorganización (22-ago-2026): PRECIOS congelado, cada
+       constante derivada coincide con su entrada en la matriz —lo que detecta
+       un importe suelto reescrito a mano— y los importes de cabecera van
+       clavados con el número escrito a mano, para que un dedazo dentro de la
+       propia matriz también falle. */
+    this.test("La matriz es la única fuente",()=>{
+      this.assert(Object.isFrozen(PRECIOS)&&Object.isFrozen(PRECIOS.equipos)&&Object.isFrozen(PRECIOS.porPlazo)&&Object.isFrozen(PRECIOS.carritos)&&Object.isFrozen(PRECIOS.limites),"PRECIOS debe estar congelado");
+      this.assert(CATALOG.iva===PRECIOS.iva&&CATALOG.tasaAnual===PRECIOS.tasaAnual,"CATALOG no deriva IVA y tasa de la matriz");
+      for(const k of EQUIPO_KEYS){
+        this.assert(CATALOG.equipos[k].precio===PRECIOS.equipos[k].precio,`el precio de ${k} no coincide con la matriz`);
+        this.assert(CATALOG.equipos[k].ceu===PRECIOS.equipos[k].ceu,`la bandera CEU de ${k} no coincide con la matriz`);
+      }
+      this.assert(CATALOG.ceu===PRECIOS.ceu,"la CEU de CATALOG no es la de la matriz");
+      this.assert(CATALOG.porPlazo===PRECIOS.porPlazo&&CATALOG.carritos===PRECIOS.carritos,"porPlazo/carritos de CATALOG no son los de la matriz");
+      this.assert(LIMITS===PRECIOS.limites,"LIMITS no es la matriz");
+      this.assert(VALIDITY_DAYS===PRECIOS.vigenciaDias,"la vigencia no deriva de la matriz");
+      this.assert(JSON.stringify([...PLAZOS])===JSON.stringify(Object.keys(PRECIOS.porPlazo).map(Number).sort((a,b)=>a-b)),"PLAZOS no deriva de la matriz");
+      this.assert(JSON.stringify([...CART_CAPS])===JSON.stringify(Object.keys(PRECIOS.carritos).map(Number).sort((a,b)=>a-b)),"CART_CAPS no deriva de la matriz");
+      /* Cabecera clavada a mano */
+      this.assert(PRECIOS.iva===0.16,"IVA");
+      this.assert(PRECIOS.tasaAnual===0.24,"tasa anual");
+      this.assert(PRECIOS.equipos.estudiante.precio===7740,"Chromebook estudiante (Q4)");
+      this.assert(PRECIOS.equipos.docente.precio===9450,"Chromebook docente (Q5)");
+      this.assert(PRECIOS.ceu===750,"licencia CEU (Q12)");
+      this.assert(PRECIOS.porPlazo[3].meses===36&&PRECIOS.porPlazo[3].securly===1050&&PRECIOS.porPlazo[3].seguro===1390,"plazo de 3 años (Q7/Q10)");
+      this.assert(PRECIOS.porPlazo[4].meses===48&&PRECIOS.porPlazo[4].securly===1400&&PRECIOS.porPlazo[4].seguro===1870,"plazo de 4 años (Q8/Q11)");
+      this.assert(PRECIOS.carritos[20]===24374.70&&PRECIOS.carritos[30]===26600.70&&PRECIOS.carritos[40]===31720.50,"carritos (Q13–Q15)");
+      this.assert(PRECIOS.vigenciaDias===31,"vigencia de 31 días");
     });
 
     /* ===== Estados de preparación y avisos ===== */
@@ -3253,7 +3315,7 @@ const LeaseTests={
       APP_STATE.scenario=this.baseScenario();
       const json=JSON.stringify(scenarioPayload());
       this.assertNoInternal(json,"scenarioPayload()");
-      this.assert(!/7740|9450|24374|26600|31720/.test(json),"el escenario lleva precios de catálogo");
+      this.assert(!this.SCENARIO_LEAK_RE.test(json),"el escenario lleva precios de catálogo");
     }));
     this.test("El correo no contiene datos internos",()=>this.withStorageSandbox(()=>{
       APP_STATE=createSafeDefaultState();
@@ -3404,8 +3466,20 @@ function handleStorageConflict(event){
   }catch(error){console.warn("No se pudo comparar la versión remota",error);}
 }
 function setupPersistenceGuards(){window.addEventListener("pagehide",flushPendingState);document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")flushPendingState();});window.addEventListener("storage",handleStorageConflict);}
+/* Rótulos del markup que repiten datos de la matriz: se reponen desde PRECIOS
+   al arrancar, para que no puedan divergir en silencio. */
+function syncStaticCopy(){
+  $$("#plazoSeg [data-plazo]").forEach(btn=>{
+    const plan=PRECIOS.porPlazo[Number(btn.dataset.plazo)];
+    if(plan)btn.textContent=`${plan.anios} años · ${plan.meses} meses`;
+  });
+  const caps=$("#cartCapsTag");
+  if(caps)caps.textContent=`capacidades de ${CART_CAPS.slice(0,-1).join(", ")} y ${CART_CAPS[CART_CAPS.length-1]} equipos`;
+}
+
 function start(){
   applyBrandAssets();
+  syncStaticCopy();
   initControls();
   const hashCode=String(location.hash||"").startsWith("#scenario=")?String(location.hash).slice(10):"";
   const payload=stateFromHash();

@@ -952,7 +952,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
     <div class="cfgin">
       <div class="cfgf"><span class="k">Partidas</span><b id="barCount">0</b></div>
       <div class="cfgf"><span class="k">Subtotal (sin IVA)</span><b class="num" id="barSubtotal">—</b></div>
-      <div class="cfgf"><span class="k">IVA 16 %</span><b class="num" id="barIva">—</b></div>
+      <div class="cfgf"><span class="k" id="barIvaLbl">IVA 16 %</span><b class="num" id="barIva">—</b></div>
       <div class="cfgprice">
         <span class="k">Total (con IVA)</span>
         <b class="num" id="barTotal">—</b>
@@ -1057,7 +1057,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
           <div class="f"><label for="fValid">Válida hasta</label><input type="date" id="fValid"><div class="hint" id="hValidity">Se sugiere 31 días</div></div>
         </div>
         <div class="grid2">
-          <div class="f"><label for="fShip">Incluye envío</label><select id="fShip"><option>Sí</option><option>No</option></select><div class="hint">La entrega es siempre 15 días hábiles después de la confirmación del pago.</div></div>
+          <div class="f"><label for="fShip">Incluye envío</label><select id="fShip"><option>Sí</option><option>No</option></select><div class="hint" id="hDelivery">La entrega es siempre 15 días hábiles después de la confirmación del pago.</div></div>
         </div>
         </div>
 
@@ -1421,7 +1421,6 @@ const money = n => roundCurrency(Number(n) || 0).toLocaleString("es-MX", {
   style: "currency", currency: "MXN",
   minimumFractionDigits: 2, maximumFractionDigits: 2
 });
-const percent = n => new Intl.NumberFormat("es-MX", {style:"percent", maximumFractionDigits:2}).format(n);
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmtInt = n => Number(n).toLocaleString("es-MX");
 const p2 = n => String(n).padStart(2, "0");
@@ -1477,9 +1476,80 @@ function getByPath(obj, path) {
 /* ---------- marca (extraída del BRAND_ASSETS del cotizador de Upgrade Edu) ---------- */
 const BRAND = deepFreeze({"activa": "data:image/webp;base64,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", "google": "data:image/webp;base64,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"});
 
+/* ┌──────────────────────────────────────────────────────────────┐
+   │  MATRIZ DE PRECIOS · fuente única de verdad                  │
+   │  ⚠  TODOS LOS IMPORTES VAN NETOS, SIN IVA                    │
+   │  Valores verificados el 22-ago-2026.                         │
+   │  Cambiar un precio es editar ESTE objeto, y nada más.        │
+   │  Aquí no se escriben cifras en prosa: el número vive abajo.  │
+   └──────────────────────────────────────────────────────────────┘
+   El IVA se aplica UNA sola vez, sobre el subtotal, en computeQuote();
+   nunca dentro de un precio unitario. Las descripciones comerciales de
+   cada partida viven en CATALOGO_BASE, que lee el precio de aquí. */
+const PRECIOS = deepFreeze({
+  iva: 0.16,
+  vigenciaDias: 31,
+  /* Norma comercial (21-ago-2026): en compra directa el disparador de la
+     entrega es el pago, y el plazo es el mismo para toda la cotización. Dejó
+     de ser un campo del vendedor para que nadie prometa otro por descuido. */
+  entrega: "15 días hábiles después de la confirmación del pago",
+  limites: {
+    qty: {min:1, max:999999},
+    years: {min:1, max:25},
+    lines: {max:200},
+    concept: {max:250}
+  },
+  /* Las 37 partidas, clave → precio unitario neto. */
+  partidas: {
+    /* ---- Equipos y accesorios ---- */
+    "ceu":            750,
+    "cb-rugged":     7740,
+    "cb-essential":  9450,
+    "carrito40":    31720.50,
+    "carrito30":    26600.70,
+    "carrito20":    24374.70,
+    "carrito-tab30":22482.60,
+    /* ---- Protección y filtrado ---- */
+    "seguro1":        490,
+    "seguro3":       1390,
+    "seguro4":       1870,
+    "securly":        350,      /* anual */
+    /* ---- Plataformas y licencias (anuales) ---- */
+    "everway":        192,
+    "wriq":            92,
+    "wayground-est":  130,
+    "eduplus":        102,
+    "gwtl":          1225,
+    /* ---- Programas activa (anuales; docentes con mínimo comercial) ---- */
+    "motiva-est":     400,
+    "motiva-doc":     400,
+    "beta-est":       400,
+    "beta-doc":       400,
+    "impulsa-est":    990,
+    "impulsa-doc":    990,
+    /* ---- Servicios, soporte y acompañamiento ---- */
+    "soporte1ti":   36750,
+    "soporte2ti":    3500,
+    "soporte3ti":    4000,
+    "hora-coach":    3500,
+    "hora-ti":       3000,
+    /* ---- Equipo seminuevo · costo residual ---- */
+    "flip1":         6034.48,
+    "flip2":         4482.76,
+    "flip3":         3017.24,
+    "flip4":         1379.31,
+    "flip5":          862.07,
+    "profe1":        7844.83,
+    "profe2":        5827.59,
+    "profe3":        4310.34,
+    "profe4":        1793.10,
+    "profe5":        1379.31
+  }
+});
+
 /* ============================================================
-   CONFIGURACIÓN FIJA — ÚNICA FUENTE DE VERDAD
-   La tasa de IVA vive AQUÍ y solo aquí. Ningún 0.16 suelto.
+   CONFIGURACIÓN FIJA — deriva de PRECIOS
+   La tasa de IVA vive en la matriz y solo ahí. Ningún 0.16 suelto.
    ============================================================ */
 const APP_CONFIG = deepFreeze({
   schemaVersion: 1,
@@ -1491,22 +1561,12 @@ const APP_CONFIG = deepFreeze({
     source: "docs/Costos activa sin IVA.xlsx · hoja Costos 2026"
   },
   vat: {
-    /* IVA 16 %: se aplica UNA sola vez, sobre el subtotal, nunca dentro de
-       un precio unitario. Todos los precios del catálogo son netos. */
-    rate: 0.16,
-    label: "IVA 16 %"
+    rate: PRECIOS.iva,
+    label: `IVA ${Math.round(PRECIOS.iva*100)} %`
   },
-  validityDays: 31,
-  limits: {
-    qty: {min:1, max:999999},
-    years: {min:1, max:25},
-    lines: {max:200},
-    concept: {max:250}
-  },
-  /* Norma comercial (21-ago-2026): en compra directa el disparador de la
-     entrega es el pago, y el plazo es el mismo para toda la cotización. Dejó
-     de ser un campo del vendedor para que nadie prometa otro por descuido. */
-  delivery: "15 días hábiles después de la confirmación del pago",
+  validityDays: PRECIOS.vigenciaDias,
+  limits: PRECIOS.limites,
+  delivery: PRECIOS.entrega,
   defaults: {
     shipping: "Sí",
     seller:{name:"Martín Maldonado",role:"Director Comercial",phone:"55 2725 9300",email:"martin@activa.la",website:"activa.la"},
@@ -1517,12 +1577,13 @@ const VAT_RATE = APP_CONFIG.vat.rate;
 
 /* ============================================================
    CATÁLOGO — 37 partidas confirmadas el 19-ago-2026
-   Agregar o cambiar un precio es editar ESTE objeto y nada más.
-   Cero precios literales en la lógica.
+   Los precios viven en PRECIOS.partidas: aquí solo están las
+   descripciones. Cada entrada recibe su precio POR SU CLAVE al
+   construir CATALOG. Cero precios literales en la lógica.
 
    Campos: k clave interna · part número de parte · fam familia ·
    n concepto (editable por renglón al cotizar) · d descripción ·
-   price precio unitario NETO en MXN, sin IVA · unit {s,p} unidad
+   price se INYECTA desde PRECIOS.partidas[k] · unit {s,p} unidad
    singular/plural que la interfaz nombra al pedir la cantidad ·
    annual true = licencia anual: el renglón exige «Años» y el
    importe es cantidad × años × precio · minQty mínimo comercial ·
@@ -1540,79 +1601,79 @@ const FAMILIES = deepFreeze([
   {k:"servicios",   n:"Servicios, soporte y acompañamiento",    d:"Mesa de ayuda, capacitación y horas de consultoría",   i:P.headset, c:"b"},
   {k:"seminuevo",   n:"Equipo seminuevo · costo residual",      d:"Equipos reacondicionados por años de uso, pago único", i:P.box,     c:"n"}
 ]);
-const CATALOG = deepFreeze([
+const CATALOGO_BASE = deepFreeze([
   /* ---------- Equipos y accesorios ---------- */
   {k:"ceu", part:"CEU Edu", fam:"equipos",
    n:"Licencia Perpetua Chrome Education Upgrade",
    d:"Una licencia de gestión educativa por Chromebook, perpetua: administración centralizada desde la Consola de Google Admin —políticas, aplicaciones, actualizaciones y control de la flota—.",
-   price:750, unit:{s:"equipo",p:"equipos"}, annual:false,
+   unit:{s:"equipo",p:"equipos"}, annual:false,
    note:"Licencia perpetua: pago único por equipo."},
   {k:"cb-rugged", part:"CZ1104FM4A-NS0074", fam:"equipos",
    n:"Asus Chromebook Rugged CZ1104",
    d:"Chromebook reforzada para uso rudo en el aula: MediaTek Kompanio 540, 8 GB de RAM y 64 GB eMMC, pantalla táctil de 11.6\u00a0pulgadas, cámara 720p con obturador de privacidad, cámara frontal de 5\u00a0MP y 19 horas de batería. Incluye la licencia Chrome Education Upgrade integrada.",
-   price:7740, unit:{s:"equipo",p:"equipos"}, annual:false},
+   unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"cb-essential", part:"CX3402CBA-i38G256-C1", fam:"equipos",
    n:"Asus Chromebook Essential CX3402",
    d:"Chromebook de trabajo para docentes y bachillerato: Intel Core i3-1315U, 8 GB de RAM y 256 GB UFS, pantalla táctil de 14\u00a0pulgadas FHD antirreflejante, Wi-Fi 6E y Bluetooth 5.4.",
-   price:9450, unit:{s:"equipo",p:"equipos"}, annual:false},
+   unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"carrito40", part:"ACCHC40", fam:"equipos",
    n:"Carrito de carga y almacenamiento para 40 Chromebooks",
    d:"Resguardo, traslado y carga simultánea de hasta 40 equipos. Aplica cuando el aula comparte los equipos en vez de asignarlos uno por alumno.",
-   price:31720.50, unit:{s:"carrito",p:"carritos"}, annual:false},
+   unit:{s:"carrito",p:"carritos"}, annual:false},
   {k:"carrito30", part:"ACCHC30", fam:"equipos",
    n:"Carrito de carga y almacenamiento para 30 Chromebooks",
    d:"Resguardo, traslado y carga simultánea de hasta 30 equipos. Aplica cuando el aula comparte los equipos en vez de asignarlos uno por alumno.",
-   price:26600.70, unit:{s:"carrito",p:"carritos"}, annual:false},
+   unit:{s:"carrito",p:"carritos"}, annual:false},
   {k:"carrito20", part:"ACHCC20", fam:"equipos",
    n:"Carrito de carga y almacenamiento para 20 Chromebooks",
    d:"Resguardo, traslado y carga simultánea de hasta 20 equipos. Aplica cuando el aula comparte los equipos en vez de asignarlos uno por alumno.",
-   price:24374.70, unit:{s:"carrito",p:"carritos"}, annual:false},
+   unit:{s:"carrito",p:"carritos"}, annual:false},
   {k:"carrito-tab30", part:"ACMC30I", fam:"equipos",
    n:"Carrito de carga y almacenamiento para 30 tablets",
    d:"Resguardo, traslado y carga simultánea de hasta 30 tablets. Aplica cuando el aula comparte los equipos en vez de asignarlos uno por alumno.",
-   price:22482.60, unit:{s:"carrito",p:"carritos"}, annual:false},
+   unit:{s:"carrito",p:"carritos"}, annual:false},
 
   /* ---------- Protección y filtrado ---------- */
   {k:"seguro1", part:"Seguro1", fam:"proteccion",
    n:"Seguro contra daños accidentales · 1 año",
    d:"Póliza contra daños accidentales del equipo —caídas, golpes y derrames— vigente 1 año desde la entrega. Pago único por equipo, no es licencia anual.",
-   price:490, unit:{s:"equipo",p:"equipos"}, annual:false},
+   unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"seguro3", part:"Seguro3", fam:"proteccion",
    n:"Seguro contra daños accidentales · 3 años",
    d:"Póliza contra daños accidentales del equipo —caídas, golpes y derrames— vigente 3 años desde la entrega. Pago único por equipo, no es licencia anual.",
-   price:1390, unit:{s:"equipo",p:"equipos"}, annual:false},
+   unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"seguro4", part:"Seguro4", fam:"proteccion",
    n:"Seguro contra daños accidentales · 4 años",
    d:"Póliza contra daños accidentales del equipo —caídas, golpes y derrames— vigente 4 años desde la entrega. Pago único por equipo, no es licencia anual.",
-   price:1870, unit:{s:"equipo",p:"equipos"}, annual:false},
+   unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"securly", part:"SecurlyFilter", fam:"proteccion",
    n:"Securly Filter + Securly Classroom",
    d:"Filtrado de contenido y monitoreo activo de la navegación, dentro y fuera del plantel, más las herramientas de gestión del aula digital en tiempo real. Licencia anual por equipo.",
-   price:350, unit:{s:"equipo",p:"equipos"}, annual:true,
-   note:"Para 3 o 4 años se capturan los años: 350 × 3 = 1,050 y 350 × 4 = 1,400, los mismos precios multianuales de lista."},
+   unit:{s:"equipo",p:"equipos"}, annual:true,
+   note:`Para 3 o 4 años se capturan los años: ${fmtInt(PRECIOS.partidas.securly)} × 3 = ${fmtInt(PRECIOS.partidas.securly*3)} y ${fmtInt(PRECIOS.partidas.securly)} × 4 = ${fmtInt(PRECIOS.partidas.securly*4)}, los mismos precios multianuales de lista.`},
 
   /* ---------- Plataformas y licencias ---------- */
   {k:"everway", part:"TextHelp_Toolkit", fam:"plataformas",
    n:"Everway (antes TextHelp) · Read&Write, EquatIO y OrbitNote",
    d:"Suite de accesibilidad y apoyo al aprendizaje para trabajo inclusivo: EquatIO, FluencyTutor, Read&Write y OrbitNote para Chrome, más Read&Write para Windows, Mac y iPad. Licencia anual por usuario.",
-   price:192, unit:{s:"usuario",p:"usuarios"}, annual:true},
+   unit:{s:"usuario",p:"usuarios"}, annual:true},
   {k:"wriq", part:"WriQ", fam:"plataformas",
    n:"WriQ para Chrome",
    d:"Evaluación y seguimiento automatizado de la escritura en inglés: mide fluidez, precisión y progreso de cada alumno dentro de Google Docs. Licencia anual por usuario.",
-   price:92, unit:{s:"usuario",p:"usuarios"}, annual:true},
+   unit:{s:"usuario",p:"usuarios"}, annual:true},
   {k:"wayground-est", part:"Wayground estudiante", fam:"plataformas",
    n:"Wayground (antes Quizizz) · estudiantes",
    d:"Evaluación formativa gamificada con diagnóstico en vivo del grupo: actividades formativas y sumativas con apoyo de inteligencia artificial. Licencia anual por estudiante.",
-   price:130, unit:{s:"estudiante",p:"estudiantes"}, annual:true},
+   unit:{s:"estudiante",p:"estudiantes"}, annual:true},
   {k:"eduplus", part:"EducationPlus", fam:"plataformas",
    n:"Google Workspace for Education Plus",
    d:"Edición completa de Google Workspace for Education: panel de seguridad, Meet ampliado, analítica avanzada y herramientas superiores de enseñanza. Licencia anual por estudiante y debe cubrir todo el dominio del colegio.",
-   price:102, unit:{s:"estudiante",p:"estudiantes"}, annual:true,
+   unit:{s:"estudiante",p:"estudiantes"}, annual:true,
    note:"Debe ser todo el dominio. Precio actualizado el 19-ago-2026 (el Excel decía 85.00)."},
   {k:"gwtl", part:"Teaching&Learning", fam:"plataformas",
    n:"Google Workspace for Education Teaching & Learning",
    d:"Cobertura avanzada de enseñanza y aprendizaje para el personal docente, cuando el programa entra por área y no por dominio completo. Licencia anual por docente.",
-   price:1225, unit:{s:"docente",p:"docentes"}, annual:true,
+   unit:{s:"docente",p:"docentes"}, annual:true,
    note:"Precio actualizado el 19-ago-2026 (el Excel decía 680.00)."},
 
   /* ---------- Programas activa ----------
@@ -1622,53 +1683,53 @@ const CATALOG = deepFreeze([
   {k:"motiva-est", part:"motiva", fam:"programas",
    n:"motiva · estudiantes",
    d:"Acompañamiento socioemocional guiado por psicólogos educativos certificados y diferenciado por nivel escolar: autoconciencia, autorregulación, toma de decisiones responsables, identidad y relaciones saludables. Licencia anual por estudiante.",
-   price:400, unit:{s:"estudiante",p:"estudiantes"}, annual:true},
+   unit:{s:"estudiante",p:"estudiantes"}, annual:true},
   {k:"motiva-doc", part:"motiva", fam:"programas",
    n:"motiva · docentes",
    d:"El programa socioemocional en la versión para la plantilla docente, con psicólogo educativo certificado. Incluye los cursos autogestivos de impulsa y la sesión de implementación. Licencia anual por docente.",
-   price:400, unit:{s:"docente",p:"docentes"}, annual:true, minQty:10,
+   unit:{s:"docente",p:"docentes"}, annual:true, minQty:10,
    note:"Mínimo 10 docentes: por debajo, esta licencia no se vende."},
   {k:"beta-est", part:"beta", fam:"programas",
    n:"beta · estudiantes",
    d:"Enseñanza del inglés por fases, alineada al Marco Común Europeo y con ruta hacia certificaciones Cambridge, IELTS y TOEFL, apoyada en tecnología y rigor académico. Licencia anual por estudiante.",
-   price:400, unit:{s:"estudiante",p:"estudiantes"}, annual:true},
+   unit:{s:"estudiante",p:"estudiantes"}, annual:true},
   {k:"beta-doc", part:"beta", fam:"programas",
    n:"beta · docentes",
    d:"El programa de inglés en la versión para la plantilla docente, alineado al Marco Común Europeo. Incluye los cursos autogestivos de impulsa y la sesión de implementación. Licencia anual por docente.",
-   price:400, unit:{s:"docente",p:"docentes"}, annual:true, minQty:10,
+   unit:{s:"docente",p:"docentes"}, annual:true, minQty:10,
    note:"Mínimo 10 docentes: por debajo, esta licencia no se vende."},
   {k:"impulsa-est", part:"impulsa", fam:"programas",
    n:"impulsa · estudiantes",
    d:"Proyectos educativos en línea alineados a la Nueva Escuela Mexicana —campos formativos, ejes articuladores, PDA y Programa Analítico— con publicación directa en Google Classroom. Licencia anual por estudiante.",
-   price:990, unit:{s:"estudiante",p:"estudiantes"}, annual:true},
+   unit:{s:"estudiante",p:"estudiantes"}, annual:true},
   {k:"impulsa-doc", part:"impulsa", fam:"programas",
    n:"impulsa · docentes",
    d:"Los proyectos alineados a la Nueva Escuela Mexicana en la versión para la plantilla docente, con publicación directa en Google Classroom. Incluye los cursos autogestivos y la sesión de implementación. Licencia anual por docente.",
-   price:990, unit:{s:"docente",p:"docentes"}, annual:true, minQty:10,
+   unit:{s:"docente",p:"docentes"}, annual:true, minQty:10,
    note:"Mínimo 10 docentes: por debajo, esta licencia no se vende."},
 
   /* ---------- Servicios, soporte y acompañamiento ---------- */
   {k:"soporte1ti", part:"Soporte1TI", fam:"servicios",
    n:"Soporte TI · mesa de ayuda (11 meses, agosto a junio)",
    d:"Mesa de ayuda por ticket con folio personalizado, de agosto a junio (11 meses): asistencia remota de lunes a viernes con respuesta en menos de 24 horas hábiles y solicitudes sin límite. Incluye una capacitación TI de 4 horas sobre la Consola de Google y las licencias compradas, en nivel A.",
-   price:36750, unit:{s:"año",p:"años"}, annual:false,
+   unit:{s:"año",p:"años"}, annual:false,
    note:"La cantidad son los años de servicio: no lleva campo de años aparte."},
   {k:"soporte2ti", part:"Soporte2TI", fam:"servicios",
    n:"Atención TI y capacitación · por hora",
    d:"Hora de atención técnica o de capacitación al área de TI del colegio, remota o presencial según se acuerde.",
-   price:3500, unit:{s:"hora",p:"horas"}, annual:false},
+   unit:{s:"hora",p:"horas"}, annual:false},
   {k:"soporte3ti", part:"Soporte3TI", fam:"servicios",
    n:"Atención TI especializada · Redes, Looker, AppSheet",
    d:"Hora de asistencia especializada: redes, Looker Studio y AppSheet. Es el nivel que atiende lo que la mesa de ayuda escala.",
-   price:4000, unit:{s:"hora",p:"horas"}, annual:false},
+   unit:{s:"hora",p:"horas"}, annual:false},
   {k:"hora-coach", part:"hora coach", fam:"servicios",
    n:"Hora coach para talleres o consultoría",
    d:"Hora de coach certificado para talleres, consultoría pedagógica o acompañamiento a dirección y docentes.",
-   price:3500, unit:{s:"hora",p:"horas"}, annual:false},
+   unit:{s:"hora",p:"horas"}, annual:false},
   {k:"hora-ti", part:"hora TI", fam:"servicios",
    n:"Hora TI para talleres o consultoría",
    d:"Hora de especialista de TI para talleres o consultoría técnica fuera del alcance de la mesa de ayuda.",
-   price:3000, unit:{s:"hora",p:"horas"}, annual:false},
+   unit:{s:"hora",p:"horas"}, annual:false},
 
   /* ---------- Equipo seminuevo · costo residual ----------
      El Excel trae estos precios CON IVA INCLUIDO dentro de una hoja que
@@ -1680,45 +1741,50 @@ const CATALOG = deepFreeze([
   {k:"flip1", part:"flip1", fam:"seminuevo",
    n:"Chromebook Lenovo 300e G4 seminueva · 1 año de uso",
    d:"Chromebook Lenovo 300e G4 convertible y táctil, reacondicionada y con garantía de operación. Precio de costo residual tras 1 año de uso. Pago único por equipo.",
-   price:6034.48, grossRef:7000, unit:{s:"equipo",p:"equipos"}, annual:false},
+   grossRef:7000, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"flip2", part:"flip2", fam:"seminuevo",
    n:"Chromebook Lenovo 300e G4 seminueva · 2 años de uso",
    d:"Chromebook Lenovo 300e G4 convertible y táctil, reacondicionada y con garantía de operación. Precio de costo residual tras 2 años de uso. Pago único por equipo.",
-   price:4482.76, grossRef:5200, unit:{s:"equipo",p:"equipos"}, annual:false},
+   grossRef:5200, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"flip3", part:"flip3", fam:"seminuevo",
    n:"Chromebook Lenovo 300e G4 seminueva · 3 años de uso",
    d:"Chromebook Lenovo 300e G4 convertible y táctil, reacondicionada y con garantía de operación. Precio de costo residual tras 3 años de uso. Pago único por equipo.",
-   price:3017.24, grossRef:3500, unit:{s:"equipo",p:"equipos"}, annual:false},
+   grossRef:3500, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"flip4", part:"flip4", fam:"seminuevo",
    n:"Chromebook Lenovo 300e G4 seminueva · 4 años de uso",
    d:"Chromebook Lenovo 300e G4 convertible y táctil, reacondicionada y con garantía de operación. Precio de costo residual tras 4 años de uso. Pago único por equipo.",
-   price:1379.31, grossRef:1600, unit:{s:"equipo",p:"equipos"}, annual:false},
+   grossRef:1600, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"flip5", part:"flip5", fam:"seminuevo",
    n:"Chromebook Lenovo 300e G4 seminueva · 5 años de uso",
    d:"Chromebook Lenovo 300e G4 convertible y táctil, reacondicionada y con garantía de operación. Precio de costo residual tras 5 años de uso. Pago único por equipo.",
-   price:862.07, grossRef:1000, unit:{s:"equipo",p:"equipos"}, annual:false},
+   grossRef:1000, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"profe1", part:"profe1", fam:"seminuevo",
    n:"Equipo premium para profesores · 1 año de uso",
    d:"Equipo premium para profesores —Acer Spin, Acer de 14\u00a0pulgadas o Fortis 14— reacondicionado al cierre del programa upgrade edu. Precio de costo residual tras 1 año de uso. Pago único por equipo.",
-   price:7844.83, grossRef:9100, unit:{s:"equipo",p:"equipos"}, annual:false},
+   grossRef:9100, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"profe2", part:"profe2", fam:"seminuevo",
    n:"Equipo premium para profesores · 2 años de uso",
    d:"Equipo premium para profesores —Acer Spin, Acer de 14\u00a0pulgadas o Fortis 14— reacondicionado al cierre del programa upgrade edu. Precio de costo residual tras 2 años de uso. Pago único por equipo.",
-   price:5827.59, grossRef:6760, unit:{s:"equipo",p:"equipos"}, annual:false},
+   grossRef:6760, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"profe3", part:"profe3", fam:"seminuevo",
    n:"Equipo premium para profesores · 3 años de uso",
    d:"Equipo premium para profesores —Acer Spin, Acer de 14\u00a0pulgadas o Fortis 14— reacondicionado al cierre del programa upgrade edu. Precio de costo residual tras 3 años de uso. Pago único por equipo.",
-   price:4310.34, grossRef:5000, unit:{s:"equipo",p:"equipos"}, annual:false,
-   note:"Al reponer el IVA da $4,999.99: un centavo abajo del precio original con IVA. Aceptado el 19-ago-2026."},
+   grossRef:5000, unit:{s:"equipo",p:"equipos"}, annual:false,
+   note:`Al reponer el IVA da ${money(roundCurrency(PRECIOS.partidas.profe3*(1+PRECIOS.iva)))}: un centavo abajo del precio original con IVA. Aceptado el 19-ago-2026.`},
   {k:"profe4", part:"profe4", fam:"seminuevo",
    n:"Equipo premium para profesores · 4 años de uso",
    d:"Equipo premium para profesores —Acer Spin, Acer de 14\u00a0pulgadas o Fortis 14— reacondicionado al cierre del programa upgrade edu. Precio de costo residual tras 4 años de uso. Pago único por equipo.",
-   price:1793.10, grossRef:2080, unit:{s:"equipo",p:"equipos"}, annual:false},
+   grossRef:2080, unit:{s:"equipo",p:"equipos"}, annual:false},
   {k:"profe5", part:"profe5", fam:"seminuevo",
    n:"Equipo premium para profesores · 5 años de uso",
    d:"Equipo premium para profesores —Acer Spin, Acer de 14\u00a0pulgadas o Fortis 14— reacondicionado al cierre del programa upgrade edu. Precio de costo residual tras 5 años de uso. Pago único por equipo.",
-   price:1379.31, grossRef:1600, unit:{s:"equipo",p:"equipos"}, annual:false}
+   grossRef:1600, unit:{s:"equipo",p:"equipos"}, annual:false}
 ]);
+/* Cada entrada recibe su precio POR SU CLAVE, sin escribirla dos veces: una
+   clave mal tecleada daría undefined —un renglón sin precio— sin que nada
+   avise. Inyectarla desde e.k lo hace imposible; la prueba «La matriz es la
+   única fuente» comprueba además que los juegos de claves coinciden. */
+const CATALOG = deepFreeze(CATALOGO_BASE.map(e => ({...e, price: PRECIOS.partidas[e.k]})));
 const CAT_BY_KEY = Object.fromEntries(CATALOG.map(entry => [entry.k, entry]));
 const CATALOG_KEYS = deepFreeze(CATALOG.map(entry => entry.k));
 
@@ -3586,6 +3652,37 @@ const QuoteTests={
        (p. ej. las del cotizador de Upgrade Edu), la suite falla visible. */
     if(HAS_STORAGE){try{localStorage.setItem("__activa_compra_canario__","1");}catch{}}
 
+    /* La prueba de la reorganización (22-ago-2026): PRECIOS congelado, cada
+       constante derivada coincide con su entrada en la matriz —incluido que el
+       juego de claves de PRECIOS.partidas y el de CATALOG sea exactamente el
+       mismo: ni precio huérfano ni partida sin precio— y los importes de
+       cabecera van clavados con el número escrito a mano, para que un dedazo
+       dentro de la propia matriz también falle. */
+    this.test("La matriz es la única fuente",()=>{
+      this.assert(Object.isFrozen(PRECIOS)&&Object.isFrozen(PRECIOS.partidas)&&Object.isFrozen(PRECIOS.limites),"PRECIOS debe estar congelado");
+      this.assert(APP_CONFIG.vat.rate===PRECIOS.iva,"vat.rate no deriva de la matriz");
+      this.assert(APP_CONFIG.validityDays===PRECIOS.vigenciaDias,"validityDays no deriva de la matriz");
+      this.assert(APP_CONFIG.limits===PRECIOS.limites,"limits no es la matriz");
+      this.assert(APP_CONFIG.delivery===PRECIOS.entrega,"delivery no deriva de la matriz");
+      const clavesMatriz=Object.keys(PRECIOS.partidas),clavesCatalogo=CATALOG.map(e=>e.k);
+      this.assert(clavesMatriz.length===37,`la matriz debe tener 37 partidas y tiene ${clavesMatriz.length}`);
+      this.assert(clavesMatriz.length===clavesCatalogo.length,`la matriz tiene ${clavesMatriz.length} precios y el catálogo ${clavesCatalogo.length} partidas`);
+      for(const k of clavesCatalogo)this.assert(Object.prototype.hasOwnProperty.call(PRECIOS.partidas,k),`la partida ${k} no tiene precio en la matriz`);
+      for(const k of clavesMatriz)this.assert(clavesCatalogo.includes(k),`el precio ${k} está huérfano: no existe la partida en el catálogo`);
+      for(const e of CATALOG)this.assert(e.price===PRECIOS.partidas[e.k],`el precio de ${e.k} no coincide con la matriz`);
+      /* Cabecera clavada a mano */
+      this.assert(PRECIOS.iva===0.16,"IVA");
+      this.assert(PRECIOS.vigenciaDias===31,"vigencia de 31 días");
+      this.assert(PRECIOS.partidas.ceu===750,"licencia CEU");
+      this.assert(PRECIOS.partidas["cb-rugged"]===7740,"Chromebook Rugged");
+      this.assert(PRECIOS.partidas["cb-essential"]===9450,"Chromebook Essential");
+      this.assert(PRECIOS.partidas.carrito20===24374.70&&PRECIOS.partidas.carrito30===26600.70&&PRECIOS.partidas.carrito40===31720.50,"carritos");
+      this.assert(PRECIOS.partidas.seguro1===490&&PRECIOS.partidas.seguro3===1390&&PRECIOS.partidas.seguro4===1870,"seguros");
+      this.assert(PRECIOS.partidas.securly===350,"Securly anual");
+      this.assert(PRECIOS.partidas.flip1===6034.48,"flip1 seminueva");
+      this.assert(PRECIOS.partidas.profe3===4310.34,"profe3 seminuevo");
+    });
+
     /* ===== Aritmética del IVA, al centavo ===== */
     this.test("IVA · una partida: 3 Chromebook Essential",()=>{
       const r=computeQuote([this.mkLine("cb-essential",3)]);
@@ -4065,6 +4162,8 @@ function syncStaticCopy(){
   const set=(selector,text)=>{const el=$(selector);if(el)el.textContent=text;};
   set("#hValidity",`Se sugiere ${APP_CONFIG.validityDays} días`);
   set("#totIvaLbl",APP_CONFIG.vat.label);
+  set("#barIvaLbl",APP_CONFIG.vat.label);
+  set("#hDelivery",`La entrega es siempre ${APP_CONFIG.delivery}.`);
   set("#footerLegal",`Precios de compra directa en pesos mexicanos, netos y sin IVA; el total incluye ${APP_CONFIG.vat.label}. Catálogo del ${longDateFromISO(APP_CONFIG.catalog.updatedISO)}. Sujetos a confirmación contractual.`);
   /* La versión sale del <title> del documento, que es el que se edita al
      publicar: tenerla escrita aquí a mano dejó la pestaña anunciando v1.0

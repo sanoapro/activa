@@ -1491,8 +1491,8 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
             </tr>
             <tr>
               <th scope="col" class="sh sep">Pago único</th>
-              <th scope="col" class="sh sep">Total del año</th><th scope="col" class="sh">50% en agosto</th><th scope="col" class="sh" data-installments>10 mensualidades</th>
-              <th scope="col" class="sh sep">Total del año</th><th scope="col" class="sh">50% en agosto</th><th scope="col" class="sh" data-installments>10 mensualidades</th>
+              <th scope="col" class="sh sep">Total del año</th><th scope="col" class="sh" data-august>50% en agosto</th><th scope="col" class="sh" data-installments>10 mensualidades</th>
+              <th scope="col" class="sh sep">Total del año</th><th scope="col" class="sh" data-august>50% en agosto</th><th scope="col" class="sh" data-installments>10 mensualidades</th>
             </tr>
           </thead>
           <tbody id="breakBody"></tbody>
@@ -1848,7 +1848,7 @@ const roundCurrency = n => Math.round((Number(n) + Number.EPSILON) * 100) / 100;
    precio lo dice —«Precio por alumno · IVA incluido»— y todo lo que entra al
    importe tiene que llegar ya con IVA: los precios de equipo, la licencia CEU,
    el seguro, la cuota del docente extra, los descuentos de licencia y el precio
-   de carrito que teclea el vendedor.
+   de carrito del catálogo.
 
    LA REGLA, porque ya costó una vez: el cotizador de ARRENDAMIENTO guarda su
    catálogo SIN IVA. El 21-ago-2026 la licencia CEU y el seguro se copiaron de
@@ -1881,6 +1881,9 @@ function longDateFromISO(iso){
   return `${d} de ${LONG_MONTHS_ES[m-1]} de ${y}`;
 }
 function earlySignatureDeadlineLabel(){return longDateFromISO(APP_CONFIG.cycle.earlySignatureDeadlineISO);}
+/* El «50%» de los rótulos de agosto, derivado de la matriz: si cambia el
+   porcentaje diferido, cambian el markup, la pantalla y el PDF con él. */
+const augustShareLabel = () => `${Math.round(PRECIOS.pago.agostoPorcentaje.diferido*100)}%`;
 const fmtDate = iso => iso ? longDateFromISO(iso) : "—";
 const debounce = (fn, wait=250) => {
   let timer;
@@ -1918,8 +1921,98 @@ function getByPath(obj, path) {
 }
 
 
+/* ┌──────────────────────────────────────────────────────────────┐
+   │  MATRIZ DE PRECIOS · fuente única de verdad                  │
+   │  ⚠  TODOS LOS IMPORTES VAN CON IVA                           │
+   │  Valores verificados el 22-ago-2026.                         │
+   │  Cambiar un precio es editar ESTE objeto, y nada más.        │
+   │  Aquí no se escriben cifras en prosa: el número vive abajo.  │
+   └──────────────────────────────────────────────────────────────┘
+   Lista definitiva de Martín. Se escriben tal cual, sin conversión: son
+   precio final, no salen de un catálogo sin IVA que haya que ajustar.
+
+   LA REGLA, porque ya costó una vez: el cotizador de ARRENDAMIENTO guarda
+   su catálogo SIN IVA. La licencia CEU y el seguro se copiaron de allá tal
+   cual y entraron crudos aquí; toda cotización a la medida salía barata.
+   Cualquier precio que llegue de esa fuente hay que multiplicarlo por el
+   factor de IVA ANTES de escribirlo.
+
+   ⚠ AVISO RECÍPROCO · compartidos/js/precios-ciclo.js es una COPIA MANUAL
+   de la tabla porAlumnoAnual de aquí, y la consumen paginas/precios/ y la
+   lámina 33 del deck. Quien cambie un precio por alumno en esta matriz
+   tiene que actualizar ese archivo a mano: el cotizador no lo carga para
+   no perder la autocontención que protege al PDF. */
+const PRECIOS = deepFreeze({
+  /* Precio por alumno y por año. Índice = modalidad: 0 sin equipos · 1 = 1:4 ·
+     2 = 1:3 · 3 = 1:2 · 4 = 1:1. Fila = plazo: n3 Chromebook 3 años · n4
+     Chromebook 4 años · flip seminueva 2 años · tab tablet 3 años. */
+  porAlumnoAnual: {
+    edu :{n3:[3000,4225,4633.333333,5450,7900], n4:[3000,3975,4300,4950,6900],
+          flip:[3000,3300,3400,3600,4200], tab:[3000,3300,3400,3600,4200]},
+    plus:{n3:[3500,4725,5133.333333,5950,8400], n4:[3500,4475,4800,5450,7400],
+          flip:[3500,3875,4000,4250,5000], tab:[3500,3875,4000,4250,5000]}
+  },
+  /* El precio del equipo va PELÓN: la CEU y el seguro se suman aparte, siempre,
+     vía deviceUnitCost(). Un equipo cuesta lo mismo por cualquier puerta. */
+  equipos: {
+    cbAlumno: 14500,      /* Chromebook nueva */
+    cbDocente: 17850,     /* Chromebook nueva · docente */
+    flAlumno: 7000,       /* Chromebook Flip-Touch seminueva */
+    flDocente: 9000,      /* Flip-Touch seminueva · docente */
+    tablet: 10000         /* Tablet nueva */
+  },
+  /* Por cada equipo, siempre y sin excepción. */
+  porEquipo: {
+    ceu: 870,
+    seguroPorAnios: {2:1050, 3:1600, 4:2150}
+  },
+  carritos: {20:28280, 30:30860, 40:36800},
+  docenteExtraAnual: 1500,
+  adicionalAlumnoFactor: 0.8,   /* × precio base por alumno */
+  /* Descuento por alumno/año al retirar la licencia. Las demás licencias valen
+     cero, y ese cero es una decisión: retirarlas no baja el precio. */
+  descuentosLicencia: {motiva:200, beta:200, everway:80},
+  pago: {
+    descuentos: {contado:0.10, firmaTemprana:0.05},
+    mensualidades: 10,
+    agostoPorcentaje: {contado:1, diferido:0.5}
+  },
+  factoresAnuales: {
+    three:[0.94,1.02,1.10],
+    four:[0.90,0.97,1.04,1.11],
+    twoFlat:[1,1]
+  },
+  razones: {
+    docentesIncluidos: 10,    /* docentes con licencia: 1 por cada N alumnos */
+    modeloDocente: 20,        /* equipo docente incluido: 1 por cada N alumnos */
+    modeloEstudiante: 10
+  },
+  stock: {nuevos:0.02, seminuevos:0.20},
+  /* Techo de plausibilidad comercial por alumno y año: por encima de este
+     importe el motor bloquea el documento en lugar de cotizarlo. */
+  topePorAlumno: 250000,
+  /* Descuento por volumen en redes: solo se dibuja, no entra en quote(). */
+  volumenRedes: [["500 – 999",10],["1,000 – 1,499",15],["1,500 – 1,999",20],
+                 ["2,000 – 2,499",30],["2,500 – 2,999",40],["3,000 – 4,999",45],
+                 ["5,000 +",55]],
+  /* Acompañamiento por número de alumnos. El último `to` es el centinela de
+     la banda «sin tope»: ahí el número es la intención, no un límite real. */
+  acompanamiento: [
+    {to:100,h:8,vis:0,esc:1,det:"Sin visita presencial"},
+    {to:200,h:8,vis:1,esc:2,det:"1 visita (mín. 3 h)"},
+    {to:500,h:10,vis:2,esc:3,det:"2 visitas (mín. 3 h)"},
+    {to:700,h:15,vis:2,esc:3,det:"2 visitas (mín. 3 h)"},
+    {to:999999,h:20,vis:3,esc:4,det:"Máx. 3 visitas (mín. 3 h)"}
+  ],
+  limites: {
+    students: {min:1, max:999999},
+    quantity: {min:0, max:999999}
+  },
+  vigenciaDias: 31
+});
+
 /* ============================================================
-   CONFIGURACIÓN FIJA DEL CICLO — ÚNICA FUENTE DE VERDAD
+   CONFIGURACIÓN FIJA DEL CICLO — deriva de PRECIOS
    ============================================================ */
 const APP_CONFIG = deepFreeze({
   schemaVersion: 5,
@@ -1927,56 +2020,33 @@ const APP_CONFIG = deepFreeze({
     id: "2026-2027",
     label: "Ciclo escolar 2026–2027",
     earlySignatureDeadlineISO: "2027-03-19",
-    validityDays: 31,
+    validityDays: PRECIOS.vigenciaDias,
     /* F-27 · Fase 2 · Confirmado por producto: el ciclo 2026–2027 cierra el año lectivo
        en julio de 2027 y los equipos se entregan en agosto de 2027. La fecha vivía
        suelta en defaults; ahora está junto a las demás fechas del ciclo para que el
        próximo cambio de ciclo se haga en un solo lugar. */
-    delivery: "15 de agosto de 2027",
-    currency: "MXN",
-    locale: "es-MX"
+    delivery: "15 de agosto de 2027"
   },
   limits: {
-    students: {min:1, max:999999},
-    quantity: {min:0, max:999999},
-    price: {min:0, max:10000000},
-    /* F-23 · M-02 · Techo de plausibilidad comercial por alumno y año: por encima
-       de este importe el motor bloquea el documento en lugar de cotizarlo. */
-    listPerStudent: {max:250000}
+    students: PRECIOS.limites.students,
+    quantity: PRECIOS.limites.quantity,
+    listPerStudent: {max: PRECIOS.topePorAlumno}
   },
-  discounts: {cash:0.10, early:0.05},
-  annualFactors: {
-    three:[0.94,1.02,1.10],
-    four:[0.90,0.97,1.04,1.11],
-    twoFlat:[1,1]
-  },
-  pricing: {
-    edu :{n3:[3000,4225,4633.333333,5450,7900], n4:[3000,3975,4300,4950,6900],
-          flip:[3000,3300,3400,3600,4200], tab:[3000,3300,3400,3600,4200]},
-    plus:{n3:[3500,4725,5133.333333,5950,8400], n4:[3500,4475,4800,5450,7400],
-          flip:[3500,3875,4000,4250,5000], tab:[3500,3875,4000,4250,5000]}
-  },
+  discounts: {cash: PRECIOS.pago.descuentos.contado, early: PRECIOS.pago.descuentos.firmaTemprana},
+  annualFactors: PRECIOS.factoresAnuales,
+  pricing: PRECIOS.porAlumnoAnual,
   equipment: {
-    /* Actualización cotizador (21-ago-2026) · Los precios de equipo salieron de aquí
-       hacia el catálogo DEVICES, porque el plazo decide qué equipos existen y cuánto
-       cuestan. Las razones de inclusión docente viven ahora en TERMS[..].docentes. */
-    includedTeacherRatio:10,
-    extraTeacherAnnualCost:1500,
-    extraStudentDeviceFactor:0.8,
+    /* Actualización cotizador (21-ago-2026) · Los precios de equipo viven en la
+       matriz y el catálogo DEVICES los lee, porque el plazo decide qué equipos
+       existen y cuánto cuestan. Las razones de inclusión docente viven en
+       TERMS[..].docentes, que también las lee de la matriz. */
+    includedTeacherRatio: PRECIOS.razones.docentesIncluidos,
+    extraTeacherAnnualCost: PRECIOS.docenteExtraAnual,
+    extraStudentDeviceFactor: PRECIOS.adicionalAlumnoFactor,
     /* Cotización a la medida (decisión C, 21-ago-2026): la licencia CEU y el seguro
-       se suman SOLOS por cada equipo prorrateado; no hay casilla que capturarlos.
-
-       LISTA DEFINITIVA DE MARTÍN, 22-ago-2026. Todos CON IVA, como todo en esta
-       herramienta. Se escriben tal cual, sin conversión: son precio final, no
-       salen de un catálogo sin IVA que haya que ajustar.
-
-       Aquí vivió el error del 22-ago-2026: estos importes se habían copiado del
-       cotizador de arrendamiento, que los guarda SIN IVA, y entraban crudos a un
-       precio con IVA incluido. Antes de tocar un número de este bloque hay que
-       saber si viene con IVA; si algún día vuelve a salir del catálogo de
-       arrendamiento, hay que multiplicarlo por 1.16 al traerlo. */
-    ceuUnitCost:870,
-    insuranceByYears:{2:1050,3:1600,4:2150}
+       se suman SOLOS por cada equipo prorrateado; no hay casilla que capturarlos. */
+    ceuUnitCost: PRECIOS.porEquipo.ceu,
+    insuranceByYears: PRECIOS.porEquipo.seguroPorAnios
   },
   defaults: {
     seller:{name:"Martín Maldonado",role:"Director Comercial",phone:"55 2725 9300",email:"martin@activa.la",website:"activa.la"},
@@ -2000,60 +2070,33 @@ const TEACHER_MODELS = deepFreeze({
 });
 const TEACHER_MODEL_KEYS = deepFreeze(Object.keys(TEACHER_MODELS));
 const teacherModelLabel = key => TEACHER_MODELS[key]?.label || "sin definir";
-/* F-23 · M-10 · Número de mensualidades declarado una sola vez. */
-const STD_INSTALLMENTS = 10;
+/* F-23 · M-10 · Número de mensualidades declarado una sola vez, en la matriz. */
+const STD_INSTALLMENTS = PRECIOS.pago.mensualidades;
 const BASE = APP_CONFIG.pricing;
 const S3 = APP_CONFIG.annualFactors.three;
 const S4 = APP_CONFIG.annualFactors.four;
 /* Catálogo de dispositivos. El plazo no solo dice entre cuántos años se divide:
-   dice qué equipos existen y cuánto cuestan. */
-/* ┌──────────────────────────────────────────────────────────────────────────┐
-   │  MATRIZ DE PRECIOS · lista definitiva de Martín, 22-ago-2026             │
-   │  ────────────────────────────────────────────────────────────────────    │
-   │  TODOS CON IVA. Es el único lugar donde se tocan estos importes.         │
-   │                                                                          │
-   │   EQUIPO                                    precio     + CEU + seguro    │
-   │   Chromebook nueva · alumno                 14,500     ──┐               │
-   │   Chromebook nueva · docente                17,850       │  El precio    │
-   │   Flip-Touch seminueva · alumno              7,000       │  del equipo   │
-   │   Flip-Touch seminueva · docente             9,000       │  va PELÓN:    │
-   │   Tablet nueva                              10,000     ──┘  la CEU y el  │
-   │                                                             seguro se    │
-   │   POR CADA EQUIPO, SIEMPRE Y SIN EXCEPCIÓN                  suman aparte │
-   │   Licencia Chrome Education Upgrade            870                       │
-   │   Seguro · 2 años (Flip-Touch seminueva)     1,050                       │
-   │   Seguro · 3 años (Tablet, Chromebook)       1,600                       │
-   │   Seguro · 4 años (Chromebook)               2,150                       │
-   │                                                                          │
-   │   OTROS                                                                  │
-   │   Docente extra sin equipo                   1,500   POR AÑO             │
-   │   Descuento al quitar motiva                  −200   por alumno/año      │
-   │   Descuento al quitar beta English            −200   por alumno/año      │
-   │   Descuento al quitar Everway (solo Plus)      −80   por alumno/año      │
-   │   CARRITO DE CARGA Y ALMACENAMIENTO                                      │
-   │   Para 20 Chromebooks                       28,280                       │
-   │   Para 30 Chromebooks                       30,860                       │
-   │   Para 40 Chromebooks                       36,800                       │
-   │                                                                          │
-   │  Hasta el 22-ago-2026 el precio de equipo TRAÍA DENTRO la CEU y el       │
-   │  seguro (la Chromebook de alumno costaba 17,000 «con todo»). Ahora el    │
-   │  precio va pelón y los dos conceptos se suman por separado, para que un  │
-   │  equipo cueste lo mismo por cualquier puerta que entre. Si algún día     │
-   │  vuelven a venir incluidos, hay que quitarlos de deviceUnitCost().       │
-   └──────────────────────────────────────────────────────────────────────────┘ */
+   dice qué equipos existen y cuánto cuestan. Los importes viven en la MATRIZ DE
+   PRECIOS: aquí solo hay etiquetas y referencias.
+
+   Hasta el 22-ago-2026 el precio de equipo TRAÍA DENTRO la CEU y el seguro.
+   Ahora el precio va pelón y los dos conceptos se suman por separado —en
+   deviceUnitCost()— para que un equipo cueste lo mismo por cualquier puerta
+   que entre. Si algún día vuelven a venir incluidos, hay que quitarlos de ahí. */
 /* Precio de carrito POR CAPACIDAD. Hasta el 22-ago-2026 lo tecleaba el vendedor en
    cada cotización: un precio de catálogo capturado a mano es un precio equivocado
-   esperando su turno, y además el campo no decía si llevaba IVA. Ahora sale de aquí.
-   Lo que el vendedor decide es CUÁNTOS carritos, no cuánto cuestan; si el colegio ya
-   tiene los suyos, la cantidad es cero. Regalarlos exige autorización expresa. */
-const CART_PRICES = deepFreeze({20:28280,30:30860,40:36800});
+   esperando su turno, y además el campo no decía si llevaba IVA. Ahora sale de la
+   matriz. Lo que el vendedor decide es CUÁNTOS carritos, no cuánto cuestan; si el
+   colegio ya tiene los suyos, la cantidad es cero. Regalarlos exige autorización
+   expresa. */
+const CART_PRICES = PRECIOS.carritos;
 const cartCatalogPrice = cap => CART_PRICES[Number(cap)] ?? 0;
 const DEVICES = deepFreeze({
-  cbAlumno:  {label:"Chromebook nueva",                cost:14500},
-  cbDocente: {label:"Chromebook nueva · docente",      cost:17850},
-  flAlumno:  {label:"Chromebook Flip-Touch seminueva", cost:7000},
-  flDocente: {label:"Flip-Touch seminueva · docente",  cost:9000},
-  tablet:    {label:"Tablet nueva",                    cost:10000}
+  cbAlumno:  {label:"Chromebook nueva",                cost:PRECIOS.equipos.cbAlumno},
+  cbDocente: {label:"Chromebook nueva · docente",      cost:PRECIOS.equipos.cbDocente},
+  flAlumno:  {label:"Chromebook Flip-Touch seminueva", cost:PRECIOS.equipos.flAlumno},
+  flDocente: {label:"Flip-Touch seminueva · docente",  cost:PRECIOS.equipos.flDocente},
+  tablet:    {label:"Tablet nueva",                    cost:PRECIOS.equipos.tablet}
 });
 /* Cada plazo declara su equipo de alumno y la lista de modelos docentes ELEGIBLES.
    Las llaves `docente` y `estudiante` se conservan a propósito: son los valores que
@@ -2062,20 +2105,20 @@ const DEVICES = deepFreeze({
    tablet el docente lleva Chromebook nueva: lo que no se puede elegir no se puede
    equivocar. Con una sola opción, la pantalla la preselecciona y no pregunta. */
 const TERMS = deepFreeze({
-  cb3:{label:"Chromebooks nuevas · 3 años",row:"n3",sched:S3,years:3,device:"Chromebook nueva",stockPct:0.02,
+  cb3:{label:"Chromebooks nuevas · 3 años",row:"n3",sched:S3,years:S3.length,device:"Chromebook nueva",stockPct:PRECIOS.stock.nuevos,
        alumno:"cbAlumno",
-       docentes:[{k:"docente",dev:"cbDocente",ratio:20,label:"Modelo docente"},
-                 {k:"estudiante",dev:"cbAlumno",ratio:10,label:"Modelo estudiante"}]},
-  cb4:{label:"Chromebooks nuevas · 4 años",row:"n4",sched:S4,years:4,device:"Chromebook nueva",stockPct:0.02,
+       docentes:[{k:"docente",dev:"cbDocente",ratio:PRECIOS.razones.modeloDocente,label:"Modelo docente"},
+                 {k:"estudiante",dev:"cbAlumno",ratio:PRECIOS.razones.modeloEstudiante,label:"Modelo estudiante"}]},
+  cb4:{label:"Chromebooks nuevas · 4 años",row:"n4",sched:S4,years:S4.length,device:"Chromebook nueva",stockPct:PRECIOS.stock.nuevos,
        alumno:"cbAlumno",
-       docentes:[{k:"docente",dev:"cbDocente",ratio:20,label:"Modelo docente"},
-                 {k:"estudiante",dev:"cbAlumno",ratio:10,label:"Modelo estudiante"}]},
-  fl2:{label:"Chromebook Flip-Touch seminueva · 2 años",row:"flip",sched:APP_CONFIG.annualFactors.twoFlat,years:2,device:"Chromebook Flip-Touch seminueva",stockPct:0.20,
+       docentes:[{k:"docente",dev:"cbDocente",ratio:PRECIOS.razones.modeloDocente,label:"Modelo docente"},
+                 {k:"estudiante",dev:"cbAlumno",ratio:PRECIOS.razones.modeloEstudiante,label:"Modelo estudiante"}]},
+  fl2:{label:"Chromebook Flip-Touch seminueva · 2 años",row:"flip",sched:APP_CONFIG.annualFactors.twoFlat,years:APP_CONFIG.annualFactors.twoFlat.length,device:"Chromebook Flip-Touch seminueva",stockPct:PRECIOS.stock.seminuevos,
        alumno:"flAlumno",
-       docentes:[{k:"docente",dev:"flDocente",ratio:20,label:"Flip-Touch seminueva docente"}]},
-  tb3:{label:"Tablet · 3 años",row:"tab",sched:S3,years:3,device:"Tablet nueva",stockPct:0.02,
+       docentes:[{k:"docente",dev:"flDocente",ratio:PRECIOS.razones.modeloDocente,label:"Flip-Touch seminueva docente"}]},
+  tb3:{label:"Tablet · 3 años",row:"tab",sched:S3,years:S3.length,device:"Tablet nueva",stockPct:PRECIOS.stock.nuevos,
        alumno:"tablet",
-       docentes:[{k:"docente",dev:"cbDocente",ratio:20,label:"Chromebook nueva docente"}]}
+       docentes:[{k:"docente",dev:"cbDocente",ratio:PRECIOS.razones.modeloDocente,label:"Chromebook nueva docente"}]}
 });
 const TERM_ORDER = ["cb3","cb4","fl2","tb3"];
 /* Helpers del catálogo por plazo. La opción `docente`/`estudiante` de un plazo, y los
@@ -2103,9 +2146,9 @@ const termEstudianteDeviceKey = t => termDocOption(t,"estudiante")?.dev || t.alu
 const termDocenteDeviceCost = (t,years) => deviceUnitCost(termDocenteDeviceKey(t),years);
 const termEstudianteDeviceCost = (t,years) => deviceUnitCost(termEstudianteDeviceKey(t),years);
 const PAYS = deepFreeze({
-  contado:{title:"Contado en agosto",disc:APP_CONFIG.discounts.cash,badge:`−${percent(APP_CONFIG.discounts.cash)}`,desc:"Pago único, sin mensualidades",ico:P.wallet,c:"var(--g-grn)",cd:"var(--g-grn-d)",t:"var(--g-grn-t)",augustPercentage:1,installments:0},
-  antes:{title:`Firma antes del ${earlySignatureDeadlineLabel()}`,disc:APP_CONFIG.discounts.early,badge:`−${percent(APP_CONFIG.discounts.early)}`,desc:`50% en agosto + ${STD_INSTALLMENTS} mensualidades`,ico:P.calendar,c:"var(--g-blue)",cd:"var(--g-blue-d)",t:"var(--g-blue-t)",augustPercentage:.5,installments:STD_INSTALLMENTS},
-  despues:{title:`Firma a partir del ${earlySignatureDeadlineLabel()}`,disc:0,badge:"0%",desc:`50% en agosto + ${STD_INSTALLMENTS} mensualidades`,ico:P.clock,c:"var(--mute)",cd:"var(--ink2)",t:"#e9edf4",augustPercentage:.5,installments:STD_INSTALLMENTS}
+  contado:{title:"Contado en agosto",disc:APP_CONFIG.discounts.cash,badge:`−${percent(APP_CONFIG.discounts.cash)}`,desc:"Pago único, sin mensualidades",ico:P.wallet,c:"var(--g-grn)",cd:"var(--g-grn-d)",t:"var(--g-grn-t)",augustPercentage:PRECIOS.pago.agostoPorcentaje.contado,installments:0},
+  antes:{title:`Firma antes del ${earlySignatureDeadlineLabel()}`,disc:APP_CONFIG.discounts.early,badge:`−${percent(APP_CONFIG.discounts.early)}`,desc:`${augustShareLabel()} en agosto + ${STD_INSTALLMENTS} mensualidades`,ico:P.calendar,c:"var(--g-blue)",cd:"var(--g-blue-d)",t:"var(--g-blue-t)",augustPercentage:PRECIOS.pago.agostoPorcentaje.diferido,installments:STD_INSTALLMENTS},
+  despues:{title:`Firma a partir del ${earlySignatureDeadlineLabel()}`,disc:0,badge:"0%",desc:`${augustShareLabel()} en agosto + ${STD_INSTALLMENTS} mensualidades`,ico:P.clock,c:"var(--mute)",cd:"var(--ink2)",t:"#e9edf4",augustPercentage:PRECIOS.pago.agostoPorcentaje.diferido,installments:STD_INSTALLMENTS}
 });
 const YEAR_C=[G.b,G.r,G.y,G.g], YEAR_T=[GT.b,GT.r,GT.y,GT.g];
 /* Actualización cotizador (21-ago-2026) · DEV=[0,1,1,1,1] se retiró: las filas de
@@ -2138,7 +2181,9 @@ const ITEMS=[
     licencia ni póliza por separado. Seguro y Chrome Upgrade cubren el parque
     entregado (totalEq); el stock se repone contra ese mismo parque. */
  {a:"TI",i:P.box,c:"y",n:"Stock de equipos de reemplazo",
-  d:"Reserva operativa de sustitución inmediata (2% del parque solicitado en equipos nuevos y 20% en seminuevos). No se asigna a usuarios y no genera licencias ni póliza adicionales.",
+  /* Este texto se imprime en el PDF: los porcentajes se derivan de la matriz
+     para que el documento no prometa un stock que ya no es. */
+  d:`Reserva operativa de sustitución inmediata (${Math.round(PRECIOS.stock.nuevos*100)}% del parque solicitado en equipos nuevos y ${Math.round(PRECIOS.stock.seminuevos*100)}% en seminuevos). No se asigna a usuarios y no genera licencias ni póliza adicionales.`,
   e:T,p:T,
   qty:r=>r.stock},
  {a:"TI",i:P.shield,c:"g",n:"Seguro contra daños y robo",
@@ -2254,14 +2299,10 @@ const PLATFORMS=[
  {n:"Canva",    u:"canva.com",           asset:"canva",     when:(L)=>L.canva},
  {n:"Everway",  u:"everway.com",         asset:"everway",   when:(L,plus)=>plus&&L.everway}
 ];
-const VOLUME = deepFreeze([["500 – 999",10],["1,000 – 1,499",15],["1,500 – 1,999",20],["2,000 – 2,499",30],["2,500 – 2,999",40],["3,000 – 4,999",45],["5,000 +",55]]);
-const CAP = deepFreeze([
-  {to:100,h:8,vis:0,esc:1,det:"Sin visita presencial"},
-  {to:200,h:8,vis:1,esc:2,det:"1 visita (mín. 3 h)"},
-  {to:500,h:10,vis:2,esc:3,det:"2 visitas (mín. 3 h)"},
-  {to:700,h:15,vis:2,esc:3,det:"2 visitas (mín. 3 h)"},
-  {to:999999,h:20,vis:3,esc:4,det:"Máx. 3 visitas (mín. 3 h)"}
-]);
+const VOLUME = PRECIOS.volumenRedes;
+/* Máximo del arreglo, para la gráfica de volumen: la banda más alta llena la barra. */
+const VOLUME_MAX = Math.max(...VOLUME.map(([,pct])=>pct));
+const CAP = PRECIOS.acompanamiento;
 const capFor = students => CAP.find(c => students <= c.to) || CAP[CAP.length-1];
 const LICS = deepFreeze([
   {k:"gestion",n:"Licencias de gestión (Chrome Education Upgrade)",disc:0},
@@ -2272,10 +2313,10 @@ const LICS = deepFreeze([
   {k:"gwtl",n:"Google Workspace Teaching & Learning",disc:0},
   {k:"impulsaE",n:"impulsa — estudiantes",disc:0},
   {k:"impulsaD",n:"impulsa — docentes",disc:0},
-  {k:"motiva",n:"motiva",disc:200},
-  {k:"beta",n:"beta English",disc:200},
+  {k:"motiva",n:"motiva",disc:PRECIOS.descuentosLicencia.motiva},
+  {k:"beta",n:"beta English",disc:PRECIOS.descuentosLicencia.beta},
   {k:"eleva",n:"eleva — desarrollo docente",disc:0},
-  {k:"everway",n:"Everway (Read&Write + Orbit Note + Equatio)",disc:80,plusOnly:true}
+  {k:"everway",n:"Everway (Read&Write + Orbit Note + Equatio)",disc:PRECIOS.descuentosLicencia.everway,plusOnly:true}
 ]);
 
 /* ============================================================
@@ -2568,7 +2609,7 @@ function nextDailyCounter(dateISO){
     current=Number(raw);
     if(!Number.isSafeInteger(current))current=0;
   }
-  const next=current>=999999?1:current+1;
+  const next=current>=APP_CONFIG.limits.quantity.max?1:current+1;
   localStorage.setItem(key,String(next));
   return next;
 }
@@ -2654,7 +2695,7 @@ if(sanitizedMod===0&&version>=5&&isPlainObject(payload.proRata)){
   }
 }
 const cleanTerm=strictEnum(payload.term,Object.keys(TERMS),"Plazo");
-const scenario={pkg:strictEnum(payload.pkg,["edu","plus"],"Paquete"),term:cleanTerm,mod:sanitizedMod,pay:strictEnum(payload.pay,Object.keys(PAYS),"Pago"),stu:strictInteger(payload.stu,1,APP_CONFIG.limits.students.max,"Alumnos"),...migrateDeviceFields(payload),docExtra:strictInteger(payload.docExtra??0,0,APP_CONFIG.limits.quantity.max,"Docentes extra"),eqDoc:hasDevicesMod?strictInteger(payload.eqDoc??0,0,APP_CONFIG.limits.quantity.max,"Equipos docente"):0,eqStu:hasDevicesMod?strictInteger(payload.eqStu??0,0,APP_CONFIG.limits.quantity.max,"Equipos estudiante"):0,cartCap:strictEnum(payload.cartCap,[0,20,30,40],"Capacidad de carrito"),cartFreeAuthorization:emptyCartAuthorization(),lic,showSchemes,proRata};
+const scenario={pkg:strictEnum(payload.pkg,["edu","plus"],"Paquete"),term:cleanTerm,mod:sanitizedMod,pay:strictEnum(payload.pay,Object.keys(PAYS),"Pago"),stu:strictInteger(payload.stu,1,APP_CONFIG.limits.students.max,"Alumnos"),...migrateDeviceFields(payload),docExtra:strictInteger(payload.docExtra??0,0,APP_CONFIG.limits.quantity.max,"Docentes extra"),eqDoc:hasDevicesMod?strictInteger(payload.eqDoc??0,0,APP_CONFIG.limits.quantity.max,"Equipos docente"):0,eqStu:hasDevicesMod?strictInteger(payload.eqStu??0,0,APP_CONFIG.limits.quantity.max,"Equipos estudiante"):0,cartCap:strictEnum(payload.cartCap,[0,...CART_CAPS],"Capacidad de carrito"),cartFreeAuthorization:emptyCartAuthorization(),lic,showSchemes,proRata};
 /* Catálogo por plazo: si el modelo docente guardado no existe en el plazo (p. ej. un
    escenario cb4 con «estudiante» reabierto en fl2), se ajusta al único disponible; y
    con una sola opción se deja fijado, porque no hay decisión que tomar. */
@@ -2798,7 +2839,7 @@ function rebuildIndexFromStorage(){
   return dedup;
 }
 
-function listIndex(){if(!HAS_STORAGE)return[];try{const parsed=JSON.parse(localStorage.getItem(STORAGE_KEYS.index)||"[]");if(!Array.isArray(parsed))throw new Error("Índice no es arreglo");return parsed.filter(isPlainObject).map(x=>({quoteId:strictQuoteId(x.quoteId),folioRoot:strictFolioRoot(x.folioRoot??String(x.folio||"").replace(/-R[0-9]+$/,"")),folio:strictString(x.folio,{field:"Folio",max:100,min:1}),revision:strictInteger(Number(x.revision),1,999,"Revisión"),parentQuoteId:x.parentQuoteId==null?null:strictQuoteId(x.parentQuoteId),institution:strictString(x.institution??"Sin institución",{field:"Institución",max:120,optional:true}),updatedAt:strictTimestamp(x.updatedAt,"Actualización"),pkg:strictEnum(x.pkg,["edu","plus"],"Paquete"),term:strictEnum(x.term,Object.keys(TERMS),"Plazo"),mod:strictInteger(Number(x.mod),0,4,"Modelo"),students:strictInteger(Number(x.students),1,999999,"Alumnos")}));}catch(error){console.warn("Índice inválido; se usará una lectura segura. Utiliza Reparar índice para persistir la reconstrucción.",error);return listAllDraftSummariesReadOnly().sort((a,b)=>new Date(b.updatedAt)-new Date(a.updatedAt));}}
+function listIndex(){if(!HAS_STORAGE)return[];try{const parsed=JSON.parse(localStorage.getItem(STORAGE_KEYS.index)||"[]");if(!Array.isArray(parsed))throw new Error("Índice no es arreglo");return parsed.filter(isPlainObject).map(x=>({quoteId:strictQuoteId(x.quoteId),folioRoot:strictFolioRoot(x.folioRoot??String(x.folio||"").replace(/-R[0-9]+$/,"")),folio:strictString(x.folio,{field:"Folio",max:100,min:1}),revision:strictInteger(Number(x.revision),1,999,"Revisión"),parentQuoteId:x.parentQuoteId==null?null:strictQuoteId(x.parentQuoteId),institution:strictString(x.institution??"Sin institución",{field:"Institución",max:120,optional:true}),updatedAt:strictTimestamp(x.updatedAt,"Actualización"),pkg:strictEnum(x.pkg,["edu","plus"],"Paquete"),term:strictEnum(x.term,Object.keys(TERMS),"Plazo"),mod:strictInteger(Number(x.mod),0,4,"Modelo"),students:strictInteger(Number(x.students),APP_CONFIG.limits.students.min,APP_CONFIG.limits.students.max,"Alumnos")}));}catch(error){console.warn("Índice inválido; se usará una lectura segura. Utiliza Reparar índice para persistir la reconstrucción.",error);return listAllDraftSummariesReadOnly().sort((a,b)=>new Date(b.updatedAt)-new Date(a.updatedAt));}}
 function saveIndex(index){if(!HAS_STORAGE)return;if(index.length>MAX_DRAFTS)throw new Error("DRAFT_LIMIT");localStorage.setItem(STORAGE_KEYS.index,JSON.stringify(index));}
 function ensureDraftCapacity(newId,index=listIndex()){
   if(!index.some(item=>item.quoteId===newId)&&index.length>=MAX_DRAFTS)throw new Error("DRAFT_LIMIT");
@@ -3111,7 +3152,7 @@ function setFieldError(id,message=""){const input=$("#"+id);if(!input)return;let
    decimales: Number("")===0, "1e3", "0x10" y "+5" pasaban la validación y el input
    mostraba una cosa mientras el estado calculaba otra. Un campo vaciado marca error
    y NO escribe en el estado, para que input y estado nunca diverjan. */
-function validateIntegerInput(input,{min=0,max=999999,allowBlank=false,label="Cantidad"}={}){
+function validateIntegerInput(input,{min=0,max=APP_CONFIG.limits.quantity.max,allowBlank=false,label="Cantidad"}={}){
   const raw=input.value.trim();
   if(raw===""){
     if(allowBlank){setFieldError(input.id,"");return{ok:true,value:null};}
@@ -3129,20 +3170,6 @@ function validateIntegerInput(input,{min=0,max=999999,allowBlank=false,label="Ca
   }
   setFieldError(input.id,"");
   return{ok:true,value};
-}
-function validatePriceInput(input,label="Precio"){
-  const raw=input.value.trim();
-  if(raw===""){
-    setFieldError(input.id,`${label} no puede quedar en blanco. Escribe 0 si no tiene costo.`);
-    return{ok:false};
-  }
-  const value=Number(raw);
-  if(!/^\d+(?:\.\d{1,2})?$/.test(raw)||!Number.isFinite(value)||value<APP_CONFIG.limits.price.min||value>APP_CONFIG.limits.price.max){
-    setFieldError(input.id,`${label} debe ser un importe entre $0 y ${money(APP_CONFIG.limits.price.max)}, con máximo dos decimales.`);
-    return{ok:false};
-  }
-  setFieldError(input.id,"");
-  return{ok:true,value:roundCurrency(value)};
 }
 function validISODate(value){try{return strictISODate(value,"Fecha");}catch{return null;}}
 /* F-23 · A-02 · El motor es la ÚNICA fuente de verdad sobre qué bloquea: todo warn
@@ -3342,14 +3369,14 @@ function bindEvents() {
     resetStateForModel(nextModel);S().mod=nextModel;scheduleRender("all");markChanged();});
   /* F-25 · P4 · Los equipos de estudiante incluidos ya no son editables: cambiar el
      número de alumnos los recalcula solo y los adicionales se conservan tal cual. */
-  $("#fStu").addEventListener("input",e=>{const v=validateIntegerInput(e.target,{min:1,max:999999,label:"Alumnos"});if(v.ok){S().stu=v.value;revokeCartAuthorization("Cambió el número de alumnos");scheduleRender("all");markChanged();}else renderStatus();});
+  $("#fStu").addEventListener("input",e=>{const v=validateIntegerInput(e.target,{min:APP_CONFIG.limits.students.min,max:APP_CONFIG.limits.students.max,label:"Alumnos"});if(v.ok){S().stu=v.value;revokeCartAuthorization("Cambió el número de alumnos");scheduleRender("all");markChanged();}else renderStatus();});
   const integerMap={fDocX:["docExtra","Docentes extra"],fEqDoc:["eqDoc","Equipos modelo docente"],fEqStu:["eqStu","Equipos modelo estudiante"]};
-  Object.entries(integerMap).forEach(([id,[key,label]])=>$("#"+id).addEventListener("input",e=>{/* F-27 · V4-03 · Sin equipos: los adicionales de equipo docente no se capturan; el campo está deshabilitado, pero se defiende también el evento. */if((key==="eqDoc"||key==="eqStu")&&S().mod===0){S()[key]=0;e.target.value="0";renderStatus();return;}const v=validateIntegerInput(e.target,{min:0,max:999999,label});if(v.ok){S()[key]=v.value;scheduleRender("all");markChanged();}else renderStatus();}));
+  Object.entries(integerMap).forEach(([id,[key,label]])=>$("#"+id).addEventListener("input",e=>{/* F-27 · V4-03 · Sin equipos: los adicionales de equipo docente no se capturan; el campo está deshabilitado, pero se defiende también el evento. */if((key==="eqDoc"||key==="eqStu")&&S().mod===0){S()[key]=0;e.target.value="0";renderStatus();return;}const v=validateIntegerInput(e.target,{min:0,max:APP_CONFIG.limits.quantity.max,label});if(v.ok){S()[key]=v.value;scheduleRender("all");markChanged();}else renderStatus();}));
   /* F-25 · P4 · El campo pasó de "total de equipos solicitados" a "adicionales":
      el total incluido ya no es editable, solo se puede sumar por encima de él. */
   $("#fStuX").addEventListener("input",e=>{
     if(S().mod===0||MOD_DIVISOR[S().mod]<=1){e.target.value="0";return;}
-    const v=validateIntegerInput(e.target,{min:0,max:999999,allowBlank:false,label:"Equipos de estudiante adicionales"});
+    const v=validateIntegerInput(e.target,{min:0,max:APP_CONFIG.limits.quantity.max,allowBlank:false,label:"Equipos de estudiante adicionales"});
     if(v.ok){
       S().stuExtra=v.value;
       revokeCartAuthorization("Cambiaron los equipos de estudiante adicionales");
@@ -3362,7 +3389,7 @@ function bindEvents() {
   const proIntMap={fProStu:["stu","Equipos de alumno a prorratear"],fProDoc:["doc","Equipos de docente a prorratear"]};
   Object.entries(proIntMap).forEach(([id,[key,label]])=>$("#"+id).addEventListener("input",e=>{
     if(S().mod!==0){e.target.value="0";return;}
-    const v=validateIntegerInput(e.target,{min:0,max:999999,label});
+    const v=validateIntegerInput(e.target,{min:0,max:APP_CONFIG.limits.quantity.max,label});
     if(v.ok){S().proRata[key]=v.value;scheduleRender("all");markChanged();}else renderStatus();
   }));
   $("#fProModel").addEventListener("change",e=>{
@@ -3523,7 +3550,7 @@ function renderAll() {
   const rows=r.schemes[S().pay],payment=PAYS[S().pay],defer=payment.installments>0;
   $("#actPrice").textContent=r.stu>0?money(rows[0].net):"—";/* F-28 · El subtítulo bueno queda guardado: con el cálculo bloqueado su lugar lo ocupa el motivo, y renderStatus() lo restituye al volver a ser válido. */const actSubText=`${d.pkgName} · ${d.modLbl} · ${payment.title}`;$("#actSub").dataset.ok=actSubText;$("#actSub").textContent=actSubText;
   $("#resYear1").textContent=r.stu>0?money(rows[0].net):"—";$("#resScope").textContent=`${d.pkgName} · ${r.t.label} · ${d.modLbl}`;
-  $("#lblAgo").textContent=defer?"50% en agosto":"Pago único en agosto";$("#kvAgosto").textContent=money(rows[0].agosto);$("#kvMens").textContent=defer?money(rows[0].mensual):"—";
+  $("#lblAgo").textContent=defer?`${augustShareLabel()} en agosto`:"Pago único en agosto";$("#kvAgosto").textContent=money(rows[0].agosto);$("#kvMens").textContent=defer?money(rows[0].mensual):"—";
   $("#kvSave").textContent=payment.disc?`−${money(rows[0].gross-rows[0].net)}`:"—";$("#resLegend").textContent=payment.title;
   const max=Math.max(...rows.map(x=>x.gross),1);
   $("#ladder").innerHTML=rows.map((x,i)=>{const col=YEAR_C[i%4],tint=YEAR_T[i%4];return `<div class="rung"><div class="yrchip" style="background:${tint};color:${col}">Año ${i+1}</div><div class="bar"><div class="fill" style="width:${(x.net/max*100).toFixed(1)}%;background:${col}"></div><div class="txt">${defer?`${money(x.agosto)} en agosto · ${x.installments} mensualidades de ${money(x.mensual)}`:"Pago único en agosto"}</div></div><div class="amt">${money(x.net)}${payment.disc?`<s>antes ${money(x.gross)}</s>`:""}</div></div>`;}).join("");
@@ -3798,7 +3825,7 @@ function renderItems(r) {
   }
 }
 function renderVolume() {
-  const colors=[G.b,G.r,G.y,G.g];$("#vBars").innerHTML=VOLUME.map(([range,p],i)=>`<div class="vrow"><div class="r">${range}</div><div class="vtrack"><div class="vfill" style="width:${p/55*100}%;background:${colors[i%4]}"></div></div><div class="p" style="color:${colors[i%4]}">${p}%</div></div>`).join("");
+  const colors=[G.b,G.r,G.y,G.g];$("#vBars").innerHTML=VOLUME.map(([range,p],i)=>`<div class="vrow"><div class="r">${range}</div><div class="vtrack"><div class="vfill" style="width:${p/VOLUME_MAX*100}%;background:${colors[i%4]}"></div></div><div class="p" style="color:${colors[i%4]}">${p}%</div></div>`).join("");
   $("#vBody").innerHTML=VOLUME.map(([range,p],i)=>`<tr><th scope="row"><span class="yearcell"><span class="ydot" style="background:${colors[i%4]}"></span>${range}</span></th><td class="big" style="color:${colors[i%4]}">${p}%</td></tr>`).join("");
 }
 
@@ -3839,7 +3866,7 @@ function buildProposal(){
   };
   /* F-23 · Prompt 2 · La clase p-schbox-{key} permite que la versión impresa pinte
      cada esquema con su color Google sólido. M-10: mensualidades desde PAYS. */
-  const scheme=(key,title,bg,fg)=>{const rows=r.schemes[key],defer=PAYS[key].installments>0;return `<div class="p-schbox p-schbox-${key}"><div class="p-schh" style="background:${bg};color:${fg}"><span>${esc(title)}</span><span style="font-weight:400;font-size:11.5px">por alumno · IVA incluido</span></div><table class="ptbl"><caption class="sr-only">${esc(title)}</caption><thead><tr><th scope="col">Año</th><th scope="col">${defer?"Total del año":"Pago único en agosto"}</th>${defer?`<th scope="col">50% en agosto</th><th scope="col">${PAYS[key].installments} mensualidades</th>`:""}</tr></thead><tbody>${rows.map((y,i)=>`<tr><th scope="row"><span class="yearcell"><span class="ydot" style="background:${YEAR_C[i%4]}"></span>Año ${i+1}</span></th><td>${money(y.net)}</td>${defer?`<td>${money(y.agosto)}</td><td>${money(y.mensual)}</td>`:""}</tr>`).join("")}</tbody></table></div>`;};
+  const scheme=(key,title,bg,fg)=>{const rows=r.schemes[key],defer=PAYS[key].installments>0;return `<div class="p-schbox p-schbox-${key}"><div class="p-schh" style="background:${bg};color:${fg}"><span>${esc(title)}</span><span style="font-weight:400;font-size:11.5px">por alumno · IVA incluido</span></div><table class="ptbl"><caption class="sr-only">${esc(title)}</caption><thead><tr><th scope="col">Año</th><th scope="col">${defer?"Total del año":"Pago único en agosto"}</th>${defer?`<th scope="col">${augustShareLabel()} en agosto</th><th scope="col">${PAYS[key].installments} mensualidades</th>`:""}</tr></thead><tbody>${rows.map((y,i)=>`<tr><th scope="row"><span class="yearcell"><span class="ydot" style="background:${YEAR_C[i%4]}"></span>Año ${i+1}</span></th><td>${money(y.net)}</td>${defer?`<td>${money(y.agosto)}</td><td>${money(y.mensual)}</td>`:""}</tr>`).join("")}</tbody></table></div>`;};
   const platforms=PLATFORMS.filter(pl=>!pl.when||pl.when(L,d.isPlus));
   /* ==========================================================================
      PAPELERÍA v5 · Qué SALE del documento y por qué (decisión de Martín,
@@ -4439,6 +4466,46 @@ const QuoteTests={
        almacenamiento y se verifica al final. Si alguna prueba volviera a borrar
        claves ajenas al cotizador, la suite falla de forma visible. */
     if(HAS_STORAGE){try{localStorage.setItem("__activa_suite_canario__","1");}catch{}}
+    /* La prueba de la reorganización (22-ago-2026): PRECIOS congelado, cada
+       constante derivada coincide con su entrada en la matriz —lo que detecta
+       un importe suelto reescrito a mano— y los importes de cabecera van
+       clavados con el número escrito a mano, para que un dedazo dentro de la
+       propia matriz también falle. */
+    this.test("La matriz es la única fuente",()=>{
+      this.assert(Object.isFrozen(PRECIOS)&&Object.isFrozen(PRECIOS.porAlumnoAnual)&&Object.isFrozen(PRECIOS.equipos)&&Object.isFrozen(PRECIOS.porEquipo)&&Object.isFrozen(PRECIOS.carritos),"PRECIOS debe estar congelado");
+      this.assert(APP_CONFIG.pricing===PRECIOS.porAlumnoAnual,"pricing no es la matriz");
+      this.assert(APP_CONFIG.annualFactors===PRECIOS.factoresAnuales,"annualFactors no es la matriz");
+      this.assert(APP_CONFIG.discounts.cash===PRECIOS.pago.descuentos.contado&&APP_CONFIG.discounts.early===PRECIOS.pago.descuentos.firmaTemprana,"discounts no derivan de la matriz");
+      this.assert(APP_CONFIG.equipment.ceuUnitCost===PRECIOS.porEquipo.ceu&&APP_CONFIG.equipment.insuranceByYears===PRECIOS.porEquipo.seguroPorAnios,"CEU/seguro no derivan de la matriz");
+      this.assert(APP_CONFIG.equipment.extraTeacherAnnualCost===PRECIOS.docenteExtraAnual&&APP_CONFIG.equipment.extraStudentDeviceFactor===PRECIOS.adicionalAlumnoFactor&&APP_CONFIG.equipment.includedTeacherRatio===PRECIOS.razones.docentesIncluidos,"equipment no deriva de la matriz");
+      this.assert(APP_CONFIG.limits.students===PRECIOS.limites.students&&APP_CONFIG.limits.quantity===PRECIOS.limites.quantity&&APP_CONFIG.limits.listPerStudent.max===PRECIOS.topePorAlumno,"limits no derivan de la matriz");
+      this.assert(APP_CONFIG.cycle.validityDays===PRECIOS.vigenciaDias,"la vigencia no deriva de la matriz");
+      for(const k of Object.keys(PRECIOS.equipos))this.assert(DEVICES[k].cost===PRECIOS.equipos[k],`el equipo ${k} no cuesta lo que dice la matriz`);
+      this.assert(CART_PRICES===PRECIOS.carritos,"CART_PRICES no es la matriz");
+      this.assert(VOLUME===PRECIOS.volumenRedes&&CAP===PRECIOS.acompanamiento,"VOLUME/CAP no son la matriz");
+      this.assert(STD_INSTALLMENTS===PRECIOS.pago.mensualidades,"las mensualidades no derivan de la matriz");
+      for(const key of TERM_ORDER){const t=TERMS[key];
+        this.assert(t.stockPct===(t.row==="flip"?PRECIOS.stock.seminuevos:PRECIOS.stock.nuevos),`el stock de ${key} no deriva de la matriz`);
+        this.assert(t.years===t.sched.length,`los años de ${key} no derivan de sus factores anuales`);
+        for(const o of t.docentes)this.assert(o.ratio===(o.k==="docente"?PRECIOS.razones.modeloDocente:PRECIOS.razones.modeloEstudiante),`la razón ${o.k} de ${key} no deriva de la matriz`);
+      }
+      for(const l of LICS)this.assert(l.disc===(PRECIOS.descuentosLicencia[l.k]??0),`el descuento de licencia ${l.k} no coincide con la matriz`);
+      this.assert(PAYS.contado.augustPercentage===PRECIOS.pago.agostoPorcentaje.contado&&PAYS.antes.augustPercentage===PRECIOS.pago.agostoPorcentaje.diferido&&PAYS.despues.augustPercentage===PRECIOS.pago.agostoPorcentaje.diferido,"el porcentaje de agosto no deriva de la matriz");
+      /* Cabecera clavada a mano */
+      this.assert(PRECIOS.equipos.cbAlumno===14500&&PRECIOS.equipos.cbDocente===17850&&PRECIOS.equipos.flAlumno===7000&&PRECIOS.equipos.flDocente===9000&&PRECIOS.equipos.tablet===10000,"equipos");
+      this.assert(PRECIOS.porEquipo.ceu===870,"licencia CEU");
+      this.assert(PRECIOS.porEquipo.seguroPorAnios[2]===1050&&PRECIOS.porEquipo.seguroPorAnios[3]===1600&&PRECIOS.porEquipo.seguroPorAnios[4]===2150,"seguros por años");
+      this.assert(PRECIOS.carritos[20]===28280&&PRECIOS.carritos[30]===30860&&PRECIOS.carritos[40]===36800,"carritos");
+      this.assert(PRECIOS.docenteExtraAnual===1500,"docente extra anual");
+      this.assert(PRECIOS.adicionalAlumnoFactor===0.8,"factor de adicional de alumno");
+      this.assert(PRECIOS.descuentosLicencia.motiva===200&&PRECIOS.descuentosLicencia.beta===200&&PRECIOS.descuentosLicencia.everway===80,"descuentos de licencia");
+      this.assert(PRECIOS.porAlumnoAnual.edu.n3[0]===3000&&PRECIOS.porAlumnoAnual.edu.n3[4]===7900&&PRECIOS.porAlumnoAnual.plus.n4[2]===4800&&PRECIOS.porAlumnoAnual.plus.flip[4]===5000,"muestras del precio por alumno");
+      this.assert(PRECIOS.pago.descuentos.contado===0.10&&PRECIOS.pago.descuentos.firmaTemprana===0.05&&PRECIOS.pago.mensualidades===10,"condiciones de pago");
+      this.assert(PRECIOS.stock.nuevos===0.02&&PRECIOS.stock.seminuevos===0.20,"stock");
+      this.assert(PRECIOS.razones.docentesIncluidos===10&&PRECIOS.razones.modeloDocente===20&&PRECIOS.razones.modeloEstudiante===10,"razones");
+      this.assert(PRECIOS.topePorAlumno===250000,"tope por alumno");
+      this.assert(PRECIOS.vigenciaDias===31,"vigencia de 31 días");
+    });
     /* F-27 · Fase 2 · Decisión de producto (cerrada): esta prueba valida la ARITMÉTICA
        HISTÓRICA del motor llamándolo de forma directa con stuExtra:6 en 1:1. Ese
        escenario NO es un flujo comercial vigente — la regla 5 lo normaliza a 0 en
@@ -4446,14 +4513,13 @@ const QuoteTests={
        adicionales de alumno (lo correcto es aumentar el número de alumnos). La prueba
        se conserva porque verifica que las fórmulas del motor (prorrateo de equipos
        docentes, descuentos de licencias, cadena de factores) siguen siendo exactas. */
-    /* Los importes de referencia bajaron el 22-ago-2026 (lista de 7,261.538462 a
-       7,223.076923) y NO por un cambio de aritmética: este caso lleva 4 equipos
-       docentes adicionales modelo estudiante, que se cobran al costo de catálogo, y
-       la Chromebook nueva de alumno pasó de $17,000 a $14,500 y, en la misma pasada,
-       cada equipo empezó a llevar su CEU ($870) y su seguro ($2,150 a 4 años). Neto:
-       4 × 17,520 = 70,080 entre 65 alumnos y 4 años. Si esta prueba vuelve a fallar
-       sin que nadie haya tocado la MATRIZ DE PRECIOS, entonces sí cambió la
-       aritmética y hay que averiguar por qué. */
+    /* Los importes de referencia van clavados a mano A PROPÓSITO y cambiaron por
+       última vez el 22-ago-2026, NO por un cambio de aritmética: este caso lleva
+       4 equipos docentes adicionales modelo estudiante, que se cobran al costo de
+       catálogo, y en esa fecha el precio de equipo pasó a ir pelón con la CEU y el
+       seguro sumados aparte (hoy todo vive en la MATRIZ DE PRECIOS). Si esta
+       prueba vuelve a fallar sin que nadie haya tocado la matriz, entonces sí
+       cambió la aritmética y hay que averiguar por qué. */
     this.test("Paridad financiera legado",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));lic.motiva=false;lic.beta=false;const result=quote({pkg:"plus",term:"cb4",mod:4,pay:"contado",stu:65,stuExtra:6,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:4,cartCap:30,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assertClose(result.list,7269.538462,1e-6,"precio de lista");this.assertClose(result.schemes.despues[0].netRaw,6542.584615,1e-6,"regular año 1");this.assertClose(result.schemes.contado[0].netRaw,5888.326154,1e-6,"contado año 1");this.assertClose(result.schemes.antes[0].netRaw,6215.455385,1e-6,"anticipada año 1");this.assert(result.stuIncl===65,"equipos incluidos");this.assert(result.stuReq===71,"equipos entregados");this.assert(result.stuExtra===6,"equipos adicionales");this.assert(result.stuChg===0,"equipos cobrables 1:1");this.assert(result.discLic===400,"descuento licencias");this.assert(result.eqDocInc===4,"equipos docentes incluidos 1:20");this.assert(result.docInc===7,"docentes incluidos 1:10");this.assert(result.docTot===11,"los 4 equipos docentes adicionales suman usuarios");this.assert(result.users===76,"usuarios con licencia");for(const [scheme,years] of Object.entries(result.schemes))for(const [index,year] of years.entries())this.assertClose(roundCurrency(year.agosto+year.mensual*year.installments),year.net,0,`${scheme} año ${index+1}`);});
     this.test("CLABE predeterminada",()=>this.assert(clabeOk(APP_CONFIG.defaults.supplier.bank.clabe),"CLABE inválida"));
     this.test("assertClose rechaza NaN",()=>this.expectThrow(()=>this.assertClose(NaN,100),"NaN"));
@@ -4747,8 +4813,10 @@ const QuoteTests={
     this.test("v5 · El ejemplo canónico: 700 alumnos, 30 equipos, 1 carrito, 4 años",()=>{
       const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));
       const r=quote({pkg:"edu",term:"cb4",mod:0,pay:"contado",stu:700,stuExtra:0,teacherDeviceModel:null,docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic,proRata:{stu:30,doc:0,carts:[{cap:30,qty:1}]}});
-      /* 30 × (17,000 + 870 CEU + 2,169.20 seguro) + 26,600 de carrito = 627,776.
-         Los importes van CON IVA: ver la corrección del 22-ago-2026 en APP_CONFIG. */
+      /* El fierro es 30 equipos de alumno a costo de catálogo —precio pelón más
+         CEU y seguro a 4 años, todo de la MATRIZ DE PRECIOS— más 1 carrito de 30.
+         Los importes van CON IVA; los esperados van clavados a mano a propósito
+         y el mensaje de cada aserción documenta la composición. */
       this.assertClose(r.proRata.fierro,556460,1e-6,"costo del fierro: 30 × 17,520 + 1 carrito de 30 a $30,860");
       this.assert(roundCurrency(r.adjProRata)===198.74,`el prorrateo debía dar $198.74 por alumno y año, dio ${roundCurrency(r.adjProRata)}`);
       this.assert(roundCurrency(r.list)===3198.74,`el precio de lista debía dar $3,198.74, dio ${roundCurrency(r.list)}`);
@@ -4835,10 +4903,10 @@ const QuoteTests={
       S().proRata={stu:30,doc:0,carts:[{cap:30,qty:1}]};
       CURRENT_RESULT=quote(S());
       const doc=buildProposal()+buildPrintDocument(),mail=buildMailModel();
-      /* Los importes van CON IVA desde el 22-ago-2026: el fierro del ejemplo pasó de
-         615,200 a 627,776, el prorrateo de 219.71 a 224.21 y el costo unitario de
-         19,620 a 20,039.20. Si esta lista se queda con los números viejos, sigue en
-         verde sin vigilar nada. */
+      /* Los rastros llevan los importes VIVOS del ejemplo canónico (fierro,
+         prorrateo, carrito y costo unitario), escritos a mano a propósito. Si un
+         precio de la matriz los mueve, hay que actualizar esta lista: si se queda
+         con números viejos, sigue en verde sin vigilar nada. */
       for(const rastro of ["Costo del fierro","fierro","prorrate","Prorrate","recupera","Recupera","556,460","198.74","30,860","17,520"])
         this.assert(!doc.includes(rastro),`el documento imprimió "${rastro}"`);
       this.assert(!/fierro|prorrate/i.test(mail.html+mail.plainText),"el correo imprimió el desglose del prorrateo");
@@ -5026,6 +5094,14 @@ function syncStaticCopy(){
   originalTitle=document.title;
   /* F-23 · M-10 · "10 mensualidades" deja de estar escrito a mano en el HTML. */
   $$("[data-installments]").forEach(el=>{el.textContent=`${STD_INSTALLMENTS} mensualidades${el.dataset.installments==="de"?" de":""}`;});
+  /* Rótulos que repiten datos de la MATRIZ DE PRECIOS: se reponen desde ella
+     para que el markup no pueda mentir si un valor cambia. */
+  $$("[data-august]").forEach(el=>{el.textContent=`${augustShareLabel()} en agosto`;});
+  set("#tmDocenteQty",`1 por cada ${PRECIOS.razones.modeloDocente} alumnos`);
+  set("#tmEstudianteQty",`1 por cada ${PRECIOS.razones.modeloEstudiante} alumnos`);
+  $$("#cartGrid .cartopt[data-cap]").forEach(fs=>{const cap=Number(fs.dataset.cap);if(cap>0){const lg=fs.querySelector("legend");if(lg)lg.textContent=`Carrito de ${cap} equipos`;}});
+  const stuInput=$("#fStu");if(stuInput){stuInput.min=APP_CONFIG.limits.students.min;stuInput.max=APP_CONFIG.limits.students.max;}
+  ["fDocX","fProStu","fProDoc","fStuX","fEqDoc","fEqStu"].forEach(id=>{const el=$("#"+id);if(el){el.min=APP_CONFIG.limits.quantity.min;el.max=APP_CONFIG.limits.quantity.max;}});
   const early=$("#thEarly"),regular=$("#thRegular");
   if(early?.firstChild)early.firstChild.textContent=`Firma antes del ${earlySignatureDeadlineLabel()}`;
   if(regular?.firstChild)regular.firstChild.textContent=`Firma a partir del ${earlySignatureDeadlineLabel()}`;

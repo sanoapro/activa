@@ -57,15 +57,21 @@ seminuevo.
 
 ## Dónde se cambian los precios y las reglas
 
-Todo vive en dos objetos congelados al principio del `<script>`, y **nada más**:
+Todo importe vive en la **MATRIZ DE PRECIOS**: el objeto congelado **`PRECIOS`** al principio
+del `<script>` (busca `MATRIZ DE PRECIOS`). La convención de esta página: **todos los precios
+son NETOS, sin IVA**; el IVA se aplica una sola vez, sobre el subtotal.
 
-- `APP_CONFIG` — fecha del catálogo, tasa y etiqueta de IVA, días de vigencia (31), límites de
-  cantidad (1 a 999 999), años (1 a 25), renglones (200) y longitud del concepto, y los datos
-  por omisión del vendedor y del proveedor.
-- `CATALOG` — una entrada por partida: `k`, `part`, `fam`, `n`, `d`, `price` (**neto, sin IVA**),
-  `unit`, `annual`, `minQty` y `note`.
+- `PRECIOS` — la tasa de IVA, los días de vigencia, el texto de entrega, los límites y
+  `partidas`: las 37 claves con su precio neto, agrupadas por familia.
+- `APP_CONFIG` — **deriva de la matriz** (tasa y etiqueta de IVA, vigencia, límites, entrega) y
+  conserva la fecha del catálogo y los datos por omisión del vendedor y del proveedor.
+- `CATALOGO_BASE` → `CATALOG` — una entrada por partida: `k`, `part`, `fam`, `n`, `d`, `unit`,
+  `annual`, `minQty` y `note`; el `price` se **inyecta** desde `PRECIOS.partidas[k]` por la
+  clave, sin escribirla dos veces.
 
-Cero precios literales en la lógica. Agregar una partida o mover un precio es editar `CATALOG`.
+Cero precios literales en la lógica. Mover un precio es editar `PRECIOS.partidas`; agregar una
+partida es darla de alta en `PRECIOS.partidas` **y** en `CATALOGO_BASE` — la prueba «La matriz
+es la única fuente» exige que los dos juegos de claves coincidan.
 
 Las **bajas del 19-ago-2026** están anotadas en el comentario de `CATALOG` y no deben
 recuperarse del Excel: ya no se venden.
