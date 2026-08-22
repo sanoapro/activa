@@ -6,7 +6,7 @@ presentación: guarda borradores, lleva folio y revisión, y lo que imprime lleg
 
 Se publica en **<https://sanoapro.github.io/activa/paginas/cotizador/>**
 
-Un solo archivo de ~4 150 líneas, autocontenido salvo el motor de movimiento compartido. No hay
+Un solo archivo de ~5 000 líneas, autocontenido salvo el motor de movimiento compartido. No hay
 build: se edita y se recarga.
 
 ## Archivos
@@ -100,10 +100,11 @@ esos objetos, no la lógica.
 | `APP_CONFIG.pricing` | **Los precios por alumno**, por paquete (`edu`, `plus`) y por fila de equipo (`n3`, `n4`, `flip`, `tab`) |
 | `APP_CONFIG.discounts` | Contado 10 %, firma temprana 5 % |
 | `APP_CONFIG.annualFactors` | Cómo escala el precio año con año según el plazo |
-| `APP_CONFIG.equipment` | Costos de equipo y proporción de equipos incluidos por docente |
+| `APP_CONFIG.equipment` | Razón de docentes con licencia (1:10), cuota del docente extra, factor del adicional de alumno, y los precios de la **licencia CEU ($750)** y del **seguro por plazo** ($910 a 2 años, $1,390 a 3, $1,870 a 4) que la cotización a la medida suma sola por equipo. Los costos de equipo salieron de aquí: viven en `DEVICES` |
 | `APP_CONFIG.limits` | Topes de cordura. `listPerStudent.max` bloquea el documento si el precio por alumno se sale de rango |
-| `TERMS` | Los cuatro plazos: `cb3`, `cb4` (Chromebooks nuevas a 3 y 4 años), `fl2` (Flip-Touch seminueva a 2), `tb3` (Tablet a 3) |
-| `TEACHER_MODELS` | Modelo `docente` o `estudiante` para el equipo del profesor |
+| `DEVICES` | **El catálogo de dispositivos** (21-ago-2026): Chromebook nueva $17,000, Chromebook nueva docente $21,000, Flip-Touch seminueva $8,000 (alumno y docente), Tablet nueva $10,000. Sustituye a los retirados `teacherDeviceCost` y `studentDeviceCost` |
+| `TERMS` | Los cuatro plazos: `cb3`, `cb4` (Chromebooks nuevas a 3 y 4 años), `fl2` (Flip-Touch seminueva a 2), `tb3` (Tablet a 3). **Cada plazo declara además qué equipos existen**: su equipo de alumno (`alumno`) y los modelos docentes elegibles (`docentes`, con su equipo y su razón). En `fl2` el docente solo puede ser seminuevo y en `tb3` solo Chromebook nueva: la opción que no existe no está en pantalla |
+| `TEACHER_MODELS` | Las etiquetas del modelo `docente` o `estudiante`; el equipo concreto y la razón de cada modelo los pone el plazo |
 | `PAYS` | Los tres esquemas: contado, firma antes del corte, firma después |
 | `LICS` (≈1991) | Las licencias y plataformas |
 | `ITEMS` (≈1860) | Cada partida del desglose, con su área, ícono y cantidad |
@@ -113,14 +114,42 @@ juntas a propósito para que sea un solo lugar.
 
 ---
 
+## La cotización a la medida (21-ago-2026)
+
+La modalidad 0 dejó de llamarse «Sin equipos · solo licenciamiento» y ahora es **«Sin equipos
+incluidos · a la medida»**: cotiza las licencias de todos los alumnos **más los equipos que el
+colegio realmente pidió** —el caso que la motivó: 700 alumnos, 30 equipos y un carrito—,
+prorrateados entre todos los alumnos y todos los años del contrato. El diseño completo y las
+cinco decisiones que lo cerraron viven en
+[`docs/actualizacion-cotizador/`](../../docs/actualizacion-cotizador/).
+
+La regla, en una línea: **lo que se compra una vez —el equipo, su licencia CEU, su seguro y el
+carrito— se divide entre todos los alumnos y todos los años; lo que es por alumno ya está en el
+precio base y no se prorratea.**
+
+- El estado nuevo es `scenario.proRata` (`{stu, doc, carts:[{cap,qty,price}]}`), que solo existe
+  en la modalidad 0 y se normaliza a ceros en las demás.
+- **CEU y seguro son automáticos por equipo**: no hay casilla que capturarlos, y por tanto no hay
+  casilla que olvidar. Los precios están en `APP_CONFIG.equipment`.
+- **El precio del carrito es siempre manual**, en las cinco modalidades; en la modalidad a la
+  medida los carritos son renglones explícitos (capacidad, cantidad, precio) y el precio 0 es
+  válido sin autorización: el colegio puede tener ya los suyos.
+- **El stock de reemplazo aplica con la misma regla** (2 % nuevos, 20 % seminuevos).
+- **Decisión D-1**: el fierro prorrateado entra al precio de lista y escala y se descuenta como
+  todo lo demás. La caja de cálculo del vendedor enseña la cuenta completa y el **porcentaje de
+  recuperación del fierro** bajo el esquema elegido; ese dato es de pantalla y **no viaja** al
+  PDF, al correo ni al escenario — lo custodia la prueba «El prorrateo no viaja al documento».
+- Con equipos capturados, `modLbl` dice **«a la medida»**; sin ellos sigue diciendo «sin
+  equipos». La advertencia `NO_DEVICES` solo se emite si de verdad no hay equipos.
+
 ## Qué bloquea qué
 
 Hay **tres** estados de preparación, no dos, y confundirlos es caro. `getReadiness()` los devuelve:
 
 | Estado | Qué habilita | Qué lo rompe |
 |---|---|---|
-| `calculable` | Que se **vea el precio** por alumno | Solo lo financiero: alumnos, precio no positivo o no finito, precio implausible, carrito sin precio, escenario corrupto |
-| `proposalReady` | El botón **Ver propuesta** | Lo anterior, más cualquier decisión obligatoria pendiente (hoy: el modelo de equipos docentes) |
+| `calculable` | Que se **vea el precio** por alumno | Solo lo financiero: alumnos, precio no positivo o no finito, precio implausible, carrito por razón sin precio, escenario corrupto |
+| `proposalReady` | El botón **Ver propuesta** | Lo anterior, más cualquier decisión obligatoria pendiente (hoy: el modelo de equipos docentes, cuando el plazo ofrece más de uno) |
 | `documentReady` | **PDF** y **correo** | Lo anterior, más todo dato documental por capturar: institución, ciudad, fechas, RFC, banco… |
 
 El motor es la única fuente de verdad: cada advertencia `t:"e"` declara en `blocks` si tumba el
@@ -166,7 +195,9 @@ activa.cotizador.archivo-pendiente.v1  cotizaciones impresas y aún no archivada
 
 El estado completo viaja en el fragmento de la URL como `#scenario=<código>`, sincronizado con
 `debounce` y escuchado con `hashchange`. Compartir es mandar el enlace: quien lo abre ve la misma
-cotización. El esquema es `schemaVersion: 4` y hay migración desde la 3, cubierta por pruebas.
+cotización. El esquema es `schemaVersion: 5` —agregó `proRata` para la cotización a la medida— y
+hay migración desde la 2, la 3 y la 4, cubierta por pruebas; la de v4 → v5 entra con `proRata` en
+ceros y no mueve ningún precio.
 
 **21-ago-2026 · El botón «Compartir» del encabezado se retiró.** Con el archivo en Drive, la
 forma natural de mover una cotización es su JSON completo; en su lugar vive **«Insertar JSON»**:
@@ -193,6 +224,12 @@ El documento impreso lleva portada con folio, revisión, fecha y vigencia, y sei
 | 4 | Esquema de pago | El desglose año por año del esquema o esquemas visibles |
 | 5 | Accesos a plataformas | Tarjetas con logotipo y dirección |
 | 6 | Datos bancarios y contacto | Chips de entrega y envío, transferencia con advertencia de titular, contacto del colegio y contacto en activa |
+
+**Las filas del equipo docente toman su nombre del catálogo** (21-ago-2026). Antes estaban
+escritas a mano y nunca decían «seminuevo» en ningún plazo: en el plazo de 2 años un colegio
+podía leer «nuevo» sin que nadie se lo dijera. Ahora dicen «Flip-Touch seminueva · docente» en
+`fl2` y «Chromebook nueva · docente» en `tb3`, en las cinco modalidades, y lo clava la prueba
+«El documento nombra el seminuevo».
 
 **La hoja interior no repite la portada** (21-ago-2026). El cuerpo arranca directo en la sección
 1: ni logotipo, ni folio, ni cliente, ni ciudad. Esos datos viven en la portada y en el
@@ -316,11 +353,16 @@ La página trae su propia suite. Se corre agregando `?test=1` a la URL:
 http://127.0.0.1:8123/paginas/cotizador/?test=1
 ```
 
-El resultado se dibuja en `#testReport`. Cubre, entre otras cosas, la migración de esquema v3 → v4,
-que la importación externa conserve tipos estrictos, que un borrador incompleto sobreviva a
-exportar e importar, y que la aritmética histórica no cambie. **Conviene correrla después de tocar
-precios o reglas.** Hay además un objeto `Diagnostics` que detecta cotizaciones huérfanas en
-`localStorage`.
+El resultado se dibuja en `#testReport`. Son **98 pruebas**. Cubren, entre otras cosas, las
+migraciones de esquema v3 → v4 y v4 → v5 (esta última sin mover un centavo), que la importación
+externa conserve tipos estrictos, que un borrador incompleto sobreviva a exportar e importar, que
+la aritmética histórica no cambie, y la cotización a la medida completa: el ejemplo canónico
+(700 alumnos, 30 equipos, 1 carrito, 4 años → $3,219.71), que el plazo duplica el prorrateo a
+2 años, que CEU y seguro se suman solos, que en `fl2` no existe el equipo docente nuevo y en
+`tb3` el docente es Chromebook nueva, que el documento nombra «seminueva» en la fila del equipo
+docente, y que el desglose del prorrateo no viaja al PDF ni al correo. **Conviene correrla
+después de tocar precios o reglas.** Hay además un objeto `Diagnostics` que detecta cotizaciones
+huérfanas en `localStorage`.
 
 ---
 

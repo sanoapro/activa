@@ -152,7 +152,8 @@ Se corre desde la raíz del repositorio:
 ```bash
 python -c "
 import json
-l=open('paginas/upgrade-edu/index.html',encoding='utf-8').read().split('\n')[4077]
+l=next(x for x in open('paginas/upgrade-edu/index.html',encoding='utf-8')
+       if x.startswith('const BRAND = {'))
 b=json.loads(l[l.index('{'):l.rindex('}')+1])
 keep=['vJuan','vMartin','vJosue','vRoberto','vVicky','vZeni','activa','gfepartner','upgradeedu']
 open('paginas/kit-comercial/assets.js','w',encoding='utf-8').write(
@@ -160,8 +161,15 @@ open('paginas/kit-comercial/assets.js','w',encoding='utf-8').write(
 "
 ```
 
-(El `4077` es el índice de la línea donde vive `const BRAND` en el deck; si el
-deck cambia, hay que buscarla de nuevo.)
+La línea se **busca** por su inicio (`const BRAND = {`) en vez de leerse por
+índice. Antes estaba escrita a mano —`[4077]`— y para agosto de 2026 el deck ya
+había crecido hasta la 5430: el procedimiento documentado había dejado de
+funcionar sin que nadie se enterara, porque solo se corre al cambiar un retrato.
+
+**`keep` es una lista blanca a propósito.** El deck lleva los logotipos de todas
+las plataformas —impulsa, motiva, securly, integra…— y el kit no los usa: solo
+los seis retratos, `activa`, el distintivo de partner y `upgradeedu`. Agregar
+una marca al deck no obliga a regenerar este archivo.
 
 ## Cómo se regenera la vista previa de WhatsApp
 

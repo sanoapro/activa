@@ -67,6 +67,8 @@ Presentacion-activa/
 │   ├── descripcion-de-productos/ Catálogo y guiones de video
 │   ├── drive-PDF/                El archivo de cotizaciones en Drive: plan,
 │   │                             encargo y la copia del puente (.gs)
+│   ├── actualizacion-cotizador/  La cotización a la medida del cotizador
+│   │                             Upgrade Edu: plan y encargo. Sin construir.
 │   ├── normativa-motion.md       Cómo se anima cualquier página. OBLIGATORIA.
 │   └── estructura.md             Este archivo
 │
