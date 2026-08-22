@@ -1,6 +1,6 @@
 # Presentación a padres de familia · 2026–2027
 
-Deck de 18 diapositivas para las juntas con familias del colegio.
+Deck de 17 diapositivas para las juntas con familias del colegio.
 Se publica en **<https://sanoapro.github.io/activa/paginas/padres-de-familia/>**
 
 Markup, CSS y JS del deck viven dentro de `index.html`. Se abre con doble clic, sin servidor y
@@ -24,7 +24,7 @@ relativa, igual que el motor: son locales, no remotos.
 ## Movimiento y fondo
 
 Usa el motor compartido de `compartidos/` y el vocabulario visual de
-[`../upgrade-edu/`](../upgrade-edu/README.md). **Ninguna de las 18 láminas queda en blanco**:
+[`../upgrade-edu/`](../upgrade-edu/README.md). **Ninguna de las 17 láminas queda en blanco**:
 todas llevan una capa `.mv-fondo` (z0, sorda al ratón) con círculos de tinte, iconos SVG
 temáticos muy tenues (birrete y libro en las de maestros, escudo y candado en protección,
 corazón en la socioemocional, globo terráqueo en la internacional…) y la decoración del
@@ -124,12 +124,12 @@ Se puede enlazar a una diapositiva concreta con el número en el hash: `…/padr
   retiró en agosto de 2026, pero el modo de fallo sigue siendo posible y **no avisa**:
   `.slide{overflow:hidden}` recorta en silencio. La comprobación es
   `awk '{t+=gsub(/<div/,"&")-gsub(/<\/div>/,"&")}END{print t}' index.html`, que debe dar 0.
-- **Impresión:** `Ctrl+P` saca una diapositiva por página en horizontal (18 páginas de
+- **Impresión:** `Ctrl+P` saca una diapositiva por página en horizontal (17 páginas de
   1280×720). Las fotos sí se imprimen; la decoración que solo existe en movimiento, no.
 
 ## La narrativa: no se reordena
 
-Las 18 láminas son un embudo de gestión del cambio:
+Las 17 láminas son un embudo de gestión del cambio:
 credibilidad → disonancia → desarme → tranquilidad → solución → prueba social → acción.
 Cada `<section class="slide">` lleva un `data-bloque` con su fase, y el indicador de progreso se
 colorea a partir de él. **Mover una diapositiva rompe el argumento**, y el bloque D
@@ -143,17 +143,21 @@ colorea a partir de él. **Mover una diapositiva rompe el argumento**, y el bloq
 | D · Tranquilidad | 9–12 | `tranquilidad` |
 | E · Solución | 13–14 | `solucion` |
 | F · Resultado y prueba social | 15–16 | `resultado` |
-| G · Cierre | 17–18 | `cierre` |
+| G · Cierre | 17 | `cierre` |
 
-**El deck pasó de 22 a 18 láminas en agosto de 2026.** Se fusionaron protección con
+**El deck pasó de 22 a 17 láminas en agosto de 2026.** Se fusionaron protección con
 privacidad (hoy la 11, que estrena Securly) y metodologías con casos reales (hoy la 13,
 que estrena *impulsa*); se retiraron la del equipo y la de herramientas. Lo que valía de
 las dos retiradas no se perdió: el seguro contra daño y robo y el stock de reemplazo
 bajaron a la 11, y «no consumen contenido, lo crean» bajó a la 13. **La palabra «jugar»
 salió del deck**: a un padre preocupado por las pantallas no le tranquiliza.
 
+**En agosto de 2026 se retiró además «Lo que sigue»**, la lámina de la ruta de cuatro pasos
+que cerraba el bloque G. El cierre quedó como única lámina del bloque: la junta termina en
+la portada de preguntas, sin un calendario que el colegio no siempre puede sostener.
+
 **El hash es posicional.** Un enlace `#13` repartido antes del cambio aterriza hoy en
-otra lámina.
+otra lámina, y `#18` ya no existe.
 
 ## Se proyecta tal cual: no hay nada que completar
 

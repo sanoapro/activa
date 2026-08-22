@@ -24,7 +24,7 @@ Presentacion-activa/
 │   │   ├── index.html
 │   │   ├── og.png
 │   │   └── README.md
-│   ├── padres-de-familia/        Deck de 22 diapositivas para juntas con familias
+│   ├── padres-de-familia/        Deck de 17 diapositivas para juntas con familias
 │   │   ├── index.html
 │   │   └── README.md
 │   ├── cotizador/                Herramienta para armar la propuesta

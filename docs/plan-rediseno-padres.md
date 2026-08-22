@@ -1,7 +1,9 @@
 # Plan de rediseño · Presentación a padres de familia
 
-> **Estado: segunda tanda aplicada (21-ago-2026).** El deck pasó de **22 a 18 láminas** y
-> estrenó fotografías y logotipos. Queda pendiente lo que no se puede resolver leyendo el
+> **Estado: segunda tanda aplicada (21-ago-2026).** El deck pasó de **22 a 17 láminas** y
+> estrenó fotografías y logotipos. La lámina **«Lo que sigue»** (la ruta de cuatro pasos del
+> bloque G) se retiró el 21-ago-2026: el cierre es hoy la única lámina del bloque.
+> Queda pendiente lo que no se puede resolver leyendo el
 > repositorio: la investigación de §5 —de dónde salen las diez competencias de la lámina 7 y
 > la fuente exacta del 60 % de la lámina 6— y las láminas nuevas de §4 bis.
 > Fuente de verdad del contenido: [`portafolio-activa.md`](portafolio-activa.md).

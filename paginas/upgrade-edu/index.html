@@ -660,8 +660,11 @@ ul.mini.s12-mini li::before{width:7px;height:7px;top:5px}
    eyebrow + h2 de dos líneas (≈120), así que no altera la cuenta de alturas.
    El eyebrow entra en la misma columna que el h2 para que ambos arranquen en
    la misma vertical y el medallón quede fuera de la caja de texto. */
-.s19x-ht{display:flex;align-items:center;gap:16px}
-.s19x-hx{display:flex;flex-direction:column;gap:11px;min-width:0}
+/* El encabezado de esta lámina usaba una rejilla propia —medallón a la
+   izquierda, eyebrow y h2 apilados a la derecha— porque integra no tenía
+   logotipo. Desde que lo tiene (21-ago-2026) usa el patrón de las demás
+   láminas de plataforma: img.lg de 30 px sobre el h2, y nada más. Las clases
+   .s19x-ht y .s19x-hx se retiraron con él; no las usaba nadie más. */
 /* Cabecera de pilar: medallón + nombre + una línea de propósito */
 .s19x-ph{display:flex;gap:12px;align-items:center;flex-shrink:0}
 .s19x-ph h4{font-size:16px;line-height:1.15}
@@ -3873,10 +3876,13 @@ como pidió el cliente; nada colapsado. 6 beneficios visibles (regla ≤12-14 �
 
 <!-- ═════════ 19 · INTEGRA ═════════ -->
 <!--
-CUENTA DE ALTURAS (h2 de 2 líneas → .body ≈ 470 px · ancho útil 1160 px)
-El h2 va precedido por un medallón de control escolar (.med y, 52 px): al ser
-más bajo que el h2 de dos líneas (≈95), el encabezado no crece y la cuenta
-siguiente se mantiene intacta.
+CUENTA DE ALTURAS (h2 de 2 líneas → .body ≈ 454 px · ancho útil 1160 px)
+El h2 va precedido por el logotipo de integra (img.lg, 30 px), igual que en las
+demás láminas de plataforma. Antes ahí vivía un medallón de control escolar
+(.med y, 52 px) en una rejilla propia, a un costado del h2: como era más bajo
+que el h2 de dos líneas (≈95) el encabezado no crecía. El logotipo sí ocupa
+renglón propio, así que el encabezado sube 16 px (30 + gap 11 − eyebrow 14 −
+gap 11) y el cuerpo baja de 470 a 454. Sigue sobrando: 410 < 454.
 Estructura: stack (gap 16) = rejilla g3 de pilares + banda del diferenciador.
 Ya no hay desplegables: un solo estado, los 6 beneficios de cada pilar a la vista.
 
@@ -3887,7 +3893,7 @@ Tarjeta de pilar (pad-s: 20/22 → 40 vertical; gap interno 10):
 
 Banda diferenciador .s19x-band (padding 14 → 28 + contenido 40)   ≈  68
 
-Total: 326 + 16 + 68 = 410  < 470 ✓  (un solo estado, sin colapsables)
+Total: 326 + 16 + 68 = 410  < 454 ✓  (un solo estado, sin colapsables)
 
 Ancho: columna g3 = (1160 − 32)/3 ≈ 376 px; texto de viñeta ≈ 313 px →
 descripciones ≤ 50 caracteres para sostener 1 sola línea. Verificado.
@@ -3899,18 +3905,8 @@ Gestión verde. El amarillo queda para el eje (eyebrow, banda y ejebar).
   <span class="shape" style="width:560px;height:560px;left:-220px;bottom:-240px;background:var(--yel-t)"></span>
   <div class="brandmark"><img data-logo="gfepartner" alt="Google for Education Partner"></div>
   <div class="head">
-    <div class="s19x-ht">
-      <span class="med y" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"/></svg></span>
-      <div class="s19x-hx">
-        <!-- El logotipo va aquí y no en una fila propia del encabezado: .head es
-             flex-shrink:0 y .slide recorta, así que un renglón extra le comería
-             altura al cuerpo, que en esta lámina lleva tres columnas de seis
-             viñetas. Dentro del .eyebrow —inline-flex con gap:9px— ocupa el
-             mismo lugar que ocupaba el wordmark en cursiva, sin crecer. -->
-        <div class="eyebrow y"><img data-logo="integra" alt="integra" style="height:13px;width:auto"> · nueva en el portafolio <em class="marca">activa</em></div>
-        <h2>Licencia de comunicación,<br>control y gestión escolar</h2>
-      </div>
-    </div>
+    <img data-logo="integra" class="lg" alt="integra" style="height:30px">
+    <h2>Licencia de comunicación,<br>control y gestión escolar</h2>
   </div>
   <div class="body">
     <div class="stack" style="gap:16px">
