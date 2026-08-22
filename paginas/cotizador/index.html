@@ -3670,6 +3670,9 @@ function renderAdjustments(d,r) {
   if(warnBox.dataset.sig!==warnHtml){warnBox.dataset.sig=warnHtml;warnBox.innerHTML=warnHtml;}
 }
 /* ============ v5 · Cotización a la medida: captura y caja de cálculo ============ */
+/* El importe de un renglón, en un solo lugar: lo escribe renderProCartRows() al crear
+   la fila y lo reescribe renderProRata() en cada cálculo. */
+const proCartSumHtml = c => `${c.qty} × ${money(cartCatalogPrice(c.cap))} = <b>${money(c.qty*cartCatalogPrice(c.cap))}</b>`;
 function renderProCartRows(){
   const wrap=$("#proCartRows");if(!wrap)return;
   const carts=S().proRata?.carts||[];
@@ -3677,7 +3680,7 @@ function renderProCartRows(){
   wrap.innerHTML=carts.map((c,i)=>`<div class="ccrow" data-procart-row="${i}" style="grid-template-columns:1fr 1fr 1.4fr 44px;align-items:end">
     <div><label class="fl" for="fProCartCap${i}">Capacidad</label><select id="fProCartCap${i}" data-procart-cap>${CART_CAPS.map(cap=>`<option value="${cap}"${cap===c.cap?" selected":""}>${cap} equipos</option>`).join("")}</select></div>
     <div><label class="fl" for="fProCartQty${i}">Cantidad</label><input type="number" id="fProCartQty${i}" data-procart-qty min="1" max="99" step="1" inputmode="numeric" value="${c.qty}"></div>
-    <div><span class="fl">Importe</span><div class="ccsum">${c.qty} × ${money(cartCatalogPrice(c.cap))} = <b>${money(c.qty*cartCatalogPrice(c.cap))}</b></div></div>
+    <div><span class="fl">Importe</span><div class="ccsum" data-procart-sum="${i}">${proCartSumHtml(c)}</div></div>
     <button type="button" class="icon-btn" data-procart-del="${i}" aria-label="Eliminar el renglón de carrito ${i+1}">×</button>
   </div>`).join("");
 }
@@ -3705,7 +3708,13 @@ function renderProRata(r){
     const el=$("#"+id);
     if(el&&document.activeElement!==el&&el.value!==String(value)&&!FIELD_ERRORS.has(id))el.value=String(value);
   }
-  if($("#proCartRows").querySelectorAll("[data-procart-row]").length!==(S().proRata?.carts||[]).length)renderProCartRows();
+  /* Los renglones se redibujan solo si cambió CUÁNTOS hay: rehacerlos en cada tecla le
+     movería el cursor al vendedor. Pero el importe sí depende de la capacidad y de la
+     cantidad, así que se reescribe aparte, en su propia celda. Sin esto el renglón
+     decía «1 × $30,860.00» para siempre, aunque se cambiara a un carrito de 20. */
+  const rows=S().proRata?.carts||[];
+  if($("#proCartRows").querySelectorAll("[data-procart-row]").length!==rows.length)renderProCartRows();
+  else rows.forEach((c,i)=>{const cell=$(`[data-procart-sum="${i}"]`);if(cell){const html=proCartSumHtml(c);if(cell.innerHTML!==html)cell.innerHTML=html;}});
   /* La cuenta completa, y el aviso de la decisión D-1: el prorrateo entra al precio de
      lista y recibe el descuento del esquema, así que el vendedor ve qué porcentaje del
      costo del fierro recupera con el esquema elegido. */
@@ -4859,6 +4868,20 @@ const QuoteTests={
       $("#btnAddProCart").click();
       this.assert(S().proRata.carts.length===1,"el renglón de carrito no se agregó");
       this.assert(!$("#fProCartPrice0"),"el renglón de carrito no debe pedir precio: sale del catálogo");
+      /* El importe del renglón sigue a la capacidad y a la cantidad. Los renglones solo se
+         redibujan cuando cambia CUÁNTOS hay —para no moverle el cursor al vendedor—, así
+         que el importe se reescribe aparte; sin eso decía «1 × $30,860.00» para siempre. */
+      const sumCell=()=>$('[data-procart-sum="0"]').textContent;
+      this.assert(sumCell().includes(money(CART_PRICES[30])),`el importe no arrancó con el carrito de 30: ${sumCell()}`);
+      const capSel=$("#fProCartCap0");capSel.value="20";capSel.dispatchEvent(new Event("change",{bubbles:true}));
+      CURRENT_RESULT=quote(S());renderAll();
+      this.assert(sumCell().includes(money(CART_PRICES[20])),`cambiar a capacidad 20 no actualizó el importe: ${sumCell()}`);
+      const qtyInput=$("#fProCartQty0");qtyInput.value="3";qtyInput.dispatchEvent(new Event("input",{bubbles:true}));
+      CURRENT_RESULT=quote(S());renderAll();
+      this.assert(sumCell().includes(money(3*CART_PRICES[20])),`cambiar la cantidad no actualizó el importe: ${sumCell()}`);
+      capSel.value="30";capSel.dispatchEvent(new Event("change",{bubbles:true}));
+      CURRENT_RESULT=quote(S());renderAll();
+      S().proRata.carts[0]={cap:30,qty:1};renderProCartRows();CURRENT_RESULT=quote(S());renderAll();
       CURRENT_RESULT=quote(S());renderAll();
       const boxText=$("#proRataBox").textContent;
       this.assert(boxText.includes("Costo del fierro"),"la caja de cálculo no enseña el costo del fierro");
