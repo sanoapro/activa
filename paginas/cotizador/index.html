@@ -1273,11 +1273,10 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
           <div class="f"><label for="fProModel">Modelo del equipo docente</label><select id="fProModel"></select>
             <div class="hint" id="hProModel">Las opciones dependen del plazo elegido</div></div>
         </div>
-        <div class="miniLbl" style="margin-top:14px">Carritos de carga <span class="tagx alt">capacidad, cantidad y precio unitario · el precio siempre es manual</span></div>
+        <div class="miniLbl" style="margin-top:14px">Carritos de carga <span class="tagx alt">capacidad y cantidad · el precio sale del catálogo</span></div>
         <div id="proCartRows"></div>
         <div class="inline-action">
-          <button type="button" class="btn text" id="btnAddProCart">Agregar renglón de carrito</button>
-          <span class="hint">Precio 0 es válido: el colegio puede tener ya los suyos.</span>
+          <button type="button" class="btn primary" id="btnAddProCart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Agregar carrito</button>
         </div>
         <div class="calcbox" id="proRataBox" style="margin-top:14px"></div>
         </div>
@@ -1320,10 +1319,10 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
 
         <div class="fgroup" id="grpCart">
         <div class="miniLbl">Carrito de carga <span class="tagx alt">solo en modelos 1:2, 1:3 y 1:4</span></div>
-        <fieldset class="cartgrid" id="cartGrid"><legend class="sr-only">Capacidad y precio del carrito de carga</legend>
-          <fieldset class="cartopt" data-cap="20"><legend>Carrito de 20 equipos</legend><div class="cart-select"><input type="radio" id="cartCap20" name="cartcap" value="20"><label for="cartCap20">Usar capacidad de 20</label></div><label for="fCart20">Precio unitario · con IVA</label><input type="number" id="fCart20" min="0" max="10000000" step="0.01" inputmode="decimal" value="0" placeholder="precio"></fieldset>
-          <fieldset class="cartopt on" data-cap="30"><legend>Carrito de 30 equipos</legend><div class="cart-select"><input type="radio" id="cartCap30" name="cartcap" value="30" checked><label for="cartCap30">Usar capacidad de 30</label></div><label for="fCart30">Precio unitario · con IVA</label><input type="number" id="fCart30" min="0" max="10000000" step="0.01" inputmode="decimal" value="0" placeholder="precio"></fieldset>
-          <fieldset class="cartopt" data-cap="40"><legend>Carrito de 40 equipos</legend><div class="cart-select"><input type="radio" id="cartCap40" name="cartcap" value="40"><label for="cartCap40">Usar capacidad de 40</label></div><label for="fCart40">Precio unitario · con IVA</label><input type="number" id="fCart40" min="0" max="10000000" step="0.01" inputmode="decimal" value="0" placeholder="precio"></fieldset>
+        <fieldset class="cartgrid" id="cartGrid"><legend class="sr-only">Capacidad del carrito de carga</legend>
+          <fieldset class="cartopt" data-cap="20"><legend>Carrito de 20 equipos</legend><div class="cart-select"><input type="radio" id="cartCap20" name="cartcap" value="20"><label for="cartCap20">Usar capacidad de 20</label></div><span class="nohint" id="cartPrice20"></span></fieldset>
+          <fieldset class="cartopt on" data-cap="30"><legend>Carrito de 30 equipos</legend><div class="cart-select"><input type="radio" id="cartCap30" name="cartcap" value="30" checked><label for="cartCap30">Usar capacidad de 30</label></div><span class="nohint" id="cartPrice30"></span></fieldset>
+          <fieldset class="cartopt" data-cap="40"><legend>Carrito de 40 equipos</legend><div class="cart-select"><input type="radio" id="cartCap40" name="cartcap" value="40"><label for="cartCap40">Usar capacidad de 40</label></div><span class="nohint" id="cartPrice40"></span></fieldset>
           <fieldset class="cartopt none" data-cap="0"><legend>Sin carrito</legend><div class="cart-select"><input type="radio" id="cartCap0" name="cartcap" value="0"><label for="cartCap0">No incluir carrito</label></div><span class="nohint">No se incluye en el cálculo</span></fieldset>
         </fieldset>
         <label class="lic cart-free" id="cartFreeWrap" hidden>
@@ -2031,8 +2030,10 @@ const S4 = APP_CONFIG.annualFactors.four;
    │   Descuento al quitar motiva                  −200   por alumno/año      │
    │   Descuento al quitar beta English            −200   por alumno/año      │
    │   Descuento al quitar Everway (solo Plus)      −80   por alumno/año      │
-   │   Carrito de carga                        MANUAL     lo teclea el        │
-   │                                                      vendedor, con IVA   │
+   │   CARRITO DE CARGA Y ALMACENAMIENTO                                      │
+   │   Para 20 Chromebooks                       28,280                       │
+   │   Para 30 Chromebooks                       30,860                       │
+   │   Para 40 Chromebooks                       36,800                       │
    │                                                                          │
    │  Hasta el 22-ago-2026 el precio de equipo TRAÍA DENTRO la CEU y el       │
    │  seguro (la Chromebook de alumno costaba 17,000 «con todo»). Ahora el    │
@@ -2040,6 +2041,13 @@ const S4 = APP_CONFIG.annualFactors.four;
    │  equipo cueste lo mismo por cualquier puerta que entre. Si algún día     │
    │  vuelven a venir incluidos, hay que quitarlos de deviceUnitCost().       │
    └──────────────────────────────────────────────────────────────────────────┘ */
+/* Precio de carrito POR CAPACIDAD. Hasta el 22-ago-2026 lo tecleaba el vendedor en
+   cada cotización: un precio de catálogo capturado a mano es un precio equivocado
+   esperando su turno, y además el campo no decía si llevaba IVA. Ahora sale de aquí.
+   Lo que el vendedor decide es CUÁNTOS carritos, no cuánto cuestan; si el colegio ya
+   tiene los suyos, la cantidad es cero. Regalarlos exige autorización expresa. */
+const CART_PRICES = deepFreeze({20:28280,30:30860,40:36800});
+const cartCatalogPrice = cap => CART_PRICES[Number(cap)] ?? 0;
 const DEVICES = deepFreeze({
   cbAlumno:  {label:"Chromebook nueva",                cost:14500},
   cbDocente: {label:"Chromebook nueva · docente",      cost:17850},
@@ -2315,8 +2323,8 @@ function quote(input) {
   const proStu = !ratioMode && Number.isSafeInteger(q.proRata?.stu) && q.proRata.stu > 0 ? q.proRata.stu : 0;
   const proDoc = !ratioMode && Number.isSafeInteger(q.proRata?.doc) && q.proRata.doc > 0 ? q.proRata.doc : 0;
   const proCartRows = !ratioMode && Array.isArray(q.proRata?.carts)
-    ? q.proRata.carts.filter(c=>c&&CART_CAPS.includes(Number(c.cap))&&Number.isSafeInteger(c.qty)&&c.qty>0&&Number.isFinite(Number(c.price))&&Number(c.price)>=0)
-      .map(c=>({cap:Number(c.cap),qty:c.qty,price:roundCurrency(Number(c.price))}))
+    ? q.proRata.carts.filter(c=>c&&CART_CAPS.includes(Number(c.cap))&&Number.isSafeInteger(c.qty)&&c.qty>0)
+      .map(c=>({cap:Number(c.cap),qty:c.qty,price:cartCatalogPrice(c.cap)}))
     : [];
 
   /* F-25 · P1 · Docentes CON LICENCIA y SIN equipo: razón 1:10. Es una regla
@@ -2379,20 +2387,21 @@ function quote(input) {
   const adjEqDoc = (students > 0 && years > 0 ? costExtraEq / students / years : 0) + adjDocExtra;
   const adjStuExtra = students > 0 ? stuChg * APP_CONFIG.equipment.extraStudentDeviceFactor * base / students : 0;
 
-  /* F-23 · M-05 · El precio del carrito exige finitud y no-negatividad: un valor
-     Infinity o negativo contaminaba todos los esquemas sin una sola advertencia. */
-  const cartPriceRaw = Number(q.cartP?.[q.cartCap]);
-  const cartPrice = Number.isFinite(cartPriceRaw) && cartPriceRaw >= 0
-    ? cartPriceRaw
-    : (cartPriceRaw ? (fallbacks.push("precio de carrito no válido"), 0) : 0);
+  /* El precio del carrito sale del CATÁLOGO (22-ago-2026), no de la captura. Antes
+     lo tecleaba el vendedor y el motor tenía que defenderse de un Infinity o un
+     negativo; ahora la única fuente es CART_PRICES y esa defensa sobra.
+     Sigue habiendo una forma de que un carrito cueste cero, pero es explícita y queda
+     firmada: la autorización de entrega sin costo. */
   /* Carritos por razón (1:2 a 1:4): cantidad derivada, como siempre. En la modalidad
      a la medida son renglones explícitos con capacidad, cantidad y precio unitario:
      no hay razón de la cual derivarlos — el colegio dice cuántos. */
   const ratioCarts = divisor > 1 && q.cartCap && ratioMode && stuReq > 0 ? ceil(stuReq / q.cartCap) : 0;
+  const cartFreeAuthorized = ratioCarts > 0 && isCartAuthorizationValid(q,{stuReq,carts:ratioCarts});
+  const cartPrice = cartFreeAuthorized ? 0 : cartCatalogPrice(q.cartCap);
   const ratioCartTot = ratioCarts * cartPrice;
   const adjCart = students > 0 && years > 0 ? ratioCartTot / students / years : 0;
   const proCartQty = proCartRows.reduce((sum,c)=>sum+c.qty,0);
-  const proCartCost = proCartRows.reduce((sum,c)=>sum+c.qty*c.price,0);
+  const proCartCost = proCartRows.reduce((sum,c)=>sum+c.qty*cartCatalogPrice(c.cap),0);
   const proCartCapTotal = proCartRows.reduce((sum,c)=>sum+c.qty*c.cap,0);
   const carts = ratioMode ? ratioCarts : proCartQty;
   const cartTot = ratioMode ? ratioCartTot : proCartCost;
@@ -2457,8 +2466,9 @@ function quote(input) {
   /* Las reglas del carrito derivado —precio obligatorio o autorización sin costo— son
      de las modalidades por razón. En la modalidad a la medida el precio 0 es válido y
      sin advertencia: el colegio puede tener ya los suyos (regla cerrada el 21-ago-2026). */
-  const cartFreeValid = ratioCarts > 0 && cartPrice === 0 && isCartAuthorizationValid(q,{stuReq,carts:ratioCarts,cartPrice});
-  if (ratioCarts > 0 && cartPrice === 0 && !cartFreeValid) warns.push({t:"e",blocks:"price",code:"CART_PRICE",m:`Falta capturar el precio de ${ratioCarts} carrito(s) de ${q.cartCap} equipos o autorizar expresamente su entrega sin costo.`});
+  /* Se retiró el error CART_PRICE: con precio de catálogo no hay nada que capturar,
+     y por tanto nada que se pueda olvidar. */
+  const cartFreeValid = cartFreeAuthorized;
   if (cartFreeValid) warns.push({t:"w",code:"CART_FREE",m:`${ratioCarts} carrito(s) de ${q.cartCap} equipos autorizados sin costo para esta configuración.`});
   if (docExtra > 0) warns.push({t:"i",code:"EXTRA_TEACHERS",m:`${docExtra} docente(s) extra sin equipo: suman licencias y ${money(APP_CONFIG.equipment.extraTeacherAnnualCost)} al año cada uno, por los años del contrato.`});
   if (list <= 0) warns.push({t:"e",blocks:"price",code:"NON_POSITIVE_PRICE",m:"El precio por alumno quedó en cero o negativo. Revisa los ajustes de la cotización."});
@@ -2576,7 +2586,7 @@ function saveSellerProfile(seller){
   }catch(error){console.warn("No se pudo guardar el perfil del vendedor",error);return false;}
 }
 function emptyCartAuthorization(){return{authorized:false,fingerprint:"",authorizedAt:"",authorizedBy:""};}
-function defaultState(generateIdentity=true){const today=localISODate(new Date()),seller=loadSellerProfile();return{schemaVersion:APP_CONFIG.schemaVersion,identity:generateIdentity?newIdentity(seller.name,today):{quoteId:"",folioRoot:"",revision:1,createdAt:"",updatedAt:"",parentQuoteId:null},scenario:{pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,docExtra:0,stuExtra:0,teacherDeviceModel:null,eqDoc:0,eqStu:0,cartCap:30,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),/* v5 · Cotización a la medida: equipos y carritos prorrateados de la modalidad 0. */proRata:{stu:0,doc:0,carts:[]},lic:Object.fromEntries(LICS.map(l=>[l.k,true])),/* F-24 · P4 · Esquemas ADICIONALES al elegido que el documento debe mostrar. Por defecto ninguno: la propuesta muestra solo el esquema elegido para no confundir al cliente. */showSchemes:{contado:false,antes:false,despues:false}},client:{institution:"",shortName:"",city:"",contacts:[{name:"",email:"",phone:""},{name:"",email:"",phone:""},{name:"",email:"",phone:""}]},validity:{quoteDate:today,validUntil:addDaysISO(today,APP_CONFIG.cycle.validityDays),validUntilAuto:true,delivery:APP_CONFIG.cycle.delivery,shipping:"Sí"},seller,supplier:clone(APP_CONFIG.defaults.supplier),mail:{recipients:[],excludedRecipients:[],subjectOverride:"",subjectMode:"auto",multiQuote:false}};}
+function defaultState(generateIdentity=true){const today=localISODate(new Date()),seller=loadSellerProfile();return{schemaVersion:APP_CONFIG.schemaVersion,identity:generateIdentity?newIdentity(seller.name,today):{quoteId:"",folioRoot:"",revision:1,createdAt:"",updatedAt:"",parentQuoteId:null},scenario:{pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,docExtra:0,stuExtra:0,teacherDeviceModel:null,eqDoc:0,eqStu:0,cartCap:30,cartFreeAuthorization:emptyCartAuthorization(),/* v5 · Cotización a la medida: equipos y carritos prorrateados de la modalidad 0. */proRata:{stu:0,doc:0,carts:[]},lic:Object.fromEntries(LICS.map(l=>[l.k,true])),/* F-24 · P4 · Esquemas ADICIONALES al elegido que el documento debe mostrar. Por defecto ninguno: la propuesta muestra solo el esquema elegido para no confundir al cliente. */showSchemes:{contado:false,antes:false,despues:false}},client:{institution:"",shortName:"",city:"",contacts:[{name:"",email:"",phone:""},{name:"",email:"",phone:""},{name:"",email:"",phone:""}]},validity:{quoteDate:today,validUntil:addDaysISO(today,APP_CONFIG.cycle.validityDays),validUntilAuto:true,delivery:APP_CONFIG.cycle.delivery,shipping:"Sí"},seller,supplier:clone(APP_CONFIG.defaults.supplier),mail:{recipients:[],excludedRecipients:[],subjectOverride:"",subjectMode:"auto",multiQuote:false}};}
 function createSafeDefaultState(){
   try{return defaultState();}
   catch(error){
@@ -2618,7 +2628,9 @@ function migrateDeviceFields(payload){
      reales circulando todavía, así que no hace falta un aviso ni un bloqueo para esto. */
   return{stuExtra:extrasAllowed?Math.max(0,requested-stuIncl):0,teacherDeviceModel:"docente"};
 }
-function sanitizeScenarioPayload(payload,{allowLegacy=false}={}){if(!isPlainObject(payload))throw new Error("Escenario inválido");const version=payload.v;if(!([2,3,4,5].includes(version)&&allowLegacy||version===5))throw new Error("Versión de escenario incompatible");if(payload.cycle!==APP_CONFIG.cycle.id)throw new Error("Ciclo incompatible");const lic={};for(const item of LICS){const value=payload.lic?.[item.k]??true;lic[item.k]=strictBoolean(value,`lic.${item.k}`);}const cartP={};for(const cap of CART_CAPS)cartP[cap]=strictFiniteNumber(payload.cartP?.[cap]??payload.cartP?.[String(cap)]??0,0,APP_CONFIG.limits.price.max,`Precio carrito ${cap}`);/* F-24 · P4 · Preferencia de esquemas mostrados: opcional, booleanos estrictos. */const showSchemes={};for(const k of Object.keys(PAYS)){const v=isPlainObject(payload.showSchemes)?(payload.showSchemes[k]??false):false;showSchemes[k]=strictBoolean(v,`showSchemes.${k}`);}/* F-27 · V4-03 · En "sin equipos" (mod 0) los equipos docentes adicionales se normalizan
+function sanitizeScenarioPayload(payload,{allowLegacy=false}={}){if(!isPlainObject(payload))throw new Error("Escenario inválido");const version=payload.v;if(!([2,3,4,5].includes(version)&&allowLegacy||version===5))throw new Error("Versión de escenario incompatible");if(payload.cycle!==APP_CONFIG.cycle.id)throw new Error("Ciclo incompatible");const lic={};for(const item of LICS){const value=payload.lic?.[item.k]??true;lic[item.k]=strictBoolean(value,`lic.${item.k}`);}/* `cartP` (el precio de carrito capturado a mano) se retiró el 22-ago-2026: el precio
+   sale de CART_PRICES por capacidad. Los escenarios y borradores anteriores lo siguen
+   trayendo y aquí simplemente se ignora. *//* F-24 · P4 · Preferencia de esquemas mostrados: opcional, booleanos estrictos. */const showSchemes={};for(const k of Object.keys(PAYS)){const v=isPlainObject(payload.showSchemes)?(payload.showSchemes[k]??false):false;showSchemes[k]=strictBoolean(v,`showSchemes.${k}`);}/* F-27 · V4-03 · En "sin equipos" (mod 0) los equipos docentes adicionales se normalizan
    a 0 igual que los de estudiante: un JSON o escenario pegado no puede introducir valores
    latentes que reaparecerían como cargos al cambiar de modalidad. */const sanitizedMod=strictInteger(payload.mod,0,4,"Modelo"),hasDevicesMod=sanitizedMod>0;
 /* v5 · Los equipos a la medida solo existen en la modalidad 0; en las modalidades por
@@ -2636,12 +2648,13 @@ if(sanitizedMod===0&&version>=5&&isPlainObject(payload.proRata)){
       if(!isPlainObject(c))throw new Error(`Carrito a la medida ${i+1}: renglón inválido`);
       return{cap:strictEnum(c.cap,[20,30,40],`Carrito a la medida ${i+1}: capacidad`),
              qty:strictInteger(c.qty,1,99,`Carrito a la medida ${i+1}: cantidad`),
-             price:strictFiniteNumber(c.price??0,0,APP_CONFIG.limits.price.max,`Carrito a la medida ${i+1}: precio`)};
+             /* El precio ya no viaja: sale de CART_PRICES por capacidad. Un `price`
+                de un escenario viejo se ignora en silencio, a propósito. */};
     });
   }
 }
 const cleanTerm=strictEnum(payload.term,Object.keys(TERMS),"Plazo");
-const scenario={pkg:strictEnum(payload.pkg,["edu","plus"],"Paquete"),term:cleanTerm,mod:sanitizedMod,pay:strictEnum(payload.pay,Object.keys(PAYS),"Pago"),stu:strictInteger(payload.stu,1,APP_CONFIG.limits.students.max,"Alumnos"),...migrateDeviceFields(payload),docExtra:strictInteger(payload.docExtra??0,0,APP_CONFIG.limits.quantity.max,"Docentes extra"),eqDoc:hasDevicesMod?strictInteger(payload.eqDoc??0,0,APP_CONFIG.limits.quantity.max,"Equipos docente"):0,eqStu:hasDevicesMod?strictInteger(payload.eqStu??0,0,APP_CONFIG.limits.quantity.max,"Equipos estudiante"):0,cartCap:strictEnum(payload.cartCap,[0,20,30,40],"Capacidad de carrito"),cartP,cartFreeAuthorization:emptyCartAuthorization(),lic,showSchemes,proRata};
+const scenario={pkg:strictEnum(payload.pkg,["edu","plus"],"Paquete"),term:cleanTerm,mod:sanitizedMod,pay:strictEnum(payload.pay,Object.keys(PAYS),"Pago"),stu:strictInteger(payload.stu,1,APP_CONFIG.limits.students.max,"Alumnos"),...migrateDeviceFields(payload),docExtra:strictInteger(payload.docExtra??0,0,APP_CONFIG.limits.quantity.max,"Docentes extra"),eqDoc:hasDevicesMod?strictInteger(payload.eqDoc??0,0,APP_CONFIG.limits.quantity.max,"Equipos docente"):0,eqStu:hasDevicesMod?strictInteger(payload.eqStu??0,0,APP_CONFIG.limits.quantity.max,"Equipos estudiante"):0,cartCap:strictEnum(payload.cartCap,[0,20,30,40],"Capacidad de carrito"),cartFreeAuthorization:emptyCartAuthorization(),lic,showSchemes,proRata};
 /* Catálogo por plazo: si el modelo docente guardado no existe en el plazo (p. ej. un
    escenario cb4 con «estudiante» reabierto en fl2), se ajusta al único disponible; y
    con una sola opción se deja fijado, porque no hay decisión que tomar. */
@@ -3039,19 +3052,22 @@ function nextRevisionFor(folioRoot){
   if(HAS_STORAGE){try{localStorage.setItem(STORAGE_KEYS.revisionPrefix+folioRoot,String(next));}catch(error){console.warn("No se pudo fijar la marca de revision",error);}}
   return next;
 }
-function cartFingerprintFromValues({term,mod,stu,stuReq,cartCap,carts,cartPrice}){return JSON.stringify({term,mod,stu,stuReq,cartCap,carts,cartPrice:roundCurrency(cartPrice)});}
-function currentCartFingerprint(q,result){return cartFingerprintFromValues({term:q.term,mod:q.mod,stu:q.stu,stuReq:result.stuReq,cartCap:q.cartCap,carts:result.carts,cartPrice:result.cartPrice});}
+/* La huella ya no lleva el precio: desde el 22-ago-2026 lo determina la capacidad,
+   que sí está aquí. Incluirlo obligaría a calcular el precio para saber si la
+   autorización vale, y a consultar la autorización para saber el precio. */
+function cartFingerprintFromValues({term,mod,stu,stuReq,cartCap,carts}){return JSON.stringify({term,mod,stu,stuReq,cartCap,carts});}
+function currentCartFingerprint(q,result){return cartFingerprintFromValues({term:q.term,mod:q.mod,stu:q.stu,stuReq:result.stuReq,cartCap:q.cartCap,carts:result.carts});}
 function isCartAuthorizationValid(q,result){const a=q.cartFreeAuthorization;return Boolean(a?.authorized&&a.fingerprint&&a.fingerprint===currentCartFingerprint(q,result));}
 function revokeCartAuthorization(reason="La configuración cambió") {const a=S().cartFreeAuthorization;if(a?.authorized){S().cartFreeAuthorization=emptyCartAuthorization();const box=$("#fCartFree");if(box)box.checked=false;toast(`${reason}. La autorización de carrito sin costo fue revocada.`,"info");}}
-function authorizeCurrentCart(){const r=CURRENT_RESULT||quote(S());if(!(r.carts>0&&r.cartPrice===0))throw new Error("No hay carritos pendientes de autorización");S().cartFreeAuthorization={authorized:true,fingerprint:currentCartFingerprint(S(),r),authorizedAt:new Date().toISOString(),authorizedBy:APP_STATE.seller.name};}
+function authorizeCurrentCart(){const r=CURRENT_RESULT||quote(S());if(!(r.carts>0))throw new Error("No hay carritos que autorizar");S().cartFreeAuthorization={authorized:true,fingerprint:currentCartFingerprint(S(),r),authorizedAt:new Date().toISOString(),authorizedBy:APP_STATE.seller.name};}
 /* ---------- escenario compartible, sin datos personales ni autorizaciones ---------- */
-function scenarioPayload(){const s=APP_STATE.scenario;return{v:5,cycle:APP_CONFIG.cycle.id,pkg:s.pkg,term:s.term,mod:s.mod,pay:s.pay,stu:s.stu,stuExtra:s.stuExtra,teacherDeviceModel:s.teacherDeviceModel,docExtra:s.docExtra,eqDoc:s.eqDoc,eqStu:s.eqStu,cartCap:s.cartCap,cartP:{...s.cartP},lic:{...s.lic},showSchemes:{...(s.showSchemes||{contado:false,antes:false,despues:false})},proRata:{stu:s.proRata?.stu||0,doc:s.proRata?.doc||0,carts:(s.proRata?.carts||[]).map(c=>({cap:c.cap,qty:c.qty,price:c.price}))}};}
+function scenarioPayload(){const s=APP_STATE.scenario;return{v:5,cycle:APP_CONFIG.cycle.id,pkg:s.pkg,term:s.term,mod:s.mod,pay:s.pay,stu:s.stu,stuExtra:s.stuExtra,teacherDeviceModel:s.teacherDeviceModel,docExtra:s.docExtra,eqDoc:s.eqDoc,eqStu:s.eqStu,cartCap:s.cartCap,lic:{...s.lic},showSchemes:{...(s.showSchemes||{contado:false,antes:false,despues:false})},proRata:{stu:s.proRata?.stu||0,doc:s.proRata?.doc||0,carts:(s.proRata?.carts||[]).map(c=>({cap:c.cap,qty:c.qty}))}};}
 function bytesToBase64Url(bytes){let binary="";for(const b of bytes)binary+=String.fromCharCode(b);return btoa(binary).replaceAll("+","-").replaceAll("/","_").replace(/=+$/g,"");}
 function base64UrlToBytes(value){const base=value.replaceAll("-","+").replaceAll("_","/")+"===".slice((value.length+3)%4);const binary=atob(base);return Uint8Array.from(binary,c=>c.charCodeAt(0));}
 function encodeScenario(payload=scenarioPayload()){return bytesToBase64Url(new TextEncoder().encode(JSON.stringify(payload)));}
 function decodeScenario(code){const value=String(code||"").replace(/^ACTIVA[23]:/,"");if(value.length>20000)throw new Error("Código demasiado largo");return JSON.parse(new TextDecoder().decode(base64UrlToBytes(value)));}
 function applyScenario(payload,{newQuote=true}={}){
-  if(newQuote&&!ensureCurrentStateIsSafe())return false;const previous=clone(APP_STATE),clean=sanitizeScenarioPayload(payload,{allowLegacy:true}),target=newQuote?createSafeDefaultState():APP_STATE;target.scenario={...target.scenario,...clean,cartP:{...clean.cartP},lic:{...clean.lic},cartFreeAuthorization:emptyCartAuthorization()};APP_STATE=sanitizeLocalDraft(target);bindStateToForm();renderAll();if(!saveStateNow()){APP_STATE=previous;bindStateToForm();renderAll();return false;}
+  if(newQuote&&!ensureCurrentStateIsSafe())return false;const previous=clone(APP_STATE),clean=sanitizeScenarioPayload(payload,{allowLegacy:true}),target=newQuote?createSafeDefaultState():APP_STATE;target.scenario={...target.scenario,...clean,lic:{...clean.lic},cartFreeAuthorization:emptyCartAuthorization()};APP_STATE=sanitizeLocalDraft(target);bindStateToForm();renderAll();if(!saveStateNow()){APP_STATE=previous;bindStateToForm();renderAll();return false;}
   /* F-27 · V4-10 · La migración legada fija el modelo docente sin preguntar (conserva
      la aritmética histórica 1:20). La regla 6 dice que esa elección es del comercial,
      así que al menos debe enterarse de que se decidió por él. */
@@ -3085,7 +3101,7 @@ function rfcOk(value){
   const d=new Date(Date.UTC(year,mm-1,dd));
   return d.getUTCFullYear()===year&&d.getUTCMonth()===mm-1&&d.getUTCDate()===dd;
 }
-const CALCULATION_FIELDS=new Set(["fStu","fDocX","fStuX","fEqDoc","fEqStu","fCart20","fCart30","fCart40","fProStu","fProDoc"]);
+const CALCULATION_FIELDS=new Set(["fStu","fDocX","fStuX","fEqDoc","fEqStu","fProStu","fProDoc"]);
 /* v5 · Los renglones de carrito a la medida generan ids dinámicos (fProCartQty0…):
    también son campos financieros — un valor inválido debe ocultar el precio. */
 const isCalculationField=id=>CALCULATION_FIELDS.has(id)||/^fProCart/.test(id);
@@ -3248,10 +3264,10 @@ function resetStateForModel(nextModel){
   S().stuExtra=0;
   S().proRata={stu:0,doc:0,carts:[]};
   S().cartFreeAuthorization=emptyCartAuthorization();
-  if(nextModel===0){S().eqDoc=0;S().eqStu=0;S().cartCap=0;S().cartP={20:0,30:0,40:0};}
+  if(nextModel===0){S().eqDoc=0;S().eqStu=0;S().cartCap=0;}
 }
 function hasProRataData(){const p=S().proRata;return Boolean(p&&(p.stu>0||p.doc>0||(p.carts||[]).length>0));}
-function hasEquipmentAdjustments(){return S().eqDoc>0||S().eqStu>0||S().stuExtra>0||hasProRataData()||S().cartCap>0&&(CART_CAPS.some(cap=>S().cartP[cap]>0)||quote(S()).carts>0);}
+function hasEquipmentAdjustments(){return S().eqDoc>0||S().eqStu>0||S().stuExtra>0||hasProRataData()||S().cartCap>0&&quote(S()).carts>0;}
 function initControls() {
   /* F-23 · B-01 · Se elimina #fPkgState: input oculto que se creaba y escribía pero
      nunca se leía; S().pkg es la única fuente de verdad del paquete. */
@@ -3278,7 +3294,7 @@ function bindStateToForm() {
   /* F-25 · P5 · El modelo de equipo docente no tiene valor por defecto: si el estado
      no trae ninguno, ningún radio queda marcado y el motor bloquea el documento. */
   document.querySelectorAll('input[name="teachermodel"]').forEach(radio=>{radio.checked=radio.value===s.teacherDeviceModel;});
-  CART_CAPS.forEach(cap=>{$("#fCart"+cap).value=String(s.cartP[cap]||0);});
+  CART_CAPS.forEach(cap=>{const el=$("#cartPrice"+cap);if(el)el.textContent=`${money(cartCatalogPrice(cap))} cada uno`;});
   const cart=document.querySelector(`input[name="cartcap"][value="${s.cartCap}"]`)||document.querySelector('input[name="cartcap"][value="0"]'); if(cart)cart.checked=true;
   const free=$("#fCartFree"); if(free)free.checked=isCartAuthorizationValid(s,quote(s));
   $$(".seg button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.pkg===s.pkg)));
@@ -3358,7 +3374,7 @@ function bindEvents() {
   $("#btnAddProCart").addEventListener("click",()=>{
     if(S().mod!==0)return;
     if((S().proRata.carts||[]).length>=20){toast("Máximo 20 renglones de carrito.","error");return;}
-    S().proRata.carts.push({cap:30,qty:1,price:0});
+    S().proRata.carts.push({cap:30,qty:1});
     renderProCartRows();scheduleRender("all");markChanged();
   });
   $("#proCartRows").addEventListener("input",e=>{
@@ -3367,9 +3383,6 @@ function bindEvents() {
     if(e.target.matches("[data-procart-qty]")){
       const v=validateIntegerInput(e.target,{min:1,max:99,label:"Cantidad de carritos"});
       if(v.ok){cart.qty=v.value;scheduleRender("all");markChanged();}else renderStatus();
-    }else if(e.target.matches("[data-procart-price]")){
-      const v=validatePriceInput(e.target,"Precio unitario del carrito");
-      if(v.ok){cart.price=v.value;scheduleRender("all");markChanged();}else renderStatus();
     }
   });
   $("#proCartRows").addEventListener("change",e=>{
@@ -3380,7 +3393,7 @@ function bindEvents() {
   $("#proCartRows").addEventListener("click",e=>{
     const del=e.target.closest("[data-procart-del]");if(!del||S().mod!==0)return;
     const index=Number(del.dataset.procartDel);
-    setFieldError(`fProCartQty${index}`,"");setFieldError(`fProCartPrice${index}`,"");
+    setFieldError(`fProCartQty${index}`,"");
     S().proRata.carts.splice(index,1);
     /* Los ids se reindexan al reconstruir: se limpian también los errores colgantes. */
     for(let i=index;i<=S().proRata.carts.length;i++){setFieldError(`fProCartQty${i}`,"");setFieldError(`fProCartPrice${i}`,"");}
@@ -3422,7 +3435,6 @@ function bindEvents() {
     revokeCartAuthorization("Cambió el modelo de los equipos docentes");
     scheduleRender("all");markChanged();
   });
-  CART_CAPS.forEach(cap=>$("#fCart"+cap).addEventListener("input",e=>{const v=validatePriceInput(e.target,`Precio del carrito de ${cap}`);if(v.ok){S().cartP[cap]=v.value;revokeCartAuthorization("Cambió el precio del carrito");scheduleRender("all");markChanged();}else renderStatus();}));
   $("#fCartFree")?.addEventListener("change",e=>{try{if(e.target.checked)authorizeCurrentCart();else S().cartFreeAuthorization=emptyCartAuthorization();scheduleRender("all");markChanged();}catch(error){e.target.checked=false;toast(error.message,"error");}});
   $("#cartGrid").addEventListener("change",e=>{if(e.target.name==="cartcap"){S().cartCap=Number(e.target.value);revokeCartAuthorization("Cambió la capacidad del carrito");scheduleRender("all");markChanged();}});
   $("#licGrid").addEventListener("change",e=>{const input=e.target.closest("[data-lic-in]");if(!input)return;S().lic[input.dataset.licIn]=input.checked;scheduleRender("all");markChanged();});
@@ -3665,7 +3677,7 @@ function renderProCartRows(){
   wrap.innerHTML=carts.map((c,i)=>`<div class="ccrow" data-procart-row="${i}" style="grid-template-columns:1fr 1fr 1.4fr 44px;align-items:end">
     <div><label class="fl" for="fProCartCap${i}">Capacidad</label><select id="fProCartCap${i}" data-procart-cap>${CART_CAPS.map(cap=>`<option value="${cap}"${cap===c.cap?" selected":""}>${cap} equipos</option>`).join("")}</select></div>
     <div><label class="fl" for="fProCartQty${i}">Cantidad</label><input type="number" id="fProCartQty${i}" data-procart-qty min="1" max="99" step="1" inputmode="numeric" value="${c.qty}"></div>
-    <div><label class="fl" for="fProCartPrice${i}">Precio unitario · con IVA</label><input type="number" id="fProCartPrice${i}" data-procart-price min="0" max="10000000" step="0.01" inputmode="decimal" value="${c.price}"></div>
+    <div><span class="fl">Importe</span><div class="ccsum">${c.qty} × ${money(cartCatalogPrice(c.cap))} = <b>${money(c.qty*cartCatalogPrice(c.cap))}</b></div></div>
     <button type="button" class="icon-btn" data-procart-del="${i}" aria-label="Eliminar el renglón de carrito ${i+1}">×</button>
   </div>`).join("");
 }
@@ -4440,7 +4452,7 @@ const QuoteTests={
     this.test("Autoguardado recupera borrador local incompleto",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.seller.email="a@";APP_STATE.supplier.bank.holder="";APP_STATE.supplier.bank.clabe="";DIRTY=true;this.assert(saveStateNow(false),"no se guardó el borrador");const loaded=loadSavedState();this.assert(loaded?.seller?.email==="a@","correo parcial perdido");this.assert(loaded?.supplier?.bank?.holder==="","titular vacío rechazado");this.assert(loaded?.supplier?.bank?.clabe==="","CLABE parcial rechazada");}));
     this.test("Importación externa rechaza correo incompleto",()=>this.withStorageSandbox(()=>{const state=createSafeDefaultState();state.seller.email="a@";this.expectThrow(()=>sanitizeExternalQuote(state),"correo externo incompleto");}));
     this.test("Datos bancarios bloquean documento",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";APP_STATE.supplier.bank.holder="";APP_STATE.supplier.bank.name="";APP_STATE.supplier.bank.account="";APP_STATE.supplier.bank.clabe="";CURRENT_RESULT=quote(S());this.assert(!getReadiness().documentReady,"documento sin banco");}));
-    this.test("Sin equipos limpia ajustes latentes",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();S().eqDoc=7;S().eqStu=8;S().cartCap=30;S().cartP[30]=1000;S().stuExtra=400;resetStateForModel(0);this.assert(S().eqDoc===0&&S().eqStu===0,"equipos residuales");this.assert(S().cartCap===0&&S().cartP[30]===0,"carrito residual");this.assert(S().stuExtra===0,"adicionales residuales");}));
+    this.test("Sin equipos limpia ajustes latentes",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();S().eqDoc=7;S().eqStu=8;S().cartCap=30;S().stuExtra=400;resetStateForModel(0);this.assert(S().eqDoc===0&&S().eqStu===0,"equipos residuales");this.assert(S().cartCap===0,"carrito residual");this.assert(S().stuExtra===0,"adicionales residuales");}));
     this.test("Contador corrupto se sanea",()=>this.withStorageSandbox(()=>{const date="2026-07-30",key=STORAGE_KEYS.counterPrefix+date.replaceAll("-","");localStorage.setItem(key,"9".repeat(200));this.assert(nextDailyCounter(date)===1,"contador no reiniciado");}));
     this.test("Commit revierte fallos en cualquier escritura",()=>{for(const failAt of [1,2,3]){const data=new Map([["a","old-a"],["b","old-b"],["c","old-c"]]);let writes=0;const fake={getItem:key=>data.has(key)?data.get(key):null,setItem:(key,value)=>{writes++;if(writes===failAt)throw new Error("quota");data.set(key,value);},removeItem:key=>data.delete(key)};this.expectThrow(()=>commitStorageChanges([["a","new-a"],["b","new-b"],["c","new-c"]],fake),`commit parcial ${failAt}`);this.assert(data.get("a")==="old-a"&&data.get("b")==="old-b"&&data.get("c")==="old-c",`rollback incompleto ${failAt}`);}});
     this.test("Autoguardado normal realiza tres escrituras",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();DIRTY=true;const original=localStorage.setItem.bind(localStorage);let count=0;localStorage.setItem=(key,value)=>{count++;return original(key,value);};try{this.assert(saveStateNow(false),"guardado fallido");this.assert(count===3,`se realizaron ${count} escrituras`);}finally{localStorage.setItem=original;}}));
@@ -4562,17 +4574,20 @@ const QuoteTests={
     this.test("F-27 · UX-6 · El primer uso se distingue de un cálculo roto",()=>this.withStorageSandbox(()=>{
       const prevFlag=HAS_VALID_RENDER;
       try{
-        /* F-28 · El disparador ya no es el modelo docente —que no toca el precio— sino un
-           carrito de 1:2 sin precio capturado, que sí deja el importe incalculable. */
-        APP_STATE=createSafeDefaultState();S().teacherDeviceModel="docente";S().mod=3;S().cartCap=30;S().cartP={20:0,30:0,40:0};CURRENT_RESULT=quote(S());
+        /* El disparador fue cambiando con la herramienta: primero el modelo docente
+           (mal elegido: no toca el precio), luego un carrito de 1:2 sin precio. Desde
+           que el precio del carrito sale del catálogo eso ya no puede pasar, así que
+           ahora se usa el único hueco financiero que queda de verdad: sin alumnos no
+           hay precio por alumno. */
+        APP_STATE=createSafeDefaultState();S().teacherDeviceModel="docente";S().mod=3;S().stu=0;CURRENT_RESULT=quote(S());
         HAS_VALID_RENDER=false;
         renderStatus();
         this.assert(document.body.classList.contains("calc-first"),"la cotización recién abierta debía marcar calc-first (guía azul)");
         this.assert(document.body.classList.contains("calc-invalid"),"el primer uso sigue siendo un estado no calculable");
-        S().cartP={20:0,30:18500,40:0};CURRENT_RESULT=quote(S());
+        S().stu=300;CURRENT_RESULT=quote(S());
         renderStatus();
-        this.assert(!document.body.classList.contains("calc-first")&&HAS_VALID_RENDER,"capturar el precio del carrito debía producir el primer render válido");
-        S().cartP={20:0,30:0,40:0};CURRENT_RESULT=quote(S());
+        this.assert(!document.body.classList.contains("calc-first")&&HAS_VALID_RENDER,"capturar los alumnos debía producir el primer render válido");
+        S().stu=0;CURRENT_RESULT=quote(S());
         renderStatus();
         this.assert(document.body.classList.contains("calc-invalid")&&!document.body.classList.contains("calc-first"),"tras haber sido válido, romperlo debía mostrar la alerta roja, no la guía de primer uso");
       }finally{HAS_VALID_RENDER=prevFlag;}
@@ -4583,7 +4598,7 @@ const QuoteTests={
     this.test("Encabezado de área es repetible",()=>{const html=buildProposal();this.assert(html.includes('class="p-area-repeat"'),"encabezado de área no repetible");});
     /* ===== Pruebas añadidas en la revisión de auditoría ===== */
     this.test("Sin equipos: precio = base + docentes extra",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const r=quote({pkg:"edu",term:"cb4",mod:0,pay:"contado",stu:400,stuExtra:0,teacherDeviceModel:null,docExtra:6,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assertClose(r.list,3000+6*1500/400,1e-6,"precio sin equipos");this.assert(r.carts===0&&r.stock===0&&r.totalEq===0,"residuos de equipo en modalidad 0");});
-    this.test("Carritos y adicionales cobrables en 1:2",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const r=quote({pkg:"plus",term:"tb3",mod:3,pay:"contado",stu:850,stuExtra:40,teacherDeviceModel:"docente",docExtra:0,eqDoc:3,eqStu:0,cartCap:40,cartP:{20:0,30:0,40:22900},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assert(r.stuIncl===425,"equipos incluidos 1:2");this.assert(r.carts===12,"carritos necesarios");this.assertClose(r.adjCart,107.764706,1e-5,"ajuste de carritos");this.assert(r.stuChg===40,"adicionales cobrables");this.assertClose(r.adjStuExtra,160,1e-6,"cargo al 80% del precio base");});
+    this.test("Carritos y adicionales cobrables en 1:2",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const r=quote({pkg:"plus",term:"tb3",mod:3,pay:"contado",stu:850,stuExtra:40,teacherDeviceModel:"docente",docExtra:0,eqDoc:3,eqStu:0,cartCap:40,cartP:{20:0,30:0,40:22900},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assert(r.stuIncl===425,"equipos incluidos 1:2");this.assert(r.carts===12,"carritos necesarios");this.assertClose(r.adjCart,173.176471,1e-5,"ajuste de carritos: 12 × $36,800 de catálogo ÷ 850 ÷ 3");this.assert(r.stuChg===40,"adicionales cobrables");this.assertClose(r.adjStuExtra,160,1e-6,"cargo al 80% del precio base");});
     this.test("La conciliación del PDF suma el total",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));for(const q of [{pkg:"edu",term:"cb3",mod:1,stu:60,docExtra:0,eqDoc:1,eqStu:0,cartCap:30,cartP:{20:0,30:18500,40:0}},{pkg:"plus",term:"cb4",mod:2,stu:333,docExtra:7,eqDoc:2,eqStu:5,cartCap:30,cartP:{20:0,30:22900,40:0}},{pkg:"edu",term:"fl2",mod:3,stu:777,docExtra:3,eqDoc:0,eqStu:2,cartCap:20,cartP:{20:15900,30:0,40:0}}]){const r=quote({...q,pay:"contado",stuExtra:0,teacherDeviceModel:"docente",cartFreeAuthorization:emptyCartAuthorization(),lic});const filas=[["b",r.base],["l",-r.discLic],["d",r.adjEqDoc],["s",r.adjStuExtra],["c",r.adjCart]].filter(([k,v])=>k==="b"||Math.abs(v)>0.000001).map(([k,v])=>roundCurrency(v));const parcial=roundCurrency(filas.reduce((a,b)=>a+b,0));const ajuste=roundCurrency(roundCurrency(r.list)-parcial);if(Math.abs(ajuste)>0.000001)filas.push(ajuste);this.assertClose(roundCurrency(filas.reduce((a,b)=>a+b,0)),roundCurrency(r.list),0,`conciliación ${q.pkg}/${q.term}/${q.mod}`);}});
     this.test("Pantalla y PDF muestran los mismos servicios",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();for(const mod of [0,1,2,3,4])for(const pkg of ["edu","plus"]){S().mod=mod;S().pkg=pkg;S().cartCap=0;S().stuExtra=0;S().teacherDeviceModel="docente";CURRENT_RESULT=quote(S());for(const area of ["TI","IP","DP"]){const pdf=visibleItemsForArea(area,CURRENT_RESULT,pkg==="plus").map(i=>i.n).join("|");const pantalla=ITEMS.filter(it=>it.a===area&&itemVisibility(it,CURRENT_RESULT,pkg==="plus",mod,S().lic).on).map(i=>i.n).join("|");this.assert(pdf===pantalla,`paridad ${pkg}/${mod}/${area}`);}}}));
     this.test("Recargar conserva la cotización activa",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio de prueba";const id=APP_STATE.identity.quoteId,folio=folioDisplay();DIRTY=true;this.assert(saveStateNow(false),"guardado previo");const recuperado=loadSavedState();this.assert(recuperado?.identity?.quoteId===id,"quoteId no se conserva");this.assert(folioDisplay(recuperado)===folio,"folio no se conserva");this.assert(recuperado.client.institution==="Colegio de prueba","institución no se conserva");}));
@@ -4722,12 +4737,12 @@ const QuoteTests={
     /* ===== v5 · Cotización a la medida (21-ago-2026) ===== */
     this.test("v5 · El ejemplo canónico: 700 alumnos, 30 equipos, 1 carrito, 4 años",()=>{
       const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));
-      const r=quote({pkg:"edu",term:"cb4",mod:0,pay:"contado",stu:700,stuExtra:0,teacherDeviceModel:null,docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic,proRata:{stu:30,doc:0,carts:[{cap:30,qty:1,price:26600}]}});
+      const r=quote({pkg:"edu",term:"cb4",mod:0,pay:"contado",stu:700,stuExtra:0,teacherDeviceModel:null,docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic,proRata:{stu:30,doc:0,carts:[{cap:30,qty:1}]}});
       /* 30 × (17,000 + 870 CEU + 2,169.20 seguro) + 26,600 de carrito = 627,776.
          Los importes van CON IVA: ver la corrección del 22-ago-2026 en APP_CONFIG. */
-      this.assertClose(r.proRata.fierro,552200,1e-6,"costo del fierro");
-      this.assert(roundCurrency(r.adjProRata)===197.21,`el prorrateo debía dar $197.21 por alumno y año, dio ${roundCurrency(r.adjProRata)}`);
-      this.assert(roundCurrency(r.list)===3197.21,`el precio de lista debía dar $3,197.21, dio ${roundCurrency(r.list)}`);
+      this.assertClose(r.proRata.fierro,556460,1e-6,"costo del fierro: 30 × 17,520 + 1 carrito de 30 a $30,860");
+      this.assert(roundCurrency(r.adjProRata)===198.74,`el prorrateo debía dar $198.74 por alumno y año, dio ${roundCurrency(r.adjProRata)}`);
+      this.assert(roundCurrency(r.list)===3198.74,`el precio de lista debía dar $3,198.74, dio ${roundCurrency(r.list)}`);
       this.assert(r.stuReq===30&&r.totalEq===30&&r.carts===1,"los conteos del documento no reflejan los equipos prorrateados");
       this.assert(r.hasDev===true,"con equipos a la medida, hasDev debe ser verdadero");
       this.assert(!r.warns.some(w=>w.code==="NO_DEVICES"),"con equipos capturados no debe emitirse NO_DEVICES");
@@ -4737,7 +4752,7 @@ const QuoteTests={
       const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));
       /* Solo carritos: el fierro es idéntico en ambos plazos (el seguro por equipo sí
          cambia con el plazo, a propósito), y el divisor de años hace todo el trabajo. */
-      const base={pkg:"edu",mod:0,pay:"contado",stu:700,stuExtra:0,teacherDeviceModel:null,docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic,proRata:{stu:0,doc:0,carts:[{cap:30,qty:2,price:10000}]}};
+      const base={pkg:"edu",mod:0,pay:"contado",stu:700,stuExtra:0,teacherDeviceModel:null,docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic,proRata:{stu:0,doc:0,carts:[{cap:30,qty:2}]}};
       const r4=quote({...base,term:"cb4"}),r2=quote({...base,term:"fl2"});
       this.assertClose(r2.proRata.fierro,r4.proRata.fierro,0,"el fierro de solo carritos debía ser idéntico entre plazos");
       this.assertClose(r2.adjProRata,r4.adjProRata*2,1e-9,"a 2 años el prorrateo debía ser exactamente el doble que a 4");
@@ -4808,14 +4823,14 @@ const QuoteTests={
     this.test("v5 · El prorrateo no viaja al documento ni al correo",()=>this.withStorageSandbox(()=>{
       APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";
       S().mod=0;resetStateForModel(0);S().stu=700;
-      S().proRata={stu:30,doc:0,carts:[{cap:30,qty:1,price:26600}]};
+      S().proRata={stu:30,doc:0,carts:[{cap:30,qty:1}]};
       CURRENT_RESULT=quote(S());
       const doc=buildProposal()+buildPrintDocument(),mail=buildMailModel();
       /* Los importes van CON IVA desde el 22-ago-2026: el fierro del ejemplo pasó de
          615,200 a 627,776, el prorrateo de 219.71 a 224.21 y el costo unitario de
          19,620 a 20,039.20. Si esta lista se queda con los números viejos, sigue en
          verde sin vigilar nada. */
-      for(const rastro of ["Costo del fierro","fierro","prorrate","Prorrate","recupera","Recupera","552,200","197.21","26,600","17,520"])
+      for(const rastro of ["Costo del fierro","fierro","prorrate","Prorrate","recupera","Recupera","556,460","198.74","30,860","17,520"])
         this.assert(!doc.includes(rastro),`el documento imprimió "${rastro}"`);
       this.assert(!/fierro|prorrate/i.test(mail.html+mail.plainText),"el correo imprimió el desglose del prorrateo");
       /* Los conteos SÍ se quedan: son lo que el colegio contrata. */
@@ -4826,12 +4841,12 @@ const QuoteTests={
     }));
     this.test("v5 · Los campos a la medida se limpian al cambiar de modalidad",()=>this.withStorageSandbox(()=>{
       APP_STATE=createSafeDefaultState();S().mod=0;resetStateForModel(0);
-      S().proRata={stu:30,doc:5,carts:[{cap:30,qty:1,price:1000}]};
+      S().proRata={stu:30,doc:5,carts:[{cap:30,qty:1}]};
       resetStateForModel(2);
       this.assert(S().proRata.stu===0&&S().proRata.doc===0&&S().proRata.carts.length===0,"cambiar de modalidad no limpió los equipos a la medida");
       /* Y el saneador tampoco deja pasar proRata en modalidades por razón. */
       const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));
-      const clean=sanitizeScenarioPayload({v:5,cycle:APP_CONFIG.cycle.id,pkg:"edu",term:"cb4",mod:3,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},lic,proRata:{stu:30,doc:5,carts:[{cap:30,qty:1,price:1000}]}});
+      const clean=sanitizeScenarioPayload({v:5,cycle:APP_CONFIG.cycle.id,pkg:"edu",term:"cb4",mod:3,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},lic,proRata:{stu:30,doc:5,carts:[{cap:30,qty:1}]}});
       this.assert(clean.proRata.stu===0&&clean.proRata.doc===0&&clean.proRata.carts.length===0,"un JSON con proRata en modalidad por razón debía normalizarse a ceros");
     }));
     this.test("v5 · La captura a la medida escribe en el estado y la caja enseña la cuenta",()=>this.withStorageSandbox(()=>{
@@ -4843,14 +4858,12 @@ const QuoteTests={
       this.assert(S().proRata.stu===30,"la captura de equipos de alumno no escribió en el estado");
       $("#btnAddProCart").click();
       this.assert(S().proRata.carts.length===1,"el renglón de carrito no se agregó");
-      const priceInput=$("#fProCartPrice0");this.assert(Boolean(priceInput),"falta el input de precio del renglón de carrito");
-      priceInput.value="26600";priceInput.dispatchEvent(new Event("input",{bubbles:true}));
-      this.assert(S().proRata.carts[0].price===26600,"el precio del carrito no escribió en el estado");
+      this.assert(!$("#fProCartPrice0"),"el renglón de carrito no debe pedir precio: sale del catálogo");
       CURRENT_RESULT=quote(S());renderAll();
       const boxText=$("#proRataBox").textContent;
       this.assert(boxText.includes("Costo del fierro"),"la caja de cálculo no enseña el costo del fierro");
       this.assert(boxText.includes("Recuperación"),"la caja no enseña el porcentaje de recuperación (decisión D-1)");
-      this.assert($("#barPrice").textContent==="$3,197.21",`el precio por alumno no es el del ejemplo canónico: ${$("#barPrice").textContent}`);
+      this.assert($("#barPrice").textContent==="$3,198.74",`el precio por alumno no es el del ejemplo canónico: ${$("#barPrice").textContent}`);
     }));
     this.test("v5 · El stock y los casos raros de la modalidad a la medida",()=>{
       const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));
@@ -4858,24 +4871,33 @@ const QuoteTests={
       /* Decisión E: el stock aplica con la misma regla — 20% en seminuevos son 6 sobre 30. */
       this.assert(quote({...base,term:"fl2",proRata:{stu:30,doc:0,carts:[]}}).stock===6,"el stock del 20% no aplicó a los 30 seminuevos");
       this.assert(quote({...base,term:"cb4",proRata:{stu:30,doc:0,carts:[]}}).stock===1,"el stock del 2% no aplicó a los 30 nuevos");
-      /* Carrito con precio 0: válido y sin advertencia ni autorización. */
-      const gratis=quote({...base,term:"cb4",proRata:{stu:30,doc:0,carts:[{cap:30,qty:1,price:0}]}});
-      this.assert(!gratis.warns.some(w=>w.code==="CART_PRICE"),"el carrito a la medida con precio 0 no debe exigir autorización");
+      /* Un renglón de carrito cuesta lo que dice el catálogo, ni más ni menos. Si el
+         colegio ya tiene los suyos, no se agrega renglón: no hay «precio 0». */
+      const conCarrito=quote({...base,term:"cb4",proRata:{stu:30,doc:0,carts:[{cap:30,qty:1}]}});
+      const sinCarrito=quote({...base,term:"cb4",proRata:{stu:30,doc:0,carts:[]}});
+      this.assertClose(conCarrito.proRata.fierro-sinCarrito.proRata.fierro,CART_PRICES[30],1e-6,"el renglón de carrito no cobró el precio de catálogo");
       /* Más equipos que alumnos: advertencia informativa, nunca bloqueo. */
       const muchos=quote({...base,stu:20,term:"cb4",proRata:{stu:30,doc:0,carts:[]}});
       this.assert(muchos.warns.some(w=>w.code==="MORE_DEVICES_THAN_STUDENTS"&&w.t==="i"),"faltó el aviso de más equipos que alumnos");
       this.assert(!muchos.warns.some(w=>w.t==="e"),"más equipos que alumnos no debe bloquear");
       /* Capacidad de carritos corta: informativa. */
-      const corto=quote({...base,term:"cb4",proRata:{stu:30,doc:0,carts:[{cap:20,qty:1,price:15000}]}});
+      const corto=quote({...base,term:"cb4",proRata:{stu:30,doc:0,carts:[{cap:20,qty:1}]}});
       this.assert(corto.warns.some(w=>w.code==="CART_SHORT"&&w.t==="i"),"faltó el aviso de capacidad de carritos corta");
       /* En cb4 con equipos docentes a prorratear y dos opciones, la decisión sí se exige. */
       const sinModelo=quote({...base,term:"cb4",proRata:{stu:0,doc:4,carts:[]}});
       this.assert(sinModelo.warns.some(w=>w.code==="TEACHER_MODEL"&&w.blocks==="document"),"con equipos docentes a prorratear debía exigirse el modelo");
     });
-    this.test("Todo warn t:'e' del motor bloquea el documento",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();S().mod=4;S().stu=65;S().teacherDeviceModel=null;CURRENT_RESULT=quote(S());let ready=getReadiness();this.assert(!ready.documentReady&&!ready.proposalReady,"un error del motor no bloqueó el documento");this.assert(ready.blockingErrors.length>0,"el error del motor no llegó a blockingErrors");/* F-28 · Y un error que sí es financiero —carrito de 1:2 sin precio— sigue ocultando el precio, que es lo que blocks:"price" debe significar. */S().teacherDeviceModel="docente";S().mod=3;S().cartCap=30;S().cartP={20:0,30:0,40:0};CURRENT_RESULT=quote(S());ready=getReadiness();this.assert(!ready.calculable,"un carrito sin precio debía bloquear el cálculo");this.assert(ready.financialErrors.length>0,"el error financiero del motor no llegó a financialErrors");}));
+    this.test("Todo warn t:'e' del motor bloquea el documento",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();S().mod=4;S().stu=65;S().teacherDeviceModel=null;CURRENT_RESULT=quote(S());let ready=getReadiness();this.assert(!ready.documentReady&&!ready.proposalReady,"un error del motor no bloqueó el documento");this.assert(ready.blockingErrors.length>0,"el error del motor no llegó a blockingErrors");/* F-28 · Y un error que sí es financiero —sin alumnos no hay precio por alumno— sigue ocultando el precio, que es lo que blocks:"price" debe significar. */S().teacherDeviceModel="docente";S().mod=3;S().stu=0;CURRENT_RESULT=quote(S());ready=getReadiness();this.assert(!ready.calculable,"una cotización sin alumnos debía bloquear el cálculo");this.assert(ready.financialErrors.length>0,"el error financiero del motor no llegó a financialErrors");}));
     this.test("Precio implausible se bloquea",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const r=quote({pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:1,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:999999,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assert(r.warns.some(w=>w.code==="IMPLAUSIBLE_PRICE"&&w.t==="e"),"no se detectó el precio absurdo");});
     this.test("Un plazo o modalidad desconocidos avisan",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));for(const bad of [{term:"zzz"},{mod:9}]){const r=quote({pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:100,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic,...bad});this.assert(r.warns.some(w=>w.code==="CORRUPT_SCENARIO"&&w.t==="e"),`fallback silencioso con ${JSON.stringify(bad)}`);}});
-    this.test("Carrito con precio corrupto no descuenta",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const r=quote({pkg:"edu",term:"cb3",mod:3,pay:"contado",stu:120,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:30,cartP:{20:0,30:-100000,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assert(r.cartPrice===0,"el precio negativo se propagó");this.assert(r.warns.some(w=>w.code==="CORRUPT_SCENARIO"),"precio de carrito corrupto sin advertencia");});
+    /* Sustituye a «Carrito con precio corrupto no descuenta» (22-ago-2026). Aquella
+   probaba que el motor se defendiera de un precio capturado absurdo; ahora no hay
+   precio que capturar, así que lo que hay que custodiar es lo contrario: que el
+   precio SIEMPRE salga del catálogo y ningún escenario pueda imponer otro. */
+    this.test("El precio del carrito sale del catálogo y no se puede imponer",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb3",mod:3,pay:"contado",stu:120,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartFreeAuthorization:emptyCartAuthorization(),lic};for(const cap of CART_CAPS){const r=quote({...base,cartCap:cap,cartP:{20:-100000,30:1,40:999999}});this.assert(r.cartPrice===CART_PRICES[cap],`carrito de ${cap}: esperado ${CART_PRICES[cap]}, recibido ${r.cartPrice}`);}
+      this.assertClose(CART_PRICES[20],28280,0,"carrito de 20");this.assertClose(CART_PRICES[30],30860,0,"carrito de 30");this.assertClose(CART_PRICES[40],36800,0,"carrito de 40");
+      const pro=quote({...base,mod:0,cartCap:0,proRata:{stu:0,doc:0,carts:[{cap:40,qty:2,price:5}]}});
+      this.assertClose(pro.proRata.fierro,2*36800,1e-6,"a la medida: el precio del renglón también sale del catálogo");});
     this.test("Un campo numérico vaciado no escribe 0 en el estado",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();bindStateToForm();const input=$("#fDocX");input.value="7";input.dispatchEvent(new Event("input",{bubbles:true}));this.assert(S().docExtra===7,"no se capturó el 7");input.value="";input.dispatchEvent(new Event("input",{bubbles:true}));this.assert(S().docExtra===7,"un campo vacío sobrescribió el estado con 0");this.assert(FIELD_ERRORS.has("fDocX"),"un campo vacío no marcó error");input.value="1e3";input.dispatchEvent(new Event("input",{bubbles:true}));this.assert(S().docExtra===7,"la notación científica escribió en el estado");this.assert(FIELD_ERRORS.has("fDocX"),"1e3 no marcó error");}));
     this.test("El asunto personalizado no sobrevive al cambio de institución",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio A";APP_STATE.mail.subjectMode="custom";APP_STATE.mail.subjectOverride="Propuesta para Colegio A";const previous=APP_STATE.client.institution;APP_STATE.client.institution="Colegio B";invalidateCustomSubjectIfStale(previous);this.assert(APP_STATE.mail.subjectMode==="auto","el asunto conservó la institución anterior");this.assert(!mailSubject().includes("Colegio A"),"el asunto sigue mencionando al colegio anterior");}));
     this.test("La copia importada la firma el perfil local",()=>this.withStorageSandbox(()=>{localStorage.setItem(STORAGE_KEYS.seller,JSON.stringify({name:"Perfil Local",role:"Comercial",phone:"55 0000 0000",email:"perfil@activa.la",website:"activa.la"}));const state=defaultState(false);state.seller={name:"Vendedor Externo",role:"",phone:"",email:"externo@otro.mx",website:""};state.identity={quoteId:uuid(),folioRoot:"EXT-20260730-001-ABCD",revision:1,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),parentQuoteId:null};state.mail.recipients=["heredado@colegio.mx"];resetImportedCopy(state,state.identity.quoteId);this.assert(state.seller.name==="Perfil Local","la copia conservó al vendedor externo");this.assert(state.mail.recipients.length===0,"destinatarios heredados en la copia");}));
