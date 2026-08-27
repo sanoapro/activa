@@ -290,6 +290,20 @@ input.ro{background:#f1f3f4;color:var(--mute);cursor:default;font-family:var(--m
 .lic .ln{flex:1;line-height:1.25}
 .lic .lc{font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--g-red-d);background:var(--g-red-t);border-radius:5px;padding:2px 6px}
 .lic .lp{font-family:var(--mono);font-size:10px;color:var(--plus-d);background:var(--plus-t);border-radius:5px;padding:2px 5px}
+/* El par de Google Workspace: una sola decisión, con radios en vez de casillas.
+   Ocupa las dos columnas de la reja para que se lea como un bloque aparte. */
+.licpair{grid-column:1/-1;border:1px solid var(--g-blue-b,#c6dafc);background:var(--g-blue-t);border-radius:12px;padding:10px 12px 12px;margin:0 0 4px}
+.licpair:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.licpair>legend{font-family:var(--disp);font-size:11.5px;font-weight:600;color:var(--acc-d);padding:0 6px;margin-left:2px}
+.licpair .lic{background:#fff;margin-top:6px}
+.licpair .lic.on{background:var(--g-grn-t);border-color:#a8d5b5}
+.licpair .lic .ls{display:block;font-size:11.5px;color:var(--faint);margin-top:2px}
+/* La elegida se rotula; la otra dice en palabras que NO se incluye, para que el
+   vendedor no tenga que interpretar un radio apagado. */
+.lic .lsel{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--g-grn-d);background:#fff;border:1px solid #a8d5b5;border-radius:5px;padding:2px 6px;white-space:nowrap}
+.lic .lno{font-family:var(--mono);font-size:10px;color:var(--faint);white-space:nowrap}
+.lic .lsel,.lic .lno{display:none}
+.licpair .lic.on .lsel,.licpair .lic.off .lno{display:inline-block}
 .warns{display:grid;gap:8px;margin-top:14px}
 .warn{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;line-height:1.5;border-radius:10px;padding:11px 13px}
 .warn svg{width:15px;height:15px;flex:none;margin-top:2px}
@@ -2309,8 +2323,8 @@ const LICS = deepFreeze([
   {k:"securly",n:"Securly Filter + Securly Classroom",disc:0},
   {k:"wayground",n:"Wayground",disc:0},
   {k:"canva",n:"Canva para Educación",disc:0},
-  {k:"gwep",n:"Google Workspace for Education Plus",disc:0},
-  {k:"gwtl",n:"Google Workspace Teaching & Learning",disc:0},
+  {k:"gwep",n:"Google Workspace for Education Plus",disc:0,group:"workspace",sub:"Suite completa · una licencia por cada usuario"},
+  {k:"gwtl",n:"Google Workspace Teaching & Learning",disc:0,group:"workspace",sub:"Complemento docente · una licencia por cada docente"},
   {k:"impulsaE",n:"impulsa — estudiantes",disc:0},
   {k:"impulsaD",n:"impulsa — docentes",disc:0},
   {k:"motiva",n:"motiva",disc:PRECIOS.descuentosLicencia.motiva},
@@ -2318,6 +2332,27 @@ const LICS = deepFreeze([
   {k:"eleva",n:"eleva — desarrollo docente",disc:0},
   {k:"everway",n:"Everway (Read&Write + Orbit Note + Equatio)",disc:PRECIOS.descuentosLicencia.everway,plusOnly:true}
 ]);
+
+/* Las dos licencias de Google Workspace son la MISMA decisión: el colegio contrata
+   una, nunca las dos. Antes nacían las dos encendidas y el documento imprimía ambas
+   partidas —una por usuario y otra por docente—; como las dos valen 0 de descuento,
+   el precio no delataba el error y solo se veía en el PDF ya enviado. */
+const WORKSPACE_LICS=["gwtl","gwep"];   /* el primero es el predeterminado */
+const WORKSPACE_DEFAULT="gwtl";
+const WORKSPACE_LABEL={gwtl:"Teaching & Learning",gwep:"Education Plus"};
+const WORKSPACE_SET=new Set(WORKSPACE_LICS);
+/* Deja encendida exactamente una del par. Si vienen las dos (un borrador o un JSON
+   anteriores a esta regla) o ninguna, gana la predeterminada. */
+function normalizeWorkspaceLic(lic,preferred=WORKSPACE_DEFAULT){
+  const on=WORKSPACE_LICS.filter(k=>lic[k]!==false);
+  if(on.length===1)return lic;
+  const chosen=WORKSPACE_SET.has(preferred)?preferred:WORKSPACE_DEFAULT;
+  console.warn("Licencia de Workspace normalizada a",chosen,"desde",on);
+  WORKSPACE_LICS.forEach(k=>{lic[k]=k===chosen;});
+  return lic;
+}
+/* La elegida del par, o null si el estado está roto (lo cierra getReadiness). */
+function workspaceChoice(lic){const map=lic||S().lic;return WORKSPACE_LICS.find(k=>map[k]!==false)||null;}
 
 /* ============================================================
    MOTOR FINANCIERO PURO
@@ -2627,7 +2662,7 @@ function saveSellerProfile(seller){
   }catch(error){console.warn("No se pudo guardar el perfil del vendedor",error);return false;}
 }
 function emptyCartAuthorization(){return{authorized:false,fingerprint:"",authorizedAt:"",authorizedBy:""};}
-function defaultState(generateIdentity=true){const today=localISODate(new Date()),seller=loadSellerProfile();return{schemaVersion:APP_CONFIG.schemaVersion,identity:generateIdentity?newIdentity(seller.name,today):{quoteId:"",folioRoot:"",revision:1,createdAt:"",updatedAt:"",parentQuoteId:null},scenario:{pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,docExtra:0,stuExtra:0,teacherDeviceModel:null,eqDoc:0,eqStu:0,cartCap:30,cartFreeAuthorization:emptyCartAuthorization(),/* v5 · Cotización a la medida: equipos y carritos prorrateados de la modalidad 0. */proRata:{stu:0,doc:0,carts:[]},lic:Object.fromEntries(LICS.map(l=>[l.k,true])),/* F-24 · P4 · Esquemas ADICIONALES al elegido que el documento debe mostrar. Por defecto ninguno: la propuesta muestra solo el esquema elegido para no confundir al cliente. */showSchemes:{contado:false,antes:false,despues:false}},client:{institution:"",shortName:"",city:"",contacts:[{name:"",email:"",phone:""},{name:"",email:"",phone:""},{name:"",email:"",phone:""}]},validity:{quoteDate:today,validUntil:addDaysISO(today,APP_CONFIG.cycle.validityDays),validUntilAuto:true,delivery:APP_CONFIG.cycle.delivery,shipping:"Sí"},seller,supplier:clone(APP_CONFIG.defaults.supplier),mail:{recipients:[],excludedRecipients:[],subjectOverride:"",subjectMode:"auto",multiQuote:false}};}
+function defaultState(generateIdentity=true){const today=localISODate(new Date()),seller=loadSellerProfile();return{schemaVersion:APP_CONFIG.schemaVersion,identity:generateIdentity?newIdentity(seller.name,today):{quoteId:"",folioRoot:"",revision:1,createdAt:"",updatedAt:"",parentQuoteId:null},scenario:{pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,docExtra:0,stuExtra:0,teacherDeviceModel:null,eqDoc:0,eqStu:0,cartCap:30,cartFreeAuthorization:emptyCartAuthorization(),/* v5 · Cotización a la medida: equipos y carritos prorrateados de la modalidad 0. */proRata:{stu:0,doc:0,carts:[]},lic:normalizeWorkspaceLic(Object.fromEntries(LICS.map(l=>[l.k,true]))),/* F-24 · P4 · Esquemas ADICIONALES al elegido que el documento debe mostrar. Por defecto ninguno: la propuesta muestra solo el esquema elegido para no confundir al cliente. */showSchemes:{contado:false,antes:false,despues:false}},client:{institution:"",shortName:"",city:"",contacts:[{name:"",email:"",phone:""},{name:"",email:"",phone:""},{name:"",email:"",phone:""}]},validity:{quoteDate:today,validUntil:addDaysISO(today,APP_CONFIG.cycle.validityDays),validUntilAuto:true,delivery:APP_CONFIG.cycle.delivery,shipping:"Sí"},seller,supplier:clone(APP_CONFIG.defaults.supplier),mail:{recipients:[],excludedRecipients:[],subjectOverride:"",subjectMode:"auto",multiQuote:false}};}
 function createSafeDefaultState(){
   try{return defaultState();}
   catch(error){
@@ -2669,7 +2704,10 @@ function migrateDeviceFields(payload){
      reales circulando todavía, así que no hace falta un aviso ni un bloqueo para esto. */
   return{stuExtra:extrasAllowed?Math.max(0,requested-stuIncl):0,teacherDeviceModel:"docente"};
 }
-function sanitizeScenarioPayload(payload,{allowLegacy=false}={}){if(!isPlainObject(payload))throw new Error("Escenario inválido");const version=payload.v;if(!([2,3,4,5].includes(version)&&allowLegacy||version===5))throw new Error("Versión de escenario incompatible");if(payload.cycle!==APP_CONFIG.cycle.id)throw new Error("Ciclo incompatible");const lic={};for(const item of LICS){const value=payload.lic?.[item.k]??true;lic[item.k]=strictBoolean(value,`lic.${item.k}`);}/* `cartP` (el precio de carrito capturado a mano) se retiró el 22-ago-2026: el precio
+function sanitizeScenarioPayload(payload,{allowLegacy=false}={}){if(!isPlainObject(payload))throw new Error("Escenario inválido");const version=payload.v;if(!([2,3,4,5].includes(version)&&allowLegacy||version===5))throw new Error("Versión de escenario incompatible");if(payload.cycle!==APP_CONFIG.cycle.id)throw new Error("Ciclo incompatible");const lic={};for(const item of LICS){const value=payload.lic?.[item.k]??true;lic[item.k]=strictBoolean(value,`lic.${item.k}`);}/* El par de Workspace es excluyente. Un escenario anterior a la regla traía las
+   dos encendidas (o no traía la clave, que también resuelve a true) y entraría
+   con las dos partidas impresas: aquí se decide una sola. Sin saber cuál quiso
+   el vendedor, gana la predeterminada; la interfaz la pone a la vista. */normalizeWorkspaceLic(lic);/* `cartP` (el precio de carrito capturado a mano) se retiró el 22-ago-2026: el precio
    sale de CART_PRICES por capacidad. Los escenarios y borradores anteriores lo siguen
    trayendo y aquí simplemente se ignora. *//* F-24 · P4 · Preferencia de esquemas mostrados: opcional, booleanos estrictos. */const showSchemes={};for(const k of Object.keys(PAYS)){const v=isPlainObject(payload.showSchemes)?(payload.showSchemes[k]??false):false;showSchemes[k]=strictBoolean(v,`showSchemes.${k}`);}/* F-27 · V4-03 · En "sin equipos" (mod 0) los equipos docentes adicionales se normalizan
    a 0 igual que los de estudiante: un JSON o escenario pegado no puede introducir valores
@@ -3192,7 +3230,10 @@ function engineErrorsToIssues(result){
     blocking:true
   }));
 }
-function getReadiness(){const r=CURRENT_RESULT||quote(S()),errors=[],warnings=[];FIELD_ERRORS.forEach((message,id)=>errors.push({id,message,type:isCalculationField(id)?"financial":"document"}));errors.push(...engineErrorsToIssues(r));const required=[["fInst",APP_STATE.client.institution,"Captura la institución."],["fCity",APP_STATE.client.city,"Captura la ciudad."],["fDate",APP_STATE.validity.quoteDate,"Captura la fecha de cotización."],["fValid",APP_STATE.validity.validUntil,"Captura la vigencia."],["fBy",APP_STATE.seller.name,"Captura el nombre de quien firma."],["fMail",APP_STATE.seller.email,"Captura el correo del vendedor."],["fLegal",APP_STATE.supplier.legalName,"Captura la razón social."],["fRfc",APP_STATE.supplier.rfc,"Captura el RFC."],["fAddr",APP_STATE.supplier.address,"Captura el domicilio fiscal."],["fBankT",APP_STATE.supplier.bank.holder,"Captura el titular de la cuenta."],["fBankN",APP_STATE.supplier.bank.name,"Captura el banco."],["fBankC",APP_STATE.supplier.bank.account,"Captura el número de cuenta."],["fBankK",APP_STATE.supplier.bank.clabe,"Captura la CLABE."]];required.forEach(([id,value,message])=>{if(!String(value||"").trim())errors.push({id,message,type:"document"});});if(APP_STATE.seller.email&&!EMAIL_RE.test(APP_STATE.seller.email))errors.push({id:"fMail",message:"El correo del vendedor no es válido.",type:"document"});/* F-27 · V4-12 · El sitio web se interpola en un href del correo con prefijo https://; esc() ya neutraliza inyección, pero un texto con espacios o protocolo producía un enlace roto hacia el colegio. */if(APP_STATE.seller.website&&!/^[\w.-]+\.[a-z]{2,}(\/\S*)?$/i.test(String(APP_STATE.seller.website).trim()))errors.push({id:"fWeb",message:"El sitio web debe ser un dominio válido, sin http:// ni espacios (ej. activa.la).",type:"document"});if(APP_STATE.supplier.rfc&&!rfcOk(APP_STATE.supplier.rfc))errors.push({id:"fRfc",message:"El RFC no tiene un formato o fecha válidos.",type:"document"});const bankAccount=String(APP_STATE.supplier.bank.account||"").replace(/\s+/g,"");if(bankAccount&&!/^\d{6,30}$/.test(bankAccount))errors.push({id:"fBankC",message:"La cuenta debe contener entre 6 y 30 dígitos.",type:"document"});if(APP_STATE.supplier.bank.clabe&&!clabeOk(APP_STATE.supplier.bank.clabe))errors.push({id:"fBankK",message:"La CLABE no supera la validación.",type:"document"});if(!validISODate(APP_STATE.validity.quoteDate))errors.push({id:"fDate",message:"La fecha de cotización no es válida.",type:"document"});if(!validISODate(APP_STATE.validity.validUntil))errors.push({id:"fValid",message:"La fecha de vigencia no es válida.",type:"document"});if(validISODate(APP_STATE.validity.quoteDate)&&validISODate(APP_STATE.validity.validUntil)&&APP_STATE.validity.validUntil<APP_STATE.validity.quoteDate)errors.push({id:"fValid",message:"La vigencia no puede ser anterior a la fecha de cotización.",type:"document"});APP_STATE.client.contacts.forEach((c,i)=>{if(c.email&&!EMAIL_RE.test(c.email))errors.push({id:`qC${i+1}m`,message:`El correo del contacto ${i+1} no es válido.`,type:"document"});});r.warns.filter(w=>w.t==="w"||w.t==="i").forEach(w=>warnings.push(w));const hasFinancialError=errors.some(e=>e.type==="financial");const calculable=r.stu>0&&r.list>0&&!hasFinancialError;/* F-28 · Se puede COTIZAR (precio a la vista) sin poder aún abrir la PROPUESTA (falta una decisión bloqueante) ni emitir el DOCUMENTO (faltan datos por capturar). Antes solo había dos estados y toda decisión pendiente degradaba hasta el precio. */return{calculable,proposalReady:calculable&&!errors.some(e=>e.blocking),documentReady:errors.length===0,errors,warnings,blockingErrors:errors.filter(e=>e.blocking),financialErrors:errors.filter(e=>e.type==="financial"),documentErrors:errors.filter(e=>e.type!=="financial")};}
+function getReadiness(){const r=CURRENT_RESULT||quote(S()),errors=[],warnings=[];FIELD_ERRORS.forEach((message,id)=>errors.push({id,message,type:isCalculationField(id)?"financial":"document"}));errors.push(...engineErrorsToIssues(r));const required=[["fInst",APP_STATE.client.institution,"Captura la institución."],["fCity",APP_STATE.client.city,"Captura la ciudad."],["fDate",APP_STATE.validity.quoteDate,"Captura la fecha de cotización."],["fValid",APP_STATE.validity.validUntil,"Captura la vigencia."],["fBy",APP_STATE.seller.name,"Captura el nombre de quien firma."],["fMail",APP_STATE.seller.email,"Captura el correo del vendedor."],["fLegal",APP_STATE.supplier.legalName,"Captura la razón social."],["fRfc",APP_STATE.supplier.rfc,"Captura el RFC."],["fAddr",APP_STATE.supplier.address,"Captura el domicilio fiscal."],["fBankT",APP_STATE.supplier.bank.holder,"Captura el titular de la cuenta."],["fBankN",APP_STATE.supplier.bank.name,"Captura el banco."],["fBankC",APP_STATE.supplier.bank.account,"Captura el número de cuenta."],["fBankK",APP_STATE.supplier.bank.clabe,"Captura la CLABE."]];required.forEach(([id,value,message])=>{if(!String(value||"").trim())errors.push({id,message,type:"document"});});/* El candado del par de Workspace. Con radios y normalización al importar este
+   estado ya no debería ser alcanzable, y ese es justo el punto: es la garantía de
+   que ningún PDF salga con las dos licencias, no el mecanismo del día a día.
+   blocking:true cierra también la propuesta y el correo, como el modelo docente. */const wsOn=WORKSPACE_LICS.filter(k=>S().lic[k]!==false);if(wsOn.length!==1)errors.push({id:"licWorkspace",message:wsOn.length>1?"Education Plus y Teaching & Learning no pueden ir juntas: elige una sola licencia de Google Workspace.":"Elige la licencia de Google Workspace que incluye la propuesta.",type:"document",blocking:true});if(APP_STATE.seller.email&&!EMAIL_RE.test(APP_STATE.seller.email))errors.push({id:"fMail",message:"El correo del vendedor no es válido.",type:"document"});/* F-27 · V4-12 · El sitio web se interpola en un href del correo con prefijo https://; esc() ya neutraliza inyección, pero un texto con espacios o protocolo producía un enlace roto hacia el colegio. */if(APP_STATE.seller.website&&!/^[\w.-]+\.[a-z]{2,}(\/\S*)?$/i.test(String(APP_STATE.seller.website).trim()))errors.push({id:"fWeb",message:"El sitio web debe ser un dominio válido, sin http:// ni espacios (ej. activa.la).",type:"document"});if(APP_STATE.supplier.rfc&&!rfcOk(APP_STATE.supplier.rfc))errors.push({id:"fRfc",message:"El RFC no tiene un formato o fecha válidos.",type:"document"});const bankAccount=String(APP_STATE.supplier.bank.account||"").replace(/\s+/g,"");if(bankAccount&&!/^\d{6,30}$/.test(bankAccount))errors.push({id:"fBankC",message:"La cuenta debe contener entre 6 y 30 dígitos.",type:"document"});if(APP_STATE.supplier.bank.clabe&&!clabeOk(APP_STATE.supplier.bank.clabe))errors.push({id:"fBankK",message:"La CLABE no supera la validación.",type:"document"});if(!validISODate(APP_STATE.validity.quoteDate))errors.push({id:"fDate",message:"La fecha de cotización no es válida.",type:"document"});if(!validISODate(APP_STATE.validity.validUntil))errors.push({id:"fValid",message:"La fecha de vigencia no es válida.",type:"document"});if(validISODate(APP_STATE.validity.quoteDate)&&validISODate(APP_STATE.validity.validUntil)&&APP_STATE.validity.validUntil<APP_STATE.validity.quoteDate)errors.push({id:"fValid",message:"La vigencia no puede ser anterior a la fecha de cotización.",type:"document"});APP_STATE.client.contacts.forEach((c,i)=>{if(c.email&&!EMAIL_RE.test(c.email))errors.push({id:`qC${i+1}m`,message:`El correo del contacto ${i+1} no es válido.`,type:"document"});});r.warns.filter(w=>w.t==="w"||w.t==="i").forEach(w=>warnings.push(w));const hasFinancialError=errors.some(e=>e.type==="financial");const calculable=r.stu>0&&r.list>0&&!hasFinancialError;/* F-28 · Se puede COTIZAR (precio a la vista) sin poder aún abrir la PROPUESTA (falta una decisión bloqueante) ni emitir el DOCUMENTO (faltan datos por capturar). Antes solo había dos estados y toda decisión pendiente degradaba hasta el precio. */return{calculable,proposalReady:calculable&&!errors.some(e=>e.blocking),documentReady:errors.length===0,errors,warnings,blockingErrors:errors.filter(e=>e.blocking),financialErrors:errors.filter(e=>e.type==="financial"),documentErrors:errors.filter(e=>e.type!=="financial")};}
 function focusIssue(issue){const el=$("#"+issue.id);if(!el)return;el.closest("details")?.setAttribute("open","");const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;el.scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"});setTimeout(()=>el.focus(),reduce?0:250);}
 function requireDocumentReady(){if(!requireNoPendingInstitution())return false;const ready=getReadiness();if(ready.documentReady)return true;if(ready.errors[0])focusIssue(ready.errors[0]);toast(ready.errors[0]?.message||"Completa los datos requeridos","error");return false;}
 /* F-23 · A-07 · Con cálculo inválido no basta poner "—" en seis titulares: la clase
@@ -3305,7 +3346,16 @@ function initControls() {
   $("#payWrap").innerHTML=Object.entries(PAYS).map(([k,p])=>`<label class="pay" style="--pc:${p.c};--pcd:${p.cd};--pt:${p.t}"><input type="radio" name="pay" value="${k}"><span class="pt">${svg(p.ico,p.c)}${esc(p.title)}<span class="pill">${p.badge}</span></span><span class="pd">${esc(p.desc)}</span></label>`).join("");
   /* F-24 · P4 · Casillas de esquemas incluidos en el documento. */
   $("#schemeShowRow").innerHTML=Object.entries(PAYS).map(([k,p])=>`<label data-scheme-label="${k}"><input type="checkbox" data-show-scheme="${k}"> ${esc(p.title)}</label>`).join("");
-  $("#licGrid").innerHTML=LICS.map(l=>`<label class="lic" data-lic="${l.k}"><input type="checkbox" data-lic-in="${l.k}"><span class="ln">${esc(l.n)}</span>${l.plusOnly?'<span class="lp">PLUS</span>':""}${l.disc?`<span class="lc">−${money(l.disc)}</span>`:""}</label>`).join("");
+  /* El par de Google Workspace se dibuja aparte y con RADIOS: son la misma decisión,
+     y así el propio navegador impide que queden las dos encendidas. Las demás siguen
+     siendo casillas independientes. Ambas conservan data-lic/data-lic-in, que es de
+     donde leen bindStateToForm() y el bucle de sincronía. */
+  const licRow=(l,extra="")=>{const ws=l.group==="workspace";return `<label class="lic" data-lic="${l.k}"><input type="${ws?"radio":"checkbox"}"${ws?' name="licWorkspace"':""} data-lic-in="${l.k}"><span class="ln">${esc(l.n)}${l.sub?`<span class="ls">${esc(l.sub)}</span>`:""}</span>${extra}${l.plusOnly?'<span class="lp">PLUS</span>':""}${l.disc?`<span class="lc">−${money(l.disc)}</span>`:""}</label>`;};
+  /* Las dos insignias viajan siempre en el marcado; las prende y apaga el CSS según
+     la clase .on/.off que el render ya mantiene, sin repintar la reja. */
+  const wsBadges='<span class="lsel">✓ ELEGIDA</span><span class="lno">no se incluye</span>';
+  const wsPair=WORKSPACE_LICS.map(k=>LICS.find(l=>l.k===k)).filter(Boolean);
+  $("#licGrid").innerHTML=`<fieldset id="licWorkspace" class="licpair" tabindex="-1"><legend>Licencia de Google Workspace · elige una</legend>${wsPair.map(l=>licRow(l,wsBadges)).join("")}</fieldset>`+LICS.filter(l=>l.group!=="workspace").map(l=>licRow(l)).join("");
   $("#contactRows").innerHTML=[1,2,3].map(n=>`<fieldset class="contact-card"><legend>Contacto ${n}</legend><div class="ccrow"><div><label for="qC${n}n">Nombre</label><input type="text" id="qC${n}n" maxlength="100" autocomplete="name"></div><div><label for="qC${n}m">Correo</label><input type="email" id="qC${n}m" maxlength="254" autocomplete="email"></div><div><label for="qC${n}t">Teléfono</label><input type="tel" id="qC${n}t" maxlength="30" autocomplete="tel"></div></div></fieldset>`).join("");
   renderVolume();
 }
@@ -3464,7 +3514,14 @@ function bindEvents() {
   });
   $("#fCartFree")?.addEventListener("change",e=>{try{if(e.target.checked)authorizeCurrentCart();else S().cartFreeAuthorization=emptyCartAuthorization();scheduleRender("all");markChanged();}catch(error){e.target.checked=false;toast(error.message,"error");}});
   $("#cartGrid").addEventListener("change",e=>{if(e.target.name==="cartcap"){S().cartCap=Number(e.target.value);revokeCartAuthorization("Cambió la capacidad del carrito");scheduleRender("all");markChanged();}});
-  $("#licGrid").addEventListener("change",e=>{const input=e.target.closest("[data-lic-in]");if(!input)return;S().lic[input.dataset.licIn]=input.checked;scheduleRender("all");markChanged();});
+  $("#licGrid").addEventListener("change",e=>{
+    const input=e.target.closest("[data-lic-in]");if(!input)return;
+    const k=input.dataset.licIn;
+    /* El par de Workspace es una sola decisión: encender una apaga la otra. */
+    if(WORKSPACE_SET.has(k))WORKSPACE_LICS.forEach(other=>{S().lic[other]=other===k;});
+    else S().lic[k]=input.checked;
+    scheduleRender("all");markChanged();
+  });
   $("#payWrap").addEventListener("change",e=>{if(e.target.name!=="pay")return;S().pay=e.target.value;scheduleRender("all");markChanged();});
   $("#schemeShowWrap").addEventListener("change",e=>{const input=e.target.closest("[data-show-scheme]");if(!input)return;const k=input.dataset.showScheme;if(k===S().pay)return;if(!S().showSchemes)S().showSchemes={contado:false,antes:false,despues:false};S().showSchemes[k]=input.checked;scheduleRender("all");markChanged();});
   bindInstitutionField();
@@ -3678,6 +3735,10 @@ function renderAdjustments(d,r) {
     r.teacherDeviceExtras?["Licencias que suman los adicionales docentes",r.teacherDeviceExtras]:null,
     r.hasDev?["Total del parque de equipos",r.totalEq]:null,
     ["Usuarios con licencia",r.users],
+    /* La licencia de Workspace no cambia el precio (las dos valen 0 de descuento), así
+       que la caja de cálculo es el único lugar donde el vendedor la ve sin abrir el
+       desplegable. Por eso vive aquí y no solo en el resumen del pliegue. */
+    ["Licencia de Google Workspace",workspaceChoice()?WORKSPACE_LABEL[workspaceChoice()]:"sin elegir"],
     r.hasDev?["Stock de reemplazo",r.stock]:null,
     r.carts?["Carritos necesarios",`${r.carts} de ${S().cartCap} equipos`]:null,
     r.carts&&r.cartTot?["Costo total de carritos",money(r.cartTot)]:null,
@@ -3686,8 +3747,11 @@ function renderAdjustments(d,r) {
     !r.hasDev?["Modalidad","sin equipos, solo licenciamiento y servicios"]:null
   ].filter(Boolean).map(([k,v])=>`<div class="cr"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join("");
   LICS.forEach(l=>{const lab=document.querySelector(`[data-lic="${l.k}"]`),input=document.querySelector(`[data-lic-in="${l.k}"]`);const blocked=Boolean(l.plusOnly&&S().pkg!=="plus");if(lab){lab.classList.toggle("dimmed",blocked);lab.classList.toggle("on",S().lic[l.k]!==false&&!blocked);lab.classList.toggle("off",S().lic[l.k]===false&&!blocked);lab.title=blocked?"Disponible únicamente en Upgrade Edu Plus":"";}if(input){input.disabled=blocked;input.checked=S().lic[l.k]!==false;input.setAttribute("aria-disabled",String(blocked));}});
-  const applicable=LICS.filter(l=>!(l.plusOnly&&S().pkg!=="plus"));const enabled=applicable.filter(l=>S().lic[l.k]!==false).length;
-  $("#foldLicSum").textContent=`${enabled} de ${applicable.length} activas${r.discLic?` · −${money(r.discLic)} por alumno`:""}`;
+  /* El par de Workspace no entra en la cuenta: "una de dos" siempre es una, y lo que
+     el vendedor necesita ver de un vistazo es CUÁL quedó. */
+  const applicable=LICS.filter(l=>l.group!=="workspace"&&!(l.plusOnly&&S().pkg!=="plus"));const enabled=applicable.filter(l=>S().lic[l.k]!==false).length;
+  const wsPick=workspaceChoice();
+  $("#foldLicSum").textContent=`Workspace: ${wsPick?WORKSPACE_LABEL[wsPick]:"sin elegir"} · ${enabled} de ${applicable.length} complementarias activas${r.discLic?` · −${money(r.discLic)} por alumno`:""}`;
   $("#foldEqSum").textContent=r.hasDev?`${r.totalEq} equipos · ${r.docTot} docentes${r.teacherModel?` · docentes ${teacherModelLabel(r.teacherModel).toLowerCase()}`:" · falta elegir modelo docente"}${r.carts?` · ${r.carts} carritos`:""}`:`${r.docTot} docentes · sin equipos`;
   const issues=[...r.warns];
   /* F-23 · A-05 · warnBox es región viva: solo se reescribe si el contenido cambió,
@@ -3808,6 +3872,9 @@ function renderItems(r) {
     const v=itemVisibility(it,r,isPlus,mod,lic);
     if(v.on)counts[it.a]++;
     const why=v.lock?"Exclusivo de Upgrade Edu Plus"
+      /* La no elegida del par de Workspace no se "retiró": nunca estuvo. Decir cuál
+         ganó es más útil que decir que esta se fue. */
+      :v.licOff&&WORKSPACE_SET.has(it.lic)?`Se eligió ${WORKSPACE_LABEL[workspaceChoice()]||"la otra licencia de Google Workspace"}`
       :v.licOff?"Licencia retirada de la cotización"
       :v.dependencyOff?`Se retiró junto con la licencia ${(LICS.find(l=>l.k===it.requiresLic)?.n)||it.requiresLic}`
       :v.enabled&&v.zero?"No se solicitaron"
@@ -4022,7 +4089,27 @@ window.addEventListener("beforeprint",()=>{
   originalTitle=document.title;
   document.title=`${folioDisplay()} · ${APP_STATE.client.shortName||APP_STATE.client.institution||"Cotización activa"}`;
 });
-window.addEventListener("afterprint",()=>{document.body.classList.remove("pp-on");document.title=originalTitle;ARCHIVO?.mostrar();});
+window.addEventListener("afterprint",()=>{document.body.classList.remove("pp-on");document.title=originalTitle;ARCHIVO?.mostrar();revelarArchivo();});
+/* El bloque para archivar el PDF vive en #s3, dentro de <main>. Si el PDF se generó
+   desde Ver propuesta —la ruta natural— o desde el modal de correo, esos overlays
+   dejan a <main> inerte y al body sin scroll: el módulo pintaba su bloque ámbar
+   DETRÁS de la propuesta y su scrollIntoView no movía nada. El vendedor salía del
+   diálogo de impresión sin ver nada y con la impresión de que la página no le pidió
+   subir el archivo. Al terminar de imprimir la propuesta ya cumplió: cede el paso. */
+function revelarArchivo(){
+  const box=$("#archivoDrive");
+  /* Solo si el módulo realmente pintó algo. Sin archivo-drive.js, ARCHIVO es null, el
+     contenedor sigue vacío e imprimir no cierra nada: la página se comporta como hoy. */
+  if(!box?.firstElementChild)return;
+  ["#propOv","#mailOv"].forEach(selector=>{if($(selector)?.classList.contains("on"))closeOverlay(selector);});
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* El scrollIntoView del módulo corrió con el body bloqueado: hay que repetirlo. */
+  box.scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"});
+  /* closeOverlay devuelve el foco al botón del overlay que acaba de ocultarse; el
+     foco se rescata hacia el selector de archivo, que es el siguiente paso real. */
+  setTimeout(()=>box.querySelector(".ad-file")?.focus(),reduce?0:250);
+  toast("Guarda el PDF en el archivo del equipo: elígelo abajo y súbelo.","info");
+}
 
 /* ---------- archivo en Drive (docs/drive-PDF/) ---------- */
 /* La URL /exec del puente desplegado en script.google.com. El token es visible
@@ -5060,6 +5147,79 @@ const QuoteTests={
        exige v4 por defecto: fallaba siempre por "Versión de escenario incompatible" y la
        suite se entregaba 64/65 en rojo. Ahora usa un escenario v4 completo. */
     this.test("showSchemes viaja en el escenario con booleanos estrictos",()=>{const base={v:5,cycle:APP_CONFIG.cycle.id,pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:65,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:30,cartP:{20:0,30:0,40:0},lic:Object.fromEntries(LICS.map(l=>[l.k,true]))};const clean=sanitizeScenarioPayload({...base,showSchemes:{antes:true}});this.assert(clean.showSchemes.antes===true&&clean.showSchemes.contado===false,"showSchemes no se saneó");this.expectThrow(()=>sanitizeScenarioPayload({...base,showSchemes:{antes:"true"}}),"showSchemes aceptó texto");});
+    /* ============ El par excluyente de licencias de Google Workspace ============ */
+    /* El colegio contrata Education Plus O Teaching & Learning, nunca las dos. Como
+       ambas valen 0 de descuento, un estado con las dos no mueve el precio ni un peso:
+       solo se delata en el PDF. Estas cuatro pruebas cierran las cuatro puertas. */
+    this.test("El estado nuevo trae una sola licencia de Workspace",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();
+      this.assert(S().lic.gwtl===true,"Teaching & Learning debía nacer encendida");
+      this.assert(S().lic.gwep===false,"Education Plus debía nacer apagada");
+      this.assert(workspaceChoice()==="gwtl","la elegida debía ser Teaching & Learning");
+    }));
+    this.test("Elegir una licencia de Workspace apaga la otra",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();S().teacherDeviceModel="docente";CURRENT_RESULT=quote(S());renderAll();
+      const gwep=$('[data-lic-in="gwep"]');
+      this.assert(gwep&&gwep.type==="radio","el par debía dibujarse con radios, no con casillas");
+      gwep.checked=true;gwep.dispatchEvent(new Event("change",{bubbles:true}));
+      this.assert(S().lic.gwep===true&&S().lic.gwtl===false,"encender Education Plus debía apagar Teaching & Learning");
+      renderAll();
+      const encendidas=WORKSPACE_LICS.filter(k=>document.querySelector(`[data-lic="${k}"]`).classList.contains("on"));
+      this.assert(encendidas.length===1&&encendidas[0]==="gwep","solo la elegida debía quedar marcada en pantalla");
+    }));
+    this.test("Un escenario con las dos licencias se normaliza al importar",()=>{
+      const base={v:5,cycle:APP_CONFIG.cycle.id,pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:65,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:30,cartP:{20:0,30:0,40:0},lic:Object.fromEntries(LICS.map(l=>[l.k,true]))};
+      const ambas=sanitizeScenarioPayload(base);
+      this.assert(ambas.lic.gwtl===true&&ambas.lic.gwep===false,"un escenario con las dos debía entrar con la predeterminada");
+      /* Sin la clave, el saneador resuelve a true: también son "las dos". */
+      const sinClave=sanitizeScenarioPayload({...base,lic:{}});
+      this.assert(sinClave.lic.gwtl===true&&sinClave.lic.gwep===false,"un escenario sin la clave debía entrar con la predeterminada");
+      /* La elección explícita se respeta: normalizar no es imponer. */
+      const soloPlus=sanitizeScenarioPayload({...base,lic:{...base.lic,gwtl:false}});
+      this.assert(soloPlus.lic.gwep===true&&soloPlus.lic.gwtl===false,"una elección explícita de Education Plus debía sobrevivir");
+      const ninguna=sanitizeScenarioPayload({...base,lic:{...base.lic,gwtl:false,gwep:false}});
+      this.assert(ninguna.lic.gwtl===true,"sin ninguna del par debía ganar la predeterminada");
+    });
+    this.test("El documento se bloquea con las dos licencias encendidas",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";
+      S().teacherDeviceModel="docente";CURRENT_RESULT=quote(S());
+      S().lic.gwep=true;S().lic.gwtl=true;
+      const ready=getReadiness();
+      this.assert(!ready.documentReady,"con las dos licencias el documento no debía estar listo");
+      this.assert(ready.errors.some(e=>e.id==="licWorkspace"),"el error debía apuntar al par de Workspace");
+      this.assert(!ready.proposalReady,"con las dos licencias la propuesta también debía bloquearse");
+      renderStatus();
+      this.assert($("#btnPdf").disabled,"Generar PDF debía quedar deshabilitado");
+      this.assert($("#btnProp").disabled,"Ver propuesta debía quedar deshabilitado");
+      /* Y ninguna del par bloquea igual: el documento siempre nombra una. */
+      S().lic.gwep=false;S().lic.gwtl=false;
+      this.assert(!getReadiness().documentReady,"sin ninguna del par el documento tampoco debía estar listo");
+    }));
+    /* ============ El archivo en Drive aparece se imprima desde donde se imprima ============ */
+    /* El bloque para subir el PDF vive en #s3. Imprimiendo desde Ver propuesta quedaba
+       detrás del overlay, con <main> inerte y el body sin scroll: el vendedor salía del
+       diálogo de impresión sin verlo. Esta prueba fija que la propuesta ceda el paso. */
+    this.test("Al terminar de imprimir, la propuesta cede el paso al archivo",()=>{
+      const caja=$("#archivoDrive"),previo=caja.innerHTML;
+      try{
+        openOverlay("#propOv","#btnBack");
+        this.assert($("#propOv").classList.contains("on"),"la propuesta debía quedar abierta");
+        /* Sin nada pintado, imprimir no debe cerrar nada: sin el módulo la página
+           se comporta igual que antes. */
+        caja.innerHTML="";
+        revelarArchivo();
+        this.assert($("#propOv").classList.contains("on"),"con el archivo vacío no debía cerrarse la propuesta");
+        /* Con el bloque pintado, la propuesta se aparta y el body recupera el scroll. */
+        caja.innerHTML='<div class="ad-box"><input type="file" class="ad-file"></div>';
+        revelarArchivo();
+        this.assert(!$("#propOv").classList.contains("on"),"la propuesta debía cerrarse para dejar ver el archivo");
+        this.assert(!document.body.classList.contains("modal-open"),"el body debía recuperar el desplazamiento");
+        this.assert(!$("main")?.hasAttribute("inert"),"el contenido debía dejar de ser inerte");
+      }finally{
+        if($("#propOv").classList.contains("on"))closeOverlay("#propOv");
+        caja.innerHTML=previo;
+      }
+    });
     this.test("La suite no borra claves ajenas al cotizador",()=>{if(!HAS_STORAGE)return;try{this.assert(localStorage.getItem("__activa_suite_canario__")==="1","el canario no sobrevivió a la suite");}finally{try{localStorage.removeItem("__activa_suite_canario__");}catch{}}});
     }finally{TESTS_RUNNING=false;}
     const passed=this.results.filter(item=>item.ok).length,failed=this.results.length-passed;

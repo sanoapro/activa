@@ -110,7 +110,7 @@ ni la lógica.
 | `TERMS` | Los cuatro plazos: `cb3`, `cb4` (Chromebooks nuevas a 3 y 4 años), `fl2` (Flip-Touch seminueva a 2), `tb3` (Tablet a 3). **Cada plazo declara además qué equipos existen**: su equipo de alumno (`alumno`) y los modelos docentes elegibles (`docentes`, con su equipo y su razón, leída de `PRECIOS.razones`); el stock sale de `PRECIOS.stock` |
 | `TEACHER_MODELS` | Las etiquetas del modelo `docente` o `estudiante`; el equipo concreto y la razón de cada modelo los pone el plazo |
 | `PAYS` | Los tres esquemas: contado, firma antes del corte, firma después; descuentos, mensualidades y porcentaje de agosto salen de `PRECIOS.pago` |
-| `LICS` | Las licencias y plataformas; los descuentos al retirar salen de `PRECIOS.descuentosLicencia` |
+| `LICS` | Las licencias y plataformas; los descuentos al retirar salen de `PRECIOS.descuentosLicencia`. Las dos de Google Workspace llevan `group:"workspace"`: son un **par excluyente** (ver abajo) |
 | `ITEMS` | Cada partida del desglose, con su área, ícono y cantidad |
 
 **Al cambiar de ciclo escolar** se toca `APP_CONFIG.cycle` y `PRECIOS.porAlumnoAnual`.
@@ -149,6 +149,36 @@ precio base y no se prorratea.**
   PDF, al correo ni al escenario — lo custodia la prueba «El prorrateo no viaja al documento».
 - Con equipos capturados, `modLbl` dice **«a la medida»**; sin ellos sigue diciendo «sin
   equipos». La advertencia `NO_DEVICES` solo se emite si de verdad no hay equipos.
+
+## Las dos licencias de Google Workspace son una sola decisión (26-ago-2026)
+
+El colegio contrata **Education Plus** *o* **Teaching & Learning**, nunca las dos. Antes eran dos
+casillas independientes que **nacían las dos encendidas**, y el documento imprimía las dos partidas
+—una por cada usuario y otra por cada docente—. Como ambas valen `disc:0`, apagar una **no movía el
+precio ni un peso**: el error no se delataba en pantalla, solo en el PDF ya enviado. Un vendedor no
+tenía cómo notarlo.
+
+Ahora son un par excluyente, y la regla vive en tres capas que se refuerzan:
+
+| Capa | Dónde | Qué garantiza |
+|---|---|---|
+| El control | `renderLic()` dibuja el par como **radios** con `name="licWorkspace"`, en su propio `<fieldset id="licWorkspace" class="licpair">` | Desde la interfaz el estado inválido no es alcanzable: el navegador lo impide |
+| La normalización | `normalizeWorkspaceLic()`, llamada por `defaultState()` y por `sanitizeScenarioPayload()` | Todo borrador, escenario o JSON **anterior a la regla** entra con una sola. Traía las dos (o no traía la clave, que también resuelve a `true`); sin saber cuál quiso el vendedor, gana la predeterminada |
+| El candado | `getReadiness()` empuja un error con `id:"licWorkspace"` y `blocking:true` si las encendidas no son exactamente una | Ningún PDF sale con las dos. Cierra **PDF, propuesta y correo**, y también `Ctrl+P`, por la maquinaria que ya existía |
+
+Por defecto queda **Teaching & Learning** (`WORKSPACE_DEFAULT`). Con radios y normalización el
+error del candado es prácticamente inalcanzable, y ese es el punto: es la **garantía**, no el
+mecanismo del día a día.
+
+Que se vea cuál quedó elegida es parte del arreglo, no un adorno — el precio no lo dice:
+
+- la insignia **✓ ELEGIDA** en la tarjeta encendida y **no se incluye** en la apagada, que el CSS
+  prende y apaga con las clases `.on`/`.off` que el render ya mantenía, sin repintar la reja;
+- el renglón **«Licencia de Google Workspace»** en la caja de cálculo, que está siempre a la vista;
+- el resumen del pliegue: «Workspace: Teaching & Learning · 9 de 9 complementarias activas». El par
+  no entra en esa cuenta, porque «una de dos» siempre es una.
+
+---
 
 ## Qué bloquea qué
 
@@ -351,6 +381,17 @@ página; el archivo solo la aprovecha.
 - Si el módulo no carga o el puente no responde, la página cotiza igual que hoy: el archivo es
   una capa encima, nunca un requisito.
 
+**Por qué `afterprint` cierra la propuesta (26-ago-2026).** El bloque vive en `#s3`, dentro de
+`<main>`. La ruta natural al PDF es *Ver propuesta* → *Generar PDF*, y mientras `#propOv` está
+abierto `setBackgroundInert()` deja a `<main>` inerte y `body.modal-open` le quita el scroll: el
+módulo pintaba su bloque ámbar **detrás** de la propuesta y su `scrollIntoView` no movía nada. El
+vendedor salía del diálogo de impresión sin ver nada y con la impresión de que la página nunca le
+pidió archivar — así se reportó. Ahora `afterprint` llama a `revelarArchivo()`, que **solo si el
+módulo pintó algo** (`#archivoDrive` con hijo) cierra `#propOv` o `#mailOv`, repite el
+`scrollIntoView` con el body ya libre, lleva el foco al selector de archivo y avisa con un toast.
+Sin `archivo-drive.js` el contenedor queda vacío y no se cierra nada: imprimir se comporta igual
+que antes. Lo fija la prueba «Al terminar de imprimir, la propuesta cede el paso al archivo».
+
 ---
 
 ## Pruebas internas
@@ -361,14 +402,17 @@ La página trae su propia suite. Se corre agregando `?test=1` a la URL:
 http://127.0.0.1:8123/paginas/cotizador/?test=1
 ```
 
-El resultado se dibuja en `#testReport`. Son **98 pruebas**. Cubren, entre otras cosas, las
+El resultado se dibuja en `#testReport`. Son **105 pruebas**. Cubren, entre otras cosas, las
 migraciones de esquema v3 → v4 y v4 → v5 (esta última sin mover un centavo), que la importación
 externa conserve tipos estrictos, que un borrador incompleto sobreviva a exportar e importar, que
 la aritmética histórica no cambie, y la cotización a la medida completa: el ejemplo canónico
 (700 alumnos, 30 equipos, 1 carrito, 4 años → $3,197.21), que el plazo duplica el prorrateo a
 2 años, que CEU y seguro se suman solos, que en `fl2` no existe el equipo docente nuevo y en
 `tb3` el docente es Chromebook nueva, que el documento nombra «seminueva» en la fila del equipo
-docente, y que el desglose del prorrateo no viaja al PDF ni al correo. **Conviene correrla
+docente, y que el desglose del prorrateo no viaja al PDF ni al correo. Cubren también el par excluyente de
+licencias de Google Workspace —el estado nuevo trae una sola, elegir una apaga la otra, un escenario
+con las dos se normaliza al importar y con las dos encendidas se bloquean PDF y propuesta— y que al
+terminar de imprimir la propuesta cede el paso al bloque del archivo. **Conviene correrla
 después de tocar precios o reglas.** Hay además un objeto `Diagnostics` que detecta cotizaciones
 huérfanas en `localStorage`.
 
