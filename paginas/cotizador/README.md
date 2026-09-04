@@ -102,12 +102,12 @@ ni la lógica.
 
 | Objeto | Qué fija |
 |---|---|
-| `PRECIOS` | **Todo el negocio**: `porAlumnoAnual` (los 40 precios por alumno), `equipos`, `porEquipo` (CEU y seguro por plazo), `carritos`, `docenteExtraAnual`, `adicionalAlumnoFactor`, `descuentosLicencia`, `pago`, `factoresAnuales`, `razones`, `stock`, `topePorAlumno`, `volumenRedes`, `acompanamiento`, `limites` y `vigenciaDias` |
+| `PRECIOS` | **Todo el negocio**: `porAlumnoAnual` (los 50 precios por alumno), `equipos`, `porEquipo` (CEU y seguro por plazo), `carritos`, `docenteExtraAnual`, `adicionalAlumnoFactor`, `descuentosLicencia`, `pago`, `factoresAnuales`, `razones`, `stock`, `topePorAlumno`, `volumenRedes`, `acompanamiento`, `limites` y `vigenciaDias` |
 | `APP_CONFIG.cycle` | Ciclo `2026-2027`, fecha límite de firma temprana, vigencia (de la matriz) y fecha de entrega |
-| `APP_CONFIG.pricing` | La tabla `porAlumnoAnual` de la matriz, por paquete (`edu`, `plus`) y por fila de equipo (`n3`, `n4`, `flip`, `tab`) |
+| `APP_CONFIG.pricing` | La tabla `porAlumnoAnual` de la matriz, por paquete (`edu`, `plus`) y por fila de equipo (`n3`, `n4`, `flip`, `tab`, `lic1`) |
 | `APP_CONFIG.discounts` / `annualFactors` / `equipment` / `limits` | Derivan de `pago.descuentos`, `factoresAnuales`, `porEquipo`/`razones` y `limites`/`topePorAlumno` de la matriz |
 | `DEVICES` | Las etiquetas del catálogo de dispositivos; los costos los lee de `PRECIOS.equipos`. El precio del equipo va **pelón**: la CEU y el seguro se suman aparte en `deviceUnitCost()` |
-| `TERMS` | Los cuatro plazos: `cb3`, `cb4` (Chromebooks nuevas a 3 y 4 años), `fl2` (Flip-Touch seminueva a 2), `tb3` (Tablet a 3). **Cada plazo declara además qué equipos existen**: su equipo de alumno (`alumno`) y los modelos docentes elegibles (`docentes`, con su equipo y su razón, leída de `PRECIOS.razones`); el stock sale de `PRECIOS.stock` |
+| `TERMS` | Los cinco plazos: `cb3`, `cb4` (Chromebooks nuevas a 3 y 4 años), `fl2` (Flip-Touch seminueva a 2), `tb3` (Tablet a 3) y `lic1` (**solo licenciamiento a 1 año**, ver abajo). **Cada plazo declara además qué equipos existen**: su equipo de alumno (`alumno`) y los modelos docentes elegibles (`docentes`, con su equipo y su razón, leída de `PRECIOS.razones`); el stock sale de `PRECIOS.stock` |
 | `TEACHER_MODELS` | Las etiquetas del modelo `docente` o `estudiante`; el equipo concreto y la razón de cada modelo los pone el plazo |
 | `PAYS` | Los tres esquemas: contado, firma antes del corte, firma después; descuentos, mensualidades y porcentaje de agosto salen de `PRECIOS.pago` |
 | `LICS` | Las licencias y plataformas; los descuentos al retirar salen de `PRECIOS.descuentosLicencia`. Las dos de Google Workspace llevan `group:"workspace"`: son un **par excluyente** (ver abajo) |
@@ -119,6 +119,12 @@ ni la lógica.
 `porAlumnoAnual` y la usan `paginas/precios/` y la lámina 33 del deck. Quien cambie un precio
 por alumno en la matriz tiene que actualizar ese archivo a mano; el aviso recíproco está en la
 cabecera de la matriz.
+
+La fila `lic1` **no se copió allá, a propósito** (04-sep-2026): esa regla habla de *cambiar un
+precio*, y el plazo de un año no cambia ninguno —su única casilla viva, $3,000 / $3,500, ya
+aparece idéntica en las cuatro filas que ese archivo muestra—. Meter un plazo sin dispositivos
+en una lámina de planes de dispositivos sería ruido. Si algún día el licenciamiento a un año
+cuesta distinto, entonces sí hay que copiarlo.
 
 ---
 
@@ -177,6 +183,57 @@ Que se vea cuál quedó elegida es parte del arreglo, no un adorno — el precio
 - el renglón **«Licencia de Google Workspace»** en la caja de cálculo, que está siempre a la vista;
 - el resumen del pliegue: «Workspace: Teaching & Learning · 9 de 9 complementarias activas». El par
   no entra en esa cuenta, porque «una de dos» siempre es una.
+
+## El plazo de 1 año es solo licenciamiento (04-sep-2026)
+
+**Los años no se capturan: se cuentan.** No hay selector de años y nunca lo hubo — `#fTerm`
+ofrece *productos cerrados* (equipo + duración) y cada plazo declara `years: sched.length` sobre
+su arreglo de factores anuales. Por eso el mínimo eran dos años: el plazo más corto del catálogo
+era el seminuevo. No había ninguna validación que quitar.
+
+Como las licencias **no tienen plazo propio** (`LICS` solo guarda `{k, n, disc}`; el plazo del
+hardware gobierna todo el contrato), un plazo nuevo era la única puerta para cotizar
+licenciamiento por un año. Así nació **`lic1` · «Solo licenciamiento · 1 año»**: $3,000 por
+alumno y año en Edu, $3,500 en Edu Plus, factor `oneFlat:[1]` —un año no tiene escalón que
+aplicar— y **sin equipos de ninguna clase**.
+
+Lo importante no fue agregarlo, sino cerrar el hueco que abría. **`seguroPorAnios` no tiene clave
+`1`, y su ausencia es una decisión**: a un año no hay equipos que asegurar. Pero
+`deviceUnitCost()` resuelve el año que falta con `?? 0`, así que un equipo que se colara en este
+plazo se cobraría **sin póliza y sin que nada lo delatara** — el error del 22-ago-2026 otra vez.
+Medido: 30 equipos a un año salían en $4,537 por alumno con $2,150 de seguro no cobrado por
+equipo.
+
+Por eso el plazo se blinda en **las mismas tres capas que el par de Google Workspace**, y la
+bandera que las tres leen es `licensingOnly:true`:
+
+| Capa | Dónde | Qué garantiza |
+|---|---|---|
+| El control | `syncModelOptions()` deshabilita `#fModel` y sus cuatro modalidades por razón; `renderAdjustments()` retira también `#proRataGroup` | Desde la interfaz no hay forma de capturar un equipo. *Lo que no se puede elegir no se puede equivocar* |
+| La normalización | `normalizeLicensingOnlyTerm()` fuerza `mod = 0` y llama a `resetStateForModel(0)`. La usan **las dos** puertas que cambian el plazo: el handler de `#fTerm` y `createTermVariant()` | Llegar al plazo desde 1:1 con equipos capturados los limpia — con confirmación y con aviso, nunca en silencio |
+| El candado | `quote()` emite `LIC_ONLY_TERM` con `blocks:"price"` | **Es la única capa que un JSON importado no puede saltarse**: `sanitizeScenarioPayload()` valida `term` y `mod` por SEPARADO, así que la pareja imposible `{term:"lic1", mod:4}` entra por esa puerta |
+
+`blocks:"price"` y no `"document"`, por la regla de la casa: con equipos en un plazo sin seguro
+tabulado el **importe por alumno sería falso**, no solo incompleto.
+
+Dos detalles que se ven poco y cuestan caro:
+
+- **La variante de plazo es la segunda puerta.** `createTermVariant()` asignaba `S().term`
+  directo y se saltaba la normalización: la variante nacía con los equipos del original y
+  bloqueada por su propio candado. Una cotización que el cotizador arma solo no puede nacer
+  rota. Ahora ambas puertas comparten `normalizeLicensingOnlyTerm()`, y la confirmación va
+  **antes** de crear la copia para no dejar un folio huérfano si el vendedor cancela.
+- **El selector de modalidad se cierra solo cuando el estado ya es válido.** El candado pide
+  elegir «Sin equipos»; si además se bloqueaba el selector, esa instrucción era imposible de
+  obedecer — un callejón sin salida al importar un JSON con la pareja `{lic1, mod≠0}`.
+  Mientras el estado sea inválido, la única opción abierta es justo la que desbloquea.
+
+Un efecto colateral que ya estaba esperando: el singular se volvió alcanzable y la portada del
+PDF imprimía **«1 años»**. Ahora esa frase se escribe en un solo sitio, `yearsLabel()`.
+
+**Si algún día se vende equipo a un año**, el orden importa: escribe primero el importe en
+`PRECIOS.porEquipo.seguroPorAnios[1]` y solo después levanta el candado. La prueba «No hay
+seguro tabulado a un año, y es intencional» falla a propósito para obligar a esa conversación.
 
 ---
 
@@ -402,7 +459,7 @@ La página trae su propia suite. Se corre agregando `?test=1` a la URL:
 http://127.0.0.1:8123/paginas/cotizador/?test=1
 ```
 
-El resultado se dibuja en `#testReport`. Son **105 pruebas**. Cubren, entre otras cosas, las
+El resultado se dibuja en `#testReport`. Son **111 pruebas**. Cubren, entre otras cosas, las
 migraciones de esquema v3 → v4 y v4 → v5 (esta última sin mover un centavo), que la importación
 externa conserve tipos estrictos, que un borrador incompleto sobreviva a exportar e importar, que
 la aritmética histórica no cambie, y la cotización a la medida completa: el ejemplo canónico
@@ -412,7 +469,10 @@ la aritmética histórica no cambie, y la cotización a la medida completa: el e
 docente, y que el desglose del prorrateo no viaja al PDF ni al correo. Cubren también el par excluyente de
 licencias de Google Workspace —el estado nuevo trae una sola, elegir una apaga la otra, un escenario
 con las dos se normaliza al importar y con las dos encendidas se bloquean PDF y propuesta— y que al
-terminar de imprimir la propuesta cede el paso al bloque del archivo. **Conviene correrla
+terminar de imprimir la propuesta cede el paso al bloque del archivo. Cubren también el plazo de
+**solo licenciamiento a 1 año** —que cotiza un único año a $3,000 / $3,500, que el candado
+`LIC_ONLY_TERM` cierra el precio ante cualquier equipo, y que ningún plazo CON equipos se quede
+sin seguro tabulado—. **Conviene correrla
 después de tocar precios o reglas.** Hay además un objeto `Diagnostics` que detecta cotizaciones
 huérfanas en `localStorage`.
 

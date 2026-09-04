@@ -1875,6 +1875,10 @@ const money = n => roundCurrency(Number(n) || 0).toLocaleString("es-MX", {
   minimumFractionDigits: 2, maximumFractionDigits: 2
 });
 const percent = n => new Intl.NumberFormat("es-MX", {style:"percent", maximumFractionDigits:2}).format(n);
+/* El plazo de 1 año hizo alcanzable el singular, y «1 años» salía impreso en la
+   portada del PDF. Esta es la Única forma de escribir esa frase en toda la página:
+   si aparece un `${años}` suelto, es un error esperando su turno. */
+const yearsLabel = n => `${n} ${Number(n) === 1 ? "año" : "años"}`;
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const qty = n => (n === 0 || n == null || n === "") ? "—" : (typeof n === "number" ? n.toLocaleString("es-MX") : n);
 const p2 = n => String(n).padStart(2, "0");
@@ -1959,12 +1963,22 @@ function getByPath(obj, path) {
 const PRECIOS = deepFreeze({
   /* Precio por alumno y por año. Índice = modalidad: 0 sin equipos · 1 = 1:4 ·
      2 = 1:3 · 3 = 1:2 · 4 = 1:1. Fila = plazo: n3 Chromebook 3 años · n4
-     Chromebook 4 años · flip seminueva 2 años · tab tablet 3 años. */
+     Chromebook 4 años · flip seminueva 2 años · tab tablet 3 años · lic1 solo
+     licenciamiento a 1 año.
+
+     LOS CEROS DE lic1 SON DELIBERADOS. Ese plazo no vende equipos: la modalidad
+     queda fija en 0 y las otras cuatro son inalcanzables por las tres capas que
+     lo blindan (el selector, la normalización al cambiar de plazo y el candado
+     LIC_ONLY_TERM del motor). Si algún día una de las tres fallara, base = 0
+     hace que list <= 0 dispare NON_POSITIVE_PRICE y se oculte el precio, en vez
+     de cotizar un número inventado. No los rellenes «por si acaso». */
   porAlumnoAnual: {
     edu :{n3:[3000,4225,4633.333333,5450,7900], n4:[3000,3975,4300,4950,6900],
-          flip:[3000,3300,3400,3600,4200], tab:[3000,3300,3400,3600,4200]},
+          flip:[3000,3300,3400,3600,4200], tab:[3000,3300,3400,3600,4200],
+          lic1:[3000,0,0,0,0]},
     plus:{n3:[3500,4725,5133.333333,5950,8400], n4:[3500,4475,4800,5450,7400],
-          flip:[3500,3875,4000,4250,5000], tab:[3500,3875,4000,4250,5000]}
+          flip:[3500,3875,4000,4250,5000], tab:[3500,3875,4000,4250,5000],
+          lic1:[3500,0,0,0,0]}
   },
   /* El precio del equipo va PELÓN: la CEU y el seguro se suman aparte, siempre,
      vía deviceUnitCost(). Un equipo cuesta lo mismo por cualquier puerta. */
@@ -1975,7 +1989,16 @@ const PRECIOS = deepFreeze({
     flDocente: 9000,      /* Flip-Touch seminueva · docente */
     tablet: 10000         /* Tablet nueva */
   },
-  /* Por cada equipo, siempre y sin excepción. */
+  /* Por cada equipo, siempre y sin excepción.
+
+     NO EXISTE la clave 1, y su ausencia es una DECISIÓN (04-sep-2026): el único
+     plazo de un año es «Solo licenciamiento», que no vende equipos, así que no
+     hay nada que asegurar. Si algún día se vende equipo a un año, ESCRIBE
+     PRIMERO el importe aquí y solo después habilites los equipos:
+     deviceUnitCost() resuelve el año que falta con `?? 0`, y el seguro saldría
+     GRATIS sin que nada lo delate — el error del 22-ago-2026 otra vez. Mientras
+     tanto lo impide el candado LIC_ONLY_TERM, y lo custodia la prueba «El plazo
+     de solo licenciamiento no admite equipos». */
   porEquipo: {
     ceu: 870,
     seguroPorAnios: {2:1050, 3:1600, 4:2150}
@@ -1994,7 +2017,11 @@ const PRECIOS = deepFreeze({
   factoresAnuales: {
     three:[0.94,1.02,1.10],
     four:[0.90,0.97,1.04,1.11],
-    twoFlat:[1,1]
+    twoFlat:[1,1],
+    /* Un solo año: no hay escalón que aplicar, el precio de lista va tal cual.
+       La LONGITUD de estos arreglos es la que define los años del plazo
+       (TERMS[..].years = sched.length): un elemento, un año. */
+    oneFlat:[1]
   },
   razones: {
     docentesIncluidos: 10,    /* docentes con licencia: 1 por cada N alumnos */
@@ -2132,9 +2159,35 @@ const TERMS = deepFreeze({
        docentes:[{k:"docente",dev:"flDocente",ratio:PRECIOS.razones.modeloDocente,label:"Flip-Touch seminueva docente"}]},
   tb3:{label:"Tablet · 3 años",row:"tab",sched:S3,years:S3.length,device:"Tablet nueva",stockPct:PRECIOS.stock.nuevos,
        alumno:"tablet",
-       docentes:[{k:"docente",dev:"cbDocente",ratio:PRECIOS.razones.modeloDocente,label:"Chromebook nueva docente"}]}
+       docentes:[{k:"docente",dev:"cbDocente",ratio:PRECIOS.razones.modeloDocente,label:"Chromebook nueva docente"}]},
+  /* SOLO LICENCIAMIENTO A 1 AÑO (04-sep-2026) · El único plazo que no vende equipos.
+     Existe porque las licencias NO tienen plazo propio (LICS solo guarda {k,n,disc}):
+     el plazo del hardware gobierna todo el contrato, así que un plazo nuevo era la
+     única puerta para cotizar licenciamiento por un año.
+
+     `licensingOnly` es la bandera que leen las TRES capas que lo blindan, en el mismo
+     patrón del par excluyente de Google Workspace:
+       el control        · #fModel queda fijo en «Sin equipos» y el bloque de equipos
+                           a la medida no se dibuja;
+       la normalización  · el handler de #fTerm fuerza mod 0 y limpia lo capturado;
+       el candado        · quote() emite LIC_ONLY_TERM con blocks:"price".
+     La tercera es la que importa: sanitizeScenarioPayload() valida `term` y `mod` por
+     SEPARADO, así que un JSON importado o un #scenario= a mano puede traer la pareja
+     imposible y saltarse las dos primeras.
+
+     `alumno` y `docentes` son REFERENCIAS MUERTAS: este plazo no cobra ningún equipo.
+     No se pueden omitir porque quote() desreferencia DEVICES[t.alumno].cost y
+     termDocenteDeviceKey() lee t.docentes[0] sin condición. Con una sola opción
+     docente, teacherModel se autorresuelve y TEACHER_MODEL nunca bloquea. */
+  lic1:{label:"Solo licenciamiento · 1 año",row:"lic1",
+        sched:APP_CONFIG.annualFactors.oneFlat,years:APP_CONFIG.annualFactors.oneFlat.length,
+        device:"Sin equipos",stockPct:PRECIOS.stock.nuevos,licensingOnly:true,
+        alumno:"cbAlumno",
+        docentes:[{k:"docente",dev:"cbDocente",ratio:PRECIOS.razones.modeloDocente,label:"Modelo docente"}]}
 });
-const TERM_ORDER = ["cb3","cb4","fl2","tb3"];
+const TERM_ORDER = ["cb3","cb4","fl2","tb3","lic1"];
+/* El plazo de solo licenciamiento, en una pregunta: ¿este plazo vende equipos? */
+const isLicensingOnlyTerm = t => Boolean(t && t.licensingOnly);
 /* Helpers del catálogo por plazo. La opción `docente`/`estudiante` de un plazo, y los
    costos de catálogo que usa ese plazo para los equipos docentes adicionales: el
    renglón «modelo estudiante» usa el equipo de alumno del plazo cuando el plazo no
@@ -2531,6 +2584,16 @@ function quote(input) {
      equipos incluidos) y en la modalidad a la medida cuando hay equipos docentes que
      prorratear. Con una sola opción en el plazo, el motor ya la usó y no pregunta. */
   if ((ratioMode || proDoc > 0) && !teacherModel) warns.push({t:"e",blocks:"document",code:"TEACHER_MODEL",m:`Elige el modelo de los equipos docentes: ${docOptions.map(o=>`${o.label.toLowerCase()} (1 por cada ${o.ratio} alumnos)`).join(" o ")}. Sin esta decisión no se puede generar la propuesta ni el PDF.`});
+  /* EL CANDADO DEL PLAZO DE SOLO LICENCIAMIENTO (04-sep-2026). Es la única de las tres
+     capas que un JSON importado o un #scenario= editado a mano no puede saltarse:
+     sanitizeScenarioPayload() valida `term` y `mod` por SEPARADO, así que la pareja
+     imposible {term:"lic1", mod:4} entra sin protesta por esa puerta.
+
+     blocks:"price" y no "document", y no es preferencia: este plazo no tiene seguro
+     tabulado —seguroPorAnios no tiene clave 1, a propósito— y deviceUnitCost() lo
+     resolvería con `?? 0`. Con equipos aquí el IMPORTE POR ALUMNO sería falso, no solo
+     incompleto: exactamente el criterio que separa "price" de "document". */
+  if (t.licensingOnly && (ratioMode || totalEq > 0)) warns.push({t:"e",blocks:"price",code:"LIC_ONLY_TERM",m:`El plazo «${t.label}» cotiza únicamente licenciamiento: no admite equipos ni carritos. Elige la modalidad «Sin equipos» y retira los equipos capturados, o cambia a un plazo con dispositivos.`});
   /* F-27 · Fase 2 · Se eliminó la advertencia FREE_1TO1_EXTRAS: la regla 5 (F-26 · P2)
      normaliza stuExtra a 0 en 1:1 en los tres caminos de entrada, así que la condición
      divisor===1 && stuExtra>0 era inalcanzable desde cualquier flujo comercial real.
@@ -3216,7 +3279,7 @@ function validISODate(value){try{return strictISODate(value,"Fecha");}catch{retu
 /* F-27 · V4-14 · TEACHER_MODEL apuntaba a #tmDocente, un radio con opacity:0 (el foco
    programático sobre él no produce indicador visible de forma fiable en Chromium).
    Ahora enfoca el fieldset contenedor, que sí es visible y lleva tabindex="-1". */
-const ENGINE_ERROR_FIELD={STUDENTS:"fStu",NON_POSITIVE_PRICE:"fStu",NON_FINITE_PRICE:"fStu",IMPLAUSIBLE_PRICE:"fEqDoc",CORRUPT_SCENARIO:"fStu",TEACHER_MODEL:"teacherModelGrid"};
+const ENGINE_ERROR_FIELD={STUDENTS:"fStu",NON_POSITIVE_PRICE:"fStu",NON_FINITE_PRICE:"fStu",IMPLAUSIBLE_PRICE:"fEqDoc",CORRUPT_SCENARIO:"fStu",TEACHER_MODEL:"teacherModelGrid",LIC_ONLY_TERM:"fTerm"};
 function engineErrorsToIssues(result){
   return result.warns.filter(w=>w.t==="e").map(w=>({
     /* v5 · En la modalidad a la medida el fieldset de modelo docente está oculto:
@@ -3334,6 +3397,19 @@ function resetStateForModel(nextModel){
   S().cartFreeAuthorization=emptyCartAuthorization();
   if(nextModel===0){S().eqDoc=0;S().eqStu=0;S().cartCap=0;}
 }
+/* LA NORMALIZACIÓN del plazo de solo licenciamiento, en UN solo sitio porque son DOS
+   las puertas que cambian el plazo: el selector #fTerm y la variante de plazo. La
+   variante la asignaba directo y se saltaba esta capa — el candado la atrapaba, pero
+   una cotización que el propio cotizador arma no puede nacer bloqueada.
+   Devuelve false solo si el vendedor cancela. */
+function normalizeLicensingOnlyTerm(nextTerm,{confirmLoss=true}={}){
+  if(!isLicensingOnlyTerm(TERMS[nextTerm]))return true;
+  if(S().mod===0&&!hasEquipmentAdjustments())return true;
+  if(confirmLoss&&hasEquipmentAdjustments()&&!confirm(`«${TERMS[nextTerm].label}» cotiza únicamente licenciamiento: se eliminarán los equipos y carritos configurados. ¿Continuar?`))return false;
+  resetStateForModel(0);S().mod=0;
+  toast(`El plazo «${TERMS[nextTerm].label}» no incluye equipos: la modalidad cambió a «Sin equipos» y se retiró lo capturado. Verifícalo.`,"info");
+  return true;
+}
 function hasProRataData(){const p=S().proRata;return Boolean(p&&(p.stu>0||p.doc>0||(p.carts||[]).length>0));}
 function hasEquipmentAdjustments(){return S().eqDoc>0||S().eqStu>0||S().stuExtra>0||hasProRataData()||S().cartCap>0&&quote(S()).carts>0;}
 function initControls() {
@@ -3397,7 +3473,11 @@ function bindEvents() {
      solicitados capturados a mano: la cantidad negociada se conserva y se avisa para
      que el vendedor la verifique contra el nuevo producto. */
   $("#fTerm").addEventListener("change",e=>{
-    S().term=e.target.value;
+    const nextTerm=e.target.value;
+    /* El plazo de solo licenciamiento no admite equipos: se limpian con aviso y con
+       confirmación, y si el vendedor cancela el selector vuelve donde estaba. */
+    if(!normalizeLicensingOnlyTerm(nextTerm)){e.target.value=S().term;return;}
+    S().term=nextTerm;
     if(S().stuExtra>0)toast(`Se conservaron los ${S().stuExtra.toLocaleString("es-MX")} equipos de estudiante adicionales. Verifica que sigan aplicando al nuevo dispositivo o plazo.`,"info");
     /* Catálogo por plazo: si el modelo docente elegido no existe en el plazo nuevo, se
        cambia al único disponible y SE AVISA. Nunca en silencio: el vendedor tiene que
@@ -3629,6 +3709,23 @@ function renderAccompaniment(d,r) {
   ].filter(Boolean);
   $("#acompGrid").innerHTML=cards.map(x=>`<div class="acard" style="--ac:${x.c}"><div class="ai" style="background:${x.t}">${svg(x.i,x.c)}</div><div class="k">${esc(x.k)}</div><div class="v">${esc(x.v)}</div></div>`).join("");
 }
+/* El selector de modalidad, según el plazo. Las cuatro modalidades por razón se
+   deshabilitan UNA POR UNA —no solo el selector entero— para que la restricción siga
+   siendo visible si mañana el selector deja de bloquearse completo.
+
+   El selector se bloquea SOLO cuando el estado ya es válido. Si llega la pareja
+   imposible {lic1, mod≠0} —y llega: sanitizeScenarioPayload() valida `term` y `mod` por
+   separado, así que un JSON importado la trae— el candado tapa el precio y le pide al
+   vendedor elegir «Sin equipos». Bloquear el selector ahí dejaba esa instrucción
+   IMPOSIBLE de obedecer: un callejón sin salida cuya única escapatoria era cambiar de
+   plazo. Ahora la única opción abierta es justo la que desbloquea. */
+function syncModelOptions(licOnly){
+  const select=$("#fModel");if(!select)return;
+  const alreadyValid=S().mod===0;
+  select.disabled=licOnly&&alreadyValid;
+  for(const option of select.options)option.disabled=licOnly&&Number(option.value)!==0;
+  select.title=licOnly?(alreadyValid?"Este plazo cotiza únicamente licenciamiento: no incluye equipos.":"Este plazo no admite equipos: elige «Sin equipos» para continuar."):"";
+}
 function renderAdjustments(d,r) {
   $("#fDocInc").value=r.docInc;$("#fUsers").value=r.users;
   /* F-25 · P3 · El contador de usuarios explica de dónde salen las licencias, para
@@ -3643,10 +3740,17 @@ function renderAdjustments(d,r) {
   /* v5 · La tarjeta «Docentes, equipos y carritos» cambia de contenido en la modalidad
      a la medida en vez de deshabilitarse: los tres bloques por razón se ocultan y en
      su lugar aparece el bloque de equipos a prorratear con su caja de cálculo. */
+  /* EL CONTROL del plazo de solo licenciamiento: además de los tres bloques por razón
+     se retira el de equipos a prorratear, y la modalidad queda fija en «Sin equipos».
+     Es la regla que esta página ya tenía escrita: lo que no se puede elegir no se
+     puede equivocar. Queda a la vista lo que sí aplica —los docentes extra, que suman
+     licencias— y la tarjeta de licencias intacta. */
+  const licOnly=isLicensingOnlyTerm(r.t);
   const customMode=S().mod===0;
   $("#grpStuEq").hidden=customMode;$("#grpTeachEq").hidden=customMode;$("#grpCart").hidden=customMode;
-  $("#proRataGroup").hidden=!customMode;
-  if(customMode)renderProRata(r);
+  $("#proRataGroup").hidden=!customMode||licOnly;
+  if(customMode&&!licOnly)renderProRata(r);
+  syncModelOptions(licOnly);
   /* El rótulo de costos deja de estar fijo: se escribe desde el catálogo del plazo. */
   $("#hEqCosts").textContent=`costo por equipo en este plazo, con CEU y seguro: docente ${money(termDocenteDeviceCost(r.t,r.yrs))} · estudiante ${money(termEstudianteDeviceCost(r.t,r.yrs))}`;
   /* F-25 · P4 · Los equipos de estudiante incluidos son de solo lectura. */
@@ -3781,7 +3885,7 @@ function renderProCartRows(){
    al escenario compartido (regla cerrada el 21-ago-2026). */
 function renderProRata(r){
   const p=r.proRata,t=r.t;
-  $("#hProCosts").textContent=`catálogo del plazo: alumno ${money(p.alumnoCost)} · docente ${money(p.docenteCost)} · CEU ${money(p.ceuUnit)} · seguro a ${r.yrs} años ${money(p.insuranceUnit)}`;
+  $("#hProCosts").textContent=`catálogo del plazo: alumno ${money(p.alumnoCost)} · docente ${money(p.docenteCost)} · CEU ${money(p.ceuUnit)} · seguro a ${yearsLabel(r.yrs)} ${money(p.insuranceUnit)}`;
   $("#hProStu").textContent=`${t.device}. Cada equipo suma su licencia CEU y su seguro, solos.`;
   $("#hProDoc").textContent=r.teacherModel?`${DEVICES[termDocOption(t,r.teacherModel)?.dev||t.alumno].label}. Mismo prorrateo que los de alumno.`:"Mismo prorrateo que los de alumno.";
   /* Modelo docente: opciones del plazo. Con una sola, se muestra fijada. */
@@ -3814,17 +3918,17 @@ function renderProRata(r){
   const perDevice=p.alumnoCost!==p.docenteCost;
   const box=$("#proRataBox");
   if(!p.fierro){
-    box.innerHTML=`<div class="cr"><span>Sin equipos ni carritos capturados</span><b>cotiza solo licencias</b></div><div class="cr"><span>Si capturas, el costo se dividirá entre</span><b>${r.stu.toLocaleString("es-MX")} alumnos × ${r.yrs} años</b></div>`;
+    box.innerHTML=`<div class="cr"><span>Sin equipos ni carritos capturados</span><b>cotiza solo licencias</b></div><div class="cr"><span>Si capturas, el costo se dividirá entre</span><b>${r.stu.toLocaleString("es-MX")} alumnos × ${yearsLabel(r.yrs)}</b></div>`;
     return;
   }
   box.innerHTML=[
     p.stu?[`Equipos de alumno · ${t.device}`,`${p.stu.toLocaleString("es-MX")} × ${money(p.alumnoCost)} = ${money(p.stu*p.alumnoCost)}`]:null,
     p.doc?[`Equipos de docente${perDevice?` · ${DEVICES[termDocOption(t,r.teacherModel||"docente")?.dev||t.alumno].label}`:""}`,`${p.doc.toLocaleString("es-MX")} × ${money(p.docenteCost)} = ${money(p.doc*p.docenteCost)}`]:null,
     r.totalEq?["Licencias CEU · automáticas, una por equipo",`${r.totalEq.toLocaleString("es-MX")} × ${money(p.ceuUnit)} = ${money(r.totalEq*p.ceuUnit)}`]:null,
-    r.totalEq?[`Seguro a ${r.yrs} años · automático, uno por equipo`,`${r.totalEq.toLocaleString("es-MX")} × ${money(p.insuranceUnit)} = ${money(r.totalEq*p.insuranceUnit)}`]:null,
+    r.totalEq?[`Seguro a ${yearsLabel(r.yrs)} · automático, uno por equipo`,`${r.totalEq.toLocaleString("es-MX")} × ${money(p.insuranceUnit)} = ${money(r.totalEq*p.insuranceUnit)}`]:null,
     p.cartQty?["Carritos de carga",`${p.cartQty.toLocaleString("es-MX")} renglón(es) · ${money(p.cartCost)}`]:null,
     ["Costo del fierro",money(p.fierro)],
-    [`Entre ${r.stu.toLocaleString("es-MX")} alumnos y ${r.yrs} años`,`${money(p.fierro)} ÷ ${r.stu.toLocaleString("es-MX")} ÷ ${r.yrs}`],
+    [`Entre ${r.stu.toLocaleString("es-MX")} alumnos y ${yearsLabel(r.yrs)}`,`${money(p.fierro)} ÷ ${r.stu.toLocaleString("es-MX")} ÷ ${r.yrs}`],
     ["Suma al precio por alumno y año",money(p.adj)],
     r.stock?["Stock de reemplazo (informativo, no se cobra)",`${r.stock} equipo(s)`]:null,
     [`Recuperación del fierro con «${payment.title}»`,percent(recovery)]
@@ -3984,7 +4088,7 @@ function buildProposal(){
      el vendedor haya marcado la acompañan en tarjetas menores. */
   const chosen=S().pay,chosenYear=r.schemes[chosen][0];
   const heroCaps=`${PAYS[chosen].disc?`<span class="p-fchip p-fchip--green">${percent(PAYS[chosen].disc)} de descuento aplicado</span>`:""}${chosen==="antes"?`<span class="p-fchip p-fchip--yellow">Firma antes del ${esc(earlySignatureDeadlineLabel())}</span>`:""}`;
-  const heroCard=`<div class="p-hero"><div class="ph-k">Inversión por alumno · año 1 · IVA incluido</div><div class="ph-v">${money(chosenYear.net)}</div><div class="ph-s">${esc(PAYS[chosen].title)} · paquete ${esc(d.pkgName)} · modelo ${esc(d.modLbl)} · contrato a ${r.yrs} años</div>${heroCaps?`<div class="p-fchips">${heroCaps}</div>`:""}</div>`;
+  const heroCard=`<div class="p-hero"><div class="ph-k">Inversión por alumno · año 1 · IVA incluido</div><div class="ph-v">${money(chosenYear.net)}</div><div class="ph-s">${esc(PAYS[chosen].title)} · paquete ${esc(d.pkgName)} · modelo ${esc(d.modLbl)} · contrato a ${yearsLabel(r.yrs)}</div>${heroCaps?`<div class="p-fchips">${heroCaps}</div>`:""}</div>`;
   const compared=included.filter(key=>key!==chosen);
   /* F-27 · V4-11 · El ahorro se calcula restando los dos precios YA REDONDEADOS
      que el cliente tiene enfrente, para que su propia resta cuadre. Solo se
@@ -4038,7 +4142,7 @@ function buildPrintDocument(){
   /* La portada nombra a quien pidió la cotización, no solo al colegio. */
   const coverAtt=d.contacts.length?`<div class="cv-att"><div class="k">A la atención de</div>${d.contacts.map(c=>`<div class="v">${esc(c.name||"Sin nombre")}${c.email?`<small> · ${esc(c.email)}</small>`:""}</div>`).join("")}</div>`:"";
   const coverCaps=`${pay.disc?`<span class="cv-cap cv-cap--green">${percent(pay.disc)} de descuento aplicado</span>`:""}${S().pay==="antes"?`<span class="cv-cap cv-cap--yellow">Firma antes del ${esc(earlySignatureDeadlineLabel())}</span>`:""}`;
-  return `<article class="print-document">${runfoot}<section class="print-cover"><div class="gbar gbar--cover"><i></i><i></i><i></i><i></i></div><div class="print-cover__inner"><img class="print-brand-logo" src="${BRAND_ASSETS.activa}" alt="activa"><div class="cv-eyebrow">${esc(APP_CONFIG.cycle.label)}</div><div class="cv-for">Propuesta preparada para</div><h1 class="cv-name" data-len="${nameScale}">${esc(d.inst)}</h1><div class="cv-city">${esc(d.city)}</div>${coverAtt}${coverChips}<div class="cv-price"><div class="gbar gbar--card" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="cv-price__inner"><div><div class="cv-pl">Inversión por alumno · año 1 · ${esc(pay.title)}</div><div class="cv-pv">${money(r.schemes[S().pay][0].net)}</div><div class="cv-pn">IVA incluido</div><div class="cv-caps">${coverCaps}</div></div></div></div><div class="cv-facts"><div class="cv-fact" style="border-color:#4285F4"><div class="k">Estudiantes</div><div class="v">${r.stu.toLocaleString("es-MX")}</div></div><div class="cv-fact" style="border-color:#EA4335"><div class="k">Docentes</div><div class="v">${r.docTot.toLocaleString("es-MX")}</div></div><div class="cv-fact" style="border-color:#34A853"><div class="k">Contrato</div><div class="v">${r.yrs} años</div></div></div><div class="cv-meta"><div>Folio<b>${esc(d.folio)}</b></div>${APP_STATE.identity.revision>1?`<div>Revisión<b>${APP_STATE.identity.revision} · sustituye anteriores</b></div>`:""}<div>Fecha<b>${esc(d.dDate)}</b></div><div>Vigencia<b>${esc(d.dValid)}</b></div></div></div></section><table class="print-shell"><thead><tr><td>${runhead}</td></tr></thead><tfoot class="print-shell-space" aria-hidden="true"><tr><td></td></tr></tfoot><tbody><tr><td><section class="print-content pp-body">${buildProposal()}</section></td></tr></tbody></table></article>`;
+  return `<article class="print-document">${runfoot}<section class="print-cover"><div class="gbar gbar--cover"><i></i><i></i><i></i><i></i></div><div class="print-cover__inner"><img class="print-brand-logo" src="${BRAND_ASSETS.activa}" alt="activa"><div class="cv-eyebrow">${esc(APP_CONFIG.cycle.label)}</div><div class="cv-for">Propuesta preparada para</div><h1 class="cv-name" data-len="${nameScale}">${esc(d.inst)}</h1><div class="cv-city">${esc(d.city)}</div>${coverAtt}${coverChips}<div class="cv-price"><div class="gbar gbar--card" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="cv-price__inner"><div><div class="cv-pl">Inversión por alumno · año 1 · ${esc(pay.title)}</div><div class="cv-pv">${money(r.schemes[S().pay][0].net)}</div><div class="cv-pn">IVA incluido</div><div class="cv-caps">${coverCaps}</div></div></div></div><div class="cv-facts"><div class="cv-fact" style="border-color:#4285F4"><div class="k">Estudiantes</div><div class="v">${r.stu.toLocaleString("es-MX")}</div></div><div class="cv-fact" style="border-color:#EA4335"><div class="k">Docentes</div><div class="v">${r.docTot.toLocaleString("es-MX")}</div></div><div class="cv-fact" style="border-color:#34A853"><div class="k">Contrato</div><div class="v">${yearsLabel(r.yrs)}</div></div></div><div class="cv-meta"><div>Folio<b>${esc(d.folio)}</b></div>${APP_STATE.identity.revision>1?`<div>Revisión<b>${APP_STATE.identity.revision} · sustituye anteriores</b></div>`:""}<div>Fecha<b>${esc(d.dDate)}</b></div><div>Vigencia<b>${esc(d.dValid)}</b></div></div></div></section><table class="print-shell"><thead><tr><td>${runhead}</td></tr></thead><tfoot class="print-shell-space" aria-hidden="true"><tr><td></td></tr></tfoot><tbody><tr><td><section class="print-content pp-body">${buildProposal()}</section></td></tr></tbody></table></article>`;
 }
 
 function openProposal() {
@@ -4341,8 +4445,15 @@ function newQuote({copy=false,revision=false}={}){
    adjunta en UN solo correo con el modo "varias cotizaciones" activado. */
 function createTermVariant(term){
   if(!TERMS[term])return false;
+  /* La pregunta va ANTES de crear la copia: si el vendedor cancela no queremos dejarle
+     un folio nuevo huérfano. La copia todavía no existe, pero es idéntica a esta, así
+     que hasEquipmentAdjustments() ya responde por ella. */
+  if(isLicensingOnlyTerm(TERMS[term])&&hasEquipmentAdjustments()
+     &&!confirm(`«${TERMS[term].label}» cotiza únicamente licenciamiento: la variante se creará SIN los equipos ni los carritos de esta cotización. ¿Continuar?`))return false;
   if(!newQuote({copy:true}))return false;
   S().term=term;
+  /* Ya se preguntó arriba, sobre el estado original: aquí solo se limpia y se avisa. */
+  normalizeLicensingOnlyTerm(term,{confirmLoss:false});
   if(S().stuExtra>0)toast(`Se conservaron los ${S().stuExtra.toLocaleString("es-MX")} equipos de estudiante adicionales capturados manualmente. Verifica que sigan aplicando al nuevo plazo.`,"info");
   APP_STATE.mail.multiQuote=true;
   bindStateToForm();renderAll();markChanged();
@@ -5065,6 +5176,83 @@ const QuoteTests={
       const sinModelo=quote({...base,term:"cb4",proRata:{stu:0,doc:4,carts:[]}});
       this.assert(sinModelo.warns.some(w=>w.code==="TEACHER_MODEL"&&w.blocks==="document"),"con equipos docentes a prorratear debía exigirse el modelo");
     });
+    /* ---------- PLAZO DE SOLO LICENCIAMIENTO A 1 AÑO (04-sep-2026) ---------- */
+    this.test("1 año · El plazo de solo licenciamiento cotiza un único año",()=>{
+      const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));
+      const base={term:"lic1",mod:0,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:null,docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic,proRata:{stu:0,doc:0,carts:[]}};
+      const edu=quote({...base,pkg:"edu"}),plus=quote({...base,pkg:"plus"});
+      /* Los años NO se capturan: se cuentan. Un factor anual, un año. */
+      this.assert(edu.yrs===1,"el plazo lic1 debía cotizar un solo año");
+      this.assert(edu.t.sched.length===1,"lic1 debía traer un único factor anual");
+      this.assert(edu.schemes.contado.length===1&&edu.schemes.antes.length===1&&edu.schemes.despues.length===1,"la escalera debía traer un solo renglón en los tres esquemas");
+      this.assertClose(edu.list,3000,1e-6,"el licenciamiento a 1 año debía costar $3,000 en edu");
+      this.assertClose(plus.list,3500,1e-6,"el licenciamiento a 1 año debía costar $3,500 en plus");
+      /* oneFlat:[1] — sin escalón: el año único se cobra al precio de lista pelado. */
+      this.assertClose(edu.schemes.despues[0].gross,3000,1e-6,"sin descuento, el año único debía cobrarse al precio de lista");
+      this.assert(edu.totalEq===0&&edu.carts===0&&edu.stock===0,"el plazo de solo licenciamiento no debía producir equipos");
+      this.assert(!edu.warns.some(w=>w.t==="e"),"la cotización de licenciamiento a 1 año no debía emitir errores");
+      /* Con una sola opción docente, el modelo se autorresuelve y no bloquea. */
+      this.assert(!edu.warns.some(w=>w.code==="TEACHER_MODEL"),"lic1 no debía exigir modelo de equipo docente");
+    });
+    /* ESTA ES LA PRUEBA QUE PROTEGE EL SEGURO EN CERO. seguroPorAnios no tiene clave 1
+       a propósito, y deviceUnitCost() resuelve el año que falta con `?? 0`: si alguien
+       habilita equipos en un plazo de un año sin escribir antes ese importe, el seguro
+       sale GRATIS y nada lo delata. El candado es lo único que lo impide por la puerta
+       que las otras dos capas no cubren —sanitizeScenarioPayload() valida `term` y `mod`
+       por SEPARADO, así que un JSON importado puede traer la pareja imposible. */
+    this.test("1 año · El plazo de solo licenciamiento no admite equipos",()=>{
+      const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));
+      const base={pkg:"edu",term:"lic1",pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:null,docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic,proRata:{stu:0,doc:0,carts:[]}};
+      const lock=r=>r.warns.find(w=>w.code==="LIC_ONLY_TERM");
+      /* Puerta 1: una modalidad por razón. */
+      for(const mod of [1,2,3,4]){
+        const r=quote({...base,mod,teacherDeviceModel:"docente"});
+        const w=lock(r);
+        this.assert(w&&w.t==="e"&&w.blocks==="price",`la modalidad ${mod} en lic1 debía disparar LIC_ONLY_TERM con blocks:"price"`);
+      }
+      /* Puerta 2: equipos prorrateados en la modalidad a la medida. */
+      const conFierro=quote({...base,mod:0,proRata:{stu:30,doc:0,carts:[]}});
+      const w=lock(conFierro);
+      this.assert(w&&w.t==="e"&&w.blocks==="price","los equipos a la medida en lic1 debían disparar LIC_ONLY_TERM");
+      /* Y el candado de verdad cierra el precio, no solo el documento. */
+      this.assert(engineErrorsToIssues(conFierro).some(i=>i.type==="financial"),"LIC_ONLY_TERM debía traducirse a un error financiero");
+      /* Sin equipos no molesta a nadie. */
+      this.assert(!lock(quote({...base,mod:0})),"lic1 sin equipos no debía emitir LIC_ONLY_TERM");
+      /* Y los plazos con dispositivos siguen intactos. */
+      this.assert(!lock(quote({...base,term:"cb4",mod:4,teacherDeviceModel:"docente"})),"cb4 no debía verse afectado por el candado");
+    });
+    /* El candado le pide al vendedor elegir «Sin equipos». Si además le bloqueábamos el
+       selector de modalidad, esa instrucción era imposible de obedecer — un callejón sin
+       salida al importar un JSON con la pareja {lic1, mod≠0}. El selector se cierra solo
+       cuando el estado YA es válido; mientras no lo sea, la única opción abierta es la que
+       desbloquea. */
+    this.test("1 año · Con la pareja imposible, el vendedor sí puede desbloquear",()=>this.withStorageSandbox(()=>{
+      const select=$("#fModel"),prevTerm=S().term,prevMod=S().mod;
+      try{
+        S().term="lic1";S().mod=4;syncModelOptions(true);
+        this.assert(select.disabled===false,"con estado inválido el selector debía quedar abierto para poder salir");
+        this.assert([...select.options].find(o=>o.value==="0").disabled===false,"«Sin equipos» debía estar disponible");
+        this.assert([...select.options].filter(o=>o.disabled).map(o=>o.value).join(",")==="1,2,3,4","las modalidades por razón debían seguir cerradas");
+        S().mod=0;syncModelOptions(true);
+        this.assert(select.disabled===true,"ya en estado válido el selector debía bloquearse");
+        syncModelOptions(false);
+        this.assert(select.disabled===false&&[...select.options].every(o=>!o.disabled),"un plazo con equipos debía dejar todo abierto");
+      }finally{S().term=prevTerm;S().mod=prevMod;syncModelOptions(isLicensingOnlyTerm(TERMS[prevTerm]));}
+    }));
+    this.test("1 año · No hay seguro tabulado a un año, y es intencional",()=>{
+      /* Su ausencia es una decisión, no un olvido: el único plazo de un año no vende
+         equipos. El día que se venda equipo a un año hay que ESCRIBIR el importe en
+         PRECIOS.porEquipo.seguroPorAnios ANTES de habilitarlo, y entonces esta prueba
+         debe cambiar junto con la de arriba. */
+      this.assert(PRECIOS.porEquipo.seguroPorAnios[1]===undefined,"apareció un seguro a 1 año: revisa el candado LIC_ONLY_TERM antes de permitir equipos");
+      this.assert(TERMS.lic1.licensingOnly===true,"lic1 dejó de declararse como plazo de solo licenciamiento");
+      /* Ningún plazo CON equipos puede quedarse sin seguro tabulado. */
+      for(const key of TERM_ORDER){const t=TERMS[key];
+        if(!t.licensingOnly)this.assert(typeof PRECIOS.porEquipo.seguroPorAnios[t.years]==="number",`el plazo ${key} vende equipos y no tiene seguro tabulado a ${t.years} años`);
+      }
+      /* La pluralización que el plazo de un año hizo alcanzable. */
+      this.assert(yearsLabel(1)==="1 año"&&yearsLabel(2)==="2 años"&&yearsLabel(4)==="4 años","yearsLabel no pluraliza bien");
+    });
     this.test("Todo warn t:'e' del motor bloquea el documento",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();S().mod=4;S().stu=65;S().teacherDeviceModel=null;CURRENT_RESULT=quote(S());let ready=getReadiness();this.assert(!ready.documentReady&&!ready.proposalReady,"un error del motor no bloqueó el documento");this.assert(ready.blockingErrors.length>0,"el error del motor no llegó a blockingErrors");/* F-28 · Y un error que sí es financiero —sin alumnos no hay precio por alumno— sigue ocultando el precio, que es lo que blocks:"price" debe significar. */S().teacherDeviceModel="docente";S().mod=3;S().stu=0;CURRENT_RESULT=quote(S());ready=getReadiness();this.assert(!ready.calculable,"una cotización sin alumnos debía bloquear el cálculo");this.assert(ready.financialErrors.length>0,"el error financiero del motor no llegó a financialErrors");}));
     this.test("Precio implausible se bloquea",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const r=quote({pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:1,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:999999,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assert(r.warns.some(w=>w.code==="IMPLAUSIBLE_PRICE"&&w.t==="e"),"no se detectó el precio absurdo");});
     this.test("Un plazo o modalidad desconocidos avisan",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));for(const bad of [{term:"zzz"},{mod:9}]){const r=quote({pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:100,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic,...bad});this.assert(r.warns.some(w=>w.code==="CORRUPT_SCENARIO"&&w.t==="e"),`fallback silencioso con ${JSON.stringify(bad)}`);}});
@@ -5143,6 +5331,39 @@ const QuoteTests={
     this.test("El correo HTML lleva chips, precio destacado y botón de respuesta",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";CURRENT_RESULT=quote(S());const model=buildMailModel();this.assert(model.html.includes("GOOGLE FOR EDUCATION"),"falta el eyebrow de marca");this.assert(model.html.includes("Folio "),"falta el chip de folio");this.assert(model.html.includes("Responder para agendar"),"falta el botón de respuesta");this.assert(model.html.includes("PRECIO POR ALUMNO"),"falta el precio destacado");this.assert(model.plainText.includes(`Folio: ${folioDisplay()}`),"el texto plano perdió el folio");}));
     this.test("El modo varias cotizaciones redacta en plural",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";CURRENT_RESULT=quote(S());APP_STATE.mail.multiQuote=true;const model=buildMailModel();this.assert(/las cotizaciones solicitadas/.test(model.plainText),"el texto plano no quedó en plural");this.assert(model.html.includes("Cotizaciones adjuntas"),"la tarjeta del adjunto no quedó en plural");}));
     this.test("La variante de plazo crea folio nuevo con el plazo elegido",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();DIRTY=true;this.assert(saveStateNow(false),"guardado inicial");const prevRoot=APP_STATE.identity.folioRoot,prevId=APP_STATE.identity.quoteId;this.assert(createTermVariant("tb3"),"no se creó la variante");this.assert(APP_STATE.identity.folioRoot!==prevRoot,"la variante no generó folio nuevo");this.assert(S().term==="tb3","la variante no cambió el plazo");this.assert(APP_STATE.identity.parentQuoteId===prevId,"la variante no registró su origen");this.assert(APP_STATE.mail.multiQuote===true,"la variante no activó el correo múltiple");}));
+    /* 1 año · La variante de plazo era la SEGUNDA puerta que cambia el plazo, y asignaba
+       S().term directo: se saltaba la normalización del selector y producía una variante
+       bloqueada por su propio candado. Una cotización que el cotizador arma solo no puede
+       nacer rota, así que ambas puertas comparten normalizeLicensingOnlyTerm(). */
+    this.test("1 año · La variante hacia solo licenciamiento nace limpia, no bloqueada",()=>this.withStorageSandbox(()=>{
+      const realConfirm=window.confirm;window.confirm=()=>true;
+      try{
+        APP_STATE=createSafeDefaultState();S().mod=4;S().stu=300;S().teacherDeviceModel="docente";S().eqDoc=3;S().term="cb4";
+        DIRTY=true;this.assert(saveStateNow(false),"guardado inicial");
+        this.assert(createTermVariant("lic1"),"no se creó la variante");
+        this.assert(S().term==="lic1","la variante no cambió el plazo");
+        this.assert(S().mod===0,`la variante nació en modalidad ${S().mod}: debía normalizarse a 0`);
+        this.assert(S().eqDoc===0&&S().eqStu===0&&S().stuExtra===0,"la variante heredó equipos que este plazo no vende");
+        this.assert(!hasProRataData(),"la variante heredó equipos a la medida");
+        const r=quote(S());
+        this.assert(!r.warns.some(w=>w.code==="LIC_ONLY_TERM"),"la variante nació bloqueada por su propio candado");
+        this.assertClose(r.list,3000,1e-6,"la variante no cotizó el licenciamiento a 1 año");
+      }finally{window.confirm=realConfirm;}
+    }));
+    /* Y si el vendedor dice que no, no se le queda un folio huérfano: la pregunta va
+       ANTES de crear la copia. */
+    this.test("1 año · Cancelar la variante no crea folio ni toca el estado",()=>this.withStorageSandbox(()=>{
+      const realConfirm=window.confirm;window.confirm=()=>false;
+      try{
+        APP_STATE=createSafeDefaultState();S().mod=4;S().stu=300;S().teacherDeviceModel="docente";S().eqDoc=2;S().term="cb4";
+        DIRTY=true;this.assert(saveStateNow(false),"guardado inicial");
+        const prevRoot=APP_STATE.identity.folioRoot,prevCount=listIndex().length;
+        this.assert(createTermVariant("lic1")===false,"cancelar debía devolver false");
+        this.assert(APP_STATE.identity.folioRoot===prevRoot,"cancelar dejó un folio nuevo huérfano");
+        this.assert(listIndex().length===prevCount,"cancelar dejó un borrador huérfano");
+        this.assert(S().term==="cb4"&&S().mod===4&&S().eqDoc===2,"cancelar movió el estado original");
+      }finally{window.confirm=realConfirm;}
+    }));
     /* F-27 · V4-06 · La prueba usaba v:3 sin {allowLegacy:true} contra un saneador que
        exige v4 por defecto: fallaba siempre por "Versión de escenario incompatible" y la
        suite se entregaba 64/65 en rojo. Ahora usa un escenario v4 completo. */
