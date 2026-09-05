@@ -1,15 +1,42 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="es-MX">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Manual de blindaje · Google Admin Console</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <meta name="description"
+        content="Manual operativo para dejar blindada la Google Admin Console de un colegio: unidades organizativas, cuenta y directorio, políticas por perfil y checklist de verificación.">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Fuera de los buscadores: el manual se entrega por enlace al equipo de TI
+         de un colegio concreto. No se busca, se manda. Las etiquetas og: siguen
+         funcionando: WhatsApp lee la página para la vista previa, no la indexa. -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Icono de pestaña: los cuatro cuadros de Google, el mismo del kit y de los
+         decks, para que las páginas se reconozcan como de la misma casa. -->
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='11' height='11' rx='3' fill='%234285f4'/%3E%3Crect x='18' y='3' width='11' height='11' rx='3' fill='%23ea4335'/%3E%3Crect x='3' y='18' width='11' height='11' rx='3' fill='%23fbbc04'/%3E%3Crect x='18' y='18' width='11' height='11' rx='3' fill='%2334a853'/%3E%3C/svg%3E">
+
+    <!-- Vista previa al compartir el enlace. Las URL van absolutas: WhatsApp no
+         lee rutas relativas ni data: URI. Si la página se mueve, se actualizan a
+         mano. `og.png` se regenera desde `og-source.html` (ver README). -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_MX">
+    <meta property="og:site_name" content="activa">
+    <meta property="og:url" content="https://sanoapro.github.io/activa/paginas/consola/">
+    <meta property="og:title" content="Deja la consola blindada en el colegio y en casa">
+    <meta property="og:description"
+        content="Manual de blindaje de Google Admin Console. Ruta por ruta, con checklist de verificación.">
+    <meta property="og:image" content="https://sanoapro.github.io/activa/paginas/consola/og.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt"
+        content="Manual de blindaje · Google Admin Console · Deja la consola blindada en el colegio y en casa">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://sanoapro.github.io/activa/paginas/consola/og.png">
     <style>
         :root {
             --blue: #1a73e8;
@@ -42,7 +69,7 @@
             --r: 16px;
             --shadow: 0 1px 2px rgba(60, 64, 67, .06), 0 4px 14px -6px rgba(60, 64, 67, .14);
             --font: "Google Sans", "Google Sans Text", "Product Sans", Roboto, -apple-system, "Segoe UI", Arial, sans-serif;
-            --mono: "Roboto Mono", "SF Mono", Menlo, Consolas, monospace;
+            --mono: ui-monospace, "SF Mono", "Roboto Mono", Menlo, Consolas, monospace;
         }
 
         * {
@@ -475,7 +502,7 @@
             padding: 20px 22px
         }
 
-        .levels h4 {
+        .levels h2 {
             margin: 0 0 4px;
             font-size: 13.5px;
             font-weight: 500
@@ -756,7 +783,7 @@
             margin-bottom: 12px
         }
 
-        .sec-head h1 {
+        .sec-head h2 {
             font-size: 29px;
             font-weight: 400;
             line-height: 1.22;
@@ -782,7 +809,7 @@
             line-height: 1.65
         }
 
-        .sec-head h1::after {
+        .sec-head h2::after {
             content: "";
             display: block;
             width: 56px;
@@ -845,7 +872,7 @@
             top: -1px
         }
 
-        .card h2 {
+        .card h3 {
             font-size: 17.5px;
             font-weight: 500;
             margin: 0;
@@ -857,7 +884,11 @@
             margin-bottom: 16px
         }
 
-        .card h3 {
+        /* Subtítulo dentro de una tarjeta. `h3.sub` es para las tarjetas sin
+           título propio: el encabezado cuelga de la sección, así que es un h3,
+           pero se lee y se ve como subtítulo. */
+        .card h4,
+        .card h3.sub {
             font-size: 14px;
             font-weight: 500;
             margin: 24px 0 10px;
@@ -1801,7 +1832,7 @@
                 border-radius: 14px
             }
 
-            .sec-head h1 {
+            .sec-head h2 {
                 font-size: 24px
             }
 
@@ -1981,10 +2012,33 @@
             outline-offset: 2px;
             border-radius: 4px
         }
+
+        /* Enlace de salto: el manual mete una barra lateral larga antes del
+           contenido. Con teclado o lector de pantalla, saltarla es la diferencia
+           entre una tabulación y sesenta. Solo se ve al enfocarlo. */
+        .saltar {
+            position: absolute;
+            left: 12px;
+            top: -60px;
+            z-index: 60;
+            background: var(--blue);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 0 0 10px 10px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: top .15s ease
+        }
+
+        .saltar:focus {
+            top: 0
+        }
     </style>
 </head>
 
 <body>
+
+    <a class="saltar" href="#contenido">Saltar al contenido</a>
 
     <div class="orbs" aria-hidden="true">
         <div class="orb o1"></div>
@@ -2334,7 +2388,7 @@
         <div class="no-results" id="nores" role="status">Sin coincidencias.</div>
     </nav>
 
-    <main>
+    <main id="contenido" tabindex="-1">
         <div class="toolbar" id="toolbar">
             <div class="prog" title="Avance del checklist">
                 <div class="prog-bar"><i id="progfill"></i></div>
@@ -2349,23 +2403,26 @@
                 <button class="tb-btn" id="pending" aria-pressed="false">Solo pendientes</button>
                 <button class="tb-btn" id="share" aria-haspopup="true" aria-expanded="false">Compartir</button>
                 <button class="tb-btn primary" id="openreport">Generar informe</button>
-        <div class="sharemenu" id="sharemenu" hidden>
-        <a class="sh" id="sh-wa" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
-        <path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1s-.7 1-.9 1.2c-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.6-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.6s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.1 1.3 3.3c.2.2 2.4 3.7 5.8 5.1 2.1.9 2.9 1 4 .8.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.4z" />
-        <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z" />
-        </svg>WhatsApp</a>
-        <button class="sh" id="sh-copy">
-        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
-        <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z" />
-        </svg>Copiar enlace</button>
-        <a class="sh" id="sh-mail" href="#">
-        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
-        <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
-        </svg>Correo</a>
-        <p class="sh-nota">El enlace solo abre para quien tenga acceso. Compártelo desde el menú
-        <strong>Share</strong> de la página publicada para dar acceso a más personas.</p>
-        </div>
+                <div class="sharemenu" id="sharemenu" hidden>
+                    <a class="sh" id="sh-wa" href="#" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                            <path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1s-.7 1-.9 1.2c-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.6-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.6s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.1 1.3 3.3c.2.2 2.4 3.7 5.8 5.1 2.1.9 2.9 1 4 .8.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.4z" />
+                            <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z" />
+                        </svg>WhatsApp
+                    </a>
+                    <button class="sh" id="sh-copy">
+                        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                            <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z" />
+                        </svg>Copiar enlace
+                    </button>
+                    <a class="sh" id="sh-mail" href="#">
+                        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                            <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>Correo
+                    </a>
+                    <p class="sh-nota">El enlace solo abre para quien tenga acceso. Compártelo desde el menú
+                        <strong>Share</strong> de la página publicada para dar acceso a más personas.</p>
+                </div>
 
             </div>
         </div>
@@ -2390,7 +2447,7 @@
                     </div>
                 </div>
                 <section class="levels" aria-labelledby="lvltitle">
-                    <h4 id="lvltitle">Los tres niveles donde se aplica una política</h4>
+                    <h2 id="lvltitle">Los tres niveles donde se aplica una política</h2>
                     <p>Confundirlos causa el 90 % de los errores de configuración.</p>
                     <div class="lvl"><i style="background:#4285f4"></i>
                         <div><b>Dispositivo</b><span>Afecta a cualquiera que use ese Chromebook, incluso antes de
@@ -2439,7 +2496,7 @@
         <section class="doc-section" id="sec-como-usar-este-documento" data-sec="Cómo usar este documento">
             <header class="sec-head">
 
-                <h1 id="como-usar-este-documento">Cómo usar este documento</h1>
+                <h2 id="como-usar-este-documento">Cómo usar este documento</h2>
                 <p class="lead">Este manual recorre <strong>la consola de administración de Google (admin.google.com)
                         sección por sección</strong>, siguiendo la ruta exacta del menú. En cada ruta encontrarás:</p>
             </header>
@@ -2471,8 +2528,8 @@
             </div>
             <article class="card" data-card="Los tres niveles donde se aplica una política">
                 <div class="card-head">
-                    <h2 id="como-usar-este-documento--los-tres-niveles-donde-se-aplica-una-politica">Los tres niveles
-                        donde se aplica una política</h2>
+                    <h3 id="como-usar-este-documento--los-tres-niveles-donde-se-aplica-una-politica">Los tres niveles
+                        donde se aplica una política</h3>
                 </div>
 
                 <div class="card-body">
@@ -2531,7 +2588,7 @@
             </article>
             <article class="card" data-card="Convenciones">
                 <div class="card-head">
-                    <h2 id="como-usar-este-documento--convenciones">Convenciones</h2>
+                    <h3 id="como-usar-este-documento--convenciones">Convenciones</h3>
                 </div>
 
                 <div class="card-body">
@@ -2552,15 +2609,15 @@
             data-sec="Antes de empezar: requisitos, ediciones y límites">
             <header class="sec-head">
 
-                <h1 id="antes-de-empezar-requisitos-ediciones-y-limites">Antes de empezar: requisitos, ediciones y
-                    límites</h1>
+                <h2 id="antes-de-empezar-requisitos-ediciones-y-limites">Antes de empezar: requisitos, ediciones y
+                    límites</h2>
                 <p class="lead">Este manual recomienda controles que no todos existen en todas las licencias. Verifica
                     esto antes de planear, o prometerás a dirección algo que tu edición no puede dar.</p>
             </header>
             <article class="card" data-card="Licencias que se necesitan">
                 <div class="card-head">
-                    <h2 id="antes-de-empezar-requisitos-ediciones-y-limites--licencias-que-se-necesitan">Licencias que
-                        se necesitan</h2>
+                    <h3 id="antes-de-empezar-requisitos-ediciones-y-limites--licencias-que-se-necesitan">Licencias que
+                        se necesitan</h3>
                 </div>
 
                 <div class="card-body">
@@ -2622,8 +2679,8 @@
             </article>
             <article class="card" data-card="Lo que este manual no sustituye">
                 <div class="card-head">
-                    <h2 id="antes-de-empezar-requisitos-ediciones-y-limites--lo-que-este-manual-no-sustituye">Lo que
-                        este manual no sustituye</h2>
+                    <h3 id="antes-de-empezar-requisitos-ediciones-y-limites--lo-que-este-manual-no-sustituye">Lo que
+                        este manual no sustituye</h3>
                 </div>
 
                 <div class="card-body">
@@ -2677,8 +2734,8 @@
             </article>
             <article class="card" data-card="Antes de tocar la consola">
                 <div class="card-head">
-                    <h2 id="antes-de-empezar-requisitos-ediciones-y-limites--antes-de-tocar-la-consola">Antes de tocar
-                        la consola</h2>
+                    <h3 id="antes-de-empezar-requisitos-ediciones-y-limites--antes-de-tocar-la-consola">Antes de tocar
+                        la consola</h3>
                 </div>
 
                 <div class="card-body">
@@ -2698,8 +2755,8 @@
             data-sec="Parte 0 — Arquitectura previa: Unidades Organizativas">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 0</div>
-                <h1 id="parte-0-arquitectura-previa-unidades-organizativas">Arquitectura previa: Unidades Organizativas
-                </h1>
+                <h2 id="parte-0-arquitectura-previa-unidades-organizativas">Arquitectura previa: Unidades Organizativas
+                </h2>
             </header>
             <div class="card">
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
@@ -2714,8 +2771,8 @@
             </div>
             <article class="card" data-card="0.1 · Estructura recomendada (usuarios)">
                 <div class="card-head"><span class="card-num">0.1</span>
-                    <h2 id="parte-0-arquitectura-previa-unidades-organizativas--estructura-recomendada-usuarios">
-                        Estructura recomendada (usuarios)</h2>
+                    <h3 id="parte-0-arquitectura-previa-unidades-organizativas--estructura-recomendada-usuarios">
+                        Estructura recomendada (usuarios)</h3>
                 </div>
 
                 <div class="card-body">
@@ -2741,8 +2798,8 @@
             </article>
             <article class="card" data-card="0.2 · Estructura recomendada (dispositivos)">
                 <div class="card-head"><span class="card-num">0.2</span>
-                    <h2 id="parte-0-arquitectura-previa-unidades-organizativas--estructura-recomendada-dispositivos">
-                        Estructura recomendada (dispositivos)</h2>
+                    <h3 id="parte-0-arquitectura-previa-unidades-organizativas--estructura-recomendada-dispositivos">
+                        Estructura recomendada (dispositivos)</h3>
                 </div>
 
                 <div class="card-body">
@@ -2767,7 +2824,7 @@
             </article>
             <article class="card" data-card="0.3 · Reglas de oro">
                 <div class="card-head"><span class="card-num">0.3</span>
-                    <h2 id="parte-0-arquitectura-previa-unidades-organizativas--reglas-de-oro">Reglas de oro</h2>
+                    <h3 id="parte-0-arquitectura-previa-unidades-organizativas--reglas-de-oro">Reglas de oro</h3>
                 </div>
 
                 <div class="card-body">
@@ -2822,8 +2879,8 @@
             </article>
             <article class="card" data-card="0.4 · Sincronización de identidad">
                 <div class="card-head"><span class="card-num">0.4</span>
-                    <h2 id="parte-0-arquitectura-previa-unidades-organizativas--sincronizacion-de-identidad">
-                        Sincronización de identidad</h2>
+                    <h3 id="parte-0-arquitectura-previa-unidades-organizativas--sincronizacion-de-identidad">
+                        Sincronización de identidad</h3>
                 </div>
 
                 <div class="card-body">
@@ -2838,12 +2895,12 @@
         <section class="doc-section" id="sec-parte-1-cuenta-y-directorio" data-sec="Parte 1 — Cuenta y directorio">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 1</div>
-                <h1 id="parte-1-cuenta-y-directorio">Cuenta y directorio</h1>
+                <h2 id="parte-1-cuenta-y-directorio">Cuenta y directorio</h2>
             </header>
             <article class="card" data-card="1.1 · Configuración legal y de cumplimiento">
                 <div class="card-head"><span class="card-num">1.1</span>
-                    <h2 id="parte-1-cuenta-y-directorio--ruta-11-cuenta-configuracion-de-la-cuenta-configuracion-lega">
-                        Configuración legal y de cumplimiento</h2>
+                    <h3 id="parte-1-cuenta-y-directorio--ruta-11-cuenta-configuracion-de-la-cuenta-configuracion-lega">
+                        Configuración legal y de cumplimiento</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -2910,8 +2967,8 @@
             </article>
             <article class="card" data-card="1.2 · Configuración del directorio">
                 <div class="card-head"><span class="card-num">1.2</span>
-                    <h2 id="parte-1-cuenta-y-directorio--ruta-12-directorio-configuracion-del-directorio">Configuración
-                        del directorio</h2>
+                    <h3 id="parte-1-cuenta-y-directorio--ruta-12-directorio-configuracion-del-directorio">Configuración
+                        del directorio</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -2977,8 +3034,8 @@
             </article>
             <article class="card" data-card="1.3 · Grupos y Apps &gt; Google Workspace &gt; Grupos para empresas">
                 <div class="card-head"><span class="card-num">1.3</span>
-                    <h2 id="parte-1-cuenta-y-directorio--ruta-13-directorio-grupos-y-apps-google-workspace-grupos-par">
-                        Grupos y Apps > Google Workspace > Grupos para empresas</h2>
+                    <h3 id="parte-1-cuenta-y-directorio--ruta-13-directorio-grupos-y-apps-google-workspace-grupos-par">
+                        Grupos y Apps > Google Workspace > Grupos para empresas</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -3055,8 +3112,8 @@
             </article>
             <article class="card" data-card="1.4 · Administradores (roles y privilegios)">
                 <div class="card-head"><span class="card-num">1.4</span>
-                    <h2 id="parte-1-cuenta-y-directorio--ruta-14-cuenta-administradores-roles-y-privilegios">
-                        Administradores (roles y privilegios)</h2>
+                    <h3 id="parte-1-cuenta-y-directorio--ruta-14-cuenta-administradores-roles-y-privilegios">
+                        Administradores (roles y privilegios)</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -3125,15 +3182,15 @@
             data-sec="Parte 2 — Seguridad: identidad, acceso y datos">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 2</div>
-                <h1 id="parte-2-seguridad-identidad-acceso-y-datos">Seguridad: identidad, acceso y datos</h1>
+                <h2 id="parte-2-seguridad-identidad-acceso-y-datos">Seguridad: identidad, acceso y datos</h2>
                 <p class="lead">Esta es la sección que protege las <strong>cuentas</strong>. Un Chromebook blindado con
                     una cuenta comprometida sigue siendo un problema.</p>
             </header>
             <article class="card" data-card="2.1 · Verificación en 2 pasos">
                 <div class="card-head"><span class="card-num">2.1</span>
-                    <h2
+                    <h3
                         id="parte-2-seguridad-identidad-acceso-y-datos--ruta-21-seguridad-autenticacion-verificacion-en-2-pasos">
-                        Verificación en 2 pasos</h2>
+                        Verificación en 2 pasos</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -3227,9 +3284,9 @@
             </article>
             <article class="card" data-card="2.2 · Gestión de contraseñas">
                 <div class="card-head"><span class="card-num">2.2</span>
-                    <h2
+                    <h3
                         id="parte-2-seguridad-identidad-acceso-y-datos--ruta-22-seguridad-autenticacion-gestion-de-contrasenas">
-                        Gestión de contraseñas</h2>
+                        Gestión de contraseñas</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -3311,9 +3368,9 @@
             </article>
             <article class="card" data-card="2.3 · Recuperación de cuenta">
                 <div class="card-head"><span class="card-num">2.3</span>
-                    <h2
+                    <h3
                         id="parte-2-seguridad-identidad-acceso-y-datos--ruta-23-seguridad-autenticacion-recuperacion-de-cuenta">
-                        Recuperación de cuenta</h2>
+                        Recuperación de cuenta</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -3374,9 +3431,9 @@
             </article>
             <article class="card" data-card="2.4 · Controles de API">
                 <div class="card-head"><span class="card-num">2.4</span>
-                    <h2
+                    <h3
                         id="parte-2-seguridad-identidad-acceso-y-datos--ruta-24-seguridad-acceso-y-control-de-datos-controles-de-api">
-                        Controles de API</h2>
+                        Controles de API</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -3496,9 +3553,9 @@
             </article>
             <article class="card" data-card="2.5 · Apps de Google Workspace Marketplace">
                 <div class="card-head"><span class="card-num">2.5</span>
-                    <h2
+                    <h3
                         id="parte-2-seguridad-identidad-acceso-y-datos--ruta-25-apps-apps-de-google-workspace-marketplace-configurac">
-                        Apps de Google Workspace Marketplace</h2>
+                        Apps de Google Workspace Marketplace</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -3555,9 +3612,9 @@
             </article>
             <article class="card" data-card="2.6 · Acceso contextual (Education Standard / Plus)">
                 <div class="card-head"><span class="card-num">2.6</span>
-                    <h2
+                    <h3
                         id="parte-2-seguridad-identidad-acceso-y-datos--ruta-26-seguridad-acceso-y-control-de-datos-acceso-contextua">
-                        Acceso contextual (Education Standard / Plus)</h2>
+                        Acceso contextual (Education Standard / Plus)</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -3614,9 +3671,9 @@
             </article>
             <article class="card" data-card="2.7 · Protección de datos (DLP)">
                 <div class="card-head"><span class="card-num">2.7</span>
-                    <h2
+                    <h3
                         id="parte-2-seguridad-identidad-acceso-y-datos--ruta-27-seguridad-acceso-y-control-de-datos-proteccion-de-da">
-                        Protección de datos (DLP)</h2>
+                        Protección de datos (DLP)</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -3681,9 +3738,9 @@
             </article>
             <article class="card" data-card="2.8 · Control de sesión de Google Cloud">
                 <div class="card-head"><span class="card-num">2.8</span>
-                    <h2
+                    <h3
                         id="parte-2-seguridad-identidad-acceso-y-datos--ruta-28-seguridad-acceso-y-control-de-datos-control-de-sesio">
-                        Control de sesión de Google Cloud</h2>
+                        Control de sesión de Google Cloud</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -3728,9 +3785,9 @@
             </article>
             <article class="card" data-card="2.9 · Centro de seguridad, alertas y auditoría (Standard / Plus)">
                 <div class="card-head"><span class="card-num">2.9</span>
-                    <h2
+                    <h3
                         id="parte-2-seguridad-identidad-acceso-y-datos--ruta-29-seguridad-panel-de-seguridad-reglas-alertas-e-inform">
-                        Centro de seguridad, alertas y auditoría (Standard / Plus)</h2>
+                        Centro de seguridad, alertas y auditoría (Standard / Plus)</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -3806,9 +3863,9 @@
             </article>
             <article class="card" data-card="2.10 · SSO con IdP de terceros (SAML)">
                 <div class="card-head"><span class="card-num">2.10</span>
-                    <h2
+                    <h3
                         id="parte-2-seguridad-identidad-acceso-y-datos--ruta-210-seguridad-autenticacion-inicio-de-sesion-con-google">
-                        SSO con IdP de terceros (SAML)</h2>
+                        SSO con IdP de terceros (SAML)</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -3859,7 +3916,7 @@
             data-sec="Parte 3 — Servicios de Google Workspace">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 3</div>
-                <h1 id="parte-3-servicios-de-google-workspace">Servicios de Google Workspace</h1>
+                <h2 id="parte-3-servicios-de-google-workspace">Servicios de Google Workspace</h2>
             </header>
             <div class="card">
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
@@ -3881,7 +3938,7 @@
                     de funcionar sin que nada lo avise.</p>
 <article class="card" data-card="3.1 · Gmail">
                 <div class="card-head"><span class="card-num">3.1</span>
-                    <h2 id="parte-3-servicios-de-google-workspace--ruta-31-apps-google-workspace-gmail">Gmail</h2>
+                    <h3 id="parte-3-servicios-de-google-workspace--ruta-31-apps-google-workspace-gmail">Gmail</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -4043,8 +4100,8 @@
             </article>
             <article class="card" data-card="3.2 · Drive y Documentos">
                 <div class="card-head"><span class="card-num">3.2</span>
-                    <h2 id="parte-3-servicios-de-google-workspace--ruta-32-apps-google-workspace-drive-y-documentos">
-                        Drive y Documentos</h2>
+                    <h3 id="parte-3-servicios-de-google-workspace--ruta-32-apps-google-workspace-drive-y-documentos">
+                        Drive y Documentos</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -4178,8 +4235,8 @@
             </article>
             <article class="card" data-card="3.3 · Classroom">
                 <div class="card-head"><span class="card-num">3.3</span>
-                    <h2 id="parte-3-servicios-de-google-workspace--ruta-33-apps-google-workspace-classroom">Classroom
-                    </h2>
+                    <h3 id="parte-3-servicios-de-google-workspace--ruta-33-apps-google-workspace-classroom">Classroom
+                    </h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -4276,8 +4333,8 @@
             </article>
             <article class="card" data-card="3.4 · Google Meet">
                 <div class="card-head"><span class="card-num">3.4</span>
-                    <h2 id="parte-3-servicios-de-google-workspace--ruta-34-apps-google-workspace-google-meet">Google
-                        Meet</h2>
+                    <h3 id="parte-3-servicios-de-google-workspace--ruta-34-apps-google-workspace-google-meet">Google
+                        Meet</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -4372,8 +4429,8 @@
             </article>
             <article class="card" data-card="3.5 · Google Chat y Spaces">
                 <div class="card-head"><span class="card-num">3.5</span>
-                    <h2 id="parte-3-servicios-de-google-workspace--ruta-35-apps-google-workspace-google-chat-y-spaces">
-                        Google Chat y Spaces</h2>
+                    <h3 id="parte-3-servicios-de-google-workspace--ruta-35-apps-google-workspace-google-chat-y-spaces">
+                        Google Chat y Spaces</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -4457,7 +4514,7 @@
             </article>
             <article class="card" data-card="3.6 · Calendar">
                 <div class="card-head"><span class="card-num">3.6</span>
-                    <h2 id="parte-3-servicios-de-google-workspace--ruta-36-apps-google-workspace-calendar">Calendar</h2>
+                    <h3 id="parte-3-servicios-de-google-workspace--ruta-36-apps-google-workspace-calendar">Calendar</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -4521,9 +4578,9 @@
             </article>
             <article class="card" data-card="3.7 · Sites, Keep, Tasks, Vids, Forms">
                 <div class="card-head"><span class="card-num">3.7</span>
-                    <h2
+                    <h3
                         id="parte-3-servicios-de-google-workspace--ruta-37-apps-google-workspace-sites-keep-tasks-vids-forms">
-                        Sites, Keep, Tasks, Vids, Forms</h2>
+                        Sites, Keep, Tasks, Vids, Forms</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -4595,8 +4652,8 @@
             </article>
             <article class="card" data-card="3.8 · Servicios adicionales de Google">
                 <div class="card-head"><span class="card-num">3.8</span>
-                    <h2 id="parte-3-servicios-de-google-workspace--ruta-38-apps-servicios-adicionales-de-google">
-                        Servicios adicionales de Google</h2>
+                    <h3 id="parte-3-servicios-de-google-workspace--ruta-38-apps-servicios-adicionales-de-google">
+                        Servicios adicionales de Google</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -4704,8 +4761,8 @@
             </article>
             <article class="card" data-card="3.9 · Gemini para Workspace">
                 <div class="card-head"><span class="card-num">3.9</span>
-                    <h2 id="parte-3-servicios-de-google-workspace--ruta-39-generative-ai-gemini-para-workspace">Gemini
-                        para Workspace</h2>
+                    <h3 id="parte-3-servicios-de-google-workspace--ruta-39-generative-ai-gemini-para-workspace">Gemini
+                        para Workspace</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -4812,8 +4869,8 @@
             data-sec="Parte 4 — Dominios asociados: amigos, hermanos y de confianza">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 4</div>
-                <h1 id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza">Dominios asociados: amigos, hermanos
-                    y de confianza</h1>
+                <h2 id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza">Dominios asociados: amigos, hermanos
+                    y de confianza</h2>
                 <p class="lead">Casi todos los colegios terminan necesitando esto: una escuela hermana, un campus con su
                     propio dominio, una fundación o una empresa aliada con la que hay que compartir archivos,
                     calendarios y videollamadas <strong>sin abrir la puerta a todo internet</strong>.</p>
@@ -4822,8 +4879,8 @@
             </header>
             <article class="card" data-card="4.1 · Qué figura necesitas">
                 <div class="card-head"><span class="card-num">4.1</span>
-                    <h2 id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--41-que-figura-necesitas">Qué
-                        figura necesitas</h2>
+                    <h3 id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--41-que-figura-necesitas">Qué
+                        figura necesitas</h3>
                 </div>
 
                 <div class="card-body">
@@ -4888,9 +4945,9 @@
             </article>
             <article class="card" data-card="4.2 · Gestionar dominios">
                 <div class="card-head"><span class="card-num">4.2</span>
-                    <h2
+                    <h3
                         id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--42-ruta-cuenta-dominios-gestionar-dominios">
-                        Gestionar dominios</h2>
+                        Gestionar dominios</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -4968,9 +5025,9 @@
             </article>
             <article class="card" data-card="4.3 · Dominios asociados de esta institución">
                 <div class="card-head"><span class="card-num">4.3</span>
-                    <h2
+                    <h3
                         id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--43-dominios-asociados-de-esta-institucion">
-                        Dominios asociados de esta institución</h2>
+                        Dominios asociados de esta institución</h3>
                 </div>
 
                 <div class="card-body">
@@ -5030,9 +5087,9 @@ pvgn.com.mx</code></pre>
             </article>
             <article class="card" data-card="4.4 · Dónde hay que declarar cada dominio">
                 <div class="card-head"><span class="card-num">4.4</span>
-                    <h2
+                    <h3
                         id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--44-donde-hay-que-declarar-cada-dominio">
-                        Dónde hay que declarar cada dominio</h2>
+                        Dónde hay que declarar cada dominio</h3>
                 </div>
 
                 <div class="card-body">
@@ -5198,9 +5255,9 @@ pvgn.com.mx</code></pre>
             </article>
             <article class="card" data-card="4.5 · Criterio de seguridad por perfil">
                 <div class="card-head"><span class="card-num">4.5</span>
-                    <h2
+                    <h3
                         id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--45-criterio-de-seguridad-por-perfil">
-                        Criterio de seguridad por perfil</h2>
+                        Criterio de seguridad por perfil</h3>
                 </div>
 
                 <div class="card-body">
@@ -5268,8 +5325,8 @@ pvgn.com.mx</code></pre>
             </article>
             <article class="card" data-card="4.6 · Verificación">
                 <div class="card-head"><span class="card-num">4.6</span>
-                    <h2 id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--46-verificacion">Verificación
-                    </h2>
+                    <h3 id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--46-verificacion">Verificación
+                    </h3>
                 </div>
 
                 <div class="card-body">
@@ -5329,7 +5386,7 @@ pvgn.com.mx</code></pre>
             data-sec="Parte 5 — ChromeOS: políticas de Dispositivo">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 5</div>
-                <h1 id="parte-5-chromeos-politicas-de-dispositivo">ChromeOS: políticas de Dispositivo</h1>
+                <h2 id="parte-5-chromeos-politicas-de-dispositivo">ChromeOS: políticas de Dispositivo</h2>
             </header>
             <div class="card">
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
@@ -5351,8 +5408,8 @@ pvgn.com.mx</code></pre>
             </div>
             <article class="card" data-card="5.1 · Bloque Inscripción y acceso">
                 <div class="card-head"><span class="card-num">5.1</span>
-                    <h2 id="parte-5-chromeos-politicas-de-dispositivo--51-bloque-inscripcion-y-acceso">Bloque
-                        Inscripción y acceso</h2>
+                    <h3 id="parte-5-chromeos-politicas-de-dispositivo--51-bloque-inscripcion-y-acceso">Bloque
+                        Inscripción y acceso</h3>
                 </div>
 
                 <div class="card-body">
@@ -5443,8 +5500,8 @@ pvgn.com.mx</code></pre>
             </article>
             <article class="card" data-card="5.2 · Bloque Configuración de inicio de sesión">
                 <div class="card-head"><span class="card-num">5.2</span>
-                    <h2 id="parte-5-chromeos-politicas-de-dispositivo--52-bloque-configuracion-de-inicio-de-sesion">
-                        Bloque Configuración de inicio de sesión</h2>
+                    <h3 id="parte-5-chromeos-politicas-de-dispositivo--52-bloque-configuracion-de-inicio-de-sesion">
+                        Bloque Configuración de inicio de sesión</h3>
                 </div>
 
                 <div class="card-body">
@@ -5594,8 +5651,8 @@ pvgn.com.mx</code></pre>
             </article>
             <article class="card" data-card="5.3 · Bloque Actualizaciones del dispositivo">
                 <div class="card-head"><span class="card-num">5.3</span>
-                    <h2 id="parte-5-chromeos-politicas-de-dispositivo--53-bloque-actualizaciones-del-dispositivo">Bloque
-                        Actualizaciones del dispositivo</h2>
+                    <h3 id="parte-5-chromeos-politicas-de-dispositivo--53-bloque-actualizaciones-del-dispositivo">Bloque
+                        Actualizaciones del dispositivo</h3>
                 </div>
 
                 <div class="card-body">
@@ -5686,8 +5743,8 @@ pvgn.com.mx</code></pre>
             </article>
             <article class="card" data-card="5.4 · Bloque Informes de dispositivo y telemetría">
                 <div class="card-head"><span class="card-num">5.4</span>
-                    <h2 id="parte-5-chromeos-politicas-de-dispositivo--54-bloque-informes-de-dispositivo-y-telemetria">
-                        Bloque Informes de dispositivo y telemetría</h2>
+                    <h3 id="parte-5-chromeos-politicas-de-dispositivo--54-bloque-informes-de-dispositivo-y-telemetria">
+                        Bloque Informes de dispositivo y telemetría</h3>
                 </div>
 
                 <div class="card-body">
@@ -5774,8 +5831,8 @@ pvgn.com.mx</code></pre>
             </article>
             <article class="card" data-card="5.5 · Bloque Alimentación y apagado">
                 <div class="card-head"><span class="card-num">5.5</span>
-                    <h2 id="parte-5-chromeos-politicas-de-dispositivo--55-bloque-alimentacion-y-apagado">Bloque
-                        Alimentación y apagado</h2>
+                    <h3 id="parte-5-chromeos-politicas-de-dispositivo--55-bloque-alimentacion-y-apagado">Bloque
+                        Alimentación y apagado</h3>
                 </div>
 
                 <div class="card-body">
@@ -5840,9 +5897,9 @@ pvgn.com.mx</code></pre>
             </article>
             <article class="card" data-card="5.6 · Bloque Hardware y periféricos (nivel dispositivo)">
                 <div class="card-head"><span class="card-num">5.6</span>
-                    <h2
+                    <h3
                         id="parte-5-chromeos-politicas-de-dispositivo--56-bloque-hardware-y-perifericos-nivel-dispositivo">
-                        Bloque Hardware y periféricos (nivel dispositivo)</h2>
+                        Bloque Hardware y periféricos (nivel dispositivo)</h3>
                 </div>
 
                 <div class="card-body">
@@ -5912,9 +5969,9 @@ pvgn.com.mx</code></pre>
             </article>
             <article class="card" data-card="5.7 · Bloque Kiosco y señalización (opcional, para exámenes)">
                 <div class="card-head"><span class="card-num">5.7</span>
-                    <h2
+                    <h3
                         id="parte-5-chromeos-politicas-de-dispositivo--57-bloque-kiosco-y-senalizacion-opcional-para-examenes">
-                        Bloque Kiosco y señalización (opcional, para exámenes)</h2>
+                        Bloque Kiosco y señalización (opcional, para exámenes)</h3>
                 </div>
 
                 <div class="card-body">
@@ -5928,8 +5985,8 @@ pvgn.com.mx</code></pre>
             data-sec="Parte 6 — ChromeOS y Chrome: políticas de Usuarios y navegadores">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 6</div>
-                <h1 id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore">ChromeOS y Chrome: políticas de
-                    Usuarios y navegadores</h1>
+                <h2 id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore">ChromeOS y Chrome: políticas de
+                    Usuarios y navegadores</h2>
             </header>
             <div class="card">
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
@@ -5951,9 +6008,9 @@ pvgn.com.mx</code></pre>
             </div>
             <article class="card" data-card="6.1 · Bloque Inicio de sesión y cuenta">
                 <div class="card-head"><span class="card-num">6.1</span>
-                    <h2
+                    <h3
                         id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore--61-bloque-inicio-de-sesion-y-cuenta">
-                        Bloque Inicio de sesión y cuenta</h2>
+                        Bloque Inicio de sesión y cuenta</h3>
                 </div>
 
                 <div class="card-body">
@@ -6037,9 +6094,9 @@ pvgn.com.mx</code></pre>
             </article>
             <article class="card" data-card="6.2 · Bloque Seguridad y privacidad">
                 <div class="card-head"><span class="card-num">6.2</span>
-                    <h2
+                    <h3
                         id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore--62-bloque-seguridad-y-privacidad">
-                        Bloque Seguridad y privacidad</h2>
+                        Bloque Seguridad y privacidad</h3>
                 </div>
 
                 <div class="card-body">
@@ -6217,9 +6274,9 @@ pvgn.com.mx</code></pre>
             </article>
             <article class="card" data-card="6.3 · Bloque Contenido y filtrado web">
                 <div class="card-head"><span class="card-num">6.3</span>
-                    <h2
+                    <h3
                         id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore--63-bloque-contenido-y-filtrado-web">
-                        Bloque Contenido y filtrado web</h2>
+                        Bloque Contenido y filtrado web</h3>
                 </div>
 
                 <div class="card-body">
@@ -6315,8 +6372,8 @@ pvgn.com.mx</code></pre>
                             </tbody>
                         </table>
                     </div>
-                    <h3 id="lista-de-bloqueo-técnica-recomendada-para-alumnos">Lista de bloqueo técnica recomendada para
-                        alumnos</h3>
+                    <h4 id="lista-de-bloqueo-técnica-recomendada-para-alumnos">Lista de bloqueo técnica recomendada para
+                        alumnos</h4>
                     <p>Estas entradas no bloquean contenido: bloquean <strong>las herramientas de evasión</strong>. Van
                         en <code>Bloqueo de URL</code>:</p>
                     <pre><code>chrome://flags
@@ -6349,9 +6406,9 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="6.4 · Bloque Aplicaciones y extensiones (comportamiento del usuario)">
                 <div class="card-head"><span class="card-num">6.4</span>
-                    <h2
+                    <h3
                         id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore--64-bloque-aplicaciones-y-extensiones-comportamiento-del-usua">
-                        Bloque Aplicaciones y extensiones (comportamiento del usuario)</h2>
+                        Bloque Aplicaciones y extensiones (comportamiento del usuario)</h3>
                 </div>
 
                 <div class="card-body">
@@ -6457,9 +6514,9 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="6.5 · Bloque Hardware, red y conectividad">
                 <div class="card-head"><span class="card-num">6.5</span>
-                    <h2
+                    <h3
                         id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore--65-bloque-hardware-red-y-conectividad">
-                        Bloque Hardware, red y conectividad</h2>
+                        Bloque Hardware, red y conectividad</h3>
                 </div>
 
                 <div class="card-body">
@@ -6605,9 +6662,9 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="6.6 · Bloque Descargas, impresión y archivos">
                 <div class="card-head"><span class="card-num">6.6</span>
-                    <h2
+                    <h3
                         id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore--66-bloque-descargas-impresion-y-archivos">
-                        Bloque Descargas, impresión y archivos</h2>
+                        Bloque Descargas, impresión y archivos</h3>
                 </div>
 
                 <div class="card-body">
@@ -6673,9 +6730,9 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="6.7 · Bloque Interfaz y experiencia de usuario">
                 <div class="card-head"><span class="card-num">6.7</span>
-                    <h2
+                    <h3
                         id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore--67-bloque-interfaz-y-experiencia-de-usuario">
-                        Bloque Interfaz y experiencia de usuario</h2>
+                        Bloque Interfaz y experiencia de usuario</h3>
                 </div>
 
                 <div class="card-body">
@@ -6768,9 +6825,9 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="6.8 · Bloque Actualizaciones e informes del navegador">
                 <div class="card-head"><span class="card-num">6.8</span>
-                    <h2
+                    <h3
                         id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore--68-bloque-actualizaciones-e-informes-del-navegador">
-                        Bloque Actualizaciones e informes del navegador</h2>
+                        Bloque Actualizaciones e informes del navegador</h3>
                 </div>
 
                 <div class="card-body">
@@ -6831,7 +6888,7 @@ file://*</code></pre>
             data-sec="Parte 7 — Apps y extensiones de Chrome">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 7</div>
-                <h1 id="parte-7-apps-y-extensiones-de-chrome">Apps y extensiones de Chrome</h1>
+                <h2 id="parte-7-apps-y-extensiones-de-chrome">Apps y extensiones de Chrome</h2>
             </header>
             <div class="card">
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
@@ -6846,8 +6903,8 @@ file://*</code></pre>
             </div>
             <article class="card" data-card="7.1 · Usuarios y navegadores">
                 <div class="card-head"><span class="card-num">7.1</span>
-                    <h2 id="parte-7-apps-y-extensiones-de-chrome--71-apps-y-extensiones-usuarios-y-navegadores">Usuarios
-                        y navegadores</h2>
+                    <h3 id="parte-7-apps-y-extensiones-de-chrome--71-apps-y-extensiones-usuarios-y-navegadores">Usuarios
+                        y navegadores</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -6945,8 +7002,8 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="7.2 · Configuración adicional">
                 <div class="card-head"><span class="card-num">7.2</span>
-                    <h2 id="parte-7-apps-y-extensiones-de-chrome--72-apps-y-extensiones-configuracion-adicional">
-                        Configuración adicional</h2>
+                    <h3 id="parte-7-apps-y-extensiones-de-chrome--72-apps-y-extensiones-configuracion-adicional">
+                        Configuración adicional</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -7074,7 +7131,7 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="7.3 · Solicitudes">
                 <div class="card-head"><span class="card-num">7.3</span>
-                    <h2 id="parte-7-apps-y-extensiones-de-chrome--73-apps-y-extensiones-solicitudes">Solicitudes</h2>
+                    <h3 id="parte-7-apps-y-extensiones-de-chrome--73-apps-y-extensiones-solicitudes">Solicitudes</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -7128,9 +7185,9 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="7.4 · Kioscos y Sesiones de invitado gestionadas">
                 <div class="card-head"><span class="card-num">7.4</span>
-                    <h2
+                    <h3
                         id="parte-7-apps-y-extensiones-de-chrome--74-apps-y-extensiones-kioscos-y-sesiones-de-invitado-gestion">
-                        Kioscos y Sesiones de invitado gestionadas</h2>
+                        Kioscos y Sesiones de invitado gestionadas</h3>
                 </div>
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
                         width="15">
@@ -7153,7 +7210,7 @@ file://*</code></pre>
         <section class="doc-section" id="sec-parte-8-redes-y-certificados" data-sec="Parte 8 — Redes y certificados">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 8</div>
-                <h1 id="parte-8-redes-y-certificados">Redes y certificados</h1>
+                <h2 id="parte-8-redes-y-certificados">Redes y certificados</h2>
             </header>
             <div class="card" data-card="8 · Redes y certificados">
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
@@ -7266,8 +7323,8 @@ file://*</code></pre>
             data-sec="Parte 9 — Inventario y ciclo de vida de dispositivos">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 9</div>
-                <h1 id="parte-9-inventario-y-ciclo-de-vida-de-dispositivos">Inventario y ciclo de vida de dispositivos
-                </h1>
+                <h2 id="parte-9-inventario-y-ciclo-de-vida-de-dispositivos">Inventario y ciclo de vida de dispositivos
+                </h2>
             </header>
             <div class="card">
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
@@ -7361,7 +7418,7 @@ file://*</code></pre>
             data-sec="Parte 10 — Dispositivos móviles y otros endpoints">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 10</div>
-                <h1 id="parte-10-dispositivos-moviles-y-otros-endpoints">Dispositivos móviles y otros endpoints</h1>
+                <h2 id="parte-10-dispositivos-moviles-y-otros-endpoints">Dispositivos móviles y otros endpoints</h2>
             </header>
             <div class="card" data-card="10 · Dispositivos móviles y otros endpoints">
                 <div class="routebar"><svg aria-hidden="true" fill="currentColor" height="15" viewbox="0 0 24 24"
@@ -7467,7 +7524,7 @@ file://*</code></pre>
             data-sec="Parte 11 — Matriz de evasión: técnica → contramedida">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 11</div>
-                <h1 id="parte-11-matriz-de-evasion-tecnica-contramedida">Matriz de evasión: técnica → contramedida</h1>
+                <h2 id="parte-11-matriz-de-evasion-tecnica-contramedida">Matriz de evasión: técnica → contramedida</h2>
                 <p class="lead">Esta tabla es el resumen operativo del manual. Cada fila es una técnica real que usan
                     los alumnos y la política exacta que la cierra. Si tu configuración deja alguna casilla vacía, ahí
                     está tu fuga.</p>
@@ -7694,17 +7751,17 @@ file://*</code></pre>
             data-sec="Parte 12 — El caso especial: equipos que se van a casa">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 12</div>
-                <h1 id="parte-12-el-caso-especial-equipos-que-se-van-a-casa">El caso especial: equipos que se van a casa
-                </h1>
+                <h2 id="parte-12-el-caso-especial-equipos-que-se-van-a-casa">El caso especial: equipos que se van a casa
+                </h2>
                 <p class="lead">En el colegio tienes tres capas: red filtrada, supervisión docente y políticas. En casa
                     <strong>solo te queda una</strong>. Esta sección resume qué configurar pensando exclusivamente en
                     ese escenario.</p>
             </header>
             <article class="card" data-card="12.1 · Las siete políticas que viajan con el equipo">
                 <div class="card-head"><span class="card-num">12.1</span>
-                    <h2
+                    <h3
                         id="parte-12-el-caso-especial-equipos-que-se-van-a-casa--las-siete-politicas-que-viajan-con-el-equipo">
-                        Las siete políticas que viajan con el equipo</h2>
+                        Las siete políticas que viajan con el equipo</h3>
                 </div>
 
                 <div class="card-body">
@@ -7773,9 +7830,9 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="12.2 · Controles específicos de uso doméstico">
                 <div class="card-head"><span class="card-num">12.2</span>
-                    <h2
+                    <h3
                         id="parte-12-el-caso-especial-equipos-que-se-van-a-casa--controles-especificos-de-uso-domestico">
-                        Controles específicos de uso doméstico</h2>
+                        Controles específicos de uso doméstico</h3>
                 </div>
 
                 <div class="card-body">
@@ -7837,9 +7894,9 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="12.3 · Lo que la consola no puede hacer en casa">
                 <div class="card-head"><span class="card-num">12.3</span>
-                    <h2
+                    <h3
                         id="parte-12-el-caso-especial-equipos-que-se-van-a-casa--lo-que-la-consola-no-puede-hacer-en-casa">
-                        Lo que la consola no puede hacer en casa</h2>
+                        Lo que la consola no puede hacer en casa</h3>
                 </div>
 
                 <div class="card-body">
@@ -7859,9 +7916,9 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="12.4 · Documento de corresponsabilidad (contenido mínimo sugerido)">
                 <div class="card-head"><span class="card-num">12.4</span>
-                    <h2
+                    <h3
                         id="parte-12-el-caso-especial-equipos-que-se-van-a-casa--documento-de-corresponsabilidad-contenido-minimo-sugerido">
-                        Documento de corresponsabilidad (contenido mínimo sugerido)</h2>
+                        Documento de corresponsabilidad (contenido mínimo sugerido)</h3>
                 </div>
 
                 <div class="card-body">
@@ -7881,7 +7938,7 @@ file://*</code></pre>
         <section class="doc-section" id="sec-parte-13-plan-de-implantacion" data-sec="Parte 13 — Plan de implantación">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 13</div>
-                <h1 id="parte-13-plan-de-implantacion">Plan de implantación</h1>
+                <h2 id="parte-13-plan-de-implantacion">Plan de implantación</h2>
                 <p class="lead">No apliques todo en un día. Este orden minimiza el riesgo de bloquear a alguien que no
                     debías.</p>
             </header>
@@ -7972,8 +8029,8 @@ file://*</code></pre>
             </div>
             <article class="card" data-card="13.1 · Comunicación: la parte que se olvida">
                 <div class="card-head"><span class="card-num">13.1</span>
-                    <h2 id="parte-13-plan-de-implantacion--comunicacion-la-parte-que-se-olvida">Comunicación: la parte
-                        que se olvida</h2>
+                    <h3 id="parte-13-plan-de-implantacion--comunicacion-la-parte-que-se-olvida">Comunicación: la parte
+                        que se olvida</h3>
                 </div>
 
                 <div class="card-body">
@@ -7993,14 +8050,14 @@ file://*</code></pre>
             data-sec="Parte 14 — Verificación: cómo comprobar que funciona">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 14</div>
-                <h1 id="parte-14-verificacion-como-comprobar-que-funciona">Verificación: cómo comprobar que funciona
-                </h1>
+                <h2 id="parte-14-verificacion-como-comprobar-que-funciona">Verificación: cómo comprobar que funciona
+                </h2>
                 <p class="lead">Configurar no es lo mismo que aplicar. Verifica siempre en un equipo real, con una
                     cuenta real de alumno.</p>
             </header>
             <article class="card" data-card="14.1 · En el Chromebook">
                 <div class="card-head"><span class="card-num">14.1</span>
-                    <h2 id="parte-14-verificacion-como-comprobar-que-funciona--en-el-chromebook">En el Chromebook</h2>
+                    <h3 id="parte-14-verificacion-como-comprobar-que-funciona--en-el-chromebook">En el Chromebook</h3>
                 </div>
 
                 <div class="card-body">
@@ -8073,7 +8130,7 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="14.2 · En la consola">
                 <div class="card-head"><span class="card-num">14.2</span>
-                    <h2 id="parte-14-verificacion-como-comprobar-que-funciona--en-la-consola">En la consola</h2>
+                    <h3 id="parte-14-verificacion-como-comprobar-que-funciona--en-la-consola">En la consola</h3>
                 </div>
 
                 <div class="card-body">
@@ -8125,8 +8182,8 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="14.3 · Calendario de mantenimiento">
                 <div class="card-head"><span class="card-num">14.3</span>
-                    <h2 id="parte-14-verificacion-como-comprobar-que-funciona--calendario-de-mantenimiento">Calendario
-                        de mantenimiento</h2>
+                    <h3 id="parte-14-verificacion-como-comprobar-que-funciona--calendario-de-mantenimiento">Calendario
+                        de mantenimiento</h3>
                 </div>
 
                 <div class="card-body">
@@ -8178,7 +8235,7 @@ file://*</code></pre>
         <section class="doc-section" id="sec-parte-15-errores-frecuentes" data-sec="Parte 15 — Errores frecuentes">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 15</div>
-                <h1 id="parte-15-errores-frecuentes">Errores frecuentes</h1>
+                <h2 id="parte-15-errores-frecuentes">Errores frecuentes</h2>
             </header>
             <div class="card">
                 <div class="table-wrap">
@@ -8281,14 +8338,14 @@ file://*</code></pre>
             data-sec="Parte 16 — Reversión y respuesta a incidentes">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 16</div>
-                <h1 id="parte-16-reversion-y-respuesta-a-incidentes">Reversión y respuesta a incidentes</h1>
+                <h2 id="parte-16-reversion-y-respuesta-a-incidentes">Reversión y respuesta a incidentes</h2>
                 <p class="lead">Todo manual de endurecimiento tiene el mismo punto ciego: explica cómo cerrar, no cómo
                     abrir cuando algo se rompe. Esta parte es el contrapeso.</p>
             </header>
             <article class="card" data-card="16.1 · Cómo revertir un cambio">
                 <div class="card-head"><span class="card-num">16.1</span>
-                    <h2 id="parte-16-reversion-y-respuesta-a-incidentes--161-como-revertir-un-cambio">Cómo revertir un
-                        cambio</h2>
+                    <h3 id="parte-16-reversion-y-respuesta-a-incidentes--161-como-revertir-un-cambio">Cómo revertir un
+                        cambio</h3>
                 </div>
 
                 <div class="card-body">
@@ -8357,8 +8414,8 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="16.2 · Runbook: cuenta comprometida">
                 <div class="card-head"><span class="card-num">16.2</span>
-                    <h2 id="parte-16-reversion-y-respuesta-a-incidentes--162-runbook-cuenta-comprometida">Runbook:
-                        cuenta comprometida</h2>
+                    <h3 id="parte-16-reversion-y-respuesta-a-incidentes--162-runbook-cuenta-comprometida">Runbook:
+                        cuenta comprometida</h3>
                 </div>
 
                 <div class="card-body">
@@ -8454,8 +8511,8 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="16.3 · Runbook: equipo perdido o robado">
                 <div class="card-head"><span class="card-num">16.3</span>
-                    <h2 id="parte-16-reversion-y-respuesta-a-incidentes--163-runbook-equipo-perdido-o-robado">Runbook:
-                        equipo perdido o robado</h2>
+                    <h3 id="parte-16-reversion-y-respuesta-a-incidentes--163-runbook-equipo-perdido-o-robado">Runbook:
+                        equipo perdido o robado</h3>
                 </div>
 
                 <div class="card-body">
@@ -8520,9 +8577,9 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="16.4 · Runbook: contenido inapropiado o incidente de convivencia">
                 <div class="card-head"><span class="card-num">16.4</span>
-                    <h2
+                    <h3
                         id="parte-16-reversion-y-respuesta-a-incidentes--164-runbook-contenido-inapropiado-o-incidente-de-convivencia">
-                        Runbook: contenido inapropiado o incidente de convivencia</h2>
+                        Runbook: contenido inapropiado o incidente de convivencia</h3>
                 </div>
 
                 <div class="card-body">
@@ -8591,13 +8648,13 @@ file://*</code></pre>
             data-sec="Parte 17 — Continuidad: respaldo, fin de curso y egreso">
             <header class="sec-head">
                 <div class="sec-kicker">Parte 17</div>
-                <h1 id="parte-17-continuidad-respaldo-fin-de-curso-y-egreso">Continuidad: respaldo, fin de curso y
-                    egreso</h1>
+                <h2 id="parte-17-continuidad-respaldo-fin-de-curso-y-egreso">Continuidad: respaldo, fin de curso y
+                    egreso</h2>
             </header>
             <article class="card" data-card="17.1 · Google no es tu respaldo">
                 <div class="card-head"><span class="card-num">17.1</span>
-                    <h2 id="parte-17-continuidad-respaldo-fin-de-curso-y-egreso--171-google-no-es-tu-respaldo">Google no
-                        es tu respaldo</h2>
+                    <h3 id="parte-17-continuidad-respaldo-fin-de-curso-y-egreso--171-google-no-es-tu-respaldo">Google no
+                        es tu respaldo</h3>
                 </div>
 
                 <div class="card-body">
@@ -8674,7 +8731,7 @@ file://*</code></pre>
                         correcta es la <strong>licencia de usuario archivado</strong>: está disponible sin coste en
                         todas las ediciones de Education, conserva los datos, los mantiene buscables y exportables
                         desde Vault, y libera la licencia normal.</p>
-                    <h3>Llevarse el trabajo: transferencia de contenido</h3>
+                    <h4>Llevarse el trabajo: transferencia de contenido</h4>
                     <p>El manual habla de “ofrecer transferencia de contenido” en varios sitios sin decir cómo. Son
                         dos cosas distintas y conviene no confundirlas:</p>
                     <ul>
@@ -8693,8 +8750,8 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="17.2 · Cierre de ciclo escolar">
                 <div class="card-head"><span class="card-num">17.2</span>
-                    <h2 id="parte-17-continuidad-respaldo-fin-de-curso-y-egreso--172-cierre-de-ciclo-escolar">Cierre de
-                        ciclo escolar</h2>
+                    <h3 id="parte-17-continuidad-respaldo-fin-de-curso-y-egreso--172-cierre-de-ciclo-escolar">Cierre de
+                        ciclo escolar</h3>
                 </div>
 
                 <div class="card-body">
@@ -8759,7 +8816,7 @@ file://*</code></pre>
             </article>
             <article class="card" data-card="17.3 · Egreso y bajas">
                 <div class="card-head"><span class="card-num">17.3</span>
-                    <h2 id="parte-17-continuidad-respaldo-fin-de-curso-y-egreso--173-egreso-y-bajas">Egreso y bajas</h2>
+                    <h3 id="parte-17-continuidad-respaldo-fin-de-curso-y-egreso--173-egreso-y-bajas">Egreso y bajas</h3>
                 </div>
 
                 <div class="card-body">
@@ -8816,7 +8873,7 @@ file://*</code></pre>
             data-sec="Anexo A — Referencia rápida de rutas">
             <header class="sec-head">
                 <div class="sec-kicker">Anexo A</div>
-                <h1 id="anexo-a-referencia-rapida-de-rutas">Referencia rápida de rutas</h1>
+                <h2 id="anexo-a-referencia-rapida-de-rutas">Referencia rápida de rutas</h2>
             </header>
             <div class="card">
                 <div class="table-wrap">
@@ -8938,7 +8995,7 @@ file://*</code></pre>
             data-sec="Anexo B — Los 20 ajustes de mayor impacto">
             <header class="sec-head">
                 <div class="sec-kicker">Anexo B</div>
-                <h1 id="anexo-b-los-20-ajustes-de-mayor-impacto">Los 20 ajustes de mayor impacto</h1>
+                <h2 id="anexo-b-los-20-ajustes-de-mayor-impacto">Los 20 ajustes de mayor impacto</h2>
                 <p class="lead">Si tuvieras que hacer solo 20 cambios, estos son:</p>
             </header>
             <div class="card">
@@ -8971,7 +9028,7 @@ file://*</code></pre>
         <section class="doc-section" id="sec-anexo-c-nota-de-vigencia" data-sec="Anexo C — Nota de vigencia">
             <header class="sec-head">
                 <div class="sec-kicker">Anexo C</div>
-                <h1 id="anexo-c-nota-de-vigencia">Nota de vigencia</h1>
+                <h2 id="anexo-c-nota-de-vigencia">Nota de vigencia</h2>
                 <p class="lead">La consola de administración de Google cambia con frecuencia: los nombres de los ajustes
                     se reescriben, las secciones se reorganizan y llegan funciones nuevas —especialmente de inteligencia
                     artificial— <strong>activadas por defecto</strong>.</p>
@@ -8988,7 +9045,7 @@ file://*</code></pre>
                 </ol>
                 <p>Programa una revisión trimestral de este documento contra la consola real. Una configuración de
                     seguridad sin mantenimiento se degrada sola.</p>
-                <h3>Última revisión: septiembre de 2026</h3>
+                <h3 class="sub">Última revisión: septiembre de 2026</h3>
                 <p>En esta revisión se contrastaron contra la documentación oficial de Google las rutas y los plazos
                     que habían quedado desfasados. Lo que cambió:</p>
                 <ul>
@@ -9017,7 +9074,7 @@ file://*</code></pre>
             data-sec="Anexo D — Lo que este manual no resuelve">
             <header class="sec-head">
                 <div class="sec-kicker">Anexo D</div>
-                <h1 id="anexo-d-lo-que-este-manual-no-resuelve">Lo que este manual no resuelve</h1>
+                <h2 id="anexo-d-lo-que-este-manual-no-resuelve">Lo que este manual no resuelve</h2>
                 <p class="lead">Ser honesto sobre los límites evita una falsa sensación de seguridad, que es peor que no
                     tener ninguna.</p>
             </header>
@@ -9231,7 +9288,10 @@ file://*</code></pre>
                     });
                 });
             }, { rootMargin: '-80px 0px -76% 0px', threshold: 0 });
-            document.querySelectorAll('h2[id]').forEach(function (h) { h2obs.observe(h) });
+            /* Solo los titulos de tarjeta: son los 72 que tienen entrada en el
+               indice. Un `h3[id]` a secas tambien atrapaba el titulo del recuadro
+               de niveles y el del modal, y al cruzarlos se apagaba el indice entero. */
+            document.querySelectorAll('.card-head h3[id]').forEach(function (h) { h2obs.observe(h) });
 
 
             /* ================= CHECKLIST ================= */

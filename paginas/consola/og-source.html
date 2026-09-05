@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Molde og.png · Consola</title>
+<!-- Molde de la vista previa de WhatsApp (1200×630). No se abre en público:
+     solo sirve para regenerar og.png con Chrome sin cabeza (ver README.md). -->
+<style>
+:root{
+  --blue:#1a73e8; --blue-d:#174ea6; --blue-t:#e8f0fe;
+  --red-t:#fce8e6; --yel-t:#fef7e0; --yel-d:#8a5b00;
+  --grn:#188038;  --grn-d:#0d652d; --grn-t:#e6f4ea;
+  --plum:#8430ce; --plum-d:#5b1f92; --plum-t:#f3e8fd;
+  --ink:#202124; --ink2:#5f6368; --ink3:#80868b; --line:#dadce0;
+  --font:"Google Sans","Product Sans",Roboto,"Segoe UI",system-ui,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1200px;height:630px;overflow:hidden;background:#fff;
+  font-family:var(--font);color:var(--ink);position:relative;
+  display:flex;flex-direction:column;padding:64px 72px 56px}
+body::before{content:"";position:absolute;left:0;top:0;right:0;height:10px;
+  background:linear-gradient(90deg,#4285f4 0 25%,#ea4335 25% 50%,#fbbc04 50% 75%,#34a853 75% 100%);z-index:3}
+.shape{position:absolute;border-radius:50%;z-index:0}
+/* las manchas son posicionadas y pintarían encima del texto estático:
+   el contenido se sube a su propia capa */
+.eyebrow,h1,.sub{position:relative;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:19px;font-weight:700;
+  letter-spacing:2.6px;text-transform:uppercase;color:var(--blue)}
+.eyebrow::before{content:"";width:30px;height:5px;border-radius:3px;background:currentColor}
+h1{font-size:78px;line-height:1.04;font-weight:500;letter-spacing:-3.2px;margin:18px 0 16px;max-width:1000px}
+.g1{color:#4285f4}.g2{color:#ea4335}.g3{color:#fbbc04}.g4{color:#34a853}
+.sub{font-size:26px;color:var(--ink2);line-height:1.35;max-width:900px}
+.sub b{font-weight:600;color:var(--ink)}
+.fila{display:flex;gap:18px;margin-top:auto;position:relative;z-index:2}
+.chip{display:flex;flex-direction:column;gap:4px;padding:18px 26px;border-radius:20px;
+  border:1px solid var(--line);background:#fff;box-shadow:0 2px 6px rgba(60,64,67,.08),0 14px 34px -12px rgba(60,64,67,.20)}
+.chip b{font-size:31px;font-weight:700;letter-spacing:-1px}
+.chip span{font-size:16.5px;color:var(--ink2)}
+.chip.azul b{color:var(--blue-d)} .chip.morado b{color:var(--plum-d)}
+.chip.verde b{color:var(--grn-d)} .chip.ambar b{color:var(--yel-d)}
+.marca{position:absolute;right:72px;top:56px;text-align:right;font-size:17px;color:var(--ink3);line-height:1.4;z-index:2}
+.marca b{display:block;font-size:26px;font-weight:600;color:var(--ink);letter-spacing:-.5px}
+</style>
+</head>
+<body>
+<span class="shape" style="width:520px;height:520px;left:-200px;top:-240px;background:var(--blue-t);opacity:.6"></span>
+<span class="shape" style="width:400px;height:400px;right:-150px;top:-160px;background:var(--grn-t);opacity:.6"></span>
+<span class="shape" style="width:340px;height:340px;right:-120px;bottom:-40px;background:var(--plum-t);opacity:.45"></span>
+
+<span class="eyebrow">Google Admin Console · Manual de blindaje</span>
+<h1>Deja la consola <span class="g1">b</span><span class="g2">l</span><span class="g3">i</span><span class="g4">n</span><span class="g1">d</span><span class="g2">a</span><span class="g3">d</span><span class="g4">a</span></h1>
+<p class="sub">Ruta por ruta, del colegio a la casa: <b>unidades organizativas</b>, políticas por perfil, evasiones conocidas y su contramedida.</p>
+
+<div class="marca"><b>activa</b>Google for Education<br>Partner</div>
+
+<div class="fila">
+  <div class="chip azul"><b>18 partes</b><span>más 4 anexos</span></div>
+  <div class="chip verde"><b>438 ajustes</b><span>219 × 2 perfiles</span></div>
+  <div class="chip morado"><b>3 niveles</b><span>OU, grupo y dispositivo</span></div>
+  <div class="chip ambar"><b>Informe</b><span>imprimible por colegio</span></div>
+</div>
+</body>
+</html>

@@ -41,8 +41,13 @@ Presentacion-activa/
 │   │   ├── og.png                Su vista previa de WhatsApp (generada)
 │   │   ├── og-source.html        El molde de esa vista previa
 │   │   └── README.md
-│   └── precios/                  Tres láminas: paquetes, precio por alumno y desglose
-│       ├── index.html
+│   ├── precios/                  Tres láminas: paquetes, precio por alumno y desglose
+│   │   ├── index.html
+│   │   ├── og.png                Su vista previa de WhatsApp (generada)
+│   │   ├── og-source.html        El molde de esa vista previa
+│   │   └── README.md
+│   └── consola/                  Manual de blindaje de Google Admin Console
+│       ├── index.html            18 partes, 74 tarjetas, 438 ajustes marcables
 │       ├── og.png                Su vista previa de WhatsApp (generada)
 │       ├── og-source.html        El molde de esa vista previa
 │       └── README.md
@@ -110,11 +115,12 @@ retirarla se quedó sin consumidores; se borró. Lo único compartido en present
 
 ## Nada de esto se indexa
 
-Las ocho páginas llevan `<meta name="robots" content="noindex">`. No es paranoia: el cotizador
+Las nueve páginas llevan `<meta name="robots" content="noindex">`. No es paranoia: el cotizador
 y la página de precios tienen el precio por alumno y los descuentos —el cotizador, además, los
 datos bancarios de la empresa—, los cotizadores de arrendamiento y de compra directa llevan su
 catálogo de costos y la tasa dentro del código, y los decks llevan la propuesta completa de un
-colegio concreto. Todo se abre desde el kit o se manda por enlace; nada se busca.
+colegio concreto, y el manual de la consola describe la postura de seguridad de un colegio
+con nombre y dominio. Todo se abre desde el kit o se manda por enlace; nada se busca.
 
 **No sirve poner un `robots.txt` en este repositorio.** El sitio se publica en
 `sanoapro.github.io/activa/`, y el estándar solo lee ese archivo en la raíz del dominio
@@ -162,6 +168,7 @@ El sitio se sirve desde la rama `main` tal cual, así que **la ruta del reposito
 | Arrendamiento | <https://sanoapro.github.io/activa/paginas/arrendamiento/> |
 | Compra directa | <https://sanoapro.github.io/activa/paginas/compra/> |
 | Precios | <https://sanoapro.github.io/activa/paginas/precios/> |
+| Consola | <https://sanoapro.github.io/activa/paginas/consola/> |
 
 Al mover una página hay que revisar tres lugares: sus propias etiquetas `og:`, las tarjetas del
 portal, y las listas del kit comercial.

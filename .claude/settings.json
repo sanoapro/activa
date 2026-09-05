@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python .claude/skills/base-maestra/scripts/base.py:*)",
+      "Bash(python _verificacion_web/*.py:*)",
+      "Bash(python -c:*)",
+      "Bash(python -m json.tool:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(jq:*)",
+      "PowerShell(Get-ChildItem:*)",
+      "PowerShell(Get-Content:*)",
+      "PowerShell(Test-Path:*)",
+      "PowerShell(Measure-Object:*)",
+      "PowerShell(Select-String:*)",
+      "mcp__duckdb__query",
+      "mcp__excel__read_sheet_names",
+      "mcp__excel__read_sheet_data",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs"
+    ]
+  }
+}
