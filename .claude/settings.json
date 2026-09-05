@@ -2,27 +2,37 @@
   "permissions": {
     "allow": [
       "Bash(python .claude/skills/base-maestra/scripts/base.py:*)",
-      "Bash(python _verificacion_web/*.py:*)",
+      "Bash(python ../_verificacion_web/*.py:*)",
       "Bash(python -c:*)",
       "Bash(python -m json.tool:*)",
+      "Bash(python -m http.server:*)",
       "Bash(cat:*)",
       "Bash(head:*)",
       "Bash(tail:*)",
+      "Bash(sed -n:*)",
       "Bash(wc:*)",
       "Bash(ls:*)",
       "Bash(find:*)",
       "Bash(grep:*)",
+      "Bash(rg:*)",
       "Bash(jq:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
       "PowerShell(Get-ChildItem:*)",
       "PowerShell(Get-Content:*)",
       "PowerShell(Test-Path:*)",
       "PowerShell(Measure-Object:*)",
       "PowerShell(Select-String:*)",
-      "mcp__duckdb__query",
-      "mcp__excel__read_sheet_names",
-      "mcp__excel__read_sheet_data",
+      "mcp__duckdb__execute_query",
+      "mcp__duckdb__list_databases",
+      "mcp__duckdb__list_tables",
+      "mcp__duckdb__list_columns",
+      "mcp__excel__excel_describe_sheets",
+      "mcp__excel__excel_read_sheet",
       "mcp__context7__resolve-library-id",
-      "mcp__context7__get-library-docs"
+      "mcp__context7__query-docs"
     ]
   }
 }
