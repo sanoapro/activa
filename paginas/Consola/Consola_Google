@@ -1472,6 +1472,65 @@
         }
 
         /* ===== MODAL ===== */
+        .tb-right {
+            position: relative
+        }
+
+        .sharemenu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            z-index: 70;
+            width: 268px;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            box-shadow: 0 12px 34px -10px rgba(60, 64, 67, .38);
+            padding: 6px
+        }
+
+        .sharemenu[hidden] {
+            display: none !important
+        }
+
+        .sh {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            width: 100%;
+            border: 0;
+            background: none;
+            font: inherit;
+            font-size: 13.5px;
+            color: var(--ink);
+            text-decoration: none;
+            padding: 10px 12px;
+            border-radius: 9px;
+            cursor: pointer;
+            text-align: left
+        }
+
+        .sh:hover {
+            background: var(--surface)
+        }
+
+        #sh-wa svg {
+            color: #25d366
+        }
+
+        #sh-mail svg,
+        #sh-copy svg {
+            color: var(--ink-3)
+        }
+
+        .sh-nota {
+            margin: 4px 8px 6px;
+            font-size: 11px;
+            line-height: 1.45;
+            color: var(--ink-3);
+            max-width: none
+        }
+
         .modal {
             position: fixed;
             inset: 0;
@@ -2288,7 +2347,26 @@
                     <button data-v="personal">Personal</button>
                 </div>
                 <button class="tb-btn" id="pending" aria-pressed="false">Solo pendientes</button>
+                <button class="tb-btn" id="share" aria-haspopup="true" aria-expanded="false">Compartir</button>
                 <button class="tb-btn primary" id="openreport">Generar informe</button>
+        <div class="sharemenu" id="sharemenu" hidden>
+        <a class="sh" id="sh-wa" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+        <path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1s-.7 1-.9 1.2c-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.6-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.6s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.1 1.3 3.3c.2.2 2.4 3.7 5.8 5.1 2.1.9 2.9 1 4 .8.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.4z" />
+        <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z" />
+        </svg>WhatsApp</a>
+        <button class="sh" id="sh-copy">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+        <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z" />
+        </svg>Copiar enlace</button>
+        <a class="sh" id="sh-mail" href="#">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+        <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+        </svg>Correo</a>
+        <p class="sh-nota">El enlace solo abre para quien tenga acceso. Compártelo desde el menú
+        <strong>Share</strong> de la página publicada para dar acceso a más personas.</p>
+        </div>
+
             </div>
         </div>
 
@@ -2634,7 +2712,7 @@
                     qué política recibe cada usuario y cada dispositivo. Las políticas se <strong>heredan hacia
                         abajo</strong> y la UO más específica gana.</p>
             </div>
-            <article class="card" data-card="Estructura recomendada (usuarios)">
+            <article class="card" data-card="0.1 · Estructura recomendada (usuarios)">
                 <div class="card-head"><span class="card-num">0.1</span>
                     <h2 id="parte-0-arquitectura-previa-unidades-organizativas--estructura-recomendada-usuarios">
                         Estructura recomendada (usuarios)</h2>
@@ -2661,7 +2739,7 @@
     └── /Invitados y prácticas</code></pre>
                 </div>
             </article>
-            <article class="card" data-card="Estructura recomendada (dispositivos)">
+            <article class="card" data-card="0.2 · Estructura recomendada (dispositivos)">
                 <div class="card-head"><span class="card-num">0.2</span>
                     <h2 id="parte-0-arquitectura-previa-unidades-organizativas--estructura-recomendada-dispositivos">
                         Estructura recomendada (dispositivos)</h2>
@@ -2687,7 +2765,7 @@
 └── /Equipos en cuarentena          ← reportados como perdidos o robados</code></pre>
                 </div>
             </article>
-            <article class="card" data-card="Reglas de oro">
+            <article class="card" data-card="0.3 · Reglas de oro">
                 <div class="card-head"><span class="card-num">0.3</span>
                     <h2 id="parte-0-arquitectura-previa-unidades-organizativas--reglas-de-oro">Reglas de oro</h2>
                 </div>
@@ -2742,7 +2820,7 @@
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="Sincronización de identidad">
+            <article class="card" data-card="0.4 · Sincronización de identidad">
                 <div class="card-head"><span class="card-num">0.4</span>
                     <h2 id="parte-0-arquitectura-previa-unidades-organizativas--sincronizacion-de-identidad">
                         Sincronización de identidad</h2>
@@ -2897,7 +2975,7 @@
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="1.3 · Grupos y Apps > Google Workspace > Grupos para empresas">
+            <article class="card" data-card="1.3 · Grupos y Apps &gt; Google Workspace &gt; Grupos para empresas">
                 <div class="card-head"><span class="card-num">1.3</span>
                     <h2 id="parte-1-cuenta-y-directorio--ruta-13-directorio-grupos-y-apps-google-workspace-grupos-par">
                         Grupos y Apps > Google Workspace > Grupos para empresas</h2>
@@ -3648,8 +3726,7 @@
                     </div>
                 </div>
             </article>
-            <article class="card"
-                data-card="2.9 · Centro de seguridad, alertas y auditoría (Standard / Plus)">
+            <article class="card" data-card="2.9 · Centro de seguridad, alertas y auditoría (Standard / Plus)">
                 <div class="card-head"><span class="card-num">2.9</span>
                     <h2
                         id="parte-2-seguridad-identidad-acceso-y-datos--ruta-29-seguridad-panel-de-seguridad-reglas-alertas-e-inform">
@@ -4743,7 +4820,7 @@
                 <p class="lead-sub">La consola distingue cuatro figuras y elegir mal es la causa más común de “no me
                     deja compartir”.</p>
             </header>
-            <article class="card" data-card="7.1 · Qué figura necesitas">
+            <article class="card" data-card="4.1 · Qué figura necesitas">
                 <div class="card-head"><span class="card-num">4.1</span>
                     <h2 id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--41-que-figura-necesitas">Qué
                         figura necesitas</h2>
@@ -4809,7 +4886,7 @@
                         funcionará y tendrás que rehacerlo.</p>
                 </div>
             </article>
-            <article class="card" data-card="7.2 · Gestionar dominios">
+            <article class="card" data-card="4.2 · Gestionar dominios">
                 <div class="card-head"><span class="card-num">4.2</span>
                     <h2
                         id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--42-ruta-cuenta-dominios-gestionar-dominios">
@@ -4889,7 +4966,7 @@
                         <strong>por separado en cada política</strong>. Es el error más frecuente de esta sección.</p>
                 </div>
             </article>
-            <article class="card" data-card="7.3 · Dominios asociados de esta institución">
+            <article class="card" data-card="4.3 · Dominios asociados de esta institución">
                 <div class="card-head"><span class="card-num">4.3</span>
                     <h2
                         id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--43-dominios-asociados-de-esta-institucion">
@@ -4951,7 +5028,7 @@ g.nive.la
 pvgn.com.mx</code></pre>
                 </div>
             </article>
-            <article class="card" data-card="7.4 · Dónde hay que declarar cada dominio">
+            <article class="card" data-card="4.4 · Dónde hay que declarar cada dominio">
                 <div class="card-head"><span class="card-num">4.4</span>
                     <h2
                         id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--44-donde-hay-que-declarar-cada-dominio">
@@ -5119,7 +5196,7 @@ pvgn.com.mx</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="6.5 · Criterio de seguridad por perfil">
+            <article class="card" data-card="4.5 · Criterio de seguridad por perfil">
                 <div class="card-head"><span class="card-num">4.5</span>
                     <h2
                         id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--45-criterio-de-seguridad-por-perfil">
@@ -5189,7 +5266,7 @@ pvgn.com.mx</code></pre>
                     </blockquote>
                 </div>
             </article>
-            <article class="card" data-card="6.6 · Verificación">
+            <article class="card" data-card="4.6 · Verificación">
                 <div class="card-head"><span class="card-num">4.6</span>
                     <h2 id="parte-4-dominios-asociados-amigos-hermanos-y-de-confianza--46-verificacion">Verificación
                     </h2>
@@ -5272,7 +5349,7 @@ pvgn.com.mx</code></pre>
                     </p>
                 </blockquote>
             </div>
-            <article class="card" data-card="7.1 · Bloque Inscripción y acceso">
+            <article class="card" data-card="5.1 · Bloque Inscripción y acceso">
                 <div class="card-head"><span class="card-num">5.1</span>
                     <h2 id="parte-5-chromeos-politicas-de-dispositivo--51-bloque-inscripcion-y-acceso">Bloque
                         Inscripción y acceso</h2>
@@ -5364,7 +5441,7 @@ pvgn.com.mx</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="7.2 · Bloque Configuración de inicio de sesión">
+            <article class="card" data-card="5.2 · Bloque Configuración de inicio de sesión">
                 <div class="card-head"><span class="card-num">5.2</span>
                     <h2 id="parte-5-chromeos-politicas-de-dispositivo--52-bloque-configuracion-de-inicio-de-sesion">
                         Bloque Configuración de inicio de sesión</h2>
@@ -5515,7 +5592,7 @@ pvgn.com.mx</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="7.3 · Bloque Actualizaciones del dispositivo">
+            <article class="card" data-card="5.3 · Bloque Actualizaciones del dispositivo">
                 <div class="card-head"><span class="card-num">5.3</span>
                     <h2 id="parte-5-chromeos-politicas-de-dispositivo--53-bloque-actualizaciones-del-dispositivo">Bloque
                         Actualizaciones del dispositivo</h2>
@@ -5607,7 +5684,7 @@ pvgn.com.mx</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="7.4 · Bloque Informes de dispositivo y telemetría">
+            <article class="card" data-card="5.4 · Bloque Informes de dispositivo y telemetría">
                 <div class="card-head"><span class="card-num">5.4</span>
                     <h2 id="parte-5-chromeos-politicas-de-dispositivo--54-bloque-informes-de-dispositivo-y-telemetria">
                         Bloque Informes de dispositivo y telemetría</h2>
@@ -5695,7 +5772,7 @@ pvgn.com.mx</code></pre>
                         padres y alumnos. Es un requisito legal en la mayoría de jurisdicciones y evita conflictos.</p>
                 </div>
             </article>
-            <article class="card" data-card="6.5 · Bloque Alimentación y apagado">
+            <article class="card" data-card="5.5 · Bloque Alimentación y apagado">
                 <div class="card-head"><span class="card-num">5.5</span>
                     <h2 id="parte-5-chromeos-politicas-de-dispositivo--55-bloque-alimentacion-y-apagado">Bloque
                         Alimentación y apagado</h2>
@@ -5761,7 +5838,7 @@ pvgn.com.mx</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="6.6 · Bloque Hardware y periféricos (nivel dispositivo)">
+            <article class="card" data-card="5.6 · Bloque Hardware y periféricos (nivel dispositivo)">
                 <div class="card-head"><span class="card-num">5.6</span>
                     <h2
                         id="parte-5-chromeos-politicas-de-dispositivo--56-bloque-hardware-y-perifericos-nivel-dispositivo">
@@ -5833,7 +5910,7 @@ pvgn.com.mx</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="6.7 · Bloque Kiosco y señalización (opcional, para exámenes)">
+            <article class="card" data-card="5.7 · Bloque Kiosco y señalización (opcional, para exámenes)">
                 <div class="card-head"><span class="card-num">5.7</span>
                     <h2
                         id="parte-5-chromeos-politicas-de-dispositivo--57-bloque-kiosco-y-senalizacion-opcional-para-examenes">
@@ -5872,7 +5949,7 @@ pvgn.com.mx</code></pre>
                         incógnito”) en lugar de desplazarte.</p>
                 </blockquote>
             </div>
-            <article class="card" data-card="7.1 · Bloque Inicio de sesión y cuenta">
+            <article class="card" data-card="6.1 · Bloque Inicio de sesión y cuenta">
                 <div class="card-head"><span class="card-num">6.1</span>
                     <h2
                         id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore--61-bloque-inicio-de-sesion-y-cuenta">
@@ -5958,7 +6035,7 @@ pvgn.com.mx</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="7.2 · Bloque Seguridad y privacidad">
+            <article class="card" data-card="6.2 · Bloque Seguridad y privacidad">
                 <div class="card-head"><span class="card-num">6.2</span>
                     <h2
                         id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore--62-bloque-seguridad-y-privacidad">
@@ -6138,7 +6215,7 @@ pvgn.com.mx</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="7.3 · Bloque Contenido y filtrado web">
+            <article class="card" data-card="6.3 · Bloque Contenido y filtrado web">
                 <div class="card-head"><span class="card-num">6.3</span>
                     <h2
                         id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore--63-bloque-contenido-y-filtrado-web">
@@ -6270,7 +6347,7 @@ file://*</code></pre>
                         requiera antes de aplicarlo.</p>
                 </div>
             </article>
-            <article class="card" data-card="7.4 · Bloque Aplicaciones y extensiones (comportamiento del usuario)">
+            <article class="card" data-card="6.4 · Bloque Aplicaciones y extensiones (comportamiento del usuario)">
                 <div class="card-head"><span class="card-num">6.4</span>
                     <h2
                         id="parte-6-chromeos-y-chrome-politicas-de-usuarios-y-navegadore--64-bloque-aplicaciones-y-extensiones-comportamiento-del-usua">
@@ -7623,7 +7700,7 @@ file://*</code></pre>
                     <strong>solo te queda una</strong>. Esta sección resume qué configurar pensando exclusivamente en
                     ese escenario.</p>
             </header>
-            <article class="card" data-card="Las siete políticas que viajan con el equipo">
+            <article class="card" data-card="12.1 · Las siete políticas que viajan con el equipo">
                 <div class="card-head"><span class="card-num">12.1</span>
                     <h2
                         id="parte-12-el-caso-especial-equipos-que-se-van-a-casa--las-siete-politicas-que-viajan-con-el-equipo">
@@ -7694,7 +7771,7 @@ file://*</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="Controles específicos de uso doméstico">
+            <article class="card" data-card="12.2 · Controles específicos de uso doméstico">
                 <div class="card-head"><span class="card-num">12.2</span>
                     <h2
                         id="parte-12-el-caso-especial-equipos-que-se-van-a-casa--controles-especificos-de-uso-domestico">
@@ -7758,7 +7835,7 @@ file://*</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="Lo que la consola no puede hacer en casa">
+            <article class="card" data-card="12.3 · Lo que la consola no puede hacer en casa">
                 <div class="card-head"><span class="card-num">12.3</span>
                     <h2
                         id="parte-12-el-caso-especial-equipos-que-se-van-a-casa--lo-que-la-consola-no-puede-hacer-en-casa">
@@ -7780,7 +7857,7 @@ file://*</code></pre>
                     </ul>
                 </div>
             </article>
-            <article class="card" data-card="Documento de corresponsabilidad (contenido mínimo sugerido)">
+            <article class="card" data-card="12.4 · Documento de corresponsabilidad (contenido mínimo sugerido)">
                 <div class="card-head"><span class="card-num">12.4</span>
                     <h2
                         id="parte-12-el-caso-especial-equipos-que-se-van-a-casa--documento-de-corresponsabilidad-contenido-minimo-sugerido">
@@ -7893,7 +7970,7 @@ file://*</code></pre>
                     </table>
                 </div>
             </div>
-            <article class="card" data-card="Comunicación: la parte que se olvida">
+            <article class="card" data-card="13.1 · Comunicación: la parte que se olvida">
                 <div class="card-head"><span class="card-num">13.1</span>
                     <h2 id="parte-13-plan-de-implantacion--comunicacion-la-parte-que-se-olvida">Comunicación: la parte
                         que se olvida</h2>
@@ -7921,7 +7998,7 @@ file://*</code></pre>
                 <p class="lead">Configurar no es lo mismo que aplicar. Verifica siempre en un equipo real, con una
                     cuenta real de alumno.</p>
             </header>
-            <article class="card" data-card="En el Chromebook">
+            <article class="card" data-card="14.1 · En el Chromebook">
                 <div class="card-head"><span class="card-num">14.1</span>
                     <h2 id="parte-14-verificacion-como-comprobar-que-funciona--en-el-chromebook">En el Chromebook</h2>
                 </div>
@@ -7994,7 +8071,7 @@ file://*</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="En la consola">
+            <article class="card" data-card="14.2 · En la consola">
                 <div class="card-head"><span class="card-num">14.2</span>
                     <h2 id="parte-14-verificacion-como-comprobar-que-funciona--en-la-consola">En la consola</h2>
                 </div>
@@ -8046,7 +8123,7 @@ file://*</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="Calendario de mantenimiento">
+            <article class="card" data-card="14.3 · Calendario de mantenimiento">
                 <div class="card-head"><span class="card-num">14.3</span>
                     <h2 id="parte-14-verificacion-como-comprobar-que-funciona--calendario-de-mantenimiento">Calendario
                         de mantenimiento</h2>
@@ -8208,7 +8285,7 @@ file://*</code></pre>
                 <p class="lead">Todo manual de endurecimiento tiene el mismo punto ciego: explica cómo cerrar, no cómo
                     abrir cuando algo se rompe. Esta parte es el contrapeso.</p>
             </header>
-            <article class="card" data-card="17.1 · Cómo revertir un cambio">
+            <article class="card" data-card="16.1 · Cómo revertir un cambio">
                 <div class="card-head"><span class="card-num">16.1</span>
                     <h2 id="parte-16-reversion-y-respuesta-a-incidentes--161-como-revertir-un-cambio">Cómo revertir un
                         cambio</h2>
@@ -8278,7 +8355,7 @@ file://*</code></pre>
                         configuración de la sección que vas a tocar.</p>
                 </div>
             </article>
-            <article class="card" data-card="17.2 · Runbook: cuenta comprometida">
+            <article class="card" data-card="16.2 · Runbook: cuenta comprometida">
                 <div class="card-head"><span class="card-num">16.2</span>
                     <h2 id="parte-16-reversion-y-respuesta-a-incidentes--162-runbook-cuenta-comprometida">Runbook:
                         cuenta comprometida</h2>
@@ -8375,7 +8452,7 @@ file://*</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="17.3 · Runbook: equipo perdido o robado">
+            <article class="card" data-card="16.3 · Runbook: equipo perdido o robado">
                 <div class="card-head"><span class="card-num">16.3</span>
                     <h2 id="parte-16-reversion-y-respuesta-a-incidentes--163-runbook-equipo-perdido-o-robado">Runbook:
                         equipo perdido o robado</h2>
@@ -8441,7 +8518,7 @@ file://*</code></pre>
                     </div>
                 </div>
             </article>
-            <article class="card" data-card="17.4 · Runbook: contenido inapropiado o incidente de convivencia">
+            <article class="card" data-card="16.4 · Runbook: contenido inapropiado o incidente de convivencia">
                 <div class="card-head"><span class="card-num">16.4</span>
                     <h2
                         id="parte-16-reversion-y-respuesta-a-incidentes--164-runbook-contenido-inapropiado-o-incidente-de-convivencia">
@@ -9359,15 +9436,34 @@ file://*</code></pre>
                 var pendResto = items.filter(function (i) { return !i.alto && !isDone(i.id) });
                 var hechos = items.filter(function (i) { return isDone(i.id) }).sort(function (a, b) { return ((state[a.id] || {}).t || 0) - ((state[b.id] || {}).t || 0) });
 
-                function pRow(i) {
-                    return '<tr><td>' + esc(i.seccion) + '</td><td>' + esc(i.ruta) + '</td><td>' + esc(i.setting) +
+                function celdas(i, conFecha) {
+                    return '<tr><td class="ruta">' + esc(i.ruta) + '</td><td>' + esc(i.setting) +
                         '</td><td class="p-' + i.profile + '">' + (i.profile === 'alumnos' ? 'Alumnos' : 'Personal') +
-                        '</td><td>' + esc(i.value) + '</td></tr>';
+                        '</td><td>' + esc(i.value) + '</td>' +
+                        (conFecha ? '<td class="nw">' + fdate((state[i.id] || {}).t) + '</td>' : '') + '</tr>';
                 }
-                function dRow(i) {
-                    return '<tr><td>' + esc(i.seccion) + '</td><td>' + esc(i.ruta) + '</td><td>' + esc(i.setting) +
-                        '</td><td class="p-' + i.profile + '">' + (i.profile === 'alumnos' ? 'Alumnos' : 'Personal') +
-                        '</td><td>' + esc(i.value) + '</td><td class="nw">' + fdate(state[i.id].t) + '</td></tr>';
+                /* Se agrupa por sección con una fila de encabezado en vez de repetir
+                   el nombre en cada renglón: mismo dato, tres veces menos papel. */
+                function tabla(lista, conFecha, vacio) {
+                    if (!lista.length) return '<p class="empty">' + vacio + '</p>';
+                    var grupos = {}, orden = [];
+                    lista.forEach(function (i) {
+                        var k = i.seccion || 'Sin sección';
+                        if (!grupos[k]) { grupos[k] = []; orden.push(k); }
+                        grupos[k].push(i);
+                    });
+                    var cols = conFecha
+                        ? '<colgroup><col style="width:20%"><col style="width:19%"><col style="width:9%"><col style="width:38%"><col style="width:14%"></colgroup>'
+                        : '<colgroup><col style="width:22%"><col style="width:21%"><col style="width:10%"><col style="width:47%"></colgroup>';
+                    var th = '<thead><tr><th>Ruta</th><th>Ajuste</th><th>Perfil</th><th>' +
+                        (conFecha ? 'Configuración aplicada</th><th>Marcado el' : 'Configuración recomendada') +
+                        '</th></tr></thead>';
+                    var cuerpo = orden.map(function (k) {
+                        return '<tr class="grp"><td colspan="' + (conFecha ? 5 : 4) + '">' + esc(k) +
+                            ' <em>(' + grupos[k].length + ')</em></td></tr>' +
+                            grupos[k].map(function (i) { return celdas(i, conFecha) }).join('');
+                    }).join('');
+                    return '<table>' + cols + th + '<tbody>' + cuerpo + '</tbody></table>';
                 }
                 var secRows = Object.keys(secs).map(function (k) {
                     var s = secs[k], p = Math.round(s.d / s.t * 100);
@@ -9390,8 +9486,14 @@ file://*</code></pre>
                     '.kpi b{display:block;font-size:24px;font-weight:400;line-height:1.1}.kpi span{font-size:10.5px;color:#80868b}' +
                     '.bar{height:10px;border-radius:6px;background:#edeef0;overflow:hidden;margin:16px 0 4px}' +
                     '.bar i{display:block;height:100%;background:linear-gradient(90deg,#4285f4,#34a853)}' +
-                    'table{border-collapse:collapse;width:100%;font-size:11px;margin-bottom:8px}' +
-                    'th,td{border-bottom:1px solid #edeef0;padding:7px 9px;text-align:left;vertical-align:top}' +
+                    'table{border-collapse:collapse;width:100%;font-size:10.5px;margin-bottom:10px;table-layout:fixed}' +
+                    'thead{display:table-header-group}tfoot{display:table-footer-group}' +
+                    'td{word-break:break-word;overflow-wrap:anywhere}' +
+                    'tr.grp td{background:#f1f3f4;font-weight:500;font-size:10.5px;color:#202124;' +
+                    'padding:8px 9px;border-bottom:1px solid #dadce0;border-top:1px solid #dadce0}' +
+                    'tr.grp em{font-style:normal;color:#5f6368;font-weight:400}' +
+                    'td.ruta{color:#174ea6}' +
+                    'th,td{border-bottom:1px solid #edeef0;padding:5px 9px;text-align:left;vertical-align:top}' +
                     'th{background:#f8f9fa;font-size:10px;font-weight:500;color:#5f6368}' +
                     '.nw{white-space:nowrap}' +
                     '.p-alumnos{color:#174ea6;font-weight:500;background:#eef3fd}' +
@@ -9404,7 +9506,18 @@ file://*</code></pre>
                     '.sign div{border-top:1px solid #202124;padding-top:8px;font-size:11px}' +
                     '.foot{margin-top:40px;padding-top:14px;border-top:1px solid #e3e5e8;font-size:10px;color:#80868b}' +
                     '.empty{color:#80868b;font-style:italic}' +
-                    '@media print{body{padding:0}h2{page-break-after:avoid}tr{page-break-inside:avoid}.noprint{display:none}}' +
+                    '@page{margin:14mm 12mm}' +
+                    '@media print{body{padding:0;font-size:9.5pt}' +
+                    'h1,h2{page-break-after:avoid;break-after:avoid}' +
+                    'tr{page-break-inside:avoid;break-inside:avoid}' +
+                    'tr.grp{page-break-after:avoid;break-after:avoid}' +
+                    '.kpis,.meta,.sign,.notes{page-break-inside:avoid;break-inside:avoid}' +
+                    'p{orphans:3;widows:3}' +
+                    '.noprint{display:none}' +
+                    /* sin esto el navegador imprime en blanco la barra de Google, las barras de avance y el color de perfil */
+                    '.rule,.bar,.bar i,.mini,.mini i,th,tr.grp td,.p-alumnos,.p-personal,.kpi{' +
+                    '-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
+                    '}' +
                     '.noprint{position:fixed;top:16px;right:16px}' +
                     '.noprint button{border:0;background:#1a73e8;color:#fff;border-radius:20px;padding:10px 18px;font:inherit;font-size:13px;cursor:pointer}';
 
@@ -9431,14 +9544,11 @@ file://*</code></pre>
                     '<h2>Avance por sección</h2>' +
                     '<table><thead><tr><th>Sección</th><th>Aplicados</th><th>Avance</th><th>Estado</th></tr></thead><tbody>' + secRows + '</tbody></table>' +
                     '<h2>Pendientes de alto impacto (' + pendAlto.length + ')</h2>' +
-                    (pendAlto.length ? '<table><thead><tr><th>Sección</th><th>Ruta</th><th>Ajuste</th><th>Perfil</th><th>Configuración recomendada</th></tr></thead><tbody>' +
-                        pendAlto.map(pRow).join('') + '</tbody></table>' : '<p class="empty">No hay pendientes de alto impacto.</p>') +
+                    tabla(pendAlto, false, 'No hay pendientes de alto impacto.') +
                     '<h2>Resto de pendientes (' + pendResto.length + ')</h2>' +
-                    (pendResto.length ? '<table><thead><tr><th>Sección</th><th>Ruta</th><th>Ajuste</th><th>Perfil</th><th>Configuración recomendada</th></tr></thead><tbody>' +
-                        pendResto.map(pRow).join('') + '</tbody></table>' : '<p class="empty">Sin pendientes.</p>') +
+                    tabla(pendResto, false, 'Sin pendientes.') +
                     '<h2>Ajustes aplicados (' + hechos.length + ')</h2>' +
-                    (hechos.length ? '<table><thead><tr><th>Sección</th><th>Ruta</th><th>Ajuste</th><th>Perfil</th><th>Configuración aplicada</th><th>Marcado el</th></tr></thead><tbody>' +
-                        hechos.map(dRow).join('') + '</tbody></table>' : '<p class="empty">Aún no se ha marcado ningún ajuste.</p>') +
+                    tabla(hechos, true, 'Aún no se ha marcado ningún ajuste.') +
                     (m.notas ? '<h2>Observaciones y acuerdos</h2><div class="notes">' + esc(m.notas) + '</div>' : '') +
                     '<div class="sign"><div>' + esc(m.autor || '') + '<br>' + esc(m.cargo || 'Elabora') + '</div>' +
                     '<div>' + esc(m.para || '') + '<br>' + esc(m.paracargo || 'Recibe y autoriza') + '</div></div>' +
@@ -9510,6 +9620,46 @@ file://*</code></pre>
                     state = {}; save(KEY, state); paint(); openModal();
                 }
             });
+
+            /* ---- compartir ---- */
+            (function () {
+                var PUB = 'https://claude.ai/code/artifact/6a95b81e-1d01-4b4f-bb67-8f1ec9c2e18b';
+                var bt = document.getElementById('share'), mn = document.getElementById('sharemenu');
+                if (!bt || !mn) return;
+                function enlace() {
+                    /* si el manual se abre desde un archivo local, se comparte la version publicada */
+                    var h = location.href.split('#')[0];
+                    return (location.protocol === 'file:' || !/^https?:/.test(h)) ? PUB : h;
+                }
+                var TXT = 'Manual de blindaje de la consola de Google — guía paso a paso para dejar ' +
+                    'segura una flotilla 1:1 de Chromebooks, con checklist e informe para dirección:';
+                function pintar() {
+                    var u = enlace();
+                    document.getElementById('sh-wa').href =
+                        'https://wa.me/?text=' + encodeURIComponent(TXT + ' ' + u);
+                    document.getElementById('sh-mail').href =
+                        'mailto:?subject=' + encodeURIComponent('Manual de blindaje · Google Admin Console') +
+                        '&body=' + encodeURIComponent(TXT + '\n\n' + u);
+                }
+                function abrir(v) {
+                    mn.hidden = !v; bt.setAttribute('aria-expanded', v ? 'true' : 'false');
+                    if (v) pintar();
+                }
+                bt.addEventListener('click', function (e) { e.stopPropagation(); abrir(mn.hidden); });
+                document.addEventListener('click', function (e) {
+                    if (!mn.hidden && !mn.contains(e.target)) abrir(false);
+                });
+                document.addEventListener('keydown', function (e) { if (e.key === 'Escape') abrir(false); });
+                document.getElementById('sh-copy').addEventListener('click', function () {
+                    var u = enlace(), b = this;
+                    function hecho() { b.lastChild.textContent = 'Enlace copiado'; setTimeout(function () { b.lastChild.textContent = 'Copiar enlace'; }, 1800); }
+                    if (navigator.clipboard) navigator.clipboard.writeText(u).then(hecho, function () { prompt('Copia el enlace:', u); });
+                    else prompt('Copia el enlace:', u);
+                });
+                document.querySelectorAll('#sh-wa,#sh-mail').forEach(function (a) {
+                    a.addEventListener('click', function () { setTimeout(function () { abrir(false); }, 60); });
+                });
+            })();
 
             var fab = document.getElementById('totop');
             window.addEventListener('scroll', function () { fab.classList.toggle('show', window.scrollY > 800) }, { passive: true });
