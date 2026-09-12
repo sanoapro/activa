@@ -461,7 +461,7 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
         <span class="rule"></span>
         <span class="cnt" id="cntVenta">04</span>
       </div>
-      <div class="kc-grid g4 mo-stagger" id="gVenta"></div>
+      <div class="kc-grid g5 mo-stagger" id="gVenta"></div>
     </section>
 
     <section class="kc-sec eventos">
@@ -554,6 +554,8 @@ const ICO = {
   ti:'<path d="M4.5 3h15A1.5 1.5 0 0 1 21 4.5v3.8A1.5 1.5 0 0 1 19.5 9.8h-15A1.5 1.5 0 0 1 3 8.3V4.5A1.5 1.5 0 0 1 4.5 3zm1.4 2.5a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zm3.8.1a.9.9 0 0 0 0 1.8h7.6a.9.9 0 0 0 0-1.8H9.7zM4.5 11.6h15A1.5 1.5 0 0 1 21 13.1v3.8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 16.9v-3.8a1.5 1.5 0 0 1 1.5-1.5zm1.4 2.5a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zm3.8.1a.9.9 0 0 0 0 1.8h7.6a.9.9 0 0 0 0-1.8H9.7zM8 19.9h8a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2z"/>',
   /* escudo con palomita — el manual de blindaje de la consola */
   consola:'<path d="M12 2 4 5.2v6.3c0 4.9 3.4 9.5 8 10.5 4.6-1 8-5.6 8-10.5V5.2L12 2zm0 2.2 6 2.4v4.9c0 3.8-2.5 7.4-6 8.4-3.5-1-6-4.6-6-8.4V6.6l6-2.4z"/><path d="M11 14.2 8.9 12l-1.3 1.3 3.4 3.4 5.3-5.3-1.3-1.3-4 4z"/>',
+  /* nube con una llave — el licenciamiento de Google Workspace */
+  gworkspace:'<path d="M17.7 9.1A5.8 5.8 0 0 0 6.4 8 4.5 4.5 0 0 0 7 17h10.4a4 4 0 0 0 .3-7.9zm-.3 5.9H7a2.5 2.5 0 0 1-.2-5l.8.1.3-.8a3.8 3.8 0 0 1 7.3.9l.1.9h.9a2 2 0 0 1 .2 3.9z"/><path d="M12.3 11.4a1.6 1.6 0 1 1 1.5 2l1.3 1.3-.7.7-.5-.5-.6.6-.6-.6-.5.5-.7-.7 1.3-1.3a1.6 1.6 0 0 1-.5-2zm1.1.1a.6.6 0 1 0 .9.9.6.6 0 0 0-.9-.9z"/>',
   /* dos figuras y un corazón — la presentación a las familias */
   papas:'<path d="M8.2 4a2.6 2.6 0 1 1 0 5.2 2.6 2.6 0 0 1 0-5.2zm7.6 0a2.6 2.6 0 1 1 0 5.2 2.6 2.6 0 0 1 0-5.2zM3.4 17c0-2.3 2.5-3.6 4.8-3.6.9 0 1.9.2 2.7.6a5.9 5.9 0 0 0-1.1 3v1.6H3.4V17zm10.4 1.6V17c0-1.3.8-2.3 1.9-2.9a6 6 0 0 1 2.9-.7c2.3 0 4 1.3 4 3.6v1.6h-8.8zM12 13.9l-.5-.5c-1.4-1.3-2.3-2.1-2.3-3.1 0-.9.7-1.5 1.5-1.5.5 0 1 .2 1.3.6.3-.4.8-.6 1.3-.6.8 0 1.5.6 1.5 1.5 0 1-.9 1.8-2.3 3.1l-.5.5z"/>'
 };
@@ -564,9 +566,9 @@ const ICO_OK    = '<path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8z"/
 /* tres ojos de registro y un módulo suelto: el gesto universal de «esto es un QR» */
 const ICO_QR    = '<path d="M3 3h7.5v7.5H3V3zm2 2v3.5h3.5V5H5zm8.5-2H21v7.5h-7.5V3zm2 2v3.5H19V5h-3.5zM3 13.5h7.5V21H3v-7.5zm2 2V19h3.5v-3.5H5zm8.5-2h2.6v2.6h-2.6v-2.6zm4.4 0H21v2.6h-3.1v-2.6zm-4.4 4.4h2.6V21h-2.6v-3.1zm4.4 0H21V21h-3.1v-3.1z"/>';
 
-/* ═══════════ los doce accesos ═══════════
+/* ═══════════ los trece accesos ═══════════
    Un solo lugar para editarlos: cambiar aquí basta, el HTML se arma solo.
-   Cuatro de venta, cuatro de eventos y cuatro internos, y cada lista es un
+   Cinco de venta, cuatro de eventos y cuatro internos, y cada lista es un
    momento distinto del trabajo: con qué se cotiza, qué se enseña delante de
    gente y qué se mueve después por dentro. Las dos presentaciones viven con
    eventos y no con venta a propósito: son láminas para proyectar en una sala,
@@ -584,6 +586,10 @@ const VENTA = [
     desc:'Cotizador de compras por partida, con el IVA al final.',
     host:'sanoapro.github.io',
     url:'https://sanoapro.github.io/activa/paginas/compra/' },
+  { id:'gworkspace', nombre:'G-Workspace', color:'--blue', color2:'#0d47a1', tinte:'--blue-t',
+    desc:'Licencias Google Workspace: Plus o T&L, lado a lado.',
+    host:'sanoapro.github.io',
+    url:'https://sanoapro.github.io/activa/paginas/g-workspace/' },
   { id:'precios', nombre:'Precios', color:'--orange', color2:'#a34400', tinte:'--orange-t',
     desc:'Los paquetes y el precio por alumno, para enseñar y mandar.',
     host:'sanoapro.github.io',

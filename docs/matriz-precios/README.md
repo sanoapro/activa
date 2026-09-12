@@ -16,6 +16,7 @@ el valor esperado de ninguna prueba existente.
 | [`precios-arrendamiento.md`](precios-arrendamiento.md) | Solo los precios del arrendamiento, en tablas, y cómo se aplican. **Sin IVA** |
 | [`precios-compra.md`](precios-compra.md) | Solo los precios de la compra directa, en tablas, y cómo se aplican. **Netos, sin IVA** |
 | [`precios-cotizador.md`](precios-cotizador.md) | Solo los precios del cotizador Upgrade Edu, en tablas, y cómo se aplican. **Con IVA** |
+| [`precios-g-workspace.md`](precios-g-workspace.md) | Solo los precios de las licencias Google Workspace, y cómo se aplican. **Netos, sin IVA**. Agregado el 12-sep-2026 con la página `paginas/g-workspace/`; comparte dos precios con la compra directa y los dos archivos llevan el aviso recíproco |
 
 **Los dos documentos se bastan solos.** Traen los precios de las tres herramientas, los números de
 línea, los comandos verificados y las trampas conocidas: quien los ejecute no debería necesitar ir

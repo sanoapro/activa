@@ -133,15 +133,20 @@ Se licencia por estudiante y está incluido en **ambos paquetes**.
 
 - **Panel de seguridad** — previene, detecta, investiga y resuelve amenazas, abusos y material
   inapropiado.
-- **Meet mejorado** — reuniones de hasta 250 personas (T&L) o 500 (Plus) y transmisiones en vivo para
-  hasta 100,000 usuarios del mismo dominio.
+- **Meet mejorado** — reuniones de hasta 250 personas y transmisión para 10,000 usuarios del dominio
+  con T&L; hasta 1,000 personas y transmisión para 100,000 con Plus.
 - **Analítica avanzada** — datos en BigQuery con exportación de Gmail y Classroom, seguimiento del uso
   del dominio y del rendimiento estudiantil.
 - **Herramientas superiores de enseñanza** — informes de originalidad en más de 15 idiomas,
   sincronización de listas y complementos de Classroom.
 
+Almacenamiento: los **100 TB** del pool son de la institución y son los mismos en toda edición; cada
+licencia suma **20 GB** con Plus y **100 GB** con Teaching & Learning.
+
 Licenciamiento: **Plus, una licencia por usuario** (alumnos y docentes); **Teaching & Learning, una
-por docente**.
+por docente**. Education Plus **incluye todo lo de Teaching & Learning**: la decisión es de alcance,
+no de funciones. Las cifras se verificaron contra la comparación oficial de ediciones de Google el
+12-sep-2026 (antes este documento decía 500 personas para Plus, que no es el dato de Google).
 
 ### 5.2 Canva para Educación
 

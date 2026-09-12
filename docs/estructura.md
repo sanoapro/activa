@@ -41,6 +41,11 @@ Presentacion-activa/
 │   │   ├── og.png                Su vista previa de WhatsApp (generada)
 │   │   ├── og-source.html        El molde de esa vista previa
 │   │   └── README.md
+│   ├── g-workspace/              Cotizador de licencias Google Workspace for Education
+│   │   ├── index.html
+│   │   ├── og.png                Su vista previa de WhatsApp (generada)
+│   │   ├── og-source.html        El molde de esa vista previa
+│   │   └── README.md
 │   ├── precios/                  Tres láminas: paquetes, precio por alumno y desglose
 │   │   ├── index.html
 │   │   ├── og.png                Su vista previa de WhatsApp (generada)
@@ -115,7 +120,7 @@ retirarla se quedó sin consumidores; se borró. Lo único compartido en present
 
 ## Nada de esto se indexa
 
-Las nueve páginas llevan `<meta name="robots" content="noindex">`. No es paranoia: el cotizador
+Las diez páginas llevan `<meta name="robots" content="noindex">`. No es paranoia: el cotizador
 y la página de precios tienen el precio por alumno y los descuentos —el cotizador, además, los
 datos bancarios de la empresa—, los cotizadores de arrendamiento y de compra directa llevan su
 catálogo de costos y la tasa dentro del código, y los decks llevan la propuesta completa de un
@@ -167,6 +172,7 @@ El sitio se sirve desde la rama `main` tal cual, así que **la ruta del reposito
 | Cotizador | <https://sanoapro.github.io/activa/paginas/cotizador/> |
 | Arrendamiento | <https://sanoapro.github.io/activa/paginas/arrendamiento/> |
 | Compra directa | <https://sanoapro.github.io/activa/paginas/compra/> |
+| G-Workspace | <https://sanoapro.github.io/activa/paginas/g-workspace/> |
 | Precios | <https://sanoapro.github.io/activa/paginas/precios/> |
 | Consola | <https://sanoapro.github.io/activa/paginas/consola/> |
 

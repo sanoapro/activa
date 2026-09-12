@@ -14,6 +14,7 @@ paso de compilación.
 | **Padres de familia 2026–2027** | [/paginas/padres-de-familia/](https://sanoapro.github.io/activa/paginas/padres-de-familia/) | Deck de 22 diapositivas para las juntas con familias. Se lee igual en el proyector que en el teléfono de un padre. |
 | **Arrendamiento** | [/paginas/arrendamiento/](https://sanoapro.github.io/activa/paginas/arrendamiento/) | Cotizador de Chromebooks en renta: mensualidad fija a 3 o 4 años. |
 | **Compra directa** | [/paginas/compra/](https://sanoapro.github.io/activa/paginas/compra/) | Cotizador de catálogo abierto, por partida y con el IVA una sola vez, al final. |
+| **G-Workspace** | [/paginas/g-workspace/](https://sanoapro.github.io/activa/paginas/g-workspace/) | Cotizador de licencias Google Workspace for Education: Education Plus o Teaching &amp; Learning, lado a lado. |
 | **Precios 2026–2027** | [/paginas/precios/](https://sanoapro.github.io/activa/paginas/precios/) | Tres láminas: los paquetes, el precio por alumno y el desglose año por año. |
 | **Consola de administración** | [/paginas/consola/](https://sanoapro.github.io/activa/paginas/consola/) | Manual de blindaje de la Google Admin Console: 18 partes y 438 ajustes con checklist. |
 
@@ -60,7 +61,7 @@ cambio; lo que está en el repositorio es exactamente lo que se publica. Sin CI,
 
 ## Movimiento
 
-Las cuatro páginas comparten un solo motor de animación, en
+Todas las páginas comparten un solo motor de animación, en
 [`compartidos/js/motion.js`](compartidos/js/motion.js) y
 [`compartidos/css/motion.css`](compartidos/css/motion.css): revelado al entrar en pantalla,
 cascadas, parallax, efectos de cursor, Lottie diferido y campo de partículas.

@@ -58,9 +58,8 @@ obligatorias.
 - Clic en una tarjeta → abre el destino en pestaña nueva.
 - Pasar el cursor y clic en **⧉** → copia el enlace al portapapeles (para mandarlo por WhatsApp).
 - Teclas **1–9** y **0** → abren el acceso correspondiente, en el orden en que se leen (izquierda a
-  derecha, de arriba abajo). El **0** es el décimo, como en cualquier barra de tareas; con doce
-  accesos, los dos últimos (Reembolso y Consola Google) quedan sin atajo — no hay más teclas de
-  un dígito. **D** →
+  derecha, de arriba abajo). El **0** es el décimo, como en cualquier barra de tareas; con trece
+  accesos, los tres últimos quedan sin atajo — no hay más teclas de un dígito. **D** →
   descargables. **F** → pantalla completa.
 - Botón **QR** (solo en las tarjetas que traen `qr`) → abre el código a pantalla completa sobre
   fondo blanco, para que la sala lo escanee. Se sale con el botón **← Volver al kit** (arriba a la
@@ -117,13 +116,13 @@ Las tres filas miden lo mismo de alto (≈106 px por tarjeta) y por eso la tarje
 horizontal, con el icono al costado.
 
 Las filas apretadas **se aprietan solas** por clase de rejilla: `.g4` (286 px por tarjeta,
-hoy las tres filas) baja el icono a 38 y el cuerpo un punto; `.g5` (≈229 px) baja el icono a
-34 y el cuerpo otro punto — hoy nadie la usa, pero queda escrita para cuando una franja
-crezca. No es densidad porque sí — con el tamaño de la fila de tres, «Presentación
-comercial» se parte en dos líneas y la tarjeta rebasa los 106 px. **Las descripciones de
-las filas de cuatro tienen que quedarse en una idea corta** (≈55 caracteres, dos líneas);
-si crecen, desbordan. Una quinta tarjeta en una de esas filas obliga a bajar a `.g5`, y de
-ahí en adelante toca repartir de nuevo, no seguir apretando.
+hoy eventos e internas) baja el icono a 38 y el cuerpo un punto; `.g5` (≈229 px) baja el
+icono a 34 y el cuerpo otro punto — la usa la fila de **venta** desde que entró
+G-Workspace (12-sep-2026) y quedó de cinco. No es densidad porque sí — con el tamaño de la
+fila de tres, «Presentación comercial» se parte en dos líneas y la tarjeta rebasa los
+106 px. **Las descripciones de las filas de cuatro y de cinco tienen que quedarse en una
+idea corta** (≈55 caracteres, dos líneas); si crecen, desbordan. Una sexta tarjeta en una
+de esas filas ya no cabe: de ahí en adelante toca repartir de nuevo, no seguir apretando.
 
 Las dos presentaciones viven en **eventos** y no en herramientas de venta a propósito: son
 láminas para proyectar delante de gente, no cosas con las que se arma un precio.

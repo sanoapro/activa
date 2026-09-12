@@ -56,6 +56,12 @@ licencias docentes se corrigieron a $6,000 por docente.
 | Google Workspace for Education Plus | $102.00 | estudiante | **Debe cubrir todo el dominio** |
 | Google Workspace Teaching & Learning | $1,225.00 | docente | Cuando entra por área, no por dominio |
 
+> **⚠ Aviso recíproco.** Esas dos licencias **también viven** en la matriz de
+> `paginas/g-workspace/` (`PRECIOS.licencias`), que las cotiza solas y lado a lado. Es una
+> copia manual **a propósito**: cada cotizador va autocontenido porque el PDF es el
+> entregable. **Quien cambie uno de esos dos precios aquí lo cambia allá a mano.** Ver
+> [`precios-g-workspace.md`](precios-g-workspace.md).
+
 ## Programas activa · todos anuales
 
 | Partida | Precio neto | Se cobra por | Mínimo |
