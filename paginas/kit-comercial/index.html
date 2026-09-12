@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>activa · Kit comercial — accesos rápidos del equipo</title>
-<meta name="description" content="Los doce accesos que el equipo comercial de activa usa todos los días, en tres bloques: herramientas de venta, eventos y proceso interno.">
+<meta name="description" content="Los trece accesos que el equipo comercial de activa usa todos los días, en tres bloques: herramientas de venta, eventos y proceso interno.">
 <meta name="theme-color" content="#ffffff">
 <meta name="robots" content="noindex">
 
@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="activa">
 <meta property="og:url" content="https://sanoapro.github.io/activa/paginas/kit-comercial/">
 <meta property="og:title" content="Kit comercial · activa">
-<meta property="og:description" content="Doce accesos en una sola pantalla: herramientas de venta, eventos y proceso interno.">
+<meta property="og:description" content="Trece accesos en una sola pantalla: herramientas de venta, eventos y proceso interno.">
 <meta property="og:image" content="https://sanoapro.github.io/activa/paginas/kit-comercial/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="activa · Kit comercial — los doce accesos del equipo en una sola pantalla.">
+<meta property="og:image:alt" content="activa · Kit comercial — los trece accesos del equipo en una sola pantalla.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kit comercial · activa">
-<meta name="twitter:description" content="Doce accesos en una sola pantalla: herramientas de venta, eventos y proceso interno.">
+<meta name="twitter:description" content="Trece accesos en una sola pantalla: herramientas de venta, eventos y proceso interno.">
 <meta name="twitter:image" content="https://sanoapro.github.io/activa/paginas/kit-comercial/og.png">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='11' height='11' rx='3' fill='%234285f4'/%3E%3Crect x='18' y='3' width='11' height='11' rx='3' fill='%23ea4335'/%3E%3Crect x='3' y='18' width='11' height='11' rx='3' fill='%23fbbc04'/%3E%3Crect x='18' y='18' width='11' height='11' rx='3' fill='%2334a853'/%3E%3C/svg%3E">
@@ -191,8 +191,8 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
   border-radius:99px;background:var(--blue-t);color:var(--blue-d);font-size:10.5px;font-weight:700}
 
 /* ---------- tarjeta de enlace ----------
-   Horizontal: con doce accesos la fila mide ≈106 px de alto y 286 de ancho
-   —las tres filas son de cuatro—,
+   Horizontal: con trece accesos la fila mide ≈106 px de alto y 286 de ancho
+   —229 en venta, que es de cinco—,
    y en esa proporción el icono encima del texto no cabe. Va al costado, y la
    tarjeta gana el ancho que el apilado desperdiciaba. */
 .tile{position:relative;display:flex;flex-direction:row;align-items:flex-start;gap:13px;
@@ -452,14 +452,14 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
     </div>
   </header>
 
-  <!-- ── cuerpo: los doce accesos · cuatro, cuatro y cuatro ── -->
+  <!-- ── cuerpo: los trece accesos · cinco, cuatro y cuatro ── -->
   <main class="kc-body">
 
     <section class="kc-sec venta">
       <div class="kc-sechead">
         <span class="eyebrow b">Herramientas de venta</span>
         <span class="rule"></span>
-        <span class="cnt" id="cntVenta">04</span>
+        <span class="cnt" id="cntVenta">05</span>
       </div>
       <div class="kc-grid g5 mo-stagger" id="gVenta"></div>
     </section>
@@ -876,10 +876,10 @@ addEventListener('keydown', e=>{
     if(e.key === 'Escape'){ e.preventDefault(); qrCerrar(); }
     return;
   }
-  /* Doce accesos y solo diez teclas: el 0 vale por el décimo, como en cualquier
-     barra de tareas. Los dos últimos —Reembolso y Consola Google— se quedan sin
-     atajo: no hay más teclas de un dígito y no se van a inventar combinaciones
-     para una lámina que se usa a golpe de clic. */
+  /* Trece accesos y solo diez teclas: el 0 vale por el décimo, como en cualquier
+     barra de tareas. Los tres últimos —Portal activa TI, Reembolso y Consola
+     Google— se quedan sin atajo: no hay más teclas de un dígito y no se van a
+     inventar combinaciones para una lámina que se usa a golpe de clic. */
   const n = e.key === '0' ? 10 : parseInt(e.key, 10);
   /* Las láminas apartadas no tienen destino: la tecla no hace nada en vez de
      abrir una pestaña en blanco. */

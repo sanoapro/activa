@@ -176,5 +176,11 @@ El sitio se sirve desde la rama `main` tal cual, así que **la ruta del reposito
 | Precios | <https://sanoapro.github.io/activa/paginas/precios/> |
 | Consola | <https://sanoapro.github.io/activa/paginas/consola/> |
 
-Al mover una página hay que revisar tres lugares: sus propias etiquetas `og:`, las tarjetas del
-portal, y las listas del kit comercial.
+Al mover o agregar una página hay que revisar cuatro lugares: sus propias etiquetas `og:`, las
+tarjetas del portal, las listas del kit comercial —y ahí, también su `og-source.html` y el conteo
+de accesos de su `README.md`, que no se actualizan solos—, y las tablas de este archivo y del
+`README.md` de la raíz.
+
+Ese quinto rincón —el molde `og-source.html` del kit— es el que más veces se ha quedado atrás:
+llegó a anunciar diez accesos cuando ya había doce, con una tira de iconos que seguía mostrando
+una página retirada. Si cambia el número de accesos, se regenera el `og.png`.

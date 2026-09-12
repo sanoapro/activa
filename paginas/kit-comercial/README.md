@@ -108,10 +108,11 @@ silencio que el PNG recortado no trae. **Cada QR nuevo hay que probarlo con un t
 verdad** antes de llevarlo a un evento; que el archivo contenga la URL correcta no garantiza que
 una cámara lo levante.
 
-La retícula es de **4 + 4 + 4**: venta lleva los cuatro cotizadores y listas de precio,
-eventos las dos presentaciones más el taller y el registro, y proceso interno cuatro
-(ago-2026: las dos presentaciones bajaron a eventos y la base de datos salió del kit;
-sep-2026: el manual de la consola cerró la fila interna, que era de tres).
+La retícula es de **5 + 4 + 4**: venta lleva los cotizadores, las listas de precio y el
+comparador de licencias; eventos las dos presentaciones más el taller y el registro; y
+proceso interno cuatro (ago-2026: las dos presentaciones bajaron a eventos y la base de
+datos salió del kit; sep-2026: el manual de la consola cerró la fila interna, que era de
+tres, y G-Workspace llevó la de venta a cinco).
 Las tres filas miden lo mismo de alto (≈106 px por tarjeta) y por eso la tarjeta es
 horizontal, con el icono al costado.
 
