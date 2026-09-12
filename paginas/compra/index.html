@@ -1479,7 +1479,7 @@ const BRAND = deepFreeze({"activa": "data:image/webp;base64,UklGRuYzAABXRUJQVlA4
 /* ┌──────────────────────────────────────────────────────────────┐
    │  MATRIZ DE PRECIOS · fuente única de verdad                  │
    │  ⚠  TODOS LOS IMPORTES VAN NETOS, SIN IVA                    │
-   │  Valores verificados el 22-ago-2026.                         │
+   │  Valores verificados el 12-sep-2026.                         │
    │  Cambiar un precio es editar ESTE objeto, y nada más.        │
    │  Aquí no se escriben cifras en prosa: el número vive abajo.  │
    └──────────────────────────────────────────────────────────────┘
@@ -1522,11 +1522,11 @@ const PRECIOS = deepFreeze({
     "gwtl":          1225,
     /* ---- Programas activa (anuales; docentes con mínimo comercial) ---- */
     "motiva-est":     400,
-    "motiva-doc":     400,
+    "motiva-doc":    6000,
     "beta-est":       400,
-    "beta-doc":       400,
+    "beta-doc":      6000,
     "impulsa-est":    990,
-    "impulsa-doc":    990,
+    "impulsa-doc":   6000,
     /* ---- Servicios, soporte y acompañamiento ---- */
     "soporte1ti":   36750,
     "soporte2ti":    3500,
@@ -1554,10 +1554,12 @@ const PRECIOS = deepFreeze({
 const APP_CONFIG = deepFreeze({
   schemaVersion: 1,
   catalog: {
-    /* Fecha de última actualización del catálogo, confirmada el 19-ago-2026.
-       La celda B3 del Excel estaba vacía; esta fecha se estampa en el
-       documento impreso y gobierna la compatibilidad del escenario. */
-    updatedISO: "2026-08-19",
+    /* Fecha de última actualización del catálogo. Sube cada vez que cambia un
+       precio: se estampa en el documento impreso y gobierna la compatibilidad,
+       de modo que una cotización guardada con precios viejos se niega a abrir
+       en vez de repreciarse sola. El 12-sep-2026 corrigió las tres licencias
+       docentes a 6,000 por docente. */
+    updatedISO: "2026-09-12",
     source: "docs/Costos activa sin IVA.xlsx · hoja Costos 2026"
   },
   vat: {
@@ -1677,9 +1679,13 @@ const CATALOGO_BASE = deepFreeze([
    note:"Precio actualizado el 19-ago-2026 (el Excel decía 680.00)."},
 
   /* ---------- Programas activa ----------
-     Los precios docentes son POR DOCENTE al año (el «× 15» del Excel era un
-     ejemplo, no un paquete) con mínimo comercial de 10 docentes: por debajo
-     no se venden. Confirmado el 19-ago-2026. */
+     Los precios docentes son POR DOCENTE al año: 6,000 cada uno, los tres
+     programas al mismo precio, con mínimo comercial de 10 docentes —el piso
+     por programa es 60,000 al año—. Corregido el 12-sep-2026: el «6,000 × 15»
+     del Excel NO era un paquete de quince a 400 cada uno, como se leyó el
+     19-ago-2026; los 6,000 son el precio de UN docente y el 15 era la cantidad
+     del ejemplo. Y el mínimo ya no solo avisa: el campo de cantidad impide
+     dejar capturado un número menor que 10. */
   {k:"motiva-est", part:"motiva", fam:"programas",
    n:"motiva · estudiantes",
    d:"Acompañamiento socioemocional guiado por psicólogos educativos certificados y diferenciado por nivel escolar: autoconciencia, autorregulación, toma de decisiones responsables, identidad y relaciones saludables. Licencia anual por estudiante.",
@@ -2121,7 +2127,12 @@ function commitStorageChanges(changes,storage=localStorage){
 let DRAFT_WARN_SHOWN=false;
 let PRINT_READY_SIGNATURE="";
 let PRINT_NOTICE_SHOWN=false;
-let APP_STATE;let CURRENT_RESULT;let FIELD_ERRORS=new Map();let renderFrame=0;let pendingRender="all";let originalTitle=document.title;let DIRTY=false;let STORAGE_CONFLICT=false;let LAST_RECOVERY_KEY="";const CONFLICT_STATE={status:"none",remoteUpdatedAt:"",detectedAt:"",recoveryKey:""};const focusStack=[];
+let APP_STATE;let CURRENT_RESULT;let FIELD_ERRORS=new Map();
+/* Renglones con un número escrito por DEBAJO de su mínimo comercial. Es
+   estado de interfaz, no de negocio: no se guarda, no se exporta y no entra
+   en el cálculo. Solo sirve para que la celda de importe diga «mínimo 10
+   docentes» en vez de «falta la cantidad» mientras se teclea. */
+const QTY_BAJO_MIN=new Set();let renderFrame=0;let pendingRender="all";let originalTitle=document.title;let DIRTY=false;let STORAGE_CONFLICT=false;let LAST_RECOVERY_KEY="";const CONFLICT_STATE={status:"none",remoteUpdatedAt:"",detectedAt:"",recoveryKey:""};const focusStack=[];
 const L=()=>APP_STATE.lines;
 /* Una sola fuente para la versión: la etiqueta que el comercial ve en el
    encabezado. Si se actualiza ahí, se actualiza en la pestaña y en el informe
@@ -2645,7 +2656,7 @@ function catRowHTML(entry, row, needle, ctx){
   const sinPrecio = !(Number(entry.price) > 0);
   const nombre = row ? (row.line.concept || entry.n) : entry.n;
   const qcell = row
-    ? `<div class="qwrap"><label class="sr-only" for="lqty-${id}">Cantidad de ${esc(entry.unit.p)} · ${esc(nombre)}</label><input type="text" id="lqty-${id}" data-lqty="${id}" inputmode="numeric" autocomplete="off" enterkeyhint="done" maxlength="9" value="${row.line.qty === null ? "" : row.line.qty}" placeholder="0"><span class="u">${esc(entry.unit.p)}</span></div>`
+    ? `<div class="qwrap"><label class="sr-only" for="lqty-${id}">Cantidad de ${esc(entry.unit.p)} · ${esc(nombre)}</label><input type="text" id="lqty-${id}" data-lqty="${id}" inputmode="numeric" autocomplete="off" enterkeyhint="done" maxlength="9" value="${row.line.qty === null ? "" : row.line.qty}" placeholder="${entry.minQty || 0}"><span class="u">${esc(entry.unit.p)}</span></div>`
     : `<button type="button" class="addbtn" data-add="${esc(entry.k)}" title="Agregar a la cotización" aria-label="Agregar ${esc(entry.n)} a la cotización">+</button>`;
   const ycell = entry.annual
     ? (row
@@ -2759,6 +2770,7 @@ function renderCatalog(result){
     if(imp){
       if(row.ok && row.importe === 0){ imp.textContent = "Sin costo"; imp.className = "cimp free"; }
       else if(row.ok){ imp.textContent = money(row.importe); imp.className = "cimp"; }
+      else if(QTY_BAJO_MIN.has(row.line.id)){ imp.textContent = `Mínimo ${row.entry.minQty} ${row.entry.unit.p}`; imp.className = "cimp pending"; }
       else { imp.textContent = row.entry.annual && row.qtyOk && !row.yearsOk ? "Faltan los años" : "Falta la cantidad"; imp.className = "cimp pending"; }
     }
     const tr = body.querySelector(`tr[data-crow="${row.line.id}"]`);
@@ -2799,6 +2811,7 @@ function removeLine(id){
   const entry=CAT_BY_KEY[line.cat];
   lines.splice(index,1);
   setFieldError(`lqty-${id}`,"");setFieldError(`lyrs-${id}`,"");setFieldError(`lcon-${id}`,"");
+  QTY_BAJO_MIN.delete(id);
   CAT_OPEN.delete(`l:${id}`);
   renderAll();markChanged();
   toast(`Renglón eliminado${entry?`: ${entry.n}`:""}.`,"info");
@@ -2982,6 +2995,14 @@ function bindEvents(){
       /* Inválido o vacío → null: el renglón deja de sumar y el estado nunca
          diverge de lo que muestra el campo. */
       line.qty=v.ok?v.value:null;
+      /* Debajo del mínimo comercial tampoco se captura, pero A MEDIA ESCRITURA
+         no se grita: para llegar a «10» hay que teclear un «1» primero, y un
+         borde rojo ahí castiga a quien va bien. Queda pendiente —no suma, no
+         tiñe la fila, el documento sigue bloqueado por vía de renglón
+         incompleto— y al salir del campo se corrige solo (ver focusout). */
+      const minQty=entry&&entry.minQty?entry.minQty:0;
+      if(minQty&&v.ok&&v.value<minQty){line.qty=null;QTY_BAJO_MIN.add(line.id);}
+      else QTY_BAJO_MIN.delete(line.id);
       scheduleRender("all");markChanged();
       return;
     }
@@ -3001,6 +3022,33 @@ function bindEvents(){
       line.concept=conInput.value.trim().slice(0,APP_CONFIG.limits.concept.max);
       scheduleRender("document");markChanged();
     }
+  });
+  /* El candado del mínimo comercial. Al soltar el campo, una cantidad entre 1 y
+     el mínimo sube al mínimo: por debajo la partida no se vende, así que no
+     tiene sentido dejarla escrita. Va en focusout porque blur no burbujea y la
+     tabla del catálogo se rehace entera. */
+  $("#tblCat").addEventListener("focusout",event=>{
+    const qtyInput=event.target.closest?.("[data-lqty]");
+    if(!qtyInput)return;
+    /* Si el foco se va al botón de quitar el renglón, no se ajusta nada: la
+       fila está por desaparecer y un ajuste aquí solo sería un aviso de más. */
+    if(event.relatedTarget?.closest?.("[data-remove]"))return;
+    const line=L().find(l=>l.id===qtyInput.dataset.lqty);
+    if(!line)return;
+    const entry=CAT_BY_KEY[line.cat];
+    const minQty=entry&&entry.minQty?entry.minQty:0;
+    if(!minQty)return;
+    const raw=normalizeIntegerText(qtyInput.value);
+    /* Lo que no es un entero limpio conserva su propio mensaje: aquí no se toca. */
+    if(!/^\d+$/.test(raw))return;
+    const value=Number(raw);
+    if(value<APP_CONFIG.limits.qty.min||value>=minQty)return;
+    qtyInput.value=String(minQty);
+    line.qty=minQty;
+    QTY_BAJO_MIN.delete(line.id);
+    setFieldError(qtyInput.id,"");
+    scheduleRender("all");markChanged();
+    toast(`«${entry.n}» no se vende por debajo de ${minQty} ${entry.unit.p}: la cantidad se ajustó a ${minQty}.`,"info");
   });
   $("#tblCat").addEventListener("click",event=>{
     const add=event.target.closest("[data-add]");
@@ -3729,8 +3777,8 @@ const QuoteTests={
         this.assert(FAMILIES.some(f=>f.k===entry.fam),`${entry.k} apunta a una familia inexistente`);
       }
     });
-    this.test("Catálogo: precios contra la tabla confirmada el 19-ago-2026",()=>{
-      const esperado={ceu:750,"cb-rugged":7740,"cb-essential":9450,carrito40:31720.50,carrito30:26600.70,carrito20:24374.70,"carrito-tab30":22482.60,seguro1:490,seguro3:1390,seguro4:1870,securly:350,everway:192,wriq:92,"wayground-est":130,eduplus:102,gwtl:1225,"motiva-est":400,"motiva-doc":400,"beta-est":400,"beta-doc":400,"impulsa-est":990,"impulsa-doc":990,soporte1ti:36750,soporte2ti:3500,soporte3ti:4000,"hora-coach":3500,"hora-ti":3000,flip1:6034.48,flip2:4482.76,flip3:3017.24,flip4:1379.31,flip5:862.07,profe1:7844.83,profe2:5827.59,profe3:4310.34,profe4:1793.10,profe5:1379.31};
+    this.test("Catálogo: precios contra la tabla vigente al 12-sep-2026",()=>{
+      const esperado={ceu:750,"cb-rugged":7740,"cb-essential":9450,carrito40:31720.50,carrito30:26600.70,carrito20:24374.70,"carrito-tab30":22482.60,seguro1:490,seguro3:1390,seguro4:1870,securly:350,everway:192,wriq:92,"wayground-est":130,eduplus:102,gwtl:1225,"motiva-est":400,"motiva-doc":6000,"beta-est":400,"beta-doc":6000,"impulsa-est":990,"impulsa-doc":6000,soporte1ti:36750,soporte2ti:3500,soporte3ti:4000,"hora-coach":3500,"hora-ti":3000,flip1:6034.48,flip2:4482.76,flip3:3017.24,flip4:1379.31,flip5:862.07,profe1:7844.83,profe2:5827.59,profe3:4310.34,profe4:1793.10,profe5:1379.31};
       for(const [k,price] of Object.entries(esperado))this.assertClose(CAT_BY_KEY[k]?.price,price,0,`precio de ${k}`);
       this.assert(Object.keys(esperado).length===CATALOG.length,"la tabla de la prueba y el catálogo divergen en partidas");
     });
@@ -3764,10 +3812,21 @@ const QuoteTests={
         this.assert(!con10.warns.some(w=>w.code==="MIN_QTY"),`${key} con 10 docentes no debía avisar`);
       }
     });
-    this.test("Programas docentes: por docente y por año (el ×15 del Excel era ejemplo)",()=>{
-      const r=computeQuote([this.mkLine("motiva-doc",15,1),this.mkLine("impulsa-doc",15,1)]);
-      this.assertClose(r.rows[0].importe,6000,0,"motiva 15 docentes = el 6,000 del Excel");
-      this.assertClose(r.rows[1].importe,14850,0,"impulsa 15 docentes = el 14,850 del Excel");
+    /* Corregido el 12-sep-2026: los 6,000 son el precio de UN docente al año,
+       no un paquete de quince. Los tres programas valen lo mismo y el mínimo de
+       10 pone el piso en 60,000 por programa, al año y sin IVA. */
+    this.test("Programas docentes: 6,000 por docente y por año, los tres iguales",()=>{
+      for(const key of ["motiva-doc","beta-doc","impulsa-doc"]){
+        this.assertClose(CAT_BY_KEY[key].price,6000,0,`${key} debe costar 6,000 por docente`);
+        const piso=computeQuote([this.mkLine(key,10,1)]);
+        this.assertClose(piso.subtotal,60000,0,`${key}: el mínimo de 10 docentes pone el piso en 60,000`);
+        this.assertClose(piso.iva,9600,0,`${key}: el IVA lo pone el total, no el unitario`);
+        this.assertClose(piso.total,69600,0,`${key}: total con IVA del piso`);
+        this.assertClose(computeQuote([this.mkLine(key,15,2)]).subtotal,180000,0,`${key}: 15 docentes × 2 años`);
+      }
+      /* Y las variantes de estudiante no se movieron. */
+      this.assertClose(computeQuote([this.mkLine("motiva-est",15,1)]).subtotal,6000,0,"motiva estudiantes sigue en 400");
+      this.assertClose(computeQuote([this.mkLine("impulsa-est",15,1)]).subtotal,14850,0,"impulsa estudiantes sigue en 990");
     });
     this.test("Anual sin años no suma y bloquea; con años suma",()=>{
       const solo=computeQuote([this.mkLine("securly",40)]);
@@ -4070,6 +4129,46 @@ const QuoteTests={
         this.assert(input.value===malo,`«${malo}» debía quedar a la vista, quedó «${input.value}»`);
         this.assert(FIELD_ERRORS.has(`lqty-${line.id}`),`«${malo}» debía marcar error visible`);
       }
+    }));
+    /* El mínimo comercial dejó de ser un aviso: por debajo de 10 la licencia no
+       se vende, así que un 1-9 no puede quedarse escrito. A media escritura NO
+       se grita —para llegar a «10» hay que teclear un «1» primero— y al soltar
+       el campo se corrige solo. */
+    this.test("El mínimo comercial se blinda en el campo: un 1-9 no se queda escrito",()=>this.withStorageSandbox(()=>{
+      APP_STATE=createSafeDefaultState();
+      const line=newLine("motiva-doc");APP_STATE.lines=[line];
+      renderAll();
+      const input=document.getElementById(`lqty-${line.id}`);
+      this.assert(Boolean(input),"el campo de cantidad debe existir");
+      this.assert(input.placeholder==="10","el hueco del campo debe sugerir el mínimo");
+      input.value="9";input.dispatchEvent(new Event("input",{bubbles:true}));
+      this.assert(line.qty===null,`9 docentes no debía capturarse, quedó ${line.qty}`);
+      this.assert(!FIELD_ERRORS.has(`lqty-${line.id}`),"a media escritura el campo no debe marcarse en rojo");
+      this.assert(QTY_BAJO_MIN.has(line.id),"el renglón debía quedar señalado como bajo mínimo");
+      renderAll();
+      const imp=document.querySelector(`[data-limp="${line.id}"]`);
+      this.assert(/Mínimo 10 docentes/.test(imp.textContent),`la celda debía nombrar el mínimo, dice «${imp.textContent}»`);
+      const tr=document.querySelector(`tr[data-crow="${line.id}"]`);
+      this.assert(!tr.classList.contains("err"),"a media escritura la fila no debe teñirse de rojo");
+      input.dispatchEvent(new FocusEvent("focusout",{bubbles:true}));
+      this.assert(input.value==="10",`al soltar el campo debía subir a 10, quedó «${input.value}»`);
+      this.assert(line.qty===10,`la cantidad debía quedar en 10, quedó ${line.qty}`);
+      this.assert(!QTY_BAJO_MIN.has(line.id),"el señalamiento debía limpiarse al corregir");
+      /* Un 10 capturado a pulso no se toca, y el campo vacío sigue pudiendo
+         quedarse vacío: el candado corrige, no rellena. */
+      input.value="10";input.dispatchEvent(new Event("input",{bubbles:true}));
+      input.dispatchEvent(new FocusEvent("focusout",{bubbles:true}));
+      this.assert(line.qty===10&&input.value==="10","10 es válido: nada debía ajustarse");
+      input.value="";input.dispatchEvent(new Event("input",{bubbles:true}));
+      input.dispatchEvent(new FocusEvent("focusout",{bubbles:true}));
+      this.assert(line.qty===null&&input.value==="","un campo vacío no debe autocompletarse al mínimo");
+      /* Y una partida sin mínimo no hereda el candado. */
+      const libre=newLine("wayground-est");APP_STATE.lines=[libre];
+      renderAll();
+      const otro=document.getElementById(`lqty-${libre.id}`);
+      otro.value="3";otro.dispatchEvent(new Event("input",{bubbles:true}));
+      otro.dispatchEvent(new FocusEvent("focusout",{bubbles:true}));
+      this.assert(libre.qty===3&&otro.value==="3",`3 estudiantes son válidos, quedó ${libre.qty}`);
     }));
     this.asyncTest("Una imagen rota no deja la impresión colgada",async()=>{
       const caja=document.createElement("div");

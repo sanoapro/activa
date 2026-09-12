@@ -90,8 +90,14 @@ recuperarse del Excel: ya no se venden.
 
 Un renglón sin cantidad —o una licencia anual sin años— **no suma al total** y no aparece en la
 tabla de revisión ni en la propuesta; su propia fila lo dice en la columna de importe —«Falta la
-cantidad», «Faltan los años»— y el cierre lo avisa. Un renglón por debajo de su `minQty` tiñe la
-fila y bloquea el documento.
+cantidad», «Faltan los años»— y el cierre lo avisa.
+
+Un `minQty` **no se puede dejar por debajo**: mientras se teclea, un número menor al mínimo
+queda pendiente —no suma, y la columna de importe dice «Mínimo 10 docentes»— pero no se marca
+en rojo, porque para llegar a «10» hay que teclear un «1» primero. Al soltar el campo, la
+cantidad sube sola al mínimo con un aviso. El motor conserva su regla `MIN_QTY` —tiñe la fila y
+bloquea el documento— para lo que entra por importación o por enlace compartido, que no pasa
+por el campo.
 
 Cuando el cálculo no es confiable, `body.calc-invalid` **atenúa todo el bloque financiero** y el
 motivo viaja pegado al total, en el subtítulo de la barra de acciones: es lo único que el
@@ -261,8 +267,8 @@ página; el archivo solo la aprovecha.
 
 ## Pruebas internas
 
-Se abren con **`?test=1`**: 49 pruebas sobre el IVA, el catálogo contra la tabla confirmada el
-19-ago-2026, las bajas, los seminuevos, los mínimos, la persistencia, el escapado y el
+Se abren con **`?test=1`**: 57 pruebas sobre el IVA, el catálogo contra la tabla vigente al
+12-sep-2026, las bajas, los seminuevos, los mínimos, la persistencia, el escapado y el
 documento. Toda pasada de presentación tiene que dejarlas igual: **si una cambia de resultado,
 se tocó lógica y se revierte**.
 

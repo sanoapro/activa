@@ -1,7 +1,8 @@
 # Los precios de la compra directa
 
 Tablas de la matriz `PRECIOS` de `paginas/compra/index.html` y cómo se aplican. Las 37
-partidas confirmadas el 19-ago-2026; valores verificados el 22-ago-2026.
+partidas confirmadas el 19-ago-2026; valores verificados el 12-sep-2026, cuando las tres
+licencias docentes se corrigieron a $6,000 por docente.
 
 > **⚠ Convención: TODOS los precios son NETOS, SIN IVA.** El IVA (16 %) se aplica **una sola
 > vez, sobre el subtotal** de toda la cotización, nunca renglón por renglón ni dentro de un
@@ -14,7 +15,7 @@ partidas confirmadas el 19-ago-2026; valores verificados el 22-ago-2026.
 | Importe de un renglón | `cantidad × precio`; en licencias **anuales**, `cantidad × años × precio` |
 | IVA | 16 % sobre el subtotal de toda la cotización |
 | Descuentos | **No hay.** Decisión comercial cerrada el 19-ago-2026 |
-| Mínimos comerciales | Los programas activa para docentes exigen **mínimo 10**; por debajo no se venden |
+| Mínimos comerciales | Los programas activa para docentes exigen **mínimo 10**; por debajo no se venden y el campo no deja dejar escrito un número menor: al soltarlo sube solo a 10 |
 | Entrega | Siempre **15 días hábiles después de la confirmación del pago** |
 | Vigencia | 31 días |
 | Límites de captura | Cantidad 1 a 999,999 · años 1 a 25 · máximo 200 renglones · concepto hasta 250 caracteres |
@@ -60,11 +61,17 @@ partidas confirmadas el 19-ago-2026; valores verificados el 22-ago-2026.
 | Partida | Precio neto | Se cobra por | Mínimo |
 |---|---:|---|---|
 | motiva · estudiantes | $400.00 | estudiante | — |
-| motiva · docentes | $400.00 | docente | **10 docentes** |
+| motiva · docentes | $6,000.00 | docente | **10 docentes** |
 | beta · estudiantes | $400.00 | estudiante | — |
-| beta · docentes | $400.00 | docente | **10 docentes** |
+| beta · docentes | $6,000.00 | docente | **10 docentes** |
 | impulsa · estudiantes | $990.00 | estudiante | — |
-| impulsa · docentes | $990.00 | docente | **10 docentes** |
+| impulsa · docentes | $6,000.00 | docente | **10 docentes** |
+
+**Los tres programas docentes valen lo mismo: $6,000 netos por docente y por año.** Corregido el
+12-sep-2026. Hasta esa fecha la tabla decía $400/$400/$990 porque el «6,000 × 15» del Excel se
+leyó como un paquete de quince docentes y se dividió; los 6,000 son el precio de **un** docente y
+el 15 era la cantidad del ejemplo. Con el mínimo de 10, el piso por programa es **$60,000** al
+año, sin IVA.
 
 ## Servicios, soporte y acompañamiento
 
