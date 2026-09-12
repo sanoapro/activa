@@ -110,6 +110,27 @@ oficial de ediciones de Google.
 En el mismo trabajo se corrigió `docs/portafolio-activa.md`, que decía **500 participantes
 para Plus**: el dato de Google es **1,000**, y para T&L son **250**.
 
+## El almacenamiento, junto al precio
+
+El bloque de inversión del documento lleva **el almacenamiento del escenario recomendado**
+con su composición debajo (`.ph-stor`), no solo la cifra enterrada seis filas más abajo en
+la comparativa. Es la segunda cifra que el director compara entre las dos rutas —Plus da
+20 GB por licencia sobre el pool y T&L da 100 GB, así que la ruta más cara no siempre es la
+que más almacenamiento deja—, y ahí abajo pasaba de largo.
+
+### Por qué el subtexto de la comparativa envuelve
+
+Las celdas de cifra llevan `white-space:nowrap` para que un importe no se parta a media
+cantidad. El subtexto de la celda lo heredaba, y en el PDF —donde no hay scroll horizontal
+que lo salve, a diferencia de la tabla de trabajo, que vive en `.tscroll`— la línea
+«Transmisión para 100,000 espectadores del dominio» se salía de su columna y **se encimaba
+con la de al lado**. `.desc` lleva `white-space:normal` en las dos hojas, la de pantalla y
+la de papel: la cifra sigue sin partirse y la prosa envuelve.
+
+Dentro de la composición del almacenamiento los espacios son **duros** (` `): sin eso,
+«1,100 × 20 GB» se partía dejando «× 20 GB» solo en la línea siguiente. La frase parte entre
+sus partes, nunca dentro de una cantidad.
+
 ## Cómo se edita
 
 - **Un precio, el almacenamiento o una cifra de Meet** → `PRECIOS`, y actualiza

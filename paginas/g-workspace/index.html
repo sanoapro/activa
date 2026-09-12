@@ -374,7 +374,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .ptbl th{background:#f1f3f4;color:var(--mute);font-size:10px;letter-spacing:.5px;text-transform:uppercase;padding:8px 10px;text-align:left;font-weight:700;white-space:normal}
 .ptbl td{padding:9px 10px;border-bottom:1px solid var(--soft);vertical-align:top;white-space:normal}
 .ptbl .art{font-family:var(--disp);font-weight:500;font-size:12.8px}
-.ptbl .desc{color:var(--mute);font-size:11.5px;margin-top:2px;line-height:1.45}
+.ptbl .desc{color:var(--mute);font-size:11.5px;margin-top:2px;line-height:1.45;white-space:normal}
 .ptbl .qtycell,.ptbl .numcell{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
 .ptbl .numcell{text-align:right}
 .ptbl th.numhead{text-align:right}
@@ -622,7 +622,7 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .pp-body .ptbl td{padding:2mm 2.8mm;border-bottom:1px solid #eef0f2;vertical-align:top;white-space:normal}
 .pp-body .ptbl tbody tr:nth-child(even) td{background:#f8f9fa}
 .pp-body .ptbl .art{font-family:var(--disp);font-weight:500;font-size:9pt;line-height:1.32}
-.pp-body .ptbl .desc{color:#5f6368;font-size:8.4pt;margin-top:.5mm;line-height:1.42}
+.pp-body .ptbl .desc{color:#5f6368;font-size:8.4pt;margin-top:.5mm;line-height:1.42;white-space:normal}
 .pp-body .ptbl .qtycell,.pp-body .ptbl .numcell{font-family:var(--mono);font-size:8.8pt;white-space:nowrap}
 .pp-body .ptbl .numcell{text-align:right}
 .pp-body .ptbl .partcell{font-family:var(--mono);font-size:7.8pt;white-space:nowrap}
@@ -870,6 +870,17 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .p-card--sku .pc-h{font-size:12.5px;font-weight:700;letter-spacing:0;text-transform:none;color:var(--ink);margin-bottom:3px}
 .pc-sub{font-size:11.5px;color:var(--mute);line-height:1.5;margin-bottom:2px}
 .pc-off{margin-top:9px;font-size:11px;font-weight:600;color:var(--g-yel-d);background:var(--g-yel-t);border:1px solid var(--g-yel-b);border-radius:8px;padding:6px 10px}
+/* El almacenamiento va pegado al precio y no solo en la tabla: es la segunda
+   cifra que el director compara entre las dos rutas, y enterrada seis filas más
+   abajo no se veía. La composición va debajo, envolviendo: es prosa. */
+.ph-stor{margin-top:9px;padding-top:8px;border-top:1px solid #c6dafc;
+  display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:2px 10px}
+.ph-stor .k{font-family:var(--disp);font-size:11px;font-weight:700;letter-spacing:.5px;
+  text-transform:uppercase;color:var(--g-blue-d)}
+.ph-stor b{font-family:var(--mono);font-size:17px;font-weight:700;line-height:1;
+  color:var(--g-blue-d);white-space:nowrap}
+.ph-stor i{grid-column:1/-1;font-style:normal;font-size:11px;line-height:1.45;
+  color:var(--ink2);white-space:normal}
 .ph-note{margin-top:9px;padding-top:7px;border-top:1px solid #c6dafc;font-family:var(--mono);font-size:11px;color:var(--g-blue-d)}
 
 /* ---------- capa de papel ---------- */
@@ -884,6 +895,14 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .pp-body .p-card--sku .pc-h{font-size:9.4pt;font-weight:700;letter-spacing:0;text-transform:none;color:#202124;margin-bottom:.6mm}
 .pp-body .pc-sub{font-size:8.4pt;color:#5f6368;line-height:1.45;margin-bottom:.4mm}
 .pp-body .pc-off{margin-top:2mm;font-size:8pt;font-weight:600;color:#8a4b00;background:#fef7e0;border:1px solid #fdd663;border-radius:1.6mm;padding:1.4mm 2.4mm}
+.pp-body .ph-stor{margin-top:2.2mm;padding-top:1.8mm;border-top:1px solid #c6dafc;
+  display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:.5mm 3mm}
+.pp-body .ph-stor .k{font-family:var(--disp);font-size:7.4pt;font-weight:700;letter-spacing:.6px;
+  text-transform:uppercase;color:#174ea6}
+.pp-body .ph-stor b{font-family:var(--mono);font-size:13pt;font-weight:700;line-height:1;
+  color:#174ea6;white-space:nowrap}
+.pp-body .ph-stor i{grid-column:1/-1;font-style:normal;font-size:8pt;line-height:1.42;
+  color:#3c4043;white-space:normal}
 .pp-body .ph-note{margin-top:2.2mm;padding-top:1.6mm;border-top:1px solid #c6dafc;font-family:var(--mono);font-size:8pt;color:#174ea6}
 
 </style>
@@ -2492,7 +2511,12 @@ function escStorageLine(s){
   /* El pool base y lo que agregan las licencias, por separado: si se enseña
      solo la suma, el colegio no ve de dónde sale ni que el pool es el mismo en
      las dos rutas. */
-  return `${fmtTB(s.poolTB)} del pool + ${fmtTB(s.addTB)} de ${fmtInt(s.licencias)} × ${fmtInt(s.sku.storageGB)} GB`;
+  /* Espacios duros dentro de cada cifra y de la multiplicacion: al envolver en
+     la columna estrecha del PDF, «1,100 × 20 GB» se partia dejando «× 20 GB»
+     solo en la linea siguiente. La frase parte entre sus partes, no dentro. */
+  const NB = " ";
+  const por = `${fmtInt(s.licencias)}${NB}×${NB}${fmtInt(s.sku.storageGB)}${NB}GB`;
+  return `${fmtTB(s.poolTB)} del pool + ${fmtTB(s.addTB)} de ${por}`.replace(/(\d) TB/g, `$1${NB}TB`);
 }
 function escMeetLine(s){
   return `Hasta ${fmtInt(s.sku.meet.participantes)} participantes · transmisión para ${fmtInt(s.sku.meet.transmision)} espectadores del dominio`;
@@ -2832,6 +2856,11 @@ function proposalTotalsBlock(r){
       <div><span>Subtotal (sin IVA)</span><b>${money(r.subtotal)}</b></div>
       <div><span>${esc(APP_CONFIG.vat.label)}</span><b>${money(r.iva)}</b></div>
       <div class="tot"><span>Total</span><b>${money(r.total)}</b></div>
+    </div>
+    <div class="ph-stor">
+      <span class="k">Almacenamiento incluido</span>
+      <b>${esc(fmtTB(rec.storageTB))}</b>
+      <i>${esc(escStorageLine(rec))}</i>
     </div>
     <div class="ph-note">${esc(rec.def.n)} · ${fmtInt(rec.licencias)} ${esc(rec.licencias===1?rec.sku.unit.s:rec.sku.unit.p)} × ${fmtInt(rec.years)} año${rec.years===1?"":"s"} × ${money(rec.unitPrice)}</div>
   </div>`;
