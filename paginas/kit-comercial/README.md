@@ -58,8 +58,9 @@ obligatorias.
 - Clic en una tarjeta → abre el destino en pestaña nueva.
 - Pasar el cursor y clic en **⧉** → copia el enlace al portapapeles (para mandarlo por WhatsApp).
 - Teclas **1–9** y **0** → abren el acceso correspondiente, en el orden en que se leen (izquierda a
-  derecha, de arriba abajo). El **0** es el décimo, como en cualquier barra de tareas; con once
-  accesos, el último (Reembolso) queda sin atajo — no hay más teclas de un dígito. **D** →
+  derecha, de arriba abajo). El **0** es el décimo, como en cualquier barra de tareas; con doce
+  accesos, los dos últimos (Reembolso y Consola Google) quedan sin atajo — no hay más teclas de
+  un dígito. **D** →
   descargables. **F** → pantalla completa.
 - Botón **QR** (solo en las tarjetas que traen `qr`) → abre el código a pantalla completa sobre
   fondo blanco, para que la sala lo escanee. Se sale con el botón **← Volver al kit** (arriba a la
@@ -108,14 +109,15 @@ silencio que el PNG recortado no trae. **Cada QR nuevo hay que probarlo con un t
 verdad** antes de llevarlo a un evento; que el archivo contenga la URL correcta no garantiza que
 una cámara lo levante.
 
-La retícula es de **4 + 4 + 3**: venta lleva los cuatro cotizadores y listas de precio,
-eventos las dos presentaciones más el taller y el registro, y proceso interno tres
-(ago-2026: las dos presentaciones bajaron a eventos y la base de datos salió del kit).
+La retícula es de **4 + 4 + 4**: venta lleva los cuatro cotizadores y listas de precio,
+eventos las dos presentaciones más el taller y el registro, y proceso interno cuatro
+(ago-2026: las dos presentaciones bajaron a eventos y la base de datos salió del kit;
+sep-2026: el manual de la consola cerró la fila interna, que era de tres).
 Las tres filas miden lo mismo de alto (≈106 px por tarjeta) y por eso la tarjeta es
 horizontal, con el icono al costado.
 
 Las filas apretadas **se aprietan solas** por clase de rejilla: `.g4` (286 px por tarjeta,
-venta y eventos) baja el icono a 38 y el cuerpo un punto; `.g5` (≈229 px) baja el icono a
+hoy las tres filas) baja el icono a 38 y el cuerpo un punto; `.g5` (≈229 px) baja el icono a
 34 y el cuerpo otro punto — hoy nadie la usa, pero queda escrita para cuando una franja
 crezca. No es densidad porque sí — con el tamaño de la fila de tres, «Presentación
 comercial» se parte en dos líneas y la tarjeta rebasa los 106 px. **Las descripciones de

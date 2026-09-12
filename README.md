@@ -12,6 +12,10 @@ paso de compilación.
 | **Cotizador 2026–2027** | [/paginas/cotizador/](https://sanoapro.github.io/activa/paginas/cotizador/) | Arma la propuesta del colegio: dispositivos, licenciamiento, capacitación y soporte. |
 | **upgrade edu 2026–2027** | [/paginas/upgrade-edu/](https://sanoapro.github.io/activa/paginas/upgrade-edu/) | Deck de 28 diapositivas del programa comercial. Abre sin compilar nada. |
 | **Padres de familia 2026–2027** | [/paginas/padres-de-familia/](https://sanoapro.github.io/activa/paginas/padres-de-familia/) | Deck de 22 diapositivas para las juntas con familias. Se lee igual en el proyector que en el teléfono de un padre. |
+| **Arrendamiento** | [/paginas/arrendamiento/](https://sanoapro.github.io/activa/paginas/arrendamiento/) | Cotizador de Chromebooks en renta: mensualidad fija a 3 o 4 años. |
+| **Compra directa** | [/paginas/compra/](https://sanoapro.github.io/activa/paginas/compra/) | Cotizador de catálogo abierto, por partida y con el IVA una sola vez, al final. |
+| **Precios 2026–2027** | [/paginas/precios/](https://sanoapro.github.io/activa/paginas/precios/) | Tres láminas: los paquetes, el precio por alumno y el desglose año por año. |
+| **Consola de administración** | [/paginas/consola/](https://sanoapro.github.io/activa/paginas/consola/) | Manual de blindaje de la Google Admin Console: 18 partes y 438 ajustes con checklist. |
 
 Documento maestro de producto —fuente única y vigente— en
 [`docs/portafolio-activa.md`](docs/portafolio-activa.md).
