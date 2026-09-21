@@ -1,0 +1,1622 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Proyecto Piloto · activa · Google for Education</title>
+<meta name="description" content="Cuatro semanas con un grupo real y sin costo para el colegio: los seis pasos del piloto, qué pone cada quién y las condiciones. 12 diapositivas.">
+<meta name="theme-color" content="#ffffff">
+<!-- Fuera de los buscadores: el deck se entrega por enlace a la dirección de un
+     colegio concreto. No se busca, se manda. Las etiquetas og: siguen
+     funcionando: WhatsApp lee la página para la vista previa, no la indexa. -->
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Icono de pestaña: los cuatro cuadros de Google, el mismo del kit y de los
+     dos decks, para que las páginas se reconozcan como de la misma casa. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='11' height='11' rx='3' fill='%234285f4'/%3E%3Crect x='18' y='3' width='11' height='11' rx='3' fill='%23ea4335'/%3E%3Crect x='3' y='18' width='11' height='11' rx='3' fill='%23fbbc04'/%3E%3Crect x='18' y='18' width='11' height='11' rx='3' fill='%2334a853'/%3E%3C/svg%3E">
+
+<!-- Vista previa al compartir el enlace. Las URL van absolutas: WhatsApp no lee
+     rutas relativas ni data: URI. Si la página se mueve, se actualizan a mano.
+     `og.png` se regenera desde `og-source.html` (ver README). -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="activa">
+<meta property="og:url" content="https://sanoapro.github.io/activa/paginas/piloto/">
+<meta property="og:title" content="Proyecto Piloto · cuatro semanas con un grupo real, sin costo">
+<meta property="og:description" content="Los seis pasos del piloto, qué pone cada quién y las condiciones. Al final, el colegio decide con evidencia propia.">
+<meta property="og:image" content="https://sanoapro.github.io/activa/paginas/piloto/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Proyecto Piloto de activa · cuatro semanas con un grupo real y sin costo para el colegio">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sanoapro.github.io/activa/paginas/piloto/og.png">
+
+<!-- Motor de movimiento compartido (docs/normativa-motion.md). Solo esconde
+     cosas bajo html.mo-ready: si el JS no llega a cargar, el deck se ve
+     completo y quieto. -->
+<link rel="stylesheet" href="../../compartidos/css/motion.css">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   SISTEMA DE DISEÑO · tomado de paginas/upgrade-edu/index.html
+   Proyecto Piloto · 12 láminas
+   Un solo archivo: sin red, sin almacenamiento, sin librerías.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --blue:#1a73e8; --blue-d:#174ea6; --blue-t:#e8f0fe; --blue-l:#4285f4;
+  --red:#ea4335;  --red-d:#b31412;  --red-t:#fce8e6;  --red-l:#f28b82;
+  --yel:#f9ab00;  --yel-d:#b06000;  --yel-t:#fef7e0;  --yel-l:#fdd663;
+  --grn:#1e8e3e;  --grn-d:#0d652d;  --grn-t:#e6f4ea;  --grn-l:#34a853;
+  --plum:#7b1fa2; --plum-t:#f6ecfd; --plum-l:#c58af9;
+  --ink:#202124;  --ink2:#5f6368;   --ink3:#80868b;  --ink4:#bdc1c6;
+  --line:#e3e5e8; --surf:#f8f9fa;   --surf2:#f1f3f4; --white:#fff;
+  --sh:0 1px 2px rgba(60,64,67,.08), 0 6px 18px -6px rgba(60,64,67,.16);
+  --sh2:0 2px 6px rgba(60,64,67,.10), 0 14px 34px -12px rgba(60,64,67,.24);
+  --font:"Google Sans","Product Sans","Google Sans Text",Roboto,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#1b1c1e;font-family:var(--font);color:var(--ink);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- escenario ---------- */
+#stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;
+  transform:translate(-50%,-50%) scale(1);transform-origin:center center;
+  background:var(--white);border-radius:10px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.55)}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;
+  padding:46px 60px 30px;background:var(--white);overflow:hidden}
+.slide.on{display:flex;animation:in .36s cubic-bezier(.2,.8,.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ---------- cromo ---------- */
+.chrome{position:fixed;z-index:50;font-family:var(--font)}
+/* Indicador de progreso SEGMENTADO: un segmento por lámina, coloreado por
+   bloque narrativo (data-bloque). Sustituye la barra continua del referente. */
+#progress{left:0;top:0;right:0;height:6px;display:flex;gap:3px;padding:0 6px}
+#progress .seg{flex:1;height:100%;border-radius:0 0 3px 3px;background:var(--c,#fff);
+  opacity:.22;transition:opacity .25s}
+#progress .seg.on{opacity:1}
+/* el bloque «cierre» usa --ink: sobre el fondo oscuro necesita un filete claro */
+#progress .seg.k.on{box-shadow:inset 0 0 0 1px rgba(255,255,255,.55)}
+#nav{right:22px;bottom:18px;display:flex;align-items:center;gap:10px;color:#fff}
+#nav button{width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;
+  background:rgba(255,255,255,.13);color:#fff;font-size:17px;display:grid;place-items:center}
+#nav button:hover{background:rgba(255,255,255,.28)}
+#nav button:focus-visible{outline:2px solid #8ab4f8;outline-offset:2px}
+#counter{font-size:13px;opacity:.72;min-width:58px;text-align:right;font-variant-numeric:tabular-nums}
+#bloque{font-size:10px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:rgba(255,255,255,.72);margin-right:4px;white-space:nowrap}
+#hint{left:22px;bottom:20px;color:rgba(255,255,255,.62);font-size:12px}
+
+/* ═══════════ TIPOGRAFÍA ═══════════ */
+h1{font-size:66px;line-height:1.03;font-weight:500;letter-spacing:-2.2px;text-wrap:balance}
+h2{font-size:44px;line-height:1.08;font-weight:500;letter-spacing:-1.4px;text-wrap:balance}
+h3{font-size:21px;line-height:1.2;font-weight:600;letter-spacing:-.3px}
+h4{font-size:17px;line-height:1.25;font-weight:600;letter-spacing:-.1px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;
+  letter-spacing:1.7px;text-transform:uppercase;color:var(--ink2)}
+.eyebrow::before{content:"";width:20px;height:3px;border-radius:2px;background:currentColor}
+.eyebrow.b{color:var(--blue-d)} .eyebrow.r{color:var(--red-d)}
+.eyebrow.y{color:var(--yel-d)} .eyebrow.g{color:var(--grn-d)} .eyebrow.p{color:var(--plum)}
+.lead{font-size:18px;line-height:1.45;color:var(--ink2);max-width:600px}
+p{font-size:15.5px;line-height:1.5;color:var(--ink2)}
+.sm{font-size:14px;line-height:1.45;color:var(--ink2)}
+.xs{font-size:13px;line-height:1.42;color:var(--ink2)}
+b,strong{font-weight:600;color:var(--ink)}
+.head{flex-shrink:0;display:flex;flex-direction:column;gap:11px;margin-bottom:20px}
+.body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
+.foot{flex-shrink:0;margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+
+/* ═══════════ SUPERFICIES ═══════════ */
+.card{background:var(--white);border:1px solid var(--line);border-radius:24px;
+  padding:26px 28px;display:flex;flex-direction:column;gap:11px;justify-content:center}
+.card.pad-s{padding:20px 22px;border-radius:20px}
+.card.soft{background:var(--surf);border-color:transparent}
+.card.t-b{background:var(--blue-t);border-color:transparent}
+.card.t-r{background:var(--red-t);border-color:transparent}
+.card.t-y{background:var(--yel-t);border-color:transparent}
+.card.t-g{background:var(--grn-t);border-color:transparent}
+.card.t-p{background:var(--plum-t);border-color:transparent}
+.card.lift{box-shadow:var(--sh);border-color:transparent}
+/* el medallón sobre tarjeta tintada necesita fondo blanco o se disuelve */
+.card.t-y > .med{background:rgba(255,255,255,.82)}
+.card.rule{border-top:4px solid var(--line);border-radius:4px 4px 24px 24px}
+.card.rule.b{border-top-color:var(--blue)} .card.rule.r{border-top-color:var(--red)}
+.card.rule.y{border-top-color:var(--yel)} .card.rule.g{border-top-color:var(--grn-l)}
+.card.rule.p{border-top-color:var(--plum)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)} .g5{grid-template-columns:repeat(5,1fr)}
+.split{display:grid;grid-template-columns:1.02fr .98fr;gap:44px;align-items:stretch;flex:1;min-height:0}
+.split.wide-r{grid-template-columns:.86fr 1.14fr}
+.split.wide-l{grid-template-columns:1.2fr .8fr}
+.split > .grid{grid-auto-rows:minmax(0,1fr)}
+.stack{display:flex;flex-direction:column;gap:14px;justify-content:center}
+.body > .grid:only-child{flex:1;grid-auto-rows:minmax(0,1fr)}
+
+/* medallones */
+.med{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;flex-shrink:0}
+.med svg{width:26px;height:26px}
+.med.n{background:var(--surf2)} .med.n svg{fill:var(--ink2)}
+.med.b{background:var(--blue-t)} .med.b svg{fill:var(--blue)}
+.med.r{background:var(--red-t)} .med.r svg{fill:var(--red-d)}
+.med.y{background:var(--yel-t)} .med.y svg{fill:var(--yel-d)}
+.med.g{background:var(--grn-t)} .med.g svg{fill:var(--grn-d)}
+.med.p{background:var(--plum-t)} .med.p svg{fill:var(--plum)}
+.med.round{border-radius:50%}
+.med.sm{width:38px;height:38px;border-radius:12px} .med.sm svg{width:19px;height:19px}
+.med.lg{width:66px;height:66px;border-radius:22px} .med.lg svg{width:33px;height:33px}
+
+/* píldoras */
+.pill{display:inline-flex;align-items:center;gap:6px;height:25px;padding:0 12px;border-radius:99px;
+  font-size:11.5px;font-weight:700;letter-spacing:.3px;background:var(--surf2);color:var(--ink2)}
+.pill.b{background:var(--blue-t);color:var(--blue-d)} .pill.r{background:var(--red-t);color:var(--red-d)}
+.pill.y{background:var(--yel-t);color:var(--yel-d)} .pill.g{background:var(--grn-t);color:var(--grn-d)}
+.pill.p{background:var(--plum-t);color:var(--plum)}
+.pill.ghost{background:transparent;border:1px solid var(--line);color:var(--ink2)}
+.pill svg{width:13px;height:13px;fill:currentColor;flex-shrink:0}
+
+/* cifras */
+.stat .n{font-size:52px;line-height:1;font-weight:500;letter-spacing:-2.4px;font-variant-numeric:tabular-nums}
+.stat .l{font-size:13px;line-height:1.35;color:var(--ink2);margin-top:6px}
+.stat .n.b{color:var(--blue)} .stat .n.r{color:var(--red)}
+.stat .n.y{color:var(--yel-d)} .stat .n.g{color:var(--grn-l)}
+.stat .n.p{color:var(--plum)}
+
+.card > .pill{align-self:flex-start}
+
+/* formas de fondo */
+.shape{position:absolute;z-index:0;border-radius:50%;pointer-events:none}
+.slide > .head,.slide > .body,.slide > .foot,.slide > .split,.slide > .inner{position:relative;z-index:1}
+
+/* portada / cierre */
+.cover{padding:0;justify-content:center}
+.cover .inner{padding:0 84px;position:relative;z-index:2}
+
+/* grupos temáticos */
+.grupo{display:flex;flex-direction:column;gap:9px;min-height:0}
+.grupo > .gh{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.grupo > .gh .gt{font-size:12px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;color:var(--ink3)}
+.grupo > .gh .gt.b{color:var(--blue-d)} .grupo > .gh .gt.r{color:var(--red-d)}
+.grupo > .gh .gt.y{color:var(--yel-d)} .grupo > .gh .gt.g{color:var(--grn-d)}
+.grupo > .gh .gt.p{color:var(--plum)}
+.grupo > .gh .gline{flex:1;height:1px;background:var(--line)}
+
+/* beneficios compactos */
+ul.bens{list-style:none;display:flex;flex-direction:column;gap:6px}
+ul.bens li{position:relative;padding-left:19px;font-size:12.5px;line-height:1.34;color:var(--ink2)}
+ul.bens li::before{content:"";position:absolute;left:0;top:5px;width:9px;height:9px;border-radius:50%;
+  border:2.5px solid var(--ink4)}
+ul.bens.b li::before{border-color:var(--blue-l)} ul.bens.r li::before{border-color:var(--red-l)}
+ul.bens.y li::before{border-color:var(--yel-l)} ul.bens.g li::before{border-color:var(--grn-l)}
+ul.bens.p li::before{border-color:var(--plum-l)}
+ul.bens li b{display:block;font-size:13px;color:var(--ink);font-weight:600;letter-spacing:-.1px}
+
+/* mosaicos */
+.tiles{display:grid;gap:9px}
+.tile{background:var(--surf);border-radius:14px;padding:11px 13px;display:flex;gap:10px;
+  align-items:flex-start;min-height:0}
+.tile .tx{min-width:0}
+.tile h5{font-size:12.5px;font-weight:600;line-height:1.2;letter-spacing:-.1px;color:var(--ink)}
+.tile .td{font-size:11.5px;line-height:1.3;color:var(--ink2);margin-top:2px}
+.tile.b{background:var(--blue-t)} .tile.r{background:var(--red-t)}
+.tile.y{background:var(--yel-t)} .tile.g{background:var(--grn-t)} .tile.p{background:var(--plum-t)}
+.tile .ic{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;flex-shrink:0;
+  background:rgba(255,255,255,.75)}
+.tile .ic svg{width:14px;height:14px}
+.tile .ic.b svg{fill:var(--blue)} .tile .ic.r svg{fill:var(--red-d)}
+.tile .ic.y svg{fill:var(--yel-d)} .tile .ic.g svg{fill:var(--grn-d)} .tile .ic.p svg{fill:var(--plum)}
+
+/* nota */
+.note{border-left:3px solid var(--yel);background:var(--yel-t);padding:11px 16px;
+  border-radius:0 12px 12px 0;font-size:12.5px;line-height:1.45;color:var(--ink2)}
+.note.b{border-color:var(--blue);background:var(--blue-t)}
+.note.g{border-color:var(--grn-l);background:var(--grn-t)}
+.note.g{border-color:var(--grn-l);background:var(--grn-t)}
+.note.p{border-color:var(--plum);background:var(--plum-t)}
+
+/* «Google», con su marca */
+.gg{font-style:normal;white-space:nowrap}
+.gg i{font-style:normal;font-weight:inherit}
+.gg i:nth-child(1),.gg i:nth-child(4){color:#4285f4}
+.gg i:nth-child(2),.gg i:nth-child(6){color:#ea4335}
+.gg i:nth-child(3){color:#fbbc04}
+.gg i:nth-child(5){color:#34a853}
+.eyebrow .gg i,.gt .gg i,.pill .gg i{color:inherit}
+
+/* marcas de la casa: activa, motiva, beta */
+.marca{font-style:italic;font-weight:800;color:var(--ink)}
+.pill .marca{color:inherit}
+
+
+/* marca de esquina */
+.brandmark{position:absolute;top:38px;right:56px;z-index:6;display:flex;align-items:center;gap:12px}
+.brandmark img{height:22px;width:auto}
+
+/* barra de ejes en el pie */
+.ejebar{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.ejebar .seg{width:22px;height:4px;border-radius:99px;background:var(--line)}
+.ejebar .seg.on{width:46px}
+.ejebar .seg.on.b{background:var(--blue)} .ejebar .seg.on.r{background:var(--red)}
+.ejebar .seg.on.y{background:var(--yel)} .ejebar .seg.on.g{background:var(--grn-l)}
+.ejebar .seg.on.p{background:var(--plum)}
+.ejebar em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--ink3);margin-left:6px}
+
+/* ═══════════ MOVIMIENTO ═══════════
+   Convención heredada de los otros dos decks:
+   · todo elemento animado lleva una clase que empieza por `mv-`
+   · al imprimir y con «reducir movimiento», se apaga todo
+   · lo que tiene que llegar al PDF tiene estado base TERMINADO; lo que solo
+     existe en movimiento tiene estado base opacity:0
+   El navegador no calcula nada en las láminas ocultas: `display:none` detiene
+   las animaciones CSS por sí solo. */
+/* ── Entrada coreografiada ────────────────────────────────────────
+   La lámina ya no aparece de golpe: primero el encabezado, después el cuerpo
+   y al final el pie. Son 90 ms de diferencia — no se percibe como espera, pero
+   ordena la mirada y hace que el cambio de lámina se sienta intencional. */
+.slide.on > .head{animation:mv-sube .42s cubic-bezier(.2,.8,.2,1) both}
+.slide.on > .body,.slide.on > .split,.slide.on > .inner{
+  animation:mv-sube .46s cubic-bezier(.2,.8,.2,1) .09s both}
+.slide.on > .foot{animation:mv-sube .42s cubic-bezier(.2,.8,.2,1) .18s both}
+@keyframes mv-sube{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+[class*="mv-"]{will-change:transform,opacity}
+
+/* ── Trazos a mano ────────────────────────────────────────────────
+   Cada path lleva pathLength="100" para que el dasharray sea 100 sin importar
+   su longitud real: así un mismo par de reglas traza cualquier garabato.
+   El tamaño va SIEMPRE por width/height y nunca por left+right: un <svg> es un
+   elemento reemplazado y con los cuatro lados fijados el navegador respeta su
+   tamaño intrínseco e ignora `right`. */
+.mv-r{position:relative;display:inline-block}
+.mv-r > svg,.mv-flecha > svg{position:absolute;overflow:visible;pointer-events:none;
+  fill:none;stroke:var(--c,var(--blue-l));stroke-linecap:round;stroke-linejoin:round}
+.mv-traza{stroke-dasharray:100;stroke-dashoffset:0;
+  animation:mv-traza .6s cubic-bezier(.36,.75,.4,1) var(--mv-t,.46s) both}
+@keyframes mv-traza{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+/* subrayado: se pega al borde inferior de la palabra y la desborda un
+   poco a los lados, como un trazo hecho de una pasada */
+.mv-sub{left:-5px;width:calc(100% + 10px);top:100%;height:11px;stroke-width:3.4}
+
+/* ── anillo que resuelve una cifra ────────────────────────────────
+   El indicador de carga de Google —un arco que gira pasando por azul,
+   rojo, amarillo y verde— gira dos vueltas alrededor de la cifra y se
+   abre para dejarla sola. La CIFRA NO SE ANIMA: la normativa prohíbe
+   decorar números, y aquí no se toca ni su tamaño ni su opacidad ni su
+   posición. Lo que entra y sale es el aro, y pasa por fuera del cuerpo
+   de los dígitos (radio 48 px contra 37 px de la esquina del glifo).
+   Estado base opacity:0 → en el PDF y en las miniaturas queda solo la
+   cifra, que es lo único que ahí importa. */
+.mv-cifra{position:relative;display:inline-block;z-index:0}
+.mv-anillo{position:absolute;left:50%;top:50%;width:96px;height:96px;margin:-48px 0 0 -48px;
+  opacity:0;animation:mv-anillo-sale .88s cubic-bezier(.2,.8,.2,1) .28s both}
+.mv-anillo > i{display:block;width:100%;height:100%;border-radius:50%;
+  border:3px solid transparent;border-top-color:#4285f4;
+  animation:mv-anillo-gira .44s linear .28s 2,
+            mv-anillo-color .88s steps(1,end) .28s both}
+@keyframes mv-anillo-gira{to{transform:rotate(360deg)}}
+@keyframes mv-anillo-color{
+  0%{border-top-color:#4285f4} 25%{border-top-color:#ea4335}
+  50%{border-top-color:#fbbc04} 75%,100%{border-top-color:#34a853}
+}
+@keyframes mv-anillo-sale{
+  0%{opacity:0;transform:scale(.72)}
+  14%,68%{opacity:.9;transform:scale(1)}
+  100%{opacity:0;transform:scale(1.32)}
+}
+/* el rótulo de la cifra pasa por encima del aro: el arco lo roza al girar
+   y el texto de 13 px no puede quedar cruzado ni un cuadro */
+.s03-l{position:relative;z-index:1}
+
+/* ══════════ PIEZAS PROPIAS DEL PILOTO ══════════
+   Portadas de cifra, el trato a dos columnas, las decisiones del registro, la
+   tira de las cuatro semanas y la banda de resultados. Todo lo demás se
+   resuelve con el vocabulario que ya existe (.card, .stat, ul.bens, .tiles,
+   .grid, .med, .pill, .note, .ejebar); aquí abajo vive SOLO lo que ninguna
+   pieza del sistema resolvía.
+
+   Prefijo sp- porque estas reglas nacieron como el «subproyecto piloto» de las
+   láminas 28–32 de upgrade-edu y se portaron aquí tal cual, salvo la tira de
+   semanas: allá eran siete columnas de calendario con fechas, aquí son las
+   cuatro semanas de aula y el proceso completo vive en su propia lámina. */
+
+/* Hilo del bloque. Mismo componente que la barra de los cuatro ejes, pero con
+   CINCO tramos y rótulo propio: se lee como su propio hilo y nadie lo confunde
+   con los ejes del programa, que son cuatro y ya están todos vendidos. */
+.ejebar.sp-bar .seg{width:15px}
+.ejebar.sp-bar .seg.on{width:32px}
+
+/* ── 28 · la oferta en una línea ── */
+.sp1-h{font-size:82px;line-height:1;font-weight:500;letter-spacing:-3.6px}
+.sp1-figs .stat .n{font-size:74px;letter-spacing:-3.4px}
+/* La unidad va en la misma línea base pero a un tercio del cuerpo: «4 semanas»
+   entero a 74 px mediría ≈340 y la columna interior son 320. De paso deja a
+   «$0» como la única cifra sin cola — es la que tiene que pesar más. */
+.sp1-figs .nu{font-size:29px;font-weight:500;letter-spacing:-1.2px;color:var(--ink3);
+  margin-left:13px}
+.sp1-figs .stat .l{font-size:14px;line-height:1.35;margin-top:9px}
+/* El aro de carga del deck mide 96 px: hecho para una cifra de dos dígitos a
+   52 px. Aquí la cifra va a 74 px y la esquina del glifo cae en ≈58 px, así
+   que el aro sube a 150 para seguir pasando POR FUERA de los dígitos, que es
+   la condición que impone la normativa. Misma animación, mismas guardas. */
+.mv-anillo.sp-xl{width:150px;height:150px;margin:-75px 0 0 -75px}
+
+/* ── 29 · el trato ── */
+.sp2-gh .gi{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;flex-shrink:0}
+.sp2-gh .gi svg{width:15px;height:15px}
+.sp2-gh .gi.b{background:var(--blue-t)} .sp2-gh .gi.b svg{fill:var(--blue)}
+.sp2-gh .gi.n{background:var(--surf2)} .sp2-gh .gi.n svg{fill:var(--ink2)}
+/* Cada línea del trato con su icono: once viñetas redondas iguales no dicen
+   nada, y aquí cada renglón es una cosa distinta (equipos, cuentas, licencias,
+   horas). Calca la especificidad de ul.bens y gana por ir después. */
+ul.sp2-l li{padding-left:0;display:flex;align-items:flex-start;gap:9px}
+ul.sp2-l li::before{display:none}
+.sp2-l .li{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;
+  flex-shrink:0;margin-top:1px}
+.sp2-l .li svg{width:13px;height:13px}
+.sp2-l .li.b{background:rgba(255,255,255,.82)} .sp2-l .li.b svg{fill:var(--blue)}
+.sp2-l .li.n{background:var(--surf2)} .sp2-l .li.n svg{fill:var(--ink3)}
+.sp2-l .lt{min-width:0}
+/* La frase que desarma la objeción: es la única línea de la lámina que se lee
+   a distancia de proyector, y por eso va sola en su banda. */
+.sp2-eje{flex-direction:row;align-items:center;justify-content:center;gap:14px;
+  padding:14px 22px;border-radius:16px}
+.sp2-eje .ei{width:32px;height:32px;border-radius:11px;background:rgba(255,255,255,.75);
+  display:grid;place-items:center;flex-shrink:0}
+.sp2-eje .ei svg{width:19px;height:19px;fill:var(--blue)}
+.sp2-eje b{font-size:19px;line-height:1.28;font-weight:600;letter-spacing:-.4px;color:var(--ink)}
+.sp2-eje b em{font-style:normal;color:var(--blue-d)}
+/* dos variantes de la banda: la ámbar dice lo que NO pasa, la gris dice quién
+   hace la cosa. Misma caja, distinto peso de voz. */
+.sp2-eje.t-y .ei svg{fill:var(--yel-d)}
+.sp2-eje.soft{justify-content:flex-start}
+.sp2-eje.soft .ei{background:var(--surf2)}
+.sp2-eje.soft .ei svg{fill:var(--plum)}
+.sp2-eje.soft b{font-size:16px}
+.sp2-eje.soft b em{color:var(--plum)}
+.sp2-eje b em.marca{color:var(--ink)}
+
+/* ── 30 · tres decisiones y una capacitación ── */
+/* Medallón + rótulo de orden + nombre: el número solo no decía de qué iba
+   cada bloque, y el icono lo resuelve antes de leer el título. */
+.sp3-top{display:flex;align-items:center;gap:12px}
+.sp3-k{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:2px}
+.sp3-top h4{font-size:18px;letter-spacing:-.3px}
+.sp3-g .card{gap:9px;justify-content:flex-start}
+/* El cuarto bloque va sobre tarjeta amarilla: su medallón necesita fondo
+   blanco o se disuelve en el tinte de la tarjeta. */
+.sp3-g .card.t-y .med{background:rgba(255,255,255,.82)}
+.sp3-g .xs{font-size:12.5px}
+/* Los tres grados sugeridos: píldoras y no lista, para que se lean como
+   ejemplos y no como requisitos. */
+.sp3-gr{display:flex;flex-direction:column;gap:6px;margin-top:2px}
+.sp3-gr span{display:flex;align-items:baseline;gap:6px;background:var(--surf);border-radius:9px;
+  padding:6px 10px;font-size:12px;line-height:1.25;color:var(--ink2)}
+.sp3-gr span b{font-size:12.5px;color:var(--ink)}
+
+/* ── la ejecución · cuatro semanas de aula ── */
+/* Cuatro columnas iguales: ninguna semana manda sobre las otras y las cuatro
+   son la misma fase. Lo que las distingue es el MOMENTO, que va en el título
+   (arranque · desarrollo · desarrollo · cierre). Sin fechas: el deck es
+   genérico y el calendario se acuerda con cada colegio. */
+.sp4-tl{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.sp4-s{border-radius:16px;padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;
+  border-top:4px solid transparent}
+.sp4-s.eje{background:var(--grn-t);border-top-color:var(--grn-l)}
+.sp4-top{display:flex;align-items:center;gap:7px}
+.sp4-ic{width:30px;height:30px;border-radius:10px;background:rgba(255,255,255,.82);
+  display:grid;place-items:center;flex-shrink:0}
+.sp4-ic svg{width:17px;height:17px}
+.sp4-fec{font-size:12.5px;font-weight:800;letter-spacing:.2px;line-height:1.1;
+  font-variant-numeric:tabular-nums}
+.sp4-s.eje .sp4-fec{color:var(--grn-d)} .sp4-s.eje .sp4-ic svg{fill:var(--grn-d)}
+.sp4-h{font-size:15px;line-height:1.26;font-weight:600;letter-spacing:-.2px;color:var(--ink)}
+.sp4-d{font-size:12px;line-height:1.36;color:var(--ink2)}
+/* Las dos constantes que atraviesan el calendario entero: el coach cada semana
+   y las seis horas del docente. Van juntas en una banda porque contestan la
+   misma pregunta —«¿cuánto me cuesta esto en tiempo?»—. El punto la recorre en
+   cuatro tiempos, una parada por semana de aula. */
+.sp4-band{flex-direction:row;align-items:center;gap:20px;padding:13px 20px;border-radius:16px;
+  position:relative;overflow:hidden}
+.sp4-half{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.sp4-dv{width:1px;align-self:stretch;background:rgba(11,92,40,.18);flex-shrink:0}
+.sp4-ci{width:32px;height:32px;border-radius:11px;background:var(--white);
+  display:grid;place-items:center;flex-shrink:0}
+.sp4-ci svg{width:18px;height:18px;fill:var(--grn-d)}
+.sp4-ct{font-size:11.8px;line-height:1.32;color:var(--ink2)}
+.sp4-ct b{display:block;font-size:14px;letter-spacing:-.2px;color:var(--ink)}
+/* Opacidad 0 de base, igual que el aro de la cifra: con las guardas apagadas
+   —miniaturas, PDF, reducir movimiento— desaparece en vez de quedar clavado
+   como una raya suelta en la esquina de la banda. */
+.mv-coach{position:absolute;left:0;bottom:0;height:3px;width:14px;border-radius:99px;
+  opacity:0;background:var(--grn-l);animation:mv-coach 7.2s cubic-bezier(.4,0,.2,1) infinite}
+/* Cuatro paradas, una por semana, bajo el centro de cada columna de la tira:
+   con cuatro columnas de 281 y hueco de 12, los centros caen en 140 · 433 ·
+   726 · 1019, y el punto mide 14, así que su borde izquierdo va 7 antes.
+   Los valores del deck comercial (60/340/620/900) eran para siete columnas;
+   aquí caerían entre celdas y el punto no señalaría nada. */
+@keyframes mv-coach{
+  0%,6%{opacity:1;transform:translateX(133px)}
+  18%,30%{opacity:1;transform:translateX(426px)}
+  42%,54%{opacity:1;transform:translateX(719px)}
+  66%,94%{opacity:1;transform:translateX(1012px)}
+  100%{opacity:0;transform:translateX(1012px)}
+}
+.sp4-cap{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:800;
+  letter-spacing:1.5px;text-transform:uppercase}
+.sp4-cap svg{width:15px;height:15px;flex-shrink:0}
+.sp4-cap.b{color:var(--blue-d)} .sp4-cap.b svg{fill:var(--blue)}
+.sp4-cap.g{color:var(--grn-d)} .sp4-cap.g svg{fill:var(--grn-d)}
+
+/* ── 32 · qué se llevan ── */
+.sp5-g .card{gap:9px;justify-content:flex-start}
+.sp5-g h4{font-size:17px;letter-spacing:-.3px}
+.sp5-g .xs{font-size:12.5px;line-height:1.4}
+/* La banda del acompañamiento: los tres entregables de arriba son la prueba y
+   esto es a dónde llevan. Va en verde —el eje del acompañamiento— porque de
+   eso habla: de que no los soltamos a mitad del camino. Es la parte de la
+   lámina que tiene que emocionar, y por eso lleva los cuatro iconos. */
+.sp5-logros{gap:11px;padding:16px 22px;border-radius:18px}
+.sp5-lcap{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:800;
+  letter-spacing:1.3px;text-transform:uppercase;color:var(--grn-d)}
+.sp5-lcap svg{width:18px;height:18px;fill:var(--grn-d);flex-shrink:0}
+.sp5-lrow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.sp5-l{display:flex;align-items:center;gap:10px;min-width:0}
+.sp5-l .li{width:34px;height:34px;border-radius:12px;background:var(--white);
+  display:grid;place-items:center;flex-shrink:0}
+.sp5-l .li svg{width:19px;height:19px;fill:var(--grn-d)}
+.sp5-l .lt{font-size:11.8px;line-height:1.28;color:var(--ink2);min-width:0}
+.sp5-l .lt b{display:block;font-size:13px;letter-spacing:-.15px;color:var(--ink)}
+/* La frase que cierra el deck entero: la única a 29 px fuera de un titular. */
+.sp5-cita{padding:20px 34px;border-radius:20px;text-align:center}
+.sp5-cita b{font-size:28px;line-height:1.22;font-weight:500;letter-spacing:-1px;color:var(--ink)}
+.sp5-cita b em{font-style:normal;color:var(--blue)}
+
+/* ── el recorrido de seis pasos (lámina 3) ── */
+/* Seis tarjetas iguales en dos filas de tres: el piloto entero de un vistazo.
+   El número va de rótulo, no de título — lo que se lee primero es el nombre
+   del paso, y el medallón dice de qué va antes de leerlo. */
+.sp0-g{grid-template-columns:repeat(3,1fr);gap:14px}
+.sp0-g .card{gap:8px;justify-content:flex-start;padding:16px 18px}
+.sp0-top{display:flex;align-items:center;gap:11px}
+.sp0-k{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:2px}
+.sp0-top h4{font-size:17px;letter-spacing:-.3px}
+.sp0-g .xs{font-size:12px;line-height:1.38}
+/* La duración de cada paso, en la esquina: son semanas relativas, nunca fechas. */
+.sp0-k.y{color:var(--yel-d)}
+.sp0-w{align-self:flex-start;font-size:10.5px;font-weight:700;letter-spacing:.3px;
+  color:var(--ink3);background:var(--surf2);border-radius:99px;padding:3px 9px;margin-top:2px}
+
+/* ── portada ── */
+.p1-h1{font-size:72px;line-height:1.02;letter-spacing:-2.6px;margin-top:16px}
+.p1-cap{display:flex;align-items:center;gap:14px;margin-top:26px}
+.p1-cap span{font-size:11px;font-weight:800;letter-spacing:1.7px;text-transform:uppercase;
+  color:var(--ink3);white-space:nowrap}
+.p1-cap i{flex:1;height:1px;background:var(--line)}
+.p1-logos{display:flex;align-items:center;gap:22px}
+.p1-logos img{height:30px;width:auto}
+.p1-logos .sep{width:1px;height:28px;background:var(--line)}
+.p1-figs{display:flex;align-items:baseline;gap:34px;margin-top:24px}
+.p1-figs .f{display:flex;align-items:baseline;gap:9px;font-size:34px;font-weight:500;
+  letter-spacing:-1.4px;color:var(--ink)}
+.p1-figs .f em{font-style:normal;font-size:14px;font-weight:600;letter-spacing:0;color:var(--ink3)}
+.p1-figs .dot{width:5px;height:5px;border-radius:50%;background:var(--ink4);align-self:center}
+
+/* realce al pasar el cursor */
+#stage .slide.on .card,#stage .slide.on .tile{
+  transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s ease}
+#stage .slide.on .card:hover,#stage .slide.on .tile:hover{
+  transform:translateY(-2px);
+  box-shadow:0 2px 6px rgba(60,64,67,.10),0 14px 34px -12px rgba(60,64,67,.24),
+             0 0 0 2px var(--realce,var(--blue-l))}
+#stage .slide.on .card.t-r:hover,#stage .slide.on .tile.r:hover{--realce:var(--red-l)}
+#stage .slide.on .card.t-y:hover,#stage .slide.on .tile.y:hover{--realce:var(--yel-l)}
+#stage .slide.on .card.t-g:hover,#stage .slide.on .tile.g:hover{--realce:var(--grn-l)}
+#stage .slide.on .card.t-p:hover,#stage .slide.on .tile.p:hover{--realce:var(--plum-l)}
+#stage .slide.on .card.rule.r:hover{--realce:var(--red-l)}
+#stage .slide.on .card.rule.y:hover{--realce:var(--yel-l)}
+#stage .slide.on .card.rule.g:hover{--realce:var(--grn-l)}
+#stage .slide.on .card.rule.p:hover{--realce:var(--plum-l)}
+
+/* ═══════════ MOTOR COMPARTIDO (motion.js / motion.css) ═══════════
+   Ajustes locales sobre el motor de compartidos/. Este deck acompaña, no
+   vende: duraciones largas, amplitudes cortas y UNA cascada por lámina.
+   Todo lo que el motor esconde vive bajo html.mo-ready (regla 4 de
+   docs/normativa-motion.md): sin motion.js la página se ve completa y
+   quieta, porque las clases mo-stagger las pone el propio script. */
+#stage .slide{--mo-dur:.55s;--mo-subida:12px}
+/* La cascada entra por ANIMACIÓN y no por la transición de motion.css:
+   la regla del realce de arriba (#stage .slide.on .card/.tile) pisa esa
+   transición con la suya, y una transición no arranca en el mismo
+   recálculo en que la lámina pasa de display:none a visible. Lee el
+   --mo-delay que escribe Motion.stagger(). */
+@keyframes mv-cascada{
+  from{opacity:0;transform:translateY(var(--mo-subida))}
+  to{opacity:1;transform:none}
+}
+#stage .slide.on .mo-stagger > *.mo-in{
+  animation:mv-cascada var(--mo-dur) var(--mo-ease) var(--mo-delay) both}
+@media (prefers-reduced-motion:reduce){
+  #stage .slide.on .mo-stagger > *.mo-in{animation:none}
+}
+/* cinturón además del de motion.css: nada revelable en opacity:0 al
+   imprimir, aunque aquel archivo faltara */
+@media print{
+  #stage .mo-stagger > *{opacity:1!important;transform:none!important;animation:none!important}
+}
+
+
+
+/* reducir movimiento: TODO quieto, TODO visible.
+   Se nombran los pseudoelementos uno por uno: `animation:none` sobre el
+   elemento NO alcanza a su ::before ni a su ::after, y el hueco solo se
+   descubre con la hoja impresa en la mano. */
+@media (prefers-reduced-motion:reduce){
+  .slide.on,.slide.on > .head,.slide.on > .body,.slide.on > .split,
+  .slide.on > .inner,.slide.on > .foot{animation:none!important}
+  [class*="mv-"],[class*="mv-"]::before,[class*="mv-"]::after{
+    animation:none!important;transition:none!important}
+  /* el hilo de la barra salta a su sitio en vez de deslizarse */
+  #progress::before{transition:none!important}
+  #stage .slide.on .card:hover,#stage .slide.on .tile:hover{transform:none}
+}
+
+/* ═══════════ RESPONSIVE ═══════════
+   < 1024px: fuera el escalado uniforme; la lámina fluye en vertical con
+   tipografía fluida y composición a una columna. Solo pantalla: estas reglas
+   NO tocan la impresión. */
+@media screen and (max-width:1023px){
+  html,body{height:auto}
+  body{overflow:auto}
+  #stage{position:static;width:100%;height:auto;transform:none!important;
+    border-radius:0;box-shadow:none;overflow:visible}
+  .slide{position:relative;inset:auto;height:auto;min-height:100svh;
+    padding:58px 22px 96px;overflow:visible;overflow-x:clip}
+  .split > *,.grid > *,.stack > *,.body > *{min-width:0;max-width:100%}
+  .cover{padding:0}
+  .cover .inner{padding:64px 22px 96px}
+  h1{font-size:clamp(32px,8.4vw,52px);letter-spacing:-1.3px}
+  h2{font-size:clamp(25px,6.6vw,38px);letter-spacing:-.8px}
+  h3{font-size:clamp(18px,4.8vw,21px)}
+  .lead{font-size:clamp(16px,4.4vw,18px);max-width:none}
+  .split,.split.wide-l,.split.wide-r,.grid.g2,.grid.g3,.grid.g4,.grid.g5,
+  .sp0-g,.sp4-tl,.sp5-lrow{grid-template-columns:1fr!important}
+  .split{gap:18px}
+  .body{justify-content:flex-start}
+  .body > .grid:only-child{grid-auto-rows:auto}
+  .split > .grid{grid-auto-rows:auto}
+  .tw{overflow-x:auto}
+  .foot{flex-direction:column;align-items:flex-start;gap:12px}
+  .stat .n{font-size:clamp(36px,10vw,52px)}
+  .sp1-h{font-size:clamp(38px,10vw,82px);letter-spacing:-1.6px}
+  .sp1-figs .stat .n{font-size:clamp(44px,13vw,74px);letter-spacing:-2px}
+  .p1-h1{font-size:clamp(34px,8.8vw,72px);letter-spacing:-1.4px}
+  .p1-figs{flex-wrap:wrap;gap:16px}
+  /* la banda del coach se apila: el punto se posiciona en px sobre un ancho
+     de 1160 que en vertical ya no existe */
+  .sp4-band{flex-direction:column;align-items:flex-start;gap:14px}
+  .sp4-dv{display:none}
+  .mv-coach{display:none}
+  .sp2-eje{flex-direction:row}
+  .sp5-cita b{font-size:clamp(19px,5.4vw,28px);letter-spacing:-.5px}
+  .shape{display:none}
+  #hint{display:none}
+  #nav{right:12px;bottom:12px;background:rgba(32,33,36,.85);border-radius:99px;
+    padding:7px 14px;box-shadow:var(--sh2)}
+  #nav button{width:34px;height:34px}
+  #progress{background:rgba(32,33,36,.06)}
+}
+/* tableta: dos columnas donde tiene sentido */
+@media screen and (min-width:641px) and (max-width:1023px){
+  .grid.g2,.grid.g4,.sp0-g,.sp4-tl,.sp5-lrow{
+    grid-template-columns:repeat(2,1fr)!important}
+}
+
+/* ═══════════ IMPRESIÓN · una lámina por página, horizontal ═══════════ */
+@page{size:1280px 720px;margin:0}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{background:#fff;overflow:visible}
+  .chrome{display:none!important}
+  #stage{position:static;transform:none!important;width:1280px;height:auto;border-radius:0;
+    box-shadow:none;overflow:visible}
+  .slide{position:relative;display:flex!important;width:1280px;height:720px;
+    page-break-after:always;break-after:page;animation:none;overflow:hidden;
+    inset:auto;min-height:0;padding:46px 60px 30px}
+  .cover{padding:0}
+  .slide:last-child{page-break-after:auto}
+  .slide > *{animation:none!important}
+  /* La decoración ESTÁTICA sobrevive al papel: los círculos de fondo y los
+     subrayados a mano quedan congelados en su estado final, que es el estado
+     terminado. Lo que SOLO existe en movimiento —el aro de la cifra y el punto
+     del coach— tiene base opacity:0 y desaparece solo. */
+  [class*="mv-"],[class*="mv-"]::before,[class*="mv-"]::after{animation:none!important}
+  /* Motion.follow escribe transform en línea; al papel no llega ninguno */
+  .shape{transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="stage">
+
+<!-- ═════════ 1 · PORTADA ═════════ -->
+<!--
+La portada dice QUÉ es y para quién, y nada más. Las tres cifras del piloto
+—4 semanas · 1 salón · $0— viven en la lámina 2 y solo ahí: una cifra que el
+director va a comparar se enseña UNA vez, o deja de pesar.
+MOVIMIENTO: el subrayado a mano bajo «Piloto», en verde. Estado base = trazo
+completo, así que llega entero al PDF.
+-->
+<section class="slide cover" data-bloque="apertura">
+  <span class="shape" style="width:560px;height:560px;right:-215px;top:-230px;background:var(--blue-t)"></span>
+  <span class="shape" style="width:300px;height:300px;left:-150px;bottom:-165px;background:var(--grn-t)"></span>
+  <div class="inner">
+    <div class="p1-logos">
+      <img src="../../compartidos/img/marcas/activa.webp" alt="activa" style="height:32px">
+      <span class="sep"></span>
+      <img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner">
+    </div>
+    <h1 class="p1-h1">Proyecto <span class="mv-r">Piloto<svg class="mv-sub" viewBox="0 0 200 11"
+      preserveAspectRatio="none" aria-hidden="true" style="--c:#34a853"><path class="mv-traza"
+      pathLength="100" d="M3 6.4C36 3 72 8.6 108 5.4 140 2.6 169 4.4 197 8"/></svg></span></h1>
+    <p class="lead" style="max-width:660px;margin-top:26px">Prueben el programa completo con un grupo real de su colegio.
+      Al final, ustedes deciden con evidencia propia.</p>
+    <div class="p1-cap"><span>Seis pasos · del registro a la entrega de resultados</span><i></i></div>
+  </div>
+</section>
+
+<!-- ═════════ 2 · LA OFERTA ═════════ -->
+<!--
+CUENTA DE ALTURAS (escenario 720 · padding 46/30 = 644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + sp1-h 82 + gap 12 + lead 26 = 144 + margen 20 → 164
+· foot: pill 25 + margen 18 → 43 · body disponible: 644 − 164 − 43 = 437
+  rejilla g3: card pad 52 + medallón 38 + gap 11 + n 74 + mt 9 + l 2 líneas 38 = 222
+· TOTAL ≈ 164 + 222 + 43 = 429 ≤ 644 — sobra aire, y sobra a propósito: la
+  lámina existe para que «$0» sea lo primero que el ojo toque.
+ANCHO: columna g3 = (1160 − 32)/3 = 376 · interior 320.
+  «4» a 74 + «semanas» a 29 ≈ 43 + 13 + 108 = 164 ✓ · el aro de $0 mide 150 ✓
+MOVIMIENTO: el aro de carga de Google rodea «$0» y se abre para dejarla sola;
+  la cifra no se toca (normativa). Las tres tarjetas entran en cascada.
+-->
+<section class="slide" data-bloque="oferta">
+  <span class="shape" style="width:520px;height:520px;right:-200px;top:-200px;background:var(--grn-t)"></span>
+  <span class="shape" style="width:230px;height:230px;left:-125px;bottom:-125px;background:var(--blue-t)"></span>
+  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow g">La oferta</div>
+    <h2 class="sp1-h">Sin costo</h2>
+    <p class="lead" style="max-width:720px">Equipos, licencias, capacitación y acompañamiento incluidos, de principio a fin.</p>
+  </div>
+  <div class="body">
+    <!-- La rejilla va envuelta a propósito: `.body > .grid:only-child` la
+         estiraría al alto del cuerpo y las tres cifras quedarían flotando
+         en tarjetas de 400. Aquí manda el contenido. -->
+    <div class="stack" style="justify-content:center">
+      <div class="grid g3 sp1-figs">
+        <div class="card rule b lift">
+          <div class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg></div>
+          <div class="stat">
+            <div class="n b">4<span class="nu">semanas</span></div>
+            <div class="l">de clase con el grupo, dentro de su propio calendario</div></div></div>
+        <div class="card rule y lift">
+          <div class="med sm y"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91zM4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58C.48 14.9 0 15.62 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29zM20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4 3.43c0-.81-.48-1.53-1.22-1.85-.85-.37-1.79-.58-2.78-.58-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24v-1.57zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg></div>
+          <div class="stat">
+            <div class="n y">1<span class="nu">salón</span></div>
+            <div class="l">un solo grupo, con su docente al frente</div></div></div>
+        <!-- La cifra que decide la junta: va sola, sin unidad que le reste peso,
+             y es la única de las tres que lleva el aro de carga. -->
+        <div class="card rule g lift">
+          <div class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.5 6.9c1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-.53.12-1.03.3-1.48.54l1.47 1.47c.41-.17.91-.27 1.51-.27zM5.33 4.06L4.06 5.33 7.5 8.77c0 2.08 1.56 3.21 3.91 3.91l3.51 3.51c-.34.48-1.05.91-2.42.91-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c.96-.18 1.82-.55 2.45-1.12l2.22 2.22 1.27-1.27L5.33 4.06z"/></svg></div>
+          <div class="stat">
+            <div class="n g"><span class="mv-cifra">$0<span class="mv-anillo sp-xl" aria-hidden="true"><i></i></span></span></div>
+            <div class="l s03-l">de costo para el colegio, de principio a fin</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <span class="pill ghost">Sin contrato · sin anticipo · sin permanencia</span>
+    <p class="sm">Al final, <b>ustedes deciden con evidencia propia.</b></p>
+  </div>
+</section>
+
+<!-- ═════════ 3 · EL RECORRIDO ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 48 + gap 8 + lead 26 = 106 + margen 20 → 126
+· foot: pill 25 + margen 18 → 43 · body disponible: 644 − 126 − 43 = 475
+  rejilla 3×2 (gap 14 → columna 377, interior 341):
+    tarjeta: pad 32 + fila medallón 38 + gap 8 + xs 2 líneas 33 + gap 8 + w 20 = 139
+  BODY ≈ 139 + 14 + 139 = 292 ≤ 475 ✓ — sobra aire a propósito: son seis pasos,
+  no un proceso de admisión.
+· TOTAL ≈ 126 + 292 + 43 = 461 ≤ 644 ✓
+SIN FECHAS: la duración va en semanas relativas. Las fechas exactas se acuerdan
+  con la coordinación del colegio en la reunión inicial (paso 2).
+-->
+<section class="slide" data-bloque="proceso">
+  <span class="shape" style="width:470px;height:470px;right:-205px;top:-195px;background:var(--blue-t)"></span>
+  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow b">El recorrido completo</div>
+    <h2>Seis pasos, siete semanas</h2>
+    <p class="lead" style="max-width:800px">Una semana de preparación, cuatro de clase, una de evaluación y una de cierre.</p>
+  </div>
+  <div class="body">
+    <div class="stack" style="justify-content:center">
+      <div class="grid sp0-g" style="flex:0 0 auto">
+
+        <div class="card rule b lift">
+          <div class="sp0-top"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></span>
+            <div><div class="sp0-k">Paso 1</div><h4>Registro</h4></div></div>
+          <div class="xs">El formulario donde el colegio decide grupo, docente y proyecto, y deja los datos de envío.</div>
+          <span class="sp0-w">Antes de arrancar</span>
+        </div>
+
+        <div class="card rule b lift">
+          <div class="sp0-top"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11c1.66 0 3-1.34 3-3S10.66 5 9 5 6 6.34 6 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm7.5-8.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5S15 8.83 15 8s.67-1.5 1.5-1.5zm0 5c-.35 0-.69.03-1.02.08 1.02.71 1.52 1.63 1.52 2.42V19h5v-2.5c0-2.33-3.17-3.5-5.5-3.5z"/></svg></span>
+            <div><div class="sp0-k">Paso 2</div><h4>Reunión inicial</h4></div></div>
+          <div class="xs">Se confirma lo registrado y se aprueba el plan de proyecto, en conjunto con la coordinación.</div>
+          <span class="sp0-w">Antes de arrancar</span>
+        </div>
+
+        <div class="card rule y lift">
+          <div class="sp0-top"><span class="med sm y"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></span>
+            <div><div class="sp0-k y">Paso 3</div><h4>Preparación</h4></div></div>
+          <div class="xs">Dos horas de capacitación del docente y la entrega de los Chromebooks en el plantel.</div>
+          <span class="sp0-w">Semana previa</span>
+        </div>
+
+        <div class="card rule g lift">
+          <div class="sp0-top"><span class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></span>
+            <div><div class="sp0-k">Paso 4</div><h4>Ejecución</h4></div></div>
+          <div class="xs">El grupo trabaja el proyecto en clase, con una hora semanal de acompañamiento del coach.</div>
+          <span class="sp0-w">Semanas 1 a 4</span>
+        </div>
+
+        <div class="card rule p lift">
+          <div class="sp0-top"><span class="med sm p"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg></span>
+            <div><div class="sp0-k">Paso 5</div><h4>Evaluación</h4></div></div>
+          <div class="xs">El coach y el docente evalúan juntos el pilotaje, con un instrumento propio de <em class="marca">activa</em>.</div>
+          <span class="sp0-w">Semana 5</span>
+        </div>
+
+        <div class="card rule r lift">
+          <div class="sp0-top"><span class="med sm r"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 5.18L10.59 16.6l-4.24-4.24 1.41-1.41 2.83 2.83 10-10L22 5.18zm-2.21 5.04c.13.57.21 1.17.21 1.78 0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8c1.58 0 3.04.46 4.28 1.25l1.44-1.44C16.1 2.67 14.13 2 12 2 6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10c0-1.19-.22-2.33-.6-3.39l-1.61 1.61z"/></svg></span>
+            <div><div class="sp0-k">Paso 6</div><h4>Cierre</h4></div></div>
+          <div class="xs">Reunión de entrega de resultados con dirección, reporte por escrito y recolección de equipos.</div>
+          <span class="sp0-w">Semana 6</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <span class="pill b">Siete semanas consecutivas</span>
+    <p class="sm">El colegio acomoda cada hito <b>dentro de su propia semana</b>.</p>
+  </div>
+</section>
+
+<!-- ═════════ 4 · PASO 1 · REGISTRO ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 48 + gap 8 + lead 26 = 106 + margen 20 → 126
+· foot: ejebar 15 (+ línea sm 20 a la derecha) + margen 18 → 38
+· body disponible: 644 − 126 − 38 = 480
+  fila 1 · g3 (columna 376, interior 320) — la más alta es «El grupo»:
+    pad 52 + sp3-top 38 + gap 9 + xs 3 líneas 55 + gap 9 + sp3-gr (3×28 + 2×6 = 96) = 250
+  + gap 14
+  fila 2 · g2 (columna 572, interior 516):
+    pad 52 + sp3-top 38 + gap 9 + xs 2 líneas 37 = 136
+  BODY ≈ 250 + 14 + 136 = 400 ≤ 480 ✓
+· TOTAL ≈ 126 + 400 + 38 = 564 ≤ 644 ✓
+COLOR: las tres decisiones del colegio van en azul; la logística —cuántos y a
+  dónde— va en gris, porque no es una decisión sino un dato.
+NO HAY FORMULARIO EN EL DECK: esta lámina explica qué se pide. El formulario
+  vive fuera y se manda aparte; aquí no hay un solo <input>.
+-->
+<section class="slide" data-bloque="registro">
+  <span class="shape" style="width:440px;height:440px;right:-185px;top:-175px;background:var(--blue-t)"></span>
+  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow b">Paso 1 · Registro</div>
+    <h2>Tres decisiones y dos datos</h2>
+    <p class="lead" style="max-width:780px">Todo lo que pide el formulario, y por qué se pide.</p>
+  </div>
+  <div class="body">
+    <div class="stack" style="gap:14px;justify-content:center">
+
+      <div class="grid g3 sp3-g" style="flex:0 0 auto">
+        <div class="card rule b lift">
+          <div class="sp3-top"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91zM4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58C.48 14.9 0 15.62 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29zM20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4 3.43c0-.81-.48-1.53-1.22-1.85-.85-.37-1.79-.58-2.78-.58-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24v-1.57zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg></span>
+            <div><div class="sp3-k">Decisión 1</div><h4>El grupo</h4></div></div>
+          <div class="xs">Elijan la sección donde quieran probarlo. Por experiencia, estos son los grupos que mejor responden:</div>
+          <div class="sp3-gr">
+            <span><b>Primaria</b>5.º grado</span>
+            <span><b>Secundaria</b>2.º grado</span>
+            <span><b>Bachillerato</b>1.º grado</span>
+          </div>
+        </div>
+
+        <div class="card rule b lift">
+          <div class="sp3-top"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+            <div><div class="sp3-k">Decisión 2</div><h4>El docente</h4></div></div>
+          <div class="xs">Un maestro que dirija el proyecto. <b>No necesita experiencia previa con tecnología:</b> para eso está la capacitación.</div>
+          <div class="xs" style="color:var(--ink3);font-size:11.5px">Se piden su nombre, su correo y su celular: es la vía directa del coach con él.</div>
+        </div>
+
+        <div class="card rule b lift">
+          <div class="sp3-top"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg></span>
+            <div><div class="sp3-k">Decisión 3</div><h4>El proyecto</h4></div></div>
+          <div class="xs">Les presentamos <b>6 opciones</b> y ustedes eligen la que mejor embone con su plan de estudios.</div>
+          <div class="xs" style="color:var(--ink3);font-size:11.5px">La elección del formulario es una preferencia: se confirma en la reunión inicial.</div>
+        </div>
+      </div>
+
+      <div class="grid g2" style="flex:0 0 auto;gap:14px">
+        <div class="card soft">
+          <div class="sp3-top"><span class="med sm n" style="background:var(--surf2)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11c1.66 0 3-1.34 3-3S10.66 5 9 5 6 6.34 6 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm7.5-8.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5S15 8.83 15 8s.67-1.5 1.5-1.5zm0 5c-.35 0-.69.03-1.02.08 1.02.71 1.52 1.63 1.52 2.42V19h5v-2.5c0-2.33-3.17-3.5-5.5-3.5z"/></svg></span>
+            <div><div class="sp3-k">Dato 1</div><h4>Cuántos son</h4></div></div>
+          <div class="xs">Número de alumnos del grupo y número de docentes que participan. De ahí sale <b>cuántos Chromebooks y cuántas cuentas</b> se preparan.</div>
+        </div>
+        <div class="card soft">
+          <div class="sp3-top"><span class="med sm n" style="background:var(--surf2)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm0 2.7L17 10v8h-2v-6H9v6H7v-8l5-4.3z"/></svg></span>
+            <div><div class="sp3-k">Dato 2</div><h4>A dónde se envían</h4></div></div>
+          <div class="xs">Domicilio completo del plantel, con <b>quién recibe los equipos y su teléfono</b>. Es la misma dirección de la que se recogen al cierre.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="foot">
+    <div class="ejebar sp-bar"><span class="seg on b"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><em>Paso 1 de 6 · registro</em></div>
+    <p class="sm">Sin el formulario no se agenda la reunión inicial: <b>es el que dispara todo lo demás.</b></p>
+  </div>
+</section>
+
+<!-- ═════════ 5 · PASO 2 · REUNIÓN INICIAL ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 48 + gap 8 + lead 26 = 106 + margen 20 → 126
+· foot: ejebar 15 + margen 18 → 38 · body disponible: 644 − 126 − 38 = 480
+  fila 1 · g3 de .card.pad-s: pad 40 + med sm 38 + gap 11 + h4 21 + gap 4 + xs 2 líneas 37 = 151
+  + gap 14
+  fila 2 · .card.t-b: pad 52 + gh 26 + gap 11 + 3 renglones sp2-l (3×40 + 2×5 = 130) = 219
+  BODY ≈ 151 + 14 + 219 = 384 ≤ 480 ✓
+· TOTAL ≈ 126 + 384 + 38 = 548 ≤ 644 ✓
+POR QUÉ TRES SILLAS ARRIBA: la primera pregunta del director no es qué se habla,
+  es a quién tiene que sentar. Eso va primero y en tarjetas iguales.
+-->
+<section class="slide" data-bloque="registro">
+  <span class="shape" style="width:460px;height:460px;left:-200px;bottom:-190px;background:var(--blue-t)"></span>
+  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow b">Paso 2 · Reunión inicial</div>
+    <h2>Una sesión y el plan queda aprobado</h2>
+    <p class="lead" style="max-width:800px">Antes de que llegue un solo equipo al colegio.</p>
+  </div>
+  <div class="body">
+    <div class="stack" style="gap:14px;justify-content:center">
+
+      <div class="grid g3" style="flex:0 0 auto;gap:14px">
+        <div class="card pad-s lift" style="gap:11px;justify-content:flex-start">
+          <div class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm0 2.7L17 10v8h-2v-6H9v6H7v-8l5-4.3z"/></svg></div>
+          <h4>Dirección o coordinación</h4>
+          <div class="xs">Quien decide por el colegio y quien acomoda el calendario.</div>
+        </div>
+        <div class="card pad-s lift" style="gap:11px;justify-content:flex-start">
+          <div class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+          <h4>El docente elegido</h4>
+          <div class="xs">Escucha el plan desde el principio: va a ser quien lo lleve al aula.</div>
+        </div>
+        <div class="card pad-s lift" style="gap:11px;justify-content:flex-start">
+          <div class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.44-.72c-.37-.08-.76.04-1.02.31l-.75.76 4.42 4.42c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.7-4.91c.09-.63-.23-1.25-.8-1.53z"/></svg></div>
+          <h4>El coach de <em class="marca">activa</em></h4>
+          <div class="xs">Certificado en <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> for Education. El mismo que acompaña las cuatro semanas.</div>
+        </div>
+      </div>
+
+      <div class="card t-b lift" style="flex:0 0 auto;gap:11px;justify-content:flex-start">
+        <div class="grupo"><div class="gh sp2-gh">
+          <span class="gi b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 5.18L10.59 16.6l-4.24-4.24 1.41-1.41 2.83 2.83 10-10L22 5.18zm-2.21 5.04c.13.57.21 1.17.21 1.78 0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8c1.58 0 3.04.46 4.28 1.25l1.44-1.44C16.1 2.67 14.13 2 12 2 6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10c0-1.19-.22-2.33-.6-3.39l-1.61 1.61z"/></svg></span>
+          <span class="gt b">qué sale de esa sesión</span><span class="gline"></span>
+        </div></div>
+        <ul class="bens b tight sp2-l">
+          <li><span class="li b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 5.18L10.59 16.6l-4.24-4.24 1.41-1.41 2.83 2.83 10-10L22 5.18zm-2.21 5.04c.13.57.21 1.17.21 1.78 0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8c1.58 0 3.04.46 4.28 1.25l1.44-1.44C16.1 2.67 14.13 2 12 2 6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10c0-1.19-.22-2.33-.6-3.39l-1.61 1.61z"/></svg></span><span class="lt"><b>Se confirma lo registrado</b>El grupo y su número de alumnos, el docente responsable y el proyecto elegido</span></li>
+          <li><span class="li b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></span><span class="lt"><b>Se aprueba el plan de proyecto</b>En conjunto entre la coordinación del colegio y el coach: cómo embona con el plan de estudios y qué van a entregar los alumnos</span></li>
+          <li><span class="li b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg></span><span class="lt"><b>Se agendan todas las fechas</b>La capacitación, la entrega de equipos, el día y la hora de la sesión semanal con el coach, y la reunión de entrega de resultados</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  <div class="foot">
+    <div class="ejebar sp-bar"><span class="seg"></span><span class="seg on b"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><em>Paso 2 de 6 · reunión inicial</em></div>
+    <p class="sm">El piloto se adapta a su ciclo escolar, <b>no al revés</b>.</p>
+  </div>
+</section>
+
+<!-- ═════════ 6 · PASO 3 · PREPARACIÓN ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 48 + gap 8 + lead 26 = 106 + margen 20 → 126
+· foot: ejebar 15 + margen 18 → 38 · body disponible: 644 − 126 − 38 = 480
+  g2 gap 16 → columnas 572 · interior 516
+    IZQ: pad 52 + med 52 + gap 11 + h4 21 + gap 11 + xs 4 líneas 74 + gap 11 + pill 25 = 257
+    DER: pad 52 + med 52 + gap 11 + h4 21 + gap 11 + 3 renglones sp2-l 130 = 277 → ambas 277
+  + gap 14 + .note.b 2 líneas 60
+  BODY ≈ 277 + 14 + 60 = 351 ≤ 480 ✓
+· TOTAL ≈ 126 + 351 + 38 = 515 ≤ 644 ✓
+G2 Y NO SPLIT: así la cascada del motor recoge la rejilla con el selector que
+  ya existe, sin tocar el JS.
+-->
+<section class="slide" data-bloque="preparacion">
+  <span class="shape" style="width:450px;height:450px;right:-190px;top:-180px;background:var(--yel-t)"></span>
+  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow y">Paso 3 · Preparación</div>
+    <h2>La semana previa al aula</h2>
+    <p class="lead" style="max-width:800px">Se capacita al docente y llegan los equipos. Todo a cargo de <em class="marca">activa</em>.</p>
+  </div>
+  <div class="body">
+    <div class="stack" style="gap:14px;justify-content:center">
+
+      <div class="grid g2" style="flex:0 0 auto">
+        <div class="card rule y t-y lift" style="gap:11px;justify-content:flex-start">
+          <div class="med y"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></div>
+          <h4>Capacitación del docente</h4>
+          <div class="xs"><b>2 horas</b> con un coach certificado en <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> for Education, antes de la primera clase. Cubre el manejo de los Chromebooks, las herramientas que va a usar el grupo y el plan del proyecto paso a paso.</div>
+          <span class="pill y">2 de las 6 horas del docente</span>
+        </div>
+        <div class="card rule b lift" style="gap:11px;justify-content:flex-start">
+          <div class="med b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
+          <h4>Entrega de equipos y cuentas</h4>
+          <ul class="bens b tight sp2-l">
+            <li><span class="li n"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg></span><span class="lt"><b>Los Chromebooks llegan al plantel</b>Uno por alumno del grupo y uno para el docente</span></li>
+            <li><span class="li n"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg></span><span class="lt"><b>Se crean y se prueban las cuentas</b>Institucionales: una para cada estudiante y una para el docente</span></li>
+            <li><span class="li n"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></span><span class="lt"><b>Se activan las licencias</b>Workspace para Educación, la licencia de seguridad y Canva para Educación</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note b" style="flex:0 0 auto">El colegio solo señala <b>dónde se resguardan y se cargan los equipos</b> dentro del plantel. No hace falta aula, instalación ni personal de soporte.</div>
+
+    </div>
+  </div>
+  <div class="foot">
+    <div class="ejebar sp-bar"><span class="seg"></span><span class="seg"></span><span class="seg on y"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><em>Paso 3 de 6 · preparación</em></div>
+    <p class="sm">Al terminar la semana, el grupo puede empezar <b>el primer día de clase</b>.</p>
+  </div>
+</section>
+
+<!-- ═════════ 7 · PASO 4 · EJECUCIÓN ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 48 + gap 8 + lead 26 = 106 + margen 20 → 126
+· foot: ejebar 15 + margen 18 → 38 · body disponible: 644 − 126 − 38 = 480
+  tira sp4-tl: borde 4 + pad 34 + fila icono 30 + gap 8 + título 1 línea 19 + gap 8
+    + detalle 3 líneas 49 = 152
+  + gap 14 + banda del coach (pad 26 + max(icono 32, b 19 + d 16 = 35) = 61) = 75
+  + gap 14 + nota 2 líneas 60 = 74
+  BODY ≈ 152 + 14 + 61 + 14 + 60 = 301 ≤ 480 ✓
+· TOTAL ≈ 126 + 301 + 38 = 465 ≤ 644 ✓
+ANCHO: 4 columnas con 3 huecos de 12 → (1160 − 36)/4 = 281 · interior 259.
+PESO: las cuatro semanas miden y pesan igual — son cuatro semanas consecutivas
+  de la misma fase, ninguna manda. Lo que las distingue es el MOMENTO, y va en
+  el título: arranque · desarrollo · desarrollo · cierre.
+MOVIMIENTO: un punto recorre la banda del coach en cuatro tiempos, una parada
+  por semana, y descansa. Única animación focal de la lámina.
+-->
+<section class="slide" data-bloque="ejecucion">
+  <span class="shape" style="width:430px;height:430px;right:-215px;top:-205px;background:var(--grn-t)"></span>
+  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow g">Paso 4 · Ejecución</div>
+    <h2>Cuatro semanas en el aula</h2>
+    <p class="lead" style="max-width:840px">En el salón donde ya trabajan y dentro de su horario normal. No se mueve nada del ciclo escolar.</p>
+  </div>
+  <div class="body">
+    <div class="stack" style="gap:14px;justify-content:center">
+
+      <div class="sp4-tl" style="flex:0 0 auto">
+        <div class="sp4-s eje">
+          <div class="sp4-top"><span class="sp4-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.58 8 8-3.59 8-8 8z"/></svg></span><span class="sp4-fec">Semana 1</span></div>
+          <div class="sp4-h">Arranque</div>
+          <div class="sp4-d">Los alumnos reciben sus cuentas y sus equipos, y el docente les presenta el proyecto.</div></div>
+        <div class="sp4-s eje">
+          <div class="sp4-top"><span class="sp4-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></span><span class="sp4-fec">Semana 2</span></div>
+          <div class="sp4-h">Desarrollo</div>
+          <div class="sp4-d">Los alumnos trabajan el proyecto en clase, con el docente al frente.</div></div>
+        <div class="sp4-s eje">
+          <div class="sp4-top"><span class="sp4-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg></span><span class="sp4-fec">Semana 3</span></div>
+          <div class="sp4-h">Desarrollo</div>
+          <div class="sp4-d">Continúa el trabajo en clase, con los alumnos ya sueltos en las herramientas.</div></div>
+        <div class="sp4-s eje">
+          <div class="sp4-top"><span class="sp4-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0 0 11 15.9V19H7v2h10v-2h-4v-3.1a5.01 5.01 0 0 0 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg></span><span class="sp4-fec">Semana 4</span></div>
+          <div class="sp4-h">Cierre del proyecto</div>
+          <div class="sp4-d">Entrega final del producto que hicieron los alumnos.</div></div>
+      </div>
+
+      <!-- Las dos constantes: el coach cada semana y las horas del docente -->
+      <div class="card t-g sp4-band" style="flex:0 0 auto">
+        <div class="sp4-half">
+          <span class="sp4-ci"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.44-.72c-.37-.08-.76.04-1.02.31l-.75.76 4.42 4.42c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.7-4.91c.09-.63-.23-1.25-.8-1.53z"/></svg></span>
+          <div class="sp4-ct"><b>1 hora semanal con su coach</b>Las cuatro semanas, sin excepción.</div>
+        </div>
+        <span class="sp4-dv"></span>
+        <div class="sp4-half">
+          <span class="sp4-ci"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></span>
+          <div class="sp4-ct"><b>Seis horas del docente en total</b>Capacitación incluida, repartidas en cinco semanas.</div>
+        </div>
+        <span class="mv-coach" aria-hidden="true"></span>
+      </div>
+
+      <div class="note g" style="flex:0 0 auto">Los equipos <b>se quedan en el colegio</b> y el grupo trabaja en su propio salón. No hace falta aula ni equipo adicional.</div>
+
+    </div>
+  </div>
+  <div class="foot">
+    <div class="ejebar sp-bar"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg on g"></span><span class="seg"></span><span class="seg"></span><em>Paso 4 de 6 · ejecución</em></div>
+    <p class="sm">Las fechas de cada actividad se acuerdan con la coordinación <b>dentro de cada semana</b>.</p>
+  </div>
+</section>
+
+<!-- ═════════ 8 · PASO 5 · EVALUACIÓN ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 48 + gap 8 + lead 26 = 106 + margen 20 → 126
+· foot: ejebar 15 + margen 18 → 38 · body disponible: 644 − 126 − 38 = 480
+  banda de la negación (pad 28 + max(icono 32, línea 25) = 32) = 60
+  + gap 14 + g3 (376/320): pad 52 + med sm 38 + gap 9 + h4 21 + gap 9 + xs 3 líneas 55 = 184
+  + gap 14 + tarjeta de quién la aplica (pad 40 + fila med sm 38) = 78
+  BODY ≈ 60 + 14 + 184 + 14 + 78 = 350 ≤ 480 ✓
+· TOTAL ≈ 126 + 350 + 38 = 514 ≤ 644 ✓
+LA NEGACIÓN VA ARRIBA Y NO EN LETRA CHICA: «no hay examen ni diagnóstico
+  previo» es lo primero que el director necesita oír, y esconderlo es lo único
+  que rompería la lámina. Va en la banda ámbar, el único cambio de color.
+-->
+<section class="slide" data-bloque="evaluacion">
+  <span class="shape" style="width:440px;height:440px;left:-195px;bottom:-185px;background:var(--plum-t)"></span>
+  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow p">Paso 5 · Evaluación</div>
+    <h2>La semana 5 se mide el pilotaje</h2>
+    <p class="lead" style="max-width:820px">Lo que se evalúa es cómo funcionó el piloto, con los datos que el propio grupo generó.</p>
+  </div>
+  <div class="body">
+    <div class="stack" style="gap:14px;justify-content:center">
+
+      <div class="card t-y sp2-eje" style="flex:0 0 auto">
+        <span class="ei"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.5 6.9c1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-.53.12-1.03.3-1.48.54l1.47 1.47c.41-.17.91-.27 1.51-.27zM5.33 4.06L4.06 5.33 7.5 8.77c0 2.08 1.56 3.21 3.91 3.91l3.51 3.51c-.34.48-1.05.91-2.42.91-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c.96-.18 1.82-.55 2.45-1.12l2.22 2.22 1.27-1.27L5.33 4.06z"/></svg></span>
+        <b>No hay diagnóstico previo <em>ni examen para los alumnos</em>.</b>
+      </div>
+
+      <div class="grid g3 sp5-g" style="flex:0 0 auto">
+        <div class="card lift" style="justify-content:flex-start">
+          <div class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91zM4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58C.48 14.9 0 15.62 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29zM20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4 3.43c0-.81-.48-1.53-1.22-1.85-.85-.37-1.79-.58-2.78-.58-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24v-1.57zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg></div>
+          <h4>Participación de los estudiantes</h4>
+          <div class="xs">Qué tanto se involucró el grupo en el proyecto a lo largo de las cuatro semanas.</div>
+        </div>
+        <div class="card lift" style="justify-content:flex-start">
+          <div class="med sm r"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg></div>
+          <h4>Adopción del docente</h4>
+          <div class="xs">Si el docente llegó a trabajar con las herramientas en su clase, y con qué frecuencia.</div>
+        </div>
+        <div class="card lift" style="justify-content:flex-start">
+          <div class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0 0 11 15.9V19H7v2h10v-2h-4v-3.1a5.01 5.01 0 0 0 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg></div>
+          <h4>Producto final de los alumnos</h4>
+          <div class="xs">Qué produjo el grupo al cerrar el proyecto, y cómo llegó a producirlo.</div>
+        </div>
+      </div>
+
+      <div class="card soft sp2-eje" style="flex:0 0 auto">
+        <span class="ei"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></span>
+        <b>La aplican <em>el coach y el docente juntos</em>, con un instrumento propio de <em class="marca">activa</em>.</b>
+      </div>
+
+    </div>
+  </div>
+  <div class="foot">
+    <div class="ejebar sp-bar"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg on p"></span><span class="seg"></span><em>Paso 5 de 6 · evaluación</em></div>
+    <p class="sm">Al terminar la semana, los resultados quedan levantados y ordenados.</p>
+  </div>
+</section>
+
+<!-- ═════════ 9 · PASO 6 · CIERRE ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 48 + gap 8 + lead 26 = 106 + margen 20 → 126
+· foot: ejebar 15 + margen 18 → 38 · body disponible: 644 − 126 − 38 = 480
+  g3 (376/320): pad 52 + med sm 38 + gap 9 + h4 21 + gap 9 + xs 3 líneas 55 = 184
+  + gap 14 + banda de la decisión (pad 32 + cap 16 + gap 11 + xs 2 líneas 37) = 96
+  BODY ≈ 184 + 14 + 96 = 294 ≤ 480 ✓
+· TOTAL ≈ 126 + 294 + 38 = 458 ≤ 644 ✓
+EL REPORTE VA EN MEDIO Y CON SU PROPIA FRASE: es lo único de esta lámina que el
+  colegio se queda para siempre, y es la prueba de que el piloto no es una
+  demostración a puerta cerrada.
+-->
+<section class="slide" data-bloque="cierre-p">
+  <span class="shape" style="width:470px;height:470px;right:-200px;top:-190px;background:var(--red-t)"></span>
+  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow r">Paso 6 · Cierre</div>
+    <h2>Se entregan los resultados y ustedes deciden</h2>
+    <p class="lead" style="max-width:820px">La última semana del piloto. Tres cosas ocurren, y ninguna depende de que continúen.</p>
+  </div>
+  <div class="body">
+    <div class="stack" style="gap:14px;justify-content:center">
+
+      <div class="grid g3 sp5-g" style="flex:0 0 auto">
+        <div class="card rule r lift" style="justify-content:flex-start">
+          <div class="med sm r"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11c1.66 0 3-1.34 3-3S10.66 5 9 5 6 6.34 6 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm7.5-8.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5S15 8.83 15 8s.67-1.5 1.5-1.5zm0 5c-.35 0-.69.03-1.02.08 1.02.71 1.52 1.63 1.52 2.42V19h5v-2.5c0-2.33-3.17-3.5-5.5-3.5z"/></svg></div>
+          <h4>Reunión de entrega</h4>
+          <div class="xs">Sesión con dirección y coordinación para revisar los hallazgos del piloto, uno por uno.</div>
+        </div>
+        <div class="card rule r lift" style="justify-content:flex-start">
+          <div class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></div>
+          <h4>Reporte por escrito</h4>
+          <div class="xs">Los resultados se entregan documentados. <b>El reporte es del colegio: se entrega continúe o no el programa.</b></div>
+        </div>
+        <div class="card rule r lift" style="justify-content:flex-start">
+          <div class="med sm n"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
+          <h4>Recolección de equipos</h4>
+          <div class="xs"><em class="marca">activa</em> recoge los Chromebooks en el plantel. El préstamo termina esta semana.</div>
+        </div>
+      </div>
+
+      <div class="card t-g" style="flex:0 0 auto;gap:8px">
+        <div class="sp4-cap g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>La decisión</div>
+        <div class="xs" style="font-size:13.5px">Con los resultados en la mesa, definimos juntos <b>si el programa continúa y en qué alcance</b>. No hay permanencia ni renovación automática: el piloto termina cuando termina.</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="foot">
+    <div class="ejebar sp-bar"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg on r"></span><em>Paso 6 de 6 · cierre</em></div>
+    <p class="sm">Los datos son del colegio, <b>y el reporte también</b>.</p>
+  </div>
+</section>
+
+<!-- ═════════ 10 · EL TRATO ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 1 línea 48 = 72 + margen 20 → 92
+· foot: pill 25 (+ sm 20) + margen 18 → 43 · body disponible: 644 − 92 − 43 = 509
+  split .96fr/.74fr (gap 30): izq 617 · der 475
+    IZQ card: pad 40 + gh 26 + gap 11 + 8 renglones (8×33 + 7×5 = 299) = 376
+    DER card: pad 40 + gh 26 + gap 11 + 5 renglones (5×33 + 4×6 = 189) = 266 → estira a 376
+  + gap 12 + banda de la frase (pad 28 + max(icono 32, línea 25) = 32) = 60
+  BODY ≈ 376 + 12 + 60 = 448 ≤ 509 ✓
+· TOTAL ≈ 92 + 448 + 43 = 583 ≤ 644 ✓
+SI ALGÚN DÍA SE PASA: el renglón de la logística ya está fundido con el de los
+  Chromebooks. El siguiente ajuste barato es fundir las dos licencias en uno.
+  Lo que NO se toca es el tamaño de tipo.
+ICONOS: cada renglón lleva el suyo. Trece viñetas redondas iguales no
+  distinguen un Chromebook de una hora de coach; el pictograma sí, y sin
+  gastar una línea.
+-->
+<section class="slide" data-bloque="trato">
+  <span class="shape" style="width:460px;height:460px;right:-200px;top:-190px;background:var(--blue-t)"></span>
+  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow b">Qué pone cada quién</div>
+    <h2>El trato completo</h2>
+  </div>
+  <div class="body">
+    <div class="stack" style="gap:12px;justify-content:center">
+
+      <div class="split" style="grid-template-columns:.96fr .74fr;gap:30px;flex:0 0 auto">
+        <div class="card t-b lift" style="gap:11px;justify-content:flex-start">
+          <div class="grupo"><div class="gh sp2-gh">
+            <span class="gi b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+            <span class="gt b"><em class="marca">activa</em> pone</span><span class="gline"></span>
+          </div></div>
+          <ul class="bens b tight sp2-l">
+            <li><span class="li b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg></span><span class="lt"><b>Chromebooks para todo el grupo y su docente</b>En préstamo, entre 15 y 30 equipos según el salón, con entrega y recolección incluidas</span></li>
+            <li><span class="li b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span><span class="lt"><b>Cuentas institucionales</b>Para el docente y para cada estudiante</span></li>
+            <li><span class="li b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></span><span class="lt"><b>Licencia educativa de <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> Workspace</b>Más la licencia de seguridad</span></li>
+            <li><span class="li b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></span><span class="lt"><b>Canva para Educación</b>La suite de diseño completa para el grupo</span></li>
+            <li><span class="li b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></span><span class="lt"><b>Capacitación inicial del docente</b>2 horas con coach certificado</span></li>
+            <li><span class="li b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.44-.72c-.37-.08-.76.04-1.02.31l-.75.76 4.42 4.42c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.7-4.91c.09-.63-.23-1.25-.8-1.53z"/></svg></span><span class="lt"><b>Acompañamiento semanal con coach</b>1 hora por semana durante las cuatro semanas de aula</span></li>
+            <li><span class="li b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg></span><span class="lt"><b>El plan de proyecto</b>6 opciones a elegir y el plan aprobado con la coordinación</span></li>
+            <li><span class="li b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg></span><span class="lt"><b>Medición y reporte final</b>Los datos con los que ustedes van a decidir</span></li>
+          </ul>
+        </div>
+        <div class="card soft" style="gap:11px;justify-content:flex-start">
+          <div class="grupo"><div class="gh sp2-gh">
+            <span class="gi n"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm0 2.7L17 10v8h-2v-6H9v6H7v-8l5-4.3z"/></svg></span>
+            <span class="gt">el colegio pone</span><span class="gline"></span>
+          </div></div>
+          <ul class="bens tight sp2-l">
+            <li><span class="li n"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91zM4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58C.48 14.9 0 15.62 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29zM20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4 3.43c0-.81-.48-1.53-1.22-1.85-.85-.37-1.79-.58-2.78-.58-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24v-1.57zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg></span><span class="lt"><b>Un grupo y un docente</b>La sección que ustedes elijan</span></li>
+            <li><span class="li n"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></span><span class="lt"><b>Aproximadamente 6 horas del docente</b>2 de capacitación y 4 sesiones semanales con el coach</span></li>
+            <li><span class="li n"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg></span><span class="lt"><b>Cuatro semanas de calendario</b>Dentro de su ciclo, sin mover nada</span></li>
+            <li><span class="li n"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm0 2.7L17 10v8h-2v-6H9v6H7v-8l5-4.3z"/></svg></span><span class="lt"><b>El salón donde ya trabajan</b>Más un lugar para resguardar y cargar los equipos</span></li>
+            <li><span class="li n"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg></span><span class="lt"><b>Un interlocutor</b>Dirección o coordinación, para la reunión inicial y la de resultados</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- La frase que desarma la objeción, sola en su banda -->
+      <div class="card t-b sp2-eje" style="flex:0 0 auto">
+        <span class="ei"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></span>
+        <b>El costo económico es cero. El costo real son <em>seis horas de un maestro</em>.</b>
+      </div>
+
+    </div>
+  </div>
+  <div class="foot">
+    <span class="pill b">Todo incluido</span>
+    <p class="sm">Equipos, licencias, capacitación y acompañamiento: <b>sin costo para el colegio</b>.</p>
+  </div>
+</section>
+
+<!-- ═════════ 11 · LAS CONDICIONES ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 48 + gap 8 + lead 26 = 106 + margen 20 → 126
+· foot: pill 25 (+ sm 20) + margen 18 → 43 · body disponible: 644 − 126 − 43 = 475
+  g3 con SEIS hijos (2 filas de 376/320):
+    fila: pad 52 + med sm 38 + gap 9 + h4 2 líneas 42 + gap 9 + xs 2 líneas 37 = 187
+    2 filas: 187 × 2 + hueco 16 = 390 ≤ 475 ✓
+· TOTAL ≈ 126 + 390 + 43 = 559 ≤ 644 ✓
+UNA sola rejilla de seis y no dos de tres: así la cascada del motor entra
+  completa —seis es el máximo que permite la normativa— en vez de escalonar la
+  fila de arriba y soltar la de abajo de golpe.
+COLOR: los tres primeros son el préstamo y van en azul; los tres últimos son el
+  acuerdo y van en verde. Es el único cambio de color de la lámina.
+NADA DE ESTO VA EN LETRA CHICA: es exactamente lo que el director viene
+  buscando, y esconderlo es lo único que rompería la lámina.
+-->
+<section class="slide" data-bloque="trato">
+  <span class="shape" style="width:400px;height:400px;left:-180px;bottom:-190px;background:var(--grn-t)"></span>
+  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow b">Las condiciones</div>
+    <h2>Dichas de frente</h2>
+    <p class="lead" style="max-width:820px">Tres del préstamo de equipos y tres del acuerdo. No hay más.</p>
+  </div>
+  <div class="body">
+    <div class="stack" style="justify-content:center">
+      <div class="grid g3" style="flex:0 0 auto">
+
+        <div class="card rule b lift" style="justify-content:flex-start;gap:9px">
+          <div class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm0 2.7L17 10v8h-2v-6H9v6H7v-8l5-4.3z"/></svg></div>
+          <h4>Los equipos permanecen en el colegio</h4>
+          <div class="xs">No se van a casa con los estudiantes. Se resguardan y se cargan en el plantel.</div>
+        </div>
+
+        <div class="card rule b lift" style="justify-content:flex-start;gap:9px">
+          <div class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
+          <h4>Al cierre, <em class="marca">activa</em> los recoge</h4>
+          <div class="xs">El préstamo termina en la última semana, y el día se agenda desde la reunión inicial.</div>
+        </div>
+
+        <div class="card rule b lift" style="justify-content:flex-start;gap:9px">
+          <div class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div>
+          <h4>Los equipos están asegurados</h4>
+          <div class="xs">En caso de daño o extravío, el colegio cubre <b>únicamente el deducible</b>.</div>
+        </div>
+
+        <div class="card rule g lift" style="justify-content:flex-start;gap:9px">
+          <div class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.5 6.9c1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-.53.12-1.03.3-1.48.54l1.47 1.47c.41-.17.91-.27 1.51-.27zM5.33 4.06L4.06 5.33 7.5 8.77c0 2.08 1.56 3.21 3.91 3.91l3.51 3.51c-.34.48-1.05.91-2.42.91-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c.96-.18 1.82-.55 2.45-1.12l2.22 2.22 1.27-1.27L5.33 4.06z"/></svg></div>
+          <h4>Sin contrato, sin anticipo y sin permanencia</h4>
+          <div class="xs">El piloto termina cuando termina. Continuar es una decisión aparte.</div>
+        </div>
+
+        <div class="card rule g lift" style="justify-content:flex-start;gap:9px">
+          <div class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+          <h4>Un solo grupo y un solo docente</h4>
+          <div class="xs">Si quieren probarlo en varias secciones, se acuerda desde el registro.</div>
+        </div>
+
+        <div class="card rule g lift" style="justify-content:flex-start;gap:9px">
+          <div class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></div>
+          <h4>Cuatro semanas de aula, que no se extienden</h4>
+          <div class="xs">Las licencias y las cuentas viven mientras dura el piloto.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <span class="pill ghost">Nada en letra chica</span>
+    <p class="sm">Si algo no está aquí, <b>no forma parte del trato</b>.</p>
+  </div>
+</section>
+
+<!-- ═════════ 12 · QUÉ SE LLEVAN ═════════ -->
+<!--
+CUENTA DE ALTURAS (644 útiles · ancho útil 1160)
+· head: eyebrow 13 + gap 11 + h2 1 línea 48 = 72 + margen 20 → 92
+· foot: pill 25 (+ sm 20) + margen 18 → 43 · body disponible: 644 − 92 − 43 = 509
+  g3 (columna 376, interior 320): pad 52 + med sm 38 + gap 9 + h4 21 + gap 9
+    + contenido (el más alto: 3 líneas de 17 + 10 = 61) ≈ 190
+  + gap 14 + banda del acompañamiento (pad 32 + cap 16 + gap 11 + fila 34) = 93
+  + gap 14 + cita (pad 40 + 2 líneas a 28px ≈ 68) = 108
+  BODY ≈ 190 + 14 + 93 + 14 + 108 = 419 ≤ 509 ✓
+· TOTAL ≈ 92 + 419 + 43 = 554 ≤ 644 ✓
+ARCO DE LA LÁMINA: los tres entregables son la PRUEBA (concreta, verificable);
+  la banda verde es a DÓNDE llevan —el colegio que sale del otro lado— y la
+  cita es la petición. Concreto → aspiración → pedir. La banda va en verde
+  porque es el eje del acompañamiento: de eso habla, de no soltarlos a mitad
+  del camino.
+MOVIMIENTO: el subrayado a mano bajo «datos propios», en azul. Estado base =
+  trazo completo, así que llega entero al PDF.
+-->
+<section class="slide" data-bloque="resultados">
+  <span class="shape" style="width:380px;height:380px;left:-195px;bottom:-205px;background:var(--blue-t)"></span>
+  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow b">Qué se llevan</div>
+    <h2>Al cerrar el piloto, ustedes tienen <span class="mv-r">datos propios<svg class="mv-sub"
+      viewBox="0 0 200 11" preserveAspectRatio="none" aria-hidden="true" style="--c:#1a73e8"><path
+      class="mv-traza" pathLength="100" d="M3 6.2C35 3 71 8.8 107 5.6 139 2.8 168 4.4 197 8"/></svg></span></h2>
+  </div>
+  <div class="body">
+    <div class="stack" style="gap:14px;justify-content:center">
+
+      <div class="grid g3 sp5-g" style="flex:0 0 auto">
+        <div class="card lift" style="justify-content:flex-start">
+          <div class="med sm p"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>
+          <h4>La evaluación del pilotaje</h4>
+          <div class="xs">Un instrumento propio de <em class="marca">activa</em> que el coach y el docente aplican juntos en la quinta semana, <b>sobre su propio grupo</b> y no contra un promedio ajeno.</div>
+        </div>
+        <div class="card lift" style="justify-content:flex-start">
+          <div class="med sm r"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg></div>
+          <h4>Estadísticas del piloto</h4>
+          <ul class="bens r tight">
+            <li>Participación de los estudiantes</li>
+            <li>Adopción y uso real de las herramientas por el docente</li>
+            <li>Producto final entregado por los alumnos</li>
+          </ul>
+        </div>
+        <div class="card lift" style="justify-content:flex-start">
+          <div class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></div>
+          <h4>Reunión y reporte por escrito</h4>
+          <div class="xs">Sesión con dirección y coordinación para revisar los hallazgos, con el reporte documentado. <b>Se entrega continúe o no el programa.</b></div>
+        </div>
+      </div>
+
+      <!-- A dónde llevan esos datos: el colegio que sale del otro lado -->
+      <div class="card t-g sp5-logros" style="flex:0 0 auto">
+        <div class="sp5-lcap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>Los acompañamos en su transformación digital</div>
+        <div class="sp5-lrow">
+          <div class="sp5-l"><span class="li"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm0 2.7L17 10v8h-2v-6H9v6H7v-8l5-4.3z"/></svg></span>
+            <div class="lt"><b>Un colegio que decide</b>con evidencia, no con corazonadas</div></div>
+          <div class="sp5-l"><span class="li"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+            <div class="lt"><b>Docentes que enseñan</b>con seguridad, no a prueba y error</div></div>
+          <div class="sp5-l"><span class="li"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg></span>
+            <div class="lt"><b>Alumnos que crean</b>y no solo consumen tecnología</div></div>
+          <div class="sp5-l"><span class="li"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+            <div class="lt"><b>Familias que lo ven</b>y respaldan el proyecto del colegio</div></div>
+        </div>
+      </div>
+
+      <div class="card t-b sp5-cita" style="flex:0 0 auto">
+        <b>No les pedimos que nos crean.<br>Les pedimos cuatro semanas para que <em>lo comprueben con sus propios alumnos</em>.</b>
+      </div>
+
+    </div>
+  </div>
+  <div class="foot">
+    <span class="pill b">El siguiente paso es el registro</span>
+    <p class="sm">En la reunión inicial se acuerdan las fechas. <b>El proceso es el mismo en todos los colegios.</b></p>
+  </div>
+</section>
+
+</div><!-- /#stage -->
+
+<div class="chrome" id="progress" aria-hidden="true"></div>
+<div class="chrome" id="hint">← → navegar · F pantalla completa · P imprimir</div>
+<div class="chrome" id="nav">
+  <span id="bloque"></span>
+  <button id="bPrev" class="mo-hover-eleva mo-hover-hunde" aria-label="Diapositiva anterior" title="Anterior (←)">‹</button>
+  <button id="bNext" class="mo-hover-eleva mo-hover-hunde" aria-label="Diapositiva siguiente" title="Siguiente (→)">›</button>
+  <span id="counter" aria-live="polite">1 / 12</span>
+</div>
+
+<!-- Motor de movimiento compartido: script CLÁSICO a propósito (los módulos no
+     cargan desde file:// y este deck se abre con doble clic). Si falla, el deck
+     navega igual: todo lo de abajo está guardado. -->
+<script src="../../compartidos/js/motion.js"></script>
+
+<script>
+/* Navegación del deck. TODO el estado vive en variables de memoria:
+   sin almacenamiento del navegador de ningún tipo. */
+(function(){
+"use strict";
+var stage=document.getElementById("stage");
+var slides=Array.prototype.slice.call(document.querySelectorAll(".slide"));
+var counter=document.getElementById("counter");
+var bloqueEl=document.getElementById("bloque");
+var progress=document.getElementById("progress");
+var idx=0;
+
+/* bloques narrativos: color y nombre (paleta del sistema) */
+var COLOR={apertura:"#1a73e8",oferta:"#34a853",proceso:"#4285f4",
+  registro:"#1a73e8",preparacion:"#f9ab00",ejecucion:"#1e8e3e",
+  evaluacion:"#7b1fa2","cierre-p":"#ea4335",trato:"#1a73e8",resultados:"#202124"};
+var NOMBRE={apertura:"Apertura",oferta:"La oferta",proceso:"El recorrido",
+  registro:"Antes de arrancar",preparacion:"Preparación",ejecucion:"En el aula",
+  evaluacion:"Evaluación","cierre-p":"Cierre del piloto",trato:"El trato",
+  resultados:"Qué se llevan"};
+
+/* indicador segmentado: un segmento por lámina, coloreado por bloque */
+var segs=slides.map(function(s,i){
+  var b=s.getAttribute("data-bloque")||"apertura";
+  var seg=document.createElement("i");
+  seg.className="seg"+(b==="resultados"?" k":"");
+  seg.style.background=COLOR[b]||"#fff";
+  progress.appendChild(seg);
+  return seg;
+});
+
+/* etiquetas accesibles por lámina */
+slides.forEach(function(s,i){
+  var t=s.querySelector("h1,h2");
+  s.setAttribute("role","group");
+  s.setAttribute("aria-roledescription","diapositiva");
+  s.setAttribute("aria-label","Diapositiva "+(i+1)+" de "+slides.length+
+    (t?": "+t.textContent.replace(/\s+/g," ").trim():""));
+  s.setAttribute("aria-hidden","true");
+});
+
+function esEscritorio(){return matchMedia("(min-width:1024px)").matches}
+
+/* Escala viva del escenario. Se guarda porque las ondas Material tienen que
+   pasar el punto del clic —que llega en píxeles de pantalla— a las
+   coordenadas de 1280 × 720 en las que vive la lámina. */
+var stageScale=1;
+window.__stageScale=function(){return stageScale};
+
+function fit(){
+  if(esEscritorio()){
+    var s=Math.min(innerWidth/1280,innerHeight/720)*0.955;
+    stageScale=s;
+    stage.style.transform="translate(-50%,-50%) scale("+s+")";
+  }else{
+    stageScale=1;
+    stage.style.transform="none";
+  }
+}
+
+function show(n){
+  idx=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,i){
+    s.classList.toggle("on",i===idx);
+    s.setAttribute("aria-hidden",i===idx?"false":"true");
+  });
+  segs.forEach(function(seg,i){seg.classList.toggle("on",i<=idx)});
+  /* hilo de los cuatro colores corriendo bajo los segmentos: cuánto falta */
+  progress.style.setProperty("--avance",((idx+1)/slides.length*100)+"%");
+  counter.textContent=(idx+1)+" / "+slides.length;
+  bloqueEl.textContent=NOMBRE[slides[idx].getAttribute("data-bloque")]||"";
+  /* hash con el número pelón: #7 */
+  var h="#"+(idx+1);
+  if(location.hash!==h){try{location.hash=h}catch(e){}}
+  if(!esEscritorio())scrollTo(0,0);
+  /* Coreografía del motor compartido: la define el script de más abajo.
+     Si motion.js no cargó, la función no existe y el deck navega igual. */
+  if(window.__moCoreo)__moCoreo(idx);
+}
+function next(){show(idx+1)} function prev(){show(idx-1)}
+
+/* pegar un enlace #12 navega en caliente */
+addEventListener("hashchange",function(){
+  var n=parseInt(location.hash.slice(1),10);
+  if(isFinite(n)&&n>=1&&n<=slides.length&&n-1!==idx)show(n-1);
+});
+
+/* teclado */
+addEventListener("keydown",function(e){
+  var k=e.key;
+  if(e.target&&e.target.closest&&e.target.closest("button,a,input,[data-noadv]")
+     &&(k===" "||k==="Enter"))return;
+  if(k==="ArrowRight"||k==="PageDown"||k===" "){e.preventDefault();next()}
+  else if(k==="ArrowLeft"||k==="PageUp"){e.preventDefault();prev()}
+  else if(k==="Home"){e.preventDefault();show(0)}
+  else if(k==="End"){e.preventDefault();show(slides.length-1)}
+  else if(k==="f"||k==="F"){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+  else if(k==="p"||k==="P"){e.preventDefault();print()}
+});
+
+/* zonas de clic laterales — solo escritorio con puntero fino;
+   en táctil manda el swipe */
+stage.addEventListener("click",function(e){
+  if(!matchMedia("(min-width:1024px) and (pointer:fine)").matches)return;
+  if(e.target.closest("[data-noadv],a,button"))return;
+  if(e.clientX<innerWidth*0.28)prev();else next();
+});
+
+/* swipe en táctil: umbral 50 px horizontal */
+var tx=0,ty=0;
+addEventListener("touchstart",function(e){
+  tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;
+},{passive:true});
+addEventListener("touchend",function(e){
+  var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5){if(dx<0)next();else prev()}
+},{passive:true});
+
+document.getElementById("bNext").addEventListener("click",next);
+document.getElementById("bPrev").addEventListener("click",prev);
+addEventListener("resize",fit);
+
+fit();
+var start=parseInt((location.hash||"").slice(1),10);
+show(isFinite(start)&&start>=1&&start<=slides.length?start-1:0);
+})();
+</script>
+<script>
+/* Coreografía del motor compartido (compartidos/js/motion.js).
+   Todo cuelga de la guarda de la primera línea: si motion.js no cargó, esta
+   función no hace nada y el deck queda completo y quieto — regla 4 de
+   docs/normativa-motion.md. La coreografía solo pone clases y retardos; el
+   movimiento vive en el CSS de arriba. */
+(function(){
+"use strict";
+if(!window.Motion) return;
+
+var stage=document.getElementById("stage");
+var slides=Motion.qsa(".slide",stage);
+
+/* ── Cascada de rejillas ──────────────────────────────────────────
+   UNA por lámina: la rejilla focal. Dos cascadas en la misma lámina compiten
+   por la mirada y ninguna gana. El paso se adapta al número de hijos para que
+   la entrada completa quede por debajo de los 600 ms que pide la normativa. */
+var SEL=".grid,.tiles,.sp4-tl,.sp5-lrow";
+var porSlide=slides.map(function(s){
+  var cands=Motion.qsa(SEL,s).filter(function(c){
+    var n=c.children.length;
+    if(n<2||n>6) return false;                 /* seis es el tope de la normativa */
+    var padre=c.parentElement&&c.parentElement.closest(SEL);
+    return !(padre&&s.contains(padre));        /* rejilla anidada: manda la exterior */
+  }).slice(0,1);
+  cands.forEach(function(c){
+    c.classList.add("mo-stagger");
+    Motion.stagger(c,Math.min(70,Math.round(320/c.children.length)),90);
+  });
+  return cands;
+});
+
+/* Relanzar al volver a una lámina: una junta recorre el deck varias veces.
+   Doble requestAnimationFrame — se pinta un cuadro con la rejilla oculta y al
+   siguiente se lanza; sin eso la animación no arranca en el mismo recálculo
+   en que la lámina sale de display:none. */
+var ultima=-1;
+window.__moCoreo=function(n){
+  if(n===ultima) return;                       /* misma lámina: no se repite */
+  ultima=n;
+  if(!porSlide[n]||!porSlide[n].length) return;
+  porSlide[n].forEach(function(c){
+    for(var i=0;i<c.children.length;i++) c.children[i].classList.remove("mo-in");
+  });
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    if(ultima!==n) return;                     /* ya está en otra: no revivas esta */
+    porSlide[n].forEach(function(c){ Motion.replay(c); });
+  }); });
+};
+
+/* ── Deriva de los círculos de fondo con el cursor ────────────────
+   Solo en la portada y solo con puntero fino: el motor no monta efectos de
+   cursor en táctil. Amplitudes cortas y distintas entre sí — si los dos
+   círculos se movieran igual, el fondo se leería como una calcomanía
+   deslizándose en vez de como profundidad. */
+Motion.qsa(".slide.cover .shape").forEach(function(sh,i){
+  Motion.follow(sh,[8,6][i%2]);
+});
+
+/* Motion.start() SIEMPRE al final: es la llamada que pone html.mo-ready y,
+   con ella, lo único que el CSS del motor esconde. */
+Motion.start();
+requestAnimationFrame(function(){
+  var n=parseInt((location.hash||"").slice(1),10);
+  window.__moCoreo(isFinite(n)&&n>=1&&n<=slides.length?n-1:0);
+});
+})();
+</script>
+</body>
+</html>

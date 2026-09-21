@@ -17,6 +17,7 @@ paso de compilación.
 | **G-Workspace** | [/paginas/g-workspace/](https://sanoapro.github.io/activa/paginas/g-workspace/) | Cotizador de licencias Google Workspace for Education: Education Plus o Teaching &amp; Learning, lado a lado. |
 | **Precios 2026–2027** | [/paginas/precios/](https://sanoapro.github.io/activa/paginas/precios/) | Tres láminas: los paquetes, el precio por alumno y el desglose año por año. |
 | **Consola de administración** | [/paginas/consola/](https://sanoapro.github.io/activa/paginas/consola/) | Manual de blindaje de la Google Admin Console: 18 partes y 438 ajustes con checklist. |
+| **Proyecto Piloto** | [/paginas/piloto/](https://sanoapro.github.io/activa/paginas/piloto/) | Deck de 12 diapositivas: los seis pasos del piloto de cuatro semanas, qué pone cada quién y las condiciones. |
 
 Documento maestro de producto —fuente única y vigente— en
 [`docs/portafolio-activa.md`](docs/portafolio-activa.md).

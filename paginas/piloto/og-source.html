@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es-MX"><head><meta charset="utf-8">
+<!-- Molde de la vista previa de WhatsApp (og.png, 1200×630) del deck del
+     Proyecto Piloto. No se abre en público: se exporta con Edge headless
+     (ver README). Sin escudo del colegio a propósito: el deck es una
+     plantilla que se reutiliza en todos. Los tokens son los de index.html,
+     copiados a mano y recortados a lo que esta tarjeta usa. -->
+<style>
+:root{
+  --blue:#1a73e8; --blue-d:#174ea6; --blue-t:#e8f0fe;
+  --red:#ea4335;  --red-t:#fce8e6;
+  --yel:#f9ab00;  --yel-t:#fef7e0;  --yel-d:#b06000;
+  --grn:#1e8e3e;  --grn-t:#e6f4ea;  --grn-l:#34a853; --grn-d:#0d652d;
+  --plum:#7b1fa2;
+  --ink:#202124;  --ink2:#5f6368;   --ink3:#80868b;  --line:#e3e5e8;
+  --font:"Google Sans","Product Sans","Google Sans Text",Roboto,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1200px;height:630px;overflow:hidden;background:#fff;font-family:var(--font);color:var(--ink)}
+.card{position:relative;width:1200px;height:630px;overflow:hidden;display:flex;flex-direction:column;
+  padding:58px 74px 0}
+/* filete superior con los cuatro colores, el de la casa */
+.card::before{content:"";position:absolute;left:0;top:0;right:0;height:9px;z-index:5;
+  background:linear-gradient(90deg,#4285f4 0 25%,#ea4335 25% 50%,#fbbc04 50% 75%,#34a853 75% 100%)}
+.sh{position:absolute;border-radius:50%;z-index:0}
+.top{display:flex;align-items:flex-start;justify-content:space-between;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:17px;font-weight:700;
+  letter-spacing:2.4px;text-transform:uppercase;color:var(--grn-d)}
+.eyebrow::before{content:"";width:30px;height:4px;border-radius:2px;background:currentColor}
+.cuadros{display:block;width:52px;height:52px;flex-shrink:0}
+h1{margin-top:44px;font-size:76px;line-height:1.04;font-weight:500;letter-spacing:-3px;
+  max-width:1010px;z-index:2}
+.sub{margin-top:26px;font-size:27px;line-height:1.35;color:var(--ink2);max-width:880px;z-index:2}
+/* las tres cifras del piloto, la firma de la lámina 2 */
+.figs{display:flex;align-items:baseline;gap:30px;margin-top:34px;z-index:2}
+.figs .f{display:flex;align-items:baseline;gap:10px;font-size:40px;font-weight:500;letter-spacing:-1.8px}
+.figs .f em{font-style:normal;font-size:18px;font-weight:600;letter-spacing:0;color:var(--ink3)}
+.figs .f.b{color:var(--blue)} .figs .f.y{color:var(--yel-d)} .figs .f.g{color:var(--grn-l)}
+.figs .dot{width:6px;height:6px;border-radius:50%;background:#bdc1c6;align-self:center}
+.alianza{margin-top:auto;margin-bottom:54px;font-size:16px;font-weight:700;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--ink2);z-index:2}
+.alianza .marca{font-style:italic;font-weight:800;color:var(--ink);text-transform:none;
+  font-size:19px;letter-spacing:0}
+.gg i{font-style:normal}
+.gg i:nth-child(1),.gg i:nth-child(4){color:#4285f4}
+.gg i:nth-child(2),.gg i:nth-child(6){color:#ea4335}
+.gg i:nth-child(3){color:#fbbc04}
+.gg i:nth-child(5){color:#34a853}
+/* la firma del deck: su indicador de progreso segmentado, una lámina por
+   segmento, coloreado por bloque */
+.progreso{position:absolute;left:0;right:0;bottom:0;height:10px;display:flex;gap:4px;padding:0 8px;z-index:5}
+.progreso i{flex:1;border-radius:3px 3px 0 0;background:var(--c);opacity:.85}
+</style></head><body>
+<div class="card">
+  <span class="sh" style="width:500px;height:500px;right:-190px;top:-230px;background:var(--grn-t);opacity:.7"></span>
+  <span class="sh" style="width:340px;height:340px;left:-150px;bottom:-150px;background:var(--blue-t);opacity:.6"></span>
+
+  <div class="top">
+    <span class="eyebrow">Proyecto Piloto · sin costo</span>
+    <svg class="cuadros" viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="3" y="3" width="11" height="11" rx="3" fill="#4285f4"/>
+      <rect x="18" y="3" width="11" height="11" rx="3" fill="#ea4335"/>
+      <rect x="3" y="18" width="11" height="11" rx="3" fill="#fbbc04"/>
+      <rect x="18" y="18" width="11" height="11" rx="3" fill="#34a853"/>
+    </svg>
+  </div>
+
+  <h1>Cuatro semanas con un grupo real</h1>
+  <p class="sub">Al final, ustedes deciden con evidencia propia.</p>
+
+  <div class="figs">
+    <span class="f b">4<em>semanas</em></span>
+    <span class="dot"></span>
+    <span class="f y">1<em>salón</em></span>
+    <span class="dot"></span>
+    <span class="f g">$0<em>para el colegio</em></span>
+  </div>
+
+  <div class="alianza">Con <span class="marca">activa</span> ·
+    <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span> for Education Partner</div>
+
+  <div class="progreso" id="progreso"></div>
+</div>
+<script>
+/* Doce segmentos, uno por lámina, con el color de su bloque: el mismo mapa
+   COLOR de index.html, en el orden en que van las láminas. Si el deck cambia
+   de número de láminas, esta tira hay que rehacerla — no se actualiza sola. */
+var BLOQUES=[["#1a73e8",1],["#34a853",1],["#4285f4",1],["#1a73e8",2],
+             ["#f9ab00",1],["#1e8e3e",1],["#7b1fa2",1],["#ea4335",1],
+             ["#1a73e8",2],["#202124",1]];
+document.getElementById("progreso").innerHTML=BLOQUES.map(function(b){
+  var s="";for(var i=0;i<b[1];i++)s+='<i style="--c:'+b[0]+'"></i>';return s;
+}).join("");
+</script>
+</body></html>

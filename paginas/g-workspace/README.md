@@ -12,7 +12,7 @@ marca cuál recomienda. Ese escenario es el que lleva el total a la portada del 
 | Archivo | `index.html`, autocontenido (sin build, sin dependencias) |
 | Abre desde | `file://` con doble clic, y desde el sitio publicado |
 | Externo | `../../compartidos/` → `css/motion.css`, `js/motion.js`, `js/archivo-drive.js` |
-| Suite | `?test=1` con servidor local · **56 pruebas** |
+| Suite | `?test=1` con servidor local · **63 pruebas** |
 | Versión | la de `.vertag` en el encabezado; el `<title>` se reescribe desde ahí al arrancar |
 
 ## La regla que gobierna todo: las dos rutas no se suman
@@ -118,6 +118,43 @@ la comparativa. Es la segunda cifra que el director compara entre las dos rutas 
 20 GB por licencia sobre el pool y T&L da 100 GB, así que la ruta más cara no siempre es la
 que más almacenamiento deja—, y ahí abajo pasaba de largo.
 
+### La sección de almacenamiento del PDF
+
+Además de la cifra en el bloque de inversión, el documento tiene su propia sección **2 ·
+Almacenamiento** (`proposalAlmacenamiento()`): una tarjeta por ruta cotizada con el pool de
+la institución, lo que agregan las licencias, el total y una barra con la proporción. Se
+pidió el 14-sep-2026 comparando contra la propuesta que el equipo mandaba antes, donde el
+almacenamiento era una columna propia de la tabla de inversión.
+
+- Un adicional **menor a 1 TB se imprime en GB**: con 2 licencias de T&L se lee «+200 GB»,
+  no «+0.2 TB».
+- El **promedio por usuario del dominio** es de referencia y solo sale si hay estudiantes o
+  personal capturados: sin conteo del dominio no hay de dónde sacarlo, y no se inventa.
+- La tarjeta «Cómo funciona el almacenamiento» explica que el espacio es compartido, qué lo
+  consume y que el administrador puede fijar límites.
+
+### Las condiciones comerciales del PDF
+
+La sección **4 · Condiciones comerciales** (`proposalCondiciones()`) trae lo que la
+propuesta anterior decía en sus notas al pie, más lo que le faltaba:
+
+| Condición | De dónde sale |
+| --- | --- |
+| Vigencia de la cotización | el estado (`validity.validUntil`) |
+| Precios sujetos a cambio; la renovación se cotiza al precio vigente | texto fijo |
+| Precio anual por usuario (Plus) o por maestro (T&L) | la ficha de los SKU cotizados |
+| Plus debe cubrir todo el dominio | solo si se cotiza Plus |
+| Forma de pago: transferencia bancaria | `CONDICIONES.formaPago` |
+| Asignación en la Consola de Google Admin | `PRECIOS.entrega` |
+| Soporte técnico incluido, tickets en activa.la/soporte | `CONDICIONES.soporteUrl` |
+| Requisito: Education Fundamentals activo en el dominio | texto fijo |
+| Aplicaciones sujetas a cambio | texto fijo |
+
+La sección 3 cierra con el enlace a la comparación oficial de ediciones de Google
+(`CONDICIONES.edicionesUrl`), como el «Clic aquí» de la propuesta anterior. Con una sola ruta
+cotizada, el título de la sección 1 va en singular y desaparece la nota de «las dos rutas no
+se suman».
+
 ### Por qué el subtexto de la comparativa envuelve
 
 Las celdas de cifra llevan `white-space:nowrap` para que un importe no se parta a media
@@ -160,7 +197,7 @@ python -m http.server 8123
 # http://127.0.0.1:8123/paginas/g-workspace/?test=1
 ```
 
-Las **56 pruebas** en verde, sin editar el valor esperado de ninguna. Si una había que
+Las **63 pruebas** en verde, sin editar el valor esperado de ninguna. Si una había que
 cambiarla, es un hallazgo que se reporta, no un estorbo que se ajusta.
 
 Como el JavaScript va dentro del HTML, la revisión de sintaxis necesita extraer el

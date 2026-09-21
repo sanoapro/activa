@@ -58,8 +58,8 @@ obligatorias.
 - Clic en una tarjeta → abre el destino en pestaña nueva.
 - Pasar el cursor y clic en **⧉** → copia el enlace al portapapeles (para mandarlo por WhatsApp).
 - Teclas **1–9** y **0** → abren el acceso correspondiente, en el orden en que se leen (izquierda a
-  derecha, de arriba abajo). El **0** es el décimo, como en cualquier barra de tareas; con trece
-  accesos, los tres últimos quedan sin atajo — no hay más teclas de un dígito. **D** →
+  derecha, de arriba abajo). El **0** es el décimo, como en cualquier barra de tareas; con catorce
+  accesos, los cuatro últimos quedan sin atajo — no hay más teclas de un dígito. **D** →
   descargables. **F** → pantalla completa.
 - Botón **QR** (solo en las tarjetas que traen `qr`) → abre el código a pantalla completa sobre
   fondo blanco, para que la sala lo escanee. Se sale con el botón **← Volver al kit** (arriba a la
@@ -108,18 +108,19 @@ silencio que el PNG recortado no trae. **Cada QR nuevo hay que probarlo con un t
 verdad** antes de llevarlo a un evento; que el archivo contenga la URL correcta no garantiza que
 una cámara lo levante.
 
-La retícula es de **5 + 4 + 4**: venta lleva los cotizadores, las listas de precio y el
-comparador de licencias; eventos las dos presentaciones más el taller y el registro; y
+La retícula es de **5 + 5 + 4**: venta lleva los cotizadores, las listas de precio y el
+comparador de licencias; eventos las tres presentaciones más el taller y el registro; y
 proceso interno cuatro (ago-2026: las dos presentaciones bajaron a eventos y la base de
 datos salió del kit; sep-2026: el manual de la consola cerró la fila interna, que era de
-tres, y G-Workspace llevó la de venta a cinco).
+tres, y G-Workspace llevó la de venta a cinco; el deck del Proyecto Piloto llevó la de
+eventos a cinco, y por eso también se aprieta).
 Las tres filas miden lo mismo de alto (≈106 px por tarjeta) y por eso la tarjeta es
 horizontal, con el icono al costado.
 
 Las filas apretadas **se aprietan solas** por clase de rejilla: `.g4` (286 px por tarjeta,
-hoy eventos e internas) baja el icono a 38 y el cuerpo un punto; `.g5` (≈229 px) baja el
-icono a 34 y el cuerpo otro punto — la usa la fila de **venta** desde que entró
-G-Workspace (12-sep-2026) y quedó de cinco. No es densidad porque sí — con el tamaño de la
+hoy solo la interna) baja el icono a 38 y el cuerpo un punto; `.g5` (≈229 px) baja el
+icono a 34 y el cuerpo otro punto — la usan **venta**, desde que entró G-Workspace
+(12-sep-2026), y **eventos**, desde que entró el deck del Proyecto Piloto. No es densidad porque sí — con el tamaño de la
 fila de tres, «Presentación comercial» se parte en dos líneas y la tarjeta rebasa los
 106 px. **Las descripciones de las filas de cuatro y de cinco tienen que quedarse en una
 idea corta** (≈55 caracteres, dos líneas); si crecen, desbordan. Una sexta tarjeta en una

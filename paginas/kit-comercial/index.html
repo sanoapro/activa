@@ -468,9 +468,9 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
       <div class="kc-sechead">
         <span class="eyebrow y">Eventos</span>
         <span class="rule"></span>
-        <span class="cnt" id="cntEventos">04</span>
+        <span class="cnt" id="cntEventos">05</span>
       </div>
-      <div class="kc-grid g4 mo-stagger" id="gEventos"></div>
+      <div class="kc-grid g5 mo-stagger" id="gEventos"></div>
     </section>
 
     <section class="kc-sec interna">
@@ -556,6 +556,8 @@ const ICO = {
   consola:'<path d="M12 2 4 5.2v6.3c0 4.9 3.4 9.5 8 10.5 4.6-1 8-5.6 8-10.5V5.2L12 2zm0 2.2 6 2.4v4.9c0 3.8-2.5 7.4-6 8.4-3.5-1-6-4.6-6-8.4V6.6l6-2.4z"/><path d="M11 14.2 8.9 12l-1.3 1.3 3.4 3.4 5.3-5.3-1.3-1.3-4 4z"/>',
   /* nube con una llave — el licenciamiento de Google Workspace */
   gworkspace:'<path d="M17.7 9.1A5.8 5.8 0 0 0 6.4 8 4.5 4.5 0 0 0 7 17h10.4a4 4 0 0 0 .3-7.9zm-.3 5.9H7a2.5 2.5 0 0 1-.2-5l.8.1.3-.8a3.8 3.8 0 0 1 7.3.9l.1.9h.9a2 2 0 0 1 .2 3.9z"/><path d="M12.3 11.4a1.6 1.6 0 1 1 1.5 2l1.3 1.3-.7.7-.5-.5-.6.6-.6-.6-.5.5-.7-.7 1.3-1.3a1.6 1.6 0 0 1-.5-2zm1.1.1a.6.6 0 1 0 .9.9.6.6 0 0 0-.9-.9z"/>',
+  /* una bandera plantada — el piloto que se prueba en un salón */
+  piloto:'<path d="M5 3a1 1 0 0 1 1 1v.6l10.6-1.5a1.2 1.2 0 0 1 1.4 1.2v7.4a1.2 1.2 0 0 1-1 1.2L6 14.4V20a1 1 0 0 1-2 0V4a1 1 0 0 1 1-1zm1 3.6v5.8l10-1.4V5.2L6 6.6z"/>',
   /* dos figuras y un corazón — la presentación a las familias */
   papas:'<path d="M8.2 4a2.6 2.6 0 1 1 0 5.2 2.6 2.6 0 0 1 0-5.2zm7.6 0a2.6 2.6 0 1 1 0 5.2 2.6 2.6 0 0 1 0-5.2zM3.4 17c0-2.3 2.5-3.6 4.8-3.6.9 0 1.9.2 2.7.6a5.9 5.9 0 0 0-1.1 3v1.6H3.4V17zm10.4 1.6V17c0-1.3.8-2.3 1.9-2.9a6 6 0 0 1 2.9-.7c2.3 0 4 1.3 4 3.6v1.6h-8.8zM12 13.9l-.5-.5c-1.4-1.3-2.3-2.1-2.3-3.1 0-.9.7-1.5 1.5-1.5.5 0 1 .2 1.3.6.3-.4.8-.6 1.3-.6.8 0 1.5.6 1.5 1.5 0 1-.9 1.8-2.3 3.1l-.5.5z"/>'
 };
@@ -617,7 +619,11 @@ const EVENTOS = [
   { id:'papas', nombre:'Presentación a papás', color:'--teal', color2:'#004d40', tinte:'--teal-t',
     desc:'Para juntas con familias: qué cambia y qué no.',
     host:'sanoapro.github.io',
-    url:'https://sanoapro.github.io/activa/paginas/padres-de-familia/' }
+    url:'https://sanoapro.github.io/activa/paginas/padres-de-familia/' },
+  { id:'piloto', nombre:'Proyecto Piloto', color:'--grn', color2:'#0b5c28', tinte:'--grn-t',
+    desc:'Cuatro semanas con un grupo real, sin costo.',
+    host:'sanoapro.github.io',
+    url:'https://sanoapro.github.io/activa/paginas/piloto/' }
 ];
 const INTERNA = [
   { id:'crm', nombre:'CRM interno', color:'--teal', color2:'#004d40', tinte:'--teal-t',

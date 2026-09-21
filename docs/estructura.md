@@ -51,8 +51,13 @@ Presentacion-activa/
 │   │   ├── og.png                Su vista previa de WhatsApp (generada)
 │   │   ├── og-source.html        El molde de esa vista previa
 │   │   └── README.md
-│   └── consola/                  Manual de blindaje de Google Admin Console
-│       ├── index.html            18 partes, 74 tarjetas, 438 ajustes marcables
+│   ├── consola/                  Manual de blindaje de Google Admin Console
+│   │   ├── index.html            18 partes, 74 tarjetas, 438 ajustes marcables
+│   │   ├── og.png                Su vista previa de WhatsApp (generada)
+│   │   ├── og-source.html        El molde de esa vista previa
+│   │   └── README.md
+│   └── piloto/                   Deck de 12 diapositivas del proyecto piloto
+│       ├── index.html
 │       ├── og.png                Su vista previa de WhatsApp (generada)
 │       ├── og-source.html        El molde de esa vista previa
 │       └── README.md
@@ -120,7 +125,7 @@ retirarla se quedó sin consumidores; se borró. Lo único compartido en present
 
 ## Nada de esto se indexa
 
-Las diez páginas llevan `<meta name="robots" content="noindex">`. No es paranoia: el cotizador
+Las once páginas llevan `<meta name="robots" content="noindex">`. No es paranoia: el cotizador
 y la página de precios tienen el precio por alumno y los descuentos —el cotizador, además, los
 datos bancarios de la empresa—, los cotizadores de arrendamiento y de compra directa llevan su
 catálogo de costos y la tasa dentro del código, y los decks llevan la propuesta completa de un
@@ -175,6 +180,7 @@ El sitio se sirve desde la rama `main` tal cual, así que **la ruta del reposito
 | G-Workspace | <https://sanoapro.github.io/activa/paginas/g-workspace/> |
 | Precios | <https://sanoapro.github.io/activa/paginas/precios/> |
 | Consola | <https://sanoapro.github.io/activa/paginas/consola/> |
+| Proyecto Piloto | <https://sanoapro.github.io/activa/paginas/piloto/> |
 
 Al mover o agregar una página hay que revisar cuatro lugares: sus propias etiquetas `og:`, las
 tarjetas del portal, las listas del kit comercial —y ahí, también su `og-source.html` y el conteo

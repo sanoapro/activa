@@ -8,3 +8,6 @@ _probe-*.html
 
 # Perfil temporal que deja Chrome headless al convertir imágenes
 proffotos/
+
+# Volcados de la herramienta de navegador
+.playwright-mcp/

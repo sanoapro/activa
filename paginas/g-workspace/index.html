@@ -882,6 +882,34 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .ph-stor i{grid-column:1/-1;font-style:normal;font-size:11px;line-height:1.45;
   color:var(--ink2);white-space:normal}
 .ph-note{margin-top:9px;padding-top:7px;border-top:1px solid #c6dafc;font-family:var(--mono);font-size:11px;color:var(--g-blue-d)}
+/* Sección de almacenamiento: una tarjeta por ruta, con la barra de proporción
+   pool / adicional. El azul es el pool (el mismo en toda edición) y el color de
+   la ruta es lo que agregan sus licencias. */
+.p-stor-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.p-stor-grid.is-one{grid-template-columns:1fr}
+.p-stor{--sc:var(--g-blue);border:1px solid var(--line);border-top:3px solid var(--sc);border-radius:12px;padding:12px 14px;background:#fff}
+.p-stor--g{--sc:var(--g-grn)}
+.p-stor.is-rec{box-shadow:0 0 0 2px var(--sc)}
+.ps-h{display:flex;align-items:center;gap:8px}
+.ps-l{width:22px;height:22px;border-radius:6px;background:var(--sc);color:#fff;font-family:var(--disp);font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
+.ps-n{font-family:var(--disp);font-size:13px;font-weight:700;color:var(--ink)}
+.ps-rec{margin-left:auto;font-size:9.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;background:var(--sc);color:#fff;border-radius:6px;padding:2px 7px}
+.ps-k{margin-top:10px;font-family:var(--disp);font-size:10.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--faint)}
+.ps-v{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1.1;letter-spacing:-.6px;color:var(--ink)}
+.ps-bar{display:flex;height:10px;border-radius:5px;overflow:hidden;margin:8px 0 8px;background:var(--soft)}
+.ps-pool{background:#8ab4f8}
+.ps-add{background:var(--sc)}
+.ps-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:11.5px;color:var(--ink2);padding:3px 0}
+.ps-row b{font-family:var(--mono);font-weight:600;white-space:nowrap}
+.ps-tot{border-top:1px solid var(--line);margin-top:3px;padding-top:6px;font-weight:700;color:var(--ink)}
+.ps-tot b{font-weight:700}
+.ps-avg{font-size:10.5px;color:var(--mute)}
+.ps-dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:baseline}
+.ps-dot--pool{background:#8ab4f8}
+.ps-dot--add{background:var(--sc)}
+.p-card--cond .pc-list{gap:6px}
+.pp-body a,.p-card a,.p-note a{color:var(--g-blue-d)}
+
 
 /* ---------- capa de papel ---------- */
 .pp-body .ptbl tbody th[scope="row"]{background:#fff;color:#3c4043;font-family:var(--body);font-size:8.6pt;font-weight:500;letter-spacing:0;text-transform:none;padding:2mm 2.8mm;border-bottom:1px solid #eef0f2;vertical-align:top;white-space:normal}
@@ -904,6 +932,26 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .pp-body .ph-stor i{grid-column:1/-1;font-style:normal;font-size:8pt;line-height:1.42;
   color:#3c4043;white-space:normal}
 .pp-body .ph-note{margin-top:2.2mm;padding-top:1.6mm;border-top:1px solid #c6dafc;font-family:var(--mono);font-size:8pt;color:#174ea6}
+.pp-body .p-stor-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.6mm;margin-top:1.5mm;break-inside:avoid}
+.pp-body .p-stor-grid.is-one{grid-template-columns:1fr}
+.pp-body .p-stor{border:1px solid #dadce0;border-top:.9mm solid var(--sc);border-radius:2.5mm;padding:2.8mm 3.4mm;background:#fff;break-inside:avoid}
+.pp-body .p-stor.is-rec{box-shadow:0 0 0 .5mm var(--sc)}
+.pp-body .ps-l{width:5mm;height:5mm;border-radius:1.4mm;font-size:8pt}
+.pp-body .ps-n{font-size:9.4pt}
+.pp-body .ps-rec{font-size:6.6pt;border-radius:1.4mm;padding:.5mm 1.8mm}
+.pp-body .ps-k{margin-top:2.2mm;font-size:6.8pt}
+.pp-body .ps-v{font-size:18pt;letter-spacing:-.6px}
+.pp-body .ps-bar{height:2.6mm;border-radius:1.3mm;margin:1.8mm 0}
+.pp-body .ps-row{font-size:8.2pt;padding:.7mm 0;gap:3mm}
+.pp-body .ps-tot{margin-top:.7mm;padding-top:1.4mm;border-top:1px solid #dadce0}
+.pp-body .ps-avg{font-size:7.4pt}
+.pp-body .ps-dot{width:2mm;height:2mm;border-radius:.5mm;margin-right:1.4mm}
+.pp-body .p-card--cond .pc-list{gap:1.3mm}
+.pp-body a{color:#174ea6;text-decoration:underline}
+/* «Contacto del colegio» se quedaba solo al pie de una hoja y su tarjeta en la
+   siguiente. El rótulo viaja con lo que rotula. */
+.pp-body .p-blocklabel{break-after:avoid;page-break-after:avoid}
+
 
 </style>
 </head>
@@ -1652,6 +1700,16 @@ const ESCENARIOS = deepFreeze([
    nota:"Fundamentals cubre a todo el colegio sin costo; se paga solo por los maestros."}
 ]);
 const ESC_IDS = deepFreeze(ESCENARIOS.map(e => e.id));
+/* Condiciones comerciales que imprime el documento. Salen de la propuesta que el
+   equipo mandaba antes de esta herramienta (La Salle San Juan del Río,
+   4-sep-2026): forma de pago, soporte incluido y enlace a las ediciones. Aquí no
+   hay cifras: la vigencia se lee del estado y la asignación de PRECIOS.entrega. */
+const CONDICIONES = deepFreeze({
+  formaPago: "Transferencia bancaria",
+  soporteUrl: "https://activa.la/soporte/",
+  soporteTexto: "activa.la/soporte",
+  edicionesUrl: "https://edu.google.com/intl/ALL_mx/workspace-for-education/editions/compare-editions/"
+});
 
 /* ============================================================
    MOTOR DE CÁLCULO PURO — la única fuente de verdad
@@ -2865,6 +2923,60 @@ function proposalTotalsBlock(r){
     <div class="ph-note">${esc(rec.def.n)} · ${fmtInt(rec.licencias)} ${esc(rec.licencias===1?rec.sku.unit.s:rec.sku.unit.p)} × ${fmtInt(rec.years)} año${rec.years===1?"":"s"} × ${money(rec.unitPrice)}</div>
   </div>`;
 }
+/* Gigabytes en el documento, con un decimal como máximo y espacio duro antes de
+   la unidad para que «50.8 GB» nunca se parta. */
+function fmtGBDoc(gb){
+  return `${Number(gb).toLocaleString("es-MX",{minimumFractionDigits:0,maximumFractionDigits:1})}\u00a0GB`;
+}
+/* Sección de almacenamiento del PDF. Una tarjeta por ruta cotizada: el pool de
+   la institución, lo que agregan las licencias y el total, con una barra que
+   enseña la proporción. El colegio lo pedía más claro que una fila de la
+   comparativa: en la propuesta anterior era una columna propia de la tabla de
+   inversión. El promedio por usuario solo se imprime si hay conteo del dominio;
+   sin estudiantes ni personal capturados no hay de dónde sacarlo. */
+function proposalAlmacenamiento(r){
+  const cols=printedScenarios(r);
+  if(!cols.length)return "";
+  const usuariosDominio=scenarioCount(r.input,"usuarios");
+  const NB="\u00a0";
+  const tarjetas=cols.map(s=>{
+    const pctPool=Math.max(0,Math.min(100,s.poolTB/s.storageTB*100));
+    const promedio=usuariosDominio?`<div class="ps-row ps-avg"><span>Promedio por usuario del dominio · ${fmtInt(usuariosDominio)} cuentas · referencia</span><b>${esc(fmtGBDoc(s.storageTB*PRECIOS.gbPorTB/usuariosDominio))}</b></div>`:"";
+    return `<div class="p-stor p-stor--${esc(s.sku.c)}${s.id===r.rec?" is-rec":""}">
+      <div class="ps-h"><span class="ps-l">${esc(s.id)}</span><span class="ps-n">${esc(s.sku.corto)}</span>${s.id===r.rec?'<span class="ps-rec">Recomendado</span>':""}</div>
+      <div class="ps-k">Almacenamiento total disponible</div>
+      <div class="ps-v">${esc(fmtTB(s.storageTB))}</div>
+      <div class="ps-bar" aria-hidden="true"><span class="ps-pool" style="width:${pctPool.toFixed(2)}%"></span><span class="ps-add" style="width:${(100-pctPool).toFixed(2)}%"></span></div>
+      <div class="ps-row"><span><i class="ps-dot ps-dot--pool"></i>Pool de la institución${NB}· incluido con Fundamentals</span><b>${esc(fmtTB(s.poolTB))}</b></div>
+      <div class="ps-row"><span><i class="ps-dot ps-dot--add"></i>Adicional por licencias${NB}· ${fmtInt(s.licencias)}${NB}×${NB}${fmtInt(s.sku.storageGB)}${NB}GB</span><b>+${esc(s.addTB<1?fmtGBDoc(s.addGB):fmtTB(s.addTB))}</b></div>
+      <div class="ps-row ps-tot"><span>Total</span><b>${esc(fmtTB(s.storageTB))}</b></div>
+      ${promedio}
+    </div>`;
+  }).join("");
+  return `<div class="p-h" data-sec="2"><span class="n">2</span> Almacenamiento</div>
+  <div class="p-stor-grid${cols.length===1?" is-one":""}">${tarjetas}</div>
+  <div class="p-card p-card--terms"><div class="pc-h">Cómo funciona el almacenamiento</div><ul class="pc-list"><li>Es un <b>espacio compartido</b> por todo el dominio: no se asigna por cuenta, se reparte entre todos los usuarios del colegio.</li><li>Lo consumen <b>Gmail, Google Drive y Google Fotos</b> de todas las cuentas.</li><li>El pool de ${esc(fmtTB(PRECIOS.almacenamiento.poolBaseTB))} viene con Education Fundamentals y es el mismo en toda edición; cada licencia de pago suma su espacio encima: ${fmtInt(PRECIOS.almacenamiento.porLicenciaGB.eduplus)}${NB}GB con Education Plus y ${fmtInt(PRECIOS.almacenamiento.porLicenciaGB.gwtl)}${NB}GB con Teaching &amp; Learning.</li><li>El administrador del colegio puede fijar límites por unidad organizativa o por usuario desde la Consola de Google Admin.</li><li>Unidades decimales: 1${NB}TB = ${fmtInt(PRECIOS.gbPorTB)}${NB}GB.</li></ul></div>`;
+}
+/* Condiciones comerciales del PDF: lo que la propuesta anterior decía en sus
+   notas al pie, más la asignación y los requisitos de Google. */
+function proposalCondiciones(d,r){
+  const cols=printedScenarios(r);
+  const skusCotizados=cols.map(s=>s.sku);
+  const precioAnual=skusCotizados.map(sku=>`${esc(sku.corto)} por ${esc(sku.unit.s)}`).join(" y ");
+  const plus=cols.some(s=>s.sku.k==="eduplus")?`<li><b>Education Plus debe cubrir todo el dominio</b>: una licencia por cada usuario, estudiantes y personal.</li>`:"";
+  return `<div class="p-h" data-sec="4"><span class="n">4</span> Condiciones comerciales</div>
+  <div class="p-card p-card--terms p-card--cond"><ul class="pc-list">
+    <li>Cotización válida hasta el <b>${esc(d.dValid)}</b>.</li>
+    <li>Precios en pesos mexicanos, <b>sujetos a cambio sin previo aviso</b>. La renovación se cotiza con el precio vigente a su fecha.</li>
+    <li>El precio de la licencia es <b>anual</b>: ${precioAnual}.</li>
+    ${plus}
+    <li>Forma de pago: <b>${esc(CONDICIONES.formaPago)}</b>, a la cuenta de la sección 5.</li>
+    <li>Asignación de licencias: ${esc(d.deliver)}, en la Consola de Google Admin del colegio.</li>
+    <li><b>Incluye soporte técnico</b> sobre el licenciamiento adquirido para el responsable de TI durante todo el periodo contratado, mediante tickets en <a href="${esc(CONDICIONES.soporteUrl)}">${esc(CONDICIONES.soporteTexto)}</a>.</li>
+    <li>Requisito: el colegio debe tener Google Workspace for Education Fundamentals activo en su dominio, sin costo para instituciones que califican.</li>
+    <li>Las aplicaciones del ecosistema están sujetas a cambio por otras similares o superiores.</li>
+  </ul></div>`;
+}
 /* Ficha de producto: una tarjeta por edición, con lo que incluye. Se imprimen
    las dos ediciones aunque el colegio solo cotice una, porque la decisión del
    director es entre las dos rutas. */
@@ -2888,22 +3000,23 @@ function buildProposal(){
      Fundamentals. Son términos a favor del colegio, no párrafos sueltos. */
   const rutaChips=`<div class="p-fchips"><span class="p-fchip p-fchip--green">Licencia anual · ciclo escolar</span><span class="p-fchip">${cols.length===2?"Dos rutas, lado a lado":`Escenario ${esc(r.rec)}`}</span><span class="p-fchip p-fchip--yellow">Education Fundamentals es sin costo para instituciones que califican</span></div>`;
   const unaSola=cols.length===1?`<div class="p-note">Esta propuesta cotiza una sola ruta: ${esc(r.recScenario.def.n)}.</div>`:"";
-  /* La asignación es una condición comercial, no un dato de contacto. */
-  const termChips=`<div class="p-fchips"><span class="p-fchip">Asignación de licencias · ${esc(d.deliver)}</span><span class="p-fchip p-fchip--yellow">Las licencias se asignan en la Consola de Google Admin del colegio</span></div>`;
   /* El colegio primero y el vendedor al final: el documento cierra diciendo
      con quién se sigue la conversación, no quién lo firmó. */
   const peopleBlock=d.contacts.length?`<div class="p-blocklabel">Contacto del colegio</div><div class="p-people">${d.contacts.map(c=>`<div class="pe"><div class="pe-n">${esc(c.name||"Sin nombre")}</div>${c.email?`<div class="pe-d">${esc(c.email)}</div>`:""}${c.phone?`<div class="pe-d">${esc(c.phone)}</div>`:""}</div>`).join("")}</div>`:"";
   /* PAPELERÍA v5 · El cuerpo NO repite la portada: ni logotipo, ni folio, ni
      cliente, ni ciudad. Todo eso vive en la hoja 1 y en el encabezado y el pie
      corridos de cada hoja. */
-  return `${preliminary}<div class="p-h" data-sec="1"><span class="n">1</span> Las dos rutas de licenciamiento</div>${rutaChips}${unaSola}
+  return `${preliminary}<div class="p-h" data-sec="1"><span class="n">1</span> ${cols.length===2?"Las dos rutas de licenciamiento":"La ruta de licenciamiento"}</div>${rutaChips}${unaSola}
   ${proposalComparativa(r)}
   ${proposalTotalsBlock(r)}
-  <div class="p-card p-card--terms"><div class="pc-h">Cómo leer los importes</div><ul class="pc-list"><li>Importes en pesos mexicanos. Los precios unitarios y el subtotal van <b>sin IVA</b>; el ${esc(APP_CONFIG.vat.label)} se calcula una sola vez sobre el subtotal y el <b>total ya lo incluye</b>.</li><li>Las dos licencias son <b>anuales</b> y el importe es licencias × años × precio unitario.</li><li>Las dos rutas son <b>alternativas y no se suman</b>: el total de esta propuesta es el del escenario recomendado.</li><li>El pool de ${esc(fmtTB(PRECIOS.almacenamiento.poolBaseTB))} es de la institución y es el mismo en las dos rutas; lo que cambia es cuántos GB agrega cada licencia.</li></ul></div>
-  <div class="p-h" data-sec="2"><span class="n">2</span> Qué incluye cada edición</div>
+  <div class="p-card p-card--terms"><div class="pc-h">Cómo leer los importes</div><ul class="pc-list"><li>Importes en pesos mexicanos. Los precios unitarios y el subtotal van <b>sin IVA</b>; el ${esc(APP_CONFIG.vat.label)} se calcula una sola vez sobre el subtotal y el <b>total ya lo incluye</b>.</li><li>Las dos licencias son <b>anuales</b> y el importe es licencias × años × precio unitario.</li>${cols.length===2?"<li>Las dos rutas son <b>alternativas y no se suman</b>: el total de esta propuesta es el del escenario recomendado.</li>":""}</ul></div>
+  ${proposalAlmacenamiento(r)}
+  <div class="p-h" data-sec="3"><span class="n">3</span> Qué incluye cada edición</div>
   ${proposalFicha(r)}
-  <div class="p-card p-card--terms"><div class="pc-h">La relación entre las dos ediciones</div><ul class="pc-list"><li><b>Education Plus incluye todo lo de Teaching &amp; Learning</b> y añade seguridad, analítica y control del aula. La decisión es de <b>alcance</b>: un área entra con Teaching &amp; Learning; todo el dominio, con Education Plus.</li><li>Las aplicaciones del ecosistema están sujetas a cambio por otras similares o superiores.</li></ul></div>
-  <div class="p-h" data-sec="3"><span class="n">3</span> Datos bancarios y contacto</div>${termChips}
+  <div class="p-note">Detalle oficial de cada edición: <a href="${esc(CONDICIONES.edicionesUrl)}">comparación de ediciones de Google Workspace for Education</a>.</div>
+  <div class="p-card p-card--terms"><div class="pc-h">La relación entre las dos ediciones</div><ul class="pc-list"><li><b>Education Plus incluye todo lo de Teaching &amp; Learning</b> y añade seguridad, analítica y control del aula. La decisión es de <b>alcance</b>: un área entra con Teaching &amp; Learning; todo el dominio, con Education Plus.</li></ul></div>
+  ${proposalCondiciones(d,r)}
+  <div class="p-h" data-sec="5"><span class="n">5</span> Datos bancarios y contacto</div>
   <div class="p-bank"><div class="p-bankt">${svg(P.bank,"#174ea6")} Datos para transferencia · pesos mexicanos</div><div class="p-bankg"><div><div class="k">Titular</div><div class="v" style="font-size:11px;font-family:var(--disp)">${esc(d.bank.t)}</div></div><div><div class="k">Banco</div><div class="v" style="font-size:11px;font-family:var(--disp)">${esc(d.bank.n)}</div></div><div><div class="k">Cuenta</div><div class="v">${esc(d.bank.c)}</div></div><div><div class="k">CLABE</div><div class="v">${esc(d.bank.k)}</div></div></div><div class="p-bankwarn">⚠ Antes de transferir, verifica que el titular de la cuenta coincida: <b>${esc(d.bank.t)}</b>.</div><div class="p-banklegal"><b>${esc(d.legal)}${d.rfc?" · RFC "+esc(d.rfc):""}</b><br>${esc(d.addr)}</div></div>
   ${peopleBlock}<div class="p-blocklabel">Tu contacto en activa</div><div class="p-contact"><div><span class="k">Preparado por</span><span class="v">${esc(d.by)}${d.role?" · "+esc(d.role):""}</span></div><div><span class="k">Teléfono</span><span class="v">${esc(d.phone)}</span></div><div><span class="k">Correo</span><span class="v">${esc(d.mail)}</span></div><div><span class="k">Sitio web</span><span class="v">${esc(d.web||"activa.la")}</span></div></div>`;
 }
@@ -3645,6 +3758,70 @@ const QuoteTests={
       this.assert(html.includes("Teaching &amp; Learning"),"falta la ficha de Teaching & Learning");
       this.assert(html.includes("+20 GB por licencia")&&html.includes("+100 GB por licencia"),"las fichas no declaran el almacenamiento por licencia");
       this.assert(html.includes("Meet hasta 1,000 participantes")&&html.includes("Meet hasta 250 participantes"),"las fichas no declaran los participantes de Meet");
+    }));
+    this.test("El PDF explica el almacenamiento de cada ruta: pool, adicional y total",()=>this.withStorageSandbox(()=>{
+      APP_STATE=this.mkQuote({estudiantes:1600,personal:400,maestros:16,years:1});
+      CURRENT_RESULT=computeScenarios(APP_STATE.input);
+      const html=buildProposal();
+      this.assert(html.includes("> Almacenamiento</div>"),"falta la sección de almacenamiento");
+      this.assert((html.match(/class="p-stor p-stor--/g)||[]).length===2,"debía haber una tarjeta de almacenamiento por ruta");
+      for(const cifra of ["100 TB","+40 TB","+1.6 TB","140 TB","101.6 TB"])
+        this.assert(html.includes(cifra),`la sección de almacenamiento no enseña «${cifra}»`);
+      this.assert(html.includes("2,000\u00a0×\u00a020\u00a0GB")&&html.includes("16\u00a0×\u00a0100\u00a0GB"),"falta la composición licencias × GB");
+      this.assert(html.includes("Gmail, Google Drive y Google Fotos"),"falta explicar qué consume el espacio compartido");
+      /* 140 TB entre 2,000 cuentas: 70 GB de referencia por usuario. */
+      this.assert(html.includes("70\u00a0GB"),"el promedio por usuario del dominio no cuadra");
+    }));
+    this.test("Sin conteo del dominio no se inventa un promedio por usuario",()=>this.withStorageSandbox(()=>{
+      APP_STATE=this.mkQuote({maestros:16,years:1,recomendado:"B"});
+      CURRENT_RESULT=computeScenarios(APP_STATE.input);
+      const html=buildProposal();
+      this.assert((html.match(/class="p-stor p-stor--/g)||[]).length===1,"con una sola ruta debía imprimirse una sola tarjeta");
+      this.assert(!html.includes("Promedio por usuario"),"sin estudiantes ni personal no hay de dónde sacar el promedio");
+    }));
+    this.test("Las condiciones comerciales viajan completas en el documento",()=>this.withStorageSandbox(()=>{
+      APP_STATE=this.mkQuote({estudiantes:1600,personal:400,maestros:16,years:1});
+      CURRENT_RESULT=computeScenarios(APP_STATE.input);
+      const html=buildProposal();
+      const d=docData();
+      this.assert(html.includes("> Condiciones comerciales</div>"),"falta la sección de condiciones");
+      this.assert(html.includes(`Cotización válida hasta el <b>${esc(d.dValid)}</b>`),"las condiciones no dicen hasta cuándo vale la cotización");
+      this.assert(html.includes("sujetos a cambio sin previo aviso"),"falta que los precios están sujetos a cambio");
+      this.assert(html.includes(esc(CONDICIONES.formaPago)),"falta la forma de pago");
+      this.assert(html.includes(`href="${CONDICIONES.soporteUrl}"`)&&html.includes("Incluye soporte técnico"),"falta el soporte incluido con su enlace");
+      this.assert(html.includes("Education Fundamentals activo en su dominio"),"falta el requisito de Fundamentals");
+      this.assert(html.indexOf("Condiciones comerciales")<html.indexOf("Datos bancarios y contacto"),"las condiciones van antes de los datos bancarios");
+    }));
+    this.test("El requisito de dominio completo solo aparece si se cotiza Plus",()=>this.withStorageSandbox(()=>{
+      APP_STATE=this.mkQuote({estudiantes:1600,personal:400,years:1});
+      CURRENT_RESULT=computeScenarios(APP_STATE.input);
+      this.assert(buildProposal().includes("Education Plus debe cubrir todo el dominio"),"con Plus cotizado faltó el requisito de dominio completo");
+      APP_STATE=this.mkQuote({maestros:16,years:1,recomendado:"B"});
+      CURRENT_RESULT=computeScenarios(APP_STATE.input);
+      this.assert(!buildProposal().includes("Education Plus debe cubrir todo el dominio"),"sin Plus cotizado no aplica el requisito de dominio completo");
+    }));
+    this.test("Un adicional menor a 1 TB se imprime en GB",()=>this.withStorageSandbox(()=>{
+      APP_STATE=this.mkQuote({maestros:2,years:1,recomendado:"B"});
+      CURRENT_RESULT=computeScenarios(APP_STATE.input);
+      const html=buildProposal();
+      this.assert(html.includes("+200\u00a0GB"),"2 × 100 GB debía leerse «+200 GB»");
+      this.assert(!html.includes("+0.2 TB"),"el adicional pequeño no debe expresarse en fracciones de TB");
+      this.assert(html.includes("100.2 TB"),"el total sigue en TB");
+    }));
+    this.test("Con una sola ruta el documento no habla de dos",()=>this.withStorageSandbox(()=>{
+      APP_STATE=this.mkQuote({maestros:2,years:1,recomendado:"B"});
+      CURRENT_RESULT=computeScenarios(APP_STATE.input);
+      const html=buildProposal();
+      this.assert(html.includes("> La ruta de licenciamiento</div>"),"el título debía ir en singular");
+      this.assert(!html.includes("Las dos rutas de licenciamiento</div>")&&!html.includes("Las dos rutas son"),"con una ruta no hay dos que comparar");
+    }));
+    this.test("Los enlaces del documento van por https",()=>this.withStorageSandbox(()=>{
+      APP_STATE=this.mkQuote({estudiantes:1600,personal:400,years:1});
+      CURRENT_RESULT=computeScenarios(APP_STATE.input);
+      const caja=document.createElement("div");caja.innerHTML=buildProposal();
+      const enlaces=[...caja.querySelectorAll("a")].map(a=>a.getAttribute("href"));
+      this.assert(enlaces.includes(CONDICIONES.edicionesUrl),"falta el enlace a la comparación de ediciones");
+      this.assert(enlaces.length>0&&enlaces.every(h=>/^https:\/\//.test(h)),`hay un enlace sin https: ${enlaces.join(" · ")}`);
     }));
     this.test("La edición no cotizada se marca como tal, sin desaparecer",()=>this.withStorageSandbox(()=>{
       APP_STATE=this.mkQuote({maestros:16,years:1,recomendado:"B"});
