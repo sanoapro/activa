@@ -1,6 +1,6 @@
 # upgrade edu 2026–2027
 
-Deck de 34 diapositivas del programa comercial, estilo Google for Education.
+Deck de 33 diapositivas del programa comercial, estilo Google for Education.
 Se publica en **<https://sanoapro.github.io/activa/paginas/upgrade-edu/>**
 
 Markup, CSS, JS e imágenes en base64 viven dentro de `index.html`. Se abre con doble clic, sin
@@ -87,11 +87,11 @@ era el defecto que arrastraba el deck, con todo el movimiento concentrado en la 
 | 19 · integra | el emblema de sincronización gira |
 | 26 · PLUS | **flecha a mano** que se traza sola y se balancea hacia la píldora |
 | 28 · piloto · la oferta | **subrayado a mano** sobre «Piloto» · **anillo de carga** alrededor del `$0` (aro de 150 px: a 74 px la cifra ya no cabe en el de 96) |
-| 29 · 30 · piloto | cascada de la rejilla, con pictograma en cada renglón |
-| 31 · piloto · proceso y calendario | un punto recorre la banda del coach en cuatro tiempos —una parada por semana de aula— y descansa |
-| 32 · piloto · resultados | **subrayado a mano** sobre «datos propios» · cascada de la rejilla |
-| 33 · el desglose | **ninguno propio, a propósito**: los importes no se animan (prohibición expresa de la normativa) y las cuatro columnas entran con el `.body`, como un bloque |
-| 34 · cierre | confeti que estalla desde el centro · vaivén de las letras de Google · tarjetas que se inclinan |
+| 29 · piloto · el trato | cascada de la rejilla, con pictograma en cada renglón |
+| 30 · piloto · el proceso | un punto recorre la banda del coach en cuatro tiempos —una parada por semana de aula— y descansa |
+| 31 · piloto · resultados | **subrayado a mano** sobre «datos propios» · cascada de la rejilla |
+| 32 · el desglose | **ninguno propio, a propósito**: los importes no se animan (prohibición expresa de la normativa) y las cuatro columnas entran con el `.body`, como un bloque |
+| 33 · cierre | confeti que estalla desde el centro · vaivén de las letras de Google · tarjetas que se inclinan |
 
 Y en todas las de contenido, los círculos pastel del fondo derivan muy despacio (`.mv-flota`,
 16 s por ciclo). La clase la reparte la coreografía, no el markup.
@@ -165,32 +165,43 @@ realce del deck.
 - `F` pantalla completa
 - `P` imprimir a PDF en 16:9
 
-## El bloque del proyecto piloto (28–32)
+## El bloque del proyecto piloto (28–31)
 
-Cinco láminas entre «Por qué activa» (27) y el desglose (33). Cierran la junta con la oferta del
-piloto gratuito de cuatro semanas, en este orden: **oferta → trato → preparación → proceso y
-calendario → resultados**. Cada una lleva su fase en `data-bloque`.
+Cuatro láminas entre «Por qué activa» (27) y el desglose (32). Cierran la junta con la oferta del
+piloto gratuito de cuatro semanas, en este orden: **oferta → trato → proceso → resultados**. Cada
+una lleva su fase en `data-bloque`.
+
+**Eran cinco y en sep-2026 bajaron a cuatro.** La lámina de las tres decisiones se disolvió en la
+del proceso, donde ya vivían como una sola línea al pie —grupo · docente · proyecto—; repetir sus
+explicaciones a una lámina de distancia alargaba el cierre y no añadía nada. El detalle completo
+del piloto —los seis pasos, los campos del registro, las condiciones una por una— vive ahora en
+[`../piloto/`](../piloto/), que es el deck del piloto por sí solo.
 
 **El proceso y el calendario son una sola lámina.** Empezaron siendo dos y contaban lo mismo dos
 veces: las cuatro semanas de aula SON cuatro de las siete del calendario, y separadas obligaban al
 director a cruzar los dos dibujos en su cabeza. Ahora la fase va arriba (preparación · ejecución ·
-cierre), el momento en el título de cada semana, y las dos constantes —coach semanal y horas del
-docente— en una banda al pie.
+evaluación y cierre), el momento en el título de cada semana, y las dos constantes —coach semanal
+y horas del docente— en una banda al pie.
 
 **Cada renglón lleva su pictograma.** Once viñetas redondas iguales no distinguen un Chromebook de
-una hora de coach; el icono sí, y sin gastar una línea. En la 32, la banda verde del
+una hora de coach; el icono sí, y sin gastar una línea. En la 31, la banda verde del
 acompañamiento es la parte que tiene que emocionar: el arco de esa lámina va de la prueba
 (entregables) a la aspiración (a dónde llevan) a la petición (la cita).
 
 - **No abren capítulo.** La barra de los cuatro ejes es del programa, no del piloto, y los
   cuatro ejes ya quedaron vendidos en la lámina 25. El bloque lleva su propio hilo —`.ejebar
-  .sp-bar`, cinco tramos y rótulo «Piloto · …»— que se lee como lo que es: otra cosa.
+  .sp-bar`, cuatro tramos estrechos y rótulo «Piloto · …»— que se lee como lo que es: otra cosa.
 - **Prefijo `sp-`** en todo el CSS nuevo, para no chocar con los bloques `sNN-`.
 - **Sin logo ni nombre de colegio.** El deck se presenta igual ante cualquier institución; el
   único dato variable de todo el archivo sigue siendo el contacto de la última lámina.
-- Las siete semanas del calendario son **rangos de lunes a sábado de 2026** verificados contra
-  el calendario real: 12 oct, 19 oct, 26 oct, 2 nov, 9 nov, 16 nov y 23 nov caen todos en lunes.
-  Si el piloto se mueve de año, hay que rehacer los siete rangos.
+- **Sin fechas, desde sep-2026.** El calendario traía los siete rangos de lunes a sábado de
+  octubre y noviembre de 2026, y cada ciclo había que rehacerlos contra el calendario real.
+  Ahora son semanas relativas —semana previa, semanas 1 a 4, semana 5 y semana 6— y las fechas
+  se acuerdan con la coordinación del colegio en la reunión inicial. **No se repongan los meses.**
+- **No hay diagnóstico previo ni examen a los alumnos.** Lo que se mide en la semana 5 es el
+  pilotaje —participación, adopción del docente, producto final— y lo aplican el coach y el
+  docente juntos con un instrumento de la casa. Si vuelve a aparecer la palabra «diagnóstico»
+  en este bloque, contradice a [`../piloto/`](../piloto/).
 
 ## Notas
 

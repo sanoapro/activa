@@ -10,8 +10,8 @@ paso de compilación.
 |---|---|---|
 | **Kit comercial** | [/paginas/kit-comercial/](https://sanoapro.github.io/activa/paginas/kit-comercial/) | Una lámina con los accesos que el equipo comercial usa a diario. |
 | **Cotizador 2026–2027** | [/paginas/cotizador/](https://sanoapro.github.io/activa/paginas/cotizador/) | Arma la propuesta del colegio: dispositivos, licenciamiento, capacitación y soporte. |
-| **upgrade edu 2026–2027** | [/paginas/upgrade-edu/](https://sanoapro.github.io/activa/paginas/upgrade-edu/) | Deck de 28 diapositivas del programa comercial. Abre sin compilar nada. |
-| **Padres de familia 2026–2027** | [/paginas/padres-de-familia/](https://sanoapro.github.io/activa/paginas/padres-de-familia/) | Deck de 22 diapositivas para las juntas con familias. Se lee igual en el proyector que en el teléfono de un padre. |
+| **upgrade edu 2026–2027** | [/paginas/upgrade-edu/](https://sanoapro.github.io/activa/paginas/upgrade-edu/) | Deck de 33 diapositivas del programa comercial. Abre sin compilar nada. |
+| **Padres de familia 2026–2027** | [/paginas/padres-de-familia/](https://sanoapro.github.io/activa/paginas/padres-de-familia/) | Deck de 17 diapositivas para las juntas con familias. Se lee igual en el proyector que en el teléfono de un padre. |
 | **Arrendamiento** | [/paginas/arrendamiento/](https://sanoapro.github.io/activa/paginas/arrendamiento/) | Cotizador de Chromebooks en renta: mensualidad fija a 3 o 4 años. |
 | **Compra directa** | [/paginas/compra/](https://sanoapro.github.io/activa/paginas/compra/) | Cotizador de catálogo abierto, por partida y con el IVA una sola vez, al final. |
 | **G-Workspace** | [/paginas/g-workspace/](https://sanoapro.github.io/activa/paginas/g-workspace/) | Cotizador de licencias Google Workspace for Education: Education Plus o Teaching &amp; Learning, lado a lado. |
