@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Uso seguro y responsable de la tecnología · El acuerdo de la SEP sobre celulares · activa</title>
+<meta name="description" content="Qué establece el acuerdo nacional que restringe los celulares en las escuelas desde el 3 de noviembre de 2026, y por qué un equipo institucional administrado está alineado con sus objetivos.">
+<meta name="theme-color" content="#ffffff">
+<!-- Fuera de los buscadores, como toda página del repositorio. Esta no lleva
+     datos sensibles: si se quiere que Google la indexe, basta con quitar
+     esta línea. Las etiquetas og: siguen funcionando para WhatsApp. -->
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Icono de pestaña: los cuatro cuadros de Google, el de toda la casa. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='11' height='11' rx='3' fill='%234285f4'/%3E%3Crect x='18' y='3' width='11' height='11' rx='3' fill='%23ea4335'/%3E%3Crect x='3' y='18' width='11' height='11' rx='3' fill='%23fbbc04'/%3E%3Crect x='18' y='18' width='11' height='11' rx='3' fill='%2334a853'/%3E%3C/svg%3E">
+
+<!-- Vista previa al compartir. URL absolutas: WhatsApp no lee rutas relativas.
+     `og.png` se regenera desde `og-source.html` (ver README). -->
+<meta property="og:type" content="article">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="activa">
+<meta property="og:url" content="https://sanoapro.github.io/activa/paginas/uso-responsable/">
+<!-- En el chat, el título sale en negritas y la descripción se corta hacia los
+     90 caracteres: el tema y la fecha van en el título, lo que el lector se
+     lleva va primero en la descripción, y el lema ya lo carga la imagen. -->
+<meta property="og:title" content="Celulares en la escuela desde el 3 de noviembre: qué cambia">
+<meta property="og:description" content="El acuerdo de la SEP explicado para familias y directivos: qué dice, qué pasa con las Chromebooks y preguntas frecuentes.">
+<meta property="og:image" content="https://sanoapro.github.io/activa/paginas/uso-responsable/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Uso seguro y responsable de la tecnología · activa · Google for Education Partner">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sanoapro.github.io/activa/paginas/uso-responsable/og.png">
+
+<!-- Motor de movimiento compartido (docs/normativa-motion.md). Solo esconde
+     cosas bajo html.mo-ready: si el JS no carga, la página se lee completa. -->
+<link rel="stylesheet" href="../../compartidos/css/motion.css">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   Página de lectura, no deck: se desplaza. Paleta y componentes del
+   sistema de los decks (paginas/piloto/), sin el escenario de 1280×720.
+   Un solo archivo: sin red, sin almacenamiento, sin librerías.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --blue:#1a73e8; --blue-d:#174ea6; --blue-t:#e8f0fe; --blue-l:#4285f4;
+  --red:#ea4335;  --red-d:#b31412;  --red-t:#fce8e6;  --red-l:#f28b82;
+  --yel:#f9ab00;  --yel-d:#b06000;  --yel-t:#fef7e0;  --yel-l:#fdd663;
+  --grn:#1e8e3e;  --grn-d:#0d652d;  --grn-t:#e6f4ea;  --grn-l:#34a853;
+  --plum:#7b1fa2; --plum-t:#f6ecfd; --plum-l:#c58af9;
+  --act:#0fa2a6;
+  --ink:#202124;  --ink2:#5f6368;   --ink3:#80868b;  --ink4:#bdc1c6;
+  --line:#e3e5e8; --surf:#f8f9fa;   --surf2:#f1f3f4; --white:#fff;
+  --sh:0 1px 2px rgba(60,64,67,.08), 0 6px 18px -6px rgba(60,64,67,.16);
+  --sh2:0 2px 6px rgba(60,64,67,.10), 0 14px 34px -12px rgba(60,64,67,.24);
+  --g4:linear-gradient(90deg,#4285f4 0 25%,#ea4335 25% 50%,#fbbc04 50% 75%,#34a853 75% 100%);
+  --font:"Google Sans","Product Sans","Google Sans Text",Roboto,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --cab:68px;                       /* alto de la cabecera fija */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--cab) + 18px)}
+body{background:var(--white);font-family:var(--font);color:var(--ink);
+  -webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:var(--blue-d)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--blue-l);outline-offset:3px;border-radius:6px}
+
+/* ═══════════ TIPOGRAFÍA ═══════════ */
+h1{font-size:clamp(38px,5.6vw,66px);line-height:1.04;font-weight:500;letter-spacing:-.035em;text-wrap:balance}
+h2{font-size:clamp(28px,3.4vw,40px);line-height:1.1;font-weight:500;letter-spacing:-.025em;text-wrap:balance}
+h3{font-size:20px;line-height:1.25;font-weight:600;letter-spacing:-.3px}
+h4{font-size:17px;line-height:1.3;font-weight:600;letter-spacing:-.2px}
+p{font-size:17px;color:var(--ink2)}
+.lead{font-size:clamp(17px,1.6vw,20px);line-height:1.55;color:var(--ink2);max-width:720px}
+.xs{font-size:14.5px;line-height:1.55;color:var(--ink2)}
+b,strong{font-weight:600;color:var(--ink)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;
+  letter-spacing:1.8px;text-transform:uppercase;color:var(--ink3)}
+.eyebrow::before{content:"";width:22px;height:3px;border-radius:2px;background:currentColor}
+.eyebrow.b{color:var(--blue-d)} .eyebrow.r{color:var(--red-d)} .eyebrow.y{color:var(--yel-d)}
+.eyebrow.g{color:var(--grn-d)} .eyebrow.p{color:var(--plum)}
+
+/* «Google», con su marca; y las marcas de la casa en cursiva negrita */
+.gg{font-style:normal;white-space:nowrap}
+.gg i{font-style:normal;font-weight:inherit}
+.gg i:nth-child(1),.gg i:nth-child(4){color:#4285f4}
+.gg i:nth-child(2),.gg i:nth-child(6){color:#ea4335}
+.gg i:nth-child(3){color:#fbbc04}
+.gg i:nth-child(5){color:#34a853}
+.marca{font-style:italic;font-weight:800;color:var(--ink)}
+
+/* Palabra resaltada: un subrayado grueso y translúcido por debajo de la
+   línea, como un marcatextos. No cambia el color del texto —así se lee
+   igual impreso en blanco y negro— y el color dice de qué sección viene. */
+mark.hl{background:linear-gradient(transparent 60%,rgba(66,133,244,.24) 60% 92%,transparent 92%);
+  color:inherit;padding:0 .08em;font-weight:600;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+mark.hl.y{background-image:linear-gradient(transparent 60%,rgba(251,188,4,.38) 60% 92%,transparent 92%)}
+mark.hl.g{background-image:linear-gradient(transparent 60%,rgba(52,168,83,.26) 60% 92%,transparent 92%)}
+mark.hl.r{background-image:linear-gradient(transparent 60%,rgba(234,67,53,.22) 60% 92%,transparent 92%)}
+
+/* ═══════════ ESTRUCTURA ═══════════ */
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+.read{max-width:760px}
+.sec{padding:88px 0 8px;position:relative}
+.sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:34px}
+.sec-head h2::after{content:"";display:block;width:64px;height:4px;border-radius:2px;
+  background:var(--g4);margin-top:18px}
+.prose{display:flex;flex-direction:column;gap:18px;max-width:760px}
+.prose p{font-size:18px;line-height:1.7}
+
+/* ═══════════ SUPERFICIES ═══════════ */
+.card{background:var(--white);border:1px solid var(--line);border-radius:24px;
+  padding:26px 28px;display:flex;flex-direction:column;gap:12px}
+.card.soft{background:var(--surf);border-color:transparent}
+.card.t-b{background:var(--blue-t);border-color:transparent}
+.card.t-r{background:var(--red-t);border-color:transparent}
+.card.t-y{background:var(--yel-t);border-color:transparent}
+.card.t-g{background:var(--grn-t);border-color:transparent}
+.card.lift{box-shadow:var(--sh);border-color:transparent}
+.card.rule{border-top:4px solid var(--line);border-radius:6px 6px 24px 24px}
+.card.rule.b{border-top-color:var(--blue)} .card.rule.r{border-top-color:var(--red)}
+.card.rule.y{border-top-color:var(--yel)} .card.rule.g{border-top-color:var(--grn-l)}
+.card.rule.p{border-top-color:var(--plum)}
+.card.t-y > .med,.card.t-b > .med,.card.t-g > .med{background:rgba(255,255,255,.85)}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+
+/* medallones: el fondo es el tinte, el trazo el tono oscuro */
+.med{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;flex-shrink:0}
+.med svg{width:24px;height:24px}
+.med.sm{width:40px;height:40px;border-radius:13px} .med.sm svg{width:20px;height:20px}
+.med.b{background:var(--blue-t)} .med.b svg{fill:var(--blue)}
+.med.r{background:var(--red-t)}  .med.r svg{fill:var(--red)}
+.med.y{background:var(--yel-t)}  .med.y svg{fill:var(--yel-d)}
+.med.g{background:var(--grn-t)}  .med.g svg{fill:var(--grn)}
+.med.p{background:var(--plum-t)} .med.p svg{fill:var(--plum)}
+.med.n{background:var(--surf2)}  .med.n svg{fill:var(--ink2)}
+
+.pill{display:inline-flex;align-items:center;gap:7px;min-height:28px;padding:4px 13px;border-radius:99px;
+  font-size:12.5px;font-weight:700;letter-spacing:.2px;background:var(--surf2);color:var(--ink2)}
+.pill svg{width:14px;height:14px;fill:currentColor;flex-shrink:0}
+.pill.b{background:var(--blue-t);color:var(--blue-d)} .pill.y{background:var(--yel-t);color:var(--yel-d)}
+.pill.g{background:var(--grn-t);color:var(--grn-d)}   .pill.r{background:var(--red-t);color:var(--red-d)}
+.pill.ghost{background:transparent;border:1px solid var(--line)}
+
+.shape{position:absolute;border-radius:50%;pointer-events:none;z-index:-1}
+
+/* ═══════════ CABECERA FIJA ═══════════ */
+.franja{position:fixed;left:0;right:0;top:0;height:4px;background:var(--g4);z-index:30}
+.cab{position:sticky;top:0;z-index:20;height:var(--cab);margin-top:4px;
+  background:rgba(255,255,255,.9);backdrop-filter:saturate(160%) blur(14px);
+  -webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--line)}
+.cab .wrap{height:100%;display:flex;align-items:center;gap:22px}
+.logos{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.logos img{height:24px;width:auto}
+.logos .gfe{height:22px}
+.logos .sep{width:1px;height:24px;background:var(--line)}
+/* índice de secciones: chips que se marcan solos al leer */
+.indice{display:flex;gap:6px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.indice::-webkit-scrollbar{display:none}
+.indice a{flex-shrink:0;text-decoration:none;font-size:13px;font-weight:600;color:var(--ink2);
+  padding:7px 13px;border-radius:99px;transition:background .18s ease,color .18s ease}
+.indice a:hover{background:var(--surf2);color:var(--ink)}
+.indice a.on{background:var(--blue-t);color:var(--blue-d)}
+/* barra de avance de lectura: la mueve Motion.progressBar, solo transform */
+.avance{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--blue);
+  transform:scaleX(0);transform-origin:0 50%;pointer-events:none}
+
+/* ═══════════ HERO ═══════════ */
+/* los círculos de fondo se asoman por la derecha: se recortan aquí, en su
+   sección, porque overflow en <body> no evita el scroll horizontal del documento */
+.hero{position:relative;padding:76px 0 40px;isolation:isolate;overflow:hidden}
+.hero .wrap{display:flex;flex-direction:column;gap:24px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.hero h1{max-width:900px}
+.hero h1 .azul{color:var(--blue)}
+.hero .lead{font-size:clamp(18px,1.8vw,21px);max-width:780px}
+/* tres datos del acuerdo: se leen de un vistazo, antes que cualquier párrafo */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
+.kpi{display:flex;gap:16px;align-items:flex-start;padding:20px 22px;border-radius:20px;
+  background:var(--white);box-shadow:var(--sh)}
+.kpi .n{font-size:30px;line-height:1;font-weight:500;letter-spacing:-1px;color:var(--ink);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.kpi .l{font-size:14px;line-height:1.4;color:var(--ink2);margin-top:6px}
+.kpi.r .n{color:var(--red)} .kpi.b .n{color:var(--blue)} .kpi.g .n{color:var(--grn)}
+
+/* subrayado a mano (vocabulario de los decks): estado base = trazo completo,
+   así que llega entero al papel aunque el movimiento esté apagado */
+.mv-r{position:relative;display:inline-block}
+.mv-r > svg{position:absolute;overflow:visible;pointer-events:none;
+  fill:none;stroke:var(--c,var(--blue-l));stroke-linecap:round;stroke-linejoin:round}
+.mv-traza{stroke-dasharray:100;stroke-dashoffset:0;
+  animation:mv-traza .7s cubic-bezier(.36,.75,.4,1) .45s both}
+@keyframes mv-traza{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+.mv-sub{left:-4px;width:calc(100% + 8px);top:94%;height:13px;stroke-width:3.6}
+
+/* ═══════════ CITA ═══════════
+   Una cita tiene que verse como cita a distancia: nada más en la página
+   lleva comillas grandes, cursiva ni el filete de cuatro colores. Así nadie
+   confunde lo que dijo una autoridad con lo que decimos nosotros. Las
+   afirmaciones propias van en .tesis, que no lleva ninguna de las tres. */
+.cita{position:relative;margin:0;padding:30px 34px 24px 88px;border-radius:24px;
+  background:linear-gradient(135deg,#f6f9ff 0%,#eef3fd 100%);overflow:hidden}
+.cita::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;
+  background:linear-gradient(180deg,#4285f4 0 25%,#ea4335 25% 50%,#fbbc04 50% 75%,#34a853 75% 100%)}
+.cita .comilla{position:absolute;left:30px;top:26px;width:38px;height:38px;fill:var(--blue-l);opacity:.9}
+.cita blockquote p{font-size:clamp(19px,2vw,23px);line-height:1.45;font-style:italic;font-weight:400;
+  color:var(--ink);letter-spacing:-.2px}
+.cita figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-top:16px;
+  padding-top:14px;border-top:1px solid rgba(26,115,232,.14);font-size:14px;color:var(--ink2)}
+.cita figcaption b{font-size:15px}
+.cita figcaption .cargo{color:var(--ink3)}
+.cita figcaption a{margin-left:auto;font-size:13px;font-weight:600;text-decoration:none;
+  display:inline-flex;align-items:center;gap:5px}
+.cita figcaption a svg{width:13px;height:13px;fill:currentColor}
+
+/* tesis: una afirmación NUESTRA, grande. Sin comillas ni cursiva, para no
+   parecer cita. La marca a la izquierda es un bloque sólido del color de la sección. */
+.tesis{display:flex;gap:20px;align-items:flex-start;padding:28px 32px;border-radius:24px;background:var(--surf)}
+.tesis .bar{width:6px;align-self:stretch;border-radius:3px;background:var(--blue);flex-shrink:0}
+.tesis p{font-size:clamp(21px,2.3vw,27px);line-height:1.32;font-weight:500;color:var(--ink);letter-spacing:-.4px}
+.tesis.g .bar{background:var(--grn-l)} .tesis.g{background:var(--grn-t)}
+
+/* ═══════════ EL ACUERDO ═══════════ */
+.nivel h3{display:flex;align-items:center;gap:10px}
+.nivel .tag{font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}
+.nivel.r .tag{color:var(--red-d)} .nivel.y .tag{color:var(--yel-d)} .nivel.b .tag{color:var(--blue-d)}
+.exc li,.cal li{list-style:none;display:flex;gap:12px;align-items:flex-start;font-size:15.5px;line-height:1.5;color:var(--ink2)}
+.exc,.cal{display:flex;flex-direction:column;gap:12px}
+.exc li svg,.cal li svg{width:20px;height:20px;flex-shrink:0;margin-top:2px}
+.exc li svg{fill:var(--red)} .cal li svg{fill:var(--blue)}
+.cal li b,.exc li b{display:block;color:var(--ink)}
+/* la consulta docente: cinco cifras que no se animan (normativa) */
+.consulta{display:grid;grid-template-columns:1.1fr repeat(4,1fr);gap:0;border-radius:24px;overflow:hidden;
+  background:var(--white);box-shadow:var(--sh)}
+.consulta > div{padding:24px 22px;border-left:1px solid var(--line)}
+.consulta > div:first-child{border-left:0;background:var(--blue-t)}
+.consulta .n{font-size:36px;line-height:1;font-weight:500;letter-spacing:-1.4px;color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.consulta .n.b{color:var(--blue)}
+.consulta .l{font-size:13.5px;line-height:1.4;color:var(--ink2);margin-top:8px}
+.consulta .t{font-size:12px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;color:var(--blue-d)}
+.consulta .t + p{font-size:14.5px;margin-top:8px;line-height:1.5}
+
+/* ═══════════ LA DIFERENCIA ═══════════ */
+.vs{border-radius:26px;overflow:hidden;box-shadow:var(--sh2);background:var(--white)}
+.vs-row{display:grid;grid-template-columns:200px 1fr 1fr;border-top:1px solid var(--line)}
+.vs-row:first-child{border-top:0}
+.vs-row > div{padding:18px 22px;font-size:15.5px;line-height:1.5}
+.vs-row .k{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.3px;
+  color:var(--ink);background:var(--surf)}
+.vs-row .k svg{width:18px;height:18px;fill:var(--ink3);flex-shrink:0}
+.vs-row .a{color:var(--ink2);background:#fffafa}
+.vs-row .c{color:var(--ink);background:#f7fcf8}
+.vs-head > div{padding:20px 22px;display:flex;align-items:center;gap:12px;font-size:17px;font-weight:600}
+.vs-head .k{background:var(--white)}
+.vs-head .a{background:var(--red-t);color:var(--red-d)}
+.vs-head .c{background:var(--grn-t);color:var(--grn-d)}
+.vs-head svg{width:24px;height:24px;flex-shrink:0}
+.vs-head .a svg{fill:var(--red)} .vs-head .c svg{fill:var(--grn)}
+.vs-row .ic{display:none}                /* etiqueta en móvil, ver responsive */
+
+/* ═══════════ GARANTÍAS ═══════════ */
+.gar .top{display:flex;align-items:center;gap:14px}
+.gar .num{font-size:13px;font-weight:800;letter-spacing:1.6px;color:var(--ink3);text-transform:uppercase}
+.gar h3{font-size:22px}
+.gar p{font-size:16px;line-height:1.65}
+.gar .logos-mini{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px}
+.gar .logos-mini img{height:22px;width:auto}
+
+/* ═══════════ DIRECTIVOS ═══════════ */
+.ctrl{display:flex;gap:14px;align-items:flex-start;padding:20px;border-radius:18px;background:var(--surf)}
+.ctrl h4{font-size:16px;margin-bottom:4px}
+.ctrl .xs{font-size:14px}
+.pasos{counter-reset:paso;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.paso{position:relative;padding:24px 22px 22px;border-radius:22px;background:var(--white);box-shadow:var(--sh)}
+.paso::before{counter-increment:paso;content:counter(paso);display:grid;place-items:center;
+  width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;
+  font-size:15px;margin-bottom:14px}
+.paso:nth-child(2)::before{background:var(--red)} .paso:nth-child(3)::before{background:var(--yel);color:var(--ink)}
+.paso:nth-child(4)::before{background:var(--grn-l)}
+.paso h4{margin-bottom:6px}
+.aviso{display:flex;gap:10px;align-items:center;font-size:13.5px;color:var(--ink3);margin-top:14px}
+.aviso svg{width:16px;height:16px;fill:var(--ink3);flex-shrink:0}
+
+/* ═══════════ FAMILIAS ═══════════ */
+.faq .q{display:flex;gap:12px;align-items:flex-start}
+.faq .q svg{width:22px;height:22px;fill:var(--blue);flex-shrink:0;margin-top:1px}
+.faq .q h4{font-size:17px}
+.faq p{font-size:15.5px;line-height:1.6}
+
+/* ═══════════ CONCLUSIÓN ═══════════ */
+.cierre{position:relative;margin-top:96px;padding:72px 0;background:var(--blue-t);overflow:hidden;isolation:isolate}
+.cierre h2{max-width:820px}
+.cierre .prose p{color:var(--ink2)}
+.cierre .tesis{background:var(--white);box-shadow:var(--sh)}
+
+/* ═══════════ VIGENCIA, FUENTES Y PIE ═══════════ */
+.nota{display:flex;gap:16px;align-items:flex-start;padding:22px 26px;border-radius:20px;
+  background:var(--yel-t);border-left:5px solid var(--yel)}
+.nota svg{width:24px;height:24px;fill:var(--yel-d);flex-shrink:0;margin-top:1px}
+.nota p{font-size:15.5px;line-height:1.6;color:var(--ink)}
+.fuentes{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.fuentes a{display:flex;flex-direction:column;gap:3px;padding:16px 18px;border-radius:16px;background:var(--surf);
+  text-decoration:none;transition:background .18s ease}
+.fuentes a:hover{background:var(--blue-t)}
+.fuentes a b{font-size:15px;color:var(--ink)}
+.fuentes a span{font-size:13.5px;color:var(--ink2)}
+.fuentes a small{font-size:12px;color:var(--blue-d);font-weight:600}
+.pie{margin-top:80px;padding:40px 0 56px;border-top:1px solid var(--line)}
+.pie .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.pie p{font-size:14px;color:var(--ink3)}
+
+/* realce de tarjetas al pasar el cursor: solo con puntero fino */
+@media (hover:hover) and (pointer:fine){
+  .card.lift,.paso,.kpi{transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s ease}
+  .card.lift:hover,.paso:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+}
+
+/* cascada: animación y no transición, como en los decks, con el --mo-delay
+   que escribe Motion.stagger() */
+body{--mo-dur:.5s;--mo-subida:14px}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width:980px){
+  .g3,.g4,.pasos{grid-template-columns:repeat(2,1fr)}
+  .kpis{grid-template-columns:1fr}
+  .consulta{grid-template-columns:repeat(2,1fr)}
+  .consulta > div:first-child{grid-column:1 / -1}
+  .consulta > div{border-left:0;border-top:1px solid var(--line)}
+  .consulta > div:first-child{border-top:0}
+  .indice{display:none}
+}
+@media (max-width:700px){
+  :root{--cab:60px}
+  .wrap{padding:0 18px}
+  .g2,.g3,.g4,.pasos,.fuentes{grid-template-columns:1fr}
+  .hero{padding:48px 0 24px}
+  /* en el teléfono los dos círculos chicos caen detrás del párrafo: fuera */
+  .hero .shape + .shape{display:none}
+  .sec{padding:64px 0 4px}
+  .card{padding:22px 20px}
+  .cita{padding:64px 22px 20px 26px}
+  .cita .comilla{left:22px;top:20px;width:32px;height:32px}
+  .cita figcaption a{margin-left:0}
+  .tesis{padding:22px 20px;gap:14px}
+  .logos img{height:20px} .logos .gfe{height:18px}
+  /* la comparación se apila fila por fila: cada celda dice de qué lado es */
+  .vs-head{display:none}
+  .vs-row{grid-template-columns:1fr}
+  .vs-row .k{padding:14px 18px}
+  .vs-row .a,.vs-row .c{padding:12px 18px 14px}
+  .vs-row .ic{display:block;font-size:11px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;margin-bottom:4px}
+  .vs-row .a .ic{color:var(--red-d)} .vs-row .c .ic{color:var(--grn-d)}
+  .consulta{grid-template-columns:1fr}
+  .prose p{font-size:17px}
+}
+
+/* ═══════════ MOVIMIENTO: guardas ═══════════
+   Se nombran los pseudoelementos: `animation:none` sobre el elemento no
+   alcanza a su ::before ni a su ::after. */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  [class*="mv-"],[class*="mv-"]::before,[class*="mv-"]::after{animation:none!important;transition:none!important}
+  .card.lift:hover,.paso:hover{transform:none}
+}
+
+/* ═══════════ IMPRESIÓN ═══════════
+   Un documento para dejar en la mesa del consejo: todo el contenido, sin
+   cabecera ni índice, las cards sin partirse y las fuentes con su URL. */
+@page{margin:1.6cm 1.4cm}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html{scroll-behavior:auto}
+  body{font-size:11pt}
+  .franja,.indice,.avance,.shape{display:none!important}
+  .cab{position:static;height:auto;margin:0 0 12px;border:0;background:none;backdrop-filter:none}
+  .cab .wrap{padding:0}
+  .wrap{max-width:none;padding:0}
+  .hero{padding:12px 0 8px}
+  .sec{padding:28px 0 0}
+  .cierre{margin-top:28px;padding:28px 20px;border-radius:20px}
+  .card,.cita,.tesis,.paso,.ctrl,.kpi,.vs-row,.consulta,.nota,.fuentes a{break-inside:avoid;page-break-inside:avoid}
+  .card.lift,.kpi,.paso,.vs,.consulta,.cierre .tesis{box-shadow:none;border:1px solid var(--line)}
+  h2,h3,h4,.sec-head{break-after:avoid;page-break-after:avoid}
+  [class*="mv-"],[class*="mv-"]::before,[class*="mv-"]::after{animation:none!important}
+  .fuentes a small::after{content:" · " attr(href);font-weight:400;word-break:break-all}
+}
+</style>
+</head>
+<body>
+
+<div class="franja" aria-hidden="true"></div>
+
+<!-- ═══════════ CABECERA ═══════════ -->
+<header class="cab">
+  <div class="wrap">
+    <a class="logos" href="#inicio" aria-label="Ir al inicio">
+      <img src="../../compartidos/img/marcas/activa.webp" alt="activa">
+      <span class="sep" aria-hidden="true"></span>
+      <img class="gfe" src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner">
+    </a>
+    <nav class="indice" aria-label="Secciones">
+      <a href="#acuerdo">El acuerdo</a>
+      <a href="#postura">Nuestra postura</a>
+      <a href="#diferencia">La diferencia</a>
+      <a href="#garantias">Garantías</a>
+      <a href="#directivos">Directivos</a>
+      <a href="#familias">Familias</a>
+    </nav>
+  </div>
+  <div class="avance mo-progress-fill" id="avance" aria-hidden="true"></div>
+</header>
+
+<main id="inicio">
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" aria-labelledby="titulo">
+  <span class="shape" style="width:560px;height:560px;right:-180px;top:-210px;background:var(--blue-t)"></span>
+  <span class="shape" style="width:260px;height:260px;left:-130px;top:260px;background:var(--grn-t)"></span>
+  <span class="shape" style="width:150px;height:150px;right:22%;top:420px;background:var(--yel-t)"></span>
+  <div class="wrap">
+    <div class="hero-meta">
+      <span class="eyebrow b">Uso seguro y responsable de la tecnología</span>
+    </div>
+    <h1 id="titulo">Menos pantallas que distraen.<br><span class="azul">Más tecnología que <span class="mv-r">enseña.<svg class="mv-sub" viewBox="0 0 200 11"
+      preserveAspectRatio="none" aria-hidden="true" style="--c:#34a853"><path class="mv-traza"
+      pathLength="100" d="M3 6.4C36 3 72 8.6 108 5.4 140 2.6 169 4.4 197 8"/></svg></span></span></h1>
+    <p class="lead">El <b>3 de noviembre de 2026</b> entra en vigor el acuerdo nacional que saca los celulares de las
+      aulas y del recreo. Aquí explicamos <mark class="hl">qué establece</mark>, por qué lo respaldamos y por qué un
+      <mark class="hl g">equipo institucional administrado</mark> es precisamente lo que permite separar el
+      entretenimiento del aprendizaje.</p>
+    <div class="hero-meta">
+      <span class="pill ghost"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Para madres, padres y directivos</span>
+      <span class="pill ghost"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>Actualizado el 22 de septiembre de 2026</span>
+    </div>
+
+    <div class="kpis mo-stagger" id="kpis">
+      <div class="kpi r">
+        <span class="med sm r"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg></span>
+        <div><div class="n">3 nov 2026</div><div class="l">Entra en vigor en escuelas públicas y privadas de todo el país.</div></div>
+      </div>
+      <div class="kpi b">
+        <span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/></svg></span>
+        <div><div class="n">0 celulares</div><div class="l">En clase y en el recreo de primaria y secundaria.</div></div>
+      </div>
+      <div class="kpi g">
+        <span class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91zM4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58C.48 14.9 0 15.62 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29zM20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4 3.43c0-.81-.48-1.53-1.22-1.85-.85-.37-1.79-.58-2.78-.58-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24v-1.57zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg></span>
+        <div><div class="n">81 %</div><div class="l">De los docentes consultados, a favor de regular su uso.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 1 · EL ACUERDO ═══════════ -->
+<section class="sec" id="acuerdo" aria-labelledby="t-acuerdo">
+  <div class="wrap">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow r">1 · El acuerdo</span>
+      <h2 id="t-acuerdo">Qué establece la nueva disposición</h2>
+      <p class="lead">La adoptó por unanimidad el <b>Consejo Nacional de Autoridades Educativas (CONAEDU)</b> el
+        18 de septiembre de 2026, con las 32 entidades del país, y la presidenta la anunció el 21 de septiembre.
+        Es de carácter nacional y aplica <mark class="hl r">tanto a escuelas públicas como privadas</mark>.</p>
+    </header>
+
+    <figure class="cita mo-reveal">
+      <svg class="comilla" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+      <blockquote><p>El objetivo es recuperar la creatividad y evitar este uso indiscriminado de las pantallas.</p></blockquote>
+      <figcaption>
+        <b>Claudia Sheinbaum Pardo</b><span class="cargo">Presidenta de México · 21 de septiembre de 2026</span>
+        <a href="https://lostubos.com/2026/09/21/anuncia-gobierno-de-mexico-acuerdo-con-las-32-entidades-para-regular-uso-de-celulares-y-pantallas-en-escuelas/" target="_blank" rel="noopener">Ver fuente<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3a1 1 0 0 0 0 2h3.6l-8.3 8.3a1 1 0 0 0 1.4 1.4L19 6.4V10a1 1 0 0 0 2 0V3h-7zM5 5h5a1 1 0 0 1 0 2H6v11h11v-4a1 1 0 0 1 2 0v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg></a>
+      </figcaption>
+    </figure>
+
+    <h3 style="margin:46px 0 18px" class="mo-reveal">Qué cambia en cada nivel</h3>
+    <div class="grid g3 mo-stagger" id="niveles">
+      <div class="card rule r lift nivel r">
+        <span class="tag">Obligatorio en todo el país</span>
+        <h3>Primaria y secundaria</h3>
+        <p class="xs">El alumno <b>puede llevar el celular guardado en la mochila</b>, pero no se usa
+          <mark class="hl r">ni en clase ni en el recreo</mark>, y tampoco como herramienta dentro del aula.</p>
+      </div>
+      <div class="card rule y lift nivel y">
+        <span class="tag">Cada plantel decide</span>
+        <h3>Media superior</h3>
+        <p class="xs">No hay una prohibición nacional uniforme: cada institución define sus propias reglas
+          para un uso <mark class="hl y">responsable, seguro y con fines pedagógicos</mark>.</p>
+      </div>
+      <div class="card rule b lift nivel b">
+        <span class="tag">Política propia</span>
+        <h3>Educación superior</h3>
+        <p class="xs">Cada universidad o institución establece su política de uso y de ciudadanía digital.</p>
+      </div>
+    </div>
+
+    <div class="grid g2 mo-stagger" id="reglas" style="margin-top:18px">
+      <div class="card soft">
+        <div style="display:flex;gap:14px;align-items:center">
+          <span class="med sm r"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></span>
+          <h4>Las dos excepciones</h4>
+        </div>
+        <ul class="exc">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <span><b>Emergencia</b>Una situación de riesgo inmediato para la salud, la seguridad o la integridad del estudiante.</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            <span><b>Asunto personal</b>Cuando el alumno necesita comunicarse con su familia por algo que no puede esperar.</span></li>
+        </ul>
+      </div>
+      <div class="card soft">
+        <div style="display:flex;gap:14px;align-items:center">
+          <span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg></span>
+          <h4>Cómo se implementa</h4>
+        </div>
+        <ul class="cal">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            <span><b>Publicación en el Diario Oficial</b>El acuerdo se publicará en el DOF con el detalle de su aplicación.</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11c1.66 0 3-1.34 3-3S10.66 5 9 5 6 6.34 6 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm7.5-8.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5S15 8.83 15 8s.67-1.5 1.5-1.5zm0 5c-.35 0-.69.03-1.02.08 1.02.71 1.52 1.63 1.52 2.42V19h5v-2.5c0-2.33-3.17-3.5-5.5-3.5z"/></svg>
+            <span><b>Un mes de asambleas informativas</b>Cada escuela las realiza con madres, padres y docentes antes de aplicarla.</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 5.18L10.59 16.6l-4.24-4.24 1.41-1.41 2.83 2.83 10-10L22 5.18zm-2.21 5.04c.13.57.21 1.17.21 1.78 0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8c1.58 0 3.04.46 4.28 1.25l1.44-1.44C16.1 2.67 14.13 2 12 2 6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10c0-1.19-.22-2.33-.6-3.39l-1.61 1.61z"/></svg>
+            <span><b>Entrada en vigor el 3 de noviembre</b>Las consecuencias por incumplir las fijarán los reglamentos de cada estado y plantel.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin:46px 0 18px" class="mo-reveal">Lo que respondieron los docentes</h3>
+    <div class="consulta mo-reveal" role="group" aria-label="Resultados de la consulta nacional a docentes">
+      <div>
+        <div class="t">Consulta nacional</div>
+        <p>La SEP preguntó a más de medio millón de docentes de escuelas públicas antes de decidir.</p>
+      </div>
+      <div><div class="n b">81 %</div><div class="l">a favor de reglas para un uso seguro y con fines pedagógicos</div></div>
+      <div><div class="n">48 %</div><div class="l">dice que el celular dificulta mantener la atención</div></div>
+      <div><div class="n">38 %</div><div class="l">dice que interrumpe las actividades escolares</div></div>
+      <div><div class="n">34 %</div><div class="l">dice que desplaza la convivencia entre alumnos</div></div>
+    </div>
+
+    <figure class="cita mo-reveal" style="margin-top:34px">
+      <svg class="comilla" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+      <blockquote><p>Este viernes pasado llegamos a un acuerdo para regular los celulares y tabletas en las escuelas.</p></blockquote>
+      <figcaption>
+        <b>Mario Delgado Carrillo</b><span class="cargo">Secretario de Educación Pública · 21 de septiembre de 2026</span>
+        <a href="https://lostubos.com/2026/09/21/anuncia-gobierno-de-mexico-acuerdo-con-las-32-entidades-para-regular-uso-de-celulares-y-pantallas-en-escuelas/" target="_blank" rel="noopener">Ver fuente<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3a1 1 0 0 0 0 2h3.6l-8.3 8.3a1 1 0 0 0 1.4 1.4L19 6.4V10a1 1 0 0 0 2 0V3h-7zM5 5h5a1 1 0 0 1 0 2H6v11h11v-4a1 1 0 0 1 2 0v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg></a>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ═══════════ 2 · NUESTRA POSTURA ═══════════ -->
+<section class="sec" id="postura" aria-labelledby="t-postura">
+  <div class="wrap">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow b">2 · Nuestra postura</span>
+      <h2 id="t-postura">Por qué respaldamos esta medida</h2>
+    </header>
+    <div class="prose mo-reveal">
+      <p>Proteger el <mark class="hl">bienestar emocional, social y cognitivo</mark> de los estudiantes es la razón de ser
+        de cualquier estrategia digital seria. La consulta lo confirma con datos: el celular compite por la atención,
+        interrumpe la clase, desplaza la convivencia y trae al patio los conflictos de las redes sociales.</p>
+      <p>El acuerdo <b>no pide menos aprendizaje: pide menos distracción</b>. Por eso la pregunta ya no es si debe
+        haber tecnología en el aula, sino <mark class="hl y">qué tecnología, administrada por quién y para qué</mark>.
+        Esa es la pregunta que responde un modelo educativo con equipos institucionales.</p>
+    </div>
+    <div class="tesis mo-reveal" style="margin-top:30px">
+      <span class="bar" aria-hidden="true"></span>
+      <p>El problema nunca fue la tecnología. Es la <mark class="hl">pantalla personal</mark>, sin control y sin propósito.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 3 · LA DIFERENCIA ═══════════ -->
+<section class="sec" id="diferencia" aria-labelledby="t-diferencia">
+  <div class="wrap">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow g">3 · La diferencia</span>
+      <h2 id="t-diferencia">Un celular personal no es un equipo institucional</h2>
+      <p class="lead">Los dos tienen pantalla. Ahí termina el parecido. Lo que el acuerdo busca evitar es exactamente
+        lo que <mark class="hl g">un equipo administrado por el colegio</mark> no permite.</p>
+    </header>
+
+    <div class="vs mo-reveal" role="table" aria-label="Comparación entre un celular personal y una Chromebook institucional">
+      <div class="vs-row vs-head" role="row">
+        <div class="k" role="columnheader"><span class="sr" style="position:absolute;left:-9999px">Aspecto</span></div>
+        <div class="a" role="columnheader"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>Celular personal</div>
+        <div class="c" role="columnheader"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>Chromebook institucional</div>
+      </div>
+      <div class="vs-row" role="row">
+        <div class="k" role="rowheader"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>De quién es</div>
+        <div class="a" role="cell"><span class="ic">Celular</span>Del alumno o de su familia.</div>
+        <div class="c" role="cell"><span class="ic">Chromebook</span>Del colegio, asignada <b>para el trabajo de clase</b>.</div>
+      </div>
+      <div class="vs-row" role="row">
+        <div class="k" role="rowheader"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>Para qué está hecho</div>
+        <div class="a" role="cell"><span class="ic">Celular</span>Entretenimiento, redes sociales, juegos y mensajería.</div>
+        <div class="c" role="cell"><span class="ic">Chromebook</span>Trabajo académico, <b>investigación y colaboración</b>.</div>
+      </div>
+      <div class="vs-row" role="row">
+        <div class="k" role="rowheader"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>Quién lo administra</div>
+        <div class="a" role="cell"><span class="ic">Celular</span>Nadie en la escuela: es un <b>entorno privado</b> que el maestro no puede auditar.</div>
+        <div class="c" role="cell"><span class="ic">Chromebook</span>El colegio, desde la <b>Consola de administración de <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span></b>.</div>
+      </div>
+      <div class="vs-row" role="row">
+        <div class="k" role="rowheader"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>Qué puede abrir</div>
+        <div class="a" role="cell"><span class="ic">Celular</span>Cualquier app o sitio que nadie haya bloqueado.</div>
+        <div class="c" role="cell"><span class="ic">Chromebook</span>Solo lo autorizado. <b>Redes, videojuegos y contenido inapropiado se bloquean en automático.</b></div>
+      </div>
+      <div class="vs-row" role="row">
+        <div class="k" role="rowheader"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm0 2.7L17 10v8h-2v-6H9v6H7v-8l5-4.3z"/></svg>Dónde vive</div>
+        <div class="a" role="cell"><span class="ic">Celular</span>En el bolsillo: a la mano todo el día.</div>
+        <div class="c" role="cell"><span class="ic">Chromebook</span>Sobre el pupitre, <b>solo durante el tiempo de instrucción</b>.</div>
+      </div>
+      <div class="vs-row" role="row">
+        <div class="k" role="rowheader"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 3.3l1.35-.95c1.82.56 3.37 1.76 4.38 3.34l-.39 1.34-1.35.46L13 6.7V5.3zm-3.35-.95L11 5.3v1.4L7.01 9.49l-1.35-.46-.39-1.34c1.01-1.57 2.56-2.77 4.38-3.34zM7.08 17.11l-1.14.1C4.73 15.81 4 13.99 4 12c0-.12.01-.23.02-.35l1-.73 1.38.48 1.46 4.34-.78 1.37zm7.42 2.48c-.79.26-1.63.41-2.5.41s-1.71-.15-2.5-.41l-.69-1.49.64-1.1h5.11l.64 1.11-.7 1.48zM14.27 15H9.73l-1.35-4.02L12 8.44l3.63 2.54L14.27 15zm3.79 2.21l-1.14-.1-.79-1.37 1.46-4.34 1.39-.47 1 .73c.01.11.02.22.02.34 0 1.99-.73 3.81-1.94 5.21z"/></svg>En el recreo</div>
+        <div class="a" role="cell"><span class="ic">Celular</span>Compite con el juego y con la conversación.</div>
+        <div class="c" role="cell"><span class="ic">Chromebook</span>Se cierra y se guarda al terminar la clase: <b>no sale al patio</b>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 4 · GARANTÍAS ═══════════ -->
+<section class="sec" id="garantias" aria-labelledby="t-garantias">
+  <div class="wrap">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow y">4 · Nuestras garantías</span>
+      <h2 id="t-garantias">Cuatro garantías para seguir aprendiendo con tecnología</h2>
+      <p class="lead">Un modelo con equipos institucionales está <mark class="hl y">alineado con los objetivos del acuerdo</mark>
+        por diseño, no por excepción. Estas son sus cuatro garantías.</p>
+    </header>
+    <div class="grid g2 mo-stagger" id="gar">
+      <article class="card rule b lift gar">
+        <div class="top"><span class="med b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></span><span class="num">Garantía 1</span></div>
+        <h3>Tecnología para crear, no para consumir</h3>
+        <p>El acuerdo busca alejar a los alumnos de la distracción y de la dependencia de las redes. Una Chromebook
+          institucional <b>no es un dispositivo de entretenimiento</b>: no tiene redes sociales ni juegos, y el alumno
+          la asocia con una sola cosa: <mark class="hl">su trabajo escolar</mark>.</p>
+      </article>
+      <article class="card rule g lift gar">
+        <div class="top"><span class="med g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></span><span class="num">Garantía 2</span></div>
+        <h3>Un entorno administrado, con propósito pedagógico</h3>
+        <p>Los equipos operan dentro de un ecosistema cerrado que gestiona el colegio. La <b>Consola de <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span></b>
+          define qué se puede usar; <b>Securly Filter</b> bloquea lo que no debe entrar, y con <b>Securly Classroom</b>
+          <mark class="hl g">el maestro ve las pantallas del grupo en tiempo real</mark>.</p>
+        <div class="logos-mini"><img src="../../compartidos/img/marcas/securly.webp" alt="Securly"></div>
+      </article>
+      <article class="card rule y lift gar">
+        <div class="top"><span class="med y"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 3.3l1.35-.95c1.82.56 3.37 1.76 4.38 3.34l-.39 1.34-1.35.46L13 6.7V5.3zm-3.35-.95L11 5.3v1.4L7.01 9.49l-1.35-.46-.39-1.34c1.01-1.57 2.56-2.77 4.38-3.34zM7.08 17.11l-1.14.1C4.73 15.81 4 13.99 4 12c0-.12.01-.23.02-.35l1-.73 1.38.48 1.46 4.34-.78 1.37zm7.42 2.48c-.79.26-1.63.41-2.5.41s-1.71-.15-2.5-.41l-.69-1.49.64-1.1h5.11l.64 1.11-.7 1.48zM14.27 15H9.73l-1.35-4.02L12 8.44l3.63 2.54L14.27 15zm3.79 2.21l-1.14-.1-.79-1.37 1.46-4.34 1.39-.47 1 .73c.01.11.02.22.02.34 0 1.99-.73 3.81-1.94 5.21z"/></svg></span><span class="num">Garantía 3</span></div>
+        <h3>El recreo vuelve a ser de las personas</h3>
+        <p>La Chromebook se usa sobre el pupitre durante la clase y se guarda al terminar. <b>No es un dispositivo de bolsillo</b>,
+          así que en el recreo no hay pantallas de por medio: queda espacio para <mark class="hl y">el juego, el diálogo y la
+          convivencia cara a cara</mark>.</p>
+      </article>
+      <article class="card rule p lift gar">
+        <div class="top"><span class="med p"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></span><span class="num">Garantía 4</span></div>
+        <h3>Media superior: reglas a la medida</h3>
+        <p>En bachillerato, cada plantel define sus reglas. La gestión centralizada permite <b>configurar políticas
+          distintas por nivel y por grupo</b>, y acompañar a los jóvenes en la construcción de una
+          <mark class="hl">ciudadanía digital crítica</mark>, sin exponerlos al internet abierto durante la jornada.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 5 · DIRECTIVOS ═══════════ -->
+<section class="sec" id="directivos" aria-labelledby="t-directivos">
+  <div class="wrap">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow b">5 · Para directivos</span>
+      <h2 id="t-directivos">Lo que la institución puede controlar, y cómo explicarlo</h2>
+      <p class="lead">La diferencia entre un celular y un equipo institucional no es una promesa: es
+        <mark class="hl">configuración verificable</mark>. Estos son los controles que el colegio tiene en la mano.</p>
+    </header>
+    <div class="grid g3 mo-stagger" id="controles">
+      <div class="ctrl"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg></span>
+        <div><h4>Políticas por nivel y grupo</h4><p class="xs">Reglas distintas para primaria, secundaria y bachillerato desde la consola.</p></div></div>
+      <div class="ctrl"><span class="med sm r"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg></span>
+        <div><h4>Apps y tiendas bajo control</h4><p class="xs">Solo se instala lo que el colegio autoriza; el resto no aparece.</p></div></div>
+      <div class="ctrl"><span class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></span>
+        <div><h4>Filtrado web según la edad</h4><p class="xs">Redes, juegos y contenido inapropiado bloqueados en automático.</p></div></div>
+      <div class="ctrl"><span class="med sm y"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.58 8 8-3.59 8-8 8z"/></svg></span>
+        <div><h4>Video y búsqueda restringidos</h4><p class="xs">Búsqueda segura y video en modo restringido, sin excepciones.</p></div></div>
+      <div class="ctrl"><span class="med sm p"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></span>
+        <div><h4>Supervisión durante la clase</h4><p class="xs">El maestro ve y guía las pantallas del grupo en tiempo real.</p></div></div>
+      <div class="ctrl"><span class="med sm n"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg></span>
+        <div><h4>Registros y reportes</h4><p class="xs">Evidencia de uso para responder a cualquier duda con datos.</p></div></div>
+    </div>
+
+    <h3 style="margin:52px 0 18px" class="mo-reveal">Cómo llegar a la asamblea informativa</h3>
+    <ol class="pasos mo-stagger" id="pasos">
+      <li class="paso"><h4>Revisar el reglamento</h4><p class="xs">Distinguir por escrito el <b>celular personal</b> del <b>equipo institucional</b> y su uso en clase.</p></li>
+      <li class="paso"><h4>Documentar las políticas</h4><p class="xs">Qué bloquea y qué permite cada equipo, <b>nivel por nivel</b>, en una página que cualquiera entienda.</p></li>
+      <li class="paso"><h4>Presentarlo a las familias</h4><p class="xs">En la asamblea, con ejemplos concretos: <b>qué ve un alumno y qué no</b> cuando abre su equipo.</p></li>
+      <li class="paso"><h4>Definir las excepciones</h4><p class="xs">Un protocolo claro para <b>emergencias y asuntos personales</b>: quién atiende y cómo se contacta a la familia.</p></li>
+    </ol>
+    <p class="aviso mo-reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      Son recomendaciones de <em class="marca">activa</em> para preparar la asamblea, no requisitos del acuerdo.</p>
+  </div>
+</section>
+
+<!-- ═══════════ 6 · FAMILIAS ═══════════ -->
+<section class="sec" id="familias" aria-labelledby="t-familias">
+  <div class="wrap">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow r">6 · Para madres y padres</span>
+      <h2 id="t-familias">Preguntas frecuentes</h2>
+    </header>
+    <div class="grid g2 mo-stagger" id="faq">
+      <div class="card lift faq">
+        <div class="q"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg><h4>¿Mi hijo puede llevar su celular a la escuela?</h4></div>
+        <p>Sí, guardado en la mochila. En primaria y secundaria <b>no se usa ni en clase ni en el recreo</b>, salvo una emergencia o un asunto personal que no pueda esperar.</p>
+      </div>
+      <div class="card lift faq">
+        <div class="q"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg><h4>¿Qué pasa con la Chromebook?</h4></div>
+        <p>Es la <b>herramienta de trabajo de la clase</b>, administrada por el colegio, no un dispositivo personal. Si el texto oficial establece condiciones para los equipos escolares, el colegio las aplicará y se lo comunicará.</p>
+      </div>
+      <div class="card lift faq">
+        <div class="q"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg><h4>¿Puede entrar a redes sociales o jugar en ella?</h4></div>
+        <p>No. Las redes sociales, los videojuegos y el contenido inapropiado <b>se bloquean en automático</b>. Solo están disponibles las plataformas de aprendizaje que el colegio autoriza.</p>
+      </div>
+      <div class="card lift faq">
+        <div class="q"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg><h4>¿Y si el equipo va a casa?</h4></div>
+        <p>La protección <b>viaja con el equipo</b>: el filtrado funciona dentro y fuera de la escuela, así que en casa sigue siendo una herramienta de estudio.</p>
+      </div>
+      <div class="card lift faq">
+        <div class="q"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg><h4>¿Quién supervisa lo que hace en clase?</h4></div>
+        <p>El maestro, en tiempo real: <b>ve las pantallas del grupo</b> y puede guiarlas. El colegio conserva además registros de uso.</p>
+      </div>
+      <div class="card lift faq">
+        <div class="q"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg><h4>¿Dónde resuelvo mis dudas?</h4></div>
+        <p>En la <b>asamblea informativa</b> que su colegio realizará antes del 3 de noviembre, o directamente con la dirección.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONCLUSIÓN ═══════════ -->
+<section class="cierre" id="conclusion" aria-labelledby="t-conclusion">
+  <span class="shape" style="width:420px;height:420px;right:-140px;top:-160px;background:rgba(255,255,255,.55)"></span>
+  <span class="shape" style="width:240px;height:240px;left:-100px;bottom:-120px;background:rgba(255,255,255,.45)"></span>
+  <div class="wrap">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow b">En conclusión</span>
+      <h2 id="t-conclusion">La tecnología bien orientada sigue siendo indispensable</h2>
+    </header>
+    <div class="prose mo-reveal">
+      <p>Preparar a los estudiantes para los retos del futuro exige que aprendan a <b>crear, investigar y colaborar</b> con
+        herramientas digitales. El acuerdo no cierra esa puerta: pide que el entretenimiento y el aprendizaje
+        <mark class="hl">dejen de compartir la misma pantalla</mark>.</p>
+      <p>Con una infraestructura tecnológica institucional, los colegios tienen el control técnico para ofrecer a las familias
+        lo mejor del mundo digital en un <mark class="hl g">entorno protegido y enfocado en la educación</mark>.</p>
+    </div>
+    <div class="tesis g mo-reveal" style="margin-top:30px">
+      <span class="bar" aria-hidden="true"></span>
+      <p>El acuerdo separa el entretenimiento del aprendizaje. Un equipo institucional administrado es lo que hace posible esa separación.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VIGENCIA Y FUENTES ═══════════ -->
+<section class="sec" id="fuentes" aria-labelledby="t-fuentes">
+  <div class="wrap">
+    <div class="nota mo-reveal" role="note">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      <p><b>Sobre esta página.</b> Se basa en el anuncio oficial del 21 de septiembre de 2026 y en la cobertura periodística citada
+        abajo. El acuerdo menciona celulares, tabletas y pantallas; <b>el detalle de cómo aplica a los equipos escolares lo fijará
+        su publicación en el Diario Oficial de la Federación</b>, y esta página se actualizará entonces. No constituye asesoría legal.</p>
+    </div>
+
+    <header class="sec-head mo-reveal" style="margin-top:56px">
+      <span class="eyebrow">Fuentes</span>
+      <h2 id="t-fuentes" style="font-size:clamp(24px,2.6vw,30px)">De dónde sale cada dato</h2>
+    </header>
+    <div class="fuentes mo-stagger" id="lista-fuentes">
+      <a href="https://lostubos.com/2026/09/21/anuncia-gobierno-de-mexico-acuerdo-con-las-32-entidades-para-regular-uso-de-celulares-y-pantallas-en-escuelas/" target="_blank" rel="noopener">
+        <b>Anuncio del acuerdo con las 32 entidades</b><span>Citas de la presidenta y del secretario de Educación · 21 sep 2026</span><small>lostubos.com</small></a>
+      <a href="https://tribuna.com.mx/mexico/2026/09/21/celulares-y-tabletas-en-primarias-y-secundarias-sep-y-sheinbaum-fijan-restriccion-desde-el-3-de-noviembre_691117/" target="_blank" rel="noopener">
+        <b>Restricción desde el 3 de noviembre</b><span>CONAEDU del 18 de septiembre y resultados de la consulta docente</span><small>tribuna.com.mx</small></a>
+      <a href="https://www.infobae.com/mexico/2026/09/22/que-pasa-si-un-alumno-saca-el-celular-en-clase-las-sanciones-que-preve-la-nueva-regla-escolar-de-la-sep/" target="_blank" rel="noopener">
+        <b>Qué pasa si un alumno saca el celular</b><span>Niveles, escuelas privadas y sanciones · 22 sep 2026</span><small>infobae.com</small></a>
+      <a href="https://elmanana.com.mx/tecnologia/2026/9/21/prohibicion-de-celulares-en-escuelas-estas-son-las-dos-excepciones-181007.html" target="_blank" rel="noopener">
+        <b>Las dos excepciones</b><span>Emergencia y asunto personal · 21 sep 2026</span><small>elmanana.com.mx</small></a>
+      <a href="https://www.jornada.com.mx/2026/09/22/politica/007n1pol" target="_blank" rel="noopener">
+        <b>Queda restringido el uso de celulares en escuelas</b><span>La Jornada · 22 sep 2026</span><small>jornada.com.mx</small></a>
+      <a href="https://www.elimparcial.com/mexico/2026/09/21/sep-prohibira-el-uso-de-celulares-en-primarias-y-secundarias-desde-el-3-de-noviembre-anuncia-claudia-sheinbaum/" target="_blank" rel="noopener">
+        <b>Podrán llevarlos, pero guardados</b><span>El Imparcial · 21 sep 2026</span><small>elimparcial.com</small></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="wrap">
+    <div class="logos">
+      <img src="../../compartidos/img/marcas/activa.webp" alt="activa">
+      <span class="sep" aria-hidden="true"></span>
+      <img class="gfe" src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner">
+    </div>
+    <p><em class="marca">activa</em> · Google for Education Partner en México · activa.la</p>
+  </div>
+</footer>
+
+<script src="../../compartidos/js/motion.js"></script>
+<script>
+/* Movimiento de la página (docs/normativa-motion.md, capas 1 a 3).
+   Todo cuelga de la guarda: sin motion.js, la página se lee completa y quieta.
+   El motor solo pone clases y retardos; el movimiento vive en motion.css. */
+(function(){
+"use strict";
+if(!window.Motion) return;
+
+/* cascadas: una por rejilla, seis hijos como máximo, paso corto */
+Motion.qsa(".mo-stagger").forEach(function(c){
+  Motion.stagger(c,Math.min(80,Math.round(360/c.children.length)),60);
+});
+Motion.revealAll(".mo-stagger > *");
+Motion.revealAll(".mo-reveal");
+
+/* capa 3: la barra de lectura y el índice que se marca solo */
+Motion.progressBar(document.getElementById("avance"));
+/* El chip activo es el de la última sección cuyo inicio ya cruzó el 30 % de
+   la pantalla. Motion.sectionSpy marcaba la sección SIGUIENTE en cuanto
+   asomaba una quinta parte, y la tabla comparativa se leía con «Garantías»
+   encendido. Se mide dentro del cuadro del motor (regla 2 de la normativa),
+   nunca en un listener de scroll, y solo se toca el DOM cuando cambia. */
+var chips=Motion.qsa(".indice a");
+var secciones=Motion.qsa("main section[id]");
+var actual=null;
+Motion.onFrame(function(){
+  var linea=innerHeight*0.3, id="";
+  for(var i=0;i<secciones.length;i++){
+    if(secciones[i].getBoundingClientRect().top<=linea) id=secciones[i].id;
+  }
+  if(id===actual) return;
+  actual=id;
+  chips.forEach(function(a){ a.classList.toggle("on",a.getAttribute("href")==="#"+id); });
+});
+
+/* Motion.start() SIEMPRE al final: pone html.mo-ready, lo único que el CSS
+   del motor usa para esconder. */
+Motion.start();
+})();
+</script>
+</body>
+</html>

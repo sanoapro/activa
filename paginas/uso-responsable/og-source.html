@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es-MX"><head><meta charset="utf-8">
+<!-- Molde de la vista previa de WhatsApp (og.png, 1200×630) de la página de
+     uso responsable. No se abre en público: se exporta con Edge headless (ver
+     README). Tokens copiados a mano de index.html, recortados a lo que usa. -->
+<style>
+:root{
+  --blue:#1a73e8; --blue-d:#174ea6; --blue-t:#e8f0fe;
+  --red:#ea4335;  --red-t:#fce8e6;
+  --grn:#1e8e3e;  --grn-t:#e6f4ea;
+  --yel-t:#fef7e0;
+  --ink:#202124;  --ink2:#5f6368;   --ink3:#80868b;
+  --font:"Google Sans","Product Sans","Google Sans Text",Roboto,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1200px;height:630px;overflow:hidden;background:#fff;font-family:var(--font);color:var(--ink)}
+.card{position:relative;width:1200px;height:630px;overflow:hidden;display:flex;flex-direction:column;padding:58px 74px 0}
+.card::before{content:"";position:absolute;left:0;top:0;right:0;height:9px;z-index:5;
+  background:linear-gradient(90deg,#4285f4 0 25%,#ea4335 25% 50%,#fbbc04 50% 75%,#34a853 75% 100%)}
+.sh{position:absolute;border-radius:50%;z-index:0}
+.top{display:flex;align-items:center;justify-content:space-between;z-index:2}
+.logos{display:flex;align-items:center;gap:22px}
+.logos img{height:40px;width:auto}
+.logos .gfe{height:36px}
+.logos .sep{width:1px;height:36px;background:#e3e5e8}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;margin-top:40px;font-size:17px;font-weight:700;
+  letter-spacing:2.4px;text-transform:uppercase;color:var(--blue-d);z-index:2}
+.eyebrow::before{content:"";width:30px;height:4px;border-radius:2px;background:currentColor}
+h1{margin-top:18px;font-size:74px;line-height:1.04;font-weight:500;letter-spacing:-2.8px;z-index:2}
+h1 span{color:var(--blue)}
+.chips{display:flex;gap:14px;margin-top:34px;z-index:2}
+.chip{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:99px;font-size:20px;font-weight:600}
+.chip.r{background:var(--red-t);color:#b31412}
+.chip.g{background:var(--grn-t);color:#0d652d}
+.chip.b{background:var(--blue-t);color:var(--blue-d)}
+</style></head><body>
+<div class="card">
+  <span class="sh" style="width:520px;height:520px;right:-170px;top:-230px;background:var(--blue-t);opacity:.8"></span>
+  <span class="sh" style="width:300px;height:300px;left:-130px;bottom:-150px;background:var(--grn-t);opacity:.7"></span>
+  <span class="sh" style="width:150px;height:150px;right:120px;bottom:60px;background:var(--yel-t)"></span>
+
+  <div class="top">
+    <div class="logos">
+      <img src="../../compartidos/img/marcas/activa.webp" alt="activa">
+      <span class="sep"></span>
+      <img class="gfe" src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner">
+    </div>
+  </div>
+
+  <span class="eyebrow">El acuerdo de la SEP sobre celulares</span>
+  <h1>Menos pantallas que distraen.<br><span>Más tecnología que enseña.</span></h1>
+
+  <div class="chips">
+    <span class="chip r">Vigente el 3 de noviembre de 2026</span>
+    <span class="chip g">Para familias y directivos</span>
+  </div>
+</div>
+</body></html>

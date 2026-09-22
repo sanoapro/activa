@@ -18,6 +18,7 @@ paso de compilación.
 | **Precios 2026–2027** | [/paginas/precios/](https://sanoapro.github.io/activa/paginas/precios/) | Tres láminas: los paquetes, el precio por alumno y el desglose año por año. |
 | **Consola de administración** | [/paginas/consola/](https://sanoapro.github.io/activa/paginas/consola/) | Manual de blindaje de la Google Admin Console: 18 partes y 438 ajustes con checklist. |
 | **Proyecto Piloto** | [/paginas/piloto/](https://sanoapro.github.io/activa/paginas/piloto/) | Deck de 12 diapositivas: los seis pasos del piloto de cuatro semanas, qué pone cada quién y las condiciones. |
+| **Uso responsable de la tecnología** | [/paginas/uso-responsable/](https://sanoapro.github.io/activa/paginas/uso-responsable/) | Página de lectura sobre el acuerdo de la SEP que restringe los celulares desde el 3 de noviembre de 2026, para familias y directivos. |
 
 Documento maestro de producto —fuente única y vigente— en
 [`docs/portafolio-activa.md`](docs/portafolio-activa.md).
