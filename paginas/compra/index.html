@@ -411,6 +411,17 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .ptbl td{padding:9px 10px;border-bottom:1px solid var(--soft);vertical-align:top;white-space:normal}
 .ptbl .art{font-family:var(--disp);font-weight:500;font-size:12.8px}
 .ptbl .desc{color:var(--mute);font-size:11.5px;margin-top:2px;line-height:1.45}
+/* Viñetas con ícono y chips de rango (capacitaciones, 28-sep-2026) */
+.lx{list-style:none;margin:7px 0 0;padding:0;display:grid;gap:5px}
+.lx li{display:flex;gap:8px;align-items:flex-start;font-size:11.5px;line-height:1.42;color:var(--mute)}
+.lx li b{color:#202124;font-weight:600}
+.lx .ic{flex:none;width:19px;height:19px;border-radius:6px;display:grid;place-items:center;margin-top:-1px}
+.lx .ic svg{width:12px;height:12px}
+.lxchips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.lxchip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 10px;font-size:10.5px;font-weight:600;line-height:1.35;border:1px solid}
+.lxchip svg{width:12px;height:12px;flex:none}
+.lxchip.b{background:#e8f0fe;color:#174ea6;border-color:#aecbfa}
+.lxchip.g{background:#e6f4ea;color:#137333;border-color:#a8dab5}
 .ptbl .qtycell,.ptbl .numcell{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
 .ptbl .numcell{text-align:right}
 .ptbl th.numhead{text-align:right}
@@ -677,6 +688,14 @@ footer{background:var(--ink);color:#e8eaed;padding:34px 0 24px}
 .pp-body .ptbl tbody tr:nth-child(even) td{background:#f8f9fa}
 .pp-body .ptbl .art{font-family:var(--disp);font-weight:500;font-size:9pt;line-height:1.32}
 .pp-body .ptbl .desc{color:#5f6368;font-size:8.4pt;margin-top:.5mm;line-height:1.42}
+.pp-body .ptbl .lx{margin:1.6mm 0 0;gap:1.1mm}
+.pp-body .ptbl .lx li{font-size:8.2pt;line-height:1.38;gap:2mm;color:#5f6368;break-inside:avoid}
+.pp-body .ptbl .lx li b{color:#202124}
+.pp-body .ptbl .lx .ic{width:4.4mm;height:4.4mm;border-radius:1.3mm;margin-top:0}
+.pp-body .ptbl .lx .ic svg{width:2.9mm;height:2.9mm}
+.pp-body .ptbl .lxchips{gap:1.2mm;margin-top:2mm}
+.pp-body .ptbl .lxchip{font-size:7.5pt;padding:.6mm 2.4mm;gap:1.2mm}
+.pp-body .ptbl .lxchip svg{width:2.8mm;height:2.8mm}
 .pp-body .ptbl .qtycell,.pp-body .ptbl .numcell{font-family:var(--mono);font-size:8.8pt;white-space:nowrap}
 .pp-body .ptbl .numcell{text-align:right}
 .pp-body .ptbl .partcell{font-family:var(--mono);font-size:7.8pt;white-space:nowrap}
@@ -1400,7 +1419,15 @@ const P = {
  bank:"M4 10h3v7H4zM10.5 10h3v7h-3zM2 19h20v3H2zM17 10h3v7h-3zM12 1L2 6v2h20V6z",
  warn:"M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z",
  info:"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z",
- check:"M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+ check:"M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z",
+ /* Viñetas de las capacitaciones (28-sep-2026) */
+ clock:"M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z",
+ people:"M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z",
+ pin:"M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z",
+ badge:"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z",
+ bolt:"M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z",
+ link:"M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z",
+ tag:"M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"
 };
 const G  = {b:"var(--g-blue)",r:"var(--g-red)",y:"var(--g-yel-d)",g:"var(--g-grn)",n:"var(--faint)"};
 const GT = {b:"var(--g-blue-t)",r:"var(--g-red-t)",y:"var(--g-yel-t)",g:"var(--g-grn-t)",n:"#f1f3f4"};
@@ -1767,12 +1794,31 @@ const CATALOGO_BASE = deepFreeze([
    n:"Capacitación anual docente · 10 meses (septiembre a junio)",
    d:"Capacitación anual de 10 meses, de septiembre a junio, con coaching virtual personalizado según el tamaño del grupo; si se requiere presencial, el colegio cubre los viáticos del coach, con mínimo de 4 a 5 horas por visita. Incluye voucher de certificación Google Certified Educator N1 y N2, válida oficialmente por 3 años por Google for Education; 10 meses de acceso a la plataforma Eleva, con contenido autogestivo por docente y supervisión de coordinación; y acceso a 3 Bootcamps al año de certificación intensiva N1 y N2, en las fechas que establece activa. Licencia anual por docente.",
    unit:{s:"docente",p:"docentes"}, annual:true, minQty:10,
-   note:"Precio por rango según el total de docentes; todos pagan el precio del rango. Coaching incluido: 10 h de 10 a 30 docentes, 15 h de 31 a 50 y 20 h de 51 en adelante."},
+   note:"Precio por rango según el total de docentes; todos pagan el precio del rango. Coaching incluido: 10 h de 10 a 30 docentes, 15 h de 31 a 50 y 20 h de 51 en adelante.",
+   /* En la revisión y en el PDF, `d` se sustituye por `lead` + viñetas:
+      el párrafo corrido se leía amontonado. i = ícono de P, c = color G,
+      k = lo que se ofrece (en negritas), t = el detalle. */
+   lead:"Programa anual de formación docente con certificación oficial de Google for Education. Licencia anual por docente.",
+   bul:[
+     {i:"clock", c:"b", k:"10 meses de capacitación", t:"de septiembre a junio"},
+     {i:"people",c:"g", k:"Coaching virtual personalizado", t:"horas según el tamaño del grupo"},
+     {i:"pin",   c:"r", k:"Presencial, si se requiere", t:"el colegio cubre los viáticos del coach · mínimo 4 a 5 h por visita"},
+     {i:"badge", c:"y", k:"Certificación Google N1 y N2", t:"voucher incluido · válida oficialmente 3 años por Google for Education"},
+     {i:"laptop",c:"b", k:"Plataforma Eleva por 10 meses", t:"contenido autogestivo por docente y supervisión de coordinación"},
+     {i:"bolt",  c:"r", k:"3 Bootcamps al año", t:"certificación intensiva N1 y N2, en las fechas que establece activa"}
+   ]},
   {k:"cap-estudiantes", part:"Cap Estudiantes", fam:"servicios",
    n:"Capacitación autogestiva y certificación de estudiantes · 10 meses (septiembre a junio)",
    d:"Capacitación autogestiva de 10 meses, de septiembre a junio, con 1 voucher de certificación por estudiante: Certificación por activa powered by Google for Education. La liga de certificación se envía a los estudiantes para que apliquen el examen. Incluye 2 horas de coaching para los docentes de tecnología que llevarán la capacitación de los estudiantes. Licencia anual por estudiante.",
    unit:{s:"estudiante",p:"estudiantes"}, annual:true, minQty:50,
-   note:"Precio por rango según el total de estudiantes; todos pagan el precio del rango. Mínimo 50 estudiantes."},
+   note:"Precio por rango según el total de estudiantes; todos pagan el precio del rango. Mínimo 50 estudiantes.",
+   lead:"Certificación digital para estudiantes, autogestiva y guiada por sus docentes. Licencia anual por estudiante.",
+   bul:[
+     {i:"clock", c:"b", k:"10 meses de capacitación autogestiva", t:"de septiembre a junio"},
+     {i:"badge", c:"y", k:"1 voucher de certificación por estudiante", t:"Certificación por activa powered by Google for Education"},
+     {i:"link",  c:"g", k:"Examen en línea", t:"la liga de certificación se envía a los estudiantes para que lo apliquen"},
+     {i:"people",c:"r", k:"2 h de coaching", t:"para los docentes de tecnología que llevarán la capacitación"}
+   ]},
 
   /* ---------- Equipo seminuevo · costo residual ----------
      El Excel trae estos precios CON IVA INCLUIDO dentro de una hoja que
@@ -1868,13 +1914,16 @@ function rangoLabel(entry, qty){
   const sig = rangos[rangos.indexOf(r)+1];
   return sig ? `de ${fmtInt(r.desde)} a ${fmtInt(sig.desde-1)} ${entry.unit.p}` : `de ${fmtInt(r.desde)} ${entry.unit.p} en adelante`;
 }
-/* Línea que acompaña a la descripción en la revisión y en el documento. */
-function lineExtra(row){
+/* Chips que acompañan a la descripción en la revisión y en el documento:
+   el rango que aplicó la cantidad y, si varían con ella, las horas de
+   coaching. Devuelve marcado ya escapado. */
+function lineChipsHTML(row){
   if(!row || !row.entry || !tieneEscala(row.entry)) return "";
-  const horas = coachHoursFor(row.entry, row.line.qty);
-  const partes = [`Precio del rango ${rangoLabel(row.entry, row.line.qty)}: ${money(unitPriceFor(row.entry, row.line.qty))} por ${row.entry.unit.s} al año, sin IVA`];
-  if(horas) partes.push(`incluye ${fmtInt(horas)} h de coaching${row.entry.k === "cap-docente" ? " virtual personalizado" : " para los docentes de tecnología"}`);
-  return partes.join(" · ") + ".";
+  const e = row.entry, q = row.line.qty;
+  const chips = [`<span class="lxchip b">${svg(P.tag,"currentColor")}${esc(`Rango ${rangoLabel(e, q)} · ${money(unitPriceFor(e, q))} c/u`)}</span>`];
+  const escalaHoras = PRECIOS.coachingHoras[e.k];
+  if(escalaHoras && escalaHoras.length > 1) chips.push(`<span class="lxchip g">${svg(P.people,"currentColor")}${esc(`${fmtInt(coachHoursFor(e, q))} h de coaching virtual personalizado incluidas`)}</span>`);
+  return `<div class="lxchips">${chips.join("")}</div>`;
 }
 function lineYears(entry, line){
   /* Las partidas anuales exigen años capturados; las demás valen 1. */
@@ -3225,10 +3274,14 @@ function printUnitPrice(row){
   const price=Number.isFinite(row.unit)?row.unit:row.entry.price;
   return price===0?"Sin costo":`${money(price)}${row.entry.annual?" / año":""}`;
 }
-/* Descripción + la línea del rango, cuando aplica. Todo escapado. */
+/* Descripción del renglón en la revisión y en el documento. Las partidas con
+   viñetas (`bul`) se muestran como resumen + lista con íconos + chips; las
+   demás, con su párrafo `d` de siempre. Todo escapado. */
 function lineDescHTML(row){
-  const extra=lineExtra(row);
-  return `<div class="desc">${esc(row.entry.d)}</div>${extra?`<div class="desc"><b>${esc(extra)}</b></div>`:""}`;
+  const e=row.entry;
+  if(!Array.isArray(e.bul)||!e.bul.length)return `<div class="desc">${esc(e.d)}</div>${lineChipsHTML(row)}`;
+  const items=e.bul.map(b=>`<li><span class="ic" style="background:${GT[b.c]||GT.n};color:${G[b.c]||G.n}">${svg(P[b.i]||P.check,"currentColor")}</span><span><b>${esc(b.k)}</b>${b.t?` · ${esc(b.t)}`:""}</span></li>`).join("");
+  return `${e.lead?`<div class="desc">${esc(e.lead)}</div>`:""}<ul class="lx">${items}</ul>${lineChipsHTML(row)}`;
 }
 /* Fila de la tabla impresa. Recibe la fila del motor; es función pura para
    poder probarla con partidas sintéticas (p. ej. precio 0). */

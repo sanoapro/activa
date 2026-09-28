@@ -94,6 +94,12 @@ recuperarse del Excel: ya no se venden.
   `printUnitPrice(row)` lo lee de ahí, de modo que la fila del catálogo, la revisión y el PDF
   no pueden divergir. `lineExtra(row)` añade debajo de la descripción el rango aplicado y las
   horas de coaching.
+- **En la revisión y en el PDF no se imprime el párrafo `d`** de estas dos partidas: se leía
+  amontonado. Cada una declara `lead` (una frase) y `bul` (viñetas `{i, c, k, t}`: ícono de
+  `P`, color de Google, lo que se ofrece en negritas y el detalle), y `lineDescHTML(row)` las
+  pinta como lista con íconos más chips del rango y de las horas de coaching (`.lx`,
+  `.lxchips`, con reglas de pantalla y de papel fuera del bloque PAPELERÍA v5). El catálogo y la
+  búsqueda siguen usando `d`. Cualquier partida puede adoptar `bul` y se verá igual.
 - Agregarlas no subió `catalog.updatedISO`: ningún precio existente cambió y subirlo habría
   invalidado los borradores guardados.
 
