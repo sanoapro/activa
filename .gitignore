@@ -11,3 +11,6 @@ proffotos/
 
 # Volcados de la herramienta de navegador
 .playwright-mcp/
+
+# Bases de leads: datos personales, nunca al repositorio publico
+*.csv

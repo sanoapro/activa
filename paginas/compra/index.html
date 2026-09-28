@@ -1499,7 +1499,8 @@ const PRECIOS = deepFreeze({
     lines: {max:200},
     concept: {max:250}
   },
-  /* Las 37 partidas, clave → precio unitario neto. */
+  /* Las 39 partidas, clave → precio unitario neto. En las partidas con
+     escala (abajo) este es el precio de lista: el del primer rango. */
   partidas: {
     /* ---- Equipos y accesorios ---- */
     "ceu":            750,
@@ -1537,6 +1538,9 @@ const PRECIOS = deepFreeze({
     "soporte3ti":    4000,
     "hora-coach":    3500,
     "hora-ti":       3000,
+    /* ---- Capacitación y certificación (anuales; precio por rango) ---- */
+    "cap-docente":   4500,
+    "cap-estudiantes": 390,
     /* ---- Equipo seminuevo · costo residual ---- */
     "flip1":         6034.48,
     "flip2":         4482.76,
@@ -1548,6 +1552,20 @@ const PRECIOS = deepFreeze({
     "profe3":        4310.34,
     "profe4":        1793.10,
     "profe5":        1379.31
+  },
+  /* Precio por rango (28-sep-2026). La cantidad TOTAL del renglón elige el
+     rango y todas las unidades pagan ese precio: no es escalonado por tramos.
+     `desde` es la primera cantidad del rango; el rango corre hasta el
+     siguiente `desde` menos uno. El primer `desde` coincide con el minQty de
+     la partida y su precio con el de PRECIOS.partidas. */
+  escalas: {
+    "cap-docente":     [{desde:10,precio:4500},{desde:21,precio:3900},{desde:31,precio:3500},{desde:51,precio:2990},{desde:76,precio:1990}],
+    "cap-estudiantes": [{desde:50,precio:390},{desde:101,precio:340},{desde:301,precio:290},{desde:501,precio:250}]
+  },
+  /* Horas de coaching incluidas, por rango de la misma cantidad. */
+  coachingHoras: {
+    "cap-docente":     [{desde:10,horas:10},{desde:31,horas:15},{desde:51,horas:20}],
+    "cap-estudiantes": [{desde:50,horas:2}]
   }
 });
 
@@ -1582,7 +1600,8 @@ const APP_CONFIG = deepFreeze({
 const VAT_RATE = APP_CONFIG.vat.rate;
 
 /* ============================================================
-   CATÁLOGO — 37 partidas confirmadas el 19-ago-2026
+   CATÁLOGO — 37 partidas confirmadas el 19-ago-2026, más las dos
+   capacitaciones con precio por rango del 28-sep-2026 (39 en total)
    Los precios viven en PRECIOS.partidas: aquí solo están las
    descripciones. Cada entrada recibe su precio POR SU CLAVE al
    construir CATALOG. Cero precios literales en la lógica.
@@ -1604,7 +1623,7 @@ const FAMILIES = deepFreeze([
   {k:"proteccion",  n:"Protección y filtrado",                  d:"Seguros contra daños y filtrado de contenido",         i:P.shield,  c:"g"},
   {k:"plataformas", n:"Plataformas y licencias",                d:"Licencias anuales por usuario, estudiante o docente",  i:P.apps,    c:"r"},
   {k:"programas",   n:"Programas activa",                       d:"motiva, beta e impulsa para estudiantes y docentes",   i:P.heart,   c:"y"},
-  {k:"servicios",   n:"Servicios, soporte y acompañamiento",    d:"Mesa de ayuda, capacitación y horas de consultoría",   i:P.headset, c:"b"},
+  {k:"servicios",   n:"Servicios, soporte y acompañamiento",    d:"Mesa de ayuda, capacitación, certificación y consultoría",   i:P.headset, c:"b"},
   {k:"seminuevo",   n:"Equipo seminuevo · costo residual",      d:"Equipos reacondicionados por años de uso, pago único", i:P.box,     c:"n"}
 ]);
 const CATALOGO_BASE = deepFreeze([
@@ -1740,6 +1759,20 @@ const CATALOGO_BASE = deepFreeze([
    n:"Hora TI para talleres o consultoría",
    d:"Hora de especialista de TI para talleres o consultoría técnica fuera del alcance de la mesa de ayuda.",
    unit:{s:"hora",p:"horas"}, annual:false},
+  /* Capacitación y certificación (28-sep-2026). Precio POR RANGO: la
+     cantidad total elige el precio de PRECIOS.escalas y las horas de coaching
+     de PRECIOS.coachingHoras. Anuales como las demás licencias: el ciclo es
+     de 10 meses (septiembre a junio) y el renglón pide los años. */
+  {k:"cap-docente", part:"Cap Docente", fam:"servicios",
+   n:"Capacitación anual docente · 10 meses (septiembre a junio)",
+   d:"Capacitación anual de 10 meses, de septiembre a junio, con coaching virtual personalizado según el tamaño del grupo; si se requiere presencial, el colegio cubre los viáticos del coach, con mínimo de 4 a 5 horas por visita. Incluye voucher de certificación Google Certified Educator N1 y N2, válida oficialmente por 3 años por Google for Education; 10 meses de acceso a la plataforma Eleva, con contenido autogestivo por docente y supervisión de coordinación; y acceso a 3 Bootcamps al año de certificación intensiva N1 y N2, en las fechas que establece activa. Licencia anual por docente.",
+   unit:{s:"docente",p:"docentes"}, annual:true, minQty:10,
+   note:"Precio por rango según el total de docentes; todos pagan el precio del rango. Coaching incluido: 10 h de 10 a 30 docentes, 15 h de 31 a 50 y 20 h de 51 en adelante."},
+  {k:"cap-estudiantes", part:"Cap Estudiantes", fam:"servicios",
+   n:"Capacitación autogestiva y certificación de estudiantes · 10 meses (septiembre a junio)",
+   d:"Capacitación autogestiva de 10 meses, de septiembre a junio, con 1 voucher de certificación por estudiante: Certificación por activa powered by Google for Education. La liga de certificación se envía a los estudiantes para que apliquen el examen. Incluye 2 horas de coaching para los docentes de tecnología que llevarán la capacitación de los estudiantes. Licencia anual por estudiante.",
+   unit:{s:"estudiante",p:"estudiantes"}, annual:true, minQty:50,
+   note:"Precio por rango según el total de estudiantes; todos pagan el precio del rango. Mínimo 50 estudiantes."},
 
   /* ---------- Equipo seminuevo · costo residual ----------
      El Excel trae estos precios CON IVA INCLUIDO dentro de una hoja que
@@ -1806,6 +1839,43 @@ const CATALOG_KEYS = deepFreeze(CATALOG.map(entry => entry.k));
    Upgrade Edu: un dato solo bloquea el precio si de verdad
    entra en el importe.
    ============================================================ */
+/* Rango que corresponde a una cantidad: el último cuyo `desde` no la
+   rebasa; debajo del primero, el primero (el minQty ya avisa y bloquea). */
+function rangoPara(rangos, qty){
+  if(!Array.isArray(rangos) || !rangos.length) return null;
+  let hit = rangos[0];
+  if(Number.isFinite(qty)) for(const r of rangos) if(qty >= r.desde) hit = r;
+  return hit;
+}
+function tieneEscala(entry){
+  return Boolean(entry && Object.prototype.hasOwnProperty.call(PRECIOS.escalas, entry.k));
+}
+/* Precio unitario neto que aplica a la cantidad. Sin escala, el de lista. */
+function unitPriceFor(entry, qty){
+  if(!tieneEscala(entry)) return entry.price;
+  return rangoPara(PRECIOS.escalas[entry.k], qty).precio;
+}
+/* Horas de coaching incluidas para la cantidad; null si la partida no las lleva. */
+function coachHoursFor(entry, qty){
+  if(!entry || !Object.prototype.hasOwnProperty.call(PRECIOS.coachingHoras, entry.k)) return null;
+  return rangoPara(PRECIOS.coachingHoras[entry.k], qty).horas;
+}
+/* «de 31 a 50 docentes» / «de 76 docentes en adelante». */
+function rangoLabel(entry, qty){
+  if(!tieneEscala(entry)) return "";
+  const rangos = PRECIOS.escalas[entry.k];
+  const r = rangoPara(rangos, qty);
+  const sig = rangos[rangos.indexOf(r)+1];
+  return sig ? `de ${fmtInt(r.desde)} a ${fmtInt(sig.desde-1)} ${entry.unit.p}` : `de ${fmtInt(r.desde)} ${entry.unit.p} en adelante`;
+}
+/* Línea que acompaña a la descripción en la revisión y en el documento. */
+function lineExtra(row){
+  if(!row || !row.entry || !tieneEscala(row.entry)) return "";
+  const horas = coachHoursFor(row.entry, row.line.qty);
+  const partes = [`Precio del rango ${rangoLabel(row.entry, row.line.qty)}: ${money(unitPriceFor(row.entry, row.line.qty))} por ${row.entry.unit.s} al año, sin IVA`];
+  if(horas) partes.push(`incluye ${fmtInt(horas)} h de coaching${row.entry.k === "cap-docente" ? " virtual personalizado" : " para los docentes de tecnología"}`);
+  return partes.join(" · ") + ".";
+}
 function lineYears(entry, line){
   /* Las partidas anuales exigen años capturados; las demás valen 1. */
   if(!entry.annual) return 1;
@@ -1833,9 +1903,11 @@ function computeQuote(lines){
     /* importe_partida = redondear(cantidad × años × precio_unitario, 2).
        En partidas no anuales años vale 1 y la fórmula queda
        cantidad × precio_unitario, la del encargo. */
-    const importe = ok ? roundCurrency(line.qty * years * entry.price) : null;
+    /* En las partidas con escala el unitario lo elige la cantidad total. */
+    const unit = unitPriceFor(entry, qtyOk ? line.qty : null);
+    const importe = ok ? roundCurrency(line.qty * years * unit) : null;
     if(ok){ subtotalRaw += importe; complete++; }
-    rows.push({line,entry,index,ok,qtyOk,yearsOk,importe,years:entry.annual?years:null});
+    rows.push({line,entry,index,ok,qtyOk,yearsOk,importe,unit,years:entry.annual?years:null});
     if(ok && entry.minQty && line.qty < entry.minQty){
       warns.push({t:"e",blocks:"document",code:"MIN_QTY",id:`lqty-${line.id}`,m:`«${line.concept||entry.n}» exige mínimo ${entry.minQty} ${entry.unit.p}; hay ${fmtInt(line.qty)}. Por debajo del mínimo esta partida no se vende: súbela o elimínala del documento.`});
     }
@@ -2652,6 +2724,15 @@ function catBadges(entry){
     entry.minQty ? `<span class="cmin">mínimo ${entry.minQty} ${esc(entry.unit.p)}</span>` : ""
   ].filter(Boolean).join("");
 }
+/* Precio unitario de la fila. En las partidas con precio por rango, sin
+   cantidad muestra el del primer rango y avisa que va por rango; con
+   cantidad, el del rango que le toca. Se repinta en sitio al teclear. */
+function catUnitPriceHTML(entry, row){
+  if(!tieneEscala(entry)) return `${money(entry.price)}<small>sin IVA${entry.annual ? " · por año" : ""}</small>`;
+  const conQty = Boolean(row && row.qtyOk);
+  const precio = conQty ? row.unit : entry.price;
+  return `${money(precio)}<small>${conQty ? `rango ${esc(rangoLabel(entry, row.line.qty))}` : "precio por rango"} · sin IVA · por año</small>`;
+}
 /* Una fila. `row` es el renglon de computeQuote cuando la partida ya se agrego,
    y null cuando solo esta disponible en el catalogo. */
 function catRowHTML(entry, row, needle, ctx){
@@ -2679,7 +2760,7 @@ function catRowHTML(entry, row, needle, ctx){
   return `<tr class="crow${row ? " on" : ""}${sinPrecio && !row ? " out" : ""}" data-crow="${row ? id : ""}" data-cat="${esc(entry.k)}">
     <td class="qcell">${qcell}</td>
     <td class="txt"><div class="cline"><b class="cname">${catHighlight(nombre, needle)}</b>${row ? `<svg class="cok" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span class="sr-only">en la cotización</span>` : ""}<span class="cmeta">${catBadges(entry)}</span></div><div class="cdesc">${catHighlight(entry.d, needle)}</div></td>
-    <td class="cunitprice">${money(entry.price)}<small>sin IVA${entry.annual ? " · por año" : ""}</small></td>
+    <td class="cunitprice" data-lunit="${row ? id : ""}">${catUnitPriceHTML(entry, row)}</td>
     <td class="ycell">${ycell}</td>
     <td><span class="cimp none" data-limp="${row ? id : ""}">—</span></td>
     <td class="acts">${acciones}</td>
@@ -2777,6 +2858,8 @@ function renderCatalog(result){
       else if(QTY_BAJO_MIN.has(row.line.id)){ imp.textContent = `Mínimo ${row.entry.minQty} ${row.entry.unit.p}`; imp.className = "cimp pending"; }
       else { imp.textContent = row.entry.annual && row.qtyOk && !row.yearsOk ? "Faltan los años" : "Falta la cantidad"; imp.className = "cimp pending"; }
     }
+    const pu = tieneEscala(row.entry) ? body.querySelector(`[data-lunit="${row.line.id}"]`) : null;
+    if(pu) pu.innerHTML = catUnitPriceHTML(row.entry, row);
     const tr = body.querySelector(`tr[data-crow="${row.line.id}"]`);
     if(tr) tr.classList.toggle("err", Boolean(row.ok && row.entry.minQty && row.line.qty < row.entry.minQty));
     const up = body.querySelector(`[data-move-up="${row.line.id}"]`), down = body.querySelector(`[data-move-down="${row.line.id}"]`);
@@ -2874,9 +2957,9 @@ function renderReviewTable(result){
       const libre=row.importe===0;
       return `<tr>
         <td>${esc(printQtyLabel(row))}</td>
-        <td class="txt"><div class="art">${esc(concept)}</div><div class="desc">${esc(row.entry.d)}</div></td>
+        <td class="txt"><div class="art">${esc(concept)}</div>${lineDescHTML(row)}</td>
         <td>${esc(row.entry.part)}</td>
-        <td>${esc(printUnitPrice(row.entry))}</td>
+        <td>${esc(printUnitPrice(row))}</td>
         <td${libre?' class="free"':""}>${esc(moneyOrFree(row.importe))}</td>
       </tr>`;
     }).join("");
@@ -3136,8 +3219,16 @@ function printQtyLabel(row){
   const base=`${fmtInt(row.line.qty)} ${unit}`;
   return row.entry.annual?`${base} × ${row.years} año${row.years===1?"":"s"}`:base;
 }
-function printUnitPrice(entry){
-  return entry.price===0?"Sin costo":`${money(entry.price)}${entry.annual?" / año":""}`;
+/* Recibe la fila del motor: en las partidas con precio por rango el unitario
+   lo eligió la cantidad (row.unit), no es el de lista. */
+function printUnitPrice(row){
+  const price=Number.isFinite(row.unit)?row.unit:row.entry.price;
+  return price===0?"Sin costo":`${money(price)}${row.entry.annual?" / año":""}`;
+}
+/* Descripción + la línea del rango, cuando aplica. Todo escapado. */
+function lineDescHTML(row){
+  const extra=lineExtra(row);
+  return `<div class="desc">${esc(row.entry.d)}</div>${extra?`<div class="desc"><b>${esc(extra)}</b></div>`:""}`;
 }
 /* Fila de la tabla impresa. Recibe la fila del motor; es función pura para
    poder probarla con partidas sintéticas (p. ej. precio 0). */
@@ -3145,9 +3236,9 @@ function proposalLineRow(row){
   const concept=row.line.concept||row.entry.n;
   return `<tr>
     <td class="qtycell">${esc(printQtyLabel(row))}</td>
-    <td><div class="art">${esc(concept)}</div><div class="desc">${esc(row.entry.d)}</div></td>
+    <td><div class="art">${esc(concept)}</div>${lineDescHTML(row)}</td>
     <td class="partcell">${esc(row.entry.part)}</td>
-    <td class="numcell">${esc(printUnitPrice(row.entry))}</td>
+    <td class="numcell">${esc(printUnitPrice(row))}</td>
     <td class="numcell">${esc(moneyOrFree(row.importe))}</td>
   </tr>`;
 }
@@ -3717,7 +3808,7 @@ const QuoteTests={
       this.assert(APP_CONFIG.limits===PRECIOS.limites,"limits no es la matriz");
       this.assert(APP_CONFIG.delivery===PRECIOS.entrega,"delivery no deriva de la matriz");
       const clavesMatriz=Object.keys(PRECIOS.partidas),clavesCatalogo=CATALOG.map(e=>e.k);
-      this.assert(clavesMatriz.length===37,`la matriz debe tener 37 partidas y tiene ${clavesMatriz.length}`);
+      this.assert(clavesMatriz.length===39,`la matriz debe tener 39 partidas y tiene ${clavesMatriz.length}`);
       this.assert(clavesMatriz.length===clavesCatalogo.length,`la matriz tiene ${clavesMatriz.length} precios y el catálogo ${clavesCatalogo.length} partidas`);
       for(const k of clavesCatalogo)this.assert(Object.prototype.hasOwnProperty.call(PRECIOS.partidas,k),`la partida ${k} no tiene precio en la matriz`);
       for(const k of clavesMatriz)this.assert(clavesCatalogo.includes(k),`el precio ${k} está huérfano: no existe la partida en el catálogo`);
@@ -3771,8 +3862,8 @@ const QuoteTests={
     });
 
     /* ===== Catálogo ===== */
-    this.test("Catálogo: 37 partidas, congelado y sin IVA",()=>{
-      this.assert(CATALOG.length===37,`el catálogo debe tener 37 partidas, tiene ${CATALOG.length}`);
+    this.test("Catálogo: 39 partidas, congelado y sin IVA",()=>{
+      this.assert(CATALOG.length===39,`el catálogo debe tener 39 partidas, tiene ${CATALOG.length}`);
       this.assert(Object.isFrozen(CATALOG)&&Object.isFrozen(CATALOG[0]),"el catálogo debe estar congelado con deepFreeze");
       for(const entry of CATALOG){
         this.assert(Number.isFinite(entry.price)&&entry.price>0,`precio inválido en ${entry.k}`);
@@ -3782,7 +3873,7 @@ const QuoteTests={
       }
     });
     this.test("Catálogo: precios contra la tabla vigente al 12-sep-2026",()=>{
-      const esperado={ceu:750,"cb-rugged":7740,"cb-essential":9450,carrito40:31720.50,carrito30:26600.70,carrito20:24374.70,"carrito-tab30":22482.60,seguro1:490,seguro3:1390,seguro4:1870,securly:350,everway:192,wriq:92,"wayground-est":130,eduplus:102,gwtl:1225,"motiva-est":400,"motiva-doc":6000,"beta-est":400,"beta-doc":6000,"impulsa-est":990,"impulsa-doc":6000,soporte1ti:36750,soporte2ti:3500,soporte3ti:4000,"hora-coach":3500,"hora-ti":3000,flip1:6034.48,flip2:4482.76,flip3:3017.24,flip4:1379.31,flip5:862.07,profe1:7844.83,profe2:5827.59,profe3:4310.34,profe4:1793.10,profe5:1379.31};
+      const esperado={ceu:750,"cb-rugged":7740,"cb-essential":9450,carrito40:31720.50,carrito30:26600.70,carrito20:24374.70,"carrito-tab30":22482.60,seguro1:490,seguro3:1390,seguro4:1870,securly:350,everway:192,wriq:92,"wayground-est":130,eduplus:102,gwtl:1225,"motiva-est":400,"motiva-doc":6000,"beta-est":400,"beta-doc":6000,"impulsa-est":990,"impulsa-doc":6000,soporte1ti:36750,soporte2ti:3500,soporte3ti:4000,"hora-coach":3500,"hora-ti":3000,"cap-docente":4500,"cap-estudiantes":390,flip1:6034.48,flip2:4482.76,flip3:3017.24,flip4:1379.31,flip5:862.07,profe1:7844.83,profe2:5827.59,profe3:4310.34,profe4:1793.10,profe5:1379.31};
       for(const [k,price] of Object.entries(esperado))this.assertClose(CAT_BY_KEY[k]?.price,price,0,`precio de ${k}`);
       this.assert(Object.keys(esperado).length===CATALOG.length,"la tabla de la prueba y el catálogo divergen en partidas");
     });
@@ -3819,6 +3910,55 @@ const QuoteTests={
     /* Corregido el 12-sep-2026: los 6,000 son el precio de UN docente al año,
        no un paquete de quince. Los tres programas valen lo mismo y el mínimo de
        10 pone el piso en 60,000 por programa, al año y sin IVA. */
+    /* 28-sep-2026 · Capacitaciones con precio por rango. La cantidad total
+       elige el rango y TODAS las unidades pagan ese precio. */
+    this.test("Precio por rango: cada frontera cae en su rango",()=>{
+      const doc=CAT_BY_KEY["cap-docente"],est=CAT_BY_KEY["cap-estudiantes"];
+      const casosDoc=[[10,4500],[20,4500],[21,3900],[30,3900],[31,3500],[50,3500],[51,2990],[75,2990],[76,1990],[400,1990]];
+      for(const [q,p] of casosDoc)this.assertClose(unitPriceFor(doc,q),p,0,`cap-docente con ${q}`);
+      const casosEst=[[50,390],[100,390],[101,340],[300,340],[301,290],[500,290],[501,250],[3000,250]];
+      for(const [q,p] of casosEst)this.assertClose(unitPriceFor(est,q),p,0,`cap-estudiantes con ${q}`);
+      this.assert(PRECIOS.escalas["cap-docente"][0].precio===PRECIOS.partidas["cap-docente"],"el primer rango docente no es el precio de lista");
+      this.assert(PRECIOS.escalas["cap-estudiantes"][0].precio===PRECIOS.partidas["cap-estudiantes"],"el primer rango de estudiantes no es el precio de lista");
+      this.assert(PRECIOS.escalas["cap-docente"][0].desde===doc.minQty&&PRECIOS.escalas["cap-estudiantes"][0].desde===est.minQty,"el primer rango no coincide con el mínimo");
+      this.assert(unitPriceFor(CAT_BY_KEY["cb-essential"],500)===CAT_BY_KEY["cb-essential"].price,"una partida sin escala no cambia de precio con la cantidad");
+    });
+    this.test("Precio por rango: todos al precio del rango, por años",()=>{
+      const a=computeQuote([this.mkLine("cap-docente",40,1)]);
+      this.assertClose(a.subtotal,140000,0,"40 docentes × 1 año a 3,500");
+      this.assertClose(computeQuote([this.mkLine("cap-docente",40,2)]).subtotal,280000,0,"40 docentes × 2 años");
+      this.assertClose(computeQuote([this.mkLine("cap-docente",25,1)]).subtotal,97500,0,"25 docentes a 3,900");
+      this.assertClose(computeQuote([this.mkLine("cap-estudiantes",320,1)]).subtotal,92800,0,"320 estudiantes a 290");
+      const mix=computeQuote([this.mkLine("cap-docente",25,1),this.mkLine("cap-estudiantes",320,1)]);
+      this.assertClose(mix.subtotal,190300,0,"las dos capacitaciones juntas");
+      this.assertClose(mix.iva,30448,0,"IVA sobre el subtotal");
+      this.assertClose(mix.total,220748,0,"total con IVA");
+    });
+    this.test("Precio por rango: mínimos de 10 docentes y 50 estudiantes",()=>{
+      for(const [k,q] of [["cap-docente",9],["cap-estudiantes",49]]){
+        const w=computeQuote([this.mkLine(k,q,1)]).warns.find(x=>x.code==="MIN_QTY");
+        this.assert(w&&w.t==="e"&&w.blocks==="document",`${k} con ${q} debía bloquear el documento`);
+        this.assert(!computeQuote([this.mkLine(k,q+1,1)]).warns.some(x=>x.code==="MIN_QTY"),`${k} con ${q+1} no debía avisar`);
+      }
+    });
+    this.test("Coaching incluido según el rango",()=>{
+      const doc=CAT_BY_KEY["cap-docente"],est=CAT_BY_KEY["cap-estudiantes"];
+      for(const [q,h] of [[10,10],[30,10],[31,15],[50,15],[51,20],[200,20]])this.assert(coachHoursFor(doc,q)===h,`cap-docente con ${q} debía incluir ${h} h`);
+      for(const q of [50,101,301,900])this.assert(coachHoursFor(est,q)===2,`cap-estudiantes con ${q} debía incluir 2 h`);
+      this.assert(coachHoursFor(CAT_BY_KEY["hora-coach"],5)===null,"una partida sin coaching incluido no inventa horas");
+    });
+    this.test("El documento imprime el precio del rango y el coaching",()=>{
+      const r=computeQuote([this.mkLine("cap-docente",40,1)]);
+      const html=proposalLineRow(r.rows[0]);
+      this.assert(html.includes(money(3500)),"el documento debía mostrar el unitario del rango");
+      this.assert(!html.includes(money(4500)),"el documento no debe mostrar el precio de lista");
+      this.assert(html.includes("15 h de coaching"),"el documento debía decir las horas de coaching");
+      this.assert(html.includes("de 31 a 50 docentes"),"el documento debía nombrar el rango");
+      this.assert(html.includes("Eleva")&&html.includes("Bootcamps"),"el documento debía llevar lo que incluye");
+      const e=computeQuote([this.mkLine("cap-estudiantes",600,1)]);
+      const h2=proposalLineRow(e.rows[0]);
+      this.assert(h2.includes(money(250))&&h2.includes("de 501 estudiantes en adelante")&&h2.includes("2 h de coaching"),"estudiantes: rango abierto y 2 h");
+    });
     this.test("Programas docentes: 6,000 por docente y por año, los tres iguales",()=>{
       for(const key of ["motiva-doc","beta-doc","impulsa-doc"]){
         this.assertClose(CAT_BY_KEY[key].price,6000,0,`${key} debe costar 6,000 por docente`);

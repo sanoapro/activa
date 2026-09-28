@@ -51,7 +51,7 @@ Hay una razón técnica que obligaba a elegir uno de los dos sitios: el motor ma
 el foco al primer error usando el `id` `lqty-<renglón>`, y ese `id` solo puede
 existir una vez en el documento.
 
-El catálogo son **37 partidas** repartidas en seis familias (`FAMILIES`): equipos y accesorios,
+El catálogo son **39 partidas** repartidas en seis familias (`FAMILIES`): equipos y accesorios,
 protección y filtrado, plataformas y licencias, programas activa, servicios y soporte, y equipo
 seminuevo.
 
@@ -62,7 +62,8 @@ del `<script>` (busca `MATRIZ DE PRECIOS`). La convención de esta página: **to
 son NETOS, sin IVA**; el IVA se aplica una sola vez, sobre el subtotal.
 
 - `PRECIOS` — la tasa de IVA, los días de vigencia, el texto de entrega, los límites y
-  `partidas`: las 37 claves con su precio neto, agrupadas por familia.
+  `partidas`: las 39 claves con su precio neto, agrupadas por familia; `escalas` y
+  `coachingHoras`: los rangos de las partidas con precio por cantidad (ver abajo).
 - `APP_CONFIG` — **deriva de la matriz** (tasa y etiqueta de IVA, vigencia, límites, entrega) y
   conserva la fecha del catálogo y los datos por omisión del vendedor y del proveedor.
 - `CATALOGO_BASE` → `CATALOG` — una entrada por partida: `k`, `part`, `fam`, `n`, `d`, `unit`,
@@ -76,11 +77,31 @@ es la única fuente» exige que los dos juegos de claves coincidan.
 Las **bajas del 19-ago-2026** están anotadas en el comentario de `CATALOG` y no deben
 recuperarse del Excel: ya no se venden.
 
+## Precios por rango
+
+**28-sep-2026.** Dos partidas de la familia de servicios cobran según la cantidad:
+
+| Partida | Rangos (neto, por persona y año) | Coaching incluido |
+|---|---|---|
+| `cap-docente` · Capacitación anual docente, 10 meses (sep–jun) | 10–20 $4,500 · 21–30 $3,900 · 31–50 $3,500 · 51–75 $2,990 · 76+ $1,990 | 10 h (10–30) · 15 h (31–50) · 20 h (51+) |
+| `cap-estudiantes` · Capacitación autogestiva y certificación de estudiantes, 10 meses (sep–jun) | 50–100 $390 · 101–300 $340 · 301–500 $290 · 501+ $250 | 2 h para los docentes de tecnología |
+
+- **Todas las unidades pagan el precio del rango** en que cae la cantidad total del renglón; no
+  es escalonado por tramos. Son anuales: importe = personas × años × precio del rango.
+- Los rangos viven en `PRECIOS.escalas` y las horas en `PRECIOS.coachingHoras`. El primer
+  rango coincide con `PRECIOS.partidas[k]` (precio de lista) y con el `minQty` (10 y 50).
+- `unitPriceFor(entry, qty)` elige el precio; `computeQuote()` lo guarda en `row.unit`, y
+  `printUnitPrice(row)` lo lee de ahí, de modo que la fila del catálogo, la revisión y el PDF
+  no pueden divergir. `lineExtra(row)` añade debajo de la descripción el rango aplicado y las
+  horas de coaching.
+- Agregarlas no subió `catalog.updatedISO`: ningún precio existente cambió y subirlo habría
+  invalidado los borradores guardados.
+
 ## La aritmética
 
 - Los precios del catálogo son **netos, sin IVA**.
 - Importe de un renglón = `cantidad × precio`, y en las licencias anuales
-  `cantidad × años × precio`.
+  `cantidad × años × precio`. En las partidas con escala, `precio` es el del rango.
 - El **IVA se calcula una sola vez, sobre el subtotal**, nunca renglón por renglón: así no se
   arrastran centavos.
 - No hay descuentos. Es una decisión comercial cerrada el 19-ago-2026; cuando exista, el renglón
@@ -267,8 +288,8 @@ página; el archivo solo la aprovecha.
 
 ## Pruebas internas
 
-Se abren con **`?test=1`**: 57 pruebas sobre el IVA, el catálogo contra la tabla vigente al
-12-sep-2026, las bajas, los seminuevos, los mínimos, la persistencia, el escapado y el
+Se abren con **`?test=1`**: 62 pruebas sobre el IVA, el catálogo contra la tabla vigente al
+12-sep-2026, las bajas, los seminuevos, los mínimos, los precios por rango, la persistencia, el escapado y el
 documento. Toda pasada de presentación tiene que dejarlas igual: **si una cambia de resultado,
 se tocó lógica y se revierte**.
 
