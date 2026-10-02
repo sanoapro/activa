@@ -61,8 +61,14 @@ Presentacion-activa/
 │   │   ├── og.png                Su vista previa de WhatsApp (generada)
 │   │   ├── og-source.html        El molde de esa vista previa
 │   │   └── README.md
-│   └── uso-responsable/          Página de lectura: el acuerdo de la SEP sobre celulares
-│       ├── index.html
+│   ├── uso-responsable/          Página de lectura: el acuerdo de la SEP sobre celulares
+│   │   ├── index.html
+│   │   ├── og.png                Su vista previa de WhatsApp (generada)
+│   │   ├── og-source.html        El molde de esa vista previa
+│   │   └── README.md
+│   └── comparativa-seguridad/    Estudio: Windows, iPad, Chromebook + Securly, iPad + Securly
+│       ├── index.html            GENERADO desde fuente/ (no editar a mano)
+│       ├── fuente/               plantilla.html + datos.py + generar.py
 │       ├── og.png                Su vista previa de WhatsApp (generada)
 │       ├── og-source.html        El molde de esa vista previa
 │       └── README.md
@@ -130,7 +136,7 @@ retirarla se quedó sin consumidores; se borró. Lo único compartido en present
 
 ## Nada de esto se indexa
 
-Las doce páginas llevan `<meta name="robots" content="noindex">`. No es paranoia: el cotizador
+Las trece páginas llevan `<meta name="robots" content="noindex">`. No es paranoia: el cotizador
 y la página de precios tienen el precio por alumno y los descuentos —el cotizador, además, los
 datos bancarios de la empresa—, los cotizadores de arrendamiento y de compra directa llevan su
 catálogo de costos y la tasa dentro del código, y los decks llevan la propuesta completa de un
@@ -187,6 +193,7 @@ El sitio se sirve desde la rama `main` tal cual, así que **la ruta del reposito
 | Consola | <https://sanoapro.github.io/activa/paginas/consola/> |
 | Proyecto Piloto | <https://sanoapro.github.io/activa/paginas/piloto/> |
 | Uso responsable | <https://sanoapro.github.io/activa/paginas/uso-responsable/> |
+| Comparativa de seguridad | <https://sanoapro.github.io/activa/paginas/comparativa-seguridad/> |
 
 Al mover o agregar una página hay que revisar cuatro lugares: sus propias etiquetas `og:`, las
 tarjetas del portal, las listas del kit comercial —y ahí, también su `og-source.html` y el conteo

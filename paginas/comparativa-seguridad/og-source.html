@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es-MX"><head><meta charset="utf-8">
+<!-- Molde de la vista previa de WhatsApp (og.png, 1200×630) de la comparativa
+     de seguridad. No se abre en público: se exporta con Edge headless (ver
+     README). Tokens copiados a mano de fuente/plantilla.html. -->
+<style>
+:root{
+  --blue:#1a73e8; --blue-d:#174ea6; --blue-t:#e8f0fe;
+  --w:#0f6cbd; --i:#3c4043; --c:#1e8e3e; --s:#8430ce;
+  --ink:#202124; --ink2:#5f6368;
+  --font:"Google Sans","Product Sans","Google Sans Text",Roboto,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1200px;height:630px;overflow:hidden;background:#fff;font-family:var(--font);color:var(--ink)}
+.card{position:relative;width:1200px;height:630px;overflow:hidden;display:flex;flex-direction:column;padding:60px 74px 0}
+.card::before{content:"";position:absolute;left:0;top:0;right:0;height:9px;z-index:5;
+  background:linear-gradient(90deg,#4285f4 0 25%,#ea4335 25% 50%,#fbbc04 50% 75%,#34a853 75% 100%)}
+.sh{position:absolute;border-radius:50%;z-index:0}
+.logos{display:flex;align-items:center;gap:22px;z-index:2}
+.logos img{height:40px;width:auto}
+.logos .gfe{height:36px}
+.logos .sep{width:1px;height:36px;background:#e3e5e8}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;margin-top:52px;font-size:17px;font-weight:700;
+  letter-spacing:2.4px;text-transform:uppercase;color:var(--blue-d);z-index:2}
+.eyebrow::before{content:"";width:30px;height:4px;border-radius:2px;background:currentColor}
+h1{margin-top:20px;font-size:70px;line-height:1.08;font-weight:500;letter-spacing:-2.6px;z-index:2}
+h1 span{color:var(--blue)}
+.chips{display:flex;gap:12px;margin-top:44px;z-index:2}
+.pie{position:absolute;left:74px;bottom:44px;font-size:21px;color:var(--ink2);z-index:2}
+.pie b{color:var(--ink)}
+.chip{display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:99px;font-size:19px;font-weight:600;
+  background:#fff;box-shadow:0 1px 2px rgba(60,64,67,.1),0 6px 18px -6px rgba(60,64,67,.2)}
+.chip i{width:12px;height:12px;border-radius:50%;display:block}
+</style></head><body>
+<div class="card">
+  <span class="sh" style="width:520px;height:520px;right:-170px;top:-230px;background:var(--blue-t);opacity:.8"></span>
+  <span class="sh" style="width:240px;height:240px;right:110px;bottom:-110px;background:#e6f4ea"></span>
+
+  <div class="logos">
+    <img src="../../compartidos/img/marcas/activa.webp" alt="activa">
+    <span class="sep"></span>
+    <img class="gfe" src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner">
+  </div>
+
+  <span class="eyebrow">Estudio comparativo · seguridad educativa</span>
+  <h1>Windows, iPad o Chromebook:<br><span>¿cuál le da más control al colegio?</span></h1>
+
+  <div class="chips">
+    <span class="chip"><i style="background:var(--w)"></i>Windows</span>
+    <span class="chip"><i style="background:var(--i)"></i>iPad</span>
+    <span class="chip"><i style="background:var(--c)"></i>Chromebook + Securly</span>
+    <span class="chip"><i style="background:var(--s)"></i>iPad + Securly</span>
+  </div>
+  <p class="pie"><b>Seguridad · aula · filtrado · evasión · privacidad</b> — con fuentes verificables</p>
+</div>
+</body></html>

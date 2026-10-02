@@ -1,0 +1,1156 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- ═══════════════════════════════════════════════════════════════
+     ARCHIVO GENERADO. No se edita a mano: se edita
+     fuente/plantilla.html (prosa y estilo) o fuente/datos.py (tablas)
+     y se corre fuente/generar.py. Ver README.md.
+     ═══════════════════════════════════════════════════════════════ -->
+<title>Comparativa de seguridad · Windows, iPad, Chromebook y Securly · activa</title>
+<meta name="description" content="Estudio comparativo para colegios: qué puede controlar realmente un colegio con Windows, iPad, Chromebook + Securly e iPad + Securly. Seguridad, administración, aula, filtrado, evasión y privacidad, con fuentes.">
+<meta name="theme-color" content="#ffffff">
+<!-- Fuera de los buscadores, como toda página del repositorio. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='11' height='11' rx='3' fill='%234285f4'/%3E%3Crect x='18' y='3' width='11' height='11' rx='3' fill='%23ea4335'/%3E%3Crect x='3' y='18' width='11' height='11' rx='3' fill='%23fbbc04'/%3E%3Crect x='18' y='18' width='11' height='11' rx='3' fill='%2334a853'/%3E%3C/svg%3E">
+
+<!-- Vista previa al compartir. URL absolutas: WhatsApp no lee rutas relativas. -->
+<meta property="og:type" content="article">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="activa">
+<meta property="og:url" content="https://sanoapro.github.io/activa/paginas/comparativa-seguridad/">
+<meta property="og:title" content="Windows, iPad o Chromebook: ¿cuál le da más control al colegio?">
+<meta property="og:description" content="Comparativa con fuentes: seguridad, aula, filtrado, evasión y privacidad en cuatro arquitecturas.">
+<meta property="og:image" content="https://sanoapro.github.io/activa/paginas/comparativa-seguridad/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Comparativa de seguridad: Windows, iPad, Chromebook + Securly, iPad + Securly · activa">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sanoapro.github.io/activa/paginas/comparativa-seguridad/og.png">
+
+<link rel="stylesheet" href="../../compartidos/css/motion.css">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   Página de lectura con tablas: se desplaza. Paleta de la casa
+   (la de uso-responsable) más un acento por plataforma.
+   Un solo archivo: sin red, sin almacenamiento, sin librerías.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --blue:#1a73e8; --blue-d:#174ea6; --blue-t:#e8f0fe; --blue-l:#4285f4;
+  --red:#ea4335;  --red-d:#b31412;  --red-t:#fce8e6;
+  --yel:#f9ab00;  --yel-d:#b06000;  --yel-t:#fef7e0;
+  --grn:#1e8e3e;  --grn-d:#0d652d;  --grn-t:#e6f4ea;  --grn-l:#34a853;
+  --orn-t:#feefe3; --orn-d:#b3470b;
+  --ink:#202124;  --ink2:#5f6368;   --ink3:#80868b;  --ink4:#bdc1c6;
+  --line:#e3e5e8; --surf:#f8f9fa;   --surf2:#f1f3f4; --white:#fff;
+  /* un acento por escenario: se distinguen sin leer y no repiten verde/azul de marca */
+  --w:#0f6cbd; --w-t:#e7f0fa;     /* Windows */
+  --i:#3c4043; --i-t:#eceef0;     /* iPad */
+  --c:#1e8e3e; --c-t:#e6f4ea;     /* Chromebook + Securly */
+  --s:#8430ce; --s-t:#f3e8fd;     /* iPad + Securly */
+  --sh:0 1px 2px rgba(60,64,67,.08), 0 6px 18px -6px rgba(60,64,67,.16);
+  --sh2:0 2px 6px rgba(60,64,67,.10), 0 14px 34px -12px rgba(60,64,67,.24);
+  --g4:linear-gradient(90deg,#4285f4 0 25%,#ea4335 25% 50%,#fbbc04 50% 75%,#34a853 75% 100%);
+  --font:"Google Sans","Product Sans","Google Sans Text",Roboto,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --cab:68px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--cab) + 18px)}
+body{background:var(--white);font-family:var(--font);color:var(--ink);
+  -webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:var(--blue-d)}
+a:focus-visible,button:focus-visible,summary:focus-visible,.tw:focus-visible{outline:3px solid var(--blue-l);outline-offset:3px;border-radius:6px}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ═══════════ TIPOGRAFÍA ═══════════ */
+h1{font-size:clamp(36px,5.2vw,62px);line-height:1.05;font-weight:500;letter-spacing:-.035em;text-wrap:balance}
+h2{font-size:clamp(28px,3.4vw,40px);line-height:1.1;font-weight:500;letter-spacing:-.025em;text-wrap:balance}
+h3{font-size:20px;line-height:1.25;font-weight:600;letter-spacing:-.3px}
+h4{font-size:16px;line-height:1.3;font-weight:600;letter-spacing:-.2px}
+p{font-size:17px;color:var(--ink2)}
+.lead{font-size:clamp(17px,1.6vw,20px);line-height:1.55;color:var(--ink2);max-width:780px}
+.xs{font-size:14.5px;line-height:1.55;color:var(--ink2)}
+b,strong{font-weight:600;color:var(--ink)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;
+  letter-spacing:1.8px;text-transform:uppercase;color:var(--ink3)}
+.eyebrow::before{content:"";width:22px;height:3px;border-radius:2px;background:currentColor}
+.eyebrow.b{color:var(--blue-d)} .eyebrow.r{color:var(--red-d)} .eyebrow.y{color:var(--yel-d)} .eyebrow.g{color:var(--grn-d)}
+.marca{font-style:italic;font-weight:800;color:var(--ink)}
+mark.hl{background:linear-gradient(transparent 60%,rgba(66,133,244,.24) 60% 92%,transparent 92%);
+  color:inherit;padding:0 .08em;font-weight:600;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.tx-w{color:var(--w)} .tx-i{color:var(--i)} .tx-c{color:var(--c)} .tx-s{color:var(--s)}
+
+/* ═══════════ ESTRUCTURA ═══════════ */
+.wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+.sec{padding:88px 0 8px;position:relative}
+.sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:30px;max-width:860px}
+.sec-head h2::after{content:"";display:block;width:64px;height:4px;border-radius:2px;background:var(--g4);margin-top:18px}
+.sec-head .num{font-size:12px;font-weight:800;letter-spacing:1.6px;color:var(--ink3)}
+.stack{display:flex;flex-direction:column;gap:22px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--white);border:1px solid var(--line);border-radius:22px;padding:24px 26px;display:flex;flex-direction:column;gap:10px}
+.card.soft{background:var(--surf);border-color:transparent}
+.card.lift{box-shadow:var(--sh);border-color:transparent}
+.card p{font-size:15.5px;line-height:1.6}
+.card ul{padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.card li{font-size:15px;line-height:1.5;color:var(--ink2)}
+.pill{display:inline-flex;align-items:center;gap:7px;min-height:28px;padding:4px 13px;border-radius:99px;
+  font-size:12.5px;font-weight:700;letter-spacing:.2px;background:var(--surf2);color:var(--ink2)}
+.pill.b{background:var(--blue-t);color:var(--blue-d)} .pill.g{background:var(--grn-t);color:var(--grn-d)}
+.shape{position:absolute;border-radius:50%;pointer-events:none;z-index:-1}
+
+/* marcador de plataforma: el mismo punto en tablas, tarjetas y gráfica */
+.pt{display:inline-block;width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-right:8px;vertical-align:1px}
+.pt-w{background:var(--w)} .pt-i{background:var(--i)} .pt-c{background:var(--c)} .pt-s{background:var(--s);box-shadow:0 0 0 2px var(--s-t),0 0 0 3px var(--s)}
+
+/* ═══════════ CABECERA FIJA ═══════════ */
+.franja{position:fixed;left:0;right:0;top:0;height:4px;background:var(--g4);z-index:30}
+.cab{position:sticky;top:0;z-index:20;height:var(--cab);margin-top:4px;
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(160%) blur(14px);
+  -webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--line)}
+.cab .wrap{height:100%;display:flex;align-items:center;gap:22px}
+.logos{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.logos img{height:24px;width:auto}
+.logos .gfe{height:22px}
+.logos .sep{width:1px;height:24px;background:var(--line)}
+.indice{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.indice::-webkit-scrollbar{display:none}
+.indice a{flex-shrink:0;text-decoration:none;font-size:12.5px;font-weight:600;color:var(--ink2);
+  padding:7px 11px;border-radius:99px;transition:background .18s ease,color .18s ease}
+.indice a:hover{background:var(--surf2);color:var(--ink)}
+.indice a.on{background:var(--blue-t);color:var(--blue-d)}
+.avance{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--blue);
+  transform:scaleX(0);transform-origin:0 50%;pointer-events:none}
+
+/* ═══════════ HERO ═══════════ */
+.hero{position:relative;padding:72px 0 30px;isolation:isolate;overflow:hidden}
+.hero .wrap{display:flex;flex-direction:column;gap:22px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.hero h1{max-width:960px}
+.hero h1 .azul{color:var(--blue)}
+.escs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:10px}
+.esc{position:relative;padding:20px 20px 18px;border-radius:20px;background:var(--white);box-shadow:var(--sh);
+  border-top:5px solid var(--k);display:flex;flex-direction:column;gap:6px}
+.esc .n{font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--k)}
+.esc h3{font-size:19px}
+.esc p{font-size:14px;line-height:1.5}
+.esc.w{--k:var(--w)} .esc.i{--k:var(--i)} .esc.c{--k:var(--c)} .esc.s{--k:var(--s)}
+
+/* nota: transparencia, vigencia, avisos */
+.nota{display:flex;gap:16px;align-items:flex-start;padding:20px 24px;border-radius:20px;
+  background:var(--yel-t);border-left:5px solid var(--yel)}
+.nota svg{width:24px;height:24px;fill:var(--yel-d);flex-shrink:0;margin-top:1px}
+.nota p{font-size:15px;line-height:1.6;color:var(--ink)}
+.nota.b{background:var(--blue-t);border-left-color:var(--blue)} .nota.b svg{fill:var(--blue)}
+.nota.r{background:var(--red-t);border-left-color:var(--red)} .nota.r svg{fill:var(--red-d)}
+.nota .mini-logos{display:flex;gap:14px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.nota .mini-logos img{height:20px;width:auto}
+
+/* tesis: una afirmación NUESTRA (sin comillas ni cursiva, para no parecer cita) */
+.tesis{display:flex;gap:20px;align-items:flex-start;padding:28px 32px;border-radius:24px;background:var(--surf)}
+.tesis .bar{width:6px;align-self:stretch;border-radius:3px;background:var(--blue);flex-shrink:0}
+.tesis p{font-size:clamp(19px,2.1vw,24px);line-height:1.38;font-weight:500;color:var(--ink);letter-spacing:-.3px}
+.tesis small{display:block;margin-top:12px;font-size:13.5px;font-weight:400;color:var(--ink3);letter-spacing:0}
+
+/* ═══════════ HALLAZGO · EVIDENCIA · IMPLICACIÓN ═══════════ */
+.hall{display:grid;grid-template-columns:200px 1fr 1fr;gap:0;border-radius:22px;overflow:hidden;background:var(--white);box-shadow:var(--sh)}
+.hall > div{padding:22px 24px}
+.hall .h{background:var(--blue-t);display:flex;flex-direction:column;gap:8px}
+.hall .h .k{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--blue-d)}
+.hall .h h3{font-size:18px;line-height:1.3}
+.hall .ev,.hall .im{display:flex;flex-direction:column;gap:6px}
+.hall .im{background:var(--surf);border-left:1px solid var(--line)}
+.hall .lbl{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink3)}
+.hall p{font-size:15px;line-height:1.6}
+
+/* ═══════════ CITAS NUMERADAS ═══════════ */
+a.ref{display:inline-grid;place-items:center;min-width:17px;height:17px;padding:0 4px;margin-left:3px;border-radius:5px;
+  background:var(--surf2);color:var(--ink2);font-size:10.5px;font-weight:700;text-decoration:none;vertical-align:2px;line-height:1}
+a.ref:hover{background:var(--blue-t);color:var(--blue-d)}
+.refs{display:inline}
+.refs-l{font-size:13px;color:var(--ink3);margin-top:10px}
+
+/* ═══════════ TABLAS COMPARATIVAS ═══════════
+   En pantalla ancha caben las cinco columnas. En el teléfono la tabla se
+   desplaza DENTRO de su caja (nunca la página) y la primera columna queda fija.
+   La justificación de cada celda (.why) se ve en línea sin JS y al imprimir;
+   con JS se esconde a la vista (no a los lectores de pantalla) y aparece
+   como globo al pasar el cursor, o en línea con «Mostrar justificaciones». */
+.tw{overflow-x:auto;border-radius:20px;box-shadow:var(--sh2);background:var(--white);-webkit-overflow-scrolling:touch}
+table.cmp{width:100%;min-width:880px;border-collapse:separate;border-spacing:0;font-size:14px}
+.cmp th,.cmp td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.cmp thead th{position:sticky;top:0;background:var(--white);font-size:14px;font-weight:700;color:var(--ink);
+  border-bottom:2px solid var(--line);white-space:nowrap;z-index:2}
+.cmp thead th.h-w{color:var(--w)} .cmp thead th.h-i{color:var(--i)} .cmp thead th.h-c{color:var(--c)} .cmp thead th.h-s{color:var(--s)}
+.cmp tbody th{font-weight:600;color:var(--ink);background:var(--surf);width:24%;min-width:200px;
+  position:sticky;left:0;z-index:1;font-size:14px;line-height:1.4}
+.cmp tbody tr:last-child > *{border-bottom:0}
+.cmp tr.grupo th{background:var(--white);font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--blue-d);padding:18px 14px 8px;position:static}
+.cmp tr[hidden]{display:none}
+.v{position:relative;width:19%}
+.v .vi{margin-right:6px}
+.v .vl{font-weight:600;color:var(--ink);font-size:13.5px}
+.v .quien{display:block;font-size:12.5px;color:var(--ink2);margin-top:2px}
+.v .why{display:block;font-size:12.5px;line-height:1.45;color:var(--ink2);margin-top:6px}
+/* solo en pantalla: al imprimir, las justificaciones van siempre en línea */
+@media screen{ html.js-ok body:not(.why-on) .v .why{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;margin:0} }
+.v5{background:#eef8f1} .v4{background:#f5fbf6} .v3{background:#fffaeb} .v2{background:#fff4ec} .v1{background:#fdf0ef} .v0{background:var(--surf2)}
+.n-alto{background:#fdf0ef} .n-medio{background:#fff4ec} .n-bajo{background:#eef8f1} .n-bloq{background:#eef4fe} .n-dep{background:#fffaeb}
+@media (hover:hover) and (pointer:fine){ html.js-ok body:not(.why-on) td.v:has(.why){cursor:help} }
+
+/* globo flotante: un solo elemento, posición fija, se coloca dentro del cuadro del motor */
+.tip{position:fixed;left:0;top:0;z-index:40;max-width:300px;padding:11px 13px;border-radius:12px;
+  background:var(--ink);color:#fff;font-size:13px;line-height:1.45;box-shadow:var(--sh2);
+  opacity:0;pointer-events:none;transition:opacity .12s ease}
+.tip.on{opacity:1}
+
+/* leyenda de la escala */
+.leyenda{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:13.5px;color:var(--ink2)}
+.leyenda span{display:inline-flex;gap:6px;align-items:center}
+
+/* barra de herramientas de tabla: filtros y conmutador */
+.herr{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.filtros{display:flex;flex-wrap:wrap;gap:6px}
+.chip-f,.chip-t,.chip-n,.ver-why{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--white);
+  color:var(--ink2);padding:7px 13px;border-radius:99px;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease}
+.chip-f:hover,.chip-t:hover,.chip-n:hover,.ver-why:hover{background:var(--surf2);color:var(--ink)}
+.chip-f[aria-pressed="true"],.chip-t[aria-pressed="true"],.chip-n[aria-pressed="true"],.ver-why[aria-pressed="true"]{background:var(--blue-t);color:var(--blue-d);border-color:transparent}
+.chip-t{min-width:38px}
+/* sin JS los botones no harían nada: no se muestran */
+.chip-f,.chip-t,.chip-n,.ver-why{display:none}
+html.js-ok .chip-f,html.js-ok .chip-t,html.js-ok .chip-n,html.js-ok .ver-why{display:inline-flex}
+
+/* tabla 6: la tarea elegida se ilumina, las demás se apagan */
+#t6 .num{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;
+  font-size:12px;font-weight:700;margin-right:8px;vertical-align:1px}
+#t6.enfoque tbody tr{opacity:.32;transition:opacity .2s ease}
+#t6.enfoque tbody tr.foco{opacity:1}
+#t6.enfoque tbody tr.foco > *{box-shadow:inset 0 2px 0 var(--blue),inset 0 -2px 0 var(--blue)}
+
+/* barras de puntaje de la tabla 6 */
+.barras{display:flex;flex-direction:column;gap:12px;max-width:760px}
+.barra{display:grid;grid-template-columns:190px 1fr 78px;gap:14px;align-items:center;font-size:14.5px}
+.barra .bn{font-weight:700}
+.barra .bt{height:14px;border-radius:7px;background:var(--surf2);overflow:hidden}
+.barra .bf{display:block;height:100%;border-radius:7px}
+.bf-w{background:var(--w)} .bf-i{background:var(--i)} .bf-c{background:var(--c)} .bf-s{background:var(--s)}
+.barra .bv{font-variant-numeric:tabular-nums;color:var(--ink2);text-align:right}
+
+/* gráfica de puntos */
+.dot{width:100%;height:auto;display:block}
+.dot .gr{stroke:var(--line);stroke-width:1}
+.dot .gf{stroke:var(--surf2);stroke-width:8;stroke-linecap:round}
+.dot .gx{font-size:12px;fill:var(--ink3)}
+.dot .gl{font-size:13.5px;fill:var(--ink);font-weight:600}
+.dot .gd{stroke:#fff;stroke-width:2}
+.gd-w{fill:var(--w)} .gd-i{fill:var(--i)} .gd-c{fill:var(--c)} .gd-s{fill:var(--s)}
+.graf{padding:22px 24px;border-radius:22px;background:var(--white);box-shadow:var(--sh)}
+.graf .leyenda{margin-bottom:8px}
+
+/* capas: la arquitectura completa, del hierro a las políticas */
+.capa-tag{display:inline-block;margin-top:6px;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase}
+.tg-nat{background:var(--grn-t);color:var(--grn-d)} .tg-lic{background:var(--blue-t);color:var(--blue-d)}
+.tg-mdm{background:var(--yel-t);color:var(--yel-d)} .tg-ter{background:var(--s-t);color:var(--s)}
+.tg-no{background:var(--surf2);color:var(--ink3)} .tg-col{background:var(--orn-t);color:var(--orn-d)}
+.cmp.capas td{font-size:14px;color:var(--ink);width:19%}
+.cmp.capas td small{display:block;color:var(--ink3);font-size:12px;margin-top:3px}
+
+/* A · B · C por plataforma */
+.abc{border-top:5px solid var(--k)} .abc.w{--k:var(--w)} .abc.i{--k:var(--i)} .abc.c{--k:var(--c)} .abc.s{--k:var(--s)}
+.abc h3{color:var(--k)}
+.abc dl{display:flex;flex-direction:column;gap:10px}
+.abc dt{font-size:11.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3)}
+.abc dd{font-size:14.5px;line-height:1.5;color:var(--ink2)}
+.abc .ojo{font-size:13.5px;line-height:1.5;color:var(--ink);background:var(--surf);padding:10px 12px;border-radius:12px}
+
+/* acordeones: <details> funciona sin JS; al imprimir se abren todos */
+.accs{display:flex;flex-direction:column;gap:8px}
+.acc{border-radius:16px;background:var(--surf);overflow:hidden}
+.acc summary{list-style:none;cursor:pointer;padding:15px 20px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::before{content:"+";font-weight:700;color:var(--blue);width:14px}
+.acc[open] summary::before{content:"–"}
+.acc summary span{font-weight:700;font-size:15.5px}
+.acc summary small{font-size:14px;color:var(--ink2)}
+.acc-b{padding:0 20px 18px 48px;display:flex;flex-direction:column;gap:10px}
+.acc-b p{font-size:14.5px}
+.mit{list-style:none;display:flex;flex-direction:column;gap:7px}
+.mit li{font-size:14px;line-height:1.5;color:var(--ink2)}
+.mini{display:inline-block;font-size:12px;font-weight:700;padding:1px 8px;border-radius:99px;margin:0 4px}
+.mini.n-alto{color:var(--red-d)} .mini.n-medio{color:var(--orn-d)} .mini.n-bajo{color:var(--grn-d)} .mini.n-bloq{color:var(--blue-d)} .mini.n-dep{color:var(--yel-d)}
+
+/* dentro / fuera */
+.df{display:flex;flex-direction:column;gap:4px;font-size:13.5px;color:var(--ink2)}
+.df b{font-size:12px;font-weight:800;letter-spacing:.6px}
+.si{color:var(--grn-d)} .no{color:var(--red-d)} .pa{color:var(--yel-d)}
+
+/* costos */
+.costos td.tam{white-space:normal}
+.costos .cot{font-size:13px;color:var(--ink3);font-style:italic}
+.costos[data-sel] td.tam,.costos[data-sel] th.tam{opacity:.38}
+.costos[data-sel="100"] [data-n="100"],.costos[data-sel="500"] [data-n="500"],.costos[data-sel="1000"] [data-n="1000"]{opacity:1;background:var(--blue-t)}
+
+/* línea de tiempo */
+.linea{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-radius:22px;overflow:hidden;box-shadow:var(--sh)}
+.linea li{padding:20px 18px;background:var(--white);border-left:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.linea li:first-child{border-left:0}
+.linea .cuando{font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--blue-d)}
+.linea p{font-size:14px;line-height:1.5}
+
+/* fortalezas y limitaciones */
+.pm h4{font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-top:6px}
+.pm .mas li::marker{content:"+  ";color:var(--grn);font-weight:800}
+.pm .menos li::marker{content:"–  ";color:var(--red);font-weight:800}
+
+/* conclusiones */
+.concl{counter-reset:c;list-style:none;display:flex;flex-direction:column;gap:12px;max-width:900px}
+.concl li{counter-increment:c;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;padding:18px 22px;border-radius:18px;background:var(--surf)}
+.concl li::before{content:counter(c);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700}
+.concl p{font-size:16px;line-height:1.6;color:var(--ink)}
+
+/* fuentes */
+.lista-f{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 22px}
+.fu{display:grid;grid-template-columns:30px 1fr;gap:8px;align-items:start;padding:8px 0;border-bottom:1px solid var(--line)}
+.fu .fn{font-size:12px;font-weight:700;color:var(--ink3);font-variant-numeric:tabular-nums;padding-top:2px}
+.fu a{font-size:14px;font-weight:600;text-decoration:none;color:var(--ink)}
+.fu a:hover{color:var(--blue-d);text-decoration:underline}
+.fu small{display:block;font-size:12.5px;color:var(--ink3)}
+.fu.anec small{color:var(--orn-d)}
+.fu:target{background:var(--yel-t);border-radius:8px}
+
+.cierre{position:relative;margin-top:96px;padding:72px 0;background:var(--blue-t);overflow:hidden;isolation:isolate}
+.cierre .tesis{background:var(--white);box-shadow:var(--sh)}
+.pie{margin-top:80px;padding:40px 0 56px;border-top:1px solid var(--line)}
+.pie .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.pie p{font-size:14px;color:var(--ink3)}
+
+@media (hover:hover) and (pointer:fine){
+  .card.lift,.esc{transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s ease}
+  .card.lift:hover,.esc:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+}
+body{--mo-dur:.5s;--mo-subida:14px}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width:1080px){ .indice{display:none} }
+@media (max-width:980px){
+  .g3,.g4,.escs{grid-template-columns:repeat(2,1fr)}
+  .hall{grid-template-columns:1fr}
+  .hall .im{border-left:0;border-top:1px solid var(--line)}
+  .linea{grid-template-columns:1fr}
+  .linea li{border-left:0;border-top:1px solid var(--line)}
+  .linea li:first-child{border-top:0}
+}
+@media (max-width:700px){
+  :root{--cab:60px}
+  .wrap{padding:0 16px}
+  .g2,.g3,.g4,.escs,.lista-f{grid-template-columns:1fr}
+  .hero{padding:44px 0 20px}
+  .sec{padding:64px 0 4px}
+  .card{padding:20px 18px}
+  .tesis{padding:22px 20px;gap:14px}
+  .logos img{height:20px} .logos .gfe{height:18px}
+  .cmp tbody th{min-width:150px;width:150px}
+  table.cmp{min-width:760px}
+  .barra{grid-template-columns:1fr 64px;gap:6px 10px}
+  .barra .bn{grid-column:1 / -1}
+  .acc-b{padding:0 18px 16px 20px}
+  .concl li{grid-template-columns:1fr;gap:8px}
+}
+
+/* ═══════════ MOVIMIENTO: guardas ═══════════ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .card.lift:hover,.esc:hover{transform:none}
+  .tip,#t6.enfoque tbody tr{transition:none}
+}
+
+/* ═══════════ IMPRESIÓN ═══════════
+   Documento para la mesa del consejo: todo el contenido, justificaciones
+   en línea, acordeones abiertos, sin cabecera ni botones. */
+@page{margin:1.4cm 1.2cm}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html{scroll-behavior:auto}
+  body{font-size:10pt}
+  .franja,.indice,.avance,.shape,.tip,.filtros,.ver-why,.chip-n{display:none!important}
+  .cab{position:static;height:auto;margin:0 0 10px;border:0;background:none;backdrop-filter:none}
+  .cab .wrap,.wrap{max-width:none;padding:0}
+  .hero{padding:8px 0}
+  .sec{padding:24px 0 0}
+  .tw{overflow:visible;box-shadow:none;border:1px solid var(--line)}
+  table.cmp{min-width:0;font-size:8.5pt}
+  .cmp th,.cmp td{padding:6px 7px}
+  .cmp tbody th{position:static;width:20%;min-width:0}
+  .cmp thead th{position:static}
+  .cmp tr[hidden]{display:table-row!important}
+  .v .why{font-size:7.5pt;margin-top:3px}
+  #t6.enfoque tbody tr{opacity:1}
+  .costos[data-sel] td.tam,.costos[data-sel] th.tam{opacity:1;background:none}
+  .acc summary::before{content:""}
+  details::details-content{content-visibility:visible;display:block}   /* abre sin JS donde el navegador lo admite */
+  .card,.hall,.esc,.tesis,.nota,.acc,.concl li,.fu,.cmp tr,.linea li,.graf{break-inside:avoid;page-break-inside:avoid}
+  .card.lift,.esc,.hall,.graf,.linea,.cierre .tesis{box-shadow:none;border:1px solid var(--line)}
+  h2,h3,h4,.sec-head{break-after:avoid;page-break-after:avoid}
+  .cierre{margin-top:24px;padding:24px 18px;border-radius:18px}
+  .lista-f{grid-template-columns:1fr 1fr;gap:2px 16px}
+  .fu a::after{content:" · " attr(href);font-weight:400;font-size:7pt;color:var(--ink3);word-break:break-all}
+}
+</style>
+</head>
+<body>
+
+<div class="franja" aria-hidden="true"></div>
+
+<!-- ═══════════ CABECERA ═══════════ -->
+<header class="cab">
+  <div class="wrap">
+    <a class="logos" href="#inicio" aria-label="Ir al inicio">
+      <img src="../../compartidos/img/marcas/activa.webp" alt="activa">
+      <span class="sep" aria-hidden="true"></span>
+      <img class="gfe" src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner">
+    </a>
+    <nav class="indice" aria-label="Secciones">
+      <a href="#resumen">Resumen</a>
+      <a href="#capas">Capas</a>
+      <a href="#comparativa">Comparativa</a>
+      <a href="#ti">TI</a>
+      <a href="#aula">Aula</a>
+      <a href="#filtrado">Filtrado</a>
+      <a href="#evasion">Evasión</a>
+      <a href="#fuera">Fuera</a>
+      <a href="#privacidad">Privacidad</a>
+      <a href="#salon">30 alumnos</a>
+      <a href="#operacion">Operación</a>
+      <a href="#mexico">México</a>
+      <a href="#conclusiones">Conclusiones</a>
+      <a href="#fuentes">Fuentes</a>
+    </nav>
+  </div>
+  <div class="avance mo-progress-fill" id="avance" aria-hidden="true"></div>
+</header>
+
+<main id="inicio">
+
+<!-- ═══════════ 1 · PORTADA ═══════════ -->
+<section class="hero" aria-labelledby="titulo">
+  <span class="shape" style="width:560px;height:560px;right:-200px;top:-230px;background:var(--blue-t)"></span>
+  <span class="shape" style="width:220px;height:220px;right:180px;top:260px;background:var(--grn-t)"></span>
+  <div class="wrap">
+    <div class="hero-meta mo-reveal">
+      <span class="pill b">Estudio comparativo · seguridad educativa</span>
+      <span class="pill">Fuentes consultadas el <!--GEN:fecha--></span>
+      <span class="pill">Educación básica y media · México</span>
+    </div>
+    <h1 id="titulo" class="mo-reveal">Windows, iPad o Chromebook: <span class="azul">¿cuál le da al colegio más control real?</span></h1>
+    <p class="lead mo-reveal">Comparamos cuatro arquitecturas para el equipo del alumno. En cada una separamos lo que trae el sistema, lo que agrega la administración y lo que aportan herramientas como Securly. Cada valoración lleva su justificación y su fuente.</p>
+
+    <div class="escs mo-stagger">
+      <article class="esc w"><span class="n">Escenario 1</span><h3>Windows</h3><p>Laptop con Windows 11 Pro Education o Education, Intune y Entra ID.</p></article>
+      <article class="esc i"><span class="n">Escenario 2</span><h3>iPad</h3><p>iPad supervisado con Apple School Manager, un MDM y Apple Classroom.</p></article>
+      <article class="esc c"><span class="n">Escenario 3</span><h3>Chromebook + Securly</h3><p>ChromeOS con Chrome Education Upgrade, Google Workspace for Education y Securly.</p></article>
+      <article class="esc s"><span class="n">Escenario adicional</span><h3>iPad + Securly</h3><p>El escenario 2 más Securly Filter (SmartPAC) y Aware.</p></article>
+    </div>
+
+    <div class="nota b mo-reveal" role="note">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      <div>
+        <p><b>Transparencia.</b> <em class="marca">activa</em> es partner de Google for Education y distribuye Securly. Por eso este estudio reconoce lo que Windows y el iPad hacen mejor, señala los límites de Chromebook y de Securly, y cita una fuente para cada valoración, para que cualquiera la pueda verificar.</p>
+        <div class="mini-logos" aria-hidden="true">
+          <img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="">
+          <img src="../../compartidos/img/marcas/securly.webp" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 2 · RESUMEN EJECUTIVO ═══════════ -->
+<section class="sec" id="resumen" aria-labelledby="t-resumen">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow b">Resumen ejecutivo</span>
+      <h2 id="t-resumen">Cinco hallazgos y una respuesta</h2>
+    </header>
+
+    <div class="tesis mo-reveal">
+      <span class="bar" aria-hidden="true"></span>
+      <p>Con la evidencia disponible hoy, la <mark class="hl">Chromebook administrada con Chrome Education Upgrade y Securly</mark> es la arquitectura que da al colegio más capacidad para mantener el equipo seguro, restringido y enfocado durante la clase, y lo hace con la menor complejidad. El iPad supervisado iguala o supera su seguridad de sistema, pero controla menos la navegación y el aula, aun con Securly. Windows puede llegar alto, a cambio de más licencias, más consolas y más especialización.
+        <small>Conclusión de activa a partir de las tablas de esta página. Cada fila tiene su justificación y su fuente.</small></p>
+    </div>
+
+    <div class="stack mo-stagger">
+      <article class="hall">
+        <div class="h"><span class="k">Hallazgo 1</span><h3>La seguridad de fábrica no decide el control del aula</h3></div>
+        <div class="ev"><span class="lbl">Evidencia</span><p>El iPad y la Chromebook tienen el sistema más cerrado: arranque verificado, sandbox y nada de ejecutables externos.[[f:ap-boot]][[f:g-verified]] Windows es sólido, pero por diseño ejecuta cualquier programa hasta que el antivirus lo detecta.[[f:ms-appcontrol]]</p></div>
+        <div class="im"><span class="lbl">Implicación para el colegio</span><p>Elegir «el sistema más seguro» no basta. Lo que separa a las plataformas es lo que el colegio puede controlar encima.</p></div>
+      </article>
+      <article class="hall">
+        <div class="h"><span class="k">Hallazgo 2</span><h3>El control del profesor no viene del sistema operativo</h3></div>
+        <div class="ev"><span class="lbl">Evidencia</span><p>Microsoft no ofrece una herramienta nativa para ver pantallas o pestañas.[[f:ms-learningzone]] Apple Classroom ve pantallas, pero no pestañas.[[f:ap-classroom]] Securly Classroom ve y cierra pestañas en Chromebook, Windows y Mac, <b>pero no en iPad</b>.[[f:s-classroom]]</p></div>
+        <div class="im"><span class="lbl">Implicación para el colegio</span><p>Si el objetivo es que el profesor gobierne la clase, la pregunta es qué herramienta de aula funciona en el equipo elegido.</p></div>
+      </article>
+      <article class="hall">
+        <div class="h"><span class="k">Hallazgo 3</span><h3>Securly no hace lo mismo en todos los equipos</h3></div>
+        <div class="ev"><span class="lbl">Evidencia</span><p>En Chromebook, Securly filtra con una extensión, sin certificado.[[f:s-extension]] En iPad usa un proxy (SmartPAC) que exige supervisión y certificado SSL, y obliga a exentar las apps que fallan.[[f:ap-proxy]][[f:s-pinning]] En iPad tampoco tiene control fino de YouTube, guardas de IA ni Think Twice.[[f:s-comparativa]]</p></div>
+        <div class="im"><span class="lbl">Implicación para el colegio</span><p>iPad + Securly mejora mucho el filtrado del iPad, pero no equivale a Chromebook + Securly.</p></div>
+      </article>
+      <article class="hall">
+        <div class="h"><span class="k">Hallazgo 4</span><h3>El filtrado nativo es el eslabón débil</h3></div>
+        <div class="ev"><span class="lbl">Evidencia</span><p>El iPad filtra sin categorías ni reportes.[[f:ap-wcf]] Windows filtra por categorías solo con Defender for Endpoint (incluido en M365 A3/A5), y fuera de Edge bloquea dominios completos.[[f:ms-wcf]][[f:ms-mde-p1]]</p></div>
+        <div class="im"><span class="lbl">Implicación para el colegio</span><p>En iPad y en Windows, un filtro adicional no es opcional si el colegio necesita categorías, reportes y protección fuera del plantel.</p></div>
+      </article>
+      <article class="hall">
+        <div class="h"><span class="k">Hallazgo 5</span><h3>Más control significa más datos de menores</h3></div>
+        <div class="ev"><span class="lbl">Evidencia</span><p>Securly registra navegación, búsquedas y prompts de IA y, con Aware, el contenido de correos y documentos.[[f:s-privacidad]] En México no hay obligación de filtrar: CIPA es una ley de EE. UU.[[f:cipa]] Pero la LFPDPPP sí obliga a avisar, a pedir consentimiento para datos sensibles y a contratar a cada proveedor como encargado.[[f:lfpdppp]]</p></div>
+        <div class="im"><span class="lbl">Implicación para el colegio</span><p>El control se configura con proporcionalidad: horario escolar, revisión humana de las alertas y un aviso de privacidad que lo diga.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 3 · QUÉ COMPARAMOS · 4 · ARQUITECTURA ═══════════ -->
+<section class="sec" id="capas" aria-labelledby="t-capas">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow g">Qué estamos comparando</span>
+      <h2 id="t-capas">La seguridad es una pila de capas, no un equipo</h2>
+      <p class="lead">Distinguimos tres fuentes de seguridad. <b>A</b>: la inherente, lo que trae el equipo sin configurar nada. <b>B</b>: la que se obtiene con una buena administración (consola, MDM e identidad). <b>C</b>: la que agregan herramientas como Securly (filtro, aula y monitoreo).</p>
+    </header>
+
+    <div class="tw mo-reveal" role="region" aria-labelledby="capas-cap" tabindex="0">
+      <table class="cmp capas">
+        <caption id="capas-cap" class="sr">Arquitectura de cada escenario, capa por capa</caption>
+        <thead><tr><th scope="col">Capa</th>
+          <th scope="col" class="h-w"><span class="pt pt-w" aria-hidden="true"></span>Windows</th>
+          <th scope="col" class="h-i"><span class="pt pt-i" aria-hidden="true"></span>iPad</th>
+          <th scope="col" class="h-c"><span class="pt pt-c" aria-hidden="true"></span>Chromebook + Securly</th>
+          <th scope="col" class="h-s"><span class="pt pt-s" aria-hidden="true"></span>iPad + Securly</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Dispositivo</th><td>Laptop de cualquier fabricante</td><td>iPad</td><td>Chromebook</td><td>iPad</td></tr>
+          <tr><th scope="row">Sistema operativo · A</th>
+            <td>Windows 11 Pro Education o Education<span class="capa-tag tg-nat">Nativo</span></td>
+            <td>iPadOS<span class="capa-tag tg-nat">Nativo</span></td>
+            <td>ChromeOS<span class="capa-tag tg-nat">Nativo</span></td>
+            <td>iPadOS<span class="capa-tag tg-nat">Nativo</span></td></tr>
+          <tr><th scope="row">Administración · B[[f:ms-intune-lic]][[f:ap-asm]][[f:g-ceu-compra]]</th>
+            <td>Intune y Autopilot<small>M365 A1 (por equipo) o A3/A5 (por usuario)</small><span class="capa-tag tg-lic">Licencia</span></td>
+            <td>Apple School Manager (sin costo) y un MDM de terceros<span class="capa-tag tg-mdm">MDM</span></td>
+            <td>Google Admin con Chrome Education Upgrade<small>Licencia perpetua por equipo</small><span class="capa-tag tg-lic">Licencia</span></td>
+            <td>Apple School Manager y un MDM de terceros<span class="capa-tag tg-mdm">MDM</span></td></tr>
+          <tr><th scope="row">Identidad · B</th>
+            <td>Entra ID<span class="capa-tag tg-lic">Licencia</span></td>
+            <td>Managed Apple Account, federable con Google o Entra<span class="capa-tag tg-nat">Nativo</span></td>
+            <td>Cuenta de Google Workspace for Education<small>Fundamentals: sin costo</small><span class="capa-tag tg-nat">Nativo</span></td>
+            <td>Managed Apple Account<span class="capa-tag tg-nat">Nativo</span></td></tr>
+          <tr><th scope="row">Filtro web · C[[f:ms-wcf]][[f:ap-wcf]][[f:s-metodo]]</th>
+            <td>Web Content Filtering de Defender<small>Requiere Defender for Endpoint</small><span class="capa-tag tg-lic">Licencia</span></td>
+            <td>Filtro nativo básico, configurado por MDM<span class="capa-tag tg-nat">Nativo</span></td>
+            <td>Securly Filter por extensión<span class="capa-tag tg-ter">Tercero</span></td>
+            <td>Securly Filter por SmartPAC y certificado<small>Requiere iPad supervisado</small><span class="capa-tag tg-ter">Tercero</span></td></tr>
+          <tr><th scope="row">Control de aula · C[[f:ms-learningzone]][[f:ap-classroom-req]][[f:s-classroom]][[f:g-classtools-req]]</th>
+            <td>Sin herramienta nativa<span class="capa-tag tg-no">No disponible</span></td>
+            <td>Apple Classroom (sin costo)<span class="capa-tag tg-nat">Nativo</span></td>
+            <td>Securly Classroom<small>Y Class Tools de Google, con Education Plus</small><span class="capa-tag tg-ter">Tercero</span></td>
+            <td>Apple Classroom<small>Securly Classroom no existe para iPad</small><span class="capa-tag tg-nat">Nativo</span></td></tr>
+          <tr><th scope="row">Monitoreo y alertas · C[[f:s-aware]]</th>
+            <td>—<span class="capa-tag tg-no">No disponible</span></td>
+            <td>—<span class="capa-tag tg-no">No disponible</span></td>
+            <td>Securly Aware<span class="capa-tag tg-ter">Tercero</span></td>
+            <td>Securly Aware, sin las funciones de extensión<span class="capa-tag tg-ter">Tercero</span></td></tr>
+          <tr><th scope="row">Políticas escolares</th>
+            <td colspan="4">Reglamento de uso, aviso de privacidad y acuerdos con las familias. Ninguna tecnología los sustituye.<span class="capa-tag tg-col">Colegio</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="nota mo-reveal" role="note">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+      <p><b>Supuesto de todo el estudio:</b> cada escenario se evalúa <b>bien configurado</b>. Un equipo mal administrado, en cualquier plataforma, pierde casi todo lo que aquí se describe: un iPad sin supervisión, una Chromebook sin Chrome Education Upgrade o un Windows con el alumno como administrador.</p>
+    </div>
+
+    <header class="sec-head mo-reveal" style="margin-top:40px">
+      <span class="eyebrow">Arquitectura de seguridad del dispositivo</span>
+      <h3 style="font-size:26px">Qué aporta cada capa en cada plataforma</h3>
+    </header>
+    <div class="grid g4 mo-stagger">
+      <article class="card abc w">
+        <h3>Windows</h3>
+        <dl><dt>A · Inherente</dt><dd>TPM 2.0, Secure Boot, integridad de memoria, BitLocker, Defender y SmartScreen.[[f:ms-ediciones]]</dd>
+          <dt>B · Con administración</dt><dd>Usuario estándar, Autopilot, App Control, políticas de Edge, LAPS y DFCI en fabricantes compatibles.[[f:ms-autopilot]][[f:ms-dfci]]</dd>
+          <dt>C · Herramientas adicionales</dt><dd>Defender for Endpoint para categorías web y una herramienta de aula de terceros.</dd></dl>
+        <p class="ojo">Sin App Control, cualquier programa corre, incluidos navegadores y VPN portables.</p>
+      </article>
+      <article class="card abc i">
+        <h3>iPad</h3>
+        <dl><dt>A · Inherente</dt><dd>Arranque verificado, Secure Enclave, cifrado por archivo, sandbox y solo apps firmadas.[[f:ap-enclave]][[f:ap-sandbox]]</dd>
+          <dt>B · Con administración</dt><dd>Supervisión: App Store bloqueable, equipo no desinscribible, VPN y perfiles bloqueados, Bloqueo de activación.[[f:ap-supervision]]</dd>
+          <dt>C · Herramientas adicionales</dt><dd>Un filtro de terceros para tener categorías y reportes.</dd></dl>
+        <p class="ojo">Sin supervisión casi nada de B aplica, y supervisar un iPad que ya está en uso obliga a borrarlo.</p>
+      </article>
+      <article class="card abc c">
+        <h3>Chromebook + Securly</h3>
+        <dl><dt>A · Inherente</dt><dd>Verified Boot, sistema de solo lectura, sandbox, cifrado por usuario y actualizaciones cada 4 semanas.[[f:g-seguridad]]</dd>
+          <dt>B · Con administración</dt><dd>Chrome Education Upgrade: reinscripción forzada, sin modo de desarrollador, inicio restringido al dominio, sin invitado.[[f:g-reinscripcion]]</dd>
+          <dt>C · Herramientas adicionales</dt><dd>Securly Filter, Classroom y Aware por extensión, sin certificado.</dd></dl>
+        <p class="ojo">Sin Chrome Education Upgrade no hay inscripción, y la capa B desaparece completa.[[f:g-ceu-compra]]</p>
+      </article>
+      <article class="card abc s">
+        <h3>iPad + Securly</h3>
+        <dl><dt>A · Inherente</dt><dd>La del iPad.</dd>
+          <dt>B · Con administración</dt><dd>La del iPad. Aquí la supervisión es obligatoria: SmartPAC no funciona sin ella.[[f:ap-proxy]]</dd>
+          <dt>C · Herramientas adicionales</dt><dd>SmartPAC con certificado SSL e inyección de usuario desde el MDM. Aware por API. Sin Securly Classroom.[[f:s-userinj]]</dd></dl>
+        <p class="ojo">Securly agrega categorías y reportes, pero hereda los límites de iOS para los proxies.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 5 · COMPARATIVA GENERAL ═══════════ -->
+<section class="sec" id="comparativa" aria-labelledby="t-comp">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow b">Tabla 1 · Comparación general</span>
+      <h2 id="t-comp">Veinte aspectos, cuatro escenarios</h2>
+      <p class="lead">Pase el cursor sobre una valoración para ver su justificación, o muéstrelas todas. Los números junto a cada aspecto llevan a la fuente.</p>
+    </header>
+
+    <div class="leyenda mo-reveal" aria-label="Escala">
+      <span>✅ Excelente</span><span>🟢 Bueno</span><span>🟡 Parcial</span><span>🟠 Limitado</span><span>🔴 Débil</span><span>➖ No disponible</span>
+    </div>
+    <div class="herr mo-reveal">
+      <!--GEN:filtros-t1-->
+      <button type="button" class="ver-why" aria-pressed="false">Mostrar justificaciones</button>
+    </div>
+    <div class="mo-reveal"><!--GEN:tabla1--></div>
+
+    <div class="graf mo-reveal">
+      <h3 style="margin-bottom:6px">Promedio por dimensión</h3>
+      <div class="leyenda"><span><i class="pt pt-w"></i>Windows</span><span><i class="pt pt-i"></i>iPad</span><span><i class="pt pt-c"></i>Chromebook + Securly</span><span><i class="pt pt-s"></i>iPad + Securly</span></div>
+      <!--GEN:grafica-->
+      <p class="xs" style="margin-top:8px">Promedio simple de la Tabla 1, de 0 a 5. Es orientativo: no pondera qué tanto importa cada aspecto para un colegio en particular.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 7 · CONTROL ADMINISTRATIVO ═══════════ -->
+<section class="sec" id="ti" aria-labelledby="t-ti">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow">Tabla 4 · Control del administrador TI</span>
+      <h2 id="t-ti">Todas administran bien. Cambia cuánto cuesta lograrlo</h2>
+      <p class="lead">Bloquear, borrar e inventariar a distancia es estándar en las cuatro. La diferencia está en cuántas consolas hay que operar y cuánto conocimiento exigen.</p>
+    </header>
+    <div class="mo-reveal"><!--GEN:tabla4--></div>
+    <details class="acc mo-reveal">
+      <summary><span>Licencias que supone cada escenario</span><small>Qué es nativo, qué se licencia y qué es de terceros</small></summary>
+      <div class="acc-b">
+        <ul class="mit">
+          <li><b class="tx-w">Windows</b> · Intune for Education viene en M365 A1 (por equipo). Intune Plan 1, Entra ID P1 y Defender for Endpoint P1 vienen en M365 A3; A5 suma seguridad avanzada. Office 365 A1, el plan gratuito, no incluye Intune for Education, y A1 Plus se retiró en 2025.[[f:ms-intune-lic]][[f:ms-mde-p1]][[f:ms-a1plus]]</li>
+          <li><b class="tx-i">iPad</b> · Apple School Manager, Classroom, Schoolwork y Managed Apple Accounts no tienen costo. El MDM es de terceros: Mosyle publica sus precios; Jamf, no. Apple Business (2026) incluye MDM, pero es para empresas.[[f:ap-asm]][[f:mosyle]][[f:jamf]][[f:ap-business]]</li>
+          <li><b class="tx-c">Chromebook</b> · Chrome Education Upgrade, una por equipo y perpetua: solo se transfiere al mismo modelo. Workspace for Education Fundamentals no tiene costo. Class Tools exige Education Plus o Teaching and Learning por docente. Securly: requiere cotización.[[f:g-ceu-compra]][[f:g-precios]][[f:g-classtools-req]]</li>
+          <li><b class="tx-s">iPad + Securly</b> · Lo del iPad, más Securly Filter. Un revendedor de EE. UU. lista SmartPAC para iOS como función de la edición Premium; hay que confirmarlo con Securly.[[f:s-revendedor]]</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════ 8 · CLASSROOM MANAGEMENT ═══════════ -->
+<section class="sec" id="aula" aria-labelledby="t-aula">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow r">Tabla 3 · Control del profesor</span>
+      <h2 id="t-aula">Lo que el profesor puede hacer, y quién se lo da</h2>
+      <p class="lead">Debajo de cada valoración está la herramienta que lo hace posible. Casi nada de esto viene del sistema operativo: viene de Apple Classroom, de Securly o de Google.</p>
+    </header>
+    <div class="leyenda mo-reveal"><span>✅ Excelente</span><span>🟢 Bueno</span><span>🟡 Parcial</span><span>🟠 Limitado</span><span>🔴 Débil</span><span>➖ No disponible</span></div>
+    <div class="mo-reveal"><!--GEN:tabla3--></div>
+    <p class="refs-l mo-reveal">Fuentes: [[f:ms-learningzone]][[f:ms-insights]][[f:ms-takeatest]][[f:ap-classroom-req]][[f:ap-classroom]][[f:ap-schoolwork]][[f:ap-wwdc26]][[f:s-classroom]][[f:s-classroom-tareas]][[f:s-mdm]][[f:s-teachertools]][[f:g-classtools]][[f:g-forms]][[f:s-aware-best]]</p>
+
+    <div class="grid g3 mo-stagger">
+      <article class="card soft"><h4>Windows no tiene control de aula propio</h4><p>Microsoft no ofrece una herramienta nativa para ver pantallas o pestañas. Insights de Teams muestra entregas y participación, no la pantalla.[[f:ms-insights]] Se resuelve con un tercero: Securly Classroom tiene agente para Windows 10/11 que ve el escritorio completo.[[f:s-classroom-win]]</p></article>
+      <article class="card soft"><h4>Apple Classroom es bueno, y es lo que hay en iPad</h4><p>Ve pantallas, abre apps y páginas y bloquea, sin costo. El bloqueo solo funciona con los alumnos en el mismo salón, y no lista pestañas.[[f:ap-classroom-req]] iPadOS 27 agrega navegación guiada, anunciada en la WWDC26.[[f:ap-wwdc26]]</p></article>
+      <article class="card soft"><h4>Securly Classroom no existe para iPad</h4><p>Securly lo ofrece para «Chromebooks, Windows, and macOS».[[f:s-classroom]] En iPad solo hay Teacher Tools, y solo con Securly MDM: congela pantallas y fija apps o sitios, sin vista de pestañas. Su app no se actualiza desde abril de 2024.[[f:s-mdm]][[f:s-teachertools]]</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 9 · FILTRADO WEB · TABLA 5 ═══════════ -->
+<section class="sec" id="filtrado" aria-labelledby="t-filtro">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow y">Filtrado web · Tabla 5 · Protección del alumno</span>
+      <h2 id="t-filtro">Filtrar contenido y frenar malware son dos cosas distintas</h2>
+      <p class="lead">El antivirus y Safe Browsing protegen al <b>equipo</b> de sitios y archivos peligrosos. El filtro de contenido protege al <b>alumno</b> de lo que no debe ver. Un sistema puede ser excelente en lo primero y casi nulo en lo segundo.</p>
+    </header>
+    <div class="leyenda mo-reveal"><span>✅ Excelente</span><span>🟢 Bueno</span><span>🟡 Parcial</span><span>🟠 Limitado</span><span>🔴 Débil</span><span>➖ No disponible</span></div>
+    <div class="mo-reveal"><!--GEN:tabla5--></div>
+
+    <div class="grid g2 mo-stagger">
+      <article class="card lift">
+        <h3 class="tx-c">Securly en Chromebook: extensión</h3>
+        <ul>
+          <li>Se fuerza por unidad organizativa desde Google Admin; no necesita certificado ni inspección SSL.[[f:s-extension]]</li>
+          <li>Control completo de YouTube, guardas dentro de ChatGPT y Gemini, Think Twice y escaneo de Google Chat.[[f:s-comparativa]]</li>
+          <li>Límite: solo ve el navegador. Las apps de Android quedan fuera, así que conviene limitarlas desde Admin.[[f:s-classroom-limite]]</li>
+          <li>Hay que bloquear el Administrador de tareas para que el alumno no cierre la extensión.[[f:s-taskmgr]]</li>
+        </ul>
+      </article>
+      <article class="card lift">
+        <h3 class="tx-s">Securly en iPad: SmartPAC</h3>
+        <ul>
+          <li>Proxy global configurado por el MDM, más el certificado SSL de Securly para inspeccionar HTTPS.[[f:s-ipad]][[f:s-cert]]</li>
+          <li>Apple solo permite ese proxy en iPads supervisados.[[f:ap-proxy]] La identidad del alumno viaja en una variable del MDM.[[f:s-userinj]]</li>
+          <li>Apps con certificate pinning (Facebook, Instagram, Snapchat) fallan; la solución oficial es exentarlas, y entonces salen del filtro.[[f:s-pinning]]</li>
+          <li>Sin listas de canales y videos de YouTube, sin guardas de IA ni funciones de extensión de Aware.[[f:s-youtube]][[f:s-aware-best]]</li>
+          <li>Experiencia de administradores (anecdótica): apps educativas que fallaban con el proxy y una actualización de iPadOS que lo rompió en 2021.[[f:jamf-2017]][[f:jamf-ipados15]]</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 10 · RESISTENCIA A EVASIÓN · TABLA 2 ═══════════ -->
+<section class="sec" id="evasion" aria-labelledby="t-evasion">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow r">Tabla 2 · Resistencia a evasión</span>
+      <h2 id="t-evasion">Qué tan fácil es saltarse los controles, y cómo se cierra cada puerta</h2>
+      <p class="lead">Evaluación defensiva: para cada vector decimos por qué existe, si el colegio lo puede bloquear y con qué ajuste. <b>No incluimos instrucciones para evadir controles.</b></p>
+    </header>
+    <div class="leyenda mo-reveal"><span>🔴 Riesgo alto</span><span>🟠 Riesgo medio</span><span>🟢 Riesgo bajo</span><span>🔒 Bloqueable administrativamente</span><span>⚠️ Depende de configuración</span></div>
+    <div class="mo-reveal"><!--GEN:tabla2--></div>
+
+    <h3 class="mo-reveal" style="margin-top:12px">Por vector: causa y mitigación</h3>
+    <div class="mo-reveal"><!--GEN:acordeon-evasion--></div>
+
+    <div class="grid g2 mo-stagger">
+      <article class="card soft"><h4>Mantener todo al día también es control</h4><p>Las fallas públicas se cierran con actualizaciones. SH1MMER, con el que alumnos desinscribían Chromebooks en 2023, se parchó en ChromeOS 111.[[f:sh1mmer]] Comprar equipos con soporte vigente importa tanto como configurarlos: la fecha de fin de actualizaciones de cada Chromebook es pública.[[f:g-aue]]</p></article>
+      <article class="card soft"><h4>Bloquear de más también tiene costo</h4><p>En una encuesta del CDT, el 75 % de los alumnos dijo que el filtrado le estorba para hacer tareas.[[f:cdt]] Una investigación periodística documentó bloqueos de recursos de prevención del suicidio.[[f:markup]] Conviene revisar los bloqueos con regularidad, no solo agregarlos.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 11 · DENTRO VS FUERA ═══════════ -->
+<section class="sec" id="fuera" aria-labelledby="t-fuera">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow g">Dentro y fuera del colegio</span>
+      <h2 id="t-fuera">El firewall del colegio no sale por la puerta</h2>
+      <p class="lead">En casa, con un hotspot o con datos móviles, solo protege lo que vive en el equipo o en la cuenta del alumno.</p>
+    </header>
+    <div class="tw mo-reveal" role="region" aria-labelledby="fuera-cap" tabindex="0">
+      <table class="cmp">
+        <caption id="fuera-cap" class="sr">Qué sigue funcionando dentro y fuera del colegio</caption>
+        <thead><tr><th scope="col">Qué sigue funcionando</th>
+          <th scope="col" class="h-w"><span class="pt pt-w" aria-hidden="true"></span>Windows</th>
+          <th scope="col" class="h-i"><span class="pt pt-i" aria-hidden="true"></span>iPad</th>
+          <th scope="col" class="h-c"><span class="pt pt-c" aria-hidden="true"></span>Chromebook + Securly</th>
+          <th scope="col" class="h-s"><span class="pt pt-s" aria-hidden="true"></span>iPad + Securly</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Restricciones del equipo[[f:ms-ife]][[f:ap-wcf]][[f:g-pol-usr]]</th>
+            <td><div class="df"><b class="si">DENTRO ✓ · FUERA ✓</b>Las políticas de Intune viven en el equipo.</div></td>
+            <td><div class="df"><b class="si">DENTRO ✓ · FUERA ✓</b>El perfil del MDM viaja con el iPad.</div></td>
+            <td><div class="df"><b class="si">DENTRO ✓ · FUERA ✓</b>Políticas de dispositivo y de la cuenta, desde la nube.</div></td>
+            <td><div class="df"><b class="si">DENTRO ✓ · FUERA ✓</b>Como iPad.</div></td></tr>
+          <tr><th scope="row">Filtro de contenido[[f:ms-wcf]][[f:s-comparativa]]</th>
+            <td><div class="df"><b class="pa">DENTRO ✓ · FUERA SOLO CON LICENCIA</b>Solo si hay Defender con Web Content Filtering.</div></td>
+            <td><div class="df"><b class="pa">BÁSICO EN AMBOS</b>El filtro nativo viaja, pero sin categorías.</div></td>
+            <td><div class="df"><b class="si">DENTRO ✓ · FUERA ✓</b>La extensión filtra en cualquier red, con política para casa.</div></td>
+            <td><div class="df"><b class="si">DENTRO ✓ · FUERA ✓</b>SmartPAC filtra en la nube, en cualquier red.</div></td></tr>
+          <tr><th scope="row">Control del profesor[[f:ap-classroom-req]][[f:s-classroom-tareas]]</th>
+            <td><div class="df"><b class="no">NO NATIVO</b>Depende del tercero que se elija.</div></td>
+            <td><div class="df"><b class="pa">DENTRO ✓ · FUERA PARCIAL</b>En clases remotas ve pantallas y abre apps, pero no bloquea.</div></td>
+            <td><div class="df"><b class="pa">EN HORARIO ESCOLAR</b>Sesiones solo en el horario configurado; se puede excluir a quien esté fuera del plantel.</div></td>
+            <td><div class="df"><b class="pa">DENTRO ✓ · FUERA PARCIAL</b>Como iPad.</div></td></tr>
+          <tr><th scope="row">Visibilidad para el colegio[[f:ap-wcf]][[f:s-aware]]</th>
+            <td><div class="df"><b class="pa">REPORTES DE DEFENDER</b>Por categoría, con licencia.</div></td>
+            <td><div class="df"><b class="no">NINGUNA</b>El filtro nativo no genera historial.</div></td>
+            <td><div class="df"><b class="si">DENTRO ✓ · FUERA ✓</b>Historial y alertas de Aware.</div></td>
+            <td><div class="df"><b class="si">DENTRO ✓ · FUERA ✓</b>Historial web; sin actividad de apps.</div></td></tr>
+          <tr><th scope="row">Control para los padres[[f:s-pausa]][[f:s-applog]]</th>
+            <td><div class="df"><b class="no">NO</b>Family Safety no aplica a cuentas escolares (reporte de comunidad).[[f:ms-familysafety]]</div></td>
+            <td><div class="df"><b class="no">NO</b>Las funciones familiares de Apple no son del colegio.</div></td>
+            <td><div class="df"><b class="si">SECURLY HOME</b>Reportes, reglas para casa y pausa de internet.</div></td>
+            <td><div class="df"><b class="pa">SECURLY HOME</b>Con pausa de internet; los padres no ven actividad de apps.</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ IDENTIDAD ═══════════ -->
+<section class="sec" id="identidad" aria-labelledby="t-id">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow b">Identidad y cuentas</span>
+      <h2 id="t-id">Las cuatro pueden exigir la cuenta del colegio</h2>
+      <p class="lead">Aquí no hay un perdedor claro. Lo importante es activar el bloqueo de cuentas personales: sin él, el alumno entra con una cuenta sin filtros.</p>
+    </header>
+    <div class="grid g4 mo-stagger">
+      <article class="card abc w"><h3>Windows</h3><p>Entra ID con MFA y passkeys. Para alumnos sin teléfono: pase temporal y Windows Hello.[[f:ms-entra-lic]] Ojo: desde el 1-feb-2027 Entra deja de enviar SMS y llamadas para MFA.[[f:ms-entra-sms]]</p></article>
+      <article class="card abc i"><h3>iPad</h3><p>Managed Apple Accounts federadas con Google o Entra. Desde sep-2025, Apple School Manager limita los equipos a cuentas institucionales.[[f:ap-federacion]][[f:ap-solo-inst]]</p></article>
+      <article class="card abc c"><h3>Chromebook</h3><p>Inicio de sesión restringido al dominio, sin invitado y sin cuentas secundarias. SSO por SAML con otro proveedor de identidad.[[f:g-pol-disp]][[f:g-cuentas]][[f:g-saml]]</p></article>
+      <article class="card abc s"><h3>iPad + Securly</h3><p>Como iPad. Securly identifica al alumno con su correo, inyectado por el MDM en el perfil del proxy. Si falla, el tráfico aparece como anónimo.[[f:s-userinj]]</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 12 · PRIVACIDAD ═══════════ -->
+<section class="sec" id="privacidad" aria-labelledby="t-priv">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow p" style="color:var(--s)">Privacidad del alumno</span>
+      <h2 id="t-priv">Las leyes de EE. UU. no son las de México</h2>
+      <p class="lead">FERPA, COPPA y CIPA explican cómo están diseñados estos productos, pero no obligan a un colegio mexicano. Lo que sí lo obliga es la LFPDPPP de 2025.</p>
+    </header>
+
+    <div class="grid g3 mo-stagger">
+      <article class="card">
+        <h3>Estados Unidos</h3>
+        <ul>
+          <li><b>FERPA:</b> protege los registros educativos en escuelas con fondos federales.[[f:ferpa]]</li>
+          <li><b>COPPA:</b> reforma de la FTC en 2025, de cumplimiento obligatorio desde el 22-abr-2026.[[f:coppa]]</li>
+          <li><b>CIPA:</b> obliga a filtrar para recibir E-rate. De ahí viene el filtrado escolar estadounidense.[[f:cipa]]</li>
+          <li><b>Student Privacy Pledge:</b> se retiró el 25-abr-2025. No debe presentarse como garantía vigente.[[f:pledge]]</li>
+        </ul>
+        <p class="xs"><b>¿Aplica en México?</b> No. Sirve como referencia de diseño.</p>
+      </article>
+      <article class="card">
+        <h3>Europa</h3>
+        <ul>
+          <li>El RGPD exige consentimiento de padres para menores de 16 años (cada país puede bajarlo a 13).[[f:gdpr]]</li>
+          <li>Países Bajos verificó en 2024 que Google Workspace for Education mitigó sus riesgos altos.[[f:nl-google]]</li>
+          <li>Austria resolvió en 2025 que Microsoft 365 Education usó cookies de rastreo sin base legal.[[f:at-noyb]] Hesse, Alemania, lo declaró usable si se configura bien.[[f:de-hessen]]</li>
+          <li>Dinamarca criticó en 2026 a 51 municipios por no verificar a los subencargados de Google.[[f:dk]]</li>
+          <li>España multó con 20,000 € a un colegio privado que no pudo probar que informó a las familias (reporte de un despacho).[[f:es-aepd]]</li>
+        </ul>
+        <p class="xs"><b>¿Aplica en México?</b> No, pero son las evaluaciones independientes más sólidas que existen.</p>
+      </article>
+      <article class="card">
+        <h3>México</h3>
+        <ul>
+          <li><b>LFPDPPP</b> (DOF 20-mar-2025): el colegio privado es responsable de los datos. La autoridad es la Secretaría Anticorrupción y Buen Gobierno; el INAI se extinguió.[[f:lfpdppp]]</li>
+          <li><b>LGDNNA, art. 76:</b> derecho de niñas, niños y adolescentes a la intimidad, incluida su correspondencia.[[f:lgdnna]]</li>
+          <li><b>Acuerdo de la SEP sobre celulares:</b> restringe equipos personales, no plataformas ni datos.[[f:uso-resp]]</li>
+          <li>No existe una obligación de filtrar como la de CIPA.</li>
+        </ul>
+        <p class="xs"><b>¿Aplica?</b> Sí. Es el marco que manda.</p>
+      </article>
+    </div>
+
+    <div class="tw mo-reveal" role="region" aria-labelledby="prov-cap" tabindex="0">
+      <table class="cmp">
+        <caption id="prov-cap" class="sr">Prácticas de datos de cada proveedor</caption>
+        <thead><tr><th scope="col">Proveedor</th><th scope="col">Publicidad</th><th scope="col">Qué recopila, en lo relevante</th><th scope="col">Región de datos</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Microsoft[[f:ms-diag]][[f:at-noyb]]</th><td>Se compromete a no usar datos educativos para publicidad.</td><td>Diagnóstico de Windows, que puede apagarse en las ediciones Education.</td><td>La única con opción en México: complemento de residencia avanzada.</td></tr>
+          <tr><th scope="row">Apple[[f:ap-privacidad]]</th><td>«Nunca rastrea, comparte ni vende» datos de alumnos para publicidad.</td><td>Datos mínimos en Apple School Manager. Las cuentas se borran en 30 días; todo, en 180 días si se deja el servicio.</td><td>No publica región mexicana.</td></tr>
+          <tr><th scope="row">Google[[f:g-privacidad]][[f:g-terminos]]</th><td>Sin anuncios en servicios principales ni perfiles en K-12; no entrena IA con datos de alumnos.</td><td>Contenido y datos de servicio. La telemetría de ChromeOS fuera de Europa la trata Google como responsable.</td><td>EE. UU. o UE, solo en Education Standard y Plus.</td></tr>
+          <tr><th scope="row">Securly[[f:s-privacidad]][[f:s-confianza]][[f:warren]]</th><td>No vende datos ni hace perfiles comerciales.</td><td>Navegación, búsquedas, prompts de IA y, con Aware, contenido de correos y documentos. Analistas humanos 24/7 si se contrata On-Call.</td><td>EE. UU. Hay que pedir el contrato de tratamiento de datos.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mo-reveal">Qué debe hacer un colegio mexicano, con cualquier plataforma</h3>
+    <div class="grid g3 mo-stagger">
+      <article class="card soft"><h4>1 · Aviso de privacidad</h4><p>Que nombre las plataformas, la administración de equipos, el filtrado y el monitoreo, con sus finalidades (arts. 15-16).</p></article>
+      <article class="card soft"><h4>2 · Consentimiento de padres</h4><p>Expreso y por escrito para datos sensibles (art. 8). Las alertas de bienestar de Aware probablemente lo sean; es interpretación, no criterio publicado.</p></article>
+      <article class="card soft"><h4>3 · Contrato con cada proveedor</h4><p>Que actúe como encargado, con instrucciones del colegio y sin fines propios. Pedir por escrito la región de datos y la lista de subencargados.</p></article>
+      <article class="card soft"><h4>4 · Monitoreo proporcional</h4><p>Acotado al horario escolar y a los equipos del colegio, con revisión humana antes de cualquier consecuencia (LGDNNA art. 76).</p></article>
+      <article class="card soft"><h4>5 · Brechas y borrado</h4><p>Plazo de aviso de brechas en horas (art. 19) y plazos de borrado al egreso o al terminar el contrato.</p></article>
+      <article class="card soft"><h4>6 · Derechos ARCO</h4><p>Responder en 20 días hábiles (art. 31): exportar, corregir o borrar los datos de un alumno.</p></article>
+    </div>
+    <p class="xs mo-reveal">Esta sección resume obligaciones de la LFPDPPP para orientar la conversación. No constituye asesoría legal.[[f:lfpdppp]][[f:reglamento]]</p>
+  </div>
+</section>
+
+<!-- ═══════════ 13 · ESCENARIO REAL: 30 ALUMNOS ═══════════ -->
+<section class="sec" id="salon" aria-labelledby="t-salon">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow b">Tabla 6 · Escenario real</span>
+      <h2 id="t-salon">Un salón de secundaria con 30 alumnos y diez peticiones del profesor</h2>
+      <p class="lead">Elija una tarea para ver qué pasa en cada plataforma. La pregunta no es solo si se puede, sino si lo hace el profesor en clase o tiene que pedírselo a TI.</p>
+    </header>
+    <div class="herr mo-reveal"><!--GEN:chips-t6--><button type="button" class="ver-why" aria-pressed="false">Mostrar justificaciones</button></div>
+    <div class="mo-reveal"><!--GEN:tabla6--></div>
+    <div class="graf mo-reveal">
+      <h3 style="margin-bottom:12px">Suma de las diez tareas</h3>
+      <!--GEN:puntaje-t6-->
+      <p class="xs" style="margin-top:10px">Cada tarea vale hasta 5. Es una lectura rápida del escenario, no una calificación general de la plataforma. Ojo con el sesgo: las diez tareas son las del encargo y todas tratan de controlar la navegación, justo donde Chromebook + Securly es más fuerte. Un escenario con software de escritorio especializado o con trabajo sin conexión daría otro orden.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 14 · OPERACIÓN 100 / 500 / 1,000 ═══════════ -->
+<section class="sec" id="operacion" aria-labelledby="t-op">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow">Costo y complejidad</span>
+      <h2 id="t-op">Operar con 100, 500 o 1,000 alumnos</h2>
+      <p class="lead">Solo ponemos precios públicos verificables, a precio de lista en dólares. Todo lo demás dice «Requiere cotización». No es una comparación comercial: en México, todo precio real pasa por un distribuidor.</p>
+    </header>
+    <div class="herr mo-reveal"><div class="filtros" role="group" aria-label="Resaltar un tamaño">
+      <button type="button" class="chip-n" data-n="100" aria-pressed="false">100 alumnos</button>
+      <button type="button" class="chip-n" data-n="500" aria-pressed="false">500 alumnos</button>
+      <button type="button" class="chip-n" data-n="1000" aria-pressed="false">1,000 alumnos</button>
+    </div></div>
+    <div class="mo-reveal"><!--GEN:costos--></div>
+
+    <div class="grid g4 mo-stagger">
+      <article class="card abc w"><h3>Windows</h3><dl>
+        <dt>Consolas</dt><dd>Intune, Entra y Defender, más una herramienta de aula de terceros.</dd>
+        <dt>Perfil de TI</dt><dd>Alto: App Control, Autopilot y Defender son especialidades en sí.</dd>
+        <dt>Día a día</dt><dd>Mantener las reglas de App Control conforme cambian las apps.</dd></dl></article>
+      <article class="card abc i"><h3>iPad</h3><dl>
+        <dt>Consolas</dt><dd>Apple School Manager y el MDM.</dd>
+        <dt>Perfil de TI</dt><dd>Medio: supervisión, Apps and Books y el MDM elegido.</dd>
+        <dt>Día a día</dt><dd>Comprar y asignar apps; clases de Classroom sincronizadas.</dd></dl></article>
+      <article class="card abc c"><h3>Chromebook + Securly</h3><dl>
+        <dt>Consolas</dt><dd>Google Admin y Securly.</dd>
+        <dt>Perfil de TI</dt><dd>Medio-bajo: políticas en la nube, sin imágenes ni agentes.</dd>
+        <dt>Día a día</dt><dd>Altas y bajas en Workspace; categorías y excepciones en Securly.</dd></dl></article>
+      <article class="card abc s"><h3>iPad + Securly</h3><dl>
+        <dt>Consolas</dt><dd>Apple School Manager, el MDM y Securly.</dd>
+        <dt>Perfil de TI</dt><dd>Medio-alto: proxy, certificado, inyección de usuario y apps exentas.</dd>
+        <dt>Día a día</dt><dd>Atender las apps que fallan con el proxy.</dd></dl></article>
+    </div>
+
+    <div class="grid g3 mo-stagger">
+      <article class="card soft"><h4>100 alumnos</h4><p>Una sola persona puede operar cualquier escenario si la configuración inicial queda bien hecha. El riesgo es depender de ella: documentar la configuración es parte del proyecto.</p></article>
+      <article class="card soft"><h4>500 alumnos</h4><p>La inscripción sin tocar el equipo (Autopilot, inscripción automática de Apple, reinscripción forzada de Chrome) deja de ser opcional. Configurar equipo por equipo ya no escala.</p></article>
+      <article class="card soft"><h4>1,000 alumnos</h4><p>Importan la estructura de grupos y unidades, la delegación de permisos por plantel y los reportes. Cada consola adicional se multiplica por todos esos frentes.</p></article>
+    </div>
+    <p class="xs mo-reveal">Las tres tarjetas anteriores son criterio de <em class="marca">activa</em>, no dato verificado. Precios: MSRP de Chrome Education Upgrade (2021) y lista pública de Mosyle, en USD, sin impuestos.[[f:g-ceu]][[f:mosyle]] El ESU educativo de Windows 10 cuesta USD 1, 2 y 4 por licencia en sus tres años.[[f:ms-esu-edu]]</p>
+  </div>
+</section>
+
+<!-- ═══════════ 15 · MÉXICO ═══════════ -->
+<section class="sec" id="mexico" aria-labelledby="t-mx">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow g">Aplicación para México</span>
+      <h2 id="t-mx">¿Qué significa esto para un colegio mexicano?</h2>
+    </header>
+    <div class="grid g3 mo-stagger">
+      <article class="card lift"><h3>Conectividad</h3><p>Chromebook rinde con internet estable: buena parte de su valor (políticas, Classroom, Gemini) supone conexión, aunque trabaja con archivos y apps sin conexión.[[f:g-seguridad]] iPad y Windows toleran mejor la red débil. Antes de decidir, conviene medir el Wi-Fi por salón con 30 equipos conectados a la vez.</p></article>
+      <article class="card lift"><h3>Un área de sistemas pequeña</h3><p>En muchos colegios privados, TI es una o dos personas. Ahí pesa más el número de consolas y el conocimiento que exige cada una que la lista de funciones posibles.</p></article>
+      <article class="card lift"><h3>Presupuesto y licencias</h3><p>Chrome Education Upgrade es un pago único por equipo. Los MDM, las licencias de Microsoft y Securly son anuales. Los precios en México requieren cotización y dependen del distribuidor.</p></article>
+      <article class="card lift"><h3>Privacidad de menores</h3><p>La LFPDPPP pide aviso de privacidad, consentimiento para datos sensibles y contratos con cada proveedor. Ninguna plataforma lo resuelve sola; el colegio es el responsable.[[f:lfpdppp]]</p></article>
+      <article class="card lift"><h3>Dependencia de proveedores</h3><p>Securly On-Call está pensado para EE. UU. (avisa a respondientes locales), y solo Microsoft ofrece alojar datos en México. Un partner local cubre soporte en español y configuración, pero no cambia dónde viven los datos.</p></article>
+      <article class="card lift"><h3>El acuerdo de la SEP</h3><p>Desde el 3 de noviembre de 2026 se restringen los celulares personales en las escuelas. El equipo institucional administrado es la alternativa coherente con ese acuerdo.[[f:uso-resp]]</p></article>
+    </div>
+
+    <h3 class="mo-reveal" style="margin-top:12px">Fechas que conviene tener a la vista</h3>
+    <ol class="linea mo-stagger">
+      <li><span class="cuando">Octubre 2026</span><p>Termina el soporte de Windows 11 SE.[[f:ms-se]]</p></li>
+      <li><span class="cuando">3 nov 2026</span><p>Entra en vigor la restricción de celulares de la SEP.[[f:uso-resp]]</p></li>
+      <li><span class="cuando">1 feb 2027</span><p>Entra ID deja de enviar SMS y llamadas para MFA.[[f:ms-entra-sms]]</p></li>
+      <li><span class="cuando">2.º semestre 2027</span><p>Llega la administración de los Googlebooks.[[f:g-googlebook]]</p></li>
+      <li><span class="cuando">Mediados de 2034</span><p>Último horizonte de actualizaciones de ChromeOS anunciado por Google.[[f:g-googlebook]]</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═══════════ 16 · FORTALEZAS Y LIMITACIONES ═══════════ -->
+<section class="sec" id="balance" aria-labelledby="t-bal">
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow">Fortalezas y limitaciones</span>
+      <h2 id="t-bal">Cada arquitectura, en sus propios términos</h2>
+    </header>
+    <div class="grid g4 mo-stagger">
+      <article class="card abc pm w"><h3>Windows</h3>
+        <h4 class="tx-c">Fortalezas</h4><ul class="mas"><li>Seguridad de hardware y cifrado de primer nivel.</li><li>Corre software de escritorio: suites, diseño, programación.</li><li>Identidad muy completa con Entra ID.</li><li>Única con residencia de datos en México.</li></ul>
+        <h4 class="tx-r" style="color:var(--red-d)">Limitaciones</h4><ul class="menos"><li>Ejecuta cualquier programa salvo con App Control.</li><li>Sin control de aula nativo.</li><li>El filtro por categorías exige licencia y fuera de Edge solo bloquea dominios.</li><li>Más consolas y más especialización.</li></ul></article>
+      <article class="card abc pm i"><h3>iPad</h3>
+        <h4 class="tx-c">Fortalezas</h4><ul class="mas"><li>La arquitectura de sistema más cerrada.</li><li>Supervisado, no se desinscribe ni se restaura fuera del colegio.</li><li>Apple Classroom ve pantallas, sin costo.</li><li>Apple School Manager sin costo; hay MDM desde USD 0.</li></ul>
+        <h4 style="color:var(--red-d)">Limitaciones</h4><ul class="menos"><li>Todo depende de la supervisión.</li><li>Filtro nativo sin categorías ni reportes.</li><li>Sin SafeSearch ni YouTube restringido nativos.</li><li>Classroom no ve pestañas, y solo bloquea en el salón.</li></ul></article>
+      <article class="card abc pm c"><h3>Chromebook + Securly</h3>
+        <h4 class="tx-c">Fortalezas</h4><ul class="mas"><li>Sistema de solo lectura, sin ejecutables.</li><li>Una consola para equipo, usuario y navegador.</li><li>Securly completo por extensión, sin certificado.</li><li>El profesor ve y cierra pestañas y ve los prompts de IA.</li><li>Las políticas viajan con la cuenta.</li></ul>
+        <h4 style="color:var(--red-d)">Limitaciones</h4><ul class="menos"><li>Sin Chrome Education Upgrade no hay administración.</li><li>No corre software de escritorio de Windows; Parallels terminó su soporte en 2026.[[f:parallels]]</li><li>Depende de la conectividad.</li><li>Securly no ve las apps Android.</li><li>Transición a Googlebook OS y a una nueva licencia.</li></ul></article>
+      <article class="card abc pm s"><h3>iPad + Securly</h3>
+        <h4 class="tx-c">Fortalezas</h4><ul class="mas"><li>La seguridad del iPad, más categorías y reportes.</li><li>Filtra en cualquier red.</li><li>Aware revisa correo y documentos igual que en Chromebook.</li></ul>
+        <h4 style="color:var(--red-d)">Limitaciones</h4><ul class="menos"><li>Exige supervisión, certificado e inyección de usuario.</li><li>Las apps con certificate pinning se exentan y salen del filtro.</li><li>Sin Securly Classroom, sin guardas de IA y sin control fino de YouTube.</li><li>Tres consolas.</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 17 · CONCLUSIONES ═══════════ -->
+<section class="cierre" id="conclusiones" aria-labelledby="t-concl">
+  <span class="shape" style="width:420px;height:420px;right:-140px;top:-160px;background:#fff;opacity:.5"></span>
+  <div class="wrap stack">
+    <header class="sec-head mo-reveal">
+      <span class="eyebrow b">Conclusiones factuales</span>
+      <h2 id="t-concl">Lo que la evidencia sostiene</h2>
+    </header>
+    <ol class="concl mo-stagger">
+      <li><p><b>Seguridad del sistema:</b> el iPad y la Chromebook están al frente por diseño. Windows alcanza un nivel alto solo con configuración: usuario estándar, App Control y protección del firmware.</p></li>
+      <li><p><b>Control del aula:</b> la diferencia está en la herramienta, no en el equipo. De las cuatro combinaciones, la única que deja al profesor ver y cerrar pestañas es Chromebook con Securly Classroom.</p></li>
+      <li><p><b>Filtrado:</b> Chromebook + Securly es la opción más completa con menos piezas. iPad + Securly va segunda, con requisitos y huecos que documenta el propio Securly. Windows filtra por categorías solo con Defender for Endpoint, y el iPad sin terceros filtra lo mínimo.</p></li>
+      <li><p><b>Evasión:</b> el iPad supervisado y la Chromebook con Chrome Education Upgrade cierran la mayoría de los vectores con ajustes de consola. Windows necesita más capas, sobre todo contra software externo y otros navegadores.</p></li>
+      <li><p><b>Fuera del colegio:</b> protege lo que viaja con el equipo o la cuenta (políticas en la nube, una extensión o un proxy en la nube), no el firewall escolar.</p></li>
+      <li><p><b>Privacidad:</b> los cuatro proveedores se comprometen a no usar datos de alumnos para publicidad. La diferencia está en cuánto se monitorea. Securly es la capa más intrusiva y debe acotarse.</p></li>
+      <li><p><b>Securly no es igual en todos los equipos:</b> la consola y las políticas son las mismas, pero las capacidades no. La frase «mismas reglas en cualquier dispositivo» necesita ese matiz.</p></li>
+    </ol>
+
+    <div class="tesis mo-reveal">
+      <span class="bar" aria-hidden="true"></span>
+      <p>Si el colegio ya tiene iPads o equipos Windows, no hace falta cambiarlos para mejorar. Los iPads necesitan supervisión, un MDM, Securly SmartPAC y Apple Classroom. Los equipos Windows, usuario estándar, App Control, un filtro en el equipo y un agente de aula. Lo que esta comparación dice es dónde se llega más lejos con menos piezas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 18 · FUENTES ═══════════ -->
+<section class="sec" id="fuentes" aria-labelledby="t-fuentes">
+  <div class="wrap stack">
+    <div class="nota mo-reveal" role="note">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      <p><b>Método.</b> Seis líneas de investigación independientes (Microsoft, Apple, Google, Securly, evasión y privacidad), con fuentes consultadas el <!--GEN:fecha-->. Se priorizó la documentación oficial. Las fuentes de comunidad van marcadas como <b>evidencia anecdótica</b> y ninguna sostiene sola una valoración. Los productos cambian rápido: verifique las funciones críticas antes de decidir. No constituye asesoría legal.</p>
+    </div>
+    <header class="sec-head mo-reveal" style="margin-top:40px">
+      <span class="eyebrow">Fuentes</span>
+      <h2 id="t-fuentes" style="font-size:clamp(24px,2.6vw,30px)">De dónde sale cada dato</h2>
+    </header>
+    <div class="mo-reveal"><!--GEN:fuentes--></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="wrap">
+    <div class="logos">
+      <img src="../../compartidos/img/marcas/activa.webp" alt="activa">
+      <span class="sep" aria-hidden="true"></span>
+      <img class="gfe" src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner">
+    </div>
+    <p><em class="marca">activa</em> · Google for Education Partner en México · activa.la</p>
+  </div>
+</footer>
+
+<script src="../../compartidos/js/motion.js"></script>
+<script>
+/* Interacción de las tablas. No depende del motor: si motion.js no carga,
+   esto igual funciona; si este script no corre, la página se ve completa
+   (justificaciones en línea, sin botones). */
+(function(){
+"use strict";
+var d=document, root=d.documentElement, body=d.body;
+root.classList.add("js-ok");
+function qsa(s,c){ return Array.prototype.slice.call((c||d).querySelectorAll(s)); }
+
+/* Tabla 1: filtro por dimensión */
+var chipsF=qsa(".chip-f");
+chipsF.forEach(function(b){
+  b.addEventListener("click",function(){
+    var f=b.getAttribute("data-f");
+    chipsF.forEach(function(c){ c.setAttribute("aria-pressed",String(c===b)); });
+    qsa("#t1 tbody tr").forEach(function(tr){ tr.hidden = f!=="todo" && tr.getAttribute("data-area")!==f; });
+  });
+});
+
+/* Mostrar u ocultar todas las justificaciones (los dos botones van juntos) */
+var verWhy=qsa(".ver-why");
+verWhy.forEach(function(b){
+  b.addEventListener("click",function(){
+    var on=!body.classList.contains("why-on");
+    body.classList.toggle("why-on",on);
+    verWhy.forEach(function(x){ x.setAttribute("aria-pressed",String(on)); x.textContent=on?"Ocultar justificaciones":"Mostrar justificaciones"; });
+  });
+});
+
+/* Tabla 6: resaltar una tarea */
+var t6=d.getElementById("t6"), chipsT=qsa(".chip-t");
+chipsT.forEach(function(b){
+  b.addEventListener("click",function(){
+    var on=b.getAttribute("aria-pressed")!=="true";
+    chipsT.forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+    qsa("#t6 tbody tr").forEach(function(tr){ tr.classList.remove("foco"); });
+    if(t6) t6.classList.toggle("enfoque",on);
+    if(on){ b.setAttribute("aria-pressed","true"); var tr=d.getElementById("tarea-"+b.getAttribute("data-t")); if(tr) tr.classList.add("foco"); }
+  });
+});
+
+/* Operación: resaltar un tamaño */
+var costos=d.querySelector("table.costos"), chipsN=qsa(".chip-n");
+chipsN.forEach(function(b){
+  b.addEventListener("click",function(){
+    var on=b.getAttribute("aria-pressed")!=="true";
+    chipsN.forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+    if(!costos) return;
+    if(on){ b.setAttribute("aria-pressed","true"); costos.setAttribute("data-sel",b.getAttribute("data-n")); }
+    else costos.removeAttribute("data-sel");
+  });
+});
+
+/* Al imprimir, todos los acordeones abiertos; al terminar, como estaban */
+var cerrados=[];
+window.addEventListener("beforeprint",function(){
+  cerrados=qsa("details:not([open])"); cerrados.forEach(function(x){ x.open=true; });
+});
+window.addEventListener("afterprint",function(){
+  cerrados.forEach(function(x){ x.open=false; }); cerrados=[];
+});
+
+/* Globo de justificación: solo con puntero fino. El evento solo anota la
+   celda; la geometría se lee dentro del cuadro (normativa-motion, regla 2). */
+if(!window.matchMedia || !matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+var tip=d.createElement("div"); tip.className="tip"; tip.setAttribute("aria-hidden","true"); body.appendChild(tip);
+var celda=null, pinta=false;
+d.addEventListener("pointerover",function(ev){
+  var td=ev.target.closest && ev.target.closest("td.v");
+  if(td===celda) return;
+  celda = (td && td.querySelector(".why") && !body.classList.contains("why-on")) ? td : null;
+  if(celda){ tip.textContent=celda.querySelector(".why").textContent; tip.classList.add("on"); }
+  else tip.classList.remove("on");
+  pinta=true;
+});
+function coloca(){
+  if(!celda){ return; }
+  var r=celda.getBoundingClientRect(), w=tip.offsetWidth, h=tip.offsetHeight;
+  if(r.bottom<0 || r.top>innerHeight){ tip.classList.remove("on"); celda=null; return; }
+  var x=Math.min(Math.max(8,r.left+r.width/2-w/2),innerWidth-w-8);
+  var y=r.top-h-8; if(y<8) y=r.bottom+8;
+  tip.style.transform="translate("+Math.round(x)+"px,"+Math.round(y)+"px)";
+}
+if(window.Motion && Motion.onFrame){ Motion.onFrame(function(){ if(celda||pinta){ coloca(); pinta=false; } }); }
+else { d.addEventListener("pointerover",function(){ requestAnimationFrame(coloca); }); }
+})();
+</script>
+<script>
+/* Movimiento (docs/normativa-motion.md, capas 1 a 3). Todo cuelga de la guarda. */
+(function(){
+"use strict";
+if(!window.Motion) return;
+Motion.qsa(".mo-stagger").forEach(function(c){
+  Motion.stagger(c,Math.min(80,Math.round(360/Math.max(1,c.children.length))),60);
+});
+Motion.revealAll(".mo-stagger > *");
+Motion.revealAll(".mo-reveal");
+Motion.progressBar(document.getElementById("avance"));
+/* chip activo: la última sección cuyo inicio cruzó el 30 % de la pantalla
+   (mismo criterio que uso-responsable; Motion.sectionSpy marcaba la siguiente) */
+var chips=Motion.qsa(".indice a");
+var secciones=Motion.qsa("main section[id]");
+var actual=null;
+Motion.onFrame(function(){
+  var linea=innerHeight*0.3, id="";
+  for(var i=0;i<secciones.length;i++){
+    if(secciones[i].getBoundingClientRect().top<=linea) id=secciones[i].id;
+  }
+  if(id===actual) return;
+  actual=id;
+  chips.forEach(function(a){ a.classList.toggle("on",a.getAttribute("href")==="#"+id); });
+});
+Motion.start();
+})();
+</script>
+</body>
+</html>
