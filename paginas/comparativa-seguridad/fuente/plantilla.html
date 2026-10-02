@@ -216,14 +216,14 @@ table.cmp{width:100%;min-width:880px;border-collapse:separate;border-spacing:0;f
 /* barra de herramientas de tabla: filtros y conmutador */
 .herr{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
 .filtros{display:flex;flex-wrap:wrap;gap:6px}
-.chip-f,.chip-t,.chip-n,.ver-why{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--white);
+.chip-f,.chip-t,.ver-why{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--white);
   color:var(--ink2);padding:7px 13px;border-radius:99px;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease}
-.chip-f:hover,.chip-t:hover,.chip-n:hover,.ver-why:hover{background:var(--surf2);color:var(--ink)}
-.chip-f[aria-pressed="true"],.chip-t[aria-pressed="true"],.chip-n[aria-pressed="true"],.ver-why[aria-pressed="true"]{background:var(--blue-t);color:var(--blue-d);border-color:transparent}
+.chip-f:hover,.chip-t:hover,.ver-why:hover{background:var(--surf2);color:var(--ink)}
+.chip-f[aria-pressed="true"],.chip-t[aria-pressed="true"],.ver-why[aria-pressed="true"]{background:var(--blue-t);color:var(--blue-d);border-color:transparent}
 .chip-t{min-width:38px}
 /* sin JS los botones no harían nada: no se muestran */
-.chip-f,.chip-t,.chip-n,.ver-why{display:none}
-html.js-ok .chip-f,html.js-ok .chip-t,html.js-ok .chip-n,html.js-ok .ver-why{display:inline-flex}
+.chip-f,.chip-t,.ver-why{display:none}
+html.js-ok .chip-f,html.js-ok .chip-t,html.js-ok .ver-why{display:inline-flex}
 
 /* tabla 6: la tarea elegida se ilumina, las demás se apagan */
 #t6 .num{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;
@@ -288,12 +288,6 @@ html.js-ok .chip-f,html.js-ok .chip-t,html.js-ok .chip-n,html.js-ok .ver-why{dis
 .df{display:flex;flex-direction:column;gap:4px;font-size:13.5px;color:var(--ink2)}
 .df b{font-size:12px;font-weight:800;letter-spacing:.6px}
 .si{color:var(--grn-d)} .no{color:var(--red-d)} .pa{color:var(--yel-d)}
-
-/* costos */
-.costos td.tam{white-space:normal}
-.costos .cot{font-size:13px;color:var(--ink3);font-style:italic}
-.costos[data-sel] td.tam,.costos[data-sel] th.tam{opacity:.38}
-.costos[data-sel="100"] [data-n="100"],.costos[data-sel="500"] [data-n="500"],.costos[data-sel="1000"] [data-n="1000"]{opacity:1;background:var(--blue-t)}
 
 /* línea de tiempo */
 .linea{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-radius:22px;overflow:hidden;box-shadow:var(--sh)}
@@ -377,7 +371,7 @@ body{--mo-dur:.5s;--mo-subida:14px}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   html{scroll-behavior:auto}
   body{font-size:10pt}
-  .franja,.indice,.avance,.shape,.tip,.filtros,.ver-why,.chip-n{display:none!important}
+  .franja,.indice,.avance,.shape,.tip,.filtros,.ver-why{display:none!important}
   .cab{position:static;height:auto;margin:0 0 10px;border:0;background:none;backdrop-filter:none}
   .cab .wrap,.wrap{max-width:none;padding:0}
   .hero{padding:8px 0}
@@ -390,7 +384,6 @@ body{--mo-dur:.5s;--mo-subida:14px}
   .cmp tr[hidden]{display:table-row!important}
   .v .why{font-size:7.5pt;margin-top:3px}
   #t6.enfoque tbody tr{opacity:1}
-  .costos[data-sel] td.tam,.costos[data-sel] th.tam{opacity:1;background:none}
   .acc summary::before{content:""}
   details::details-content{content-visibility:visible;display:block}   /* abre sin JS donde el navegador lo admite */
   .card,.hall,.esc,.tesis,.nota,.acc,.concl li,.fu,.cmp tr,.linea li,.graf{break-inside:avoid;page-break-inside:avoid}
@@ -425,7 +418,6 @@ body{--mo-dur:.5s;--mo-subida:14px}
       <a href="#fuera">Fuera</a>
       <a href="#privacidad">Privacidad</a>
       <a href="#salon">30 alumnos</a>
-      <a href="#operacion">Operación</a>
       <a href="#mexico">México</a>
       <a href="#conclusiones">Conclusiones</a>
       <a href="#fuentes">Fuentes</a>
@@ -888,49 +880,6 @@ body{--mo-dur:.5s;--mo-subida:14px}
   </div>
 </section>
 
-<!-- ═══════════ 14 · OPERACIÓN 100 / 500 / 1,000 ═══════════ -->
-<section class="sec" id="operacion" aria-labelledby="t-op">
-  <div class="wrap stack">
-    <header class="sec-head mo-reveal">
-      <span class="eyebrow">Costo y complejidad</span>
-      <h2 id="t-op">Operar con 100, 500 o 1,000 alumnos</h2>
-      <p class="lead">Solo ponemos precios públicos verificables, a precio de lista en dólares. Todo lo demás dice «Requiere cotización». No es una comparación comercial: en México, todo precio real pasa por un distribuidor.</p>
-    </header>
-    <div class="herr mo-reveal"><div class="filtros" role="group" aria-label="Resaltar un tamaño">
-      <button type="button" class="chip-n" data-n="100" aria-pressed="false">100 alumnos</button>
-      <button type="button" class="chip-n" data-n="500" aria-pressed="false">500 alumnos</button>
-      <button type="button" class="chip-n" data-n="1000" aria-pressed="false">1,000 alumnos</button>
-    </div></div>
-    <div class="mo-reveal"><!--GEN:costos--></div>
-
-    <div class="grid g4 mo-stagger">
-      <article class="card abc w"><h3>Windows</h3><dl>
-        <dt>Consolas</dt><dd>Intune, Entra y Defender, más una herramienta de aula de terceros.</dd>
-        <dt>Perfil de TI</dt><dd>Alto: App Control, Autopilot y Defender son especialidades en sí.</dd>
-        <dt>Día a día</dt><dd>Mantener las reglas de App Control conforme cambian las apps.</dd></dl></article>
-      <article class="card abc i"><h3>iPad</h3><dl>
-        <dt>Consolas</dt><dd>Apple School Manager y el MDM.</dd>
-        <dt>Perfil de TI</dt><dd>Medio: supervisión, Apps and Books y el MDM elegido.</dd>
-        <dt>Día a día</dt><dd>Comprar y asignar apps; clases de Classroom sincronizadas.</dd></dl></article>
-      <article class="card abc c"><h3>Chromebook + Securly</h3><dl>
-        <dt>Consolas</dt><dd>Google Admin y Securly.</dd>
-        <dt>Perfil de TI</dt><dd>Medio-bajo: políticas en la nube, sin imágenes ni agentes.</dd>
-        <dt>Día a día</dt><dd>Altas y bajas en Workspace; categorías y excepciones en Securly.</dd></dl></article>
-      <article class="card abc s"><h3>iPad + Securly</h3><dl>
-        <dt>Consolas</dt><dd>Apple School Manager, el MDM y Securly.</dd>
-        <dt>Perfil de TI</dt><dd>Medio-alto: proxy, certificado, inyección de usuario y apps exentas.</dd>
-        <dt>Día a día</dt><dd>Atender las apps que fallan con el proxy.</dd></dl></article>
-    </div>
-
-    <div class="grid g3 mo-stagger">
-      <article class="card soft"><h4>100 alumnos</h4><p>Una sola persona puede operar cualquier escenario si la configuración inicial queda bien hecha. El riesgo es depender de ella: documentar la configuración es parte del proyecto.</p></article>
-      <article class="card soft"><h4>500 alumnos</h4><p>La inscripción sin tocar el equipo (Autopilot, inscripción automática de Apple, reinscripción forzada de Chrome) deja de ser opcional. Configurar equipo por equipo ya no escala.</p></article>
-      <article class="card soft"><h4>1,000 alumnos</h4><p>Importan la estructura de grupos y unidades, la delegación de permisos por plantel y los reportes. Cada consola adicional se multiplica por todos esos frentes.</p></article>
-    </div>
-    <p class="xs mo-reveal">Las tres tarjetas anteriores son criterio de <em class="marca">activa</em>, no dato verificado. Precios: MSRP de Chrome Education Upgrade (2021) y lista pública de Mosyle, en USD, sin impuestos.[[f:g-ceu]][[f:mosyle]] El ESU educativo de Windows 10 cuesta USD 1, 2 y 4 por licencia en sus tres años.[[f:ms-esu-edu]]</p>
-  </div>
-</section>
-
 <!-- ═══════════ 15 · MÉXICO ═══════════ -->
 <section class="sec" id="mexico" aria-labelledby="t-mx">
   <div class="wrap stack">
@@ -1002,7 +951,7 @@ body{--mo-dur:.5s;--mo-subida:14px}
 
     <div class="tesis mo-reveal">
       <span class="bar" aria-hidden="true"></span>
-      <p>Si el colegio ya tiene iPads o equipos Windows, no hace falta cambiarlos para mejorar. Los iPads necesitan supervisión, un MDM, Securly SmartPAC y Apple Classroom. Los equipos Windows, usuario estándar, App Control, un filtro en el equipo y un agente de aula. Lo que esta comparación dice es dónde se llega más lejos con menos piezas.</p>
+      <p>Lo que esta comparación dice es dónde se llega más lejos con menos piezas.</p>
     </div>
   </div>
 </section>
@@ -1075,18 +1024,6 @@ chipsT.forEach(function(b){
     qsa("#t6 tbody tr").forEach(function(tr){ tr.classList.remove("foco"); });
     if(t6) t6.classList.toggle("enfoque",on);
     if(on){ b.setAttribute("aria-pressed","true"); var tr=d.getElementById("tarea-"+b.getAttribute("data-t")); if(tr) tr.classList.add("foco"); }
-  });
-});
-
-/* Operación: resaltar un tamaño */
-var costos=d.querySelector("table.costos"), chipsN=qsa(".chip-n");
-chipsN.forEach(function(b){
-  b.addEventListener("click",function(){
-    var on=b.getAttribute("aria-pressed")!=="true";
-    chipsN.forEach(function(c){ c.setAttribute("aria-pressed","false"); });
-    if(!costos) return;
-    if(on){ b.setAttribute("aria-pressed","true"); costos.setAttribute("data-sel",b.getAttribute("data-n")); }
-    else costos.removeAttribute("data-sel");
   });
 });
 

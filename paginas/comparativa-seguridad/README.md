@@ -56,8 +56,10 @@ decisiones que no hay que deshacer:
   escuelas.
 - **Evasión, solo en clave defensiva.** Cada vector dice por qué existe, si se puede bloquear y
   con qué ajuste. **Nunca** se agregan instrucciones para evadir controles.
-- **Precios:** solo los públicos y verificables (MSRP de Chrome Education Upgrade, lista de
-  Mosyle, ESU de Windows 10). Todo lo demás dice «Requiere cotización».
+- **Sin sección de costos.** Se retiró a pedido: la página no compara precios. Si algún día
+  vuelve, solo con precios públicos verificables y «Requiere cotización» en lo demás.
+- **La conclusión no orienta a conservar Windows o iPad.** activa no administra esas flotas; el
+  cierre dice solo dónde se llega más lejos con menos piezas.
 - **El escenario de 30 alumnos favorece a Chromebook por diseño de las preguntas**, y la página
   lo dice. No se quita esa advertencia.
 - **Fuentes de comunidad** (Jamf Nation, Microsoft Q&A) van marcadas como evidencia anecdótica.
@@ -79,8 +81,7 @@ Portada con nota de transparencia · resumen (cinco hallazgos en formato *hallaz
 implicación*) · capas y arquitectura A/B/C · Tabla 1 con filtro por dimensión y gráfica de
 promedios · Tabla 4 (TI) · Tabla 3 (profesor) · filtrado y Tabla 5 · Tabla 2 (evasión) con
 acordeón de mitigaciones · dentro y fuera del colegio · identidad · privacidad (EE. UU., Europa y
-México, proveedores y checklist LFPDPPP) · Tabla 6 (30 alumnos) interactiva · operación con 100,
-500 y 1,000 alumnos · México · fortalezas y limitaciones · conclusiones · fuentes.
+México, proveedores y checklist LFPDPPP) · Tabla 6 (30 alumnos) interactiva · México · fortalezas y limitaciones · conclusiones · fuentes.
 
 ### Componentes propios
 

@@ -183,35 +183,6 @@ def puntaje_t6():
     return '<div class="barras" role="img" aria-label="Suma de valoraciones de la Tabla 6 por escenario">' + "".join(out) + "</div>"
 
 
-# ── Costos públicos por tamaño ───────────────────────────────────────
-def costos():
-    tam = [100, 500, 1000]
-    usd = lambda v: f"USD {v:,.0f}"
-    lineas = [
-        ("w", "Licencias Microsoft 365 Education (A1, A3 o A5) y herramienta de aula de terceros", None, "ms-licencias", "Requiere cotización"),
-        ("i", "MDM Mosyle Premium a precio de lista (USD 5.50 por equipo al año)", 5.50, "mosyle", "al año"),
-        ("i", "Apple School Manager, Apple Classroom y Schoolwork", 0, "ap-asm", "sin costo"),
-        ("c", "Chrome Education Upgrade a precio de lista (MSRP USD 38, pago único por equipo)", 38, "g-ceu", "pago único"),
-        ("c", "Google Workspace for Education Fundamentals", 0, "g-ediciones", "sin costo"),
-        ("c", "Securly Filter y Classroom", None, "s-inicio", "Requiere cotización"),
-        ("s", "MDM (Mosyle Premium a precio de lista) y Securly Filter", None, "mosyle", "MDM USD 5.50 por equipo al año · Securly: requiere cotización"),
-    ]
-    nombres = dict((a, b) for a, b, _ in D.ESCENARIOS)
-    cab = '<thead><tr><th scope="col">Escenario · concepto</th>' + "".join(
-        f'<th scope="col" class="tam" data-n="{n}">{n:,} alumnos</th>' for n in tam) + "</tr></thead>"
-    filas = []
-    for k, concepto, precio, f, nota in lineas:
-        if precio is None:
-            celdas = "".join(f'<td class="tam" data-n="{n}"><span class="cot">{e(nota)}</span></td>' for n in tam)
-        elif precio == 0:
-            celdas = "".join(f'<td class="tam" data-n="{n}">Sin costo</td>' for n in tam)
-        else:
-            celdas = "".join(f'<td class="tam" data-n="{n}"><b>{usd(precio * n)}</b> <small>{e(nota)}</small></td>' for n in tam)
-        filas.append(f'<tr><th scope="row"><b class="tx-{k}">{e(nombres[k])}</b> · {e(concepto)}[[f:{f}]]</th>{celdas}</tr>')
-    return (f'<div class="tw" role="region" aria-label="Costos públicos por tamaño" tabindex="0">'
-            f'<table class="cmp costos">{cab}<tbody>{"".join(filas)}</tbody></table></div>')
-
-
 GEN = {
     "filtros-t1": filtros_t1,
     "tabla1": tabla1,
@@ -224,7 +195,6 @@ GEN = {
     "chips-t6": chips_t6,
     "tabla6": lambda: tabla6() + f'<p class="refs-l">Fuentes: {refs(D.T6_FUENTES)}</p>',
     "puntaje-t6": puntaje_t6,
-    "costos": costos,
     "fecha": lambda: e(D.FECHA_CONSULTA),
 }
 
