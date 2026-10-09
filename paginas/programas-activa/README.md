@@ -39,9 +39,9 @@ Se publica en <https://sanoapro.github.io/activa/paginas/programas-activa/>.
   [`../../docs/descripcion-de-productos/`](../../docs/descripcion-de-productos/). Si un dato cambia
   allá, cambia aquí.
 - Competencia: [`../comparativa-competidores/`](../comparativa-competidores/).
-- **integra:** las funciones que el equipo menciona y el material no confirma (asistencia,
-  incidencias, horarios, becas, pagos en línea, CFDI 4.0, WhatsApp) van como **pendientes**, no como
-  hechos, hasta que producto las confirme por escrito.
+- **integra (9-oct-2026):** avisos por WhatsApp **sí** (probado con un colegio piloto); facturación
+  CFDI y pagos en línea **todavía no**; becas no es parte de integra. Cualquier otra función se
+  agrega solo cuando producto la confirme.
 - Sin precios: viven solo en el cotizador.
 
 ## Cómo se regeneran el PDF y la vista previa

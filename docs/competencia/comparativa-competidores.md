@@ -298,6 +298,9 @@ Ningún sistema mexicano está en la exportación oficial de calificaciones de C
 PowerSchool, Infinite Campus, Skyward, Aspen, STLink), que además exige Education Plus o T&L.
 Nadie publica precio. **No vender integra como «la única que sincroniza con Google».**
 
+**Estado de integra (confirmado el 9-oct-2026):** avisos por WhatsApp **sí** (probado con un
+colegio piloto); facturación CFDI y pagos en línea **todavía no**; becas no es parte de integra.
+
 **motiva:** único con psicólogos y diagnóstico por alumno. Happy, Inner Kore y UNOibuddy son
 contenido o alertas. Evidencia: AtentaMente (ensayo controlado en 421 preescolares de Sinaloa,
 gratuito, foco público), RULER (Yale; USD 7,500–10,500 por equipo de 3 a 5 personas; 37 PrepaTec,
@@ -308,11 +311,10 @@ dato de 2019), Educación Responsable (Universidad de Málaga).
 ## 7 · Lo que hay que confirmar
 
 1. **Estatus de activa con Securly** (TORUMA se dice distribuidor único).
-2. CFDI 4.0 con IEDU y WhatsApp en integra.
+2. Fecha de facturación CFDI 4.0 con IEDU y de pagos en línea en integra (WhatsApp ya está).
 3. Qué hace la sincronización de integra que Saeko no.
 4. Precios reales de Chromebook y licencia para la tabla de costo.
 5. Evidencia de resultados de beta.
 6. Diagnóstico, ratio de psicólogos y protocolo de canalización de motiva.
 7. Validación legal (Profeco) y contable (deducibilidad).
-8. Pasarela de cobro de integra.
-9. Contenido de eleva.
+8. Contenido de eleva.

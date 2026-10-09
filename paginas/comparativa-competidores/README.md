@@ -55,7 +55,7 @@ El texto largo, con más contexto por competidor, vive en
 - Investigación del **8 de octubre de 2026**. Ningún competidor publica precio de lista: los
   precios salen de circulares de colegios y llevan su ciclo. El de UNO es de 2019.
 - Lo que la investigación no encontró se dice «no encontrado», no «no tiene».
-- Lo que producto no ha confirmado de activa (CFDI y WhatsApp en integra, evidencia de beta) se
+- Lo que producto no ha confirmado de activa (facturación CFDI y pagos en línea en integra, evidencia de beta) se
   marca como pendiente en la tabla y en la sección 08. **No se promete.**
 - El argumento de Profeco va como contexto y validado con legal, nunca como acusación.
 
