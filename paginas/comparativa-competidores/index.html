@@ -134,11 +134,16 @@ small{font-size:.86em;color:var(--ink3)}
   background:var(--blue-t);width:28px;height:28px;border-radius:50%;display:grid;place-items:center}
 
 /* ═══════════ TABLAS ═══════════ */
-.tw{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:var(--white);box-shadow:var(--sh)}
+/* Las tablas se desplazan dentro de su caja, a lo ancho y a lo alto: así la fila de títulos
+   (y la primera columna, donde la hay) se queda fija mientras se explora la tabla. La caja nunca
+   pasa de la altura de la pantalla menos la cabecera fija. */
+.tw{overflow:auto;max-height:calc(100vh - var(--cab) - 28px);overscroll-behavior:auto;
+  border:1px solid var(--line);border-radius:18px;background:var(--white);box-shadow:var(--sh)}
 table{border-collapse:separate;border-spacing:0;width:100%;font-size:13.5px;line-height:1.45}
 caption{caption-side:top;text-align:left;padding:14px 18px 6px;font-size:13px;color:var(--ink3);font-weight:600}
 th,td{padding:11px 13px;vertical-align:top;text-align:left;border-bottom:1px solid var(--line)}
-thead th{background:var(--surf);font-size:12.5px;font-weight:800;color:var(--ink);position:sticky;top:0;z-index:2;white-space:nowrap}
+thead th{background:var(--surf);font-size:12.5px;font-weight:800;color:var(--ink);position:sticky;top:0;z-index:2;white-space:nowrap;
+  box-shadow:inset 0 -2px 0 var(--line)}
 thead th small{display:block;font-weight:600;color:var(--ink3);font-size:11.5px;white-space:normal}
 tbody th{font-weight:700;color:var(--ink);background:var(--white);font-size:13px}
 tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
@@ -150,9 +155,10 @@ tr.tot th,tr.tot td{background:var(--surf);color:var(--ink);font-weight:700}
   box-shadow:1px 0 0 var(--line);min-width:150px;white-space:nowrap}
 .matriz thead th:first-child{z-index:3;background:var(--surf)}
 .matriz th,.matriz td{width:auto}
+.matriz tr.sep th span{position:sticky;left:13px}
 .matriz .act{background:#f3f7fe}
 .matriz thead .act{background:var(--blue-t);color:var(--blue-d)}
-.matriz tr.sep th{background:var(--surf2);font-size:11.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3);padding:7px 13px}
+.matriz tr.sep th{position:static;box-shadow:none;background:var(--surf2);font-size:11.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3);padding:7px 13px}
 .m{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;font-size:12px;font-weight:800;
   margin-right:6px;vertical-align:-4px;flex-shrink:0}
 .si .m{background:var(--grn-t);color:var(--grn-d)}
@@ -247,7 +253,8 @@ td.no{color:var(--ink3)}
 .ficha-extra .preg li{break-inside:avoid;margin-bottom:7px}
 .ficha-extra .ir{font-size:13.5px;font-weight:700}
 .prospectos table{min-width:880px}
-.prospectos tbody th{white-space:normal}
+.prospectos tbody th{white-space:normal;position:sticky;left:0;z-index:1;background:var(--white);box-shadow:1px 0 0 var(--line)}
+.prospectos thead th:first-child{left:0;z-index:3}
 .prospectos td.edo{font-weight:700;color:var(--ink);white-space:nowrap}
 .prospectos tr.grupo td{background:var(--surf2);font-size:11.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3);padding:7px 13px}
 .nopelear{margin-top:6px;padding:10px 13px;border-radius:12px;background:var(--yel-t);font-size:13.8px;color:var(--ink)}
@@ -316,7 +323,8 @@ footer p{font-size:13.5px}
   .tw{overflow:visible;box-shadow:none}
   .matriz table,.sub table{min-width:0;font-size:8.4px}
   .matriz th,.matriz td{width:auto;padding:5px 6px}
-  .matriz th:first-child,.matriz td:first-child,thead th{position:static;white-space:normal}
+  .tw{max-height:none}
+  .matriz th:first-child,.matriz td:first-child,thead th,.prospectos tbody th,.semaforo th:first-child,.semaforo td:first-child{position:static;white-space:normal;box-shadow:none}
   thead th{white-space:normal}
   .m{width:13px;height:13px;font-size:8px;margin-right:3px}
   .ficha{box-shadow:none}
@@ -508,7 +516,7 @@ footer p{font-size:13.5px}
           </tr>
         </thead>
         <tbody>
-          <tr class="sep"><th colspan="11" scope="colgroup">Qué es</th></tr>
+          <tr class="sep"><th colspan="11" scope="colgroup"><span>Qué es</span></th></tr>
           <tr>
             <th scope="row">Propuesta</th>
             <td class="act">Programa integral: equipo + Google + contenido + acompañamiento, en un contrato</td>
@@ -536,7 +544,7 @@ footer p{font-size:13.5px}
             <td>TORUMA se anuncia como «único distribuidor certificado de Securly en México»</td>
           </tr>
 
-          <tr class="sep"><th colspan="11" scope="colgroup">Infraestructura</th></tr>
+          <tr class="sep"><th colspan="11" scope="colgroup"><span>Infraestructura</span></th></tr>
           <tr>
             <th scope="row">Dispositivo</th>
             <td class="act si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí. </span>Chromebook institucional en compra o arrendamiento, con seguro, stock de reemplazo y carrito</td>
@@ -577,7 +585,7 @@ footer p{font-size:13.5px}
             <td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí. </span>Soporte, consola, migración</td>
           </tr>
 
-          <tr class="sep"><th colspan="11" scope="colgroup">Contenido y alumno</th></tr>
+          <tr class="sep"><th colspan="11" scope="colgroup"><span>Contenido y alumno</span></th></tr>
           <tr>
             <th scope="row">Contenido NEM</th>
             <td class="act si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí. </span>impulsa: campos formativos, ejes, PDA y Programa Analítico mapeados por proyecto</td>
@@ -618,7 +626,7 @@ footer p{font-size:13.5px}
             <td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial. </span>Ciudadanía digital (Digital Family)</td>
           </tr>
 
-          <tr class="sep"><th colspan="11" scope="colgroup">Colegio y docente</th></tr>
+          <tr class="sep"><th colspan="11" scope="colgroup"><span>Colegio y docente</span></th></tr>
           <tr>
             <th scope="row">Gestión escolar</th>
             <td class="act par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial. </span>integra, sincronizada con la Consola Google. <b>CFDI y WhatsApp sin confirmar</b></td>
@@ -646,7 +654,7 @@ footer p{font-size:13.5px}
             <td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí. </span>Educator N1/N2, Trainer, Administrator</td>
           </tr>
 
-          <tr class="sep"><th colspan="11" scope="colgroup">Dinero y reputación</th></tr>
+          <tr class="sep"><th colspan="11" scope="colgroup"><span>Dinero y reputación</span></th></tr>
           <tr>
             <th scope="row">Quién paga</th>
             <td class="act">El colegio, por contrato y por alumno</td>
