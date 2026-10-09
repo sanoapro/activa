@@ -113,7 +113,7 @@ small{font-size:.86em;color:var(--ink3)}
 .hero .wrap{display:flex;flex-direction:column;gap:20px}
 .hero-meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .hero h1 .azul{color:var(--blue)}
-.aviso{display:flex;gap:14px;align-items:flex-start;padding:16px 20px;border-radius:16px;
+.aviso{display:flex;flex-direction:column;gap:8px;padding:16px 20px;border-radius:16px;
   background:var(--red-t);border-left:5px solid var(--red);max-width:920px}
 .aviso p{font-size:15px;color:var(--ink)}
 .leyenda{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px;color:var(--ink2)}
@@ -166,7 +166,32 @@ td.no{color:var(--ink3)}
 .leyenda .m{margin:0}
 .si-l .m{background:var(--grn-t);color:var(--grn-d)} .par-l .m{background:var(--yel-t);color:var(--yel-d)} .no-l .m{background:var(--red-t);color:var(--red-d)}
 .sub table{min-width:900px}
-.sub.angosta table{min-width:640px}
+.sub.angosta table{min-width:0}
+.objecion .grid>*{min-width:0}
+.aviso .lista li::before{background:var(--red)}
+
+/* ═══════════ ENTRADAS Y NOTAS EN TARJETA ═══════════ */
+.intro{padding:16px 22px;border-radius:16px;background:var(--surf);border-left:5px solid var(--blue);max-width:920px}
+.intro ul,.nota ul,.lista{list-style:none;padding:0;display:flex;flex-direction:column;gap:7px}
+.intro li,.nota li,.lista li{position:relative;padding-left:20px;color:var(--ink2)}
+.intro li{font-size:15.5px;line-height:1.5}
+.intro li::before,.nota li::before,.lista li::before{content:"";position:absolute;left:4px;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--blue)}
+.nota{margin-top:14px;padding:14px 18px;border-radius:14px;border:1px dashed var(--ink4);background:var(--white)}
+.nota h4{margin-bottom:8px}
+.nota li{font-size:13.8px;line-height:1.5}
+.nota li::before{background:var(--ink4)}
+.card .lista li{font-size:14.5px;line-height:1.5}
+.duo{display:grid;grid-template-columns:1.1fr 1fr;gap:16px;margin-top:18px}
+.duo .card.azul{background:var(--blue-t);border-color:transparent}
+.duo .card.azul h3,.duo .card.azul li{color:var(--blue-d)}
+.duo .card.azul li::before{background:var(--blue-d)}
+.duo .card.amar{background:var(--yel-t);border-color:transparent}
+.duo .card.amar li::before{background:var(--yel-d)}
+.leyenda-card{padding:14px 18px;border-radius:14px;border:1px solid var(--line);max-width:980px}
+.leyenda-card h4{margin-bottom:8px}
+.subtitulo{margin:34px 0 14px;display:flex;align-items:center;gap:12px}
+.subtitulo::after{content:"";flex:1;height:1px;background:var(--line)}
+.objecion .card h4{margin-bottom:4px}
 
 /* ═══════════ CÓMO USAR ═══════════ */
 .pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:980px;counter-reset:paso}
@@ -243,6 +268,7 @@ td.no{color:var(--ink3)}
 
 /* ═══════════ OBJECIÓN ═══════════ */
 .objecion{padding:26px 30px;border-radius:22px;background:var(--surf);display:flex;flex-direction:column;gap:18px}
+.xs-lista li{font-size:13.4px!important}
 .objecion blockquote{font-size:clamp(20px,2.4vw,27px);font-weight:500;letter-spacing:-.4px;color:var(--ink);line-height:1.3;
   padding-left:18px;border-left:5px solid var(--red)}
 .frase{padding:12px 15px;border-radius:12px;background:var(--grn-t);color:var(--ink);font-size:14.3px;line-height:1.5}
@@ -272,6 +298,7 @@ footer p{font-size:13.5px}
   .ficha-extra .preg ol{columns:1}
   .pasos{grid-template-columns:1fr}
   .rivales{grid-template-columns:1fr}
+  .duo{grid-template-columns:1fr}
   .ficha-cab,.col,.ficha-pie{padding-left:18px;padding-right:18px}
   .objecion{padding:20px}
 }
@@ -335,18 +362,20 @@ footer p{font-size:13.5px}
   <div class="wrap">
     <div class="hero-meta">
       <span class="eyebrow r">Equipo comercial · ciclo 2026–2027</span>
-      <span class="pill">Investigación del 8-oct-2026 · segunda pasada verificada</span>
+      <span class="pill">Actualizada al 8-oct-2026</span>
     </div>
     <h1>upgrade edu frente a la competencia, y <span class="azul">cómo ganarle a cada uno</span></h1>
-    <p class="lead">Knotion, Santillana (UNOi y Compartir) y AMCO; Luca, el retador con IA; y los que aparecen en la misma conversación: Grupo SM, Richmond, Pearson, Cambridge, EXA (Apple) y los otros partners de Google. Primero el resumen de un minuto; después la tabla completa, una ficha por competidor con su frase y sus preguntas, los colegios que ya los usan, y el costo y la ley que sostienen la objeción de fondo.</p>
+    <div class="intro"><ul><li><b>Los tres grandes:</b> Knotion, Santillana (UNOi y Compartir) y AMCO.</li><li><b>El retador:</b> Luca, con contenido NEM e IA para el docente.</li><li><b>También en la conversación:</b> Grupo SM, Richmond, Pearson, Cambridge, EXA (Apple) y otros partners de Google.</li><li><b>Qué trae:</b> resumen de un minuto, tabla completa, ficha por competidor, colegios que ya los usan, y el costo y la ley detrás de «lo paga el padre».</li></ul></div>
     <div class="aviso" role="note">
-      <p><b>Solo para vendedores de activa. No se entrega ni se reenvía a colegios.</b> Las quejas, calificaciones, precios y listas de colegios de terceros sirven para preparar la reunión. Frente al director se habla de lo que tiene activa y de las preguntas que él debería hacerle a su proveedor actual; no se ataca a nadie por nombre.</p>
+      <p><b>Solo para vendedores de activa.</b></p><ul class="lista"><li>No se entrega ni se reenvía a colegios.</li><li>Quejas, calificaciones, precios y listas de colegios de terceros sirven para preparar la reunión.</li><li>Frente al director se habla de lo que tiene activa y de las preguntas que él debería hacerle a su proveedor. No se ataca a nadie por nombre.</li></ul>
     </div>
     <div class="pasos" aria-label="Cómo usar esta página antes de una cita">
       <div class="paso"><p><b>Busca el colegio</b> en <a href="#prospectos">Prospectos</a> para saber qué sistema usa, o pregúntalo en la primera llamada.</p></div>
       <div class="paso"><p><b>Lee la ficha</b> de ese sistema: su frase, dónde es fuerte y dónde falla.</p></div>
       <div class="paso"><p><b>Lleva las preguntas</b> para el director y el <a href="#objecion">costo total</a> si sale «lo paga el padre».</p></div>
     </div>
+    <div class="leyenda-card">
+    <h4>Cómo leer las marcas</h4>
     <div class="leyenda" aria-label="Cómo leer esta página">
       <span class="si-l"><span class="m" aria-hidden="true">✓</span> Lo cubre</span>
       <span class="par-l"><span class="m" aria-hidden="true">◐</span> Parcial o sin evidencia pública</span>
@@ -354,6 +383,7 @@ footer p{font-size:13.5px}
       <span><span class="tag h">H</span> hecho con fuente</span>
       <span><span class="tag i">I</span> inferencia nuestra</span>
       <span><span class="tag base">COL-####</span> ya está en la Base Maestra</span>
+    </div>
     </div>
   </div>
 </section>
@@ -364,7 +394,7 @@ footer p{font-size:13.5px}
     <div class="sec-head">
       <span class="num">01</span>
       <h2>El resumen en un minuto</h2>
-      <p class="lead">Ocho frentes, nueve ofertas, de un vistazo. Haz clic en un competidor para ir a su ficha. El detalle de cada celda está en la <a href="#tabla">tabla completa</a>.</p>
+      <div class="intro"><ul><li>Ocho frentes contra nueve ofertas, de un vistazo.</li><li>Haz clic en un competidor, en la tabla o en su tarjeta, para ir a su ficha.</li><li>El detalle de cada celda está en la <a href="#tabla">tabla completa</a>.</li></ul></div>
     </div>
     <div class="tw sub semaforo" tabindex="0" role="region" aria-label="Semáforo: activa y ocho competidores por frente">
       <table>
@@ -382,7 +412,7 @@ footer p{font-size:13.5px}
         </tbody>
       </table>
     </div>
-    <p class="xs" style="margin-top:8px">* Richmond, Pearson, Cambridge English y Oxford. ✓ lo cubre · ◐ parcial o sin evidencia pública · ✕ no lo cubre o no se encontró.</p>
+    <div class="nota"><h4>Cómo leerlo</h4><ul><li><b>Inglés*</b> agrupa Richmond, Pearson, Cambridge English y Oxford.</li><li>✓ lo cubre · ◐ parcial o sin evidencia pública · ✕ no lo cubre o no se encontró.</li></ul></div>
     <div class="rivales">
       <a class="rival" href="#knotion" style="--k:#ea4335"><h3>Knotion</h3><dl><dt class="f">Fuerte</dt><dd>Pedagogía por retos; ~300 escuelas</dd><dt class="h">Hueco</dt><dd>iPad forzoso; sin NEM, psicólogos, gestión ni prepa</dd></dl><span class="ir">Ver ficha →</span></a>
       <a class="rival" href="#uno" style="--k:#1a73e8"><h3>Santillana (UNOi)</h3><dl><dt class="f">Fuerte</dt><dd>Marca, alianza Cambridge, tutor de IA</dd><dt class="h">Hueco</dt><dd>Sube cada año + iPad; su IA alerta, no atiende</dd></dl><span class="ir">Ver ficha →</span></a>
@@ -402,18 +432,21 @@ footer p{font-size:13.5px}
     <div class="sec-head">
       <span class="num">02</span>
       <h2>El patrón que se repite</h2>
-      <p class="lead">Knotion, UNO y AMCO se parecen más entre sí que a activa. Seis rasgos los describen a los tres.</p>
+      <div class="intro"><ul><li>Knotion, Santillana y AMCO se parecen más entre sí que a activa.</li><li>Seis rasgos los describen a los tres; abajo, el mensaje de fondo y dónde no conviene pelear.</li></ul></div>
     </div>
     <div class="grid g3 patron">
-      <div class="card soft"><h3>Cobran al padre, no al colegio</h3><p>La familia paga directo a Knotion, a Santillana o a AMCO, aparte de la colegiatura. Para el director el sistema «no cuesta»: es su argumento más fuerte y la objeción número uno de activa.</p></div>
-      <div class="card soft"><h3>Dos de tres amarran al iPad</h3><p>Knotion y UNO corren solo en iPad. La herramienta de IA docente de AMCO también es solo para iPad, iPhone y Mac. Las apps de los tres acumulan quejas de estabilidad.</p></div>
-      <div class="card soft"><h3>Ninguno tiene gestión escolar</h3><p>Sus portales cobran <b>su propio material</b>, no las colegiaturas. Calificaciones, cobranza y comunicación con familias siguen en otro sistema.</p></div>
-      <div class="card soft"><h3>Ninguno publica la NEM por proyecto</h3><p>Knotion trabaja con tres ejes propios, no con los campos formativos. UNOi no declara la NEM en su sitio. AMCO dice «articulado con los libros SEP». La NEM es <b>obligatoria</b> para los particulares.</p></div>
-      <div class="card soft"><h3>Socioemocional sin psicólogos</h3><p>Knotion tiene Inner Kore (contenido), AMCO tiene Happy (cuentos y meditaciones), UNOibuddy manda alertas al colegio. Ninguno pone psicólogos ni diagnóstico por alumno.</p></div>
-      <div class="card soft"><h3>Ninguno certifica al docente por fuera</h3><p>Las credenciales docentes son de la propia marca. activa deja certificaciones oficiales de Google en la plantilla.</p></div>
+      <div class="card soft"><h3>Cobran al padre, no al colegio</h3><ul class="lista"><li>La familia paga directo a Knotion, a Santillana o a AMCO, aparte de la colegiatura.</li><li>Para el director el sistema «no cuesta».</li><li>Es su argumento más fuerte y la objeción número uno de activa.</li></ul></div>
+      <div class="card soft"><h3>Dos de tres amarran al iPad</h3><ul class="lista"><li>Knotion y UNOi corren solo en iPad.</li><li>La IA docente de AMCO también es solo para iPad, iPhone y Mac.</li><li>Las apps de los tres acumulan quejas de estabilidad.</li></ul></div>
+      <div class="card soft"><h3>Ninguno tiene gestión escolar</h3><ul class="lista"><li>Sus portales cobran <b>su propio material</b>, no las colegiaturas.</li><li>Calificaciones, cobranza y comunicación con familias siguen en otro sistema.</li></ul></div>
+      <div class="card soft"><h3>Ninguno publica la NEM por proyecto</h3><ul class="lista"><li>Knotion: tres ejes propios, no los campos formativos.</li><li>UNOi no declara la NEM en su sitio.</li><li>AMCO: «articulado con los libros SEP».</li><li>La NEM es <b>obligatoria</b> para los particulares.</li></ul></div>
+      <div class="card soft"><h3>Socioemocional sin psicólogos</h3><ul class="lista"><li>Knotion: Inner Kore, que es contenido.</li><li>AMCO: Happy, con cuentos y meditaciones.</li><li>UNOibuddy: manda alertas al colegio.</li><li>Ninguno pone psicólogos ni diagnóstico por alumno.</li></ul></div>
+      <div class="card soft"><h3>Ninguno certifica al docente por fuera</h3><ul class="lista"><li>Sus credenciales docentes son de la propia marca.</li><li>activa deja certificaciones oficiales de Google en la plantilla.</li></ul></div>
     </div>
-    <p class="tesis">activa es el único que junta en un contrato dispositivo administrado, Google, contenido NEM, inglés, socioemocional con psicólogos, gestión escolar y soporte TI. Ese es el mensaje de fondo frente a todos.</p>
-    <div class="fuertes"><p><b>Dónde sí son fuertes, y no se pelea de frente:</b> inglés (AMCO con su ruta a C1; UNO con su alianza con Cambridge), marca y escala, y un modelo de cobro que no pasa por el presupuesto del colegio.</p></div>
+    <div class="duo">
+      <div class="card azul"><h3>El mensaje de fondo</h3><p>activa es el único que junta en un contrato:</p><ul class="lista"><li>Dispositivo administrado del colegio</li><li>Google for Education</li><li>Contenido NEM</li><li>Inglés con ruta de certificación</li><li>Socioemocional con psicólogos</li><li>Gestión escolar</li><li>Soporte TI</li></ul></div>
+      <div class="card amar"><h3>Dónde sí son fuertes (no se pelea de frente)</h3><ul class="lista"><li><b>Inglés:</b> AMCO con su ruta a C1; UNOi con su alianza con Cambridge.</li><li><b>Marca y escala:</b> años de red y miles de colegios.</li><li><b>El cobro:</b> no pasa por el presupuesto del colegio.</li></ul></div>
+    </div>
+    
   </div>
 </section>
 
@@ -423,15 +456,15 @@ footer p{font-size:13.5px}
     <div class="sec-head">
       <span class="num">03</span>
       <h2>Lo que cambió en 2026</h2>
-      <p class="lead">Seis movimientos del mercado que el vendedor tiene que conocer antes de sentarse con un director este ciclo.</p>
+      <div class="intro"><ul><li>Seis movimientos del mercado en 2026.</li><li>Conócelos antes de sentarte con un director este ciclo.</li></ul></div>
     </div>
     <div class="grid g3 nov">
-      <div class="card" style="--k:#f9ab00"><h3>AMCO cambió de dueño</h3><p>El fondo mexicano <b>MxO Capital</b> compró la mayoría de AMCO Educación; cerró el <b>30-jun-2026</b>. Dice tener ~500,000 alumnos en 12 países <span class="tag h">H</span>. Con un dueño de capital privado, lo esperable son ajustes de precio y venta cruzada <span class="tag i">I</span>.</p><p class="fte"><a href="https://lexlatin.com/noticias/mxo-capital-adquiere-amco-educacion-mercado-edtech">LexLatin, 15-jul-2026</a> · <a href="https://ppulegal.com/en/?p=32278">PPU</a></p></div>
-      <div class="card" style="--k:#8430ce"><h3>SM vendió Educamos</h3><p>Grupo SM vendió su plataforma de gestión <b>Educamos</b> a la alemana <b>Sdui Group</b> el <b>23-sep-2025</b> y se concentra en lo editorial <span class="tag h">H</span>. Un colegio con Educamos hoy depende de un proveedor que ya no es SM.</p><p class="fte"><a href="https://www.magisnet.com/2025/09/grupo-sm-vende-su-negocio-digital-educamos-a-sdui-group/">Magisterio, sep-2025</a></p></div>
-      <div class="card" style="--k:#1a73e8"><h3>UNO lanzó un tutor de IA</h3><p><b>UNOibuddy</b>, tutor «socrático» con contenido Santillana, en 400+ colegios de México desde agosto de 2026. Ante preguntas personales o emocionales <b>corta la conversación y manda una alerta al colegio</b> <span class="tag h">H</span>. Quién atiende esa alerta es la pregunta para el director.</p><p class="fte"><a href="https://es-us.noticias.yahoo.com/santillana-lanza-m%C3%A9xico-unoibuddy-ia-030350094.html">EFE vía Yahoo, 19-mar-2026</a></p></div>
-      <div class="card" style="--k:#ea4335"><h3>Knotion cumplió 10 años y creció</h3><p>Dice tener <b>cerca de 300 escuelas</b> en 4 países y 6,000 docentes (eran 70 en 2019) <span class="tag h">H</span>. Sigue siendo solo iPad y solo hasta 9.º grado.</p><p class="fte"><a href="https://blog.knotion.com/knotion-10-anos-redefiniendo-el-aprendizaje/">Blog Knotion, 29-jun-2026</a></p></div>
-      <div class="card" style="--k:#34a853"><h3>Restricción de celulares desde el 3 de noviembre</h3><p>El <b>Acuerdo SEP 09/09/26</b> (DOF 22-sep-2026) restringe en educación básica, pública y particular, los dispositivos <b>personales</b> salvo uso «previamente programado, con intención pedagógica» <span class="tag h">H</span>. Un equipo institucional administrado encaja mejor que un iPad personal <span class="tag i">I</span>. Ver <a href="#legal">marco legal</a>.</p><p class="fte"><a href="https://dof.gob.mx/nota_detalle.php?codigo=5799247&amp;fecha=22/09/2026">DOF, 22-sep-2026</a></p></div>
-      <div class="card" style="--k:#5f6368"><h3>Los precios suben cada año</h3><p>El kit UNOi de primaria en un colegio de Tepic subió <b>+40 % de 2018 a 2026-27</b> (5–6 % por ciclo). AMCO subió <b>~7 %</b> en un ciclo en Puerto Vallarta <span class="tag h">H</span>. La familia lo paga aparte de la colegiatura.</p><p class="fte"><a href="https://primaria.cclt.edu.mx/pg/archivos/COSTOS%20UNOi%20CE%202026-2027.pdf">CCLT 2026-27</a> · <a href="https://colegiomexicoamericano.mx/inscripciones-2022-2023/">Colegio México Americano</a></p></div>
+      <div class="card" style="--k:#f9ab00"><h3>AMCO cambió de dueño</h3><ul class="lista"><li><b>MxO Capital</b>, fondo mexicano, compró la mayoría de AMCO; cerró el <b>30-jun-2026</b> <span class="tag h">H</span>.</li><li>AMCO dice tener ~500,000 alumnos en 12 países.</li><li>Lo esperable con un dueño de capital privado: ajustes de precio y venta cruzada <span class="tag i">I</span>.</li></ul><p class="fte"><a href="https://lexlatin.com/noticias/mxo-capital-adquiere-amco-educacion-mercado-edtech">LexLatin, 15-jul-2026</a> · <a href="https://ppulegal.com/en/?p=32278">PPU</a></p></div>
+      <div class="card" style="--k:#8430ce"><h3>SM vendió Educamos</h3><ul class="lista"><li>Vendió <b>Educamos</b> a la alemana <b>Sdui Group</b> el <b>23-sep-2025</b> <span class="tag h">H</span>.</li><li>SM se concentra en lo editorial.</li><li>Un colegio con Educamos hoy depende de un proveedor que ya no es SM.</li></ul><p class="fte"><a href="https://www.magisnet.com/2025/09/grupo-sm-vende-su-negocio-digital-educamos-a-sdui-group/">Magisterio, sep-2025</a></p></div>
+      <div class="card" style="--k:#1a73e8"><h3>UNO lanzó un tutor de IA</h3><ul class="lista"><li><b>UNOibuddy</b>: tutor de IA con contenido Santillana, en 400+ colegios desde ago-2026 <span class="tag h">H</span>.</li><li>Ante temas personales o emocionales <b>corta la conversación y alerta al colegio</b>.</li><li>La pregunta para el director: ¿quién atiende esa alerta?</li></ul><p class="fte"><a href="https://es-us.noticias.yahoo.com/santillana-lanza-m%C3%A9xico-unoibuddy-ia-030350094.html">EFE vía Yahoo, 19-mar-2026</a></p></div>
+      <div class="card" style="--k:#ea4335"><h3>Knotion cumplió 10 años y creció</h3><ul class="lista"><li><b>Cerca de 300 escuelas</b> en 4 países y 6,000 docentes <span class="tag h">H</span>.</li><li>Eran 70 en 2019.</li><li>Sigue solo en iPad y solo hasta 9.º grado.</li></ul><p class="fte"><a href="https://blog.knotion.com/knotion-10-anos-redefiniendo-el-aprendizaje/">Blog Knotion, 29-jun-2026</a></p></div>
+      <div class="card" style="--k:#34a853"><h3>Restricción de celulares desde el 3 de noviembre</h3><ul class="lista"><li><b>Acuerdo SEP 09/09/26</b> (DOF 22-sep-2026), vigente desde el 3 de noviembre.</li><li>Restringe en básica, pública y particular, los dispositivos <b>personales</b> salvo uso pedagógico programado <span class="tag h">H</span>.</li><li>Un equipo institucional administrado encaja mejor que un iPad personal <span class="tag i">I</span>.</li><li>Detalle en el <a href="#legal">marco legal</a>.</li></ul><p class="fte"><a href="https://dof.gob.mx/nota_detalle.php?codigo=5799247&amp;fecha=22/09/2026">DOF, 22-sep-2026</a></p></div>
+      <div class="card" style="--k:#5f6368"><h3>Los precios suben cada año</h3><ul class="lista"><li>Kit UNOi de primaria en Tepic: <b>+40 % de 2018 a 2026-27</b>, 5–6 % por ciclo <span class="tag h">H</span>.</li><li>AMCO: <b>~7 %</b> en un ciclo en Puerto Vallarta.</li><li>La familia lo paga aparte de la colegiatura.</li></ul><p class="fte"><a href="https://primaria.cclt.edu.mx/pg/archivos/COSTOS%20UNOi%20CE%202026-2027.pdf">CCLT 2026-27</a> · <a href="https://colegiomexicoamericano.mx/inscripciones-2022-2023/">Colegio México Americano</a></p></div>
     </div>
 
     <div class="cifras" aria-label="El mercado">
@@ -440,7 +473,7 @@ footer p{font-size:13.5px}
       <div class="cifra"><span class="n">−20 %</span><p>Media superior privada: de 1.00 M a 0.80 M alumnos en seis ciclos</p></div>
       <div class="cifra"><span class="n">29,725</span><p>Centros de trabajo privados de básica (un colegio de tres niveles cuenta tres)</p></div>
     </div>
-    <p class="xs" style="margin-top:10px">Fuente: <a href="https://www.planeacion.sep.gob.mx/Doc/estadistica_e_indicadores/principales_cifras/principales_cifras_2024_2025.pdf">SEP, Principales Cifras 2024-2025</a>. <b>Para el vendedor:</b> con la matrícula plana, el colegio no puede seguir subiéndole el costo total a la familia para retenerla.</p>
+    <div class="nota"><h4>El mercado, para el vendedor</h4><ul><li>Fuente: <a href="https://www.planeacion.sep.gob.mx/Doc/estadistica_e_indicadores/principales_cifras/principales_cifras_2024_2025.pdf">SEP, Principales Cifras 2024-2025</a>.</li><li>Con la matrícula plana, el colegio no puede seguir subiéndole el costo total a la familia para retenerla.</li></ul></div>
   </div>
 </section>
 
@@ -450,7 +483,7 @@ footer p{font-size:13.5px}
     <div class="sec-head">
       <span class="num">04</span>
       <h2>La tabla completa</h2>
-      <p class="lead">Quince frentes, diez ofertas. La columna de activa va resaltada. La tabla se desplaza de lado dentro de su caja; la primera columna se queda fija.</p>
+      <div class="intro"><ul><li>Quince frentes, diez ofertas; la columna de activa va resaltada.</li><li>Se desplaza de lado dentro de su caja; la primera columna se queda fija.</li><li>Para un vistazo rápido, usa el <a href="#resumen">resumen</a>.</li></ul></div>
     </div>
 
     <div class="tw matriz" tabindex="0" role="region" aria-label="Tabla comparativa: activa y nueve competidores, desplazable">
@@ -666,7 +699,7 @@ footer p{font-size:13.5px}
         </tbody>
       </table>
     </div>
-    <p class="xs" style="margin-top:12px">Las cifras de tamaño son las que cada empresa publica sobre sí misma. «No encontrado» significa que no apareció en fuente pública, no que no exista. Las calificaciones de apps son del 8-oct-2026; con menos de 20 reseñas, úsalas como señal, no como dato.</p>
+    <div class="nota"><h4>Cómo leerla</h4><ul><li><b>Tamaño:</b> lo que cada empresa publica sobre sí misma.</li><li><b>«No encontrado»:</b> no apareció en fuente pública; no significa que no exista.</li><li><b>Calificaciones de apps:</b> al 8-oct-2026. Con menos de 20 reseñas, son señal, no dato.</li></ul></div>
   </div>
 </section>
 
@@ -676,7 +709,7 @@ footer p{font-size:13.5px}
     <div class="sec-head">
       <span class="num">05</span>
       <h2>Cómo ganarle a cada uno</h2>
-      <p class="lead">Knotion, Santillana, AMCO, Luca, SM, inglés y certificación, EXA y partners Google. Por competidor: su frase clave, dónde es fuerte (no se pelea ahí), dónde falla, cómo ganarle y qué preguntarle al director. Las preguntas no atacan: hacen que el director descubra el hueco solo.</p>
+      <div class="intro"><ul><li>Ocho fichas: Knotion, Santillana, AMCO, Luca, Grupo SM, inglés y certificación, EXA y partners Google.</li><li>Cada una trae su frase clave, dónde es fuerte (no se pelea ahí), dónde falla, cómo ganarle y preguntas para el director.</li><li>Las preguntas no atacan: hacen que el director descubra el hueco solo.</li></ul></div>
     </div>
 
     <nav class="saltos" aria-label="Ir a un competidor">
@@ -1073,13 +1106,13 @@ footer p{font-size:13.5px}
 
     </div>
 
-    <h3 style="margin:34px 0 14px">También en el mercado</h3>
+    <h3 class="subtitulo">También en el mercado</h3>
     <div class="grid g3">
-      <div class="card soft"><h3>Ediciones Castillo / Macmillan</h3><p>«Solución Integral» de preescolar a secundaria: libros NEM «Imagina», guía «Integra. Mi guía Castillo» y formación «Castillo – Macmillan 360». Es libro por alumno, sin plataforma potente, equipo ni gestión <span class="tag i">I</span>. <b>Ojo:</b> su guía se llama «Integra», como nuestro producto.</p><p class="fte"><a href="https://www.edicionescastillo.com/">edicionescastillo.com</a></p></div>
-      <div class="card soft"><h3>Lirmi (gestión escolar)</h3><p>Chileno, llegó a México en jun-2025 enfocado en colegios privados de CDMX, Monterrey y Guadalajara: admisiones, pagos, evaluación y comunicación; 2,700+ colegios en LatAm. Rival de integra; ver la <a href="#integra">tabla de gestión</a>.</p><p class="fte"><a href="https://www.descubre.vc/noticia/lirmi-llega-a-m-xico-para-transformar-la-gesti-n-escolar-en-colegios-privados-2025-06-23">Descubre (jun-2025)</a></p></div>
-      <div class="card soft"><h3>EDUSPARK y Progrentis</h3><p><b>EDUSPARK</b> (Monterrey): 6,000 recursos bilingües alineados a la SEP, LMS e inglés K-6 por suscripción; jugador chico. <b>Progrentis</b>: lectura y habilidades cognitivas, ~200 escuelas en México (2022); complemento de un área, no rival integral.</p><p class="fte"><a href="https://www.eduspark.com.mx/">eduspark.com.mx</a> · <a href="https://www.chilango.com/vida/modelo-pedagogico-mejores-colegios-de-cdmx/">Chilango (patrocinado, 2022)</a></p></div>
+      <div class="card soft"><h3>Ediciones Castillo / Macmillan</h3><ul class="lista"><li>«Solución Integral» de preescolar a secundaria.</li><li>Libros NEM «Imagina», guía «Integra. Mi guía Castillo» y formación «Castillo – Macmillan 360».</li><li>Libro por alumno: sin plataforma potente, equipo ni gestión <span class="tag i">I</span>.</li><li><b>Ojo:</b> su guía se llama «Integra», como nuestro producto.</li></ul><p class="fte"><a href="https://www.edicionescastillo.com/">edicionescastillo.com</a></p></div>
+      <div class="card soft"><h3>Lirmi (gestión escolar)</h3><ul class="lista"><li>Chileno; llegó a México en jun-2025.</li><li>Enfocado en colegios privados de CDMX, Monterrey y Guadalajara.</li><li>Admisiones, pagos, evaluación y comunicación; 2,700+ colegios en LatAm.</li><li>Rival de integra: ver la <a href="#integra">tabla de gestión</a>.</li></ul><p class="fte"><a href="https://www.descubre.vc/noticia/lirmi-llega-a-m-xico-para-transformar-la-gesti-n-escolar-en-colegios-privados-2025-06-23">Descubre (jun-2025)</a></p></div>
+      <div class="card soft"><h3>EDUSPARK y Progrentis</h3><ul class="lista"><li><b>EDUSPARK</b> (Monterrey): 6,000 recursos bilingües alineados a la SEP, LMS e inglés K-6 por suscripción; jugador chico.</li><li><b>Progrentis</b>: lectura y habilidades cognitivas, ~200 escuelas en México (2022); complemento de un área.</li></ul><p class="fte"><a href="https://www.eduspark.com.mx/">eduspark.com.mx</a> · <a href="https://www.chilango.com/vida/modelo-pedagogico-mejores-colegios-de-cdmx/">Chilango (patrocinado, 2022)</a></p></div>
     </div>
-    <p class="xs" style="margin-top:12px"><b>Revisados y descartados:</b> Edelvives y los programas bilingües de Oxford (solo en España), Patria (editorial con LMS genérico), PLENO (es la evaluación de UNOi), Samsung y Lenovo (solo donativos), Smartick y Matific (solo matemáticas), y otros sin presencia en México.</p>
+    <div class="nota"><h4>Revisados y descartados</h4><ul><li><b>Edelvives</b> y los programas bilingües de <b>Oxford</b>: solo en España.</li><li><b>Patria</b>: editorial con LMS genérico.</li><li><b>PLENO</b>: es la evaluación de UNOi.</li><li><b>Samsung y Lenovo</b>: solo donativos.</li><li><b>Smartick y Matific</b>: solo matemáticas.</li></ul></div>
   </div>
 </section>
 
@@ -1089,7 +1122,7 @@ footer p{font-size:13.5px}
     <div class="sec-head">
       <span class="num">06</span>
       <h2>Prospectos: colegios con su sistema identificado</h2>
-      <p class="lead">55 colegios que usan a un competidor, ordenados por estado para buscar por territorio. 37 ya están en la Base Maestra con su ID. Antes de llamar, abre la ficha de su sistema y lleva las preguntas.</p>
+      <div class="intro"><ul><li>55 colegios que usan a un competidor, agrupados por estado para buscar por territorio.</li><li>37 ya están en la Base Maestra con su ID.</li><li>Antes de llamar: abre la ficha de su sistema y lleva las preguntas.</li></ul></div>
     </div>
     <div class="tw sub prospectos" tabindex="0" role="region" aria-label="Tabla: colegios con competidor identificado, por estado">
       <table>
@@ -1174,7 +1207,7 @@ footer p{font-size:13.5px}
         </tbody>
       </table>
     </div>
-    <p class="xs" style="margin-top:10px">Evidencia: la página o circular pública de cada colegio, revisada el 8-oct-2026. Puede estar desactualizada: confirma en la primera llamada. «verificar» = la coincidencia con la base es dudosa.</p>
+    <div class="nota"><h4>Antes de usarla</h4><ul><li>Evidencia: la página o circular pública de cada colegio, revisada el 8-oct-2026.</li><li>Puede estar desactualizada: confirma en la primera llamada.</li><li>«verificar»: la coincidencia con la base es dudosa.</li></ul></div>
   </div>
 </section>
 
@@ -1184,15 +1217,15 @@ footer p{font-size:13.5px}
     <div class="sec-head">
       <span class="num">07</span>
       <h2>La objeción de fondo: «lo paga el padre»</h2>
-      <p class="lead">Los tres grandes cobran directo a la familia, así que el director siente que no le cuestan. La respuesta tiene tres partes: lo que la familia ya paga, lo que cuesta el equipo, y lo que dice la norma.</p>
+      <div class="intro"><ul><li>Knotion, Santillana y AMCO cobran directo a la familia: el director siente que no le cuestan.</li><li>La respuesta tiene tres partes: lo que la familia ya paga, lo que cuesta el equipo y lo que dice la norma.</li></ul></div>
     </div>
 
     <div class="objecion">
       <blockquote>«Con Knotion, UNO o AMCO a mí no me cuesta: lo paga el padre».</blockquote>
 
       <div class="grid g2">
-        <div>
-          <h4 style="margin-bottom:10px">1 · Lo que la familia ya paga al año, aparte de la colegiatura</h4>
+        <div class="card">
+          <h4>1 · Lo que la familia ya paga al año, aparte de la colegiatura</h4>
           <div class="tw sub angosta" tabindex="0" role="region" aria-label="Tabla: lo que la familia paga a cada competidor">
             <table>
               <thead><tr><th scope="col">Sistema</th><th scope="col">Pago anual a terceros</th><th scope="col">Además</th></tr></thead>
@@ -1204,10 +1237,10 @@ footer p{font-size:13.5px}
               </tbody>
             </table>
           </div>
-          <p class="xs" style="margin-top:8px">Circulares de colegios, ciclos 2023-24 a 2026-27. Ver fuentes en cada ficha.</p>
+          <ul class="lista xs-lista"><li>Circulares de colegios, ciclos 2023-24 a 2026-27.</li><li>Fuentes en cada ficha.</li></ul>
         </div>
-        <div>
-          <h4 style="margin-bottom:10px">2 · El equipo: iPad contra Chromebook, por alumno a 3 años</h4>
+        <div class="card">
+          <h4>2 · El equipo: iPad contra Chromebook, por alumno a 3 años</h4>
           <div class="tw sub angosta" tabindex="0" role="region" aria-label="Tabla: costo de dispositivo a tres años">
             <table>
               <thead><tr><th scope="col">Concepto</th><th scope="col">iPad</th><th scope="col">Chromebook</th></tr></thead>
@@ -1220,14 +1253,14 @@ footer p{font-size:13.5px}
               </tbody>
             </table>
           </div>
-          <p class="xs" style="margin-top:8px"><b>Estimación, no cotización.</b> iPad A16 128 GB en Apple MX ($10,999; ha bajado a ~$7,700 en ofertas), funda Logitech Rugged Folio, AppleCare+ 2 años. Chromebook: Lenovo 100e Gen 4 a precio de lista de EE. UU. convertido (TC 18.13 + IVA), Chrome Education Upgrade US$38. <b>Rehacer con los precios del cotizador de activa antes de mostrarla.</b> La Chromebook recibe actualizaciones hasta jun-2033.</p>
+          <ul class="lista xs-lista"><li><b>Estimación, no cotización:</b> rehacer con los precios del cotizador de activa antes de mostrarla.</li><li>iPad A16 128 GB en Apple MX ($10,999; ha bajado a ~$7,700 en ofertas), funda Logitech Rugged Folio, AppleCare+ 2 años.</li><li>Chromebook: Lenovo 100e Gen 4 a precio de lista de EE. UU. convertido (TC 18.13 + IVA); Chrome Education Upgrade US$38.</li><li>La Chromebook recibe actualizaciones hasta jun-2033.</li></ul>
         </div>
       </div>
 
       <div class="grid g3">
-        <div class="card"><h3>El costo total por familia</h3><p>Licencia + iPad + seguro: con Knotion o UNO, más de <b>$10,000 al año</b> por alumno antes de la colegiatura. Con un equipo institucional, el mismo dinero alcanza para casi dos alumnos.</p><p class="frase">«Con lo que una familia gasta en iPad, equipamos a casi dos alumnos, y la Chromebook se actualiza hasta 2033.»</p></div>
-        <div class="card"><h3>Lo que se queda el colegio</h3><p>Con los tres grandes, el dinero va del padre al proveedor: el colegio no se queda con infraestructura, gestión, soporte ni datos. Con activa se queda con la flota administrada, el dominio Google y una plantilla certificada.</p><p class="frase">«La tecnología se vuelve parte de su colegio, no de su proveedor.»</p></div>
-        <div class="card"><h3>Lo que dice la norma</h3><p>El Acuerdo SECOFI-SEP de 1992, que aplica Profeco, dice que la colegiatura cubre «todos los servicios necesarios» del plan de estudios, <b>incluido el uso de materiales y equipo</b> (art. 3o), y prohíbe exigir proveedores determinados para lo que se vende en el comercio en general (art. 5o, fr. V). Ver <a href="#legal">marco legal</a>.</p><p class="frase">«Con activa la tecnología va dentro de la colegiatura que ustedes ya cobran; no le piden a los padres un pago aparte a un proveedor.»</p></div>
+        <div class="card"><h3>El costo total por familia</h3><ul class="lista"><li>Licencia + iPad + seguro: con Knotion o UNOi, más de <b>$10,000 al año</b> por alumno antes de la colegiatura.</li><li>Con un equipo institucional, el mismo dinero alcanza para casi dos alumnos.</li></ul><p class="frase">«Con lo que una familia gasta en iPad, equipamos a casi dos alumnos, y la Chromebook se actualiza hasta 2033.»</p></div>
+        <div class="card"><h3>Lo que se queda el colegio</h3><ul class="lista"><li>Con los tres grandes, el dinero va del padre al proveedor.</li><li>El colegio no se queda con infraestructura, gestión, soporte ni datos.</li><li>Con activa se queda con la flota administrada, el dominio Google y una plantilla certificada.</li></ul><p class="frase">«La tecnología se vuelve parte de su colegio, no de su proveedor.»</p></div>
+        <div class="card"><h3>Lo que dice la norma</h3><ul class="lista"><li>Acuerdo SECOFI-SEP de 1992, que aplica Profeco.</li><li>Art. 3o: la colegiatura cubre «todos los servicios necesarios», <b>incluido el uso de materiales y equipo</b>.</li><li>Art. 5o, fr. V: no exigir proveedores para lo que se vende en el comercio en general.</li><li>Detalle en el <a href="#legal">marco legal</a>.</li></ul><p class="frase">«Con activa la tecnología va dentro de la colegiatura que ustedes ya cobran; no le piden a los padres un pago aparte a un proveedor.»</p></div>
       </div>
     </div>
   </div>
@@ -1239,36 +1272,36 @@ footer p{font-size:13.5px}
     <div class="sec-head">
       <span class="num">08</span>
       <h2>Marco legal que juega a favor</h2>
-      <p class="lead">Cinco normas que el vendedor debe conocer. Ninguna se usa como amenaza: se usan para que el director vea que activa le ayuda a cumplir.</p>
+      <div class="intro"><ul><li>Cinco normas que el vendedor debe conocer.</li><li>Ninguna se usa como amenaza: sirven para que el director vea que activa le ayuda a cumplir.</li></ul></div>
     </div>
     <div class="grid g2 legal">
       <div class="card" style="--k:#1a73e8">
         <h3>La NEM es obligatoria para los particulares</h3>
-        <p>El Acuerdo 14/08/22 (DOF 19-ago-2022) dice que el Plan de Estudio es «aplicable y obligatorio… para todas las escuelas públicas y particulares incorporadas»; el art. 149 de la LGE obliga a cumplir los planes y programas <span class="tag h">H</span>. El programa analítico y el codiseño forman parte del Plan <span class="tag i">I</span>.</p>
+        <ul class="lista"><li>Acuerdo 14/08/22 (DOF 19-ago-2022): el Plan es «aplicable y obligatorio… para todas las escuelas públicas y particulares incorporadas» <span class="tag h">H</span>.</li><li>Art. 149 de la LGE: los particulares deben cumplir planes y programas <span class="tag h">H</span>.</li><li>El programa analítico y el codiseño forman parte del Plan <span class="tag i">I</span>.</li></ul>
         <p class="frase">«Su colegio está obligado a la NEM; impulsa le deja el programa analítico documentado proyecto por proyecto.»</p>
         <p class="fte"><a href="https://sidof.segob.gob.mx/notas/docFuente/5661845">Acuerdo 14/08/22</a> · <a href="https://sidof.segob.gob.mx/notas/docFuente/5698665">Acuerdo 08/08/23</a></p>
       </div>
       <div class="card" style="--k:#34a853">
         <h3>Restricción de dispositivos personales (3-nov-2026)</h3>
-        <p>El Acuerdo 09/09/26 restringe en básica los dispositivos <b>personales</b> durante la jornada, salvo uso «previamente programado… con una intencionalidad pedagógica, bajo la orientación de las y los docentes». No define «dispositivo institucional» <span class="tag h">H</span>. Un equipo del colegio, administrado y filtrado, encaja en la excepción; un iPad personal depende de ella <span class="tag i">I</span>.</p>
+        <ul class="lista"><li>Restringe en básica los dispositivos <b>personales</b> durante la jornada <span class="tag h">H</span>.</li><li>Excepción: uso «previamente programado… con una intencionalidad pedagógica, bajo la orientación de las y los docentes».</li><li>No define «dispositivo institucional».</li><li>Un equipo del colegio, administrado y filtrado, encaja en la excepción; un iPad personal depende de ella <span class="tag i">I</span>.</li></ul>
         <p class="frase">«Con Chromebooks del colegio, administradas desde consola, el uso es institucional y documentado.»</p>
         <p class="fte"><a href="https://dof.gob.mx/nota_detalle.php?codigo=5799247&amp;fecha=22/09/2026">DOF 22-sep-2026</a> · ver también la página <a href="../uso-responsable/">Uso responsable</a></p>
       </div>
       <div class="card" style="--k:#f9ab00">
         <h3>«El ABC de las emociones» (SEP)</h3>
-        <p>Estrategia federal desde el ciclo 2026-27: una hora semanal en 3.º de secundaria y bachillerato, sin calificación <span class="tag h">H</span>. Que alcance a las privadas solo lo dice la prensa; no hay acuerdo en el DOF <span class="tag i">I</span>.</p>
+        <ul class="lista"><li>Estrategia federal desde el ciclo 2026-27 <span class="tag h">H</span>.</li><li>Una hora semanal en 3.º de secundaria y bachillerato, sin calificación.</li><li>Que alcance a las privadas solo lo dice la prensa; no hay acuerdo en el DOF <span class="tag i">I</span>.</li></ul>
         <p class="frase">«motiva le deja listo para la estrategia socioemocional nacional, con psicólogos y sin improvisar.»</p>
         <p class="fte"><a href="https://www.xataka.com.mx/educacion/sep-no-solo-revisara-conocimientos-ahora-aplicara-evaluacion-obligatoria-para-detectar-riesgos-salud-mental">Xataka (jul-2026)</a></p>
       </div>
       <div class="card" style="--k:#ea4335">
         <h3>Profeco y los proveedores obligatorios</h3>
-        <p>Acuerdo SECOFI-SEP (DOF 10-mar-1992), vigente: art. 3o (la colegiatura cubre materiales y equipo), art. 5o fr. III (sin cuotas extraordinarias) y fr. V (no exigir proveedores para lo que se vende en el comercio en general; si es indispensable, no más caro que el mercado). Profeco reiteró en ago-2026 que una plataforma sugerida es «orientación, nunca exigencia», y en jun-2026 la SCJN confirmó que Profeco puede atender quejas contra escuelas privadas <span class="tag h">H</span>.</p>
+        <ul class="lista"><li>Acuerdo SECOFI-SEP (DOF 10-mar-1992), vigente y aplicado por Profeco <span class="tag h">H</span>.</li><li>Art. 3o: la colegiatura cubre materiales y equipo.</li><li>Art. 5o fr. III: sin cuotas extraordinarias.</li><li>Art. 5o fr. V: no exigir proveedores para lo que se vende en el comercio en general; si es indispensable, no más caro que el mercado.</li><li>Profeco (ago-2026): una plataforma sugerida es «orientación, nunca exigencia».</li><li>SCJN (jun-2026): Profeco puede atender quejas contra escuelas privadas.</li></ul>
         <p class="ojo"><b>Es argumento débil y delicado.</b> Una licencia exclusiva probablemente cae en la excepción de proveedor indispensable. Úsalo solo como contexto, nunca como acusación, y validado con legal.</p>
         <p class="fte"><a href="https://dof.gob.mx/nota_detalle.php?codigo=4655028&amp;fecha=10/03/1992">DOF 1992</a> · <a href="https://www.elimparcial.com/dinero/2026/08/03/profeco-aclara-que-las-escuelas-no-pueden-exigir-marcas-ni-obligar-a-comprar-utiles-en-proveedores-o-enlaces-especificos/">El Imparcial (ago-2026)</a> · <a href="https://politica.expansion.mx/mexico/2026/06/24/scjn-profeco-resolver-quejas-escuelas-privadas">Expansión (SCJN)</a></p>
       </div>
       <div class="card" style="--k:#8430ce">
         <h3>Deducibilidad de colegiaturas</h3>
-        <p>Las colegiaturas son deducibles con tope anual (preescolar $14,200; primaria $12,900; secundaria $19,900; bachillerato $24,500) con CFDI y complemento IEDU: nombre del alumno, CURP, nivel, RVOE y RFC de quien paga <span class="tag h">H</span>. Un pago a un tercero por licencia o iPad no lleva IEDU y no es deducible; si la tecnología va en la colegiatura, puede serlo dentro del tope <span class="tag i">I</span>.</p>
+        <ul class="lista"><li>Deducibles con tope anual: preescolar $14,200; primaria $12,900; secundaria $19,900; bachillerato $24,500 <span class="tag h">H</span>.</li><li>Requieren CFDI con complemento IEDU: nombre del alumno, CURP, nivel, RVOE y RFC de quien paga.</li><li>Un pago a un tercero por licencia o iPad no lleva IEDU y no es deducible <span class="tag i">I</span>.</li><li>Si la tecnología va en la colegiatura, puede serlo dentro del tope <span class="tag i">I</span>.</li></ul>
         <p class="ojo"><b>Validar con un contador</b> antes de decirlo frente a un director.</p>
         <p class="fte"><a href="https://www.sat.gob.mx/sitio_internet/cfd/iedu/iedu.pdf">SAT · IEDU</a> · <a href="https://facturama.mx/blog/que-significa/complemento-educativo/">Facturama</a></p>
       </div>
@@ -1290,7 +1323,7 @@ footer p{font-size:13.5px}
     <div class="sec-head">
       <span class="num">09</span>
       <h2>Por producto: dónde gana y dónde pierde activa</h2>
-      <p class="lead">La misma investigación leída desde nuestro lado: qué argumento sostiene cada producto y cuál todavía no.</p>
+      <div class="intro"><ul><li>La misma investigación, leída desde nuestro lado.</li><li>Qué argumento sostiene cada producto y cuál todavía no.</li></ul></div>
     </div>
     <div class="grid g3 prod">
       <div class="card" style="--k:#1a73e8">
@@ -1346,7 +1379,7 @@ footer p{font-size:13.5px}
     <div class="sec-head">
       <span class="num">10</span>
       <h2>integra frente a los sistemas de gestión escolar</h2>
-      <p class="lead">Contra Knotion, UNO y AMCO, integra gana sola. Contra los especialistas hoy pierde en facturación y WhatsApp, y Saeko ya hace casi todo lo que integra promete.</p>
+      <div class="intro"><ul><li>Contra Knotion, Santillana y AMCO, integra gana sola: ninguno tiene gestión escolar.</li><li>Contra los especialistas hoy pierde en facturación y WhatsApp.</li><li>Saeko ya hace casi todo lo que integra promete.</li></ul></div>
     </div>
     <div class="tw sub" tabindex="0" role="region" aria-label="Tabla: integra frente a sistemas de gestión escolar, desplazable">
       <table>
@@ -1406,14 +1439,14 @@ footer p{font-size:13.5px}
       </table>
     </div>
     <div class="grid g3" style="margin-top:16px">
-      <div class="card soft"><h3>Cómo venderla hoy</h3><ul>
+      <div class="card soft"><h3>Cómo venderla hoy</h3><ul class="lista">
         <li><b>Con un colegio Knotion, UNO o AMCO:</b> la gestión que su sistema no tiene, sin migrar nada.</li>
         <li><b>Con un colegio con Phidias, Saeko o Educamos:</b> no reemplazar; convivir y sumar el resto de upgrade edu.</li>
         <li><b>Nunca como «la única que sincroniza con Google»:</b> Saeko ya lo hace.</li>
         <li><b>Nadie publica precio:</b> si integra lo publica, se diferencia de toda la categoría.</li>
       </ul></div>
-      <div class="card soft"><h3>El dato técnico a favor</h3><p>La exportación oficial de calificaciones de Classroom solo funciona con PowerSchool, Infinite Campus, Skyward, Aspen y STLink (OneRoster), y exige Education Plus o Teaching &amp; Learning para todos los docentes <span class="tag h">H</span>. Ningún sistema mexicano está en esa lista.</p><p class="fte"><a href="https://support.google.com/edu/classroom/answer/9356588">Google Classroom Help</a></p></div>
-      <div class="card soft"><h3>Dato fiscal que va a salir</h3><p>Con RVOE, el CFDI de colegiaturas lleva <b>complemento IEDU</b>: nombre del alumno, CURP, nivel, RVOE y RFC de quien paga. Es la primera pregunta de una administradora.</p></div>
+      <div class="card soft"><h3>El dato técnico a favor</h3><ul class="lista"><li>La exportación oficial de calificaciones de Classroom solo funciona con PowerSchool, Infinite Campus, Skyward, Aspen y STLink (OneRoster) <span class="tag h">H</span>.</li><li>Exige Education Plus o Teaching &amp; Learning para todos los docentes.</li><li>Ningún sistema mexicano está en esa lista.</li></ul><p class="fte"><a href="https://support.google.com/edu/classroom/answer/9356588">Google Classroom Help</a></p></div>
+      <div class="card soft"><h3>Dato fiscal que va a salir</h3><ul class="lista"><li>Con RVOE, el CFDI de colegiaturas lleva <b>complemento IEDU</b>.</li><li>Pide nombre del alumno, CURP, nivel, RVOE y RFC de quien paga.</li><li>Es la primera pregunta de una administradora.</li></ul></div>
     </div>
     <p class="ficha-pie" style="padding-left:0">Fuentes: <a href="https://saeko.io/blog/facturacion-2022">Saeko · CFDI 4.0</a> · <a href="https://saeko.io/blog/la-comunicacion-docentes-padres-es-mas-eficiente-con-saeko">Saeko · WhatsApp</a> · <a href="https://workspace.google.com/marketplace/app/saeko/647383010347?hl=es">Saeko en Marketplace</a> · <a href="https://phidias.com/">phidias.com</a> · <a href="https://apps.apple.com/mx/app/phidias/id1103000342">Phidias App Store</a> · <a href="https://educamos.com/es-mx">educamos.com</a> · <a href="https://merchants.fiserv.com/content/dam/firstdata/mx/es/isv/descargables/fichas/Colegium%20-%20Educación.pdf">Fiserv · Colegium</a> · <a href="https://www.milenio.com/content/academic-toku-transformando-educacion-mexico-tecnologia">Milenio · Academic</a> · <a href="https://idukay.com">idukay.com</a></p>
   </div>
@@ -1425,7 +1458,7 @@ footer p{font-size:13.5px}
     <div class="sec-head">
       <span class="num">11</span>
       <h2>motiva frente a los programas socioemocionales</h2>
-      <p class="lead">Nadie más junta psicólogos, diagnóstico por alumno, intervención y resultados medibles como servicio para colegio privado. Donde motiva pierde es en evidencia publicada.</p>
+      <div class="intro"><ul><li>Nadie más junta psicólogos, diagnóstico por alumno, intervención y resultados medibles como servicio para colegio privado.</li><li>Donde motiva pierde es en evidencia publicada.</li></ul></div>
     </div>
     <div class="tw sub" tabindex="0" role="region" aria-label="Tabla: motiva frente a programas socioemocionales, desplazable">
       <table>
@@ -1477,12 +1510,12 @@ footer p{font-size:13.5px}
       </table>
     </div>
     <div class="grid g2" style="margin-top:16px">
-      <div class="card soft"><h3>Cómo venderlo</h3><ul>
+      <div class="card soft"><h3>Cómo venderlo</h3><ul class="lista">
         <li><b>Un servicio, no un libro ni una alerta:</b> diagnóstico, intervención y seguimiento con psicólogos.</li>
         <li><b>La pregunta clave en cualquier colegio:</b> «Cuando su plataforma detecta a un alumno en riesgo, ¿quién lo atiende?».</li>
         <li><b>Nunca como terapia:</b> acompaña, desarrolla y da seguimiento; no trata ni diagnostica clínicamente.</li>
       </ul></div>
-      <div class="card soft"><h3>Por documentar para ganar en evidencia</h3><p>Instrumentos de diagnóstico validados en población mexicana, indicadores de resultado y un piloto con línea base. Es lo que AtentaMente y RULER sí tienen.</p></div>
+      <div class="card soft"><h3>Por documentar para ganar en evidencia</h3><ul class="lista"><li>Instrumentos de diagnóstico validados en población mexicana.</li><li>Indicadores de resultado.</li><li>Un piloto con línea base.</li><li>Es lo que AtentaMente y RULER sí tienen.</li></ul></div>
     </div>
     <p class="ficha-pie" style="padding-left:0">Fuentes: <a href="https://atentamente.mx">atentamente.mx</a> · <a href="https://rulerapproach.org/training/ruler-institute-creating-emotionally-intelligent-schools">rulerapproach.org</a> · <a href="https://news.yale.edu/2019/01/14/yales-ruler-program-eq-implemented-37-prepatec-schools-mexico">Yale News (2019)</a> · <a href="https://fundacionbotin.org/wp-content/uploads/2026/05/Dossier-de-Prensa-Educacion-Responsable-2026.pdf">Fundación Botín</a> · <a href="https://myhappyprogram.com/">Happy</a> · <a href="https://www.knotion.com/for-schools">Knotion</a> · <a href="https://intelligence.unoi.com/">UNOi</a></p>
   </div>
@@ -1494,7 +1527,7 @@ footer p{font-size:13.5px}
     <div class="sec-head">
       <span class="num">12</span>
       <h2>Riesgos para activa y lo que hay que confirmar</h2>
-      <p class="lead">Sin esto, varias ventajas se caen en la primera pregunta del prospecto. Los tres primeros son urgentes.</p>
+      <div class="intro"><ul><li>Sin esto, varias ventajas se caen en la primera pregunta del prospecto.</li><li>Los tres primeros son urgentes.</li></ul></div>
     </div>
     <div class="tw sub" tabindex="0" role="region" aria-label="Tabla: riesgos y pendientes de confirmar">
       <table>
@@ -1515,39 +1548,11 @@ footer p{font-size:13.5px}
   </div>
 </section>
 
-<!-- ═══════════ 11 · MÉTODO ═══════════ -->
-<section class="sec" id="metodo">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="num">13</span>
-      <h2>Método y huecos</h2>
-    </div>
-    <div class="grid g3">
-      <div class="card soft"><h3>Cómo se hizo</h3><ul>
-        <li>Dos pasadas el 8-oct-2026: cinco líneas de investigación y luego ocho más, una de ellas verificando dato por dato contra su fuente.</li>
-        <li>Se corrigieron en la segunda pasada: tamaño de Knotion, calificación de Evo Reading, precio de RULER, alcance del argumento Profeco y la muestra de UNOi planner.</li>
-        <li>Los colegios se cruzaron contra la Base Maestra por nombre y estado: los que dicen «verificar» tienen coincidencia dudosa.</li>
-      </ul></div>
-      <div class="card soft"><h3>Lo que no se pudo verificar</h3><ul>
-        <li>Ningún competidor publica precio de lista.</li>
-        <li>Faltan colegios que hayan dejado a cada competidor y por qué: no está en fuentes públicas.</li>
-        <li>La columna de Dinero en Imagen sobre Knotion (~2020) sigue bloqueada.</li>
-        <li>Indeed bloqueó las reseñas de empleados.</li>
-      </ul></div>
-      <div class="card soft"><h3>Cómo conseguir lo que falta</h3><ul>
-        <li>Pedir al prospecto su circular de cuotas: es la fuente de precio más confiable.</li>
-        <li>Preguntar a colegios que ya usan cada sistema.</li>
-        <li>El detalle completo vive en <code>docs/competencia/comparativa-competidores.md</code>.</li>
-      </ul></div>
-    </div>
-  </div>
-</section>
-
 </main>
 
 <footer>
   <div class="wrap">
-    <p><b>activa</b> · Google for Education Partner · Comparativa de competidores, uso interno del equipo comercial · investigación del 8 de octubre de 2026. Revisar cada ciclo: precios, dueños y ofertas cambian.</p>
+    <p><b>activa</b> · Google for Education Partner · Comparativa de competidores · uso interno del equipo comercial · actualizada al 8 de octubre de 2026.</p>
   </div>
 </footer>
 

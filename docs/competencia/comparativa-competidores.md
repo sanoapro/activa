@@ -1,6 +1,6 @@
 # Comparativa de competidores · upgrade edu
 
-## Ciclo 2026–2027 · investigación del 8-oct-2026 (dos pasadas, la segunda verificada)
+## Ciclo 2026–2027 · actualizada al 8-oct-2026
 
 **Uso:** interno, solo vendedores de activa. No se entrega ni se reenvía a colegios. Las quejas,
 precios, calificaciones y listas de colegios de terceros sirven para preparar la reunión.
@@ -316,9 +316,3 @@ dato de 2019), Educación Responsable (Universidad de Málaga).
 7. Validación legal (Profeco) y contable (deducibilidad).
 8. Pasarela de cobro de integra.
 9. Contenido de eleva.
-
-## 8 · Huecos
-
-Sin precios de lista; sin colegios que hayan dejado a cada competidor; la columna de Dinero en
-Imagen sobre Knotion (~2020) y las reseñas de Indeed siguen bloqueadas. La forma más confiable de
-conseguir precios es pedir al prospecto su circular de cuotas.

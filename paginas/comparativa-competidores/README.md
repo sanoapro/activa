@@ -39,7 +39,7 @@ El texto largo, con más contexto por competidor, vive en
   juntas: el estado no depende solo del color.
 - **Orden de lectura:** cómo usar la página (tres pasos) → resumen de un minuto (semáforo de
   ocho frentes + una tarjeta por competidor) → patrón → novedades → tabla completa → fichas →
-  prospectos → objeción y costo → marco legal → por producto → integra → motiva → riesgos → método.
+  prospectos → objeción y costo → marco legal → por producto → integra → motiva → riesgos.
 - **Semáforo del resumen:** se edita a mano en el HTML, con las mismas clases `si`, `par`, `no`
   que la tabla completa. Debe coincidir con ella: si cambias una, cambia la otra.
 - **Fichas:** frase clave («Tu frase», `.clave`), tres columnas —dónde es fuerte, dónde falla,
