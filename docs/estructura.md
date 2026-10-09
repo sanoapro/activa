@@ -66,12 +66,17 @@ Presentacion-activa/
 │   │   ├── og.png                Su vista previa de WhatsApp (generada)
 │   │   ├── og-source.html        El molde de esa vista previa
 │   │   └── README.md
-│   └── comparativa-seguridad/    Estudio: Windows, iPad, Chromebook + Securly, iPad + Securly
-│       ├── index.html            GENERADO desde fuente/ (no editar a mano)
-│       ├── fuente/               plantilla.html + datos.py + generar.py
+│   ├── comparativa-seguridad/    Estudio: Windows, iPad, Chromebook + Securly, iPad + Securly
+│   │   ├── index.html            GENERADO desde fuente/ (no editar a mano)
+│   │   ├── fuente/               plantilla.html + datos.py + generar.py
+│   │   ├── og.png                Su vista previa de WhatsApp (generada)
+│   │   ├── og-source.html        El molde de esa vista previa
+│   │   └── README.md
+│   └── comparativa-competidores/ INTERNA: upgrade edu frente a Knotion, UNO, AMCO y cinco más
+│       ├── index.html            Tabla, fichas por competidor y cómo ganarle. Sin JS
 │       ├── og.png                Su vista previa de WhatsApp (generada)
 │       ├── og-source.html        El molde de esa vista previa
-│       └── README.md
+│       └── README.md             Por qué no va en el portal
 │
 ├── compartidos/                  ← LO QUE USA MÁS DE UNA PÁGINA
 │   ├── css/motion.css            Clases mo-* de movimiento. Sin colores.
@@ -91,6 +96,7 @@ Presentacion-activa/
 ├── docs/                         ← TEXTO, NO CÓDIGO (una excepción; ver abajo)
 │   ├── portafolio-activa.md      Documento maestro de producto (fuente de verdad)
 │   ├── descripcion-de-productos/ Catálogo y guiones de video
+│   ├── competencia/              Comparativa de competidores (texto largo con fuentes)
 │   ├── drive-PDF/                El archivo de cotizaciones en Drive: plan,
 │   │                             encargo y la copia del puente (.gs)
 │   ├── actualizacion-cotizador/  La cotización a la medida del cotizador

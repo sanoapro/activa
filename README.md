@@ -20,6 +20,7 @@ paso de compilación.
 | **Proyecto Piloto** | [/paginas/piloto/](https://sanoapro.github.io/activa/paginas/piloto/) | Deck de 12 diapositivas: los seis pasos del piloto de cuatro semanas, qué pone cada quién y las condiciones. |
 | **Uso responsable de la tecnología** | [/paginas/uso-responsable/](https://sanoapro.github.io/activa/paginas/uso-responsable/) | Página de lectura sobre el acuerdo de la SEP que restringe los celulares desde el 3 de noviembre de 2026, para familias y directivos. |
 | **Comparativa de seguridad** | [/paginas/comparativa-seguridad/](https://sanoapro.github.io/activa/paginas/comparativa-seguridad/) | Estudio para directivos: Windows, iPad, Chromebook + Securly e iPad + Securly, con seis tablas y fuentes. Generada desde `fuente/`. |
+| **Comparativa de competidores** *(interna)* | [/paginas/comparativa-competidores/](https://sanoapro.github.io/activa/paginas/comparativa-competidores/) | Para el equipo comercial: upgrade edu frente a Knotion, Santillana, AMCO, Luca y los demás, y cómo ganarle a cada uno. No va en el portal ni se manda a colegios. |
 
 Documento maestro de producto —fuente única y vigente— en
 [`docs/portafolio-activa.md`](docs/portafolio-activa.md).
