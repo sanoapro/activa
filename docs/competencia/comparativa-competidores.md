@@ -149,7 +149,13 @@ Gardner Tijuana (COL-0191), Camelot (COL-4155, ya usa Classroom), Independencia 
 UNIMEC (COL-3009). Fuera de la base: Colegio Escocés (Lerdo), Gutemberg (Nuevo Laredo), Colegihum,
 Instituto México de Huatulco.
 
-### 3.4 Luca (edtech mexicana) — agregado el 8-oct-2026
+### 3.4 Luca — agregado el 8-oct-2026
+
+- **Origen (H):** fundada en 2020 por el portugués Frederico Bello (ex Uber); sede en Lisboa y Ciudad
+  de México; equipo fundador con gente de Santillana y Pearson; capital europeo (Heartcore,
+  Shilling) y Serie A liderada por 6 Degrees. **No es mexicana**: opera en México como mercado
+  principal. [ECO News, 2022](https://econews.pt/2022/02/09/ed-tech-luca-raises-e2-7-million-in-pre-seed-funding-led-by-shilling-founders-fund-and-heartcore-capital/) ·
+  [Contxto](https://www.contxto.com/en/news/edtech-luca-raises-a-us3-million-pre-seed-round-and-starts-operations-in-mexico/)
 
 - **Qué es (H):** sistema híbrido: plataforma con IA + libros impresos + material manipulable de
   matemáticas; preescolar a secundaria; «cobertura total de asignaturas» alineada a la NEM y a
