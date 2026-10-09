@@ -77,6 +77,10 @@ Presentacion-activa/
 │   │   ├── img/                  Fotos del equipo, 240 px (generadas)
 │   │   ├── og.png · og-source.html
 │   │   └── README.md
+│   ├── capacitacion-ia/          TEMPORAL: liga corta de la Capacitación IA → one-pager
+│   │   ├── index.html            Solo redirige; existe por su vista previa de WhatsApp
+│   │   ├── og.png · og-source.html
+│   │   └── README.md
 │   ├── programas-activa/         INTERNA: los cinco programas explicados, en hojas + PDF
 │   │   ├── index.html            Se imprime tal cual: 14 hojas Carta
 │   │   ├── programas-activa-2026-2027.pdf   El PDF (generado)
