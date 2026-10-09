@@ -40,8 +40,8 @@ El texto largo, con más contexto por competidor, vive en
 - **Orden de lectura:** cómo usar la página (tres pasos) → resumen de un minuto (semáforo de
   ocho frentes + una tarjeta por competidor) → patrón → novedades → tabla completa → fichas →
   prospectos → objeción y costo → marco legal → por producto → integra → motiva → riesgos → método.
-- **Semáforo del resumen:** cada celda es una letra en `filas_sem` del script que lo generó; se
-  edita a mano en el HTML. Debe coincidir con la tabla completa: si cambias una, cambia la otra.
+- **Semáforo del resumen:** se edita a mano en el HTML, con las mismas clases `si`, `par`, `no`
+  que la tabla completa. Debe coincidir con ella: si cambias una, cambia la otra.
 - **Fichas:** frase clave («Tu frase», `.clave`), tres columnas —dónde es fuerte, dónde falla,
   cómo ganarle— y las preguntas para el director, con sus fuentes al pie. `--k` en el `style` de
   la ficha es su color de acento.
