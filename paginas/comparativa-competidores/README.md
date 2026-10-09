@@ -37,8 +37,16 @@ El texto largo, con más contexto por competidor, vive en
 - **Tabla maestra:** cada celda con estado lleva clase `si`, `par` o `no`, una marca visual
   (`✓ ◐ ✕`, con `aria-hidden`) y su equivalente en texto oculto (`.sr`). Las tres cosas van
   juntas: el estado no depende solo del color.
-- **Fichas:** tres columnas por competidor —dónde es fuerte, dónde falla, cómo ganarle— con sus
-  fuentes al pie. `--k` en el `style` de la ficha es su color de acento.
+- **Orden de lectura:** cómo usar la página (tres pasos) → resumen de un minuto (semáforo de
+  ocho frentes + una tarjeta por competidor) → patrón → novedades → tabla completa → fichas →
+  prospectos → objeción y costo → marco legal → por producto → integra → motiva → riesgos → método.
+- **Semáforo del resumen:** cada celda es una letra en `filas_sem` del script que lo generó; se
+  edita a mano en el HTML. Debe coincidir con la tabla completa: si cambias una, cambia la otra.
+- **Fichas:** frase clave («Tu frase», `.clave`), tres columnas —dónde es fuerte, dónde falla,
+  cómo ganarle— y las preguntas para el director, con sus fuentes al pie. `--k` en el `style` de
+  la ficha es su color de acento.
+- **Prospectos:** una sola tabla de colegios, agrupada por estado, con el sistema que usan y su ID
+  en la Base Maestra. Cada ficha enlaza a ella; las listas ya no viven dentro de las fichas.
 - **Hecho e inferencia:** `<span class="tag h">H</span>` y `<span class="tag i">I</span>`. No se
   agrega un dato de competidor sin fuente; si es inferencia nuestra, se marca.
 

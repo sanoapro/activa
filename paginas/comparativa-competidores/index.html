@@ -168,6 +168,37 @@ td.no{color:var(--ink3)}
 .sub table{min-width:900px}
 .sub.angosta table{min-width:640px}
 
+/* ═══════════ CÓMO USAR ═══════════ */
+.pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:980px;counter-reset:paso}
+.paso{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:var(--surf)}
+.paso::before{counter-increment:paso;content:counter(paso);flex-shrink:0;width:26px;height:26px;border-radius:50%;
+  display:grid;place-items:center;background:var(--ink);color:var(--white);font-size:13px;font-weight:800}
+.paso p{font-size:14.3px;line-height:1.45;color:var(--ink)}
+
+/* ═══════════ RESUMEN ═══════════ */
+.semaforo table{min-width:900px}
+.semaforo th,.semaforo td{text-align:center;vertical-align:middle;padding:9px 8px}
+.semaforo th:first-child,.semaforo td:first-child{text-align:left;position:sticky;left:0;z-index:1;background:var(--white);
+  box-shadow:1px 0 0 var(--line);white-space:nowrap}
+.semaforo thead th:first-child{z-index:3;background:var(--surf)}
+.semaforo thead th a{color:inherit;text-decoration:none;border-bottom:1px dotted var(--ink4)}
+.semaforo thead th a:hover{color:var(--blue-d)}
+.semaforo .act{background:#f3f7fe}
+.semaforo thead .act{background:var(--blue-t);color:var(--blue-d)}
+.semaforo td .m{margin:0}
+.semaforo td.txt{font-size:12px;color:var(--ink2)}
+.rivales{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.rival{display:flex;flex-direction:column;gap:8px;padding:18px 18px 16px;border-radius:18px;background:var(--white);
+  border:1px solid var(--line);border-top:5px solid var(--k);text-decoration:none;color:inherit;
+  transition:box-shadow .18s ease,transform .18s ease}
+.rival:hover{box-shadow:var(--sh);transform:translateY(-2px)}
+.rival h3{font-size:17px}
+.rival dl{display:grid;grid-template-columns:auto 1fr;gap:4px 8px;font-size:13.4px;line-height:1.45}
+.rival dt{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding-top:2px}
+.rival dt.f{color:var(--yel-d)} .rival dt.h{color:var(--red-d)}
+.rival dd{color:var(--ink2)}
+.rival .ir{margin-top:auto;font-size:13px;font-weight:700;color:var(--blue-d)}
+
 /* ═══════════ FICHAS POR COMPETIDOR ═══════════ */
 .fichas{display:flex;flex-direction:column;gap:24px}
 .ficha{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--white);box-shadow:var(--sh)}
@@ -175,6 +206,13 @@ td.no{color:var(--ink3)}
   background:var(--surf);border-top:5px solid var(--k,var(--blue))}
 .ficha-cab h3{font-size:23px}
 .ficha-cab p{font-size:14.5px}
+.clave{display:flex;gap:12px;align-items:flex-start;padding:14px 26px;background:var(--grn-t);border-bottom:1px solid var(--line)}
+.clave::before{content:"Tu frase";flex-shrink:0;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  color:var(--white);background:var(--grn-d);padding:3px 9px;border-radius:99px;margin-top:2px}
+.clave p{font-size:16px;line-height:1.45;color:var(--ink);font-weight:500}
+.saltos{display:flex;flex-wrap:wrap;gap:8px;margin:-6px 0 22px}
+.saltos a{font-size:13px;font-weight:700;text-decoration:none;color:var(--ink2);background:var(--surf2);padding:6px 13px;border-radius:99px}
+.saltos a:hover{background:var(--blue-t);color:var(--blue-d)}
 .ficha-cuerpo{display:grid;grid-template-columns:1fr 1fr 1.25fr}
 .col{padding:20px 24px;display:flex;flex-direction:column;gap:10px;border-right:1px solid var(--line)}
 .col:last-child{border-right:0}
@@ -183,10 +221,14 @@ td.no{color:var(--ink3)}
 .col li{font-size:14.3px;line-height:1.5;color:var(--ink2)}
 .col.gana h4{color:var(--grn-d)} .col.fuerte h4{color:var(--yel-d)} .col.debil h4{color:var(--red-d)}
 .col.preg h4{color:var(--blue-d)} .col.preg{background:#f7f9fe}
-.ficha-extra{display:grid;grid-template-columns:1.25fr 1fr;border-top:1px solid var(--line)}
-.coles ul{list-style:none;padding-left:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
-.coles li{font-size:13.6px;line-height:1.4}
-.coles li small{display:block}
+.ficha-extra{display:grid;grid-template-columns:1fr;border-top:1px solid var(--line)}
+.ficha-extra .preg ol{columns:2;column-gap:28px;display:block}
+.ficha-extra .preg li{break-inside:avoid;margin-bottom:7px}
+.ficha-extra .ir{font-size:13.5px;font-weight:700}
+.prospectos table{min-width:880px}
+.prospectos tbody th{white-space:normal}
+.prospectos td.edo{font-weight:700;color:var(--ink);white-space:nowrap}
+.prospectos tr.grupo td{background:var(--surf2);font-size:11.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3);padding:7px 13px}
 .nopelear{margin-top:6px;padding:10px 13px;border-radius:12px;background:var(--yel-t);font-size:13.8px;color:var(--ink)}
 .ojo{margin-top:6px;padding:10px 13px;border-radius:12px;background:var(--red-t);font-size:13.8px;color:var(--ink)}
 .ficha-pie{padding:12px 26px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink3);word-break:break-word}
@@ -196,8 +238,8 @@ td.no{color:var(--ink3)}
 .prod .card{border-top:5px solid var(--k,var(--blue))}
 .prod .card img{height:26px;width:auto;object-fit:contain;object-position:left}
 .gp{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;font-size:14.3px;line-height:1.5;color:var(--ink2)}
-.gp b{font-size:12px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding-top:2px}
-.gp .g{color:var(--grn-d)} .gp .p{color:var(--red-d)} .gp .f{color:var(--yel-d)}
+.gp>b{font-size:12px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding-top:2px}
+.gp>.g{color:var(--grn-d)} .gp>.p{color:var(--red-d)} .gp>.f{color:var(--yel-d)}
 
 /* ═══════════ OBJECIÓN ═══════════ */
 .objecion{padding:26px 30px;border-radius:22px;background:var(--surf);display:flex;flex-direction:column;gap:18px}
@@ -220,13 +262,16 @@ footer p{font-size:13.5px}
   .ficha-cuerpo .col:last-child,.ficha-extra .col:last-child{border-bottom:0}
   .g3{grid-template-columns:1fr 1fr}
   .cifras{grid-template-columns:1fr 1fr}
+  .rivales{grid-template-columns:1fr 1fr}
 }
 @media (max-width:720px){
   .wrap{padding:0 16px}
   .g2,.g3{grid-template-columns:1fr}
   .cab .interna{display:none}
   .indice{margin-left:0}
-  .coles ul{grid-template-columns:1fr}
+  .ficha-extra .preg ol{columns:1}
+  .pasos{grid-template-columns:1fr}
+  .rivales{grid-template-columns:1fr}
   .ficha-cab,.col,.ficha-pie{padding-left:18px;padding-right:18px}
   .objecion{padding:20px}
 }
@@ -250,7 +295,10 @@ footer p{font-size:13.5px}
   .ficha-cuerpo,.ficha-extra{break-inside:avoid}
   .objecion{box-shadow:none}
   .ficha-cuerpo{grid-template-columns:1fr 1fr 1.25fr}
-  .ficha-extra{grid-template-columns:1.25fr 1fr}
+  .rivales{grid-template-columns:repeat(4,1fr)}
+  .rival{break-inside:avoid}
+  .semaforo table{min-width:0;font-size:9px}
+  .saltos{display:none}
   .col{border-right:1px solid var(--line);border-bottom:0}
   .cifras{grid-template-columns:repeat(4,1fr)}
   a{text-decoration:none;color:inherit}
@@ -265,17 +313,17 @@ footer p{font-size:13.5px}
     <img class="logo" src="../../compartidos/img/marcas/activa.webp" alt="activa">
     <span class="pill r interna">Uso interno</span>
     <nav class="indice" aria-label="Secciones">
+      <a href="#resumen">Resumen</a>
       <a href="#novedades">Novedades</a>
-      <a href="#patron">Patrón</a>
       <a href="#tabla">Tabla</a>
-      <a href="#ganarle">Cómo ganarle</a>
+      <a href="#ganarle">Competidores</a>
+      <a href="#prospectos">Prospectos</a>
       <a href="#objecion">«Lo paga el padre»</a>
       <a href="#legal">Marco legal</a>
       <a href="#producto">Por producto</a>
       <a href="#integra">integra</a>
       <a href="#motiva">motiva</a>
       <a href="#riesgos">Riesgos</a>
-      <a href="#metodo">Método</a>
     </nav>
   </div>
 </header>
@@ -290,9 +338,14 @@ footer p{font-size:13.5px}
       <span class="pill">Investigación del 8-oct-2026 · segunda pasada verificada</span>
     </div>
     <h1>upgrade edu frente a la competencia, y <span class="azul">cómo ganarle a cada uno</span></h1>
-    <p class="lead">Knotion, Sistema UNO y AMCO; Luca, el retador con IA; y los que aparecen en la misma conversación: Grupo SM, Santillana Compartir con Richmond, Pearson, EXA (Apple) y los otros partners de Google. La tabla completa, por competidor qué tiene, dónde falla, qué preguntarle al director y qué colegios lo usan, y el costo y la ley que sostienen la objeción de fondo.</p>
+    <p class="lead">Knotion, Santillana (UNOi y Compartir) y AMCO; Luca, el retador con IA; y los que aparecen en la misma conversación: Grupo SM, Richmond, Pearson, Cambridge, EXA (Apple) y los otros partners de Google. Primero el resumen de un minuto; después la tabla completa, una ficha por competidor con su frase y sus preguntas, los colegios que ya los usan, y el costo y la ley que sostienen la objeción de fondo.</p>
     <div class="aviso" role="note">
       <p><b>Solo para vendedores de activa. No se entrega ni se reenvía a colegios.</b> Las quejas, calificaciones, precios y listas de colegios de terceros sirven para preparar la reunión. Frente al director se habla de lo que tiene activa y de las preguntas que él debería hacerle a su proveedor actual; no se ataca a nadie por nombre.</p>
+    </div>
+    <div class="pasos" aria-label="Cómo usar esta página antes de una cita">
+      <div class="paso"><p><b>Busca el colegio</b> en <a href="#prospectos">Prospectos</a> para saber qué sistema usa, o pregúntalo en la primera llamada.</p></div>
+      <div class="paso"><p><b>Lee la ficha</b> de ese sistema: su frase, dónde es fuerte y dónde falla.</p></div>
+      <div class="paso"><p><b>Lleva las preguntas</b> para el director y el <a href="#objecion">costo total</a> si sale «lo paga el padre».</p></div>
     </div>
     <div class="leyenda" aria-label="Cómo leer esta página">
       <span class="si-l"><span class="m" aria-hidden="true">✓</span> Lo cubre</span>
@@ -305,30 +358,41 @@ footer p{font-size:13.5px}
   </div>
 </section>
 
-<!-- ═══════════ 01 · NOVEDADES ═══════════ -->
-<section class="sec" id="novedades">
+<!-- ═══════════ 01 · RESUMEN ═══════════ -->
+<section class="sec" id="resumen">
   <div class="wrap">
     <div class="sec-head">
       <span class="num">01</span>
-      <h2>Lo que cambió en 2026</h2>
-      <p class="lead">Seis movimientos del mercado que el vendedor tiene que conocer antes de sentarse con un director este ciclo.</p>
+      <h2>El resumen en un minuto</h2>
+      <p class="lead">Ocho frentes, nueve ofertas, de un vistazo. Haz clic en un competidor para ir a su ficha. El detalle de cada celda está en la <a href="#tabla">tabla completa</a>.</p>
     </div>
-    <div class="grid g3 nov">
-      <div class="card" style="--k:#f9ab00"><h3>AMCO cambió de dueño</h3><p>El fondo mexicano <b>MxO Capital</b> compró la mayoría de AMCO Educación; cerró el <b>30-jun-2026</b>. Dice tener ~500,000 alumnos en 12 países <span class="tag h">H</span>. Con un dueño de capital privado, lo esperable son ajustes de precio y venta cruzada <span class="tag i">I</span>.</p><p class="fte"><a href="https://lexlatin.com/noticias/mxo-capital-adquiere-amco-educacion-mercado-edtech">LexLatin, 15-jul-2026</a> · <a href="https://ppulegal.com/en/?p=32278">PPU</a></p></div>
-      <div class="card" style="--k:#8430ce"><h3>SM vendió Educamos</h3><p>Grupo SM vendió su plataforma de gestión <b>Educamos</b> a la alemana <b>Sdui Group</b> el <b>23-sep-2025</b> y se concentra en lo editorial <span class="tag h">H</span>. Un colegio con Educamos hoy depende de un proveedor que ya no es SM.</p><p class="fte"><a href="https://www.magisnet.com/2025/09/grupo-sm-vende-su-negocio-digital-educamos-a-sdui-group/">Magisterio, sep-2025</a></p></div>
-      <div class="card" style="--k:#1a73e8"><h3>UNO lanzó un tutor de IA</h3><p><b>UNOibuddy</b>, tutor «socrático» con contenido Santillana, en 400+ colegios de México desde agosto de 2026. Ante preguntas personales o emocionales <b>corta la conversación y manda una alerta al colegio</b> <span class="tag h">H</span>. Quién atiende esa alerta es la pregunta para el director.</p><p class="fte"><a href="https://es-us.noticias.yahoo.com/santillana-lanza-m%C3%A9xico-unoibuddy-ia-030350094.html">EFE vía Yahoo, 19-mar-2026</a></p></div>
-      <div class="card" style="--k:#ea4335"><h3>Knotion cumplió 10 años y creció</h3><p>Dice tener <b>cerca de 300 escuelas</b> en 4 países y 6,000 docentes (eran 70 en 2019) <span class="tag h">H</span>. Sigue siendo solo iPad y solo hasta 9.º grado.</p><p class="fte"><a href="https://blog.knotion.com/knotion-10-anos-redefiniendo-el-aprendizaje/">Blog Knotion, 29-jun-2026</a></p></div>
-      <div class="card" style="--k:#34a853"><h3>Restricción de celulares desde el 3 de noviembre</h3><p>El <b>Acuerdo SEP 09/09/26</b> (DOF 22-sep-2026) restringe en educación básica, pública y particular, los dispositivos <b>personales</b> salvo uso «previamente programado, con intención pedagógica» <span class="tag h">H</span>. Un equipo institucional administrado encaja mejor que un iPad personal <span class="tag i">I</span>. Ver <a href="#legal">marco legal</a>.</p><p class="fte"><a href="https://dof.gob.mx/nota_detalle.php?codigo=5799247&amp;fecha=22/09/2026">DOF, 22-sep-2026</a></p></div>
-      <div class="card" style="--k:#5f6368"><h3>Los precios suben cada año</h3><p>El kit UNOi de primaria en un colegio de Tepic subió <b>+40 % de 2018 a 2026-27</b> (5–6 % por ciclo). AMCO subió <b>~7 %</b> en un ciclo en Puerto Vallarta <span class="tag h">H</span>. La familia lo paga aparte de la colegiatura.</p><p class="fte"><a href="https://primaria.cclt.edu.mx/pg/archivos/COSTOS%20UNOi%20CE%202026-2027.pdf">CCLT 2026-27</a> · <a href="https://colegiomexicoamericano.mx/inscripciones-2022-2023/">Colegio México Americano</a></p></div>
+    <div class="tw sub semaforo" tabindex="0" role="region" aria-label="Semáforo: activa y ocho competidores por frente">
+      <table>
+        <thead><tr><th scope="col">Frente</th><th scope="col" class="act">activa</th><th scope="col"><a href="#knotion">Knotion</a></th><th scope="col"><a href="#uno">Santillana</a></th><th scope="col"><a href="#amco">AMCO</a></th><th scope="col"><a href="#luca">Luca</a></th><th scope="col"><a href="#sm">Grupo SM</a></th><th scope="col"><a href="#ingles">Inglés*</a></th><th scope="col"><a href="#exa">EXA</a></th><th scope="col"><a href="#partners">Partners Google</a></th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Dispositivo del colegio</th><td class="si act"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td></tr>
+          <tr><th scope="row">Google administrado</th><td class="si act"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td></tr>
+          <tr><th scope="row">Contenido NEM</th><td class="si act"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td></tr>
+          <tr><th scope="row">Inglés con certificación</th><td class="si act"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td></tr>
+          <tr><th scope="row">Socioemocional</th><td class="si act"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td></tr>
+          <tr><th scope="row">Gestión escolar</th><td class="par act"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td></tr>
+          <tr><th scope="row">Docente con credencial externa</th><td class="si act"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="par"><span class="m" aria-hidden="true">◐</span><span class="sr">Parcial</span></td><td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td></tr>
+          <tr><th scope="row">Soporte TI</th><td class="si act"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="no"><span class="m" aria-hidden="true">✕</span><span class="sr">No</span></td><td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td><td class="si"><span class="m" aria-hidden="true">✓</span><span class="sr">Sí</span></td></tr>
+          <tr><th scope="row">Quién paga</th><td class="txt act">Colegio</td><td class="txt">Padre</td><td class="txt">Padre</td><td class="txt">Padre</td><td class="txt">—</td><td class="txt">Padre</td><td class="txt">Aparte</td><td class="txt">Colegio</td><td class="txt">Colegio</td></tr>
+        </tbody>
+      </table>
     </div>
-
-    <div class="cifras" aria-label="El mercado">
-      <div class="cifra"><span class="n">2.68 M</span><p>Alumnos en educación básica privada (11.5 % del total) <span class="tag h">H</span></p></div>
-      <div class="cifra"><span class="n">Plana</span><p>La matrícula privada de básica no crece: 2.69 M en 2018-19, 2.68 M en 2024-25</p></div>
-      <div class="cifra"><span class="n">−20 %</span><p>Media superior privada: de 1.00 M a 0.80 M alumnos en seis ciclos</p></div>
-      <div class="cifra"><span class="n">29,725</span><p>Centros de trabajo privados de básica (un colegio de tres niveles cuenta tres)</p></div>
+    <p class="xs" style="margin-top:8px">* Richmond, Pearson, Cambridge English y Oxford. ✓ lo cubre · ◐ parcial o sin evidencia pública · ✕ no lo cubre o no se encontró.</p>
+    <div class="rivales">
+      <a class="rival" href="#knotion" style="--k:#ea4335"><h3>Knotion</h3><dl><dt class="f">Fuerte</dt><dd>Pedagogía por retos; ~300 escuelas</dd><dt class="h">Hueco</dt><dd>iPad forzoso; sin NEM, psicólogos, gestión ni prepa</dd></dl><span class="ir">Ver ficha →</span></a>
+      <a class="rival" href="#uno" style="--k:#1a73e8"><h3>Santillana (UNOi)</h3><dl><dt class="f">Fuerte</dt><dd>Marca, alianza Cambridge, tutor de IA</dd><dt class="h">Hueco</dt><dd>Sube cada año + iPad; su IA alerta, no atiende</dd></dl><span class="ir">Ver ficha →</span></a>
+      <a class="rival" href="#amco" style="--k:#f9ab00"><h3>AMCO</h3><dl><dt class="f">Fuerte</dt><dd>Inglés hasta C1 y Happy</dd><dt class="h">Hueco</dt><dd>Solo libro; certificación de SDSU, no Cambridge; dueño nuevo</dd></dl><span class="ir">Ver ficha →</span></a>
+      <a class="rival" href="#luca" style="--k:#e8710a"><h3>Luca</h3><dl><dt class="f">Fuerte</dt><dd>NEM + IA para el docente; capital fresco</dd><dt class="h">Hueco</dt><dd>Solo contenido: sin equipo, gestión ni psicólogos</dd></dl><span class="ir">Ver ficha →</span></a>
+      <a class="rival" href="#sm" style="--k:#8430ce"><h3>Grupo SM</h3><dl><dt class="f">Fuerte</dt><dd>Contenido NEM editorial</dd><dt class="h">Hueco</dt><dd>Vendió Educamos; sin inglés ni equipo</dd></dl><span class="ir">Ver ficha →</span></a>
+      <a class="rival" href="#ingles" style="--k:#174ea6"><h3>Inglés y certificación</h3><dl><dt class="f">Fuerte</dt><dd>Richmond, Pearson, Cambridge, Oxford</dd><dt class="h">Hueco</dt><dd>Solo inglés; examen aparte</dd></dl><span class="ir">Ver ficha →</span></a>
+      <a class="rival" href="#exa" style="--k:#5f6368"><h3>EXA (Apple)</h3><dl><dt class="f">Fuerte</dt><dd>iPad + capacitación Apple</dd><dt class="h">Hueco</dt><dd>Sin contenido; casi el doble de costo por alumno</dd></dl><span class="ir">Ver ficha →</span></a>
+      <a class="rival" href="#partners" style="--k:#34a853"><h3>Partners Google</h3><dl><dt class="f">Fuerte</dt><dd>Mismo ecosistema que activa</dd><dt class="h">Hueco</dt><dd>Sin plataformas propias; compiten por precio</dd></dl><span class="ir">Ver ficha →</span></a>
     </div>
-    <p class="xs" style="margin-top:10px">Fuente: <a href="https://www.planeacion.sep.gob.mx/Doc/estadistica_e_indicadores/principales_cifras/principales_cifras_2024_2025.pdf">SEP, Principales Cifras 2024-2025</a>. <b>Para el vendedor:</b> con la matrícula plana, el colegio no puede seguir subiéndole el costo total a la familia para retenerla.</p>
   </div>
 </section>
 
@@ -353,11 +417,38 @@ footer p{font-size:13.5px}
   </div>
 </section>
 
+<!-- ═══════════ 01 · NOVEDADES ═══════════ -->
+<section class="sec" id="novedades">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">03</span>
+      <h2>Lo que cambió en 2026</h2>
+      <p class="lead">Seis movimientos del mercado que el vendedor tiene que conocer antes de sentarse con un director este ciclo.</p>
+    </div>
+    <div class="grid g3 nov">
+      <div class="card" style="--k:#f9ab00"><h3>AMCO cambió de dueño</h3><p>El fondo mexicano <b>MxO Capital</b> compró la mayoría de AMCO Educación; cerró el <b>30-jun-2026</b>. Dice tener ~500,000 alumnos en 12 países <span class="tag h">H</span>. Con un dueño de capital privado, lo esperable son ajustes de precio y venta cruzada <span class="tag i">I</span>.</p><p class="fte"><a href="https://lexlatin.com/noticias/mxo-capital-adquiere-amco-educacion-mercado-edtech">LexLatin, 15-jul-2026</a> · <a href="https://ppulegal.com/en/?p=32278">PPU</a></p></div>
+      <div class="card" style="--k:#8430ce"><h3>SM vendió Educamos</h3><p>Grupo SM vendió su plataforma de gestión <b>Educamos</b> a la alemana <b>Sdui Group</b> el <b>23-sep-2025</b> y se concentra en lo editorial <span class="tag h">H</span>. Un colegio con Educamos hoy depende de un proveedor que ya no es SM.</p><p class="fte"><a href="https://www.magisnet.com/2025/09/grupo-sm-vende-su-negocio-digital-educamos-a-sdui-group/">Magisterio, sep-2025</a></p></div>
+      <div class="card" style="--k:#1a73e8"><h3>UNO lanzó un tutor de IA</h3><p><b>UNOibuddy</b>, tutor «socrático» con contenido Santillana, en 400+ colegios de México desde agosto de 2026. Ante preguntas personales o emocionales <b>corta la conversación y manda una alerta al colegio</b> <span class="tag h">H</span>. Quién atiende esa alerta es la pregunta para el director.</p><p class="fte"><a href="https://es-us.noticias.yahoo.com/santillana-lanza-m%C3%A9xico-unoibuddy-ia-030350094.html">EFE vía Yahoo, 19-mar-2026</a></p></div>
+      <div class="card" style="--k:#ea4335"><h3>Knotion cumplió 10 años y creció</h3><p>Dice tener <b>cerca de 300 escuelas</b> en 4 países y 6,000 docentes (eran 70 en 2019) <span class="tag h">H</span>. Sigue siendo solo iPad y solo hasta 9.º grado.</p><p class="fte"><a href="https://blog.knotion.com/knotion-10-anos-redefiniendo-el-aprendizaje/">Blog Knotion, 29-jun-2026</a></p></div>
+      <div class="card" style="--k:#34a853"><h3>Restricción de celulares desde el 3 de noviembre</h3><p>El <b>Acuerdo SEP 09/09/26</b> (DOF 22-sep-2026) restringe en educación básica, pública y particular, los dispositivos <b>personales</b> salvo uso «previamente programado, con intención pedagógica» <span class="tag h">H</span>. Un equipo institucional administrado encaja mejor que un iPad personal <span class="tag i">I</span>. Ver <a href="#legal">marco legal</a>.</p><p class="fte"><a href="https://dof.gob.mx/nota_detalle.php?codigo=5799247&amp;fecha=22/09/2026">DOF, 22-sep-2026</a></p></div>
+      <div class="card" style="--k:#5f6368"><h3>Los precios suben cada año</h3><p>El kit UNOi de primaria en un colegio de Tepic subió <b>+40 % de 2018 a 2026-27</b> (5–6 % por ciclo). AMCO subió <b>~7 %</b> en un ciclo en Puerto Vallarta <span class="tag h">H</span>. La familia lo paga aparte de la colegiatura.</p><p class="fte"><a href="https://primaria.cclt.edu.mx/pg/archivos/COSTOS%20UNOi%20CE%202026-2027.pdf">CCLT 2026-27</a> · <a href="https://colegiomexicoamericano.mx/inscripciones-2022-2023/">Colegio México Americano</a></p></div>
+    </div>
+
+    <div class="cifras" aria-label="El mercado">
+      <div class="cifra"><span class="n">2.68 M</span><p>Alumnos en educación básica privada (11.5 % del total) <span class="tag h">H</span></p></div>
+      <div class="cifra"><span class="n">Plana</span><p>La matrícula privada de básica no crece: 2.69 M en 2018-19, 2.68 M en 2024-25</p></div>
+      <div class="cifra"><span class="n">−20 %</span><p>Media superior privada: de 1.00 M a 0.80 M alumnos en seis ciclos</p></div>
+      <div class="cifra"><span class="n">29,725</span><p>Centros de trabajo privados de básica (un colegio de tres niveles cuenta tres)</p></div>
+    </div>
+    <p class="xs" style="margin-top:10px">Fuente: <a href="https://www.planeacion.sep.gob.mx/Doc/estadistica_e_indicadores/principales_cifras/principales_cifras_2024_2025.pdf">SEP, Principales Cifras 2024-2025</a>. <b>Para el vendedor:</b> con la matrícula plana, el colegio no puede seguir subiéndole el costo total a la familia para retenerla.</p>
+  </div>
+</section>
+
 <!-- ═══════════ 03 · TABLA MAESTRA ═══════════ -->
 <section class="sec" id="tabla">
   <div class="wrap">
     <div class="sec-head">
-      <span class="num">03</span>
+      <span class="num">04</span>
       <h2>La tabla completa</h2>
       <p class="lead">Quince frentes, diez ofertas. La columna de activa va resaltada. La tabla se desplaza de lado dentro de su caja; la primera columna se queda fija.</p>
     </div>
@@ -583,11 +674,14 @@ footer p{font-size:13.5px}
 <section class="sec" id="ganarle">
   <div class="wrap">
     <div class="sec-head">
-      <span class="num">04</span>
+      <span class="num">05</span>
       <h2>Cómo ganarle a cada uno</h2>
-      <p class="lead">Knotion, Santillana, AMCO, Luca, SM, inglés y certificación, EXA y partners Google. Por competidor: dónde es fuerte (no se pelea ahí), dónde falla, cómo ganarle, qué preguntarle al director y qué colegios lo usan. Las preguntas no atacan: hacen que el director descubra el hueco solo.</p>
+      <p class="lead">Knotion, Santillana, AMCO, Luca, SM, inglés y certificación, EXA y partners Google. Por competidor: su frase clave, dónde es fuerte (no se pelea ahí), dónde falla, cómo ganarle y qué preguntarle al director. Las preguntas no atacan: hacen que el director descubra el hueco solo.</p>
     </div>
 
+    <nav class="saltos" aria-label="Ir a un competidor">
+      <a href="#knotion">Knotion</a><a href="#uno">Santillana</a><a href="#amco">AMCO</a><a href="#luca">Luca</a><a href="#sm">Grupo SM</a><a href="#ingles">Inglés y certificación</a><a href="#exa">EXA</a><a href="#partners">Partners Google</a>
+    </nav>
     <div class="fichas">
 
       <!-- KNOTION -->
@@ -596,6 +690,7 @@ footer p{font-size:13.5px}
           <h3>Knotion</h3>
           <p>Retos transdisciplinarios bilingües sobre iPad · preescolar a 9.º, sin prepa · ~300 escuelas · licencia que el padre paga directo</p>
         </div>
+        <div class="clave"><p>El iPad lo paga la familia y es de Knotion. Con activa el equipo es del colegio, y además trae NEM, psicólogos, gestión y prepa.</p></div>
         <div class="ficha-cuerpo">
           <div class="col fuerte">
             <h4>Dónde es fuerte</h4>
@@ -638,29 +733,7 @@ footer p{font-size:13.5px}
               <li>«Knotion llega a 9.º. ¿Qué usan en su preparatoria?»</li>
               <li>«Inner Kore es contenido. ¿Quién acompaña emocionalmente a un alumno en riesgo?»</li>
             </ol>
-          </div>
-          <div class="col coles">
-            <h4>Colegios Knotion identificados</h4>
-            <ul>
-              <li>Colegio México Roma <span class="tag base">COL-1293</span><small>CDMX</small></li>
-              <li>Liceo Europeo Campus Sur <span class="tag base">COL-1962</span><small>Tlalpan, CDMX</small></li>
-              <li>Comunidad Educativa Tumbii <span class="tag base">COL-2049</span><small>Tlalpan, CDMX</small></li>
-              <li>Bilder School <span class="tag base">COL-3160</span><small>Naucalpan, Edomex</small></li>
-              <li>Colegio Franco Inglés <span class="tag base">COL-1168</span><small>CDMX · circular 2023-24</small></li>
-              <li>Instituto Franco Mexicano <span class="tag base">COL-4741</span><small>San Pedro Garza García, NL</small></li>
-              <li>Colegio Educarte <span class="tag base">COL-4764</span><small>Monterrey, NL</small></li>
-              <li>Colegio San Miguel<small>Guadalupe, NL · no está en la base</small></li>
-              <li>Colegio Constituyentes de Querétaro<small>Querétaro · verificar contra COL-5308</small></li>
-              <li>Colegio IMI <span class="tag base">COL-4288</span><small>Zapopan, Jal.</small></li>
-              <li>Summerhill Belenes<small>Zapopan, Jal. · no está en la base</small></li>
-              <li>Colegio Salesiano Joannes Paulus II <span class="tag base">COL-4985</span><small>Soledad de G. S., SLP</small></li>
-              <li>Colegio Saltillense <span class="tag base">COL-6270</span><small>Saltillo, Coah.</small></li>
-              <li>Colegio Montejo <span class="tag base">COL-6352</span><small>Mérida, Yuc.</small></li>
-              <li>Colegio Puebla <span class="tag base">COL-5087</span><small>Puebla</small></li>
-              <li>Centro de Educación Bilingüe <span class="tag base">COL-6008</span><small>Hermosillo, Son.</small></li>
-              <li>Colegio Mexicano<small>Reynosa, Tamps. · no está en la base</small></li>
-              <li>CSA Poza Rica<small>Poza Rica, Ver. · no está en la base</small></li>
-            </ul>
+            <p class="ir"><a href="#prospectos">Ver sus 18 colegios identificados en Prospectos →</a></p>
           </div>
         </div>
         <p class="ficha-pie">Fuentes: <a href="https://blog.knotion.com/knotion-10-anos-redefiniendo-el-aprendizaje/">Blog Knotion (jun-2026)</a> · <a href="https://www.scribd.com/document/831221229/Costos-Knotion-2023-2024-1-1">costos Franco Inglés 2023-24</a> · <a href="https://joannespaulusll.edu.mx/wp-content/uploads/2024/08/Responsiva.JPII-iPads.pdf">responsiva JPII (2024)</a> · <a href="https://summerhill-belenes.com/wp-content/uploads/2024/11/COSTOS-SECUNDARIA-2526.pdf">Summerhill 2025-26</a> · <a href="https://apps.apple.com/mx/app/knotion-dep/id1262138412">App Store</a> · <a href="https://www.colesaltillense.edu.mx/knotion/">Colegio Saltillense</a> · <a href="https://colegiosanmiguel.edu.mx/knotion/">Colegio San Miguel (Inner Kore)</a> · <a href="https://blog.knotion.com/la-nueva-regulacion-de-pantallas-en-mexico-abre-espacio-para-una-tecnologia-educativa-con-proposito/">Blog Knotion (sep-2026)</a> · <a href="https://www.glassdoor.com.mx/Evaluaciones/Knotion-Evaluaciones-E2299325.htm">Glassdoor</a> · <a href="https://tracxn.com/d/companies/knotion/__YrdK-AyjqFa6EXLIoXTx_1o0jiVv-Opc8G2BeOXSNmU">Tracxn</a></p>
@@ -672,6 +745,7 @@ footer p{font-size:13.5px}
           <h3>Santillana: Sistema UNO / UNOi y Compartir</h3>
           <p>UNOi, el modelo premium sobre iPad, con tutor de IA UNOibuddy · Compartir, la línea modular y más barata · en los dos, el padre paga a Santillana</p>
         </div>
+        <div class="clave"><p>Un kit que sube cada año, más el iPad aparte, y una IA que alerta pero no atiende. activa pone equipo del colegio, NEM y psicólogos.</p></div>
         <div class="ficha-cuerpo">
           <div class="col fuerte">
             <h4>Dónde es fuerte</h4>
@@ -716,26 +790,7 @@ footer p{font-size:13.5px}
               <li>«¿Dónde está documentado su programa analítico con UNOi? ¿Lo hace UNOi o sus maestros?»</li>
               <li>«¿Su control escolar se conecta con UNOi o lo llevan aparte?»</li>
             </ol>
-          </div>
-          <div class="col coles">
-            <h4>Colegios Santillana identificados</h4>
-            <ul>
-              <li>Colegio de Ciencias y Letras<small>Tepic, Nay. · activo 2026-27 · no está en la base</small></li>
-              <li>UFD<small>León, Gto. · cuota 2026 · no está en la base</small></li>
-              <li>Colegio Europeo Robert Schuman <span class="tag base">COL-0813</span><small>CDMX</small></li>
-              <li>Instituto Latino de Morelia <span class="tag base">COL-4451</span><small>Morelia, Mich.</small></li>
-              <li>Escuela IUVYC <span class="tag base">COL-3068</span><small>Toluca, Edomex</small></li>
-              <li>Colegio del Bosque <span class="tag base">COL-3924</span><small>Irapuato, Gto.</small></li>
-              <li>Instituto Muldoon <span class="tag base">COL-5259</span><small>Querétaro · dato de 2017</small></li>
-              <li>Instituto Hervic <span class="tag base">COL-5201</span><small>Puebla · verificar</small></li>
-              <li>Colegio Reggio Emilia <span class="tag base">COL-3968</span><small>León, Gto. · verificar</small></li>
-              <li>Colegio Guasave<small>Guasave, Sin. · no está en la base</small></li>
-              <li>Colegio Herbart<small>Morelia · no está en la base</small></li>
-              <li>Prepa Luis Álvarez Barret<small>Oaxaca · no está en la base</small></li>
-              <li>Colegio Libertadores de América <span class="tag base">COL-0793</span><small>Chimalhuacán, Edomex · Compartir</small></li>
-              <li>Colegio Anáhuac de La Paz <span class="tag base">COL-0316</span><small>La Paz, BCS · Compartir</small></li>
-              <li>Instituto Alberici<small>Zapopan, Jal. · Compartir · no está en la base</small></li>
-            </ul>
+            <p class="ir"><a href="#prospectos">Ver sus 15 colegios identificados en Prospectos →</a></p>
           </div>
         </div>
         <p class="ficha-pie">Fuentes: <a href="https://unoi.com.mx/directores/">unoi.com.mx</a> · <a href="https://primaria.cclt.edu.mx/pg/archivos/COSTOS%20UNOi%20CE%202026-2027.pdf">CCLT 2026-27</a> · <a href="https://www.primaria.cclt.edu.mx/pg/archivos/PAGOS%20UNOi.pdf">CCLT 2018</a> · <a href="https://ufd.mx/secundaria-gen/">UFD León</a> · <a href="https://es-us.noticias.yahoo.com/santillana-lanza-m%C3%A9xico-unoibuddy-ia-030350094.html">EFE (UNOibuddy)</a> · <a href="https://intelligence.unoi.com/">intelligence.unoi.com</a> · <a href="https://apps.apple.com/mx/app/unoi-planner/id6740878792">App Store</a> · <a href="https://www.merca2.es/2026/07/29/prisa-resultados-primer-semestre-2026-2426505/">Merca2 (jul-2026)</a> · <a href="https://www.elindependiente.com/economia/2026/03/03/prisa-preve-elevar-sus-ingresos-hasta-los-1-120-millones-en-2029-con-su-nuevo-plan-estrategico/amp/">El Independiente</a> · <a href="https://www.las2orillas.co/la-queja-de-un-padre-de-familia-que-puso-a-la-editorial-santillana-a-pagar-una-multa-de-400-millones/">Las2orillas</a> · <a href="https://www.santillanacompartir.com.mx/nuestra-solucion/">Compartir</a> · <a href="https://clda.edu.mx/formatos/FOLLETO%20DE%20PAGOS%2025-26.pdf">Libertadores 2025-26</a> · <a href="https://mx.linkedin.com/company/grupo-santillana-mexico">Grupo Santillana México</a></p>
@@ -747,6 +802,7 @@ footer p{font-size:13.5px}
           <h3>AMCO</h3>
           <p>Libro integrado por grado + inglés + Happy · preescolar a prepa · el padre compra a AMCO · <b>dueño nuevo: MxO Capital</b></p>
         </div>
+        <div class="clave"><p>AMCO es un libro con buen inglés. activa entra como el resto del colegio, sin pedirle que suelte su inglés.</p></div>
         <div class="ficha-cuerpo">
           <div class="col fuerte">
             <h4>Dónde es fuerte</h4>
@@ -790,24 +846,7 @@ footer p{font-size:13.5px}
               <li>«Si Happy detecta a un niño en riesgo, ¿quién lo atiende?»</li>
               <li>«¿Dónde viven calificaciones, cobranza y comunicación? ¿Necesitan otra plataforma además de AMCO?»</li>
             </ol>
-          </div>
-          <div class="col coles">
-            <h4>Colegios AMCO identificados</h4>
-            <ul>
-              <li>Colegio México Americano <span class="tag base">COL-4430</span><small>Puerto Vallarta, Jal. · con prepa</small></li>
-              <li>Colegio Real de Minas <span class="tag base">COL-0202</span><small>Tijuana, BC</small></li>
-              <li>Colegio Bilingüe Howard Gardner <span class="tag base">COL-0191</span><small>Tijuana, BC · 4 planteles</small></li>
-              <li>Colegio Camelot <span class="tag base">COL-4155</span><small>Zapopan, Jal. · ya usa Classroom</small></li>
-              <li>Colegio Independencia <span class="tag base">COL-4936</span><small>Monterrey, NL</small></li>
-              <li>Centro Educativo Anglo Hispano <span class="tag base">COL-1661</span><small>Iztapalapa, CDMX · usa Happy</small></li>
-              <li>Centro Educativo Nueva Escocia <span class="tag base">COL-0562</span><small>Álvaro Obregón, CDMX</small></li>
-              <li>Colegio San Carlos <span class="tag base">COL-2823</span><small>Ecatepec, Edomex · usa Happy</small></li>
-              <li>UNIMEC <span class="tag base">COL-3009</span><small>Ixtapaluca, Edomex · usa Happy</small></li>
-              <li>Colegio Escocés<small>Lerdo, Dgo. · no está en la base</small></li>
-              <li>Colegio Gutemberg<small>Nuevo Laredo, Tamps. · no está en la base</small></li>
-              <li>Colegihum<small>Zapopan, Jal. · no está en la base</small></li>
-              <li>Instituto México de Huatulco<small>Oaxaca · no está en la base</small></li>
-            </ul>
+            <p class="ir"><a href="#prospectos">Ver sus 13 colegios identificados en Prospectos →</a></p>
           </div>
         </div>
         <p class="ficha-pie">Fuentes: <a href="https://lexlatin.com/noticias/mxo-capital-adquiere-amco-educacion-mercado-edtech">LexLatin</a> · <a href="https://colegiomexicoamericano.mx/inscripciones-2022-2023/">Colegio México Americano 2026-27</a> · <a href="https://colegioescoces.edu.mx/docs/inversion-amco.pdf">Colegio Escocés 2026-27</a> · <a href="https://imperialvalley.sdsu.edu/academics/elsc/program-and-exam-description-sdsuleaders-r5-2-19.pdf">SDSU-IV (2019)</a> · <a href="https://ipac.edu.ec/wp-content/uploads/2019/06/Excellence-Certification.pdf">Excellence Certification (2019)</a> · <a href="https://myhappyprogram.com/">myhappyprogram.com</a> · <a href="https://colegiorealdeminas.edu.mx/que-es-amco-y-como-funciona/">Real de Minas (ago-2026)</a> · <a href="https://apps.apple.com/mx/app/amco-pay/id6443395408">Amco Pay</a> · <a href="https://www.milenio.com/content/amco-summit-2025-11-mil-asistentes-transforman-educacion">Milenio (Summit 2025)</a></p>
@@ -820,6 +859,7 @@ footer p{font-size:13.5px}
           <h3>Luca</h3>
           <p>Edtech fundada en 2020 por el portugués Frederico Bello, con sede en Lisboa y Ciudad de México · plataforma con IA + libros + material manipulable · preescolar a secundaria · 30,000+ alumnos · <b>el retador nuevo</b></p>
         </div>
+        <div class="clave"><p>Luca es una capa de contenido; upgrade edu es el colegio completo, con un proveedor de trayectoria.</p></div>
         <div class="ficha-cuerpo">
           <div class="col fuerte">
             <h4>Dónde es fuerte</h4>
@@ -864,16 +904,7 @@ footer p{font-size:13.5px}
               <li>«¿Dónde llevan calificaciones oficiales, cobranza y comunicación con familias?»</li>
               <li>«¿Qué pasa con sus datos y su contenido si la empresa cambia de dueño o de precio?»</li>
             </ol>
-          </div>
-          <div class="col coles">
-            <h4>Colegios Luca identificados</h4>
-            <ul>
-              <li>Colegio Francés del Pedregal <span class="tag base">COL-0542</span><small>CDMX</small></li>
-              <li>Colegio Loyola<small>ciudad sin confirmar; varios homónimos en la base</small></li>
-              <li>Colegio Marie Curie<small>ciudad sin confirmar; varios homónimos en la base</small></li>
-              <li>Colegio Lafayette<small>ciudad sin confirmar; homónimos en Querétaro y Edomex</small></li>
-            </ul>
-            <p class="xs">Logos del sitio de Luca, que dice tener «20+» clientes más.</p>
+            <p class="ir"><a href="#prospectos">Ver sus 4 colegios identificados en Prospectos →</a></p>
           </div>
         </div>
         <p class="ficha-pie">Fuentes: <a href="https://lucaedu.com/">lucaedu.com</a> · <a href="https://mexicobusiness.news/cloudanddata/news/luca-secures-us8-million-expand-ai-education-mexico">Mexico Business News (ene-2026)</a> · <a href="https://www.excelsior.com.mx/tecnologia/edtech-luca-recauda-8-mdd-expandir-modelo-educativo-ia-mexico">Excélsior (2026)</a> · <a href="https://lucaedu.com/blog/unoi-vs-luca-plataformas-educativas-para-escuelas-de-mexico/">Blog Luca (oct-2024)</a> · <a href="https://forbes.com.mx/?p=942597">Forbes (2022)</a> · <a href="https://econews.pt/2022/02/09/ed-tech-luca-raises-e2-7-million-in-pre-seed-funding-led-by-shilling-founders-fund-and-heartcore-capital/">ECO News (2022)</a> · <a href="https://www.contxto.com/en/news/edtech-luca-raises-a-us3-million-pre-seed-round-and-starts-operations-in-mexico/">Contxto</a></p>
@@ -885,6 +916,7 @@ footer p{font-size:13.5px}
           <h3>Grupo SM</h3>
           <p>Proyectos editoriales NEM + SM Aprendizaje + @play · vendió su gestión escolar (Educamos) en 2025</p>
         </div>
+        <div class="clave"><p>SM vende libros y ya salió de la gestión escolar. activa es un solo contrato para todo.</p></div>
         <div class="ficha-cuerpo">
           <div class="col fuerte">
             <h4>Dónde es fuerte</h4>
@@ -920,6 +952,7 @@ footer p{font-size:13.5px}
           <h3>Inglés y certificación: Richmond, Pearson, Cambridge, Oxford</h3>
           <p>Los rivales de beta: programas de inglés y exámenes que el colegio contrata aparte</p>
         </div>
+        <div class="clave"><p>Venden inglés y cobran el examen aparte. beta va dentro del programa completo.</p></div>
         <div class="ficha-cuerpo">
           <div class="col fuerte">
             <h4>Dónde son fuertes</h4>
@@ -957,16 +990,7 @@ footer p{font-size:13.5px}
               <li>«¿El examen de certificación viene incluido o la familia lo paga aparte?»</li>
               <li>«¿Su programa de inglés vive en la misma plataforma que el resto de las materias?»</li>
             </ol>
-          </div>
-          <div class="col coles">
-            <h4>Colegios Richmond identificados</h4>
-            <ul>
-              <li>Colegio Bilingüe George Washington <span class="tag base">COL-2347</span><small>Torreón, Coah.</small></li>
-              <li>Instituto Anahuacalli <span class="tag base">COL-4259</span><small>Zapopan, Jal.</small></li>
-              <li>Colegio Salesiano Anáhuac <span class="tag base">COL-4149</span><small>Guadalajara, Jal.</small></li>
-              <li>Instituto Asunción de México <span class="tag base">COL-0526</span><small>CDMX</small></li>
-              <li>Harland School<small>no está en la base</small></li>
-            </ul>
+            <p class="ir"><a href="#prospectos">Ver sus 5 colegios identificados en Prospectos →</a></p>
           </div>
         </div>
         <p class="ficha-pie">Fuentes: <a href="https://richmondsolution.com/nosotros/">richmondsolution.com</a> · <a href="https://cms-live-media.iste.org/iste-seal/reports/Richmond_Solution_ISTE_Seal_Findings_Report_2026.pdf">ISTE Seal</a> · <a href="https://dgair.sep.gob.mx/pearson_education_mexico">DGAIR-SEP</a> · <a href="https://www.pearson.com/languages/why-pearson/customer-success-stories/mano-amiga-schools.html">Pearson · Mano Amiga</a> · <a href="https://www.ilce.edu.mx/certificaciones-internacionales">ILCE</a> · <a href="https://natlawreview.com/press-releases/pearson-presenta-en-mexico-sus-nuevas-soluciones-educativas-enfocadas-en-el">Pearson abr-2026</a> · <a href="https://colguadalajara.edu.mx/?p=461">Cambridge English Schools</a> · <a href="https://generacionuniversitaria.com.mx/?p=35870">Oxford Test of English</a></p>
@@ -978,6 +1002,7 @@ footer p{font-size:13.5px}
           <h3>Soluciones EXA (Apple)</h3>
           <p>Apple Premium Education Partner, Monterrey · iPad, Mac, MDM, Apple Professional Learning</p>
         </div>
+        <div class="clave"><p>Mismo frente de equipo y capacitación, a casi el doble de costo por alumno y sin contenido.</p></div>
         <div class="ficha-cuerpo">
           <div class="col fuerte">
             <h4>Dónde es fuerte</h4>
@@ -1013,6 +1038,7 @@ footer p{font-size:13.5px}
           <h3>Otros partners Google</h3>
           <p>TORUMA, IT Strategy, EdPlus, Digital Family y los demás partners de desarrollo profesional en México</p>
         </div>
+        <div class="clave"><p>Ellos venden la herramienta; activa vende el uso pedagógico, con cinco plataformas propias.</p></div>
         <div class="ficha-cuerpo">
           <div class="col fuerte">
             <h4>Dónde es fuerte</h4>
@@ -1057,11 +1083,106 @@ footer p{font-size:13.5px}
   </div>
 </section>
 
+<!-- ═══════════ PROSPECTOS ═══════════ -->
+<section class="sec" id="prospectos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">06</span>
+      <h2>Prospectos: colegios con su sistema identificado</h2>
+      <p class="lead">55 colegios que usan a un competidor, ordenados por estado para buscar por territorio. 37 ya están en la Base Maestra con su ID. Antes de llamar, abre la ficha de su sistema y lleva las preguntas.</p>
+    </div>
+    <div class="tw sub prospectos" tabindex="0" role="region" aria-label="Tabla: colegios con competidor identificado, por estado">
+      <table>
+        <thead><tr><th scope="col">Colegio</th><th scope="col">Ubicación</th><th scope="col">Usa</th><th scope="col">Base Maestra</th><th scope="col">Nota</th></tr></thead>
+        <tbody>
+          <tr class="grupo"><td colspan="5">Baja California</td></tr>
+          <tr><th scope="row">Colegio Bilingüe Howard Gardner</th><td>Tijuana, BC</td><td><b>AMCO</b></td><td><span class="tag base">COL-0191</span></td><td>4 planteles</td></tr>
+          <tr><th scope="row">Colegio Real de Minas</th><td>Tijuana, BC</td><td><b>AMCO</b></td><td><span class="tag base">COL-0202</span></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Baja California Sur</td></tr>
+          <tr><th scope="row">Colegio Anáhuac de La Paz</th><td>La Paz, BCS</td><td><b>Santillana Compartir</b></td><td><span class="tag base">COL-0316</span></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Ciudad de México</td></tr>
+          <tr><th scope="row">Centro Educativo Anglo Hispano</th><td>Iztapalapa, CDMX</td><td><b>AMCO</b></td><td><span class="tag base">COL-1661</span></td><td>usa Happy</td></tr>
+          <tr><th scope="row">Centro Educativo Nueva Escocia</th><td>Álvaro Obregón, CDMX</td><td><b>AMCO</b></td><td><span class="tag base">COL-0562</span></td><td></td></tr>
+          <tr><th scope="row">Colegio Europeo Robert Schuman</th><td>CDMX</td><td><b>UNOi</b></td><td><span class="tag base">COL-0813</span></td><td></td></tr>
+          <tr><th scope="row">Colegio Franco Inglés</th><td>CDMX</td><td><b>Knotion</b></td><td><span class="tag base">COL-1168</span></td><td>circular 2023-24</td></tr>
+          <tr><th scope="row">Colegio Francés del Pedregal</th><td>CDMX</td><td><b>Luca</b></td><td><span class="tag base">COL-0542</span></td><td></td></tr>
+          <tr><th scope="row">Colegio México Roma</th><td>CDMX</td><td><b>Knotion</b></td><td><span class="tag base">COL-1293</span></td><td></td></tr>
+          <tr><th scope="row">Comunidad Educativa Tumbii</th><td>Tlalpan, CDMX</td><td><b>Knotion</b></td><td><span class="tag base">COL-2049</span></td><td></td></tr>
+          <tr><th scope="row">Instituto Asunción de México</th><td>CDMX</td><td><b>Richmond</b></td><td><span class="tag base">COL-0526</span></td><td></td></tr>
+          <tr><th scope="row">Liceo Europeo Campus Sur</th><td>Tlalpan, CDMX</td><td><b>Knotion</b></td><td><span class="tag base">COL-1962</span></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Coahuila</td></tr>
+          <tr><th scope="row">Colegio Bilingüe George Washington</th><td>Torreón, Coah.</td><td><b>Richmond</b></td><td><span class="tag base">COL-2347</span></td><td></td></tr>
+          <tr><th scope="row">Colegio Saltillense</th><td>Saltillo, Coah.</td><td><b>Knotion</b></td><td><span class="tag base">COL-6270</span></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Durango</td></tr>
+          <tr><th scope="row">Colegio Escocés</th><td>Lerdo, Dgo.</td><td><b>AMCO</b></td><td><small>No está</small></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Estado de México</td></tr>
+          <tr><th scope="row">Bilder School</th><td>Naucalpan, Edomex</td><td><b>Knotion</b></td><td><span class="tag base">COL-3160</span></td><td></td></tr>
+          <tr><th scope="row">Colegio Libertadores de América</th><td>Chimalhuacán, Edomex</td><td><b>Santillana Compartir</b></td><td><span class="tag base">COL-0793</span></td><td></td></tr>
+          <tr><th scope="row">Colegio San Carlos</th><td>Ecatepec, Edomex</td><td><b>AMCO</b></td><td><span class="tag base">COL-2823</span></td><td>usa Happy</td></tr>
+          <tr><th scope="row">Escuela IUVYC</th><td>Toluca, Edomex</td><td><b>UNOi</b></td><td><span class="tag base">COL-3068</span></td><td></td></tr>
+          <tr><th scope="row">UNIMEC</th><td>Ixtapaluca, Edomex</td><td><b>AMCO</b></td><td><span class="tag base">COL-3009</span></td><td>usa Happy</td></tr>
+          <tr class="grupo"><td colspan="5">Guanajuato</td></tr>
+          <tr><th scope="row">Colegio Reggio Emilia</th><td>León, Gto.</td><td><b>UNOi</b></td><td><span class="tag base">COL-3968</span></td><td>verificar</td></tr>
+          <tr><th scope="row">Colegio del Bosque</th><td>Irapuato, Gto.</td><td><b>UNOi</b></td><td><span class="tag base">COL-3924</span></td><td></td></tr>
+          <tr><th scope="row">UFD</th><td>León, Gto.</td><td><b>UNOi</b></td><td><small>No está</small></td><td>cuota 2026</td></tr>
+          <tr class="grupo"><td colspan="5">Jalisco</td></tr>
+          <tr><th scope="row">Colegihum</th><td>Zapopan, Jal.</td><td><b>AMCO</b></td><td><small>No está</small></td><td></td></tr>
+          <tr><th scope="row">Colegio Camelot</th><td>Zapopan, Jal.</td><td><b>AMCO</b></td><td><span class="tag base">COL-4155</span></td><td>ya usa Classroom</td></tr>
+          <tr><th scope="row">Colegio IMI</th><td>Zapopan, Jal.</td><td><b>Knotion</b></td><td><span class="tag base">COL-4288</span></td><td></td></tr>
+          <tr><th scope="row">Colegio México Americano</th><td>Puerto Vallarta, Jal.</td><td><b>AMCO</b></td><td><span class="tag base">COL-4430</span></td><td>con prepa</td></tr>
+          <tr><th scope="row">Colegio Salesiano Anáhuac</th><td>Guadalajara, Jal.</td><td><b>Richmond</b></td><td><span class="tag base">COL-4149</span></td><td></td></tr>
+          <tr><th scope="row">Instituto Alberici</th><td>Zapopan, Jal.</td><td><b>Santillana Compartir</b></td><td><small>No está</small></td><td></td></tr>
+          <tr><th scope="row">Instituto Anahuacalli</th><td>Zapopan, Jal.</td><td><b>Richmond</b></td><td><span class="tag base">COL-4259</span></td><td></td></tr>
+          <tr><th scope="row">Summerhill Belenes</th><td>Zapopan, Jal.</td><td><b>Knotion</b></td><td><small>No está</small></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Michoacán</td></tr>
+          <tr><th scope="row">Colegio Herbart</th><td>Morelia</td><td><b>UNOi</b></td><td><small>No está</small></td><td></td></tr>
+          <tr><th scope="row">Instituto Latino de Morelia</th><td>Morelia, Mich.</td><td><b>UNOi</b></td><td><span class="tag base">COL-4451</span></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Nayarit</td></tr>
+          <tr><th scope="row">Colegio de Ciencias y Letras</th><td>Tepic, Nay.</td><td><b>UNOi</b></td><td><small>No está</small></td><td>activo 2026-27</td></tr>
+          <tr class="grupo"><td colspan="5">Nuevo León</td></tr>
+          <tr><th scope="row">Colegio Educarte</th><td>Monterrey, NL</td><td><b>Knotion</b></td><td><span class="tag base">COL-4764</span></td><td></td></tr>
+          <tr><th scope="row">Colegio Independencia</th><td>Monterrey, NL</td><td><b>AMCO</b></td><td><span class="tag base">COL-4936</span></td><td></td></tr>
+          <tr><th scope="row">Colegio San Miguel</th><td>Guadalupe, NL</td><td><b>Knotion</b></td><td><small>No está</small></td><td></td></tr>
+          <tr><th scope="row">Instituto Franco Mexicano</th><td>San Pedro Garza García, NL</td><td><b>Knotion</b></td><td><span class="tag base">COL-4741</span></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Oaxaca</td></tr>
+          <tr><th scope="row">Instituto México de Huatulco</th><td>Oaxaca</td><td><b>AMCO</b></td><td><small>No está</small></td><td></td></tr>
+          <tr><th scope="row">Prepa Luis Álvarez Barret</th><td>Oaxaca</td><td><b>UNOi</b></td><td><small>No está</small></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Puebla</td></tr>
+          <tr><th scope="row">Colegio Puebla</th><td>Puebla</td><td><b>Knotion</b></td><td><span class="tag base">COL-5087</span></td><td></td></tr>
+          <tr><th scope="row">Instituto Hervic</th><td>Puebla</td><td><b>UNOi</b></td><td><span class="tag base">COL-5201</span></td><td>verificar</td></tr>
+          <tr class="grupo"><td colspan="5">Querétaro</td></tr>
+          <tr><th scope="row">Colegio Constituyentes de Querétaro</th><td>Querétaro</td><td><b>Knotion</b></td><td><span class="tag base">COL-5308</span></td><td>verificar contra COL-5308</td></tr>
+          <tr><th scope="row">Instituto Muldoon</th><td>Querétaro</td><td><b>UNOi</b></td><td><span class="tag base">COL-5259</span></td><td>dato de 2017</td></tr>
+          <tr class="grupo"><td colspan="5">San Luis Potosí</td></tr>
+          <tr><th scope="row">Colegio Salesiano Joannes Paulus II</th><td>Soledad de G. S., SLP</td><td><b>Knotion</b></td><td><span class="tag base">COL-4985</span></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Sinaloa</td></tr>
+          <tr><th scope="row">Colegio Guasave</th><td>Guasave, Sin.</td><td><b>UNOi</b></td><td><small>No está</small></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Sonora</td></tr>
+          <tr><th scope="row">Centro de Educación Bilingüe</th><td>Hermosillo, Son.</td><td><b>Knotion</b></td><td><span class="tag base">COL-6008</span></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Tamaulipas</td></tr>
+          <tr><th scope="row">Colegio Gutemberg</th><td>Nuevo Laredo, Tamps.</td><td><b>AMCO</b></td><td><small>No está</small></td><td></td></tr>
+          <tr><th scope="row">Colegio Mexicano</th><td>Reynosa, Tamps.</td><td><b>Knotion</b></td><td><small>No está</small></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Veracruz</td></tr>
+          <tr><th scope="row">CSA Poza Rica</th><td>Poza Rica, Ver.</td><td><b>Knotion</b></td><td><small>No está</small></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Yucatán</td></tr>
+          <tr><th scope="row">Colegio Montejo</th><td>Mérida, Yuc.</td><td><b>Knotion</b></td><td><span class="tag base">COL-6352</span></td><td></td></tr>
+          <tr class="grupo"><td colspan="5">Sin confirmar</td></tr>
+          <tr><th scope="row">Colegio Lafayette</th><td>—</td><td><b>Luca</b></td><td><small>No está</small></td><td>homónimos en Querétaro y Edomex</td></tr>
+          <tr><th scope="row">Colegio Loyola</th><td>—</td><td><b>Luca</b></td><td><small>No está</small></td><td>varios homónimos en la base</td></tr>
+          <tr><th scope="row">Colegio Marie Curie</th><td>—</td><td><b>Luca</b></td><td><small>No está</small></td><td>varios homónimos en la base</td></tr>
+          <tr><th scope="row">Harland School</th><td>—</td><td><b>Richmond</b></td><td><small>No está</small></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="xs" style="margin-top:10px">Evidencia: la página o circular pública de cada colegio, revisada el 8-oct-2026. Puede estar desactualizada: confirma en la primera llamada. «verificar» = la coincidencia con la base es dudosa.</p>
+  </div>
+</section>
+
 <!-- ═══════════ 05 · OBJECIÓN Y COSTO ═══════════ -->
 <section class="sec" id="objecion">
   <div class="wrap">
     <div class="sec-head">
-      <span class="num">05</span>
+      <span class="num">07</span>
       <h2>La objeción de fondo: «lo paga el padre»</h2>
       <p class="lead">Los tres grandes cobran directo a la familia, así que el director siente que no le cuestan. La respuesta tiene tres partes: lo que la familia ya paga, lo que cuesta el equipo, y lo que dice la norma.</p>
     </div>
@@ -1116,7 +1237,7 @@ footer p{font-size:13.5px}
 <section class="sec" id="legal">
   <div class="wrap">
     <div class="sec-head">
-      <span class="num">06</span>
+      <span class="num">08</span>
       <h2>Marco legal que juega a favor</h2>
       <p class="lead">Cinco normas que el vendedor debe conocer. Ninguna se usa como amenaza: se usan para que el director vea que activa le ayuda a cumplir.</p>
     </div>
@@ -1167,7 +1288,7 @@ footer p{font-size:13.5px}
 <section class="sec" id="producto">
   <div class="wrap">
     <div class="sec-head">
-      <span class="num">07</span>
+      <span class="num">09</span>
       <h2>Por producto: dónde gana y dónde pierde activa</h2>
       <p class="lead">La misma investigación leída desde nuestro lado: qué argumento sostiene cada producto y cuál todavía no.</p>
     </div>
@@ -1223,7 +1344,7 @@ footer p{font-size:13.5px}
 <section class="sec" id="integra">
   <div class="wrap">
     <div class="sec-head">
-      <span class="num">08</span>
+      <span class="num">10</span>
       <h2>integra frente a los sistemas de gestión escolar</h2>
       <p class="lead">Contra Knotion, UNO y AMCO, integra gana sola. Contra los especialistas hoy pierde en facturación y WhatsApp, y Saeko ya hace casi todo lo que integra promete.</p>
     </div>
@@ -1302,7 +1423,7 @@ footer p{font-size:13.5px}
 <section class="sec" id="motiva">
   <div class="wrap">
     <div class="sec-head">
-      <span class="num">09</span>
+      <span class="num">11</span>
       <h2>motiva frente a los programas socioemocionales</h2>
       <p class="lead">Nadie más junta psicólogos, diagnóstico por alumno, intervención y resultados medibles como servicio para colegio privado. Donde motiva pierde es en evidencia publicada.</p>
     </div>
@@ -1371,7 +1492,7 @@ footer p{font-size:13.5px}
 <section class="sec" id="riesgos">
   <div class="wrap">
     <div class="sec-head">
-      <span class="num">10</span>
+      <span class="num">12</span>
       <h2>Riesgos para activa y lo que hay que confirmar</h2>
       <p class="lead">Sin esto, varias ventajas se caen en la primera pregunta del prospecto. Los tres primeros son urgentes.</p>
     </div>
@@ -1398,7 +1519,7 @@ footer p{font-size:13.5px}
 <section class="sec" id="metodo">
   <div class="wrap">
     <div class="sec-head">
-      <span class="num">11</span>
+      <span class="num">13</span>
       <h2>Método y huecos</h2>
     </div>
     <div class="grid g3">
