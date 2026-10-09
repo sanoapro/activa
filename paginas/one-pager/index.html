@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>upgrade edu · activa · Google for Education Partner</title>
-<meta name="description" content="upgrade edu reúne en un solo programa los equipos, las licencias, contenido educativo propio y el acompañamiento que tu colegio necesita para transformarse con Google.">
+<title>Capacitación IA · activa</title>
+<meta name="description" content="Capacitación IA de activa: jueves 15 de octubre, de 5:00 a 7:00 pm (hora del centro de México), en línea por Google Meet. Gemini, Canva IA y Google Workspace for Education Plus.">
 <meta name="theme-color" content="#0f172a">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='11' height='11' rx='3' fill='%234285f4'/%3E%3Crect x='18' y='3' width='11' height='11' rx='3' fill='%23ea4335'/%3E%3Crect x='3' y='18' width='11' height='11' rx='3' fill='%23fbbc04'/%3E%3Crect x='18' y='18' width='11' height='11' rx='3' fill='%2334a853'/%3E%3C/svg%3E">
@@ -12,15 +12,16 @@
 <meta property="og:locale" content="es_MX">
 <meta property="og:site_name" content="activa">
 <meta property="og:url" content="https://sanoapro.github.io/activa/paginas/one-pager/">
-<meta property="og:title" content="Transformamos tu colegio con Google · upgrade edu">
-<meta property="og:description" content="Equipos, licencias, contenido propio y acompañamiento en un solo programa. Conoce upgrade edu de activa.">
-<meta property="og:image" content="https://sanoapro.github.io/activa/paginas/one-pager/og.png">
-<meta property="og:image:type" content="image/png">
+<!-- Vista previa de la capacitación (temporal). Al quitarla, volver a og.png y a los textos de upgrade edu. -->
+<meta property="og:title" content="Capacitación IA · activa">
+<meta property="og:description" content="Jueves 15 de octubre · 5:00 a 7:00 pm (hora del centro) · En línea por Google Meet.">
+<meta property="og:image" content="https://sanoapro.github.io/activa/paginas/one-pager/og-capacitacion.jpg">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Transformamos tu colegio con Google · upgrade edu · activa">
+<meta property="og:image:alt" content="Capacitación IA de activa: Gemini, Canva IA y Google Workspace for Education Plus">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://sanoapro.github.io/activa/paginas/one-pager/og.png">
+<meta name="twitter:image" content="https://sanoapro.github.io/activa/paginas/one-pager/og-capacitacion.jpg">
 
 <link rel="stylesheet" href="../../compartidos/css/motion.css">
 <style>
@@ -106,14 +107,83 @@ h3{font-size:19px;line-height:1.25;font-weight:700}
 .cab nav a:hover{background:var(--bg);color:var(--navy)}
 .cab .btn{min-height:42px;padding:9px 18px;font-size:14.5px}
 
+/* ═══ CAPACITACIÓN IA (temporal) ═══════════════════════════
+   Bloque de la sesión del 15 de octubre. Para quitarlo: este
+   bloque de CSS, la <section id="capacitacion">, su enlace en el
+   menú, su script al final y las etiquetas og de la cabecera. */
+.capa{padding:clamp(24px,4vw,44px) 0 clamp(32px,5vw,56px);
+  background:radial-gradient(700px 360px at 92% 0%,rgba(202,102,115,.16),transparent 65%),radial-gradient(760px 400px at 0% 100%,rgba(71,150,227,.16),transparent 65%),radial-gradient(600px 320px at 55% 50%,rgba(145,119,199,.10),transparent 70%),var(--white)}
+.capa-card{position:relative;overflow:hidden;isolation:isolate;border-radius:32px;padding:clamp(22px,4vw,46px);background:rgba(255,255,255,.86);border:1px solid #e4e1f3;box-shadow:var(--sh2);display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,3vw,32px)}
+.capa-card::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:var(--gem)}
+.capa{--gem:linear-gradient(90deg,#4796e3 0%,#9177c7 55%,#ca6673 100%)}
+.destello{position:absolute;z-index:-1;pointer-events:none}
+.capa .chips2{display:flex;flex-wrap:wrap;gap:8px}
+.capa .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border-radius:999px;font-size:13px;font-weight:800;background:#fff;border:1px solid var(--line);color:var(--slate)}
+.capa .chip .ico{width:16px;height:16px}
+.capa .chip.est{background:#f1ecfb;border-color:#ddd2f5;color:#5b3fb0}
+.capa .chip.est.vivo{background:#fce8e6;border-color:#f6c7c2;color:#b3261e}
+.capa .chip.est.vivo::before{content:"";width:8px;height:8px;border-radius:50%;background:#d93025;animation:latido 1.4s ease-in-out infinite}
+.capa .chip.est.fin{background:var(--bg);color:var(--slate2)}
+@keyframes latido{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.capa .chip.est.vivo::before{animation:none}}
+.capa h1{font-size:clamp(42px,6.4vw,88px);line-height:1;font-weight:700;letter-spacing:-.035em;margin:18px 0 12px}
+.capa .ia{background:var(--gem);-webkit-background-clip:text;background-clip:text;color:transparent}
+.capa .sub{font-size:clamp(18px,2vw,23px);color:var(--navy2);font-weight:500}
+.capa .raya{display:block;width:150px;height:5px;border-radius:3px;background:var(--gem);margin:14px 0 22px}
+.btn.meet{min-height:58px;padding:14px 26px;font-size:18px;color:#fff;background:linear-gradient(90deg,#1a5fd0,#6a4bc4 55%,#b0466e);box-shadow:0 12px 28px -10px rgba(106,75,196,.75)}
+.btn.meet .ico{width:22px;height:22px}
+.btn.meet:hover{filter:brightness(1.08)}
+.capa .liga{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:14.5px;font-weight:700;color:var(--slate);text-decoration:none;padding:6px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--line)}
+.capa .liga .ico{width:17px;height:17px;color:#1a73e8}
+.capa .liga:hover{color:var(--navy)}
+/* temas */
+.temas{align-self:start;border-radius:24px;padding:22px;background:#fff;border:1px solid var(--line);box-shadow:var(--sh1)}
+.temas .pill{display:inline-block;padding:7px 18px;border-radius:999px;background:var(--gem);color:#fff;font-weight:800;font-size:18px;margin-bottom:14px}
+.temas ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.temas li{display:flex;align-items:flex-start;gap:12px;font-size:16.5px;font-weight:600;color:var(--navy);line-height:1.35}
+.temas li .ok{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;background:var(--t);color:#fff}
+.temas li .ok .ico{width:16px;height:16px;stroke-width:3}
+.temas li small{display:block;font-size:13.5px;font-weight:500;color:var(--slate);margin-top:2px}
+/* datos de la sesión */
+.datos5{grid-column:1 / -1;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.dt{display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;background:#fff;border:1px solid var(--line)}
+.dt .c{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;background:var(--t);color:#fff}
+.dt .c .ico{width:21px;height:21px}
+.dt b{display:block;font-size:16px;line-height:1.2;color:var(--navy)}
+.dt span{display:block;font-size:13px;color:var(--slate);margin-top:2px}
+/* horario por región */
+.zonas{grid-column:1 / -1;border-radius:22px;padding:20px 22px;background:#fff;border:1px solid var(--line)}
+.zonas h2{font-size:18px;margin:0 0 14px;display:flex;align-items:center;gap:10px;letter-spacing:-.01em}
+.zonas h2 .ico{color:#9177c7}
+.zonas ul{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.zonas li{padding:12px 14px;border-radius:16px;background:var(--bg);border:1px solid var(--line);border-left:4px solid var(--t);display:flex;flex-direction:column;gap:3px}
+.zonas li b{font-size:15px;color:var(--navy)}
+.zonas li span{font-size:13px;color:var(--slate);line-height:1.35}
+.zonas li em{font-style:normal;font-size:18px;font-weight:800;color:var(--navy);margin-top:auto;padding-top:6px}
+.zonas .local{margin-top:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 14px;border-radius:14px;background:#f1ecfb;color:#3f2b86;font-size:14.5px}
+.zonas .local .ico{width:18px;height:18px}
+.zonas .local[hidden]{display:none}
+.t-blue{--t:#1a73e8}.t-pink{--t:#d63384}.t-teal{--t:#0f9d8a}.t-purple{--t:#7b5bd6}.t-orange{--t:#e8710a}.t-red{--t:#d93025}.t-green{--t:#1e8e3e}
+@media (max-width:1180px){.zonas ul{grid-template-columns:repeat(3,1fr)}.datos5{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:1040px){.capa-card{grid-template-columns:1fr}.destello{display:none}}
+@media (max-width:720px){
+  .datos5,.zonas ul{grid-template-columns:1fr 1fr}
+  .datos5 .dt:last-child{grid-column:1 / -1}
+  .datos5 .dt:not(:last-child){flex-direction:column;align-items:flex-start;gap:10px}
+  .dt .c{width:40px;height:40px}
+  .zonas{padding:18px 16px}
+  .capa .acciones .btn{width:100%}
+}
+@media (max-width:420px){.zonas ul{grid-template-columns:1fr}}
+
 /* ═══ hero ═══ */
 .hero{padding:clamp(48px,8vw,96px) 0 clamp(56px,8vw,88px);overflow:hidden;isolation:isolate;
   background:radial-gradient(900px 420px at 88% 8%,rgba(66,133,244,.13),transparent 60%),radial-gradient(700px 380px at 6% 92%,rgba(52,168,83,.10),transparent 60%),var(--white)}
 .hero .wrap{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(28px,5vw,64px);align-items:center}
 .partner{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 8px;border-radius:999px;background:var(--white);border:1px solid var(--line);box-shadow:var(--sh1);font-size:13px;font-weight:700;color:var(--slate)}
 .partner img{height:26px;width:auto}
-.hero h1{font-size:clamp(38px,5.4vw,76px);line-height:1.02;font-weight:600;margin:20px 0 18px}
-.hero h1 .gg{font-weight:600}
+.hero .titular{font-size:clamp(38px,5.4vw,76px);line-height:1.02;font-weight:600;margin:20px 0 18px}
+.hero .titular .gg{font-weight:600}
 .hero .intro{margin:0 0 26px;padding:20px 22px}
 .hero .intro .puntos{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 .acciones{display:flex;flex-wrap:wrap;gap:12px}
@@ -346,6 +416,11 @@ footer .puntos li::before{background:#64748b;width:6px;height:6px}
   <symbol id="i-cita" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></symbol>
   <symbol id="i-tel" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><path d="m16 13 5.22 3.48a.5.5 0 0 0 .78-.42V7.94a.5.5 0 0 0-.78-.42L16 11"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></symbol>
+  <symbol id="i-calmas" viewBox="0 0 24 24"><path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="M19 16v6"/><path d="M16 19h6"/></symbol>
+  <symbol id="i-persona" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12s-8-7-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
   <symbol id="i-wa" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
 </svg>
 
@@ -354,6 +429,7 @@ footer .puntos li::before{background:#64748b;width:6px;height:6px}
   <div class="wrap">
     <img class="logo" src="../../compartidos/img/marcas/activa.webp" alt="activa" width="104" height="26">
     <nav aria-label="Secciones">
+      <a href="#capacitacion">Capacitación IA</a>
       <a href="#programa">Programa</a>
       <a href="#plataformas">Plataformas</a>
       <a href="#equipo-colegio">Para tu equipo</a>
@@ -366,12 +442,67 @@ footer .puntos li::before{background:#64748b;width:6px;height:6px}
 
 <main>
 
+<!-- ═══════════ CAPACITACIÓN IA (temporal) ═══════════ -->
+<section class="capa" id="capacitacion" aria-labelledby="capaTit">
+  <div class="wrap">
+    <div class="capa-card mo-reveal">
+      <svg class="destello" style="width:92px;left:57%;top:292px" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="gGem" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4796e3"/><stop offset=".55" stop-color="#9177c7"/><stop offset="1" stop-color="#ca6673"/></linearGradient></defs><path fill="url(#gGem)" opacity=".42" d="M12 0C12 6.6 17.4 12 24 12C17.4 12 12 17.4 12 24C12 17.4 6.6 12 0 12C6.6 12 12 6.6 12 0Z"/></svg>
+      <svg class="destello" style="width:38px;left:64.5%;top:250px" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#gGem)" opacity=".3" d="M12 0C12 6.6 17.4 12 24 12C17.4 12 12 17.4 12 24C12 17.4 6.6 12 0 12C6.6 12 12 6.6 12 0Z"/></svg>
+
+      <div>
+        <div class="chips2">
+          <span class="chip"><svg class="ico" style="color:#1a73e8"><use href="#i-video"/></svg>En vivo por Google Meet</span>
+          <span class="chip est" id="capaEstado">Jueves 15 de octubre</span>
+        </div>
+        <h1 id="capaTit">Capacitación <span class="ia">IA</span></h1>
+        <div class="sub">Herramientas prácticas para educación y productividad</div>
+        <span class="raya" aria-hidden="true"></span>
+        <div class="acciones">
+          <a class="btn meet mo-hover-eleva" href="https://meet.google.com/pre-ohvo-faq" target="_blank" rel="noopener"><svg class="ico"><use href="#i-video"/></svg>Entrar a la videollamada</a>
+          <a class="btn sec2 mo-hover-eleva" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Capacitaci%C3%B3n%20IA%20%C2%B7%20activa&amp;dates=20261015T230000Z/20261016T010000Z&amp;ctz=America/Mexico_City&amp;details=Videollamada%3A%20https%3A%2F%2Fmeet.google.com%2Fpre-ohvo-faq&amp;location=https%3A%2F%2Fmeet.google.com%2Fpre-ohvo-faq" target="_blank" rel="noopener"><svg class="ico"><use href="#i-calmas"/></svg>Agregar a mi calendario</a>
+        </div>
+        <a class="liga" href="https://meet.google.com/pre-ohvo-faq" target="_blank" rel="noopener"><svg class="ico"><use href="#i-video"/></svg>meet.google.com/pre-ohvo-faq</a>
+      </div>
+
+      <div class="temas">
+        <span class="pill">Temas</span>
+        <ul>
+          <li><span class="ok t-blue"><svg class="ico"><use href="#i-check"/></svg></span><span>Fundamentos de IA</span></li>
+          <li><span class="ok t-purple"><svg class="ico"><use href="#i-check"/></svg></span><span>Gemini Notebook</span></li>
+          <li><span class="ok t-pink"><svg class="ico"><use href="#i-check"/></svg></span><span>Canva IA</span></li>
+          <li><span class="ok t-green"><svg class="ico"><use href="#i-check"/></svg></span><span>IA en Google Workspace for Education Plus<small>Lo que incluyen las licencias</small></span></li>
+        </ul>
+      </div>
+
+      <div class="datos5">
+        <div class="dt"><span class="c t-blue"><svg class="ico"><use href="#i-reloj"/></svg></span><div><b>2 horas</b><span>de capacitación</span></div></div>
+        <div class="dt"><span class="c t-pink"><svg class="ico"><use href="#i-cal"/></svg></span><div><b>Jueves 15 de octubre</b><span>2026</span></div></div>
+        <div class="dt"><span class="c t-teal"><svg class="ico"><use href="#i-laptop"/></svg></span><div><b>En línea</b><span>por Google Meet</span></div></div>
+        <div class="dt"><span class="c t-purple"><svg class="ico"><use href="#i-reloj"/></svg></span><div><b>5:00 – 7:00 pm</b><span>hora del centro de México</span></div></div>
+        <div class="dt"><span class="c t-orange"><svg class="ico"><use href="#i-persona"/></svg></span><div><b>Mtro. Óscar Calderón</b><span>imparte la sesión</span></div></div>
+      </div>
+
+      <div class="zonas">
+        <h2><svg class="ico"><use href="#i-pin"/></svg>Horario por región</h2>
+        <ul>
+          <li class="t-blue"><b>Zona Centro</b><span>CDMX, Jalisco, Puebla, Chihuahua, Yucatán y la mayor parte del país</span><em>5:00 – 7:00 pm</em></li>
+          <li class="t-purple"><b>Zona Sureste</b><span>Quintana Roo</span><em>6:00 – 8:00 pm</em></li>
+          <li class="t-teal"><b>Zona Pacífico</b><span>Sonora, Sinaloa, Nayarit y Baja California Sur</span><em>4:00 – 6:00 pm</em></li>
+          <li class="t-orange"><b>Zona Noroeste</b><span>Baja California</span><em>4:00 – 6:00 pm</em></li>
+          <li class="t-pink"><b>Frontera noreste</b><span>Municipios fronterizos de Coahuila, Nuevo León y Tamaulipas</span><em>6:00 – 8:00 pm</em></li>
+        </ul>
+        <div class="local" id="capaLocal" hidden><svg class="ico"><use href="#i-reloj"/></svg>En tu dispositivo, la sesión es de <b></b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero">
   <div class="wrap">
     <div class="mo-reveal">
       <span class="partner"><img src="../../compartidos/img/marcas/google-g.webp" alt="" width="22" height="22" style="height:22px">Google for Education Partner</span>
-      <h1>Transformamos tu colegio con <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span></h1>
+      <h2 class="titular">Transformamos tu colegio con <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span></h2>
       <div class="intro">
         <ul class="puntos">
           <li><b>Un solo programa:</b> equipos, licencias, contenido propio y acompañamiento</li>
@@ -869,6 +1000,29 @@ footer .puntos li::before{background:#64748b;width:6px;height:6px}
     Motion.revealAll('#' + id + ' > *');
   });
   Motion.revealAll('.mo-reveal');
+
+  // Capacitación IA (temporal): cuánto falta y la hora en el dispositivo de quien la abre.
+  // Sin JavaScript se ve la fecha fija y la tabla de zonas; nada depende de esto.
+  (function () {
+    try {
+      var ini = Date.UTC(2026, 9, 15, 23, 0), fin = ini + 2 * 36e5, ahora = Date.now();
+      var diaMx = function (t) { return Date.parse(new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Mexico_City' }).format(t)); };
+      var dias = Math.round((diaMx(ini) - diaMx(ahora)) / 864e5);
+      var chip = document.getElementById('capaEstado'), txt, cls = '';
+      if (ahora > fin) { txt = 'La sesión ya terminó'; cls = 'fin'; }
+      else if (ahora >= ini - 15 * 6e4) { txt = 'En vivo ahora'; cls = 'vivo'; }
+      else if (dias <= 0) txt = 'Hoy, a las 5:00 pm';
+      else if (dias === 1) txt = 'Mañana, jueves 15 de octubre';
+      else txt = 'Jueves 15 de octubre · faltan ' + dias + ' días';
+      chip.textContent = txt;
+      if (cls) chip.classList.add(cls);
+      var h = new Intl.DateTimeFormat('es-MX', { hour: 'numeric', minute: '2-digit' });
+      var local = document.getElementById('capaLocal');
+      local.querySelector('b').textContent = h.format(ini) + ' a ' + h.format(fin);
+      local.hidden = false;
+    } catch (e) { console.error('Capacitación IA:', e); }
+  })();
+
   Motion.start();          // ← siempre lo último
 </script>
 </body>

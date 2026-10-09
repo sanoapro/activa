@@ -6,6 +6,29 @@ WhatsApp o correo a un prospecto.
 
 Se publica en <https://sanoapro.github.io/activa/paginas/one-pager/>.
 
+## Capacitación IA (temporal)
+
+Hasta arriba, antes del hero, va la sesión **Capacitación IA** del jueves 15 de octubre de 2026,
+de 5:00 a 7:00 pm hora del centro, por Google Meet (`meet.google.com/pre-ohvo-faq`). Mientras
+esté, el título de la página es «Capacitación IA · activa» y la vista previa de WhatsApp es
+`og-capacitacion.jpg` (el diseño de la invitación).
+
+- **Horario por región:** las cinco zonas de México con la hora ya convertida. Para esa fecha
+  Estados Unidos sigue en horario de verano, así que Baja California y los municipios
+  fronterizos de Coahuila, Nuevo León y Tamaulipas van una hora distinta a la de su zona en
+  invierno. Abajo, un script muestra la hora en el dispositivo de quien abre la página.
+- **Estado:** el chip junto a la fecha cuenta los días que faltan, dice «En vivo ahora» desde 15
+  minutos antes y «La sesión ya terminó» al acabar.
+
+**Para quitarla** (todo está marcado como «temporal» en el HTML):
+
+1. Borrar la `<section id="capacitacion">`, su bloque de CSS y su script al final.
+2. Quitar «Capacitación IA» del menú.
+3. Regresar el titular del hero de `<h2 class="titular">` a `<h1>` (y su CSS de `.hero .titular`
+   a `.hero h1`).
+4. Regresar `<title>`, `description` y las etiquetas `og:`/`twitter:` a upgrade edu y a `og.png`.
+5. Borrar `og-capacitacion.jpg`.
+
 ## Orden de lectura
 
 Patrón «confianza y autoridad + conversión» (skill `ui-ux-pro-max`):
@@ -46,6 +69,7 @@ Patrón «confianza y autoridad + conversión» (skill `ui-ux-pro-max`):
 | `index.html` | La página. Se edita a mano |
 | `img/*.webp` | Fotos del equipo, 240 px, recortadas al rostro desde `compartidos/img/fotos-vendedores/` |
 | `og.png` · `og-source.html` | Vista previa de WhatsApp y su molde |
+| `og-capacitacion.jpg` | Vista previa temporal de la Capacitación IA, 1200 × 630 |
 
 ## Movimiento
 
