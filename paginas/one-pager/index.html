@@ -64,11 +64,23 @@ section{position:relative}
 h1,h2,h3{letter-spacing:-.02em;text-wrap:balance}
 h2{font-size:clamp(28px,4vw,44px);line-height:1.1;font-weight:600;margin:12px 0 14px}
 h3{font-size:19px;line-height:1.25;font-weight:700}
-.lead{font-size:clamp(17px,1.7vw,20px);color:var(--slate);max-width:760px}
 /* todas las cabezas de sección, centradas: un solo eje de lectura en toda la página */
-.cabeza{max-width:880px;margin:0 auto clamp(30px,4vw,48px);text-align:center}
+.cabeza{max-width:920px;margin:0 auto clamp(30px,4vw,48px);text-align:center}
 .cabeza .eyebrow{justify-content:center}
-.cabeza .lead{margin:0 auto}
+
+/* Regla de la página: ningún texto suelto. Todo va en tarjeta y en viñetas. */
+.puntos{list-style:none;display:flex;flex-direction:column;gap:8px}
+.puntos li{position:relative;padding-left:20px;color:var(--slate);font-size:15.5px;line-height:1.45}
+.puntos li::before{content:"";position:absolute;left:2px;top:.52em;width:8px;height:8px;border-radius:50%;background:var(--k-d,var(--blue))}
+.puntos li b{color:var(--navy)}
+/* tarjeta de entrada de cada sección: viñetas en columnas, con los cuatro colores de Google */
+.intro{margin-top:20px;text-align:left;background:var(--white);border:1px solid var(--line);border-radius:20px;padding:18px 24px;box-shadow:var(--sh1)}
+.intro .puntos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px 28px}
+.intro .puntos li{font-size:16.5px;color:var(--navy2)}
+.intro .puntos li:nth-child(4n+1)::before{background:#4285f4}
+.intro .puntos li:nth-child(4n+2)::before{background:#ea4335}
+.intro .puntos li:nth-child(4n+3)::before{background:#fbbc04}
+.intro .puntos li:nth-child(4n+4)::before{background:#34a853}
 .g{display:grid;gap:clamp(14px,2vw,20px)}
 .gg{font-weight:700}
 .gg i{font-style:normal}
@@ -102,11 +114,9 @@ h3{font-size:19px;line-height:1.25;font-weight:700}
 .partner img{height:26px;width:auto}
 .hero h1{font-size:clamp(38px,5.4vw,76px);line-height:1.02;font-weight:600;margin:20px 0 18px}
 .hero h1 .gg{font-weight:600}
-.hero .lead{margin-bottom:28px}
+.hero .intro{margin:0 0 26px;padding:20px 22px}
+.hero .intro .puntos{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 .acciones{display:flex;flex-wrap:wrap;gap:12px}
-.confian{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:26px;font-size:14px;color:var(--slate)}
-.confian span{display:inline-flex;align-items:center;gap:7px}
-.confian .ico{width:17px;height:17px;color:var(--grn)}
 
 /* mosaico del hero */
 .mos-wrap{position:relative;isolation:isolate}
@@ -127,7 +137,7 @@ h3{font-size:19px;line-height:1.25;font-weight:700}
 /* ═══ cifras ═══ */
 .cifras{background:var(--navy);color:#fff;padding:clamp(36px,5vw,52px) 0}
 .cifras .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.cifra{display:flex;flex-direction:column;gap:4px;padding-left:16px;border-left:3px solid var(--c)}
+.cifra{display:flex;flex-direction:column;gap:6px;padding:18px 20px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-top:4px solid var(--c)}
 .cifra b{font-size:clamp(30px,4.2vw,46px);font-weight:600;letter-spacing:-.03em;line-height:1}
 .cifra span{font-size:14.5px;color:#cbd5e1;line-height:1.4}
 
@@ -137,10 +147,12 @@ h3{font-size:19px;line-height:1.25;font-weight:700}
 .tarjeta{background:var(--white);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--sh1);transition:box-shadow .2s ease,border-color .2s ease}
 .tarjeta:hover{box-shadow:var(--sh2);border-color:#cbd5e1}
 .tarjeta .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--k-t);color:var(--k-d);margin-bottom:14px}
-.tarjeta p{color:var(--slate);font-size:15.5px;margin-top:6px}
+.tarjeta .puntos{margin-top:12px}
 .cita{margin-top:clamp(24px,3vw,32px);padding:clamp(20px,3vw,28px) clamp(20px,3vw,32px);border-radius:22px;background:var(--navy);color:#fff;display:flex;gap:18px;align-items:center}
-.cita .ico{width:34px;height:34px;color:var(--yel)}
-.cita p{font-size:clamp(18px,2.2vw,23px);font-weight:600;line-height:1.35}
+.cita>.ico{width:34px;height:34px;color:var(--yel)}
+.cita .puntos{flex:1;gap:10px}
+.cita .puntos li{color:#fff;font-size:clamp(17px,2vw,21px);font-weight:600;line-height:1.35;padding-left:22px}
+.cita .puntos li::before{background:var(--yel);top:.5em}
 
 /* ═══ programa (bento) ═══ */
 .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(14px,2vw,20px)}
@@ -149,7 +161,7 @@ h3{font-size:19px;line-height:1.25;font-weight:700}
 .bloque .n{font-size:13px;font-weight:800;letter-spacing:1.4px;color:var(--k-d)}
 .bloque h3{font-size:22px;display:flex;align-items:center;gap:10px}
 .bloque h3 .ico{width:26px;height:26px;color:var(--k-d)}
-.bloque p{color:var(--slate)}
+.bloque .puntos li{font-size:16px}
 .b-dis,.b-lic,.b-pla,.b-aco{grid-column:span 3}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
 .chips span{font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;background:var(--k-t);color:var(--k-d)}
@@ -186,27 +198,33 @@ h3{font-size:19px;line-height:1.25;font-weight:700}
 /* ═══ chromebook ═══ */
 .chrome{background:var(--navy);color:#fff;overflow:hidden}
 .chrome .eyebrow{color:#93c5fd}
-.chrome .lead{color:#cbd5e1}
 .chrome h2{color:#fff}
+.chrome .intro{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);box-shadow:none}
+.chrome .intro .puntos li{color:#e2e8f0}
 .datos6{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,18px)}
 .d6{padding:22px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
 .d6 b{display:block;font-size:clamp(24px,3vw,32px);font-weight:600;letter-spacing:-.02em;line-height:1.1;color:#fff}
 .d6 span{display:block;margin-top:6px;font-size:14.5px;color:#cbd5e1}
 .d6:nth-child(1){border-top:4px solid #4285f4}.d6:nth-child(2){border-top:4px solid #ea4335}.d6:nth-child(3){border-top:4px solid #fbbc04}
 .d6:nth-child(4){border-top:4px solid #34a853}.d6:nth-child(5){border-top:4px solid #4285f4}.d6:nth-child(6){border-top:4px solid #ea4335}
-.fuente{margin-top:18px;font-size:12.5px;color:#94a3b8}
-.securly{margin-top:clamp(20px,3vw,28px);display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:18px 22px;border-radius:20px;background:#fff;color:var(--navy)}
-.securly img{height:28px;width:auto}
-.securly p{flex:1;min-width:240px;color:var(--slate);font-size:15px}
-.securly p b{color:var(--navy)}
+.fuente{margin-top:14px;padding:12px 20px;border-radius:16px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.2)}
+.fuente .puntos{flex-direction:row;flex-wrap:wrap;gap:6px 28px}
+.fuente .puntos li{font-size:13px;color:#94a3b8;padding-left:16px}
+.fuente .puntos li::before{width:6px;height:6px;background:#64748b}
+.securly{margin-top:clamp(20px,3vw,28px);display:flex;align-items:center;gap:14px 26px;flex-wrap:wrap;padding:20px 24px;border-radius:20px;background:#fff;color:var(--navy)}
+.securly img{height:30px;width:auto}
+.securly>div{flex:1;min-width:240px}
+.securly h3{font-size:17px;margin-bottom:8px}
+.securly .puntos{--k-d:var(--grn)}
 
 /* ═══ ruta ═══ */
 .ruta{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,2vw,18px);counter-reset:r}
 .paso{position:relative;padding:24px 22px;border-radius:22px;background:var(--white);border:1px solid var(--line)}
 .paso::before{counter-increment:r;content:counter(r);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--k-d);color:#fff;font-weight:800;margin-bottom:14px}
-.paso p{color:var(--slate);font-size:15px;margin-top:6px}
+.paso .puntos{margin-top:10px;gap:6px}
+.paso .puntos li{font-size:15px}
 .paso.meta{background:var(--navy);border-color:var(--navy)}
-.paso.meta h3{color:#fff}.paso.meta p{color:#cbd5e1}
+.paso.meta h3{color:#fff}.paso.meta .puntos li{color:#cbd5e1}.paso.meta .puntos li::before{background:#81c995}
 .marcos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px 36px;margin-top:clamp(28px,4vw,40px);padding:22px;border-radius:22px;background:var(--bg)}
 .marcos small{width:100%;text-align:center;font-size:12.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--slate2)}
 .marcos img{height:38px;width:auto}
@@ -223,11 +241,11 @@ h3{font-size:19px;line-height:1.25;font-weight:700}
 .paq li{display:flex;gap:10px;color:var(--slate);font-size:15.5px}
 .paq li .ico{width:19px;height:19px;color:var(--grn);margin-top:2px}
 .paq.plusp{border:2px solid var(--navy);box-shadow:var(--sh2)}
-.paq .nota{margin-top:auto;font-size:14px;color:var(--slate2)}
 .etq{align-self:flex-start;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:5px 11px;border-radius:999px;background:var(--navy);color:#fff}
-.modal{display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(18px,3vw,26px);align-items:center;justify-content:center}
-.modal b{margin-right:6px}
-.modal span{font-size:14px;font-weight:700;padding:7px 13px;border-radius:999px;background:var(--white);border:1px solid var(--line)}
+.modal{margin-top:clamp(18px,3vw,26px);padding:20px 24px;border-radius:22px;background:var(--white);border:1px solid var(--line);box-shadow:var(--sh1);text-align:center}
+.modal h3{font-size:17px;margin-bottom:12px}
+.modal .opc{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.modal .opc span{font-size:14px;font-weight:700;padding:8px 14px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
 
 /* ═══ piloto ═══ */
 .piloto{padding:clamp(40px,6vw,64px) 0}
@@ -235,7 +253,9 @@ h3{font-size:19px;line-height:1.25;font-weight:700}
 .pilcard::after{content:"";position:absolute;right:-90px;bottom:-90px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.08);z-index:-1}
 .pilcard .eyebrow{color:#cfe1ff}
 .pilcard h2{color:#fff}
-.pilcard p{color:#e3ecff;font-size:17px}
+.pilcard .puntos{gap:10px}
+.pilcard .puntos li{color:#e3ecff;font-size:17px}
+.pilcard .puntos li::before{background:var(--yel)}
 .pils{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .pils div{padding:16px;border-radius:18px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2)}
 .pils b{display:block;font-size:28px;font-weight:600;line-height:1}
@@ -246,8 +266,7 @@ h3{font-size:19px;line-height:1.25;font-weight:700}
 .equipo{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,20px)}
 .persona{background:var(--white);border:1px solid var(--line);border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--sh1)}
 .persona .quien{display:flex;align-items:center;gap:14px}
-.persona img,.persona .ini{width:64px;height:64px;border-radius:50%;object-fit:cover;flex-shrink:0;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--c)}
-.persona .ini{display:grid;place-items:center;background:var(--c);color:#fff;font-weight:800;font-size:22px;letter-spacing:.5px}
+.persona img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex-shrink:0;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--c)}
 .persona h3{font-size:18px}
 .persona .tel{font-size:14.5px;color:var(--slate)}
 .persona .vias{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -260,10 +279,12 @@ h3{font-size:19px;line-height:1.25;font-weight:700}
 
 /* ═══ pie ═══ */
 footer{background:var(--navy);color:#cbd5e1;padding:36px 0 44px}
-footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:18px 28px;text-align:center}
+footer .pie{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:18px 28px;padding:20px 24px;border-radius:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}
 footer .marcasp{display:flex;align-items:center;gap:16px;padding:10px 14px;border-radius:14px;background:#fff}
 footer .marcasp img{height:24px;width:auto}
-footer p{font-size:13.5px;max-width:640px}
+footer .puntos{flex:1;min-width:260px;max-width:620px;gap:5px}
+footer .puntos li{font-size:13.5px;color:#cbd5e1}
+footer .puntos li::before{background:#64748b;width:6px;height:6px}
 
 /* ═══ responsivo ═══ */
 /* pantallas anchas: las cinco plataformas en una sola fila */
@@ -288,6 +309,7 @@ footer p{font-size:13.5px;max-width:640px}
   .plat,.plat:nth-child(4),.plat:nth-child(5){grid-column:span 6}
   .ruta{grid-template-columns:1fr}
   .cita{flex-direction:column;align-items:flex-start}
+  .intro{padding:16px 18px}
   .acciones .btn{width:100%}
   .ejes4{grid-template-columns:1fr 1fr}
   .ejem{min-height:0;padding:14px}
@@ -350,15 +372,17 @@ footer p{font-size:13.5px;max-width:640px}
     <div class="mo-reveal">
       <span class="partner"><img src="../../compartidos/img/marcas/google-g.webp" alt="" width="22" height="22" style="height:22px">Google for Education Partner</span>
       <h1>Transformamos tu colegio con <span class="gg"><i>G</i><i>o</i><i>o</i><i>g</i><i>l</i><i>e</i></span></h1>
-      <p class="lead"><b>upgrade edu</b> reúne en un solo programa los equipos, las licencias, contenido educativo propio y el acompañamiento que tu colegio necesita para que la tecnología mejore de verdad cómo se enseña, se aprende y se gestiona.</p>
+      <div class="intro">
+        <ul class="puntos">
+          <li><b>Un solo programa:</b> equipos, licencias, contenido propio y acompañamiento</li>
+          <li><b>Un solo contrato</b> y un solo responsable</li>
+          <li><b>Alineado a la NEM</b>, proyecto por proyecto</li>
+          <li><b>Acompañamiento</b> durante todo el ciclo escolar</li>
+        </ul>
+      </div>
       <div class="acciones">
         <a class="btn pri mo-hover-eleva" href="#contacto">Agenda una conversación <svg class="ico"><use href="#i-flecha"/></svg></a>
         <a class="btn sec2 mo-hover-eleva" href="#piloto">Pruébalo sin costo</a>
-      </div>
-      <div class="confian">
-        <span><svg class="ico"><use href="#i-check"/></svg>Un solo contrato</span>
-        <span><svg class="ico"><use href="#i-check"/></svg>Alineado a la NEM</span>
-        <span><svg class="ico"><use href="#i-check"/></svg>Acompañamiento todo el ciclo</span>
       </div>
     </div>
 
@@ -401,16 +425,30 @@ footer p{font-size:13.5px;max-width:640px}
     <div class="cabeza mo-reveal">
       <span class="eyebrow">El reto</span>
       <h2>La tecnología no transforma sola</h2>
-      <p class="lead">Un colegio puede comprar equipos y licencias y aun así no ver cambios en el aula. Casi siempre es por una de estas tres razones.</p>
+      <div class="intro">
+        <ul class="puntos">
+          <li>Comprar equipos y licencias no garantiza cambios en el aula</li>
+          <li>Casi siempre falla por una de estas tres razones</li>
+        </ul>
+      </div>
     </div>
     <div class="g mo-stagger" id="rejProblema">
-      <div class="tarjeta k-blue"><div class="ic"><svg class="ico"><use href="#i-red"/></svg></div><h3>Cada quien va por su lado</h3><p>Dirección, coordinación, docentes, TI y familias tienen prioridades y niveles digitales distintos.</p></div>
-      <div class="tarjeta k-red"><div class="ic"><svg class="ico"><use href="#i-reloj"/></svg></div><h3>El tiempo docente no alcanza</h3><p>Planear y alinear cada clase a la NEM consume horas que deberían ir al aula.</p></div>
-      <div class="tarjeta k-yel"><div class="ic"><svg class="ico"><use href="#i-layers"/></svg></div><h3>Sistemas que no se hablan</h3><p>Avisos por un lado, calificaciones por otro y la misma información capturada varias veces.</p></div>
+      <div class="tarjeta k-blue"><div class="ic"><svg class="ico"><use href="#i-red"/></svg></div><h3>Cada quien va por su lado</h3><ul class="puntos">
+        <li>Dirección, coordinación, docentes, TI y familias tienen prioridades distintas</li>
+        <li>Y niveles digitales muy diferentes</li></ul></div>
+      <div class="tarjeta k-red"><div class="ic"><svg class="ico"><use href="#i-reloj"/></svg></div><h3>El tiempo docente no alcanza</h3><ul class="puntos">
+        <li>Planear cada clase y alinearla a la NEM consume horas</li>
+        <li>Ese tiempo debería ir al aula</li></ul></div>
+      <div class="tarjeta k-yel"><div class="ic"><svg class="ico"><use href="#i-layers"/></svg></div><h3>Sistemas que no se hablan</h3><ul class="puntos">
+        <li>Avisos por un lado y calificaciones por otro</li>
+        <li>La misma información se captura varias veces</li></ul></div>
     </div>
     <div class="cita mo-reveal">
       <svg class="ico" aria-hidden="true"><use href="#i-cita"/></svg>
-      <p>Si los docentes no saben usar las herramientas, la inversión no se aprovecha. Por eso activa no solo entrega tecnología: acompaña al colegio todo el ciclo.</p>
+      <ul class="puntos">
+        <li>Si los docentes no saben usar las herramientas, la inversión no se aprovecha.</li>
+        <li>Por eso activa no solo entrega tecnología: acompaña al colegio todo el ciclo.</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -421,19 +459,33 @@ footer p{font-size:13.5px;max-width:640px}
     <div class="cabeza mo-reveal">
       <span class="eyebrow">upgrade edu</span>
       <h2>Cuatro ejes, un solo programa</h2>
-      <p class="lead">Infraestructura, herramientas, contenido educativo y acompañamiento humano, con un solo responsable y bajo una misma estrategia.</p>
+      <div class="intro">
+        <ul class="puntos">
+          <li>Infraestructura, herramientas, contenido educativo y acompañamiento humano</li>
+          <li>Un solo responsable</li>
+          <li>Una misma estrategia para todo el colegio</li>
+        </ul>
+      </div>
     </div>
     <div class="bento mo-stagger" id="rejBento">
       <article class="bloque b-dis k-blue">
         <span class="n">01</span>
         <h3><svg class="ico"><use href="#i-laptop"/></svg>Dispositivos</h3>
-        <p>Chromebooks para alumnos y docentes, entregadas listas: administradas desde la Consola de Google, protegidas con Securly y aseguradas contra daño y robo.</p>
+        <ul class="puntos">
+          <li>Chromebooks para alumnos y docentes, entregadas listas</li>
+          <li>Administradas desde la Consola de Google</li>
+          <li>Protegidas con Securly y aseguradas contra daño y robo</li>
+        </ul>
         <div class="chips"><span>Uno por alumno o compartidos</span><span>Compra o arrendamiento</span><span>Seguro todo el contrato</span><span>Stock de reemplazo</span></div>
       </article>
       <article class="bloque b-lic k-grn">
         <span class="n">02</span>
         <h3><svg class="ico"><use href="#i-badge"/></svg>Licencias educativas</h3>
-        <p>El ecosistema completo, licenciado, configurado en tu dominio y con soporte de activa.</p>
+        <ul class="puntos">
+          <li>El ecosistema completo, con licencia</li>
+          <li>Configurado en el dominio de tu colegio</li>
+          <li>Con soporte de activa</li>
+        </ul>
         <div class="marcas">
           <span class="wk"><img src="../../compartidos/img/marcas/google-g.webp" alt="" width="22" height="22">Workspace for Education</span>
           <img src="../../compartidos/img/marcas/canva.webp" alt="Canva para Educación" width="70" height="26">
@@ -444,7 +496,11 @@ footer p{font-size:13.5px;max-width:640px}
       <article class="bloque b-pla k-red">
         <span class="n">03</span>
         <h3><svg class="ico"><use href="#i-layers"/></svg>Plataformas propias</h3>
-        <p>Cinco plataformas de activa que cubren lo que la tecnología sola no resuelve: planeación, formación docente, desarrollo socioemocional, inglés y gestión escolar.</p>
+        <ul class="puntos">
+          <li>Cinco plataformas creadas por activa</li>
+          <li>Planeación, formación docente, desarrollo socioemocional, inglés y gestión escolar</li>
+          <li>Cubren lo que la tecnología sola no resuelve</li>
+        </ul>
         <div class="marcas">
           <img src="../../compartidos/img/marcas/impulsa.webp" alt="impulsa" width="104" height="26">
           <img src="../../compartidos/img/marcas/eleva.webp" alt="eleva" width="86" height="26">
@@ -456,7 +512,12 @@ footer p{font-size:13.5px;max-width:640px}
       <article class="bloque b-aco k-yel">
         <span class="n">04</span>
         <h3><svg class="ico"><use href="#i-boya"/></svg>Acompañamiento</h3>
-        <p>Un coach certificado asignado, formación docente con certificación de Google, mesa de ayuda con respuesta en menos de 24 horas hábiles y certificación de alumnos.</p>
+        <ul class="puntos">
+          <li>Un coach certificado asignado a tu colegio</li>
+          <li>Formación docente con certificación de Google</li>
+          <li>Mesa de ayuda con respuesta en menos de 24 horas hábiles</li>
+          <li>Certificación de alumnos</li>
+        </ul>
       </article>
     </div>
   </div>
@@ -468,7 +529,12 @@ footer p{font-size:13.5px;max-width:640px}
     <div class="cabeza mo-reveal">
       <span class="eyebrow">Plataformas propias</span>
       <h2>Lo que hace distinto a upgrade edu</h2>
-      <p class="lead">Cada plataforma responde a una necesidad distinta del mismo colegio, y todas viven dentro de Google.</p>
+      <div class="intro">
+        <ul class="puntos">
+          <li>Cada plataforma resuelve una necesidad distinta del colegio</li>
+          <li>Todas viven dentro de Google</li>
+        </ul>
+      </div>
     </div>
     <div class="plats mo-stagger" id="rejPlats">
       <article class="plat p-impulsa">
@@ -531,7 +597,12 @@ footer p{font-size:13.5px;max-width:640px}
     <div class="cabeza mo-reveal">
       <span class="eyebrow">Para tu equipo</span>
       <h2>Lo que gana cada quien en tu colegio</h2>
-      <p class="lead">Un mismo programa, con un beneficio concreto para cada persona que lo vive.</p>
+      <div class="intro">
+        <ul class="puntos">
+          <li>Un solo programa para todo el colegio</li>
+          <li>Un beneficio concreto para cada persona que lo vive</li>
+        </ul>
+      </div>
     </div>
     <div class="roles mo-stagger" id="rejRoles">
       <div class="rol k-blue"><div class="tit"><div class="ic"><svg class="ico"><use href="#i-landmark"/></svg></div><h3>Dirección</h3></div><ul>
@@ -568,7 +639,12 @@ footer p{font-size:13.5px;max-width:640px}
     <div class="cabeza mo-reveal">
       <span class="eyebrow">El equipo</span>
       <h2>El dispositivo más usado en educación en el mundo</h2>
-      <p class="lead">Las Chromebooks encienden en segundos, no necesitan antivirus y se administran desde un solo lugar. Más de 50 millones de estudiantes las usan.</p>
+      <div class="intro">
+        <ul class="puntos">
+          <li>Más de 50 millones de estudiantes usan Chromebook</li>
+          <li>Toda la flota se administra desde un solo lugar</li>
+        </ul>
+      </div>
     </div>
     <div class="datos6 mo-stagger" id="rejChrome">
       <div class="d6"><b>La mitad del costo</b><span>frente a un equipo de cómputo tradicional*</span></div>
@@ -578,10 +654,21 @@ footer p{font-size:13.5px;max-width:640px}
       <div class="d6"><b>Hasta 10 años</b><span>de actualizaciones automáticas y sin costo</span></div>
       <div class="d6"><b>Enciende en segundos</b><span>lista para la clase, con batería para la jornada</span></div>
     </div>
-    <p class="fuente">* Forrester Total Economic Impact 2024, estudio comisionado por Google. Uso global: Futuresource.</p>
+    <div class="fuente">
+      <ul class="puntos">
+        <li>* Forrester Total Economic Impact 2024, estudio comisionado por Google</li>
+        <li>Uso global: Futuresource</li>
+      </ul>
+    </div>
     <div class="securly mo-reveal">
-      <img src="../../compartidos/img/marcas/securly.webp" alt="Securly" width="120" height="28">
-      <p><b>Seguridad incluida.</b> Securly Filter filtra el contenido dentro y fuera del plantel, y Securly Classroom deja al docente ver y guiar cada pantalla en tiempo real.</p>
+      <img src="../../compartidos/img/marcas/securly.webp" alt="Securly" width="128" height="30">
+      <div>
+        <h3>Seguridad incluida</h3>
+        <ul class="puntos">
+          <li><b>Securly Filter:</b> filtra el contenido dentro y fuera del plantel</li>
+          <li><b>Securly Classroom:</b> el docente ve y guía cada pantalla en tiempo real</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -592,13 +679,29 @@ footer p{font-size:13.5px;max-width:640px}
     <div class="cabeza mo-reveal">
       <span class="eyebrow">La ruta</span>
       <h2>Una estrategia, no compras sueltas</h2>
-      <p class="lead">Cada colegio entra en la etapa que le corresponde y avanza con metas verificables, en un modelo construido con Google for Education.</p>
+      <div class="intro">
+        <ul class="puntos">
+          <li>Cada colegio entra en la etapa que le corresponde</li>
+          <li>Avanza con metas verificables</li>
+          <li>Modelo construido con Google for Education</li>
+        </ul>
+      </div>
     </div>
     <div class="ruta mo-stagger" id="rejRuta">
-      <div class="paso k-blue"><h3>Integración</h3><p>Arranque de Google Workspace, cuentas y Chromebooks administradas.</p></div>
-      <div class="paso k-red"><h3>Adopción</h3><p>Uso real de las herramientas y competencias digitales en los docentes.</p></div>
-      <div class="paso k-yel"><h3>Innovación</h3><p>Docentes certificados y estrategias digitales intermedias y avanzadas.</p></div>
-      <div class="paso meta k-grn"><h3>Transformación</h3><p>Proyectos innovadores, uso ético de la IA y certificación como Google Reference School.</p></div>
+      <div class="paso k-blue"><h3>Integración</h3><ul class="puntos">
+        <li>Arranque de Google Workspace</li>
+        <li>Cuentas de alumnos y docentes</li>
+        <li>Chromebooks administradas</li></ul></div>
+      <div class="paso k-red"><h3>Adopción</h3><ul class="puntos">
+        <li>Uso real de las herramientas</li>
+        <li>Competencias digitales en los docentes</li></ul></div>
+      <div class="paso k-yel"><h3>Innovación</h3><ul class="puntos">
+        <li>Docentes certificados</li>
+        <li>Estrategias digitales intermedias y avanzadas</li></ul></div>
+      <div class="paso meta k-grn"><h3>Transformación</h3><ul class="puntos">
+        <li>Proyectos innovadores</li>
+        <li>Uso ético de la IA</li>
+        <li>Certificación como Google Reference School</li></ul></div>
     </div>
     <div class="marcos mo-reveal">
       <small>Contenido alineado a</small>
@@ -616,7 +719,12 @@ footer p{font-size:13.5px;max-width:640px}
     <div class="cabeza mo-reveal">
       <span class="eyebrow">Paquetes</span>
       <h2>Dos formas de empezar</h2>
-      <p class="lead">El precio es por alumno y se arma a la medida de tu matrícula y del modelo de equipos que elijas.</p>
+      <div class="intro">
+        <ul class="puntos">
+          <li>El precio es por alumno</li>
+          <li>Se arma a la medida de tu matrícula y del modelo de equipos que elijas</li>
+        </ul>
+      </div>
     </div>
     <div class="paqs mo-stagger" id="rejPaqs">
       <div class="paq">
@@ -639,7 +747,10 @@ footer p{font-size:13.5px;max-width:640px}
         </ul>
       </div>
     </div>
-    <div class="modal mo-reveal"><b>Modelos de equipos:</b><span>Sin equipos</span><span>1 por cada 4</span><span>1 por cada 3</span><span>1 por cada 2</span><span>1 por alumno</span></div>
+    <div class="modal mo-reveal">
+      <h3>Modelos de equipos</h3>
+      <div class="opc"><span>Sin equipos</span><span>1 por cada 4</span><span>1 por cada 3</span><span>1 por cada 2</span><span>1 por alumno</span></div>
+    </div>
   </div>
 </section>
 
@@ -650,7 +761,11 @@ footer p{font-size:13.5px;max-width:640px}
       <div>
         <span class="eyebrow">Proyecto Piloto</span>
         <h2>Pruébalo antes de decidir</h2>
-        <p>Prueben el programa completo con un grupo real de su colegio: equipos, licencias, capacitación y acompañamiento incluidos. Al final, ustedes deciden con evidencia propia.</p>
+        <ul class="puntos">
+          <li>El programa completo, con un grupo real de tu colegio</li>
+          <li>Equipos, licencias, capacitación y acompañamiento incluidos</li>
+          <li>Al final, ustedes deciden con evidencia propia</li>
+        </ul>
         <div class="acciones" style="margin-top:22px">
           <a class="btn claro mo-hover-eleva" href="#contacto">Quiero el piloto <svg class="ico"><use href="#i-flecha"/></svg></a>
         </div>
@@ -671,11 +786,16 @@ footer p{font-size:13.5px;max-width:640px}
     <div class="cabeza mo-reveal">
       <span class="eyebrow">Contacto</span>
       <h2>Hablemos de tu colegio</h2>
-      <p class="lead">Escríbenos por WhatsApp, llámanos o mándanos un correo. Te respondemos con una propuesta a la medida.</p>
+      <div class="intro">
+        <ul class="puntos">
+          <li>Escríbenos por WhatsApp, llámanos o mándanos un correo</li>
+          <li>Te respondemos con una propuesta a la medida</li>
+        </ul>
+      </div>
     </div>
     <div class="equipo mo-stagger" id="rejEquipo">
       <div class="persona dest" style="--c:#1a73e8">
-        <div class="quien"><span class="ini" aria-hidden="true">FP</span><div><h3>Fernanda Padilla</h3><div class="tel">33 1466 4666</div></div></div>
+        <div class="quien"><img src="img/fernanda.webp" alt="Fernanda Padilla" width="64" height="64" loading="lazy"><div><h3>Fernanda Padilla</h3><div class="tel">33 1466 4666</div></div></div>
         <div class="vias">
           <a class="via wa" href="https://wa.me/523314664666" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp</a>
           <a class="via" href="tel:+523314664666"><svg class="ico"><use href="#i-tel"/></svg>Llamar</a>
@@ -730,8 +850,14 @@ footer p{font-size:13.5px;max-width:640px}
 
 <footer>
   <div class="wrap">
-    <div class="marcasp"><img src="../../compartidos/img/marcas/activa.webp" alt="activa" width="96" height="24"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner" width="150" height="24"></div>
-    <p>activa · Google for Education Partner · upgrade edu, ciclo 2026–2027. Las aplicaciones del ecosistema pueden cambiar por otras similares o superiores.</p>
+    <div class="pie">
+      <div class="marcasp"><img src="../../compartidos/img/marcas/activa.webp" alt="activa" width="96" height="24"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner" width="150" height="24"></div>
+      <ul class="puntos">
+        <li>activa · Google for Education Partner</li>
+        <li>upgrade edu, ciclo 2026–2027</li>
+        <li>Las aplicaciones del ecosistema pueden cambiar por otras similares o superiores</li>
+      </ul>
+    </div>
   </div>
 </footer>
 

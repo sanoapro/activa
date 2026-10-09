@@ -26,14 +26,17 @@ Patrón «confianza y autoridad + conversión» (skill `ui-ux-pro-max`):
 ## Reglas de contenido
 
 - **Es para el cliente:** sin nombres de competidores, sin precios y sin lo interno.
+- **Ningún texto suelto.** Todo lo que no es título vive en una tarjeta y en viñetas
+  (`ul.puntos`), sin párrafos. Debajo de cada título de sección va una tarjeta `.intro` con dos o
+  tres viñetas; las notas al pie, los modelos de equipos y el pie de página también son tarjetas.
 - Las cifras salen del deck `upgrade-edu` y del portafolio. Las de Chromebook citan su fuente al
   pie (Forrester TEI 2024, comisionado por Google; Futuresource).
 - **integra:** WhatsApp sí; facturación CFDI y pagos en línea **no** se mencionan porque todavía no
   existen.
 - **motiva** se presenta como programa educativo («acompaña», «desarrolla»), nunca como terapia.
 - **beta:** Cambridge, IELTS y TOEFL como **ruta**, no como aval. Por eso no se usan sus logos.
-- **Contacto:** Fernanda Padilla va primero y destacada; el resto del equipo comercial sigue el
-  orden del kit. **Juan de Luca no aparece**, a pedido. Los teléfonos salen del kit comercial: si
+- **Contacto:** Fernanda Padilla va primero y destacada, con su foto; el resto del equipo
+  comercial sigue el orden del kit. **Juan de Luca no aparece**, a pedido. Los teléfonos salen del kit comercial: si
   cambian allá, cambian aquí.
 
 ## Archivos
