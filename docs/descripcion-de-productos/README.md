@@ -6,6 +6,7 @@ La **fuente de verdad** de todo lo que hay aquí sigue siendo
 
 | Documento | Para qué es | A quién le habla |
 |---|---|---|
+| [Los cinco programas](../../paginas/programas-activa/) (página) | Las cinco preguntas por programa, a quién le hablas, ejes de upgrade edu, preguntas del director, lo que no se promete y pendientes. Con PDF descargable | Equipo comercial (uso interno) |
 | [`catalogo-productos.md`](catalogo-productos.md) | Todos los productos con su descripción, agrupados en TI, IP y DP | Uso interno y anexo de propuesta |
 | [`video-impulsa.md`](video-impulsa.md) | Guion de video de ~1 min | Dirección y coordinación académica |
 | [`video-motiva.md`](video-motiva.md) | Guion de video de ~1 min | Dirección y familias |

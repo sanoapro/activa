@@ -72,6 +72,11 @@ Presentacion-activa/
 │   │   ├── og.png                Su vista previa de WhatsApp (generada)
 │   │   ├── og-source.html        El molde de esa vista previa
 │   │   └── README.md
+│   ├── programas-activa/         INTERNA: los cinco programas explicados, en hojas + PDF
+│   │   ├── index.html            Se imprime tal cual: 14 hojas Carta
+│   │   ├── programas-activa-2026-2027.pdf   El PDF (generado)
+│   │   ├── og.png · og-source.html
+│   │   └── README.md
 │   └── comparativa-competidores/ INTERNA: upgrade edu frente a Knotion, UNO, AMCO y cinco más
 │       ├── index.html            Tabla, fichas por competidor y cómo ganarle. Sin JS
 │       ├── og.png                Su vista previa de WhatsApp (generada)
