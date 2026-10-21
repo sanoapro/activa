@@ -125,6 +125,33 @@ details.mas .cuerpo h4{font-size:13px;font-weight:800;letter-spacing:.6px;text-t
 .etapas div{padding:9px 11px;border-radius:12px;background:var(--bg);border:1px solid var(--line);font-size:13.5px;color:var(--slate);line-height:1.35}
 .etapas b{display:block;color:var(--navy);font-size:14px}
 
+/* ═══ programas propios ═══ */
+.programas{background:linear-gradient(180deg,#fff,var(--bg));border-block:1px solid var(--line)}
+.programas .cabeza .eyebrow{color:#b0185a}
+.facilita{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.6vw,18px);margin-bottom:clamp(18px,2.4vw,28px)}
+.fa{padding:18px 18px 16px;border-top:4px solid var(--k)}
+.fa .tit{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.fa .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--kt);color:var(--k);flex-shrink:0}
+.fa h3{font-size:17px}
+.fa .puntos li{font-size:14.5px}
+.tag{display:inline-block;margin-left:4px;padding:1px 8px;border-radius:999px;font-size:11.5px;font-weight:800;letter-spacing:.3px;vertical-align:1px;background:var(--pt);color:var(--p)}
+.progs4{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,1.8vw,20px)}
+.prog{padding:22px;display:flex;flex-direction:column;gap:12px;border-top:6px solid var(--p);--k:var(--p)}
+.prog .cab2{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.prog .cab2 img{height:30px;width:auto}
+.prog .dato{font-size:13px;font-weight:800;padding:6px 12px;border-radius:999px;background:var(--pt);color:var(--p)}
+.prog .lema{font-size:16px;font-weight:700;color:var(--navy);padding:10px 14px;border-radius:14px;background:var(--pt)}
+.prog .puntos li{font-size:15px}
+.prog h4{font-size:12.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--slate2);margin-top:2px}
+.fases-p{display:grid;grid-template-columns:repeat(var(--n,3),1fr);gap:8px}
+.fases-p div{padding:10px 12px;border-radius:12px;background:var(--bg);border:1px solid var(--line);border-left:3px solid var(--p);font-size:13px;color:var(--slate);line-height:1.35}
+.fases-p b{display:block;font-size:14px;color:var(--navy)}
+.fases-p em{display:block;font-style:normal;font-weight:700;color:var(--p);font-size:12.5px}
+.flujo{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;counter-reset:paso}
+.flujo li{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:12px;background:var(--bg);border:1px solid var(--line);font-size:13px;font-weight:700;color:var(--navy2);line-height:1.25}
+.flujo li::before{counter-increment:paso;content:counter(paso);display:grid;place-items:center;flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--p);color:#fff;font-size:12px;font-weight:800}
+.p-impulsa{--p:#c2185b;--pt:#fce4ec}.p-eleva{--p:#5e3fc8;--pt:#ede7f6}.p-motiva{--p:#8e24aa;--pt:#f3e5f5}.p-beta{--p:#1a73e8;--pt:#e8f0fe}
+
 /* ═══ cómo trabajamos ═══ */
 .fases{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.6vw,18px);counter-reset:f}
 .fase{padding:20px;position:relative}
@@ -179,7 +206,7 @@ details.mas .cuerpo h4{font-size:13px;font-weight:800;letter-spacing:.6px;text-t
 
 /* ═══ contacto ═══ */
 .contacto{background:var(--white);border-top:1px solid var(--line)}
-.personas{display:grid;grid-template-columns:repeat(2,minmax(0,420px));justify-content:center;gap:clamp(14px,2vw,20px)}
+.personas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,20px)}
 .persona{padding:20px;display:flex;flex-direction:column;gap:14px}
 .persona .quien{display:flex;align-items:center;gap:14px}
 .persona img{width:64px;height:64px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--c)}
@@ -202,12 +229,18 @@ footer .puntos li::before{background:#64748b;width:6px;height:6px}
 
 /* ═══ responsivo ═══ */
 @media (max-width:1080px){
+  .facilita{grid-template-columns:repeat(2,1fr)}
+  .progs4{grid-template-columns:1fr}
   .portada .wrap{grid-template-columns:1fr}
   .servicios{grid-template-columns:repeat(2,1fr)}
   .fases{grid-template-columns:repeat(2,1fr)}
   .caso{grid-template-columns:1fr}
   .cab .ficha{display:none}
   .cab .btn{margin-left:auto}
+}
+/* tableta: las tres tarjetas de contacto siguen en una fila; la foto sube sobre el nombre */
+@media (min-width:761px) and (max-width:1080px){
+  .persona .quien{flex-direction:column;text-align:center;gap:10px}
 }
 @media (max-width:760px){
   .servicios,.porque,.personas{grid-template-columns:1fr}
@@ -217,6 +250,8 @@ footer .puntos li::before{background:#64748b;width:6px;height:6px}
   .cab .logos .sep:last-of-type{display:none}
 }
 @media (max-width:520px){
+  .facilita{grid-template-columns:1fr}
+  .fases-p,.flujo{grid-template-columns:1fr 1fr}
   .fases,.etapas,.progs{grid-template-columns:1fr}
   .cab .logos .canva{height:40px}
   .cab .btn{padding:10px 14px}
@@ -244,9 +279,13 @@ footer .puntos li::before{background:#64748b;width:6px;height:6px}
   .servicios{grid-template-columns:repeat(3,1fr)!important}
   .fases{grid-template-columns:repeat(4,1fr)!important}
   .porque{grid-template-columns:repeat(3,1fr)!important}
+  .facilita{grid-template-columns:repeat(4,1fr)!important}
+  .progs4{grid-template-columns:repeat(2,1fr)!important}
+  .prog,.fa{break-inside:avoid}
+  #programas{break-before:page}
   .equipo4{grid-template-columns:repeat(4,1fr)!important}
   .caso{grid-template-columns:1.1fr .9fr!important}
-  .personas{grid-template-columns:repeat(2,1fr)!important}
+  .personas{grid-template-columns:repeat(3,1fr)!important}
   .siempre{grid-template-columns:auto 1fr!important}
   .sec{padding:12px 0}
   .cabeza{margin-bottom:10px}
@@ -267,7 +306,10 @@ footer .puntos li::before{background:#64748b;width:6px;height:6px}
   <symbol id="i-trofeo" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
   <symbol id="i-libro" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
   <symbol id="i-boya" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/><circle cx="12" cy="12" r="4"/></symbol>
-  <symbol id="i-tel" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></symbol>
+  <symbol id="i-herr" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-tel"viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
   <symbol id="i-wa" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
 </svg>
@@ -438,6 +480,96 @@ footer .puntos li::before{background:#64748b;width:6px;height:6px}
   </div>
 </section>
 
+<!-- ═══════════ PROGRAMAS PROPIOS ═══════════ -->
+<section class="sec programas" id="programas">
+  <div class="wrap">
+    <div class="cabeza">
+      <span class="eyebrow">Servicios personalizados · programas propios</span>
+      <h2>Programas de activa que le quitan carga al docente</h2>
+    </div>
+
+    <div class="facilita">
+      <div class="card fa k-red"><div class="tit"><span class="ic"><svg class="ico"><use href="#i-reloj"/></svg></span><h3>Su labor diaria</h3></div>
+        <ul class="puntos">
+          <li>Hasta 60 % menos tiempo de planeación <span class="tag p-impulsa">impulsa</span></li>
+          <li>Formación a su ritmo, sin salir del aula <span class="tag p-eleva">eleva</span></li>
+        </ul></div>
+      <div class="card fa k-blue"><div class="tit"><span class="ic"><svg class="ico"><use href="#i-clip"/></svg></span><h3>Administración</h3></div>
+        <ul class="puntos">
+          <li>Todo con la cuenta institucional de Google <span class="tag p-impulsa">impulsa</span></li>
+          <li>Evidencia de avance y resultados medibles <span class="tag p-eleva">eleva</span> <span class="tag p-motiva">motiva</span></li>
+        </ul></div>
+      <div class="card fa k-green"><div class="tit"><span class="ic"><svg class="ico"><use href="#i-libro"/></svg></span><h3>Contenido</h3></div>
+        <ul class="puntos">
+          <li>+1,000 recursos alineados a la NEM <span class="tag p-impulsa">impulsa</span></li>
+          <li>Proyectos de inglés listos por fase <span class="tag p-beta">beta</span></li>
+        </ul></div>
+      <div class="card fa k-purple"><div class="tit"><span class="ic"><svg class="ico"><use href="#i-herr"/></svg></span><h3>Herramientas</h3></div>
+        <ul class="puntos">
+          <li>Publicación directa en Google Classroom <span class="tag p-impulsa">impulsa</span></li>
+          <li>Guía socioemocional con psicólogos certificados <span class="tag p-motiva">motiva</span></li>
+        </ul></div>
+    </div>
+
+    <div class="progs4">
+
+      <article class="card prog p-impulsa">
+        <div class="cab2"><img src="../../compartidos/img/marcas/impulsa.webp" alt="impulsa" width="120" height="30"><span class="dato">Hasta 60 % menos planeación</span></div>
+        <div class="lema">Proyectos educativos y planeación alineados a la NEM</div>
+        <ul class="puntos">
+          <li><b>+1,000 recursos</b> creados por expertos: plantillas, rúbricas y guías</li>
+          <li><b>Alineación curricular lista:</b> campos formativos, ejes articuladores, PDA y Programa Analítico</li>
+          <li><b>Metodologías activas:</b> ABP, STEAM e indagación, Aprendizaje Basado en Problemas y Aprendizaje Servicio</li>
+          <li>Licencias para docentes y para estudiantes</li>
+        </ul>
+        <h4>Cómo lo usa el docente</h4>
+        <ol class="flujo"><li>Entra con su cuenta</li><li>Busca por tema o metodología</li><li>Adapta el proyecto</li><li>Publica en Classroom</li></ol>
+        <h4>Niveles</h4>
+        <div class="fases-p"><div><b>Primaria</b>Fases 3, 4 y 5</div><div><b>Secundaria</b>1.º a 3.º</div><div><b>Bachillerato</b>Media superior</div></div>
+      </article>
+
+      <article class="card prog p-eleva">
+        <div class="cab2"><img src="../../compartidos/img/marcas/eleva.webp" alt="eleva" width="99" height="30"><span class="dato">Cursos autogestivos</span></div>
+        <div class="lema">Desarrollo profesional docente, a su ritmo</div>
+        <ul class="puntos">
+          <li>Cursos en línea de metodologías de tecnología educativa</li>
+          <li><b>Cursos especializados:</b> gamificación, diseño de contenidos con Canva y más</li>
+          <li>Cada docente avanza a su ritmo; la rotación de plantilla no frena al grupo</li>
+          <li>La dirección obtiene <b>evidencia del avance</b> de cada docente</li>
+        </ul>
+        <h4>Se complementa con</h4>
+        <div class="fases-p" style="--n:2"><div><b>Rutas de certificación</b>Educador Google Nivel 1 y 2</div><div><b>Coach y talleres</b>Acompañamiento en vivo</div></div>
+      </article>
+
+      <article class="card prog p-motiva">
+        <div class="cab2"><img src="../../compartidos/img/marcas/motiva.webp" alt="motiva" width="114" height="30"><span class="dato">Psicólogos educativos certificados</span></div>
+        <div class="lema">Acompañamiento socioemocional para alumnos y docentes</div>
+        <ul class="puntos">
+          <li><b>Proceso:</b> diagnóstico, intervención, práctica, acompañamiento y resultados medibles</li>
+          <li><b>Método:</b> comprensión, aplicación, reflexión y repetición, hasta volverlo hábito</li>
+          <li>El docente no está solo: el programa trae su guía y su seguimiento</li>
+        </ul>
+        <h4>Un enfoque por nivel</h4>
+        <div class="fases-p"><div><b>Cimentación</b><em>Primaria</em>Inteligencia emocional y autoconocimiento</div><div><b>Blindaje y liderazgo</b><em>Secundaria</em>Resiliencia y toma de decisiones</div><div><b>Future Skills</b><em>Bachillerato</em>Proyección vocacional y de vida</div></div>
+      </article>
+
+      <article class="card prog p-beta">
+        <div class="cab2"><img src="../../compartidos/img/marcas/beta.webp" alt="beta" width="81" height="30"><span class="dato">De 1.º de primaria a C1</span></div>
+        <div class="lema">Inglés como segunda lengua, alineado al Marco Común Europeo</div>
+        <ul class="puntos">
+          <li><b>Metodología CLIL y socioemocional</b>, con gamificación</li>
+          <li>Escuchar, leer, hablar y escribir por igual</li>
+          <li><b>Proyectos prediseñados por fase</b> y secuencia completa del curso</li>
+          <li>Ruta hacia Cambridge, IELTS y TOEFL</li>
+        </ul>
+        <h4>Cuatro fases</h4>
+        <div class="fases-p" style="--n:4"><div><b>Discovery</b><em>1.º a 3.º primaria</em>Pre-A1 a A1+</div><div><b>Maker</b><em>4.º a 6.º primaria</em>A2 a B1</div><div><b>Influence</b><em>Secundaria</em>B1 a B2</div><div><b>Mastery</b><em>Bachillerato</em>B2 a C1</div></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════ CÓMO TRABAJAMOS ═══════════ -->
 <section class="sec" id="metodo" style="background:var(--white);border-block:1px solid var(--line)">
   <div class="wrap">
@@ -508,7 +640,7 @@ footer .puntos li::before{background:#64748b;width:6px;height:6px}
     </div>
 
     <div class="card ext">
-      <details class="mas"><summary><span class="v1">Ver más de activa: modelo, aliados y programas</span><span class="v2">Ver menos</span></summary>
+      <details class="mas"><summary><span class="v1">Ver más de activa: modelo y aliados</span><span class="v2">Ver menos</span></summary>
         <div class="cuerpo">
           <h4>Frente al modelo tradicional</h4>
           <div class="tabla-caja"><table class="tabla">
@@ -529,13 +661,6 @@ footer .puntos li::before{background:#64748b;width:6px;height:6px}
             <img src="../../compartidos/img/marcas/everway.webp" alt="Everway (Texthelp)" width="96" height="24" style="height:22px">
             <img src="../../compartidos/img/marcas/securly.webp" alt="Securly" width="112" height="26">
           </div>
-          <h4>Programas propios de activa</h4>
-          <div class="progs">
-            <div><img src="../../compartidos/img/marcas/impulsa.webp" alt="impulsa" width="88" height="22"><span>Proyectos educativos alineados al marco curricular</span></div>
-            <div><img src="../../compartidos/img/marcas/eleva.webp" alt="eleva" width="73" height="22"><span>Cursos especializados para docentes</span></div>
-            <div><img src="../../compartidos/img/marcas/motiva.webp" alt="motiva" width="84" height="22"><span>Acompañamiento socioemocional</span></div>
-            <div><img src="../../compartidos/img/marcas/beta.webp" alt="beta" width="60" height="22"><span>Enseñanza del inglés</span></div>
-          </div>
         </div>
       </details>
     </div>
@@ -551,22 +676,6 @@ footer .puntos li::before{background:#64748b;width:6px;height:6px}
     </div>
     <div class="personas">
       <div class="card persona" style="--c:#1a73e8">
-        <div class="quien"><img src="img/fernanda.webp" alt="Fernanda Padilla" width="64" height="64" loading="lazy"><div><h3>Fernanda Padilla</h3><div class="rol">33 1466 4666 · Guadalajara</div><div class="rol">fernanda@activa.la</div></div></div>
-        <div class="vias">
-          <a class="via wa" href="https://wa.me/523314664666" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp</a>
-          <a class="via" href="tel:+523314664666"><svg class="ico"><use href="#i-tel"/></svg>Llamar</a>
-          <a class="via" href="mailto:fernanda@activa.la"><svg class="ico"><use href="#i-mail"/></svg>Correo</a>
-        </div>
-      </div>
-      <div class="card persona" style="--c:#ea4335">
-        <div class="quien"><img src="img/martin.webp" alt="Martín Maldonado" width="64" height="64" loading="lazy"><div><h3>Martín Maldonado</h3><div class="rol">55 2725 9300</div><div class="rol">martin@activa.la</div></div></div>
-        <div class="vias">
-          <a class="via wa" href="https://wa.me/525527259300" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp</a>
-          <a class="via" href="tel:+525527259300"><svg class="ico"><use href="#i-tel"/></svg>Llamar</a>
-          <a class="via" href="mailto:martin@activa.la"><svg class="ico"><use href="#i-mail"/></svg>Correo</a>
-        </div>
-      </div>
-      <div class="card persona" style="--c:#fbbc04">
         <div class="quien"><img src="img/berenice.webp" alt="Berenice Balboa" width="64" height="64" loading="lazy"><div><h3>Berenice Balboa</h3><div class="rol">55 3578 4512</div><div class="rol">balboa@activa.la</div></div></div>
         <div class="vias">
           <a class="via wa" href="https://wa.me/525535784512" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp</a>
@@ -574,12 +683,20 @@ footer .puntos li::before{background:#64748b;width:6px;height:6px}
           <a class="via" href="mailto:balboa@activa.la"><svg class="ico"><use href="#i-mail"/></svg>Correo</a>
         </div>
       </div>
-      <div class="card persona" style="--c:#34a853">
+      <div class="card persona" style="--c:#ea4335">
         <div class="quien"><img src="img/alice.webp" alt="Alice Toral" width="64" height="64" loading="lazy"><div><h3>Alice Toral</h3><div class="rol">442 343 0429</div><div class="rol">alice@activa.la</div></div></div>
         <div class="vias">
           <a class="via wa" href="https://wa.me/524423430429" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp</a>
           <a class="via" href="tel:+524423430429"><svg class="ico"><use href="#i-tel"/></svg>Llamar</a>
           <a class="via" href="mailto:alice@activa.la"><svg class="ico"><use href="#i-mail"/></svg>Correo</a>
+        </div>
+      </div>
+      <div class="card persona" style="--c:#34a853">
+        <div class="quien"><img src="img/fernanda.webp" alt="Fernanda Padilla" width="64" height="64" loading="lazy"><div><h3>Fernanda Padilla</h3><div class="rol">33 1466 4666 · Guadalajara</div><div class="rol">fernanda@activa.la</div></div></div>
+        <div class="vias">
+          <a class="via wa" href="https://wa.me/523314664666" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp</a>
+          <a class="via" href="tel:+523314664666"><svg class="ico"><use href="#i-tel"/></svg>Llamar</a>
+          <a class="via" href="mailto:fernanda@activa.la"><svg class="ico"><use href="#i-mail"/></svg>Correo</a>
         </div>
       </div>
     </div>

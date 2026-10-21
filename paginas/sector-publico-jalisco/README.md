@@ -14,13 +14,20 @@ A propósito, **corta a primera vista y expandible después**:
 2. **Seis servicios**, cada uno con una frase y tres viñetas: Google Workspace for Education,
    Chromebooks, formación y certificación docente, IA centrada en el ser humano, Canva para
    gobierno y educación, y habilidades digitales para estudiantes.
-3. **Cuatro fases** (diagnóstico, despliegue, capacitación, evolución) y lo que va durante todo el
+3. **Programas propios (servicios personalizados)**, siempre a la vista, no en un desplegable:
+   primero cómo facilitan el trabajo docente (labor diaria, administración, contenido y
+   herramientas, con la etiqueta del programa que lo resuelve) y luego una tarjeta completa por
+   programa: **impulsa, eleva, motiva y beta**, con sus fases o niveles. **integra no va**, a
+   pedido.
+4. **Cuatro fases** (diagnóstico, despliegue, capacitación, evolución) y lo que va durante todo el
    proyecto.
-4. **Caso:** el curso de Canva avalado por la Secretaría de Educación del Estado de México.
-5. **Por qué activa** y el equipo. Contacto al final.
+5. **Caso:** el curso de Canva avalado por la Secretaría de Educación del Estado de México.
+6. **Por qué activa** y el equipo.
+7. **Contacto**, en una sola fila y en este orden: **Berenice Balboa, Alice Toral y Fernanda
+   Padilla**. Martín Maldonado no aparece, a pedido.
 
-El detalle va en botones **«Ver más»** (`<details>`): no necesita JavaScript y, al imprimir, sale
-solo la ficha corta.
+El detalle va en botones **«Ver más»** (`<details>`): no necesita JavaScript y, al imprimir, no sale.
+Impresa son tres hojas carta: portada y servicios; programas y fases; caso, equipo y contacto.
 
 ## De dónde sale el contenido
 
@@ -31,6 +38,7 @@ De la presentación ejecutiva «activa – Google for Education» (22 páginas),
 - **inicia no aparece:** el portafolio la marca como retirada y no se ofrece.
 - **No se usan:** el testimonio sin autor ni la mención a USICAM del caso de Canva, que la propia
   presentación deja sin confirmar.
+- Los programas salen del portafolio (§ 6), que es más completo y vigente que el deck.
 - El equipo (+30 coaches, 9 Innovadores de Google, 12 Gemini Educators, 15 especialistas TI) y el
   reconocimiento Google Cloud Partner of the Year 2021 salen del deck.
 - No lleva precios ni logotipos del gobierno de Jalisco.
