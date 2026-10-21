@@ -77,6 +77,11 @@ Presentacion-activa/
 │   │   ├── img/                  Fotos del equipo, 240 px (generadas)
 │   │   ├── og.png · og-source.html
 │   │   └── README.md
+│   ├── sector-publico-jalisco/   Ficha técnica para el sector público de Jalisco
+│   │   ├── index.html            Sin JS; el detalle va en <details>
+│   │   ├── img/                  Fotos del contacto
+│   │   ├── og.png · og-source.html
+│   │   └── README.md
 │   ├── capacitacion-ia/          TEMPORAL: liga corta de la Capacitación IA → one-pager
 │   │   ├── index.html            Solo redirige; existe por su vista previa de WhatsApp
 │   │   ├── og.png · og-source.html
