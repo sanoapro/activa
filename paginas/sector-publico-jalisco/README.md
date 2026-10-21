@@ -40,7 +40,7 @@ De la presentación ejecutiva «activa – Google for Education» (22 páginas),
 | Archivo | Qué es |
 | --- | --- |
 | `index.html` | La página. Se edita a mano. Sin JavaScript |
-| `img/*.webp` | Fotos del contacto, copiadas del one-pager |
+| `img/*.webp` | Fotos del contacto, 240 px, recortadas al rostro desde `compartidos/img/fotos-vendedores/` |
 | `og.png` · `og-source.html` | Vista previa de WhatsApp y su molde |
 
 El logo de Canva Certified Reseller Partner vive en
