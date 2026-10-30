@@ -6,28 +6,37 @@ WhatsApp o correo a un prospecto.
 
 Se publica en <https://sanoapro.github.io/activa/paginas/one-pager/>.
 
-## Capacitación IA (temporal)
+## Capacitación Canva (temporal)
 
-Hasta arriba, antes del hero, va la sesión **Capacitación IA** del jueves 15 de octubre de 2026,
-de 5:00 a 7:00 pm hora del centro, por Google Meet (`meet.google.com/pre-ohvo-faq`). Mientras
-esté, el título de la página es «Capacitación IA · activa» y la vista previa de WhatsApp es la de
-[`../capacitacion-ia/`](../capacitacion-ia/), la liga corta que se comparte.
+Hasta arriba, antes del hero, va la sesión **Capacitación Canva** del jueves 12 de noviembre de
+2026, de 5:00 a 7:00 pm hora del centro, por Google Meet (`meet.google.com/gme-ermp-ogk`; por
+teléfono +52 55 8421 0898, PIN 570 962 650 1328#). La imparte **Vicky Reyes**, con su foto al
+inicio (`img/vicky-capa.webp`, 320 px, recortada de `compartidos/img/fotos-vendedores/`).
+Mientras esté, el título de la página es «Capacitación Canva · activa» y la vista previa de
+WhatsApp es la de [`../capacitacion-canva/`](../capacitacion-canva/), la liga corta que se
+comparte. La sesión anterior (Capacitación IA, 15 de octubre) usaba
+[`../capacitacion-ia/`](../capacitacion-ia/), que se conserva y sigue mandando aquí.
 
+- **Colores y logos de Canva** solo dentro de la sección: degradado turquesa → azul → morado
+  (`#00c4cc → #3b5bdb → #7d2ae8`, el mismo de la ficha de Jalisco), el logo de Canva en el
+  título y el sello Certified Canva Reseller Partner. El resto de la página sigue en paleta
+  Google.
 - **Horario por región:** las cinco zonas de México con la hora ya convertida. Para esa fecha
-  Estados Unidos sigue en horario de verano, así que Baja California y los municipios
-  fronterizos de Coahuila, Nuevo León y Tamaulipas van una hora distinta a la de su zona en
-  invierno. Abajo, un script muestra la hora en el dispositivo de quien abre la página.
+  Estados Unidos ya salió del horario de verano (1 de noviembre), así que los municipios
+  fronterizos de Coahuila, Nuevo León y Tamaulipas van igual que el centro y Baja California dos
+  horas antes. Abajo, un script muestra la hora en el dispositivo de quien abre la página.
 - **Estado:** el chip junto a la fecha cuenta los días que faltan, dice «En vivo ahora» desde 15
   minutos antes y «La sesión ya terminó» al acabar.
 
 **Para quitarla** (todo está marcado como «temporal» en el HTML):
 
 1. Borrar la `<section id="capacitacion">`, su bloque de CSS y su script al final.
-2. Quitar «Capacitación IA» del menú.
+2. Quitar «Capacitación Canva» del menú.
 3. Regresar el titular del hero de `<h2 class="titular">` a `<h1>` (y su CSS de `.hero .titular`
    a `.hero h1`).
 4. Regresar `<title>`, `description` y las etiquetas `og:`/`twitter:` a upgrade edu y a `og.png`.
-5. Borrar la carpeta `paginas/capacitacion-ia/`.
+5. Borrar las carpetas `paginas/capacitacion-canva/` y `paginas/capacitacion-ia/`, y
+   `img/vicky-capa.webp`.
 
 ## Orden de lectura
 
@@ -67,7 +76,7 @@ Patrón «confianza y autoridad + conversión» (skill `ui-ux-pro-max`):
 | Archivo | Qué es |
 | --- | --- |
 | `index.html` | La página. Se edita a mano |
-| `img/*.webp` | Fotos del equipo, 240 px, recortadas al rostro desde `compartidos/img/fotos-vendedores/` |
+| `img/*.webp` | Fotos del equipo, 240 px, recortadas al rostro desde `compartidos/img/fotos-vendedores/`. `vicky-capa.webp` (320 px) es la de la capacitación |
 | `og.png` · `og-source.html` | Vista previa de WhatsApp y su molde |
 
 ## Movimiento

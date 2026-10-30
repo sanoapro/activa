@@ -1,5 +1,10 @@
 # Capacitación IA (temporal)
 
+> **Sesión pasada.** La sesión vigente es la Capacitación Canva del 12 de noviembre, con su
+> propia liga en [`../capacitacion-canva/`](../capacitacion-canva/). Esta liga se conserva para
+> que quien la tenga en WhatsApp llegue al one-pager y no a un 404; su tarjeta todavía dice
+> 15 de octubre porque WhatsApp no la vuelve a leer.
+
 Liga corta para compartir la **Capacitación IA** del jueves 15 de octubre de 2026 por WhatsApp:
 <https://sanoapro.github.io/activa/paginas/capacitacion-ia/>
 

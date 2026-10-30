@@ -82,7 +82,11 @@ Presentacion-activa/
 │   │   ├── img/                  Fotos del contacto
 │   │   ├── og.png · og-source.html
 │   │   └── README.md
-│   ├── capacitacion-ia/          TEMPORAL: liga corta de la Capacitación IA → one-pager
+│   ├── capacitacion-canva/       TEMPORAL: liga corta de la Capacitación Canva → one-pager
+│   │   ├── index.html            Solo redirige; existe por su vista previa de WhatsApp
+│   │   ├── og.png · og-source.html
+│   │   └── README.md
+│   ├── capacitacion-ia/          TEMPORAL: liga de la sesión pasada (15 oct); sigue mandando al one-pager
 │   │   ├── index.html            Solo redirige; existe por su vista previa de WhatsApp
 │   │   ├── og.png · og-source.html
 │   │   └── README.md
