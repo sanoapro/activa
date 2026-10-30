@@ -156,6 +156,39 @@ precio base y no se prorratea.**
 - Con equipos capturados, `modLbl` dice **«a la medida»**; sin ellos sigue diciendo «sin
   equipos». La advertencia `NO_DEVICES` solo se emite si de verdad no hay equipos.
 
+## Carritos adicionales y cobertura docente (30-oct-2026 · v5.1)
+
+Dos pedidos del equipo comercial.
+
+**Carritos adicionales.** En 1:2, 1:3 y 1:4 el motor sigue derivando los carritos
+(`ratioCarts = ⌈equipos de alumno ÷ capacidad⌉`), pero el vendedor ya puede sumar **carritos
+adicionales** en **1:1 a 1:4**: renglones capacidad × cantidad, iguales a los de la modalidad a
+la medida (una sola implementación, `CART_ROW_KINDS` / `renderCartRows` / `bindCartRows`).
+
+- El estado es `scenario.extraCarts` (`[{cap,qty}]`, máximo 20 renglones). Es **opcional**: un
+  borrador o escenario anterior entra con `[]` y su precio no se mueve; no se subió el esquema.
+- El precio sale de `PRECIOS.carritos` y se prorratea como los derivados:
+  `adjCart = (carritos derivados + adicionales) ÷ alumnos ÷ años`.
+- **La autorización sin costo solo alcanza a los derivados.** La huella firma `ratioCarts`, así
+  que agregar o quitar adicionales no la revoca ni la extiende.
+- Se limpian en todo cambio de modalidad y se descartan en la modalidad 0.
+
+**Cobertura docente.** Antes, cada equipo docente adicional sumaba un docente con licencia,
+aunque fuera para un docente que ya la tenía. Con 300 alumnos en 1:1 hay 30 docentes con
+licencia y 15 con equipo; equipar a los otros 15 subía las licencias a 45. Ahora, en las
+modalidades por razón:
+
+1. los equipos adicionales equipan primero a los **docentes incluidos sin equipo**;
+2. después, a los **docentes extra**, que **dejan de pagar** los $1,500 al año, porque el precio
+   del equipo ya incluye su licenciamiento;
+3. solo los que sobran son **docentes nuevos** y suman licencia.
+
+El costo de los equipos no cambia. El motor expone `incNoDev`, `coverInc`, `coverExtra`,
+`newTeachers` y `docExtraPaid`, y la caja de cálculo y el aviso `EXTRA_TEACHER_DEVICES` enseñan
+el reparto. Las pruebas «Paridad financiera legado», «F-25 · P3 · Un equipo docente adicional…»
+y «F-25 · El PDF documenta el alcance…» se reescribieron a esta regla: sus conteos de docentes
+cambiaron, no su precio.
+
 ## Las dos licencias de Google Workspace son una sola decisión (26-ago-2026)
 
 El colegio contrata **Education Plus** *o* **Teaching & Learning**, nunca las dos. Antes eran dos

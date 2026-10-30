@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>activa · Upgrade Edu — Cotizador 2026–2027 · v5.0</title>
+<title>activa · Upgrade Edu — Cotizador 2026–2027 · v5.1</title>
 <meta name="description" content="Cotizador del ecosistema digital Upgrade Edu. Ciclo escolar 2026–2027, IVA incluido.">
 <!-- Fuera de los buscadores: esta página lleva el precio por alumno, los descuentos
      y los datos bancarios de la empresa. Se comparte por enlace, nunca se busca. -->
@@ -1181,7 +1181,7 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
            una copia anterior del archivo (descargas duplicadas "(1)", accesos directos
            viejos) y parecía que las mejoras no aplicaban. Ahora el archivo se identifica
            de un vistazo, sin abrir el diagnóstico. -->
-      <span class="vertag" title="Cotizador activa · versión del archivo">v5.0</span>
+      <span class="vertag" title="Cotizador activa · versión del archivo">v5.1</span>
     </div>
     <nav class="hnav">
       <a href="#s1">Captura</a>
@@ -1268,7 +1268,7 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
           <div class="f"><label for="fDocInc">Docentes incluidos</label><output id="fDocInc" class="ro-output" for="fStu">0</output>
             <div class="hint" id="hDocRatio">1 por cada 10 alumnos</div></div>
           <div class="f"><label for="fDocX">Docentes extra <span class="tagx">sin equipo</span></label><input type="number" id="fDocX" min="0" max="999999" step="1" inputmode="numeric" value="0">
-            <div class="hint" id="hDocExtraCost">Con licencias, sin equipo. $1,500 al año cada uno</div></div>
+            <div class="hint" id="hDocExtraCost">Con licencias, sin equipo. $1,500 al año cada uno; si reciben equipo adicional, ya no se cobra</div></div>
           <div class="f"><label for="fUsers">Usuarios con licencia</label><output id="fUsers" class="ro-output" for="fStu fDocX fEqDoc fEqStu">0</output>
             <div class="hint" id="hUsers">Alumnos más docentes</div></div>
         </div>
@@ -1324,15 +1324,15 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
           <div class="f"><label for="fEqDocInc">Equipos docentes incluidos</label><output id="fEqDocInc" class="ro-output" for="fStu">0</output>
             <div class="hint" id="hEqDocInc">Elige primero el modelo</div></div>
           <div class="f"><label for="fEqDoc">Adicionales · modelo docente</label><input type="number" id="fEqDoc" min="0" max="999999" step="1" inputmode="numeric" value="0">
-            <div class="hint">Equipo de mayor capacidad. Suma licencias</div></div>
+            <div class="hint">Equipo de mayor capacidad. Primero equipa a docentes con licencia sin equipo</div></div>
           <div class="f"><label for="fEqStu">Adicionales · modelo estudiante</label><input type="number" id="fEqStu" min="0" max="999999" step="1" inputmode="numeric" value="0">
-            <div class="hint">Mismo equipo que el alumno. Suma licencias</div></div>
+            <div class="hint">Mismo equipo que el alumno. Primero equipa a docentes con licencia sin equipo</div></div>
         </div>
 
         </div>
 
         <div class="fgroup" id="grpCart">
-        <div class="miniLbl">Carrito de carga <span class="tagx alt">solo en modelos 1:2, 1:3 y 1:4</span></div>
+        <div class="miniLbl">Carrito de carga <span class="tagx alt">automático en 1:2, 1:3 y 1:4</span></div>
         <fieldset class="cartgrid" id="cartGrid"><legend class="sr-only">Capacidad del carrito de carga</legend>
           <fieldset class="cartopt" data-cap="20"><legend>Carrito de 20 equipos</legend><div class="cart-select"><input type="radio" id="cartCap20" name="cartcap" value="20"><label for="cartCap20">Usar capacidad de 20</label></div><span class="nohint" id="cartPrice20"></span></fieldset>
           <fieldset class="cartopt on" data-cap="30"><legend>Carrito de 30 equipos</legend><div class="cart-select"><input type="radio" id="cartCap30" name="cartcap" value="30" checked><label for="cartCap30">Usar capacidad de 30</label></div><span class="nohint" id="cartPrice30"></span></fieldset>
@@ -1343,6 +1343,14 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
           <input type="checkbox" id="fCartFree">
           <span class="ln"><b>Autorizar carrito sin costo</b><br><small>La autorización queda ligada a esta configuración y se revoca si cambia.</small><span id="cartAuthMeta" class="cart-auth-meta"></span></span>
         </label>
+        <!-- Carritos adicionales a los automáticos, en 1:1 a 1:4 (30-oct-2026). Mismo
+             renglón que los de la modalidad a la medida: capacidad y cantidad; el precio
+             sale del catálogo. -->
+        <div class="miniLbl" style="margin-top:14px">Carritos adicionales <span class="tagx alt">capacidad y cantidad · el precio sale del catálogo</span></div>
+        <div id="extraCartRows"></div>
+        <div class="inline-action">
+          <button type="button" class="btn primary" id="btnAddExtraCart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Agregar carrito</button>
+        </div>
         <div class="calcbox" id="cartBox" style="margin-top:14px"></div>
         </div>
       </div>
@@ -2261,7 +2269,13 @@ const ITEMS=[
   d:"Carrito con cargador múltiple para resguardo, traslado y carga simultánea de los equipos del aula.",
   e:[1,1,1,1,0],p:[1,1,1,1,0],
   why:{4:"En 1:1 cada alumno resguarda su propio equipo"},
-  qty:r=>r.carts, dyn:r=>r.custom&&r.proRata?.carts?.length?`Carrito de carga (${[...new Set(r.proRata.carts.map(c=>c.cap))].join(" / ")} equipos)`:`Carrito de carga para ${r.cartCap||0} equipos`},
+  qty:r=>r.carts, dyn:r=>{
+    /* Las capacidades que de verdad van: renglones a la medida, o los automáticos más
+       los adicionales en 1:1 a 1:4 (30-oct-2026). */
+    const caps=r.custom?(r.proRata?.carts||[]).map(c=>c.cap)
+      :[...(r.ratioCarts?[r.cartCap]:[]),...(r.extraCarts||[]).map(c=>c.cap)];
+    const unique=[...new Set(caps)].sort((a,b)=>a-b);
+    return unique.length>1||(r.custom&&unique.length)?`Carrito de carga (${unique.join(" / ")} equipos)`:`Carrito de carga para ${unique[0]||r.cartCap||0} equipos`;}},
  {a:"TI",i:P.shieldok,c:"g",n:"Licencia Chrome Education Upgrade",
   d:"Licencia perpetua de gestión educativa por dispositivo. Habilita la administración y el control centralizado del parque desde la consola de Google Admin.",
   e:T,p:T,
@@ -2497,10 +2511,21 @@ function quote(input) {
   const eqStuTot = eqDocIncStu + eqStuX + proDocStu;
   const teacherDeviceExtras = eqDocX + eqStuX;
 
-  /* F-25 · P3 · Cada equipo docente ADICIONAL es un usuario docente adicional y por
-     tanto suma licencias, igual que un docente extra. Su precio de catálogo ya
-     incluye el licenciamiento, por eso NO se le suma la cuota anual de docente extra. */
-  const docTot = docInc + docExtra + teacherDeviceExtras;
+  /* COBERTURA DOCENTE (30-oct-2026) · Un equipo docente adicional va PRIMERO a un
+     docente que ya tiene licencia y no tiene equipo; solo el que sobra es un docente
+     nuevo y suma licencia. Antes cada equipo adicional sumaba un docente: con 300
+     alumnos en 1:1 hay 30 docentes con licencia y 15 con equipo, y equipar a los 15
+     restantes subía las licencias a 45 en vez de dejarlas en 30.
+     El orden es incluidos sin equipo y después docentes extra. Un docente extra que
+     recibe equipo deja de pagar la cuota anual: el precio del equipo ya incluye su
+     licenciamiento, y cobrar las dos cosas era un cobro doble.
+     Solo aplica en las modalidades por razón: a la medida, proDoc nunca sumó licencias. */
+  const incNoDev = ratioMode ? Math.max(0, docInc - eqDocInc) : 0;
+  const coverInc = Math.min(teacherDeviceExtras, incNoDev);
+  const coverExtra = Math.min(teacherDeviceExtras - coverInc, docExtra);
+  const newTeachers = teacherDeviceExtras - coverInc - coverExtra;
+  const docExtraPaid = docExtra - coverExtra;
+  const docTot = docInc + docExtra + newTeachers;
 
   const totalEq = ratioMode ? stuReq + eqDocInc + eqDocX + eqStuX : proStu + proDoc;
   /* hasDev deja de ser «mod > 0»: es «hay equipos, por la razón que sea». En las
@@ -2512,7 +2537,7 @@ function quote(input) {
 
   /* Cada equipo adicional lleva su CEU y su seguro: deviceUnitCost() los suma. */
   const costExtraEq = eqDocX * termDocenteDeviceCost(t,years) + eqStuX * termEstudianteDeviceCost(t,years);
-  const adjDocExtra = students > 0 ? (docExtra * APP_CONFIG.equipment.extraTeacherAnnualCost) / students : 0;
+  const adjDocExtra = students > 0 ? (docExtraPaid * APP_CONFIG.equipment.extraTeacherAnnualCost) / students : 0;
   const adjEqDoc = (students > 0 && years > 0 ? costExtraEq / students / years : 0) + adjDocExtra;
   const adjStuExtra = students > 0 ? stuChg * APP_CONFIG.equipment.extraStudentDeviceFactor * base / students : 0;
 
@@ -2528,12 +2553,23 @@ function quote(input) {
   const cartFreeAuthorized = ratioCarts > 0 && isCartAuthorizationValid(q,{stuReq,carts:ratioCarts});
   const cartPrice = cartFreeAuthorized ? 0 : cartCatalogPrice(q.cartCap);
   const ratioCartTot = ratioCarts * cartPrice;
-  const adjCart = students > 0 && years > 0 ? ratioCartTot / students / years : 0;
+  /* CARRITOS ADICIONALES (30-oct-2026) · En 1:1 a 1:4 el vendedor no podía sumar un
+     carrito a los derivados (y en 1:1 no había ninguno). Los adicionales son renglones
+     capacidad × cantidad, como los de la modalidad a la medida, a precio de catálogo
+     y prorrateados igual que los derivados. La autorización sin costo NO los alcanza:
+     sigue ligada a los derivados (ratioCarts), y por eso la huella no los cuenta. */
+  const extraCartRows = ratioMode && Array.isArray(q.extraCarts)
+    ? q.extraCarts.filter(c=>c&&CART_CAPS.includes(Number(c.cap))&&Number.isSafeInteger(c.qty)&&c.qty>0)
+      .map(c=>({cap:Number(c.cap),qty:c.qty,price:cartCatalogPrice(c.cap)}))
+    : [];
+  const extraCartQty = extraCartRows.reduce((sum,c)=>sum+c.qty,0);
+  const extraCartCost = extraCartRows.reduce((sum,c)=>sum+c.qty*c.price,0);
+  const adjCart = students > 0 && years > 0 ? (ratioCartTot + extraCartCost) / students / years : 0;
   const proCartQty = proCartRows.reduce((sum,c)=>sum+c.qty,0);
   const proCartCost = proCartRows.reduce((sum,c)=>sum+c.qty*cartCatalogPrice(c.cap),0);
   const proCartCapTotal = proCartRows.reduce((sum,c)=>sum+c.qty*c.cap,0);
-  const carts = ratioMode ? ratioCarts : proCartQty;
-  const cartTot = ratioMode ? ratioCartTot : proCartCost;
+  const carts = ratioMode ? ratioCarts + extraCartQty : proCartQty;
+  const cartTot = ratioMode ? ratioCartTot + extraCartCost : proCartCost;
 
   const discLic = LICS.reduce((sum, lic) => {
     if (lic.plusOnly && q.pkg !== "plus") return sum;
@@ -2601,7 +2637,14 @@ function quote(input) {
      correcto es aumentar el número de alumnos. */
   if (stuChg > 0) warns.push({t:"i",code:"BILLABLE_EXTRAS",m:`Se cobran ${stuChg} equipo(s) adicional(es) de estudiante al ${percent(APP_CONFIG.equipment.extraStudentDeviceFactor)} del precio base.`});
   /* F-25 · P3 · El comercial debe ver que el equipo docente adicional mueve licencias. */
-  if (teacherDeviceExtras > 0) warns.push({t:"i",code:"EXTRA_TEACHER_DEVICES",m:`${teacherDeviceExtras} equipo(s) docente(s) adicional(es): suman ${teacherDeviceExtras} usuario(s) con licencia y se cobran a ${money(termDocenteDeviceCost(t,years))} modelo docente · ${money(termEstudianteDeviceCost(t,years))} modelo estudiante, con su licencia CEU y su seguro ya sumados.`});
+  if (teacherDeviceExtras > 0) {
+    const reparto = [
+      coverInc ? `${coverInc} para docentes incluidos que no tenían equipo` : "",
+      coverExtra ? `${coverExtra} para docentes extra, que dejan de pagar la cuota anual` : "",
+      newTeachers ? `${newTeachers} para docentes nuevos, que suman ${newTeachers} licencia(s)` : ""
+    ].filter(Boolean).join("; ");
+    warns.push({t:"i",code:"EXTRA_TEACHER_DEVICES",m:`${teacherDeviceExtras} equipo(s) docente(s) adicional(es): ${reparto}.${newTeachers?"":" No suman licencias."} Se cobran a ${money(termDocenteDeviceCost(t,years))} modelo docente · ${money(termEstudianteDeviceCost(t,years))} modelo estudiante, con su licencia CEU y su seguro ya sumados.`});
+  }
   /* Las reglas del carrito derivado —precio obligatorio o autorización sin costo— son
      de las modalidades por razón. En la modalidad a la medida el precio 0 es válido y
      sin advertencia: el colegio puede tener ya los suyos (regla cerrada el 21-ago-2026). */
@@ -2609,7 +2652,7 @@ function quote(input) {
      y por tanto nada que se pueda olvidar. */
   const cartFreeValid = cartFreeAuthorized;
   if (cartFreeValid) warns.push({t:"w",code:"CART_FREE",m:`${ratioCarts} carrito(s) de ${q.cartCap} equipos autorizados sin costo para esta configuración.`});
-  if (docExtra > 0) warns.push({t:"i",code:"EXTRA_TEACHERS",m:`${docExtra} docente(s) extra sin equipo: suman licencias y ${money(APP_CONFIG.equipment.extraTeacherAnnualCost)} al año cada uno, por los años del contrato.`});
+  if (docExtraPaid > 0) warns.push({t:"i",code:"EXTRA_TEACHERS",m:`${docExtraPaid} docente(s) extra sin equipo: suman licencias y ${money(APP_CONFIG.equipment.extraTeacherAnnualCost)} al año cada uno, por los años del contrato.`});
   if (list <= 0) warns.push({t:"e",blocks:"price",code:"NON_POSITIVE_PRICE",m:"El precio por alumno quedó en cero o negativo. Revisa los ajustes de la cotización."});
   /* La advertencia de solo-licenciamiento se emite únicamente si DE VERDAD no hay
      equipos: con equipos a la medida capturados, la propuesta sí entrega dispositivos. */
@@ -2628,8 +2671,10 @@ function quote(input) {
     t,yrs:years,base,div:divisor,hasDev,custom:!ratioMode,stu:students,users:students+docTot,cartCap:q.cartCap,
     docInc,docExtra,docTot,stuIncl,stuReq,stuExtra,stuChg,
     teacherModel,teacherRatio,eqDocInc,eqDocIncDoc,eqDocIncStu,eqDocTot,eqStuTot,teacherDeviceExtras,
+    incNoDev,coverInc,coverExtra,newTeachers,docExtraPaid,
     eqDocX,eqStuX,totalEq,stock,costExtraEq,adjEqDoc,adjDocExtra,adjStuExtra,
     carts,cartTot,cartPrice,adjCart,cartFreeValid,discLic,list,listRaw,schemes,cap,warns,
+    ratioCarts,extraCarts:extraCartRows,extraCartQty,extraCartCost,
     /* La cuenta del prorrateo, completa, para la caja de cálculo del vendedor. Es dato
        de pantalla: NO viaja al PDF, al correo ni al escenario compartido. */
     adjProRata,
@@ -2725,7 +2770,7 @@ function saveSellerProfile(seller){
   }catch(error){console.warn("No se pudo guardar el perfil del vendedor",error);return false;}
 }
 function emptyCartAuthorization(){return{authorized:false,fingerprint:"",authorizedAt:"",authorizedBy:""};}
-function defaultState(generateIdentity=true){const today=localISODate(new Date()),seller=loadSellerProfile();return{schemaVersion:APP_CONFIG.schemaVersion,identity:generateIdentity?newIdentity(seller.name,today):{quoteId:"",folioRoot:"",revision:1,createdAt:"",updatedAt:"",parentQuoteId:null},scenario:{pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,docExtra:0,stuExtra:0,teacherDeviceModel:null,eqDoc:0,eqStu:0,cartCap:30,cartFreeAuthorization:emptyCartAuthorization(),/* v5 · Cotización a la medida: equipos y carritos prorrateados de la modalidad 0. */proRata:{stu:0,doc:0,carts:[]},lic:normalizeWorkspaceLic(Object.fromEntries(LICS.map(l=>[l.k,true]))),/* F-24 · P4 · Esquemas ADICIONALES al elegido que el documento debe mostrar. Por defecto ninguno: la propuesta muestra solo el esquema elegido para no confundir al cliente. */showSchemes:{contado:false,antes:false,despues:false}},client:{institution:"",shortName:"",city:"",contacts:[{name:"",email:"",phone:""},{name:"",email:"",phone:""},{name:"",email:"",phone:""}]},validity:{quoteDate:today,validUntil:addDaysISO(today,APP_CONFIG.cycle.validityDays),validUntilAuto:true,delivery:APP_CONFIG.cycle.delivery,shipping:"Sí"},seller,supplier:clone(APP_CONFIG.defaults.supplier),mail:{recipients:[],excludedRecipients:[],subjectOverride:"",subjectMode:"auto",multiQuote:false}};}
+function defaultState(generateIdentity=true){const today=localISODate(new Date()),seller=loadSellerProfile();return{schemaVersion:APP_CONFIG.schemaVersion,identity:generateIdentity?newIdentity(seller.name,today):{quoteId:"",folioRoot:"",revision:1,createdAt:"",updatedAt:"",parentQuoteId:null},scenario:{pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,docExtra:0,stuExtra:0,teacherDeviceModel:null,eqDoc:0,eqStu:0,cartCap:30,cartFreeAuthorization:emptyCartAuthorization(),/* v5 · Cotización a la medida: equipos y carritos prorrateados de la modalidad 0. */proRata:{stu:0,doc:0,carts:[]},/* Carritos adicionales a los derivados, en 1:1 a 1:4 (30-oct-2026). */extraCarts:[],lic:normalizeWorkspaceLic(Object.fromEntries(LICS.map(l=>[l.k,true]))),/* F-24 · P4 · Esquemas ADICIONALES al elegido que el documento debe mostrar. Por defecto ninguno: la propuesta muestra solo el esquema elegido para no confundir al cliente. */showSchemes:{contado:false,antes:false,despues:false}},client:{institution:"",shortName:"",city:"",contacts:[{name:"",email:"",phone:""},{name:"",email:"",phone:""},{name:"",email:"",phone:""}]},validity:{quoteDate:today,validUntil:addDaysISO(today,APP_CONFIG.cycle.validityDays),validUntilAuto:true,delivery:APP_CONFIG.cycle.delivery,shipping:"Sí"},seller,supplier:clone(APP_CONFIG.defaults.supplier),mail:{recipients:[],excludedRecipients:[],subjectOverride:"",subjectMode:"auto",multiQuote:false}};}
 function createSafeDefaultState(){
   try{return defaultState();}
   catch(error){
@@ -2795,8 +2840,20 @@ if(sanitizedMod===0&&version>=5&&isPlainObject(payload.proRata)){
     });
   }
 }
+/* Carritos adicionales (30-oct-2026): solo existen en las modalidades por razón. El campo
+   es OPCIONAL y no sube el esquema: un escenario o borrador anterior entra con [] y su
+   precio no se mueve. En la modalidad 0 se descartan con la misma regla anti-latencia. */
+const extraCarts=[];
+if(hasDevicesMod&&Array.isArray(payload.extraCarts)){
+  if(payload.extraCarts.length>20)throw new Error("Carritos adicionales: máximo 20 renglones");
+  payload.extraCarts.forEach((c,i)=>{
+    if(!isPlainObject(c))throw new Error(`Carrito adicional ${i+1}: renglón inválido`);
+    extraCarts.push({cap:strictEnum(c.cap,[20,30,40],`Carrito adicional ${i+1}: capacidad`),
+                     qty:strictInteger(c.qty,1,99,`Carrito adicional ${i+1}: cantidad`)});
+  });
+}
 const cleanTerm=strictEnum(payload.term,Object.keys(TERMS),"Plazo");
-const scenario={pkg:strictEnum(payload.pkg,["edu","plus"],"Paquete"),term:cleanTerm,mod:sanitizedMod,pay:strictEnum(payload.pay,Object.keys(PAYS),"Pago"),stu:strictInteger(payload.stu,1,APP_CONFIG.limits.students.max,"Alumnos"),...migrateDeviceFields(payload),docExtra:strictInteger(payload.docExtra??0,0,APP_CONFIG.limits.quantity.max,"Docentes extra"),eqDoc:hasDevicesMod?strictInteger(payload.eqDoc??0,0,APP_CONFIG.limits.quantity.max,"Equipos docente"):0,eqStu:hasDevicesMod?strictInteger(payload.eqStu??0,0,APP_CONFIG.limits.quantity.max,"Equipos estudiante"):0,cartCap:strictEnum(payload.cartCap,[0,...CART_CAPS],"Capacidad de carrito"),cartFreeAuthorization:emptyCartAuthorization(),lic,showSchemes,proRata};
+const scenario={pkg:strictEnum(payload.pkg,["edu","plus"],"Paquete"),term:cleanTerm,mod:sanitizedMod,pay:strictEnum(payload.pay,Object.keys(PAYS),"Pago"),stu:strictInteger(payload.stu,1,APP_CONFIG.limits.students.max,"Alumnos"),...migrateDeviceFields(payload),docExtra:strictInteger(payload.docExtra??0,0,APP_CONFIG.limits.quantity.max,"Docentes extra"),eqDoc:hasDevicesMod?strictInteger(payload.eqDoc??0,0,APP_CONFIG.limits.quantity.max,"Equipos docente"):0,eqStu:hasDevicesMod?strictInteger(payload.eqStu??0,0,APP_CONFIG.limits.quantity.max,"Equipos estudiante"):0,cartCap:strictEnum(payload.cartCap,[0,...CART_CAPS],"Capacidad de carrito"),cartFreeAuthorization:emptyCartAuthorization(),lic,showSchemes,proRata,extraCarts};
 /* Catálogo por plazo: si el modelo docente guardado no existe en el plazo (p. ej. un
    escenario cb4 con «estudiante» reabierto en fl2), se ajusta al único disponible; y
    con una sola opción se deja fijado, porque no hay decisión que tomar. */
@@ -3198,12 +3255,14 @@ function nextRevisionFor(folioRoot){
    que sí está aquí. Incluirlo obligaría a calcular el precio para saber si la
    autorización vale, y a consultar la autorización para saber el precio. */
 function cartFingerprintFromValues({term,mod,stu,stuReq,cartCap,carts}){return JSON.stringify({term,mod,stu,stuReq,cartCap,carts});}
-function currentCartFingerprint(q,result){return cartFingerprintFromValues({term:q.term,mod:q.mod,stu:q.stu,stuReq:result.stuReq,cartCap:q.cartCap,carts:result.carts});}
+/* La huella firma solo los carritos DERIVADOS: los adicionales nunca son sin costo, así que
+   sumarlos o quitarlos no revoca ni extiende la autorización (30-oct-2026). */
+function currentCartFingerprint(q,result){return cartFingerprintFromValues({term:q.term,mod:q.mod,stu:q.stu,stuReq:result.stuReq,cartCap:q.cartCap,carts:result.ratioCarts??result.carts});}
 function isCartAuthorizationValid(q,result){const a=q.cartFreeAuthorization;return Boolean(a?.authorized&&a.fingerprint&&a.fingerprint===currentCartFingerprint(q,result));}
 function revokeCartAuthorization(reason="La configuración cambió") {const a=S().cartFreeAuthorization;if(a?.authorized){S().cartFreeAuthorization=emptyCartAuthorization();const box=$("#fCartFree");if(box)box.checked=false;toast(`${reason}. La autorización de carrito sin costo fue revocada.`,"info");}}
-function authorizeCurrentCart(){const r=CURRENT_RESULT||quote(S());if(!(r.carts>0))throw new Error("No hay carritos que autorizar");S().cartFreeAuthorization={authorized:true,fingerprint:currentCartFingerprint(S(),r),authorizedAt:new Date().toISOString(),authorizedBy:APP_STATE.seller.name};}
+function authorizeCurrentCart(){const r=CURRENT_RESULT||quote(S());if(!(r.ratioCarts>0))throw new Error("No hay carritos que autorizar");S().cartFreeAuthorization={authorized:true,fingerprint:currentCartFingerprint(S(),r),authorizedAt:new Date().toISOString(),authorizedBy:APP_STATE.seller.name};}
 /* ---------- escenario compartible, sin datos personales ni autorizaciones ---------- */
-function scenarioPayload(){const s=APP_STATE.scenario;return{v:5,cycle:APP_CONFIG.cycle.id,pkg:s.pkg,term:s.term,mod:s.mod,pay:s.pay,stu:s.stu,stuExtra:s.stuExtra,teacherDeviceModel:s.teacherDeviceModel,docExtra:s.docExtra,eqDoc:s.eqDoc,eqStu:s.eqStu,cartCap:s.cartCap,lic:{...s.lic},showSchemes:{...(s.showSchemes||{contado:false,antes:false,despues:false})},proRata:{stu:s.proRata?.stu||0,doc:s.proRata?.doc||0,carts:(s.proRata?.carts||[]).map(c=>({cap:c.cap,qty:c.qty}))}};}
+function scenarioPayload(){const s=APP_STATE.scenario;return{v:5,cycle:APP_CONFIG.cycle.id,pkg:s.pkg,term:s.term,mod:s.mod,pay:s.pay,stu:s.stu,stuExtra:s.stuExtra,teacherDeviceModel:s.teacherDeviceModel,docExtra:s.docExtra,eqDoc:s.eqDoc,eqStu:s.eqStu,cartCap:s.cartCap,lic:{...s.lic},showSchemes:{...(s.showSchemes||{contado:false,antes:false,despues:false})},proRata:{stu:s.proRata?.stu||0,doc:s.proRata?.doc||0,carts:(s.proRata?.carts||[]).map(c=>({cap:c.cap,qty:c.qty}))},extraCarts:(s.extraCarts||[]).map(c=>({cap:c.cap,qty:c.qty}))};}
 function bytesToBase64Url(bytes){let binary="";for(const b of bytes)binary+=String.fromCharCode(b);return btoa(binary).replaceAll("+","-").replaceAll("/","_").replace(/=+$/g,"");}
 function base64UrlToBytes(value){const base=value.replaceAll("-","+").replaceAll("_","/")+"===".slice((value.length+3)%4);const binary=atob(base);return Uint8Array.from(binary,c=>c.charCodeAt(0));}
 function encodeScenario(payload=scenarioPayload()){return bytesToBase64Url(new TextEncoder().encode(JSON.stringify(payload)));}
@@ -3244,9 +3303,9 @@ function rfcOk(value){
   return d.getUTCFullYear()===year&&d.getUTCMonth()===mm-1&&d.getUTCDate()===dd;
 }
 const CALCULATION_FIELDS=new Set(["fStu","fDocX","fStuX","fEqDoc","fEqStu","fProStu","fProDoc"]);
-/* v5 · Los renglones de carrito a la medida generan ids dinámicos (fProCartQty0…):
+/* v5 · Los renglones de carrito (a la medida y adicionales) generan ids dinámicos (fProCartQty0…, fExtraCartQty0…):
    también son campos financieros — un valor inválido debe ocultar el precio. */
-const isCalculationField=id=>CALCULATION_FIELDS.has(id)||/^fProCart/.test(id);
+const isCalculationField=id=>CALCULATION_FIELDS.has(id)||/^f(Pro|Extra)Cart/.test(id);
 function clabeOk(value){const k=String(value||"").replace(/\D/g,"");if(k.length!==18)return false;const w=[3,7,1];let sum=0;for(let i=0;i<17;i++)sum+=(parseInt(k[i],10)*w[i%3])%10;return((10-(sum%10))%10)===parseInt(k[17],10);}
 function setFieldError(id,message=""){const input=$("#"+id);if(!input)return;let box=$("#"+id+"Error");if(!box){box=document.createElement("div");box.id=id+"Error";box.className="field-error";box.setAttribute("role","alert");input.insertAdjacentElement("afterend",box);}box.textContent=message;input.setAttribute("aria-invalid",message?"true":"false");if(message){const current=(input.getAttribute("aria-describedby")||"").split(/\s+/).filter(Boolean);if(!current.includes(box.id))current.push(box.id);input.setAttribute("aria-describedby",current.join(" "));FIELD_ERRORS.set(id,message);}else{FIELD_ERRORS.delete(id);const ids=(input.getAttribute("aria-describedby")||"").split(/\s+/).filter(x=>x&&x!==box.id);if(ids.length)input.setAttribute("aria-describedby",ids.join(" "));else input.removeAttribute("aria-describedby");}}
 /* F-23 · A-03/H-07 · "" ya no se interpreta como 0 y solo se aceptan dígitos
@@ -3394,6 +3453,9 @@ function resetStateForModel(nextModel){
      cargo es un defecto que esta página ya sufrió antes. */
   S().stuExtra=0;
   S().proRata={stu:0,doc:0,carts:[]};
+  /* Los carritos adicionales se reinician igual que los adicionales de estudiante: la
+     cuenta de carritos derivados cambia con la modalidad y lo capturado deja de cuadrar. */
+  S().extraCarts=[];
   S().cartFreeAuthorization=emptyCartAuthorization();
   if(nextModel===0){S().eqDoc=0;S().eqStu=0;S().cartCap=0;}
 }
@@ -3411,7 +3473,7 @@ function normalizeLicensingOnlyTerm(nextTerm,{confirmLoss=true}={}){
   return true;
 }
 function hasProRataData(){const p=S().proRata;return Boolean(p&&(p.stu>0||p.doc>0||(p.carts||[]).length>0));}
-function hasEquipmentAdjustments(){return S().eqDoc>0||S().eqStu>0||S().stuExtra>0||hasProRataData()||S().cartCap>0&&quote(S()).carts>0;}
+function hasEquipmentAdjustments(){return S().eqDoc>0||S().eqStu>0||S().stuExtra>0||hasProRataData()||(S().extraCarts||[]).length>0||S().cartCap>0&&quote(S()).carts>0;}
 function initControls() {
   /* F-23 · B-01 · Se elimina #fPkgState: input oculto que se creaba y escribía pero
      nunca se leía; S().pkg es la única fuente de verdad del paquete. */
@@ -3443,7 +3505,7 @@ function bindStateToForm() {
   $("#fStuX").value=String(s.stuExtra||0);
   /* v5 · Equipos a la medida. */
   $("#fProStu").value=String(s.proRata?.stu||0); $("#fProDoc").value=String(s.proRata?.doc||0);
-  renderProCartRows();
+  renderProCartRows();renderCartRows("extra");
   /* F-25 · P5 · El modelo de equipo docente no tiene valor por defecto: si el estado
      no trae ninguno, ningún radio queda marcado y el motor bloquea el documento. */
   document.querySelectorAll('input[name="teachermodel"]').forEach(radio=>{radio.checked=radio.value===s.teacherDeviceModel;});
@@ -3528,34 +3590,8 @@ function bindEvents() {
     S().teacherDeviceModel=allowed.includes(e.target.value)?e.target.value:null;
     scheduleRender("all");markChanged();
   });
-  $("#btnAddProCart").addEventListener("click",()=>{
-    if(S().mod!==0)return;
-    if((S().proRata.carts||[]).length>=20){toast("Máximo 20 renglones de carrito.","error");return;}
-    S().proRata.carts.push({cap:30,qty:1});
-    renderProCartRows();scheduleRender("all");markChanged();
-  });
-  $("#proCartRows").addEventListener("input",e=>{
-    const row=e.target.closest("[data-procart-row]");if(!row||S().mod!==0)return;
-    const index=Number(row.dataset.procartRow),cart=S().proRata.carts[index];if(!cart)return;
-    if(e.target.matches("[data-procart-qty]")){
-      const v=validateIntegerInput(e.target,{min:1,max:99,label:"Cantidad de carritos"});
-      if(v.ok){cart.qty=v.value;scheduleRender("all");markChanged();}else renderStatus();
-    }
-  });
-  $("#proCartRows").addEventListener("change",e=>{
-    const row=e.target.closest("[data-procart-row]");if(!row||S().mod!==0)return;
-    const index=Number(row.dataset.procartRow),cart=S().proRata.carts[index];if(!cart)return;
-    if(e.target.matches("[data-procart-cap]")){cart.cap=Number(e.target.value);scheduleRender("all");markChanged();}
-  });
-  $("#proCartRows").addEventListener("click",e=>{
-    const del=e.target.closest("[data-procart-del]");if(!del||S().mod!==0)return;
-    const index=Number(del.dataset.procartDel);
-    setFieldError(`fProCartQty${index}`,"");
-    S().proRata.carts.splice(index,1);
-    /* Los ids se reindexan al reconstruir: se limpian también los errores colgantes. */
-    for(let i=index;i<=S().proRata.carts.length;i++){setFieldError(`fProCartQty${i}`,"");setFieldError(`fProCartPrice${i}`,"");}
-    renderProCartRows();scheduleRender("all");markChanged();
-  });
+  /* Renglones de carrito: los de la modalidad a la medida y los adicionales de 1:1 a 1:4. */
+  bindCartRows("pro");bindCartRows("extra");
   /* F-26 · P7 · Un borrador guardado conserva su fecha original a propósito: si ya se
      envió, moverla cambiaría la vigencia que el colegio tiene en su PDF. Lo que sí se
      hace es avisar cuando la fecha quedó atrás y ofrecer actualizarla en un clic. */
@@ -3730,7 +3766,7 @@ function renderAdjustments(d,r) {
   $("#fDocInc").value=r.docInc;$("#fUsers").value=r.users;
   /* F-25 · P3 · El contador de usuarios explica de dónde salen las licencias, para
      que se vea que un equipo docente adicional también las mueve. */
-  $("#hUsers").textContent=`${r.stu.toLocaleString("es-MX")} alumnos + ${r.docInc} docentes incluidos${r.docExtra?` + ${r.docExtra} extra`:""}${r.teacherDeviceExtras?` + ${r.teacherDeviceExtras} por equipos docentes adicionales`:""}`;
+  $("#hUsers").textContent=`${r.stu.toLocaleString("es-MX")} alumnos + ${r.docInc} docentes incluidos${r.docExtra?` + ${r.docExtra} extra`:""}${r.newTeachers?` + ${r.newTeachers} docentes nuevos por equipos adicionales`:""}`;
 
   /* F-26 · P7 · Aviso discreto cuando la fecha de la cotización ya no es la de hoy.
      F-27 · V4-07 · Extraído a renderDateNotice(): el botón "Actualizar a hoy" y el campo
@@ -3750,6 +3786,7 @@ function renderAdjustments(d,r) {
   $("#grpStuEq").hidden=customMode;$("#grpTeachEq").hidden=customMode;$("#grpCart").hidden=customMode;
   $("#proRataGroup").hidden=!customMode||licOnly;
   if(customMode&&!licOnly)renderProRata(r);
+  if(!customMode)syncCartRows("extra");
   syncModelOptions(licOnly);
   /* El rótulo de costos deja de estar fijo: se escribe desde el catálogo del plazo. */
   $("#hEqCosts").textContent=`costo por equipo en este plazo, con CEU y seguro: docente ${money(termDocenteDeviceCost(r.t,r.yrs))} · estudiante ${money(termEstudianteDeviceCost(r.t,r.yrs))}`;
@@ -3824,7 +3861,7 @@ function renderAdjustments(d,r) {
     el.setAttribute("aria-disabled",String(locked));
     el.querySelectorAll("input").forEach(input=>{input.disabled=locked;});
   });
-  const freeWrap=$("#cartFreeWrap");if(freeWrap)freeWrap.hidden=!(r.carts>0&&r.cartPrice===0);const authMeta=$("#cartAuthMeta");if(authMeta){const a=S().cartFreeAuthorization;authMeta.textContent=r.cartFreeValid?`Autorizado por ${a.authorizedBy} · ${new Date(a.authorizedAt).toLocaleString("es-MX")}`:(a?.authorized?"La autorización ya no corresponde a esta configuración.":"");}const free=$("#fCartFree");if(free)free.checked=r.cartFreeValid;
+  const freeWrap=$("#cartFreeWrap");if(freeWrap)freeWrap.hidden=!(r.ratioCarts>0&&r.cartPrice===0);const authMeta=$("#cartAuthMeta");if(authMeta){const a=S().cartFreeAuthorization;authMeta.textContent=r.cartFreeValid?`Autorizado por ${a.authorizedBy} · ${new Date(a.authorizedAt).toLocaleString("es-MX")}`:(a?.authorized?"La autorización ya no corresponde a esta configuración.":"");}const free=$("#fCartFree");if(free)free.checked=r.cartFreeValid;
   $("#cartBox").innerHTML=[
     r.hasDev?["Equipos de estudiante incluidos",r.stuIncl]:null,
     r.stuExtra?["Equipos de estudiante adicionales",r.stuExtra]:null,
@@ -3836,7 +3873,11 @@ function renderAdjustments(d,r) {
     r.hasDev&&!r.teacherModel?["Equipos docentes incluidos","falta elegir el modelo"]:null,
     r.eqDocX?["Adicionales docentes · modelo docente",r.eqDocX]:null,
     r.eqStuX?["Adicionales docentes · modelo estudiante",r.eqStuX]:null,
-    r.teacherDeviceExtras?["Licencias que suman los adicionales docentes",r.teacherDeviceExtras]:null,
+    /* Cobertura docente (30-oct-2026): los adicionales equipan primero a quien ya
+       tiene licencia; solo el resto suma docentes con licencia. */
+    (r.coverInc+r.coverExtra)?["Docentes con licencia que reciben equipo adicional",r.coverInc+r.coverExtra]:null,
+    r.coverExtra?["Docentes extra que dejan de pagar la cuota anual",r.coverExtra]:null,
+    r.teacherDeviceExtras?["Licencias que suman los adicionales docentes",r.newTeachers]:null,
     r.hasDev?["Total del parque de equipos",r.totalEq]:null,
     ["Usuarios con licencia",r.users],
     /* La licencia de Workspace no cambia el precio (las dos valen 0 de descuento), así
@@ -3844,10 +3885,11 @@ function renderAdjustments(d,r) {
        desplegable. Por eso vive aquí y no solo en el resumen del pliegue. */
     ["Licencia de Google Workspace",workspaceChoice()?WORKSPACE_LABEL[workspaceChoice()]:"sin elegir"],
     r.hasDev?["Stock de reemplazo",r.stock]:null,
-    r.carts?["Carritos necesarios",`${r.carts} de ${S().cartCap} equipos`]:null,
+    r.ratioCarts?["Carritos automáticos",`${r.ratioCarts} de ${S().cartCap} equipos`]:null,
+    r.extraCartQty?["Carritos adicionales",`${r.extraCartQty} · ${[...new Set(r.extraCarts.map(c=>c.cap))].join(" / ")} equipos`]:null,
     r.carts&&r.cartTot?["Costo total de carritos",money(r.cartTot)]:null,
     r.cartFreeValid?["Carritos","autorizados sin costo para esta configuración"]:null,
-    r.hasDev&&r.div<=1?["Carrito de carga","no aplica en modelo 1:1"]:null,
+    r.hasDev&&r.div<=1?["Carrito automático","no aplica en 1:1 · agrega carritos adicionales si el colegio los pide"]:null,
     !r.hasDev?["Modalidad","sin equipos, solo licenciamiento y servicios"]:null
   ].filter(Boolean).map(([k,v])=>`<div class="cr"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join("");
   LICS.forEach(l=>{const lab=document.querySelector(`[data-lic="${l.k}"]`),input=document.querySelector(`[data-lic-in="${l.k}"]`);const blocked=Boolean(l.plusOnly&&S().pkg!=="plus");if(lab){lab.classList.toggle("dimmed",blocked);lab.classList.toggle("on",S().lic[l.k]!==false&&!blocked);lab.classList.toggle("off",S().lic[l.k]===false&&!blocked);lab.title=blocked?"Disponible únicamente en Upgrade Edu Plus":"";}if(input){input.disabled=blocked;input.checked=S().lic[l.k]!==false;input.setAttribute("aria-disabled",String(blocked));}});
@@ -3865,19 +3907,71 @@ function renderAdjustments(d,r) {
   if(warnBox.dataset.sig!==warnHtml){warnBox.dataset.sig=warnHtml;warnBox.innerHTML=warnHtml;}
 }
 /* ============ v5 · Cotización a la medida: captura y caja de cálculo ============ */
-/* El importe de un renglón, en un solo lugar: lo escribe renderProCartRows() al crear
-   la fila y lo reescribe renderProRata() en cada cálculo. */
+/* El importe de un renglón, en un solo lugar: lo escribe renderCartRows() al crear
+   la fila y lo reescribe syncCartRows() en cada cálculo. */
 const proCartSumHtml = c => `${c.qty} × ${money(cartCatalogPrice(c.cap))} = <b>${money(c.qty*cartCatalogPrice(c.cap))}</b>`;
-function renderProCartRows(){
-  const wrap=$("#proCartRows");if(!wrap)return;
-  const carts=S().proRata?.carts||[];
-  if(!carts.length){wrap.innerHTML='<p class="empty-state">Sin carritos. Agrega un renglón si el colegio pidió alguno.</p>';return;}
-  wrap.innerHTML=carts.map((c,i)=>`<div class="ccrow" data-procart-row="${i}" style="grid-template-columns:1fr 1fr 1.4fr 44px;align-items:end">
-    <div><label class="fl" for="fProCartCap${i}">Capacidad</label><select id="fProCartCap${i}" data-procart-cap>${CART_CAPS.map(cap=>`<option value="${cap}"${cap===c.cap?" selected":""}>${cap} equipos</option>`).join("")}</select></div>
-    <div><label class="fl" for="fProCartQty${i}">Cantidad</label><input type="number" id="fProCartQty${i}" data-procart-qty min="1" max="99" step="1" inputmode="numeric" value="${c.qty}"></div>
-    <div><span class="fl">Importe</span><div class="ccsum" data-procart-sum="${i}">${proCartSumHtml(c)}</div></div>
-    <button type="button" class="icon-btn" data-procart-del="${i}" aria-label="Eliminar el renglón de carrito ${i+1}">×</button>
+/* Dos listas de renglones de carrito con el mismo comportamiento (30-oct-2026): los de
+   la modalidad a la medida y los adicionales de 1:1 a 1:4. Una sola implementación,
+   parametrizada, para que no diverjan: cambia el contenedor, el prefijo de ids, el
+   atributo data-* y la modalidad en la que la lista está viva. */
+const CART_ROW_KINDS={
+  pro:  {wrap:"#proCartRows",  add:"#btnAddProCart",  id:"fProCart",  attr:"procart",
+         rows:()=>S().proRata.carts, active:()=>S().mod===0, noun:"carrito",
+         empty:"Sin carritos. Agrega un renglón si el colegio pidió alguno."},
+  extra:{wrap:"#extraCartRows",add:"#btnAddExtraCart",id:"fExtraCart",attr:"extracart",
+         rows:()=>(S().extraCarts||(S().extraCarts=[])), active:()=>S().mod>0, noun:"carrito adicional",
+         empty:"Sin carritos adicionales. Agrega un renglón si el colegio pidió más carritos que los automáticos."}
+};
+function renderCartRows(kind){
+  const k=CART_ROW_KINDS[kind],wrap=$(k.wrap);if(!wrap)return;
+  const carts=k.rows()||[];
+  if(!carts.length){wrap.innerHTML=`<p class="empty-state">${esc(k.empty)}</p>`;return;}
+  wrap.innerHTML=carts.map((c,i)=>`<div class="ccrow" data-${k.attr}-row="${i}" style="grid-template-columns:1fr 1fr 1.4fr 44px;align-items:end">
+    <div><label class="fl" for="${k.id}Cap${i}">Capacidad</label><select id="${k.id}Cap${i}" data-${k.attr}-cap>${CART_CAPS.map(cap=>`<option value="${cap}"${cap===c.cap?" selected":""}>${cap} equipos</option>`).join("")}</select></div>
+    <div><label class="fl" for="${k.id}Qty${i}">Cantidad</label><input type="number" id="${k.id}Qty${i}" data-${k.attr}-qty min="1" max="99" step="1" inputmode="numeric" value="${c.qty}"></div>
+    <div><span class="fl">Importe</span><div class="ccsum" data-${k.attr}-sum="${i}">${proCartSumHtml(c)}</div></div>
+    <button type="button" class="icon-btn" data-${k.attr}-del="${i}" aria-label="Eliminar el renglón de ${k.noun} ${i+1}">×</button>
   </div>`).join("");
+}
+const renderProCartRows=()=>renderCartRows("pro");
+/* Los renglones se redibujan solo si cambió CUÁNTOS hay: rehacerlos en cada tecla le
+   movería el cursor al vendedor. Pero el importe sí depende de la capacidad y de la
+   cantidad, así que se reescribe aparte, en su propia celda. Sin esto el renglón
+   decía «1 × $30,860.00» para siempre, aunque se cambiara a un carrito de 20. */
+function syncCartRows(kind){
+  const k=CART_ROW_KINDS[kind],wrap=$(k.wrap);if(!wrap)return;
+  const rows=k.rows()||[];
+  if(wrap.querySelectorAll(`[data-${k.attr}-row]`).length!==rows.length||(!rows.length&&!wrap.querySelector(".empty-state")))renderCartRows(kind);
+  else rows.forEach((c,i)=>{const cell=wrap.querySelector(`[data-${k.attr}-sum="${i}"]`);if(cell){const html=proCartSumHtml(c);if(cell.innerHTML!==html)cell.innerHTML=html;}});
+}
+function bindCartRows(kind){
+  const k=CART_ROW_KINDS[kind],wrap=$(k.wrap);
+  const rowOf=e=>{const row=e.target.closest(`[data-${k.attr}-row]`);return row&&k.active()?Number(row.getAttribute(`data-${k.attr}-row`)):null;};
+  $(k.add).addEventListener("click",()=>{
+    if(!k.active())return;
+    if(k.rows().length>=20){toast("Máximo 20 renglones de carrito.","error");return;}
+    k.rows().push({cap:30,qty:1});
+    renderCartRows(kind);scheduleRender("all");markChanged();
+  });
+  wrap.addEventListener("input",e=>{
+    const index=rowOf(e);if(index===null)return;const cart=k.rows()[index];if(!cart)return;
+    if(e.target.matches(`[data-${k.attr}-qty]`)){
+      const v=validateIntegerInput(e.target,{min:1,max:99,label:"Cantidad de carritos"});
+      if(v.ok){cart.qty=v.value;scheduleRender("all");markChanged();}else renderStatus();
+    }
+  });
+  wrap.addEventListener("change",e=>{
+    const index=rowOf(e);if(index===null)return;const cart=k.rows()[index];if(!cart)return;
+    if(e.target.matches(`[data-${k.attr}-cap]`)){cart.cap=Number(e.target.value);scheduleRender("all");markChanged();}
+  });
+  wrap.addEventListener("click",e=>{
+    const del=e.target.closest(`[data-${k.attr}-del]`);if(!del||!k.active())return;
+    const index=Number(del.getAttribute(`data-${k.attr}-del`));
+    k.rows().splice(index,1);
+    /* Los ids se reindexan al reconstruir: se limpian también los errores colgantes. */
+    for(let i=index;i<=k.rows().length;i++){setFieldError(`${k.id}Qty${i}`,"");setFieldError(`${k.id}Price${i}`,"");}
+    renderCartRows(kind);scheduleRender("all");markChanged();
+  });
 }
 /* La caja de cálculo del prorrateo: el vendedor tiene que poder explicarle el número
    al colegio por teléfono sin abrir una hoja de cálculo. Es la diferencia entre una
@@ -3903,13 +3997,8 @@ function renderProRata(r){
     const el=$("#"+id);
     if(el&&document.activeElement!==el&&el.value!==String(value)&&!FIELD_ERRORS.has(id))el.value=String(value);
   }
-  /* Los renglones se redibujan solo si cambió CUÁNTOS hay: rehacerlos en cada tecla le
-     movería el cursor al vendedor. Pero el importe sí depende de la capacidad y de la
-     cantidad, así que se reescribe aparte, en su propia celda. Sin esto el renglón
-     decía «1 × $30,860.00» para siempre, aunque se cambiara a un carrito de 20. */
-  const rows=S().proRata?.carts||[];
-  if($("#proCartRows").querySelectorAll("[data-procart-row]").length!==rows.length)renderProCartRows();
-  else rows.forEach((c,i)=>{const cell=$(`[data-procart-sum="${i}"]`);if(cell){const html=proCartSumHtml(c);if(cell.innerHTML!==html)cell.innerHTML=html;}});
+  /* Renglones: solo se redibujan si cambió cuántos hay (ver syncCartRows). */
+  syncCartRows("pro");
   /* La cuenta completa, y el aviso de la decisión D-1: el prorrateo entra al precio de
      lista y recibe el descuento del esquema, así que el vendedor ve qué porcentaje del
      costo del fierro recupera con el esquema elegido. */
@@ -4062,7 +4151,7 @@ function buildProposal(){
   const acompKpis=`<div class="p-kpis"><div class="p-kpi" style="--kc:#1a73e8"><div class="v">${r.cap.h}</div><div class="k">Horas de capacitación al año</div></div><div class="p-kpi" style="--kc:#d93025"><div class="v">${r.cap.vis}</div><div class="k">Visitas presenciales de coach</div></div>${d.isPlus&&L.motiva!==false?`<div class="p-kpi" style="--kc:#8a4b00"><div class="v">${r.cap.esc}</div><div class="k">Escuela para padres y docentes</div></div>`:""}<div class="p-kpi" style="--kc:#188038"><div class="v">${r.docTot.toLocaleString("es-MX")}</div><div class="k">Docentes con licencia</div></div></div>`;
   /* El compromiso del carrito sin costo sigue en el papel —es a favor del
      colegio— pero como chip, sin el nombre de quien lo autorizó ni la hora. */
-  const cartChip=r.cartFreeValid?`<div class="p-fchips"><span class="p-fchip p-fchip--green"><b>${r.carts}</b> carrito(s) de ${S().cartCap} equipos · incluidos sin costo</span></div>`:"";
+  const cartChip=r.cartFreeValid?`<div class="p-fchips"><span class="p-fchip p-fchip--green"><b>${r.ratioCarts}</b> carrito(s) de ${S().cartCap} equipos · incluidos sin costo</span></div>`:"";
   /* Sección 2 · Alcance: los conteos que el colegio contrata, sin un importe. */
   /* El parque docente solo se rotula cuando el modelo ya está elegido: sin él,
      la vista preliminar imprimía «0 equipos docentes» y «en sin definir». */
@@ -4073,7 +4162,7 @@ function buildProposal(){
      solo importe) y solo licencias. */
   const scopeRules=r.custom&&r.hasDev
     ?`<div class="p-card p-card--terms"><div class="pc-h">Cómo se cuentan docentes y equipos</div><ul class="pc-list"><li>1 docente con licencia por cada ${APP_CONFIG.equipment.includedTeacherRatio} estudiantes, con plataformas, capacitación y certificación.</li><li>Los equipos son los solicitados por la institución${r.stuReq?`: ${r.stuReq.toLocaleString("es-MX")} de estudiante`:""}${(r.eqDocTot+r.eqStuTot)?`${r.stuReq?" y ":": "}${(r.eqDocTot+r.eqStuTot).toLocaleString("es-MX")} de docente`:""}.</li><li>Cada equipo incluye su licencia Chrome Education Upgrade y su seguro por todo el plazo.</li>${r.carts?`<li>Incluye ${r.carts.toLocaleString("es-MX")} carrito(s) de carga.</li>`:""}</ul></div>`
-    :r.hasDev?`<div class="p-card p-card--terms"><div class="pc-h">Cómo se cuentan docentes y equipos</div><ul class="pc-list"><li>1 docente con licencia por cada ${APP_CONFIG.equipment.includedTeacherRatio} estudiantes, con plataformas, capacitación y certificación.</li>${conParqueDocente?`<li>Equipos docentes en <b>${esc(teacherModelLabel(r.teacherModel).toLowerCase())}</b>: 1 por cada ${r.teacherRatio} estudiantes, con su licencia ya incluida.</li>`:""}${r.teacherDeviceExtras?`<li>Cada equipo docente adicional suma un usuario con licencia al programa.</li>`:""}</ul></div>`:`<div class="p-card p-card--terms"><div class="pc-h">Cómo se cuentan los docentes</div><ul class="pc-list"><li>1 docente con licencia por cada ${APP_CONFIG.equipment.includedTeacherRatio} estudiantes.</li><li>La modalidad ${esc(d.modLbl)} no entrega equipos.</li></ul></div>`;
+    :r.hasDev?`<div class="p-card p-card--terms"><div class="pc-h">Cómo se cuentan docentes y equipos</div><ul class="pc-list"><li>1 docente con licencia por cada ${APP_CONFIG.equipment.includedTeacherRatio} estudiantes, con plataformas, capacitación y certificación.</li>${conParqueDocente?`<li>Equipos docentes en <b>${esc(teacherModelLabel(r.teacherModel).toLowerCase())}</b>: 1 por cada ${r.teacherRatio} estudiantes, con su licencia ya incluida.</li>`:""}${r.teacherDeviceExtras?`<li>Los equipos docentes adicionales se asignan primero a docentes que ya tienen licencia; solo los docentes nuevos suman usuarios con licencia.</li>`:""}${r.carts?`<li>Incluye ${r.carts.toLocaleString("es-MX")} carrito(s) de carga.</li>`:""}</ul></div>`:`<div class="p-card p-card--terms"><div class="pc-h">Cómo se cuentan los docentes</div><ul class="pc-list"><li>1 docente con licencia por cada ${APP_CONFIG.equipment.includedTeacherRatio} estudiantes.</li><li>La modalidad ${esc(d.modLbl)} no entrega equipos.</li></ul></div>`;
   /* F-24 · P4 · El documento muestra el esquema elegido y, solo si el vendedor
      los marcó, los que pidió comparar. Una opción vencida o de más confunde.
      PAPELERÍA v5 · «Precio regular» pasó a «Esquema estándar»: el badge ya no
@@ -4718,7 +4807,7 @@ const QuoteTests={
        seguro sumados aparte (hoy todo vive en la MATRIZ DE PRECIOS). Si esta
        prueba vuelve a fallar sin que nadie haya tocado la matriz, entonces sí
        cambió la aritmética y hay que averiguar por qué. */
-    this.test("Paridad financiera legado",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));lic.motiva=false;lic.beta=false;const result=quote({pkg:"plus",term:"cb4",mod:4,pay:"contado",stu:65,stuExtra:6,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:4,cartCap:30,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assertClose(result.list,7269.538462,1e-6,"precio de lista");this.assertClose(result.schemes.despues[0].netRaw,6542.584615,1e-6,"regular año 1");this.assertClose(result.schemes.contado[0].netRaw,5888.326154,1e-6,"contado año 1");this.assertClose(result.schemes.antes[0].netRaw,6215.455385,1e-6,"anticipada año 1");this.assert(result.stuIncl===65,"equipos incluidos");this.assert(result.stuReq===71,"equipos entregados");this.assert(result.stuExtra===6,"equipos adicionales");this.assert(result.stuChg===0,"equipos cobrables 1:1");this.assert(result.discLic===400,"descuento licencias");this.assert(result.eqDocInc===4,"equipos docentes incluidos 1:20");this.assert(result.docInc===7,"docentes incluidos 1:10");this.assert(result.docTot===11,"los 4 equipos docentes adicionales suman usuarios");this.assert(result.users===76,"usuarios con licencia");for(const [scheme,years] of Object.entries(result.schemes))for(const [index,year] of years.entries())this.assertClose(roundCurrency(year.agosto+year.mensual*year.installments),year.net,0,`${scheme} año ${index+1}`);});
+    this.test("Paridad financiera legado",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));lic.motiva=false;lic.beta=false;const result=quote({pkg:"plus",term:"cb4",mod:4,pay:"contado",stu:65,stuExtra:6,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:4,cartCap:30,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assertClose(result.list,7269.538462,1e-6,"precio de lista");this.assertClose(result.schemes.despues[0].netRaw,6542.584615,1e-6,"regular año 1");this.assertClose(result.schemes.contado[0].netRaw,5888.326154,1e-6,"contado año 1");this.assertClose(result.schemes.antes[0].netRaw,6215.455385,1e-6,"anticipada año 1");this.assert(result.stuIncl===65,"equipos incluidos");this.assert(result.stuReq===71,"equipos entregados");this.assert(result.stuExtra===6,"equipos adicionales");this.assert(result.stuChg===0,"equipos cobrables 1:1");this.assert(result.discLic===400,"descuento licencias");this.assert(result.eqDocInc===4,"equipos docentes incluidos 1:20");this.assert(result.docInc===7,"docentes incluidos 1:10");/* Cobertura docente (30-oct-2026): de los 7 docentes incluidos, 4 traen equipo; de los 4 adicionales, 3 equipan a los que no tenían y solo 1 es docente nuevo. Antes: docTot 11 y users 76. */this.assert(result.docTot===8,"de los 4 equipos docentes adicionales solo 1 es docente nuevo");this.assert(result.users===73,"usuarios con licencia");for(const [scheme,years] of Object.entries(result.schemes))for(const [index,year] of years.entries())this.assertClose(roundCurrency(year.agosto+year.mensual*year.installments),year.net,0,`${scheme} año ${index+1}`);});
     this.test("CLABE predeterminada",()=>this.assert(clabeOk(APP_CONFIG.defaults.supplier.bank.clabe),"CLABE inválida"));
     this.test("assertClose rechaza NaN",()=>this.expectThrow(()=>this.assertClose(NaN,100),"NaN"));
     this.test("Importación externa conserva tipos estrictos",()=>{const base={v:3,cycle:APP_CONFIG.cycle.id,pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:65,docExtra:0,eqDoc:0,eqStu:0,cartCap:30,cartP:{20:0,30:0,40:0},lic:Object.fromEntries(LICS.map(l=>[l.k,true]))};this.expectThrow(()=>sanitizeScenarioPayload({...base,stu:"65"}),"stu string");this.expectThrow(()=>sanitizeScenarioPayload({...base,lic:{...base.lic,motiva:"false"}}),"lic string");});
@@ -4888,11 +4977,18 @@ const QuoteTests={
     /* ===== F-25 · Reglas de docentes y equipos docentes ===== */
     this.test("F-25 · P1 · Docentes con licencia siguen la razón 1:10",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));for(const [stu,esperado] of [[100,10],[101,11],[65,7],[200,20],[1,1]]){const r=quote({pkg:"edu",term:"cb4",mod:4,pay:"contado",stu,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic});this.assert(r.docInc===esperado,`docentes incluidos con ${stu} alumnos: esperado ${esperado}, recibido ${r.docInc}`);}});
     this.test("F-25 · P2 · El modelo elegido define la razón de equipos docentes",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:100,stuExtra:0,docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic};const doc=quote({...base,teacherDeviceModel:"docente"}),est=quote({...base,teacherDeviceModel:"estudiante"});this.assert(doc.eqDocInc===5,`modelo docente 1:20 con 100 alumnos debía dar 5, dio ${doc.eqDocInc}`);this.assert(est.eqDocInc===10,`modelo estudiante 1:10 con 100 alumnos debía dar 10, dio ${est.eqDocInc}`);this.assert(doc.eqDocTot===5&&doc.eqStuTot===0,"el modelo docente no debe poblar el renglón de modelo estudiante");this.assert(est.eqStuTot===10&&est.eqDocTot===0,"el modelo estudiante no debe poblar el renglón de modelo docente");this.assert(doc.docInc===10&&est.docInc===10,"la razón de docentes con licencia no depende del modelo de equipo");this.assert(doc.users===est.users,"las licencias de los equipos incluidos no se suman aparte");});
-    this.test("F-25 · P3 · Un equipo docente adicional suma un usuario con licencia",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:200,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic};const sin=quote(base),conDoc=quote({...base,eqDoc:1}),conStu=quote({...base,eqStu:1}),ambos=quote({...base,eqDoc:1,eqStu:1});this.assert(conDoc.users===sin.users+1,`1 equipo modelo docente debía sumar 1 licencia: ${sin.users} -> ${conDoc.users}`);this.assert(conStu.users===sin.users+1,`1 equipo modelo estudiante debía sumar 1 licencia: ${sin.users} -> ${conStu.users}`);this.assert(ambos.users===sin.users+2,`2 equipos docentes debían sumar 2 licencias: ${sin.users} -> ${ambos.users}`);this.assert(ambos.docTot===sin.docTot+2,"docTot no reflejó los equipos docentes adicionales");this.assert(ambos.totalEq===sin.totalEq+2,"el parque no reflejó los equipos docentes adicionales");/* Cada equipo adicional lleva su CEU (870) y su seguro a 4 años (2,150): regla de
+    /* Reescrita el 30-oct-2026 por la regla de cobertura docente: con 200 alumnos y modelo docente hay 20 docentes con licencia y 10 con equipo, así que los primeros 10 adicionales equipan a los que no tenían y NO suman licencia; del 11.º en adelante, cada uno es un docente nuevo. La aserción de precio no cambió. */this.test("F-25 · P3 · Un equipo docente adicional suma licencia solo después de equipar a los docentes sin equipo",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:200,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic};const sin=quote(base),conDoc=quote({...base,eqDoc:1}),conStu=quote({...base,eqStu:1}),ambos=quote({...base,eqDoc:1,eqStu:1}),doce=quote({...base,eqDoc:12});this.assert(sin.incNoDev===10,`debía haber 10 docentes con licencia sin equipo: ${sin.incNoDev}`);this.assert(conDoc.users===sin.users,`1 equipo modelo docente no debía sumar licencia: ${sin.users} -> ${conDoc.users}`);this.assert(conStu.users===sin.users,`1 equipo modelo estudiante no debía sumar licencia: ${sin.users} -> ${conStu.users}`);this.assert(ambos.users===sin.users&&ambos.docTot===sin.docTot,"2 equipos para docentes sin equipo no debían sumar licencias");this.assert(doce.users===sin.users+2&&doce.docTot===sin.docTot+2&&doce.newTeachers===2,`12 adicionales con 10 huecos debían sumar 2 licencias: ${sin.users} -> ${doce.users}`);this.assert(ambos.totalEq===sin.totalEq+2,"el parque no reflejó los equipos docentes adicionales");/* Cada equipo adicional lleva su CEU (870) y su seguro a 4 años (2,150): regla de
    Martín del 22-ago-2026. Escrito con los importes a la vista, no llamando a
    deviceUnitCost(), para que la prueba falle si algún día dejan de sumarse. */
       this.assertClose(ambos.list-sin.list,((DEVICES.cbDocente.cost+870+2150)+(DEVICES.cbAlumno.cost+870+2150))/200/4,1e-6,"el cargo del equipo adicional cambió");});
     this.test("F-25 · P3 · Las partidas por docente reflejan los equipos adicionales",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"plus",term:"cb4",mod:4,pay:"contado",stu:200,stuExtra:0,teacherDeviceModel:"estudiante",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic};const sin=quote(base),con=quote({...base,eqDoc:2});const porDocente=ITEMS.filter(it=>it.qty&&String(it.qty).includes("docTot"));this.assert(porDocente.length>0,"no se encontraron partidas por docente");for(const it of porDocente)this.assert(it.qty(con)===it.qty(sin)+2,`la partida "${it.n}" no sumó los equipos docentes adicionales`);});
+    /* ---------- COBERTURA DOCENTE Y CARRITOS ADICIONALES (30-oct-2026) ---------- */
+    this.test("Cobertura · equipar a los docentes incluidos sin equipo no sube las licencias",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartFreeAuthorization:emptyCartAuthorization(),lic};const sin=quote(base),quince=quote({...base,eqDoc:15}),veinte=quote({...base,eqDoc:20});this.assert(sin.docInc===30&&sin.eqDocInc===15,"300 alumnos: 30 docentes con licencia y 15 con equipo");this.assert(quince.docTot===30&&quince.users===330,`15 equipos para los 15 sin equipo: debían quedar 30 docentes, quedaron ${quince.docTot}`);this.assert(veinte.docTot===35&&veinte.newTeachers===5,`20 equipos: 15 cubren y 5 son docentes nuevos, quedaron ${veinte.docTot}`);this.assert(!quince.warns.find(w=>w.code==="EXTRA_TEACHER_DEVICES").m.includes("docentes nuevos"),"el aviso no debía hablar de docentes nuevos");});
+    this.test("Cobertura · un docente extra que recibe equipo deja de pagar la cuota anual",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartFreeAuthorization:emptyCartAuthorization(),lic};const sin=quote(base),r=quote({...base,docExtra:5,eqDoc:20});this.assert(r.coverInc===15&&r.coverExtra===5&&r.newTeachers===0,"los 20 equipos debían cubrir 15 incluidos y 5 extra");this.assert(r.docTot===35&&r.docExtraPaid===0&&r.adjDocExtra===0,`35 docentes y ninguna cuota de docente extra: docTot ${r.docTot}, cuota ${r.adjDocExtra}`);this.assert(!r.warns.some(w=>w.code==="EXTRA_TEACHERS"),"no debía avisar de docentes extra sin equipo");/* Importes a la vista: Chromebook docente 17,850 + CEU 870 + seguro a 4 años 2,150. */this.assertClose(r.list-sin.list,20*(17850+870+2150)/300/4,1e-6,"el cargo debía ser solo el de los 20 equipos");const parcial=quote({...base,docExtra:5,eqDoc:17});this.assert(parcial.coverExtra===2&&parcial.docExtraPaid===3,"con 17 equipos, 2 extra se equipan y 3 siguen pagando");this.assertClose(parcial.adjDocExtra,3*1500/300,1e-9,"la cuota debía cobrarse solo a los 3 docentes extra sin equipo");});
+    this.test("Cobertura · sin docentes sin equipo, cada adicional suma una licencia",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:200,stuExtra:0,teacherDeviceModel:"estudiante",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartFreeAuthorization:emptyCartAuthorization(),lic};const sin=quote(base),con=quote({...base,eqDoc:2,eqStu:1});this.assert(sin.incNoDev===0,"modelo estudiante 1:10: todos los docentes incluidos traen equipo");this.assert(con.docTot===sin.docTot+3&&con.users===sin.users+3,"cada adicional debía sumar una licencia");});
+    this.test("Carritos adicionales · se cobran en 1:1 a precio de catálogo",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartFreeAuthorization:emptyCartAuthorization(),lic};const sin=quote(base),r=quote({...base,extraCarts:[{cap:30,qty:2}]});this.assert(r.ratioCarts===0&&r.carts===2&&r.extraCartQty===2,"1:1 con 2 carritos adicionales");this.assertClose(r.adjCart,2*30860/300/4,1e-9,"ajuste: 2 × $30,860 ÷ 300 ÷ 4");this.assertClose(r.list-sin.list,2*30860/300/4,1e-6,"el precio debía subir solo por los carritos");this.assert(r.cartTot===61720,"costo total de carritos");const mezcla=quote({...base,extraCarts:[{cap:20,qty:1},{cap:40,qty:3}]});this.assert(mezcla.cartTot===28280+3*36800,"capacidades mezcladas");const fila=ITEMS.find(it=>it.n==="Carrito de carga");this.assert(fila.dyn(mezcla)==="Carrito de carga (20 / 40 equipos)",`etiqueta del documento: ${fila.dyn(mezcla)}`);this.assert(fila.qty(mezcla)===4,"cantidad del documento");});
+    this.test("Carritos adicionales · conviven con los automáticos y no tocan la autorización sin costo",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();S().mod=3;S().stu=300;S().teacherDeviceModel="docente";S().cartCap=30;S().extraCarts=[];CURRENT_RESULT=quote(S());this.assert(CURRENT_RESULT.ratioCarts===5,"1:2 con 300 alumnos: 5 carritos automáticos de 30");authorizeCurrentCart();let r=quote(S());this.assert(r.cartFreeValid&&r.cartTot===0,"los automáticos debían quedar sin costo");S().extraCarts=[{cap:40,qty:2}];r=quote(S());this.assert(r.cartFreeValid,"agregar adicionales no debía revocar la autorización");this.assert(r.carts===7&&r.cartTot===2*36800,"los adicionales sí se cobran");this.assertClose(r.adjCart,2*36800/300/4,1e-9,"solo los adicionales entran al precio");this.assert(fila2(r)==="Carrito de carga (30 / 40 equipos)","etiqueta con capacidades mezcladas");function fila2(x){return ITEMS.find(it=>it.n==="Carrito de carga").dyn(x);}}));
+    this.test("Carritos adicionales · saneamiento, reinicio y viaje en el escenario",()=>this.withStorageSandbox(()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const sc={v:5,cycle:APP_CONFIG.cycle.id,pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,lic};this.assert(Array.isArray(sanitizeScenarioPayload(sc).extraCarts)&&sanitizeScenarioPayload(sc).extraCarts.length===0,"un escenario sin el campo debía entrar con []");this.assert(sanitizeScenarioPayload({...sc,extraCarts:[{cap:20,qty:3}]}).extraCarts[0].qty===3,"el renglón válido debía conservarse");let falla=false;try{sanitizeScenarioPayload({...sc,extraCarts:[{cap:25,qty:1}]});}catch{falla=true;}this.assert(falla,"una capacidad inválida debía rechazarse");falla=false;try{sanitizeScenarioPayload({...sc,extraCarts:Array.from({length:21},()=>({cap:30,qty:1}))});}catch{falla=true;}this.assert(falla,"más de 20 renglones debían rechazarse");this.assert(sanitizeScenarioPayload({...sc,mod:0,extraCarts:[{cap:30,qty:1}]}).extraCarts.length===0,"en la modalidad 0 debían descartarse");this.assert(quote({...sc,mod:0,cartFreeAuthorization:emptyCartAuthorization(),proRata:{stu:0,doc:0,carts:[]},extraCarts:[{cap:30,qty:1}]}).carts===0,"el motor debía ignorarlos en la modalidad 0");APP_STATE=createSafeDefaultState();S().mod=4;S().extraCarts=[{cap:30,qty:2}];this.assert(hasEquipmentAdjustments(),"los adicionales cuentan como ajuste de equipo");const vuelta=sanitizeScenarioPayload(decodeScenario(encodeScenario()));this.assert(vuelta.extraCarts.length===1&&vuelta.extraCarts[0].qty===2,"#scenario= debía conservarlos");resetStateForModel(3);this.assert(S().extraCarts.length===0,"el cambio de modalidad debía limpiarlos");}));
     this.test("F-25 · P4 · Los equipos de estudiante incluidos son fijos",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:65,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic};for(const intento of [0,6,-50,null,undefined,"60"]){const r=quote({...base,stuExtra:intento});this.assert(r.stuReq>=r.stuIncl,`stuExtra=${JSON.stringify(intento)} dejó menos equipos que los incluidos`);this.assert(r.stuIncl===65,"los incluidos cambiaron");}this.assert(quote({...base,stuExtra:6}).stuReq===71,"los adicionales no se sumaron a los incluidos");this.assert(!quote({...base,stuExtra:-50}).warns.some(w=>w.code==="LESS_DEVICES"),"LESS_DEVICES debería ser imposible");});
     /* F-28 · El contrato cambió: sin modelo docente no hay PROPUESTA ni PDF, pero sí hay
        precio. Antes esta prueba exigía lo contrario y por eso el defecto sobrevivió a la
@@ -4968,7 +5064,7 @@ const QuoteTests={
        en el documento, pero como conteos y viñetas cortas: lo que se protege
        ahora es que el ALCANCE (cuántos equipos, cuántas licencias) se imprima
        y que las reglas se digan sin un solo importe. */
-    this.test("F-25 · El PDF documenta el alcance y las reglas de docentes",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";S().mod=4;S().stu=200;S().teacherDeviceModel="docente";S().eqDoc=1;S().eqStu=1;S().stuExtra=3;CURRENT_RESULT=quote(S());const r=CURRENT_RESULT,html=buildProposal();this.assert(html.includes("Alcance del programa"),"falta la sección de alcance");this.assert(/class="p-kpis"/.test(html),"el alcance no se imprime como tira de conteos");this.assert(html.includes(`<div class="v">${(r.eqDocInc+r.eqDocX+r.eqStuX).toLocaleString("es-MX")}</div><div class="k">Equipos docentes</div>`),"el conteo de equipos docentes no cuadra");this.assert(html.includes(`<div class="v">${r.users.toLocaleString("es-MX")}</div><div class="k">Usuarios con licencia</div>`),"falta el conteo de usuarios con licencia");this.assert(/Cómo se cuentan docentes y equipos/.test(html),"faltan las reglas de docentes");this.assert(/Cada equipo docente adicional suma un usuario con licencia/.test(html),"la propuesta no explica que el adicional suma licencia");this.assert(!/Equipos incluidos no solicitados/.test(html),"reapareció el renglón de LESS_DEVICES");}));
+    this.test("F-25 · El PDF documenta el alcance y las reglas de docentes",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";S().mod=4;S().stu=200;S().teacherDeviceModel="docente";S().eqDoc=1;S().eqStu=1;S().stuExtra=3;CURRENT_RESULT=quote(S());const r=CURRENT_RESULT,html=buildProposal();this.assert(html.includes("Alcance del programa"),"falta la sección de alcance");this.assert(/class="p-kpis"/.test(html),"el alcance no se imprime como tira de conteos");this.assert(html.includes(`<div class="v">${(r.eqDocInc+r.eqDocX+r.eqStuX).toLocaleString("es-MX")}</div><div class="k">Equipos docentes</div>`),"el conteo de equipos docentes no cuadra");this.assert(html.includes(`<div class="v">${r.users.toLocaleString("es-MX")}</div><div class="k">Usuarios con licencia</div>`),"falta el conteo de usuarios con licencia");this.assert(/Cómo se cuentan docentes y equipos/.test(html),"faltan las reglas de docentes");this.assert(/Los equipos docentes adicionales se asignan primero a docentes que ya tienen licencia/.test(html),"la propuesta no explica cómo se asignan los adicionales docentes");this.assert(!/Equipos incluidos no solicitados/.test(html),"reapareció el renglón de LESS_DEVICES");}));
     this.test("F-25 · Migración v3 a v4 conserva la aritmética histórica",()=>{const legado={v:3,cycle:APP_CONFIG.cycle.id,pkg:"plus",term:"cb4",mod:4,pay:"contado",stu:65,stuRequested:71,docExtra:0,eqDoc:0,eqStu:4,cartCap:30,cartP:{20:0,30:0,40:0},lic:Object.fromEntries(LICS.map(l=>[l.k,true]))};const compartido={...legado,mod:3,stu:850,stuRequested:465};const s=sanitizeScenarioPayload(compartido,{allowLegacy:true});this.assert(s.stuExtra===40,`stuRequested 465 sobre 425 incluidos debía migrar a 40 adicionales, dio ${s.stuExtra}`);this.assert(sanitizeScenarioPayload(legado,{allowLegacy:true}).stuExtra===0,"en 1:1 los adicionales deben normalizarse a 0");this.assert(s.teacherDeviceModel==="docente","la migración debe fijar el modelo docente histórico 1:20");const bajo=sanitizeScenarioPayload({...compartido,stuRequested:400},{allowLegacy:true});this.assert(bajo.stuExtra===0,"un legado por debajo de lo incluido debe migrar a 0 adicionales, sin bloqueo ni aviso");});
     this.test("F-25 · El escenario compartible viaja con modelo y adicionales",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();S().mod=3;S().teacherDeviceModel="estudiante";S().stuExtra=9;const ida=scenarioPayload();this.assert(ida.v===5,"el escenario debe ser v5");const vuelta=sanitizeScenarioPayload(ida,{allowLegacy:false});this.assert(vuelta.teacherDeviceModel==="estudiante","el modelo docente no sobrevivió al viaje");this.assert(vuelta.stuExtra===9,"los adicionales no sobrevivieron al viaje");this.expectThrow(()=>sanitizeScenarioPayload({...ida,teacherDeviceModel:"otro"},{allowLegacy:false}),"modelo docente inválido");}));
     /* ===== F-26 · Ajustes de interfaz y reglas de captura ===== */
@@ -5454,7 +5550,7 @@ const QuoteTests={
   },
   renderReport(){const box=$("#testReport");if(!box)return;const passed=this.results.filter(item=>item.ok).length;box.hidden=false;box.innerHTML=`<button type="button" class="btn" id="btnCloseTests" style="float:right">Cerrar</button><h2>Pruebas internas · cotizador ${esc(APP_VERSION)}</h2><p class="${passed===this.results.length?"test-pass":"test-fail"}">${passed} de ${this.results.length} aprobadas</p><pre>${esc(this.results.map(result=>`${result.ok?"✓":"✕"} ${result.name}${result.error?": "+result.error:""}`).join("\n"))}</pre>`;$("#btnCloseTests").addEventListener("click",()=>box.hidden=true);}
 };
-const Diagnostics={run(){const index=listIndex(),keys=allQuoteKeys(),recoveries=allRecoveryKeys(),orphans=keys.filter(k=>!index.some(i=>k.endsWith(i.quoteId)));let tests={skipped:true,failed:0};if(confirm("El diagnóstico ejecutará las pruebas internas del cotizador.\n\nNo modifica tu cotización ni tus borradores, pero puede tardar unos segundos.\n\nRecomendación: cierra las demás pestañas del cotizador antes de continuar. ¿Continuar?")){try{tests=QuoteTests.runAll({show:false});}catch(error){tests={failed:1,error:error.message};}}const report={version:APP_CONFIG.schemaVersion,protocol:location.protocol,storage:HAS_STORAGE,draftsInIndex:index.length,quoteKeys:keys.length,recoveries:recoveries.length,orphans:orphans.length,current:APP_STATE?.identity?.quoteId,dirty:DIRTY,conflict:STORAGE_CONFLICT,tests};alert(`Diagnóstico activa · Cotizador v5.0\n\nAlmacenamiento: ${HAS_STORAGE?"disponible":"no disponible"}\nBorradores índice: ${index.length}\nClaves encontradas: ${keys.length}\nHuérfanos: ${orphans.length}\nRecuperaciones: ${recoveries.length}\nPruebas fallidas: ${tests.failed||0}`);console.info("Diagnóstico activa",report);return report;}};
+const Diagnostics={run(){const index=listIndex(),keys=allQuoteKeys(),recoveries=allRecoveryKeys(),orphans=keys.filter(k=>!index.some(i=>k.endsWith(i.quoteId)));let tests={skipped:true,failed:0};if(confirm("El diagnóstico ejecutará las pruebas internas del cotizador.\n\nNo modifica tu cotización ni tus borradores, pero puede tardar unos segundos.\n\nRecomendación: cierra las demás pestañas del cotizador antes de continuar. ¿Continuar?")){try{tests=QuoteTests.runAll({show:false});}catch(error){tests={failed:1,error:error.message};}}const report={version:APP_CONFIG.schemaVersion,protocol:location.protocol,storage:HAS_STORAGE,draftsInIndex:index.length,quoteKeys:keys.length,recoveries:recoveries.length,orphans:orphans.length,current:APP_STATE?.identity?.quoteId,dirty:DIRTY,conflict:STORAGE_CONFLICT,tests};alert(`Diagnóstico activa · Cotizador v5.1\n\nAlmacenamiento: ${HAS_STORAGE?"disponible":"no disponible"}\nBorradores índice: ${index.length}\nClaves encontradas: ${keys.length}\nHuérfanos: ${orphans.length}\nRecuperaciones: ${recoveries.length}\nPruebas fallidas: ${tests.failed||0}`);console.info("Diagnóstico activa",report);return report;}};
 /* F-20 · Los numeros comerciales viven una sola vez, en APP_CONFIG. Los textos
    duplicados del HTML se reescriben al arrancar para que no puedan divergir. */
 function syncStaticCopy(){
@@ -5462,7 +5558,7 @@ function syncStaticCopy(){
   set("#thCashDisc",`${percent(APP_CONFIG.discounts.cash)} de descuento`);
   set("#thEarlyDisc",`${percent(APP_CONFIG.discounts.early)} de descuento`);
   set("#hDocRatio",`1 por cada ${APP_CONFIG.equipment.includedTeacherRatio} alumnos`);
-  set("#hDocExtraCost",`Con licencias, sin equipo. ${money(APP_CONFIG.equipment.extraTeacherAnnualCost)} al año cada uno`);
+  set("#hDocExtraCost",`Con licencias, sin equipo. ${money(APP_CONFIG.equipment.extraTeacherAnnualCost)} al año cada uno; si reciben equipo adicional, ya no se cobra`);
   /* v5 · #hEqCosts y las razones de los modelos docentes dejaron de ser estáticos:
      dependen del plazo elegido y se escriben en cada render (renderAdjustments). */
   set("#hValidity",`Se sugiere ${APP_CONFIG.cycle.validityDays} días`);
@@ -5471,7 +5567,7 @@ function syncStaticCopy(){
   set("#footerLegal",`Precios del ${APP_CONFIG.cycle.label.toLowerCase()} en pesos mexicanos por alumno, IVA incluido. Sujetos a confirmación contractual.`);
   /* F-27 · UX-5 · El título de la pestaña es la verificación más rápida de qué archivo
      está abierto: las copias viejas dicen "Final producción". */
-  document.title=`activa · Upgrade Edu — Cotizador ${APP_CONFIG.cycle.id} · v5.0`;
+  document.title=`activa · Upgrade Edu — Cotizador ${APP_CONFIG.cycle.id} · v5.1`;
   originalTitle=document.title;
   /* F-23 · M-10 · "10 mensualidades" deja de estar escrito a mano en el HTML. */
   $$("[data-installments]").forEach(el=>{el.textContent=`${STD_INSTALLMENTS} mensualidades${el.dataset.installments==="de"?" de":""}`;});

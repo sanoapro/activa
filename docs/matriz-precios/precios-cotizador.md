@@ -92,9 +92,12 @@ $14,500 + $870 + $2,150 = **$17,520**.
 | 40 Chromebooks | $36,800 |
 
 **Cómo se aplican.** El precio sale del catálogo por capacidad; el vendedor decide **cuántos**,
-nunca cuánto cuestan. Hay carrito en las modalidades 1:4, 1:3 y 1:2 (en 1:1 cada alumno
-resguarda su equipo) y en la cotización a la medida se capturan como renglones
-capacidad × cantidad. Regalarlos exige autorización expresa.
+nunca cuánto cuestan. En 1:4, 1:3 y 1:2 los carritos se derivan solos
+(⌈equipos de alumno ÷ capacidad⌉). Desde el 30-oct-2026, en **1:1 a 1:4** se pueden sumar
+**carritos adicionales** como renglones capacidad × cantidad, que se prorratean igual que
+los derivados. En la cotización a la medida todos se capturan así. Regalarlos exige
+autorización expresa, y esa autorización solo alcanza a los derivados: los adicionales
+siempre se cobran.
 
 ## Docentes y adicionales
 
@@ -111,6 +114,14 @@ capacidad × cantidad. Regalarlos exige autorización expresa.
 por alumno; el colegio solo elige el **modelo** de los equipos docentes incluidos, entre los
 elegibles del plazo. Lo que exceda esas razones se cobra: el docente extra sin equipo a
 $1,500 al año, y los equipos adicionales al costo de catálogo.
+
+**Cobertura docente (30-oct-2026).** Un equipo docente adicional va primero a un docente que
+ya tiene licencia y no tiene equipo: primero a los incluidos y después a los docentes extra.
+Solo el que sobra es un docente nuevo y suma licencia. El docente extra que recibe equipo deja
+de pagar los $1,500, porque el equipo ya incluye su licenciamiento. Ejemplo: 300 alumnos en
+1:1 con modelo docente dan 30 docentes con licencia y 15 con equipo. Con 5 docentes extra y
+20 equipos adicionales, 15 equipos van a los incluidos sin equipo y 5 a los extra. Quedan
+**35 docentes con licencia**, sin cuota de docente extra, y se cobran solo los 20 equipos.
 
 ## Descuentos al retirar una licencia · por alumno y por año
 
