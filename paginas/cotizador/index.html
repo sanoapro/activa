@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>activa · Upgrade Edu — Cotizador 2026–2027 · v5.1</title>
+<title>activa · Upgrade Edu — Cotizador 2026–2027 · v5.2</title>
 <meta name="description" content="Cotizador del ecosistema digital Upgrade Edu. Ciclo escolar 2026–2027, IVA incluido.">
 <!-- Fuera de los buscadores: esta página lleva el precio por alumno, los descuentos
      y los datos bancarios de la empresa. Se comparte por enlace, nunca se busca. -->
@@ -1181,7 +1181,7 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
            una copia anterior del archivo (descargas duplicadas "(1)", accesos directos
            viejos) y parecía que las mejoras no aplicaban. Ahora el archivo se identifica
            de un vistazo, sin abrir el diagnóstico. -->
-      <span class="vertag" title="Cotizador activa · versión del archivo">v5.1</span>
+      <span class="vertag" title="Cotizador activa · versión del archivo">v5.2</span>
     </div>
     <nav class="hnav">
       <a href="#s1">Captura</a>
@@ -1352,6 +1352,19 @@ tbody th{border-bottom:1px solid var(--soft);font-family:var(--mono);font-varian
           <button type="button" class="btn primary" id="btnAddExtraCart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Agregar carrito</button>
         </div>
         <div class="calcbox" id="cartBox" style="margin-top:14px"></div>
+        </div>
+
+        <!-- Stock de reemplazo (30-oct-2026): parte de la cobertura del seguro. El número
+             sale solo (2 % nuevos · 10 % reacondicionados, sobre todo el parque) y el
+             comercial lo puede corregir. Vale en todas las modalidades con equipos. -->
+        <div class="fgroup" id="grpStock" hidden>
+        <div class="miniLbl">Equipos de stock <span class="tagx alt" id="hStockKind">—</span></div>
+        <div class="grid2">
+          <div class="f"><label for="fStock">Equipos de stock de reemplazo</label><input type="number" id="fStock" min="0" max="999999" step="1" inputmode="numeric" value="0">
+            <div class="hint" id="hStock">Parte de la cobertura del seguro. No se cobra</div></div>
+          <div class="f"><span class="fl">Cálculo automático</span><output id="fStockAuto" class="ro-output" for="fStock">0</output>
+            <div class="hint"><button type="button" class="btn" id="btnStockAuto" hidden>Usar el automático</button></div></div>
+        </div>
         </div>
       </div>
     </details>
@@ -2036,7 +2049,11 @@ const PRECIOS = deepFreeze({
     modeloDocente: 20,        /* equipo docente incluido: 1 por cada N alumnos */
     modeloEstudiante: 10
   },
-  stock: {nuevos:0.02, seminuevos:0.20},
+  /* Stock de reemplazo: parte de la cobertura del seguro. El porcentaje lo decide el
+     TIPO de equipo, no el plazo: nuevo (planes de 3 y 4 años) o reacondicionado
+     (seminuevo, plan de 2 años). Reacondicionados bajó de 20 % a 10 % el 30-oct-2026.
+     Es el valor por defecto: el comercial puede capturar otra cantidad. */
+  stock: {nuevos:0.02, seminuevos:0.10},
   /* Techo de plausibilidad comercial por alumno y año: por encima de este
      importe el motor bloquea el documento en lugar de cotizarlo. */
   topePorAlumno: 250000,
@@ -2154,18 +2171,18 @@ const DEVICES = deepFreeze({
    tablet el docente lleva Chromebook nueva: lo que no se puede elegir no se puede
    equivocar. Con una sola opción, la pantalla la preselecciona y no pregunta. */
 const TERMS = deepFreeze({
-  cb3:{label:"Chromebooks nuevas · 3 años",row:"n3",sched:S3,years:S3.length,device:"Chromebook nueva",stockPct:PRECIOS.stock.nuevos,
+  cb3:{label:"Chromebooks nuevas · 3 años",row:"n3",sched:S3,years:S3.length,device:"Chromebook nueva",stockPct:PRECIOS.stock.nuevos,stockKind:"nuevos",
        alumno:"cbAlumno",
        docentes:[{k:"docente",dev:"cbDocente",ratio:PRECIOS.razones.modeloDocente,label:"Modelo docente"},
                  {k:"estudiante",dev:"cbAlumno",ratio:PRECIOS.razones.modeloEstudiante,label:"Modelo estudiante"}]},
-  cb4:{label:"Chromebooks nuevas · 4 años",row:"n4",sched:S4,years:S4.length,device:"Chromebook nueva",stockPct:PRECIOS.stock.nuevos,
+  cb4:{label:"Chromebooks nuevas · 4 años",row:"n4",sched:S4,years:S4.length,device:"Chromebook nueva",stockPct:PRECIOS.stock.nuevos,stockKind:"nuevos",
        alumno:"cbAlumno",
        docentes:[{k:"docente",dev:"cbDocente",ratio:PRECIOS.razones.modeloDocente,label:"Modelo docente"},
                  {k:"estudiante",dev:"cbAlumno",ratio:PRECIOS.razones.modeloEstudiante,label:"Modelo estudiante"}]},
-  fl2:{label:"Chromebook Flip-Touch seminueva · 2 años",row:"flip",sched:APP_CONFIG.annualFactors.twoFlat,years:APP_CONFIG.annualFactors.twoFlat.length,device:"Chromebook Flip-Touch seminueva",stockPct:PRECIOS.stock.seminuevos,
+  fl2:{label:"Chromebook Flip-Touch seminueva · 2 años",row:"flip",sched:APP_CONFIG.annualFactors.twoFlat,years:APP_CONFIG.annualFactors.twoFlat.length,device:"Chromebook Flip-Touch seminueva",stockPct:PRECIOS.stock.seminuevos,stockKind:"reacondicionados",
        alumno:"flAlumno",
        docentes:[{k:"docente",dev:"flDocente",ratio:PRECIOS.razones.modeloDocente,label:"Flip-Touch seminueva docente"}]},
-  tb3:{label:"Tablet · 3 años",row:"tab",sched:S3,years:S3.length,device:"Tablet nueva",stockPct:PRECIOS.stock.nuevos,
+  tb3:{label:"Tablet · 3 años",row:"tab",sched:S3,years:S3.length,device:"Tablet nueva",stockPct:PRECIOS.stock.nuevos,stockKind:"nuevos",
        alumno:"tablet",
        docentes:[{k:"docente",dev:"cbDocente",ratio:PRECIOS.razones.modeloDocente,label:"Chromebook nueva docente"}]},
   /* SOLO LICENCIAMIENTO A 1 AÑO (04-sep-2026) · El único plazo que no vende equipos.
@@ -2189,7 +2206,7 @@ const TERMS = deepFreeze({
      docente, teacherModel se autorresuelve y TEACHER_MODEL nunca bloquea. */
   lic1:{label:"Solo licenciamiento · 1 año",row:"lic1",
         sched:APP_CONFIG.annualFactors.oneFlat,years:APP_CONFIG.annualFactors.oneFlat.length,
-        device:"Sin equipos",stockPct:PRECIOS.stock.nuevos,licensingOnly:true,
+        device:"Sin equipos",stockPct:PRECIOS.stock.nuevos,stockKind:"nuevos",licensingOnly:true,
         alumno:"cbAlumno",
         docentes:[{k:"docente",dev:"cbDocente",ratio:PRECIOS.razones.modeloDocente,label:"Modelo docente"}]}
 });
@@ -2258,9 +2275,11 @@ const ITEMS=[
  {a:"TI",i:P.box,c:"y",n:"Stock de equipos de reemplazo",
   /* Este texto se imprime en el PDF: los porcentajes se derivan de la matriz
      para que el documento no prometa un stock que ya no es. */
-  d:`Reserva operativa de sustitución inmediata (${Math.round(PRECIOS.stock.nuevos*100)}% del parque solicitado en equipos nuevos y ${Math.round(PRECIOS.stock.seminuevos*100)}% en seminuevos). No se asigna a usuarios y no genera licencias ni póliza adicionales.`,
+  /* Sin porcentajes desde el 30-oct-2026: la cantidad la puede ajustar el comercial,
+     y un porcentaje impreso junto a otra cifra sería una promesa que no cuadra. */
+  d:"Reserva operativa de sustitución inmediata, parte de la cobertura del seguro. No se asigna a usuarios y no genera licencias ni póliza adicionales.",
   e:T,p:T,
-  qty:r=>r.stock},
+  qty:r=>r.stock, dyn:r=>`Stock de equipos de reemplazo ${r.stockKind==="reacondicionados"?"reacondicionados":"nuevos"}`},
  {a:"TI",i:P.shield,c:"g",n:"Seguro contra daños y robo",
   d:"Póliza vigente durante todo el contrato para los equipos de estudiantes y docentes.",
   e:T,p:T,
@@ -2533,7 +2552,15 @@ function quote(input) {
   const hasDev = ratioMode || totalEq > 0;
   /* Decisión E (21-ago-2026): el stock de reemplazo aplica también a la medida, con
      la misma regla de siempre — una sola aritmética del stock. */
-  const stock = hasDev ? ceil(Math.max(stuReq,0) * t.stockPct) : 0;
+  /* STOCK DE REEMPLAZO (30-oct-2026) · La base es TODO el parque entregado —alumnos y
+     docentes—, no solo los equipos de alumno: antes, una cotización a la medida con solo
+     equipos docentes daba stock 0. El porcentaje sale del tipo de equipo (nuevo 2 %,
+     reacondicionado 10 %) y es el valor por defecto; el comercial puede capturar otra
+     cantidad (scenario.stockOverride). El stock no se cobra: no toca el precio. */
+  const stockBase = hasDev ? Math.max(totalEq,0) : 0;
+  const stockAuto = hasDev ? ceil(stockBase * t.stockPct) : 0;
+  const stockManual = hasDev && Number.isSafeInteger(q.stockOverride) && q.stockOverride >= 0 ? q.stockOverride : null;
+  const stock = stockManual ?? stockAuto;
 
   /* Cada equipo adicional lleva su CEU y su seguro: deviceUnitCost() los suma. */
   const costExtraEq = eqDocX * termDocenteDeviceCost(t,years) + eqStuX * termEstudianteDeviceCost(t,years);
@@ -2652,6 +2679,7 @@ function quote(input) {
      y por tanto nada que se pueda olvidar. */
   const cartFreeValid = cartFreeAuthorized;
   if (cartFreeValid) warns.push({t:"w",code:"CART_FREE",m:`${ratioCarts} carrito(s) de ${q.cartCap} equipos autorizados sin costo para esta configuración.`});
+  if (stockManual !== null && stockManual !== stockAuto) warns.push({t:"i",code:"STOCK_MANUAL",m:`Equipos de stock capturados a mano: ${stockManual.toLocaleString("es-MX")}. El cálculo automático da ${stockAuto.toLocaleString("es-MX")} (${Math.round(t.stockPct*100)} % de ${stockBase.toLocaleString("es-MX")} equipos ${t.stockKind}).`});
   if (docExtraPaid > 0) warns.push({t:"i",code:"EXTRA_TEACHERS",m:`${docExtraPaid} docente(s) extra sin equipo: suman licencias y ${money(APP_CONFIG.equipment.extraTeacherAnnualCost)} al año cada uno, por los años del contrato.`});
   if (list <= 0) warns.push({t:"e",blocks:"price",code:"NON_POSITIVE_PRICE",m:"El precio por alumno quedó en cero o negativo. Revisa los ajustes de la cotización."});
   /* La advertencia de solo-licenciamiento se emite únicamente si DE VERDAD no hay
@@ -2672,7 +2700,7 @@ function quote(input) {
     docInc,docExtra,docTot,stuIncl,stuReq,stuExtra,stuChg,
     teacherModel,teacherRatio,eqDocInc,eqDocIncDoc,eqDocIncStu,eqDocTot,eqStuTot,teacherDeviceExtras,
     incNoDev,coverInc,coverExtra,newTeachers,docExtraPaid,
-    eqDocX,eqStuX,totalEq,stock,costExtraEq,adjEqDoc,adjDocExtra,adjStuExtra,
+    eqDocX,eqStuX,totalEq,stock,stockAuto,stockManual,stockBase,stockKind:t.stockKind,stockPct:t.stockPct,costExtraEq,adjEqDoc,adjDocExtra,adjStuExtra,
     carts,cartTot,cartPrice,adjCart,cartFreeValid,discLic,list,listRaw,schemes,cap,warns,
     ratioCarts,extraCarts:extraCartRows,extraCartQty,extraCartCost,
     /* La cuenta del prorrateo, completa, para la caja de cálculo del vendedor. Es dato
@@ -2770,7 +2798,7 @@ function saveSellerProfile(seller){
   }catch(error){console.warn("No se pudo guardar el perfil del vendedor",error);return false;}
 }
 function emptyCartAuthorization(){return{authorized:false,fingerprint:"",authorizedAt:"",authorizedBy:""};}
-function defaultState(generateIdentity=true){const today=localISODate(new Date()),seller=loadSellerProfile();return{schemaVersion:APP_CONFIG.schemaVersion,identity:generateIdentity?newIdentity(seller.name,today):{quoteId:"",folioRoot:"",revision:1,createdAt:"",updatedAt:"",parentQuoteId:null},scenario:{pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,docExtra:0,stuExtra:0,teacherDeviceModel:null,eqDoc:0,eqStu:0,cartCap:30,cartFreeAuthorization:emptyCartAuthorization(),/* v5 · Cotización a la medida: equipos y carritos prorrateados de la modalidad 0. */proRata:{stu:0,doc:0,carts:[]},/* Carritos adicionales a los derivados, en 1:1 a 1:4 (30-oct-2026). */extraCarts:[],lic:normalizeWorkspaceLic(Object.fromEntries(LICS.map(l=>[l.k,true]))),/* F-24 · P4 · Esquemas ADICIONALES al elegido que el documento debe mostrar. Por defecto ninguno: la propuesta muestra solo el esquema elegido para no confundir al cliente. */showSchemes:{contado:false,antes:false,despues:false}},client:{institution:"",shortName:"",city:"",contacts:[{name:"",email:"",phone:""},{name:"",email:"",phone:""},{name:"",email:"",phone:""}]},validity:{quoteDate:today,validUntil:addDaysISO(today,APP_CONFIG.cycle.validityDays),validUntilAuto:true,delivery:APP_CONFIG.cycle.delivery,shipping:"Sí"},seller,supplier:clone(APP_CONFIG.defaults.supplier),mail:{recipients:[],excludedRecipients:[],subjectOverride:"",subjectMode:"auto",multiQuote:false}};}
+function defaultState(generateIdentity=true){const today=localISODate(new Date()),seller=loadSellerProfile();return{schemaVersion:APP_CONFIG.schemaVersion,identity:generateIdentity?newIdentity(seller.name,today):{quoteId:"",folioRoot:"",revision:1,createdAt:"",updatedAt:"",parentQuoteId:null},scenario:{pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,docExtra:0,stuExtra:0,teacherDeviceModel:null,eqDoc:0,eqStu:0,cartCap:30,cartFreeAuthorization:emptyCartAuthorization(),/* v5 · Cotización a la medida: equipos y carritos prorrateados de la modalidad 0. */proRata:{stu:0,doc:0,carts:[]},/* Carritos adicionales a los derivados, en 1:1 a 1:4 (30-oct-2026). */extraCarts:[],/* Stock capturado a mano; null = el automático (30-oct-2026). */stockOverride:null,lic:normalizeWorkspaceLic(Object.fromEntries(LICS.map(l=>[l.k,true]))),/* F-24 · P4 · Esquemas ADICIONALES al elegido que el documento debe mostrar. Por defecto ninguno: la propuesta muestra solo el esquema elegido para no confundir al cliente. */showSchemes:{contado:false,antes:false,despues:false}},client:{institution:"",shortName:"",city:"",contacts:[{name:"",email:"",phone:""},{name:"",email:"",phone:""},{name:"",email:"",phone:""}]},validity:{quoteDate:today,validUntil:addDaysISO(today,APP_CONFIG.cycle.validityDays),validUntilAuto:true,delivery:APP_CONFIG.cycle.delivery,shipping:"Sí"},seller,supplier:clone(APP_CONFIG.defaults.supplier),mail:{recipients:[],excludedRecipients:[],subjectOverride:"",subjectMode:"auto",multiQuote:false}};}
 function createSafeDefaultState(){
   try{return defaultState();}
   catch(error){
@@ -2853,7 +2881,7 @@ if(hasDevicesMod&&Array.isArray(payload.extraCarts)){
   });
 }
 const cleanTerm=strictEnum(payload.term,Object.keys(TERMS),"Plazo");
-const scenario={pkg:strictEnum(payload.pkg,["edu","plus"],"Paquete"),term:cleanTerm,mod:sanitizedMod,pay:strictEnum(payload.pay,Object.keys(PAYS),"Pago"),stu:strictInteger(payload.stu,1,APP_CONFIG.limits.students.max,"Alumnos"),...migrateDeviceFields(payload),docExtra:strictInteger(payload.docExtra??0,0,APP_CONFIG.limits.quantity.max,"Docentes extra"),eqDoc:hasDevicesMod?strictInteger(payload.eqDoc??0,0,APP_CONFIG.limits.quantity.max,"Equipos docente"):0,eqStu:hasDevicesMod?strictInteger(payload.eqStu??0,0,APP_CONFIG.limits.quantity.max,"Equipos estudiante"):0,cartCap:strictEnum(payload.cartCap,[0,...CART_CAPS],"Capacidad de carrito"),cartFreeAuthorization:emptyCartAuthorization(),lic,showSchemes,proRata,extraCarts};
+const scenario={pkg:strictEnum(payload.pkg,["edu","plus"],"Paquete"),term:cleanTerm,mod:sanitizedMod,pay:strictEnum(payload.pay,Object.keys(PAYS),"Pago"),stu:strictInteger(payload.stu,1,APP_CONFIG.limits.students.max,"Alumnos"),...migrateDeviceFields(payload),docExtra:strictInteger(payload.docExtra??0,0,APP_CONFIG.limits.quantity.max,"Docentes extra"),eqDoc:hasDevicesMod?strictInteger(payload.eqDoc??0,0,APP_CONFIG.limits.quantity.max,"Equipos docente"):0,eqStu:hasDevicesMod?strictInteger(payload.eqStu??0,0,APP_CONFIG.limits.quantity.max,"Equipos estudiante"):0,cartCap:strictEnum(payload.cartCap,[0,...CART_CAPS],"Capacidad de carrito"),cartFreeAuthorization:emptyCartAuthorization(),lic,showSchemes,proRata,extraCarts,/* Opcional: un escenario anterior entra con null (el automático). */stockOverride:payload.stockOverride==null?null:strictInteger(payload.stockOverride,0,APP_CONFIG.limits.quantity.max,"Equipos de stock")};
 /* Catálogo por plazo: si el modelo docente guardado no existe en el plazo (p. ej. un
    escenario cb4 con «estudiante» reabierto en fl2), se ajusta al único disponible; y
    con una sola opción se deja fijado, porque no hay decisión que tomar. */
@@ -3262,7 +3290,7 @@ function isCartAuthorizationValid(q,result){const a=q.cartFreeAuthorization;retu
 function revokeCartAuthorization(reason="La configuración cambió") {const a=S().cartFreeAuthorization;if(a?.authorized){S().cartFreeAuthorization=emptyCartAuthorization();const box=$("#fCartFree");if(box)box.checked=false;toast(`${reason}. La autorización de carrito sin costo fue revocada.`,"info");}}
 function authorizeCurrentCart(){const r=CURRENT_RESULT||quote(S());if(!(r.ratioCarts>0))throw new Error("No hay carritos que autorizar");S().cartFreeAuthorization={authorized:true,fingerprint:currentCartFingerprint(S(),r),authorizedAt:new Date().toISOString(),authorizedBy:APP_STATE.seller.name};}
 /* ---------- escenario compartible, sin datos personales ni autorizaciones ---------- */
-function scenarioPayload(){const s=APP_STATE.scenario;return{v:5,cycle:APP_CONFIG.cycle.id,pkg:s.pkg,term:s.term,mod:s.mod,pay:s.pay,stu:s.stu,stuExtra:s.stuExtra,teacherDeviceModel:s.teacherDeviceModel,docExtra:s.docExtra,eqDoc:s.eqDoc,eqStu:s.eqStu,cartCap:s.cartCap,lic:{...s.lic},showSchemes:{...(s.showSchemes||{contado:false,antes:false,despues:false})},proRata:{stu:s.proRata?.stu||0,doc:s.proRata?.doc||0,carts:(s.proRata?.carts||[]).map(c=>({cap:c.cap,qty:c.qty}))},extraCarts:(s.extraCarts||[]).map(c=>({cap:c.cap,qty:c.qty}))};}
+function scenarioPayload(){const s=APP_STATE.scenario;return{v:5,cycle:APP_CONFIG.cycle.id,pkg:s.pkg,term:s.term,mod:s.mod,pay:s.pay,stu:s.stu,stuExtra:s.stuExtra,teacherDeviceModel:s.teacherDeviceModel,docExtra:s.docExtra,eqDoc:s.eqDoc,eqStu:s.eqStu,cartCap:s.cartCap,lic:{...s.lic},showSchemes:{...(s.showSchemes||{contado:false,antes:false,despues:false})},proRata:{stu:s.proRata?.stu||0,doc:s.proRata?.doc||0,carts:(s.proRata?.carts||[]).map(c=>({cap:c.cap,qty:c.qty}))},extraCarts:(s.extraCarts||[]).map(c=>({cap:c.cap,qty:c.qty})),stockOverride:s.stockOverride??null};}
 function bytesToBase64Url(bytes){let binary="";for(const b of bytes)binary+=String.fromCharCode(b);return btoa(binary).replaceAll("+","-").replaceAll("/","_").replace(/=+$/g,"");}
 function base64UrlToBytes(value){const base=value.replaceAll("-","+").replaceAll("_","/")+"===".slice((value.length+3)%4);const binary=atob(base);return Uint8Array.from(binary,c=>c.charCodeAt(0));}
 function encodeScenario(payload=scenarioPayload()){return bytesToBase64Url(new TextEncoder().encode(JSON.stringify(payload)));}
@@ -3456,6 +3484,8 @@ function resetStateForModel(nextModel){
   /* Los carritos adicionales se reinician igual que los adicionales de estudiante: la
      cuenta de carritos derivados cambia con la modalidad y lo capturado deja de cuadrar. */
   S().extraCarts=[];
+  /* El stock a mano se calculó sobre otro parque: vuelve al automático. */
+  S().stockOverride=null;
   S().cartFreeAuthorization=emptyCartAuthorization();
   if(nextModel===0){S().eqDoc=0;S().eqStu=0;S().cartCap=0;}
 }
@@ -3564,6 +3594,13 @@ function bindEvents() {
   $("#fStu").addEventListener("input",e=>{const v=validateIntegerInput(e.target,{min:APP_CONFIG.limits.students.min,max:APP_CONFIG.limits.students.max,label:"Alumnos"});if(v.ok){S().stu=v.value;revokeCartAuthorization("Cambió el número de alumnos");scheduleRender("all");markChanged();}else renderStatus();});
   const integerMap={fDocX:["docExtra","Docentes extra"],fEqDoc:["eqDoc","Equipos modelo docente"],fEqStu:["eqStu","Equipos modelo estudiante"]};
   Object.entries(integerMap).forEach(([id,[key,label]])=>$("#"+id).addEventListener("input",e=>{/* F-27 · V4-03 · Sin equipos: los adicionales de equipo docente no se capturan; el campo está deshabilitado, pero se defiende también el evento. */if((key==="eqDoc"||key==="eqStu")&&S().mod===0){S()[key]=0;e.target.value="0";renderStatus();return;}const v=validateIntegerInput(e.target,{min:0,max:APP_CONFIG.limits.quantity.max,label});if(v.ok){S()[key]=v.value;scheduleRender("all");markChanged();}else renderStatus();}));
+  /* Stock de reemplazo: un número capturado se vuelve el del documento; el botón regresa
+     al automático. No es campo financiero: el stock no se cobra. */
+  $("#fStock").addEventListener("input",e=>{
+    const v=validateIntegerInput(e.target,{min:0,max:APP_CONFIG.limits.quantity.max,label:"Equipos de stock"});
+    if(v.ok){S().stockOverride=v.value;scheduleRender("all");markChanged();}else renderStatus();
+  });
+  $("#btnStockAuto").addEventListener("click",()=>{S().stockOverride=null;setFieldError("fStock","");const el=$("#fStock");if(el)el.value=String(quote(S()).stockAuto);scheduleRender("all");markChanged();});
   /* F-25 · P4 · El campo pasó de "total de equipos solicitados" a "adicionales":
      el total incluido ya no es editable, solo se puede sumar por encima de él. */
   $("#fStuX").addEventListener("input",e=>{
@@ -3861,6 +3898,17 @@ function renderAdjustments(d,r) {
     el.setAttribute("aria-disabled",String(locked));
     el.querySelectorAll("input").forEach(input=>{input.disabled=locked;});
   });
+  /* Stock: visible con cualquier equipo, en cualquier modalidad. El campo no se reescribe
+     debajo de los dedos del vendedor ni encima de un error que está corrigiendo. */
+  $("#grpStock").hidden=!r.hasDev;
+  if(r.hasDev){
+    const kind=r.stockKind==="reacondicionados"?"reacondicionados":"nuevos",pct=Math.round(r.stockPct*100);
+    $("#hStockKind").textContent=`equipos ${kind} · ${pct} % del parque por defecto`;
+    $("#fStockAuto").value=r.stockAuto;
+    const el=$("#fStock");if(el&&document.activeElement!==el&&!FIELD_ERRORS.has("fStock")&&el.value!==String(r.stock))el.value=String(r.stock);
+    $("#hStock").textContent=r.stockManual!==null?`Capturado a mano. El automático es ${r.stockAuto} (${pct} % de ${r.totalEq.toLocaleString("es-MX")} equipos). No se cobra`:`${pct} % de ${r.totalEq.toLocaleString("es-MX")} equipos ${kind}, redondeado hacia arriba. Puedes cambiarlo. No se cobra`;
+    $("#btnStockAuto").hidden=r.stockManual===null;
+  }
   const freeWrap=$("#cartFreeWrap");if(freeWrap)freeWrap.hidden=!(r.ratioCarts>0&&r.cartPrice===0);const authMeta=$("#cartAuthMeta");if(authMeta){const a=S().cartFreeAuthorization;authMeta.textContent=r.cartFreeValid?`Autorizado por ${a.authorizedBy} · ${new Date(a.authorizedAt).toLocaleString("es-MX")}`:(a?.authorized?"La autorización ya no corresponde a esta configuración.":"");}const free=$("#fCartFree");if(free)free.checked=r.cartFreeValid;
   $("#cartBox").innerHTML=[
     r.hasDev?["Equipos de estudiante incluidos",r.stuIncl]:null,
@@ -3884,7 +3932,7 @@ function renderAdjustments(d,r) {
        que la caja de cálculo es el único lugar donde el vendedor la ve sin abrir el
        desplegable. Por eso vive aquí y no solo en el resumen del pliegue. */
     ["Licencia de Google Workspace",workspaceChoice()?WORKSPACE_LABEL[workspaceChoice()]:"sin elegir"],
-    r.hasDev?["Stock de reemplazo",r.stock]:null,
+    r.hasDev?[`Stock de reemplazo · ${r.stockKind}${r.stockManual!==null?" · a mano":""}`,r.stock]:null,
     r.ratioCarts?["Carritos automáticos",`${r.ratioCarts} de ${S().cartCap} equipos`]:null,
     r.extraCartQty?["Carritos adicionales",`${r.extraCartQty} · ${[...new Set(r.extraCarts.map(c=>c.cap))].join(" / ")} equipos`]:null,
     r.carts&&r.cartTot?["Costo total de carritos",money(r.cartTot)]:null,
@@ -4156,7 +4204,7 @@ function buildProposal(){
   /* El parque docente solo se rotula cuando el modelo ya está elegido: sin él,
      la vista preliminar imprimía «0 equipos docentes» y «en sin definir». */
   const conParqueDocente=r.hasDev&&Boolean(r.teacherModel)&&(r.eqDocTot+r.eqStuTot)>0;
-  const scopeKpis=`<div class="p-kpis"><div class="p-kpi" style="--kc:#1a73e8"><div class="v">${r.stu.toLocaleString("es-MX")}</div><div class="k">Estudiantes</div></div>${r.hasDev&&r.stuReq?`<div class="p-kpi" style="--kc:#188038"><div class="v">${r.stuReq.toLocaleString("es-MX")}</div><div class="k">Equipos de estudiante</div></div>`:""}${conParqueDocente?`<div class="p-kpi" style="--kc:#8a4b00"><div class="v">${(r.eqDocTot+r.eqStuTot).toLocaleString("es-MX")}</div><div class="k">Equipos docentes</div></div>`:""}<div class="p-kpi" style="--kc:#d93025"><div class="v">${r.docTot.toLocaleString("es-MX")}</div><div class="k">Docentes con licencia</div></div><div class="p-kpi" style="--kc:#174ea6"><div class="v">${r.users.toLocaleString("es-MX")}</div><div class="k">Usuarios con licencia</div></div></div>`;
+  const scopeKpis=`<div class="p-kpis"><div class="p-kpi" style="--kc:#1a73e8"><div class="v">${r.stu.toLocaleString("es-MX")}</div><div class="k">Estudiantes</div></div>${r.hasDev&&r.stuReq?`<div class="p-kpi" style="--kc:#188038"><div class="v">${r.stuReq.toLocaleString("es-MX")}</div><div class="k">Equipos de estudiante</div></div>`:""}${conParqueDocente?`<div class="p-kpi" style="--kc:#8a4b00"><div class="v">${(r.eqDocTot+r.eqStuTot).toLocaleString("es-MX")}</div><div class="k">Equipos docentes</div></div>`:""}${r.hasDev&&r.stock?`<div class="p-kpi" style="--kc:#b06000"><div class="v">${r.stock.toLocaleString("es-MX")}</div><div class="k">Equipos de stock ${r.stockKind==="reacondicionados"?"reacondicionados":"nuevos"}</div></div>`:""}<div class="p-kpi" style="--kc:#d93025"><div class="v">${r.docTot.toLocaleString("es-MX")}</div><div class="k">Docentes con licencia</div></div><div class="p-kpi" style="--kc:#174ea6"><div class="v">${r.users.toLocaleString("es-MX")}</div><div class="k">Usuarios con licencia</div></div></div>`;
   /* v5 · Tres verdades posibles del alcance: modalidad por razón (reglas de inclusión),
      a la medida (el colegio pidió cantidades exactas; el documento las cuenta SIN un
      solo importe) y solo licencias. */
@@ -4788,7 +4836,7 @@ const QuoteTests={
       this.assert(PRECIOS.descuentosLicencia.motiva===200&&PRECIOS.descuentosLicencia.beta===200&&PRECIOS.descuentosLicencia.everway===80,"descuentos de licencia");
       this.assert(PRECIOS.porAlumnoAnual.edu.n3[0]===3000&&PRECIOS.porAlumnoAnual.edu.n3[4]===7900&&PRECIOS.porAlumnoAnual.plus.n4[2]===4800&&PRECIOS.porAlumnoAnual.plus.flip[4]===5000,"muestras del precio por alumno");
       this.assert(PRECIOS.pago.descuentos.contado===0.10&&PRECIOS.pago.descuentos.firmaTemprana===0.05&&PRECIOS.pago.mensualidades===10,"condiciones de pago");
-      this.assert(PRECIOS.stock.nuevos===0.02&&PRECIOS.stock.seminuevos===0.20,"stock");
+      /* Reacondicionados 20 % → 10 % el 30-oct-2026 (decisión comercial). */this.assert(PRECIOS.stock.nuevos===0.02&&PRECIOS.stock.seminuevos===0.10,"stock");
       this.assert(PRECIOS.razones.docentesIncluidos===10&&PRECIOS.razones.modeloDocente===20&&PRECIOS.razones.modeloEstudiante===10,"razones");
       this.assert(PRECIOS.topePorAlumno===250000,"tope por alumno");
       this.assert(PRECIOS.vigenciaDias===31,"vigencia de 31 días");
@@ -4989,6 +5037,10 @@ const QuoteTests={
     this.test("Carritos adicionales · se cobran en 1:1 a precio de catálogo",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartFreeAuthorization:emptyCartAuthorization(),lic};const sin=quote(base),r=quote({...base,extraCarts:[{cap:30,qty:2}]});this.assert(r.ratioCarts===0&&r.carts===2&&r.extraCartQty===2,"1:1 con 2 carritos adicionales");this.assertClose(r.adjCart,2*30860/300/4,1e-9,"ajuste: 2 × $30,860 ÷ 300 ÷ 4");this.assertClose(r.list-sin.list,2*30860/300/4,1e-6,"el precio debía subir solo por los carritos");this.assert(r.cartTot===61720,"costo total de carritos");const mezcla=quote({...base,extraCarts:[{cap:20,qty:1},{cap:40,qty:3}]});this.assert(mezcla.cartTot===28280+3*36800,"capacidades mezcladas");const fila=ITEMS.find(it=>it.n==="Carrito de carga");this.assert(fila.dyn(mezcla)==="Carrito de carga (20 / 40 equipos)",`etiqueta del documento: ${fila.dyn(mezcla)}`);this.assert(fila.qty(mezcla)===4,"cantidad del documento");});
     this.test("Carritos adicionales · conviven con los automáticos y no tocan la autorización sin costo",()=>this.withStorageSandbox(()=>{APP_STATE=createSafeDefaultState();S().mod=3;S().stu=300;S().teacherDeviceModel="docente";S().cartCap=30;S().extraCarts=[];CURRENT_RESULT=quote(S());this.assert(CURRENT_RESULT.ratioCarts===5,"1:2 con 300 alumnos: 5 carritos automáticos de 30");authorizeCurrentCart();let r=quote(S());this.assert(r.cartFreeValid&&r.cartTot===0,"los automáticos debían quedar sin costo");S().extraCarts=[{cap:40,qty:2}];r=quote(S());this.assert(r.cartFreeValid,"agregar adicionales no debía revocar la autorización");this.assert(r.carts===7&&r.cartTot===2*36800,"los adicionales sí se cobran");this.assertClose(r.adjCart,2*36800/300/4,1e-9,"solo los adicionales entran al precio");this.assert(fila2(r)==="Carrito de carga (30 / 40 equipos)","etiqueta con capacidades mezcladas");function fila2(x){return ITEMS.find(it=>it.n==="Carrito de carga").dyn(x);}}));
     this.test("Carritos adicionales · saneamiento, reinicio y viaje en el escenario",()=>this.withStorageSandbox(()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const sc={v:5,cycle:APP_CONFIG.cycle.id,pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,lic};this.assert(Array.isArray(sanitizeScenarioPayload(sc).extraCarts)&&sanitizeScenarioPayload(sc).extraCarts.length===0,"un escenario sin el campo debía entrar con []");this.assert(sanitizeScenarioPayload({...sc,extraCarts:[{cap:20,qty:3}]}).extraCarts[0].qty===3,"el renglón válido debía conservarse");let falla=false;try{sanitizeScenarioPayload({...sc,extraCarts:[{cap:25,qty:1}]});}catch{falla=true;}this.assert(falla,"una capacidad inválida debía rechazarse");falla=false;try{sanitizeScenarioPayload({...sc,extraCarts:Array.from({length:21},()=>({cap:30,qty:1}))});}catch{falla=true;}this.assert(falla,"más de 20 renglones debían rechazarse");this.assert(sanitizeScenarioPayload({...sc,mod:0,extraCarts:[{cap:30,qty:1}]}).extraCarts.length===0,"en la modalidad 0 debían descartarse");this.assert(quote({...sc,mod:0,cartFreeAuthorization:emptyCartAuthorization(),proRata:{stu:0,doc:0,carts:[]},extraCarts:[{cap:30,qty:1}]}).carts===0,"el motor debía ignorarlos en la modalidad 0");APP_STATE=createSafeDefaultState();S().mod=4;S().extraCarts=[{cap:30,qty:2}];this.assert(hasEquipmentAdjustments(),"los adicionales cuentan como ajuste de equipo");const vuelta=sanitizeScenarioPayload(decodeScenario(encodeScenario()));this.assert(vuelta.extraCarts.length===1&&vuelta.extraCarts[0].qty===2,"#scenario= debía conservarlos");resetStateForModel(3);this.assert(S().extraCarts.length===0,"el cambio de modalidad debía limpiarlos");}));
+    /* ---------- STOCK DE REEMPLAZO EDITABLE (30-oct-2026) ---------- */
+    this.test("Stock · 2 % nuevos y 10 % reacondicionados sobre todo el parque",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",mod:4,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartFreeAuthorization:emptyCartAuthorization(),lic};const nuevo=quote({...base,term:"cb4"}),reac=quote({...base,term:"fl2"});this.assert(nuevo.totalEq===315&&nuevo.stockBase===315,"la base del stock es todo el parque: 300 alumnos + 15 docentes");this.assert(nuevo.stock===7&&nuevo.stockKind==="nuevos",`2 % de 315 nuevos, hacia arriba = 7: ${nuevo.stock}`);this.assert(reac.stock===32&&reac.stockKind==="reacondicionados",`10 % de 315 reacondicionados, hacia arriba = 32: ${reac.stock}`);const soloDoc=quote({...base,term:"cb4",mod:0,proRata:{stu:0,doc:4,carts:[]}});this.assert(soloDoc.stock===1,"a la medida con solo equipos docentes ya no debe dar stock 0");const fila=ITEMS.find(it=>it.n==="Stock de equipos de reemplazo");this.assert(fila.dyn(reac)==="Stock de equipos de reemplazo reacondicionados","la partida debe nombrar el tipo de equipo");this.assert(!/\d\s?%/.test(fila.d),"la partida impresa no debe prometer un porcentaje");});
+    this.test("Stock · el comercial puede capturar otra cantidad y no mueve el precio",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartFreeAuthorization:emptyCartAuthorization(),lic};const auto=quote(base),mano=quote({...base,stockOverride:12}),cero=quote({...base,stockOverride:0});this.assert(mano.stock===12&&mano.stockAuto===7&&mano.stockManual===12,"la cantidad capturada manda");this.assert(mano.warns.some(w=>w.code==="STOCK_MANUAL"),"debe avisar que el stock se capturó a mano");this.assert(!quote({...base,stockOverride:7}).warns.some(w=>w.code==="STOCK_MANUAL"),"capturar el mismo número que el automático no avisa");this.assert(mano.list===auto.list&&mano.schemes.contado[0].net===auto.schemes.contado[0].net,"el stock no se cobra");this.assert(cero.stock===0,"cero es una cantidad válida");const fila=ITEMS.find(it=>it.n==="Stock de equipos de reemplazo");this.assert(!itemVisibility(fila,cero,false,4,lic).on,"con cero la partida no se imprime");this.assert(quote({...base,term:"lic1",mod:0,proRata:{stu:0,doc:0,carts:[]},stockOverride:9}).stock===0,"sin equipos el stock capturado no aplica");});
+    this.test("Stock · saneamiento, reinicio, escenario y alcance del documento",()=>this.withStorageSandbox(()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const sc={v:5,cycle:APP_CONFIG.cycle.id,pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:300,stuExtra:0,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,lic};this.assert(sanitizeScenarioPayload(sc).stockOverride===null,"sin el campo entra el automático");this.assert(sanitizeScenarioPayload({...sc,stockOverride:12}).stockOverride===12,"la cantidad capturada se conserva");let falla=false;try{sanitizeScenarioPayload({...sc,stockOverride:-1});}catch{falla=true;}this.assert(falla,"un stock negativo debe rechazarse");APP_STATE=createSafeDefaultState();APP_STATE.client.institution="Colegio";APP_STATE.client.city="Guadalajara";S().mod=4;S().stu=300;S().teacherDeviceModel="docente";S().stockOverride=12;const vuelta=sanitizeScenarioPayload(decodeScenario(encodeScenario()));this.assert(vuelta.stockOverride===12,"#scenario= debe conservar el stock capturado");CURRENT_RESULT=quote(S());const html=buildProposal();this.assert(html.includes('<div class="v">12</div><div class="k">Equipos de stock nuevos</div>'),"el alcance del programa debe mostrar los equipos de stock");resetStateForModel(3);this.assert(S().stockOverride===null,"el cambio de modalidad regresa al automático");}));
     this.test("F-25 · P4 · Los equipos de estudiante incluidos son fijos",()=>{const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));const base={pkg:"edu",term:"cb4",mod:4,pay:"contado",stu:65,teacherDeviceModel:"docente",docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic};for(const intento of [0,6,-50,null,undefined,"60"]){const r=quote({...base,stuExtra:intento});this.assert(r.stuReq>=r.stuIncl,`stuExtra=${JSON.stringify(intento)} dejó menos equipos que los incluidos`);this.assert(r.stuIncl===65,"los incluidos cambiaron");}this.assert(quote({...base,stuExtra:6}).stuReq===71,"los adicionales no se sumaron a los incluidos");this.assert(!quote({...base,stuExtra:-50}).warns.some(w=>w.code==="LESS_DEVICES"),"LESS_DEVICES debería ser imposible");});
     /* F-28 · El contrato cambió: sin modelo docente no hay PROPUESTA ni PDF, pero sí hay
        precio. Antes esta prueba exigía lo contrario y por eso el defecto sobrevivió a la
@@ -5253,8 +5305,8 @@ const QuoteTests={
     this.test("v5 · El stock y los casos raros de la modalidad a la medida",()=>{
       const lic=Object.fromEntries(LICS.map(l=>[l.k,true]));
       const base={pkg:"edu",mod:0,pay:"contado",stu:700,stuExtra:0,teacherDeviceModel:null,docExtra:0,eqDoc:0,eqStu:0,cartCap:0,cartP:{20:0,30:0,40:0},cartFreeAuthorization:emptyCartAuthorization(),lic};
-      /* Decisión E: el stock aplica con la misma regla — 20% en seminuevos son 6 sobre 30. */
-      this.assert(quote({...base,term:"fl2",proRata:{stu:30,doc:0,carts:[]}}).stock===6,"el stock del 20% no aplicó a los 30 seminuevos");
+      /* Decisión E: el stock aplica con la misma regla — 10% en reacondicionados son 3 sobre 30 (era 20 % y 6 hasta el 30-oct-2026). */
+      this.assert(quote({...base,term:"fl2",proRata:{stu:30,doc:0,carts:[]}}).stock===3,"el stock del 10% no aplicó a los 30 reacondicionados");
       this.assert(quote({...base,term:"cb4",proRata:{stu:30,doc:0,carts:[]}}).stock===1,"el stock del 2% no aplicó a los 30 nuevos");
       /* Un renglón de carrito cuesta lo que dice el catálogo, ni más ni menos. Si el
          colegio ya tiene los suyos, no se agrega renglón: no hay «precio 0». */
@@ -5550,7 +5602,7 @@ const QuoteTests={
   },
   renderReport(){const box=$("#testReport");if(!box)return;const passed=this.results.filter(item=>item.ok).length;box.hidden=false;box.innerHTML=`<button type="button" class="btn" id="btnCloseTests" style="float:right">Cerrar</button><h2>Pruebas internas · cotizador ${esc(APP_VERSION)}</h2><p class="${passed===this.results.length?"test-pass":"test-fail"}">${passed} de ${this.results.length} aprobadas</p><pre>${esc(this.results.map(result=>`${result.ok?"✓":"✕"} ${result.name}${result.error?": "+result.error:""}`).join("\n"))}</pre>`;$("#btnCloseTests").addEventListener("click",()=>box.hidden=true);}
 };
-const Diagnostics={run(){const index=listIndex(),keys=allQuoteKeys(),recoveries=allRecoveryKeys(),orphans=keys.filter(k=>!index.some(i=>k.endsWith(i.quoteId)));let tests={skipped:true,failed:0};if(confirm("El diagnóstico ejecutará las pruebas internas del cotizador.\n\nNo modifica tu cotización ni tus borradores, pero puede tardar unos segundos.\n\nRecomendación: cierra las demás pestañas del cotizador antes de continuar. ¿Continuar?")){try{tests=QuoteTests.runAll({show:false});}catch(error){tests={failed:1,error:error.message};}}const report={version:APP_CONFIG.schemaVersion,protocol:location.protocol,storage:HAS_STORAGE,draftsInIndex:index.length,quoteKeys:keys.length,recoveries:recoveries.length,orphans:orphans.length,current:APP_STATE?.identity?.quoteId,dirty:DIRTY,conflict:STORAGE_CONFLICT,tests};alert(`Diagnóstico activa · Cotizador v5.1\n\nAlmacenamiento: ${HAS_STORAGE?"disponible":"no disponible"}\nBorradores índice: ${index.length}\nClaves encontradas: ${keys.length}\nHuérfanos: ${orphans.length}\nRecuperaciones: ${recoveries.length}\nPruebas fallidas: ${tests.failed||0}`);console.info("Diagnóstico activa",report);return report;}};
+const Diagnostics={run(){const index=listIndex(),keys=allQuoteKeys(),recoveries=allRecoveryKeys(),orphans=keys.filter(k=>!index.some(i=>k.endsWith(i.quoteId)));let tests={skipped:true,failed:0};if(confirm("El diagnóstico ejecutará las pruebas internas del cotizador.\n\nNo modifica tu cotización ni tus borradores, pero puede tardar unos segundos.\n\nRecomendación: cierra las demás pestañas del cotizador antes de continuar. ¿Continuar?")){try{tests=QuoteTests.runAll({show:false});}catch(error){tests={failed:1,error:error.message};}}const report={version:APP_CONFIG.schemaVersion,protocol:location.protocol,storage:HAS_STORAGE,draftsInIndex:index.length,quoteKeys:keys.length,recoveries:recoveries.length,orphans:orphans.length,current:APP_STATE?.identity?.quoteId,dirty:DIRTY,conflict:STORAGE_CONFLICT,tests};alert(`Diagnóstico activa · Cotizador v5.2\n\nAlmacenamiento: ${HAS_STORAGE?"disponible":"no disponible"}\nBorradores índice: ${index.length}\nClaves encontradas: ${keys.length}\nHuérfanos: ${orphans.length}\nRecuperaciones: ${recoveries.length}\nPruebas fallidas: ${tests.failed||0}`);console.info("Diagnóstico activa",report);return report;}};
 /* F-20 · Los numeros comerciales viven una sola vez, en APP_CONFIG. Los textos
    duplicados del HTML se reescriben al arrancar para que no puedan divergir. */
 function syncStaticCopy(){
@@ -5567,7 +5619,7 @@ function syncStaticCopy(){
   set("#footerLegal",`Precios del ${APP_CONFIG.cycle.label.toLowerCase()} en pesos mexicanos por alumno, IVA incluido. Sujetos a confirmación contractual.`);
   /* F-27 · UX-5 · El título de la pestaña es la verificación más rápida de qué archivo
      está abierto: las copias viejas dicen "Final producción". */
-  document.title=`activa · Upgrade Edu — Cotizador ${APP_CONFIG.cycle.id} · v5.1`;
+  document.title=`activa · Upgrade Edu — Cotizador ${APP_CONFIG.cycle.id} · v5.2`;
   originalTitle=document.title;
   /* F-23 · M-10 · "10 mensualidades" deja de estar escrito a mano en el HTML. */
   $$("[data-installments]").forEach(el=>{el.textContent=`${STD_INSTALLMENTS} mensualidades${el.dataset.installments==="de"?" de":""}`;});
@@ -5578,7 +5630,7 @@ function syncStaticCopy(){
   set("#tmEstudianteQty",`1 por cada ${PRECIOS.razones.modeloEstudiante} alumnos`);
   $$("#cartGrid .cartopt[data-cap]").forEach(fs=>{const cap=Number(fs.dataset.cap);if(cap>0){const lg=fs.querySelector("legend");if(lg)lg.textContent=`Carrito de ${cap} equipos`;}});
   const stuInput=$("#fStu");if(stuInput){stuInput.min=APP_CONFIG.limits.students.min;stuInput.max=APP_CONFIG.limits.students.max;}
-  ["fDocX","fProStu","fProDoc","fStuX","fEqDoc","fEqStu"].forEach(id=>{const el=$("#"+id);if(el){el.min=APP_CONFIG.limits.quantity.min;el.max=APP_CONFIG.limits.quantity.max;}});
+  ["fDocX","fProStu","fProDoc","fStuX","fEqDoc","fEqStu","fStock"].forEach(id=>{const el=$("#"+id);if(el){el.min=APP_CONFIG.limits.quantity.min;el.max=APP_CONFIG.limits.quantity.max;}});
   const early=$("#thEarly"),regular=$("#thRegular");
   if(early?.firstChild)early.firstChild.textContent=`Firma antes del ${earlySignatureDeadlineLabel()}`;
   if(regular?.firstChild)regular.firstChild.textContent=`Firma a partir del ${earlySignatureDeadlineLabel()}`;

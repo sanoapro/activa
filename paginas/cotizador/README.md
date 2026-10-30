@@ -156,7 +156,7 @@ precio base y no se prorratea.**
 - Con equipos capturados, `modLbl` dice **«a la medida»**; sin ellos sigue diciendo «sin
   equipos». La advertencia `NO_DEVICES` solo se emite si de verdad no hay equipos.
 
-## Carritos adicionales y cobertura docente (30-oct-2026 · v5.1)
+## Carritos adicionales, cobertura docente y stock editable (30-oct-2026 · v5.1–v5.2)
 
 Dos pedidos del equipo comercial.
 
@@ -188,6 +188,15 @@ El costo de los equipos no cambia. El motor expone `incNoDev`, `coverInc`, `cove
 el reparto. Las pruebas «Paridad financiera legado», «F-25 · P3 · Un equipo docente adicional…»
 y «F-25 · El PDF documenta el alcance…» se reescribieron a esta regla: sus conteos de docentes
 cambiaron, no su precio.
+
+**Stock de reemplazo editable.** El porcentaje lo decide el tipo de equipo: 2 % en nuevos y
+**10 %** en reacondicionados (antes 20 %). Se calcula sobre todo el parque entregado, alumnos y
+docentes; antes era solo sobre los equipos de alumno, y una cotización a la medida con solo
+equipos docentes daba 0. El número aparece en el bloque «Equipos de stock», donde el comercial
+puede cambiarlo (`scenario.stockOverride`, `null` = automático; el botón «Usar el automático»
+lo regresa). El aviso `STOCK_MANUAL` avisa cuando difiere del automático. También sale en el
+«Alcance del programa» del documento. La partida impresa ya no lleva porcentajes, para no
+contradecir una cantidad capturada. El stock no se cobra: no toca el precio.
 
 ## Las dos licencias de Google Workspace son una sola decisión (26-ago-2026)
 

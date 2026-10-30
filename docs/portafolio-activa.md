@@ -113,7 +113,7 @@ cámara con obturador de privacidad, ligeras, duraderas y **sin necesidad de ant
 - **Seguro contra daño y robo** — póliza vigente durante **todo el contrato**, para equipos de
   estudiantes y de docentes.
 - **Stock de reemplazo** — reserva operativa de sustitución inmediata: **2 %** del parque en equipos
-  nuevos y **20 %** en seminuevos. No se asigna a usuarios ni genera licencias adicionales.
+  nuevos y **10 %** en reacondicionados (seminuevos). No se asigna a usuarios ni genera licencias adicionales.
 - **Carrito de carga** — resguardo, traslado y carga simultánea del aula en modalidades compartidas.
 - **Configuración inicial** de todos los equipos, con acompañamiento continuo posterior.
 

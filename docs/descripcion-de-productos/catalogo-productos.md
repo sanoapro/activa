@@ -22,7 +22,7 @@ Los marcados **PLUS** solo se entregan con el paquete *upgrade edu PLUS*.
 | **Soporte técnico · Mesa de Ayuda (SLA < 24 h)** | Asistencia remota por ticket, de lunes a viernes de 8:00 a 17:00 h, con respuesta garantizada en menos de 24 horas hábiles y tickets sin límite. |
 | **Capacitación al área de TI** | Formación al equipo de sistemas del colegio para administrar su consola de forma autónoma. |
 | **Seguro contra daños y robo** | Póliza activa contra daños accidentales y robo para las Chromebooks de estudiantes y docentes, vigente durante todo el periodo del contrato. |
-| **Stock de reemplazo** | Reserva operativa de sustitución inmediata: 2 % del parque en equipos nuevos y 20 % en seminuevos. No se asigna a usuarios ni genera licencias adicionales. |
+| **Stock de reemplazo** | Reserva operativa de sustitución inmediata: 2 % del parque en equipos nuevos y 10 % en reacondicionados (seminuevos). No se asigna a usuarios ni genera licencias adicionales. |
 | **Carrito de carga** | Resguardo, traslado y carga simultánea del aula. Aplica solo en modalidades compartidas, donde varios alumnos usan el mismo equipo. |
 
 ---

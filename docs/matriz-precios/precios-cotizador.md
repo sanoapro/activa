@@ -52,13 +52,17 @@ $5,133.333333 (el redondeo a centavos ocurre al final del cálculo, no en la tab
 |---|---|---|---|---|
 | `cb3` · Chromebooks nuevas | 3 | Chromebook nueva | 2 % | docente (1:20) o estudiante (1:10) |
 | `cb4` · Chromebooks nuevas | 4 | Chromebook nueva | 2 % | docente (1:20) o estudiante (1:10) |
-| `fl2` · Flip-Touch seminueva | 2 | Flip-Touch seminueva | **20 %** | solo docente seminuevo (1:20) |
+| `fl2` · Flip-Touch seminueva | 2 | Flip-Touch seminueva | **10 %** | solo docente seminuevo (1:20) |
 | `tb3` · Tablet | 3 | Tablet nueva | 2 % | solo Chromebook nueva docente (1:20) |
 
-**Cómo se aplica el stock.** Es la reserva de reemplazo que se entrega junto con el parque:
-2 % de los equipos de estudiante solicitados en equipos nuevos y 20 % en seminuevos. No se
-asigna a usuarios y **no genera licencias ni póliza adicionales**; el seguro y la CEU cubren el
-parque entregado.
+**Cómo se aplica el stock.** Es la reserva de reemplazo que se entrega junto con el parque, y
+es parte de la cobertura del seguro. El porcentaje depende del **tipo de equipo**: **2 %** si es
+nuevo (planes de 3 y 4 años) y **10 %** si es reacondicionado (seminuevo, plan de 2 años). Se
+calcula sobre **todo el parque entregado**, alumnos y docentes, y se redondea hacia arriba. Es el
+valor por defecto: el comercial puede capturar otra cantidad, y la pantalla avisa cuando difiere
+del automático. No se cobra, no se asigna a usuarios y **no genera licencias ni póliza
+adicionales**. Hasta el 30-oct-2026 era 20 % en seminuevos y solo sobre los equipos de
+estudiante.
 
 ## Cuánto cuesta un equipo · siempre con CEU y seguro
 
