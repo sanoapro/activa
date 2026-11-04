@@ -77,6 +77,11 @@ Presentacion-activa/
 │   │   ├── img/                  Fotos del equipo, 240 px (generadas)
 │   │   ├── og.png · og-source.html
 │   │   └── README.md
+│   ├── quienes-somos/            Para colegios particulares: quién es activa y qué ofrece
+│   │   ├── index.html            Copia independiente del one-pager, sin sesiones ni eventos
+│   │   ├── img/                  Fotos del equipo, 240 px
+│   │   ├── og.png · og-source.html
+│   │   └── README.md
 │   ├── sector-publico-jalisco/   Ficha técnica para el sector público de Jalisco
 │   │   ├── index.html            Sin JS; el detalle va en <details>
 │   │   ├── img/                  Fotos del contacto
