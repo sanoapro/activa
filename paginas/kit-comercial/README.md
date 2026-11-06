@@ -11,7 +11,8 @@ que el deck de [upgrade-edu](../upgrade-edu/).
 | Archivo | Qué es |
 |---|---|
 | `index.html` | Todo el kit: markup, CSS y JS en un solo archivo. |
-| `descargables/index.html` | **Página 2**: los formatos que el equipo descarga. Sí se desplaza, porque la lista va a crecer. |
+| `privado/index.html` | **Página 2, «Privado»**: ligas para compartir, páginas internas y descargables. Sí se desplaza, porque las listas van a crecer. |
+| `descargables/index.html` | Solo redirige a `privado/`. Era la página 2 hasta nov-2026; se conserva para no romper la liga vieja. |
 | `assets.js` | **Generado.** Retratos del equipo y logos, en base64. No editar a mano. Lo usan las dos páginas. |
 | `og.png` | Vista previa de WhatsApp (1200×630). **Generado** desde `og-source.html`. |
 | `og-source.html` | Molde de esa vista previa. No se abre en público. |
@@ -19,21 +20,22 @@ que el deck de [upgrade-edu](../upgrade-edu/).
 
 ## Las dos páginas se ven igual
 
-Descargables no es una lista suelta: usa el mismo sistema que la lámina —manchas pastel de fondo,
+Privado no es una lista suelta: usa el mismo sistema que la lámina —manchas pastel de fondo,
 filete Google al canto, pradera animada al pie, título con las letras de colores, tarjetas con
 velo bajo el cursor, filete que crece y ⧉ para copiar el enlace—. Lo único propio de la página 2
 es lo que exige el scroll: barra de avance, revelado al bajar y una columna lateral que explica
 las tres acciones.
 
-Con **un solo** descargable la rejilla se vería a medio llenar, así que la tarjeta pasa a ocupar
+Una sección con **una sola** tarjeta se vería a medio llenar, así que la tarjeta pasa a ocupar
 el ancho entero y parte las acciones a un panel lateral (clase `.uno`, que el JS pone y quita
-solo según cuántos haya). Al llegar el segundo documento vuelve la rejilla, sin tocar nada.
+solo, **por sección**, según cuántas haya). Hoy le toca a Descargables. Al llegar la segunda
+tarjeta vuelve la rejilla, sin tocar nada.
 
 ## Movimiento
 
 Las dos páginas usan el motor compartido de `compartidos/`. En la lámina: cascada al armarse,
 tarjetas magnéticas que se acercan al cursor, inclinación 3D y confirmación visible al copiar un
-enlace. En descargables, lo mismo, más lo que pide el scroll: revelado al bajar y barra de avance.
+enlace. En Privado, lo mismo, más lo que pide el scroll: revelado al bajar y barra de avance.
 
 Cada tarjeta va en envoltura doble —`.twrap` (cascada) → `.tmag` (imán) → `.tile` / `.doc`
 (inclinación)— para que los tres `transform` no se pisen entre sí ni con la escala de `#stage`.
@@ -45,7 +47,7 @@ inválido y cada navegador lo resuelve a su manera: el botón QR terminaba abrie
 tarjeta. Cancelar el clic con `preventDefault()` no es garantía; no anidarlos, sí.
 Las tarjetas `pronto:true` quedan fuera de todo: no deben sentirse clicables.
 
-La pradera está trazada para 1280 px de ancho. En la lámina eso es exacto; en descargables el
+La pradera está trazada para 1280 px de ancho. En la lámina eso es exacto; en Privado el
 `svg` lleva `min-width:1280px` y el pie recorta, porque comprimirla deja las briznas como agujas.
 Y como el crecido de cada brizna es una animación, con «reducir movimiento» se monta ya crecida:
 sin esa regla la pradera desaparecería.
@@ -59,8 +61,8 @@ obligatorias.
 - Pasar el cursor y clic en **⧉** → copia el enlace al portapapeles (para mandarlo por WhatsApp).
 - Teclas **1–9** y **0** → abren el acceso correspondiente, en el orden en que se leen (izquierda a
   derecha, de arriba abajo). El **0** es el décimo, como en cualquier barra de tareas; con quince
-  accesos, los cinco últimos quedan sin atajo — no hay más teclas de un dígito. **D** →
-  descargables. **F** → pantalla completa.
+  accesos, los cinco últimos quedan sin atajo — no hay más teclas de un dígito. **P** → Privado
+  (la **D** de los antiguos Descargables sigue funcionando como alias). **F** → pantalla completa.
 - Botón **QR** (solo en las tarjetas que traen `qr`) → abre el código a pantalla completa sobre
   fondo blanco, para que la sala lo escanee. Se sale con el botón **← Volver al kit** (arriba a la
   izquierda, donde vive el «atrás» de cualquier navegador), con **Esc**, con la ✕ o tocando el fondo.
@@ -69,9 +71,13 @@ obligatorias.
   el código existe, y en una pantalla proyectada muchas veces no hay cursor que pasar.
 - Las láminas **apartadas** (sin `url`, marcadas con `pronto:true`) no abren nada: existen para
   que el equipo sepa que esa herramienta viene en camino.
-- En **descargables**: cada tarjeta abre el documento de tres formas y el **⧉** copia el enlace de
-  copia, que es el que se manda por WhatsApp —quien lo reciba obtiene su propia copia, no la del
-  que lo mandó—. **Esc** regresa al kit.
+- El botón **Privado** (candado, en la cabecera de «Proceso interno») abre la página 2. Su número
+  es cuántas tarjetas se pueden abrir allá —hoy **06**— y **se cambia a mano** en `index.html`
+  al agregar o quitar una.
+- En **Privado**: cada tarjeta dice a quién se le puede mandar («Se puede mandar» en verde,
+  «Solo equipo» en rojo). El **⧉** copia la liga; en los descargables copia el enlace de copia,
+  así quien lo reciba obtiene su propia copia, no la del que lo mandó. En pantallas táctiles el
+  ⧉ se ve siempre, porque no hay cursor que pasar. **Esc** regresa al kit.
 
 ## Cómo agregar o cambiar un enlace
 
@@ -110,8 +116,9 @@ una cámara lo levante.
 
 La retícula es de **5 + 5 + 5**: venta lleva los cotizadores, las listas de precio y el
 comparador de licencias; eventos las tres presentaciones más el taller y el registro; y
-proceso interno las cuatro herramientas del equipo más el comunicado de uso responsable
-(ago-2026: las dos presentaciones bajaron a eventos y la base de
+proceso interno las cuatro herramientas del equipo más **Quiénes somos**
+(nov-2026: el comunicado de uso responsable pasó a Privado y su lugar lo tomó Quiénes somos;
+ago-2026: las dos presentaciones bajaron a eventos y la base de
 datos salió del kit; sep-2026: el manual de la consola cerró la fila interna, que era de
 tres, y G-Workspace llevó la de venta a cinco; el deck del Proyecto Piloto llevó la de
 eventos a cinco, y el comunicado sobre el acuerdo de la SEP hizo lo mismo con la interna).
@@ -132,9 +139,50 @@ de esas filas ya no cabe: de ahí en adelante toca repartir de nuevo, no seguir 
 Las dos presentaciones viven en **eventos** y no en herramientas de venta a propósito: son
 láminas para proyectar delante de gente, no cosas con las que se arma un precio.
 
-## Cómo agregar un descargable
+## La página Privado
 
-En `descargables/index.html`, la lista `DOCS`. Con el **id del documento de Google** basta:
+Reúne lo que es **para el equipo y no para proyectar**, en tres secciones. Cada una es una lista
+al final de `privado/index.html`; el HTML se arma solo.
+
+| Sección | Lista | Qué lleva hoy |
+| --- | --- | --- |
+| Para compartir | `COMPARTIR` | Invitación a la Capacitación Canva (12-nov), MasterClass de Gemini (YouTube) y MasterClass de Canva **apartada** |
+| Conocimiento del equipo | `INTERNAS` | Los cinco programas, Comparativa de competidores y Uso responsable |
+| Descargables | `DOCS` | Carta Responsiva |
+
+**«Privado» es una etiqueta, no una cerradura.** GitHub Pages es público y la página no pide
+contraseña: cualquiera con la liga entra, y la Comparativa trae prospectos. La protección es no
+repartir la liga de Privado; por eso cada tarjeta dice si se manda o no. Si eso deja de bastar,
+hay que sacar esas páginas del repositorio, no esconderlas mejor.
+
+### Cómo agregar una liga (Para compartir o Conocimiento del equipo)
+
+```js
+{ id:'video',               // llave del icono en el objeto ICO de esa página
+  nombre:'MasterClass de Gemini',
+  tipo:'Video de YouTube',  // el chip bajo el nombre
+  color:'--blue', color2:'#0d47a1', tinte:'--blue-t',
+  aud:'si',                 // 'si' = se puede mandar · 'no' = solo equipo
+  audTxt:'…',               // opcional: otro texto para esa etiqueta
+  desc:'…',
+  url:'https://…',          // sin parámetros de rastreo (el si= de YouTube se quita)
+  accion:'Ver en YouTube',  // texto del botón; por omisión «Abrir»
+  nota:'…' }                // opcional, al pie
+```
+
+Una tarjeta con **`pronto:true`** y sin `url` queda **apartada**: borde punteado, «Próximamente»,
+sin botón, sin ⧉ y sin imán. Es la de la **MasterClass de Canva**: cuando llegue su liga, se quita
+`pronto`, se pone `url`, `aud:'si'` y `accion:'Ver en YouTube'`.
+
+Sin JavaScript las tarjetas no se arman: un bloque `<noscript>` arriba repite las mismas ligas.
+**Si se agrega o quita una tarjeta, se cambia también ahí.**
+
+**Pendiente con fecha:** la invitación a la Capacitación Canva vence el **jueves 12 de noviembre
+de 2026** (campo `vence`). Después se quita o se cambia por la grabación.
+
+### Cómo agregar un descargable
+
+En `privado/index.html`, la lista `DOCS`. Con el **id del documento de Google** basta:
 las tres acciones —copia a Drive, PDF y Word— se derivan de él.
 
 ```js
@@ -144,6 +192,7 @@ las tres acciones —copia a Drive, PDF y Word— se derivan de él.
   color:'--blue', color2:'#0d47a1', tinte:'--blue-t',
   desc:'…',
   docId:'1Af5…',          // el id que aparece en la URL del documento
+  aud:'si',               // a quién se le puede mandar
   nota:'…' }              // opcional, al pie de la tarjeta
 ```
 
@@ -198,7 +247,7 @@ compartió, hay que forzar el refresco añadiendo `?v=2` al final del enlace.
 ## Notas
 
 - La página lleva `<meta name="robots" content="noindex">`: es para el equipo, no
-  para buscadores. Los destinos igual piden credenciales.
+  para buscadores. Los destinos de la lámina igual piden credenciales; los de Privado, no.
 - El pasto animado es el mismo de la diapositiva 22 del deck: cada brizna crece
   desde el suelo una vez y luego se mece a perpetuidad.
 - Todo respeta `prefers-reduced-motion`.
