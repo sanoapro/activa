@@ -8,7 +8,7 @@ paso de compilación.
 
 | Página | URL | Qué es |
 |---|---|---|
-| **Kit comercial** | [/paginas/kit-comercial/](https://sanoapro.github.io/activa/paginas/kit-comercial/) | Una lámina con los accesos que el equipo comercial usa a diario. |
+| **Kit comercial** | [/paginas/kit-comercial/](https://sanoapro.github.io/activa/paginas/kit-comercial/) | Una lámina con los accesos que el equipo comercial usa a diario, y su página **Privado** ([/privado/](https://sanoapro.github.io/activa/paginas/kit-comercial/privado/)): ligas para compartir, páginas internas y descargables. |
 | **Cotizador 2026–2027** | [/paginas/cotizador/](https://sanoapro.github.io/activa/paginas/cotizador/) | Arma la propuesta del colegio: dispositivos, licenciamiento, capacitación y soporte. |
 | **upgrade edu 2026–2027** | [/paginas/upgrade-edu/](https://sanoapro.github.io/activa/paginas/upgrade-edu/) | Deck de 33 diapositivas del programa comercial. Abre sin compilar nada. |
 | **Padres de familia 2026–2027** | [/paginas/padres-de-familia/](https://sanoapro.github.io/activa/paginas/padres-de-familia/) | Deck de 17 diapositivas para las juntas con familias. Se lee igual en el proyector que en el teléfono de un padre. |
@@ -25,8 +25,8 @@ paso de compilación.
 | **Sector público Jalisco** | [/paginas/sector-publico-jalisco/](https://sanoapro.github.io/activa/paginas/sector-publico-jalisco/) | Ficha técnica para dependencias y escuelas públicas de Jalisco: seis servicios en viñetas, el detalle en «Ver más». |
 | **Capacitación Canva** *(temporal)* | [/paginas/capacitacion-canva/](https://sanoapro.github.io/activa/paginas/capacitacion-canva/) | Liga corta para compartir la sesión del 12 de noviembre por WhatsApp. Lleva su propia vista previa y manda al one-pager. |
 | **Capacitación IA** *(temporal)* | [/paginas/capacitacion-ia/](https://sanoapro.github.io/activa/paginas/capacitacion-ia/) | Liga de la sesión pasada (15 de octubre). Sigue mandando al one-pager, que hoy muestra la sesión vigente. |
-| **Los cinco programas** *(interna)* | [/paginas/programas-activa/](https://sanoapro.github.io/activa/paginas/programas-activa/) | Para el equipo comercial: qué vende activa, a quién le habla y cómo explicar impulsa, eleva, motiva, beta e integra. En hojas imprimibles, con PDF descargable. |
-| **Comparativa de competidores** *(interna)* | [/paginas/comparativa-competidores/](https://sanoapro.github.io/activa/paginas/comparativa-competidores/) | Para el equipo comercial: upgrade edu frente a Knotion, Santillana, AMCO, Luca y los demás, y cómo ganarle a cada uno. No va en el portal ni se manda a colegios. |
+| **Los cinco programas** *(interna · en Privado del kit)* | [/paginas/programas-activa/](https://sanoapro.github.io/activa/paginas/programas-activa/) | Para el equipo comercial: qué vende activa, a quién le habla y cómo explicar impulsa, eleva, motiva, beta e integra. En hojas imprimibles, con PDF descargable. |
+| **Comparativa de competidores** *(interna · en Privado del kit)* | [/paginas/comparativa-competidores/](https://sanoapro.github.io/activa/paginas/comparativa-competidores/) | Para el equipo comercial: upgrade edu frente a Knotion, Santillana, AMCO, Luca y los demás, y cómo ganarle a cada uno. No va en el portal ni se manda a colegios; está en la página Privado del kit. |
 
 Documento maestro de producto —fuente única y vigente— en
 [`docs/portafolio-activa.md`](docs/portafolio-activa.md).

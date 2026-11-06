@@ -10,8 +10,9 @@ Se publica en <https://sanoapro.github.io/activa/paginas/programas-activa/>.
 
 ## Interna, a propósito
 
-- Nombra competidores y lo que no se promete: **no va en el portal ni en el kit comercial** y no se
-  manda a colegios. Se comparte el enlace dentro del equipo.
+- Nombra competidores y lo que no se promete: **no va en el portal ni en la lámina del kit** y no se
+  manda a colegios. Vive en la página **Privado** del kit
+  ([`../kit-comercial/privado/`](../kit-comercial/privado/)), marcada «Solo equipo».
 - Lleva `noindex`, pero GitHub Pages es público: cualquiera con el enlace la abre.
 
 ## Archivos

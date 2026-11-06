@@ -16,6 +16,8 @@ Presentacion-activa/
 ├── paginas/                      ← UNA CARPETA POR PÁGINA
 │   ├── kit-comercial/            Lámina de accesos del equipo comercial
 │   │   ├── index.html            La página
+│   │   ├── privado/              Página 2, botón «Privado»: ligas para compartir, páginas internas y descargables
+│   │   ├── descargables/         Solo redirige a privado/ (la liga vieja sigue funcionando)
 │   │   ├── assets.js             Sus datos (generado, no editar a mano)
 │   │   ├── og.png                Su vista previa de WhatsApp
 │   │   ├── og-source.html        El molde de esa vista previa
@@ -204,8 +206,10 @@ son la fuente de la que se regeneran esos base64.
 6. Si la página lleva vista previa de WhatsApp, sus etiquetas `og:` van con **URL absoluta** —
    WhatsApp no lee rutas relativas ni `data:` URI— y el `og.png` vive **en su propia carpeta**,
    no en `compartidos/`.
-7. Si conviene, agregarla también al kit comercial (`paginas/kit-comercial/index.html`, listas
-   `VENTA` e `INTERNA`).
+7. Si conviene, agregarla también al kit comercial: a la lámina (`paginas/kit-comercial/index.html`,
+   listas `VENTA`, `EVENTOS` e `INTERNA`, hoy llenas) o, si es para el equipo y no para proyectar,
+   a la página **Privado** (`paginas/kit-comercial/privado/index.html`, listas `COMPARTIR`,
+   `INTERNAS` y `DOCS`).
 
 ---
 

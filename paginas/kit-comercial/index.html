@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="activa">
 <meta property="og:url" content="https://sanoapro.github.io/activa/paginas/kit-comercial/">
 <meta property="og:title" content="Kit comercial · activa">
-<meta property="og:description" content="Trece accesos en una sola pantalla: herramientas de venta, eventos y proceso interno.">
+<meta property="og:description" content="Quince accesos en una sola pantalla: herramientas de venta, eventos y proceso interno.">
 <meta property="og:image" content="https://sanoapro.github.io/activa/paginas/kit-comercial/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
@@ -24,7 +24,7 @@
 <meta property="og:image:alt" content="activa · Kit comercial — los quince accesos del equipo en una sola pantalla.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kit comercial · activa">
-<meta name="twitter:description" content="Trece accesos en una sola pantalla: herramientas de venta, eventos y proceso interno.">
+<meta name="twitter:description" content="Quince accesos en una sola pantalla: herramientas de venta, eventos y proceso interno.">
 <meta name="twitter:image" content="https://sanoapro.github.io/activa/paginas/kit-comercial/og.png">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='11' height='11' rx='3' fill='%234285f4'/%3E%3Crect x='18' y='3' width='11' height='11' rx='3' fill='%23ea4335'/%3E%3Crect x='3' y='18' width='11' height='11' rx='3' fill='%23fbbc04'/%3E%3Crect x='18' y='18' width='11' height='11' rx='3' fill='%2334a853'/%3E%3C/svg%3E">
@@ -477,10 +477,13 @@ h1{font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-1.5px}
       <div class="kc-sechead">
         <span class="eyebrow p">Proceso interno</span>
         <span class="rule"></span>
-        <a class="kc-mas" href="./descargables/">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-          Descargables
-          <span class="n">01</span>
+        <!-- Privado: ligas para compartir, páginas internas y descargables.
+             El número son las tarjetas que se pueden abrir allá (hoy seis);
+             se cambia a mano al agregar o quitar una. -->
+        <a class="kc-mas" href="./privado/" title="Privado · solo para el equipo (tecla P)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          Privado
+          <span class="n">06</span>
         </a>
         <span class="cnt" id="cntInterna">05</span>
       </div>
@@ -556,8 +559,8 @@ const ICO = {
   consola:'<path d="M12 2 4 5.2v6.3c0 4.9 3.4 9.5 8 10.5 4.6-1 8-5.6 8-10.5V5.2L12 2zm0 2.2 6 2.4v4.9c0 3.8-2.5 7.4-6 8.4-3.5-1-6-4.6-6-8.4V6.6l6-2.4z"/><path d="M11 14.2 8.9 12l-1.3 1.3 3.4 3.4 5.3-5.3-1.3-1.3-4 4z"/>',
   /* nube con una llave — el licenciamiento de Google Workspace */
   gworkspace:'<path d="M17.7 9.1A5.8 5.8 0 0 0 6.4 8 4.5 4.5 0 0 0 7 17h10.4a4 4 0 0 0 .3-7.9zm-.3 5.9H7a2.5 2.5 0 0 1-.2-5l.8.1.3-.8a3.8 3.8 0 0 1 7.3.9l.1.9h.9a2 2 0 0 1 .2 3.9z"/><path d="M12.3 11.4a1.6 1.6 0 1 1 1.5 2l1.3 1.3-.7.7-.5-.5-.6.6-.6-.6-.5.5-.7-.7 1.3-1.3a1.6 1.6 0 0 1-.5-2zm1.1.1a.6.6 0 1 0 .9.9.6.6 0 0 0-.9-.9z"/>',
-  /* un celular tachado — el comunicado sobre el acuerdo de la SEP */
-  responsable:'<path d="M2.76 2.49 1.49 3.76 5 7.27V21c0 1.1.9 2 2 2h10c1.02 0 1.85-.77 1.98-1.75l1.26 1.26 1.27-1.27L2.76 2.49zM7 19V9.27L16.73 19H7zM17 5v9.17l2 2V3c0-1.1-.9-2-2-2H7c-.85 0-1.58.54-1.87 1.3L6.83 5H17z"/>',
+  /* un edificio — Quiénes somos, la presentación de la empresa */
+  quienes:'<path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>',
   /* una bandera plantada — el piloto que se prueba en un salón */
   piloto:'<path d="M5 3a1 1 0 0 1 1 1v.6l10.6-1.5a1.2 1.2 0 0 1 1.4 1.2v7.4a1.2 1.2 0 0 1-1 1.2L6 14.4V20a1 1 0 0 1-2 0V4a1 1 0 0 1 1-1zm1 3.6v5.8l10-1.4V5.2L6 6.6z"/>',
   /* dos figuras y un corazón — la presentación a las familias */
@@ -648,15 +651,15 @@ const INTERNA = [
     desc:'Cómo dejar blindada la consola del colegio.',
     host:'sanoapro.github.io',
     url:'https://sanoapro.github.io/activa/paginas/consola/' },
-  /* Entra decimoquinto y lleva la fila interna a cinco. Naranja porque los
-     otros cuatro internos son fríos (verde azulado, índigo, ciruela, verde):
-     el único cálido de la fila se distingue sin leer. Es una página pública,
-     pero vive aquí y no en venta: el equipo la manda a los colegios cuando
-     preguntan por el acuerdo, no la usa para armar un precio. */
-  { id:'responsable', nombre:'Uso responsable', color:'--orange', color2:'#a34400', tinte:'--orange-t',
-    desc:'El acuerdo de la SEP sobre celulares, explicado.',
+  /* Quinto de la fila interna, en el lugar que tenía Uso responsable (nov-2026:
+     el comunicado de la SEP pasó a Privado). Naranja porque los otros cuatro
+     internos son fríos (verde azulado, índigo, ciruela, verde): el único cálido
+     de la fila se distingue sin leer. Es la presentación permanente de activa
+     para colegios particulares; vive aquí porque el equipo la manda a diario. */
+  { id:'quienes', nombre:'Quiénes somos', color:'--orange', color2:'#a34400', tinte:'--orange-t',
+    desc:'Quién es activa y qué ofrece al colegio.',
     host:'sanoapro.github.io',
-    url:'https://sanoapro.github.io/activa/paginas/uso-responsable/' },
+    url:'https://sanoapro.github.io/activa/paginas/quienes-somos/' },
 ];
 
 const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
@@ -905,7 +908,9 @@ addEventListener('keydown', e=>{
     if(destino.url) window.open(destino.url, '_blank', 'noopener');
     return;
   }
-  if(e.key === 'd' || e.key === 'D'){ location.href = './descargables/'; return; }
+  /* P abre Privado. La D era la de Descargables, que ahora vive ahí: se queda
+     como alias para quien ya la tenía en la mano. */
+  if(['p','P','d','D'].includes(e.key)){ location.href = './privado/'; return; }
   if(e.key === 'f' || e.key === 'F'){
     if(document.fullscreenElement) document.exitFullscreen();
     else document.documentElement.requestFullscreen?.();

@@ -10,8 +10,10 @@ Se publica en <https://sanoapro.github.io/activa/paginas/comparativa-competidore
 
 ## Interna, a propósito
 
-- **No se enlaza desde el portal** (`index.html` de la raíz) **ni desde el kit comercial**, que
-  tiene quince accesos fijos. Se comparte el enlace directo dentro del equipo.
+- **No se enlaza desde el portal** (`index.html` de la raíz) **ni desde la lámina del kit
+  comercial**. Vive en la página **Privado** del kit
+  ([`../kit-comercial/privado/`](../kit-comercial/privado/)), marcada «Solo equipo · no se manda
+  a colegios»: desde ahí la abre y la copia el equipo.
 - **No se manda a colegios.** Trae quejas, calificaciones y precios de terceros: sirven para
   preparar la reunión, no para pegarlos en una propuesta. La página lo dice en la portada.
 - Lleva `noindex`, pero GitHub Pages es público: cualquiera con el enlace la abre. Si eso deja de
