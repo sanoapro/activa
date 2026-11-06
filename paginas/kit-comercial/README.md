@@ -11,7 +11,7 @@ que el deck de [upgrade-edu](../upgrade-edu/).
 | Archivo | Qué es |
 |---|---|
 | `index.html` | Todo el kit: markup, CSS y JS en un solo archivo. |
-| `privado/index.html` | **Página 2, «Privado»**: ligas para compartir, páginas internas y descargables. Sí se desplaza, porque las listas van a crecer. |
+| `privado/index.html` | **Página 2, «Privado»**: ligas para compartir, páginas internas y descargables. Lámina fija de 1280×720, igual que la pública. |
 | `descargables/index.html` | Solo redirige a `privado/`. Era la página 2 hasta nov-2026; se conserva para no romper la liga vieja. |
 | `assets.js` | **Generado.** Retratos del equipo y logos, en base64. No editar a mano. Lo usan las dos páginas. |
 | `og.png` | Vista previa de WhatsApp (1200×630). **Generado** desde `og-source.html`. |
@@ -20,24 +20,29 @@ que el deck de [upgrade-edu](../upgrade-edu/).
 
 ## Las dos páginas se ven igual
 
-Privado no es una lista suelta: usa el mismo sistema que la lámina —manchas pastel de fondo,
-filete Google al canto, pradera animada al pie, título con las letras de colores, tarjetas con
-velo bajo el cursor, filete que crece y ⧉ para copiar el enlace—. Lo único propio de la página 2
-es lo que exige el scroll: barra de avance, revelado al bajar y una columna lateral que explica
-las tres acciones.
+Privado es **la misma lámina** que la pública: 1280×720 escalada a la pantalla, sin scroll,
+con manchas pastel, filete Google, pradera al pie y la misma tarjeta horizontal. Su CSS se
+copió tal cual de `index.html` (sin lo del equipo ni lo del QR, que ahí no existen); lo propio
+va al final del bloque `<style>`:
 
-Una sección con **una sola** tarjeta se vería a medio llenar, así que la tarjeta pasa a ocupar
-el ancho entero y parte las acciones a un panel lateral (clase `.uno`, que el JS pone y quita
-solo, **por sección**, según cuántas haya). Hoy le toca a Descargables. Al llegar la segunda
-tarjeta vuelve la rejilla, sin tocar nada.
+- **Cabecera compacta:** «← Kit», el título «Privado» a 28 px y una línea. El título solo ubica.
+- **Sin franja del equipo:** las tres filas se reparten todo el alto.
+- **Tres filas de tres** (`g3`): **todas las tarjetas miden lo mismo** (≈387×145), también
+  cuando una fila trae menos. Descargables lleva una y el resto de su fila queda libre.
+- El chip del pie no dice el sitio de origen: dice **a quién se le puede mandar** (verde o rojo).
+- Sin texto de ayuda ni columna lateral: a pedido, se quitó toda la información que no fuera
+  la tarjeta.
+
+Si una fila llega a cuatro tarjetas, pasa a `g4` y todas las demás también, para que sigan
+midiendo lo mismo.
 
 ## Movimiento
 
 Las dos páginas usan el motor compartido de `compartidos/`. En la lámina: cascada al armarse,
 tarjetas magnéticas que se acercan al cursor, inclinación 3D y confirmación visible al copiar un
-enlace. En Privado, lo mismo, más lo que pide el scroll: revelado al bajar y barra de avance.
+enlace. En Privado, exactamente lo mismo.
 
-Cada tarjeta va en envoltura doble —`.twrap` (cascada) → `.tmag` (imán) → `.tile` / `.doc`
+Cada tarjeta va en envoltura doble —`.twrap` (cascada) → `.tmag` (imán) → `.tile`
 (inclinación)— para que los tres `transform` no se pisen entre sí ni con la escala de `#stage`.
 
 La tarjeta **no es un enlace**: es un contenedor con una capa `a.t-link` que la cubre entera
@@ -47,9 +52,7 @@ inválido y cada navegador lo resuelve a su manera: el botón QR terminaba abrie
 tarjeta. Cancelar el clic con `preventDefault()` no es garantía; no anidarlos, sí.
 Las tarjetas `pronto:true` quedan fuera de todo: no deben sentirse clicables.
 
-La pradera está trazada para 1280 px de ancho. En la lámina eso es exacto; en Privado el
-`svg` lleva `min-width:1280px` y el pie recorta, porque comprimirla deja las briznas como agujas.
-Y como el crecido de cada brizna es una animación, con «reducir movimiento» se monta ya crecida:
+La pradera está trazada para 1280 px de ancho, que es el de las dos láminas. Y como el crecido de cada brizna es una animación, con «reducir movimiento» se monta ya crecida:
 sin esa regla la pradera desaparecería.
 
 Las reglas están en [`docs/normativa-motion.md`](../../docs/normativa-motion.md) y son
@@ -77,7 +80,7 @@ obligatorias.
 - En **Privado**: cada tarjeta dice a quién se le puede mandar («Se puede mandar» en verde,
   «Solo equipo» en rojo). El **⧉** copia la liga; en los descargables copia el enlace de copia,
   así quien lo reciba obtiene su propia copia, no la del que lo mandó. En pantallas táctiles el
-  ⧉ se ve siempre, porque no hay cursor que pasar. **Esc** regresa al kit.
+  ⧉ se ve siempre, porque no hay cursor que pasar. Las teclas **1–7** abren las tarjetas en orden y **Esc** regresa al kit.
 
 ## Cómo agregar o cambiar un enlace
 
@@ -155,46 +158,35 @@ contraseña: cualquiera con la liga entra, y la Comparativa trae prospectos. La 
 repartir la liga de Privado; por eso cada tarjeta dice si se manda o no. Si eso deja de bastar,
 hay que sacar esas páginas del repositorio, no esconderlas mejor.
 
-### Cómo agregar una liga (Para compartir o Conocimiento del equipo)
+### Cómo agregar una tarjeta
+
+Se agrega un registro a `COMPARTIR`, `INTERNAS` o `DOCS`. La descripción va **corta** (una idea,
+≈75 caracteres): la tarjeta mide ≈145 px de alto.
 
 ```js
 { id:'video',               // llave del icono en el objeto ICO de esa página
   nombre:'MasterClass de Gemini',
-  tipo:'Video de YouTube',  // el chip bajo el nombre
   color:'--blue', color2:'#0d47a1', tinte:'--blue-t',
-  aud:'si',                 // 'si' = se puede mandar · 'no' = solo equipo
-  audTxt:'…',               // opcional: otro texto para esa etiqueta
   desc:'…',
-  url:'https://…',          // sin parámetros de rastreo (el si= de YouTube se quita)
-  accion:'Ver en YouTube',  // texto del botón; por omisión «Abrir»
-  nota:'…' }                // opcional, al pie
+  aud:'si',                 // 'si' = se puede mandar · 'no' = solo equipo
+  audTxt:'…',               // opcional: otro texto para la etiqueta
+  url:'https://…' }         // sin parámetros de rastreo (el si= de YouTube se quita)
 ```
 
 Una tarjeta con **`pronto:true`** y sin `url` queda **apartada**: borde punteado, «Próximamente»,
-sin botón, sin ⧉ y sin imán. Es la de la **MasterClass de Canva**: cuando llegue su liga, se quita
-`pronto`, se pone `url`, `aud:'si'` y `accion:'Ver en YouTube'`.
+sin liga, sin ⧉ y sin imán. Es la de la **MasterClass de Canva**: cuando llegue su liga, se quita
+`pronto` y se ponen `url` y `aud:'si'`.
 
-Sin JavaScript las tarjetas no se arman: un bloque `<noscript>` arriba repite las mismas ligas.
-**Si se agrega o quita una tarjeta, se cambia también ahí.**
+Un **descargable** (`DOCS`) no lleva `url` sino `docId`, el id del documento de Google: la
+tarjeta abre «hacer una copia» y suma los botones **PDF** y **Word** al lado del ⧉. El ⧉ copia la
+liga de copia, así quien la recibe obtiene su propia copia.
+
+Sin JavaScript las tarjetas no se arman: un bloque `<noscript>` repite las mismas ligas.
+**Si se agrega o quita una tarjeta, se cambia también ahí**, y el número del botón Privado en
+`index.html`.
 
 **Pendiente con fecha:** la invitación a la Capacitación Canva vence el **jueves 12 de noviembre
 de 2026** (campo `vence`). Después se quita o se cambia por la grabación.
-
-### Cómo agregar un descargable
-
-En `privado/index.html`, la lista `DOCS`. Con el **id del documento de Google** basta:
-las tres acciones —copia a Drive, PDF y Word— se derivan de él.
-
-```js
-{ id:'responsiva',        // llave del icono en el objeto ICO de esa página
-  nombre:'Carta Responsiva',
-  tipo:'Documento de Google',
-  color:'--blue', color2:'#0d47a1', tinte:'--blue-t',
-  desc:'…',
-  docId:'1Af5…',          // el id que aparece en la URL del documento
-  aud:'si',               // a quién se le puede mandar
-  nota:'…' }              // opcional, al pie de la tarjeta
-```
 
 El documento tiene que estar compartido como **«cualquiera con el enlace, lector»**; si no,
 quien abra `/copy` verá una pantalla de permiso en vez de la copia.
