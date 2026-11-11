@@ -84,7 +84,7 @@ Presentacion-activa/
 │   │   ├── img/                  Fotos del equipo, 240 px
 │   │   ├── og.png · og-source.html
 │   │   └── README.md
-│   ├── datos-ia/                 SOLO LIGA DIRECTA: deck de 14 láminas para reunión 1:1 con empresas de IA
+│   ├── datos-ia/                 SOLO LIGA DIRECTA: deck de 15 láminas, alianzas de IA (reunión 1:1)
 │   │   ├── index.html            Motor del Piloto · sin contacto · colegios con código, sin nombre
 │   │   ├── og.png · og-source.html
 │   │   └── README.md

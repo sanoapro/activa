@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Datos para IA · activa</title>
-<meta name="description" content="Presentación para reunión 1:1: los datos educativos que activa puede ofrecer para mejorar modelos de IA, cómo se cuida la privacidad y cómo se entrega cada dato. 14 diapositivas.">
+<title>activa · Tecnología educativa e IA</title>
+<meta name="description" content="Presentación para reunión 1:1: quién es activa, la alianza que proponemos para construir IA educativa y lo que conocemos del aula, con la privacidad primero. 15 diapositivas.">
 <meta name="theme-color" content="#ffffff">
 <!-- Fuera de los buscadores: el deck se presenta en una reunión 1:1 y se
      comparte solo por liga directa. No está en el portal ni en el kit. -->
@@ -17,20 +17,22 @@
 <meta property="og:locale" content="es_MX">
 <meta property="og:site_name" content="activa">
 <meta property="og:url" content="https://sanoapro.github.io/activa/paginas/datos-ia/">
-<meta property="og:title" content="Datos para IA · activa">
-<meta property="og:description" content="Datos educativos de +100 colegios en México, Centroamérica y el Caribe. Siempre agregados, con la privacidad primero.">
+<meta property="og:title" content="activa · A la vanguardia de la tecnología educativa">
+<meta property="og:description" content="Más de 10 años transformando la educación con tecnología. Una alianza para construir IA que entienda el aula.">
 <meta property="og:image" content="https://sanoapro.github.io/activa/paginas/datos-ia/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="activa · Datos educativos para IA: +100 colegios, +25,000 estudiantes y +20,000 dispositivos, con la privacidad primero">
+<meta property="og:image:alt" content="activa, Google for Education Partner: a la vanguardia de la tecnología educativa">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://sanoapro.github.io/activa/paginas/datos-ia/og.png">
 
 <link rel="stylesheet" href="../../compartidos/css/motion.css">
 <style>
 /* ═══════════════════════════════════════════════════════════
-   DATOS PARA IA · 14 láminas · reunión 1:1 con una empresa
+   activa Y LA IA · 15 láminas · reunión 1:1 con una empresa de IA
+   Se presenta como ALIANZA, no como venta de datos: primero quiénes somos y
+   qué proponemos; los datos aparecen como «lo que conocemos del aula».
    Motor y sistema de diseño copiados de paginas/piloto/index.html.
    Reglas de contenido (ver README):
    · ningún dato de contacto
@@ -206,7 +208,7 @@ ul.bens li b{color:var(--ink)}
   text-transform:uppercase;color:var(--ink3);margin-left:6px}
 
 /* ══════════ PIEZAS PROPIAS DE ESTE DECK ══════════ */
-/* columna derecha de las láminas de datos: cómo se entrega + de dónde sale */
+/* columna derecha de las láminas de datos: cómo se comparte + de dónde sale */
 .dx-k{font-size:10.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3)}
 .dx-logos{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}
 .dx-logos img{height:24px;width:auto}
@@ -219,6 +221,19 @@ ul.bens li b{color:var(--ink)}
 .dx-card ul.bens{gap:10px}
 .dx-card ul.bens li{font-size:15px;line-height:1.38;padding-left:21px}
 .dx-card ul.bens li::before{top:6px}
+
+/* quiénes somos: tres cifras de trayectoria en columna */
+.qs-cifras{display:flex;flex-direction:column;gap:12px}
+.qs-cifras div{display:flex;align-items:baseline;gap:12px}
+.qs-cifras{gap:16px}
+.qs-cifras b{font-size:42px;font-weight:500;letter-spacing:-1.6px;color:var(--yel-d);min-width:104px;line-height:1}
+.qs-cifras span{font-size:15.5px;color:var(--ink2)}
+/* láminas 2 y 3: tres tarjetas que se leen a distancia de proyector */
+.body > .grid.g3 > .card{gap:14px}
+.body > .grid.g3 > .card h3{font-size:23px}
+.body > .grid.g3 > .card ul.bens{gap:11px}
+.body > .grid.g3 > .card ul.bens li{font-size:16px;line-height:1.4;padding-left:22px}
+.body > .grid.g3 > .card ul.bens li::before{top:6px}
 
 /* privacidad: dos columnas con icono por renglón */
 .pv-col{gap:12px;justify-content:flex-start;padding:22px 24px}
@@ -403,72 +418,127 @@ ul.pv.g li svg{fill:var(--grn-d)} ul.pv.b li svg{fill:var(--blue)}
       <span class="sep"></span>
       <img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner">
     </div>
-    <h1 class="p1-h1">Datos educativos para <span class="mv-r">tu IA<svg class="mv-sub" viewBox="0 0 200 11"
+    <h1 class="p1-h1" style="max-width:900px">A la <span class="mv-r">vanguardia<svg class="mv-sub" viewBox="0 0 200 11"
       preserveAspectRatio="none" aria-hidden="true" style="--c:#4285f4"><path class="mv-traza"
-      pathLength="100" d="M3 6.4C36 3 72 8.6 108 5.4 140 2.6 169 4.4 197 8"/></svg></span></h1>
-    <p class="lead" style="max-width:720px;margin-top:24px">Lo que tenemos, cómo cuidamos la privacidad y cómo se entrega cada dato.</p>
-    <span class="p1-sello"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-candado"/></svg>Privacidad primero · datos agregados y anonimizados</span>
-    <div class="p1-cap"><span>Reunión 1:1 · +100 colegios · siete fuentes de datos</span><i></i></div>
+      pathLength="100" d="M3 6.4C36 3 72 8.6 108 5.4 140 2.6 169 4.4 197 8"/></svg></span> de la tecnología educativa</h1>
+    <p class="lead" style="max-width:760px;margin-top:24px">Más de 10 años llevando tecnología, contenido y acompañamiento a los colegios. Hoy queremos construir, junto con aliados, una inteligencia artificial que entienda el aula.</p>
+    <div class="p1-cap"><span>Reunión 1:1 · Alianzas en inteligencia artificial</span><i></i></div>
   </div>
 </section>
 
-<!-- ═════════ 2 · QUÉ OFRECEMOS ═════════
-CUENTA: head 126 + foot 43 · body 475 · tarjetas g3 ≈ 52 pad + 38 med + 11 + h3 25 + 11 + bens 4×38 ≈ 290 ✓ -->
-<section class="slide" data-bloque="oferta">
+<!-- ═════════ 2 · QUIÉNES SOMOS ═════════
+El deck abre presentando a activa, no a los datos: si no, se lee como venta de
+datos. Contenido del portafolio (docs/portafolio-activa.md, secciones 1 y 11). -->
+<section class="slide" data-bloque="quienes">
   <span class="shape" style="width:470px;height:470px;right:-205px;top:-195px;background:var(--blue-t)"></span>
   <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
   <div class="head">
-    <div class="eyebrow b">Qué ofrecemos</div>
-    <h2>Datos reales de colegios en operación</h2>
-    <p class="lead">Tres tipos de información para entrenar y mejorar modelos de IA, todos agregados.</p>
+    <div class="eyebrow b">Quiénes somos</div>
+    <h2>Más de 10 años transformando la educación con tecnología</h2>
+    <p class="lead"><em class="marca">activa</em> es socio de transformación educativa de los colegios y Google for Education Partner.</p>
+  </div>
+  <div class="body">
+    <div class="grid g3">
+      <div class="card rule b lift" style="justify-content:flex-start">
+        <div class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escuela"/></svg></div>
+        <h3>Un solo aliado para el colegio</h3>
+        <ul class="bens b">
+          <li>Dispositivos y licencias educativas</li>
+          <li>Plataformas de contenido propias</li>
+          <li>Formación docente y acompañamiento</li>
+          <li>Soporte técnico y gestión escolar</li>
+        </ul>
+      </div>
+      <div class="card rule g lift" style="justify-content:flex-start">
+        <div class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-libro"/></svg></div>
+        <h3>Un ecosistema propio</h3>
+        <ul class="bens g">
+          <li>Planeación alineada a la NEM</li>
+          <li>Formación y certificación docente</li>
+          <li>Desarrollo socioemocional e inglés</li>
+          <li>Comunicación y gestión escolar</li>
+        </ul>
+        <div class="dx-logos" style="margin-top:4px;gap:8px 14px">
+          <img src="../../compartidos/img/marcas/impulsa.webp" alt="impulsa" style="height:16px">
+          <img src="../../compartidos/img/marcas/eleva.webp" alt="eleva" style="height:16px">
+          <img src="../../compartidos/img/marcas/motiva.webp" alt="motiva" style="height:16px">
+          <img src="../../compartidos/img/marcas/beta.webp" alt="beta" style="height:16px">
+          <img src="../../compartidos/img/marcas/integra.webp" alt="integra" style="height:16px">
+        </div>
+      </div>
+      <div class="card rule y lift" style="justify-content:flex-start">
+        <div class="med sm y"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-tendencia"/></svg></div>
+        <h3>Trayectoria</h3>
+        <div class="qs-cifras">
+          <div><b>+2 M</b><span>docentes capacitados</span></div>
+          <div><b>+100</b><span>colegios acompañados</span></div>
+          <div><b>16</b><span>Google Reference Schools</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <span class="pill b">Google for Education Partner</span>
+    <p class="sm">La tecnología sola no transforma: <b>lo hace un ecosistema con acompañamiento humano.</b></p>
+  </div>
+</section>
+
+<!-- ═════════ 3 · LA PROPUESTA ═════════
+Aquí se dice POR QUÉ estamos en la reunión: una alianza para construir IA
+educativa con responsabilidad. Los datos aparecen después, como lo que
+conocemos del aula. -->
+<section class="slide" data-bloque="propuesta">
+  <span class="shape" style="width:380px;height:380px;left:-195px;bottom:-205px;background:var(--grn-t)"></span>
+  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow g">La propuesta</div>
+    <h2>Una alianza para una IA que entienda el aula</h2>
+    <p class="lead">Vemos todos los días cómo se usa la tecnología en más de 100 colegios. Queremos ponerlo al servicio de quien construye IA para la educación.</p>
   </div>
   <div class="body">
     <div class="grid g3">
       <div class="card rule b lift" style="justify-content:flex-start">
         <div class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-laptop"/></svg></div>
-        <h3>Uso de tecnología</h3>
+        <h3>Lo que aportamos</h3>
         <ul class="bens b">
-          <li>Estado y salud de los equipos</li>
-          <li>Uso de Google Workspace</li>
-          <li>Páginas web por categoría</li>
-          <li>Aplicaciones más usadas en el aula</li>
+          <li>Conocimiento real del aula: uso de tecnología, aprendizaje y operación escolar</li>
+          <li>Siempre agregado y anonimizado</li>
+          <li>Con la autorización de cada colegio</li>
         </ul>
       </div>
       <div class="card rule g lift" style="justify-content:flex-start">
-        <div class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-libro"/></svg></div>
-        <h3>Aprendizaje</h3>
+        <div class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grupo"/></svg></div>
+        <h3>Lo que buscamos</h3>
         <ul class="bens g">
-          <li>Temas que se trabajan en clase</li>
-          <li>Aprendizajes que van logrando los alumnos</li>
-          <li>Indicadores y ejes de la NEM</li>
-          <li>Avance en inglés por fase</li>
+          <li>Aliados que desarrollen IA para la educación</li>
+          <li>Que compartan el cuidado por la privacidad</li>
+          <li>Proyectos concretos, definidos en conjunto</li>
         </ul>
       </div>
-      <div class="card rule t lift" style="justify-content:flex-start">
-        <div class="med sm t"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escuela"/></svg></div>
-        <h3>Operación escolar</h3>
-        <ul class="bens t">
-          <li>Matrícula, maestros, clases y horarios</li>
-          <li>Actividades extracurriculares y eventos</li>
-          <li>Comunicación con las familias</li>
-          <li>Soporte técnico y reparaciones</li>
+      <div class="card rule y lift" style="justify-content:flex-start">
+        <div class="med sm y"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-tendencia"/></svg></div>
+        <h3>Lo que nos mueve</h3>
+        <ul class="bens y">
+          <li>Una IA que entienda la realidad educativa de México y la región</li>
+          <li>Mejores herramientas para docentes y alumnos</li>
+          <li>Tecnología educativa responsable</li>
         </ul>
       </div>
     </div>
   </div>
   <div class="foot">
-    <span class="pill g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-candado"/></svg>Siempre agregados y anonimizados</span>
+    <span class="pill g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-candado"/></svg>Privacidad primero</span>
     <p class="sm">Cada colegio <b>autoriza lo que se comparte.</b></p>
   </div>
 </section>
 
-<!-- ═════════ 3 · ALCANCE ═════════ -->
+<!-- ═════════ 4 · ALCANCE ═════════ -->
 <section class="slide" data-bloque="alcance">
   <span class="shape" style="width:520px;height:520px;right:-200px;top:-200px;background:var(--yel-t)"></span>
   <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
   <div class="head">
     <div class="eyebrow y">Alcance</div>
-    <h2>La escala de los datos</h2>
+    <h2>La red que acompañamos hoy</h2>
     <p class="lead">Colegios que hoy operan con <em class="marca">activa</em>: dispositivos, licencias, plataformas y gestión.</p>
   </div>
   <div class="body">
@@ -541,9 +611,9 @@ no lleva cascada (tope de la normativa). -->
   <span class="shape" style="width:470px;height:470px;right:-205px;top:-195px;background:var(--blue-t)"></span>
   <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
   <div class="head">
-    <div class="eyebrow b">Las fuentes</div>
-    <h2>Siete vistas de los datos</h2>
-    <p class="lead">Cada una viene de una herramienta que los colegios ya usan todos los días.</p>
+    <div class="eyebrow b">Lo que conocemos del aula</div>
+    <h2>Siete ventanas al aula</h2>
+    <p class="lead">Cada una viene de una herramienta que los colegios ya usan todos los días con nosotros.</p>
   </div>
   <div class="body">
     <div class="grid mapa">
@@ -579,8 +649,8 @@ no lleva cascada (tope de la normativa). -->
 
 <!-- ═════════ 6 · CONSOLA · EQUIPOS ═════════
 Patrón de las láminas de datos (6 a 12):
-· izquierda: «Qué tenemos», seis mosaicos de dos renglones
-· derecha: «Cómo se entrega» + de dónde sale
+· izquierda: «Lo que conocemos», seis mosaicos de dos renglones
+· derecha: «Cómo se comparte» + de dónde sale
 CUENTA: head 126 + foot 43 · split 475 · izquierda: tit 38 + 3 filas × 72 + 2×10 = 274 + pad 52 → 364 ✓
 Campos tomados del manual de la consola (paginas/consola/, bloques 5.4 y 6.8). -->
 <section class="slide" data-bloque="consola">
@@ -592,7 +662,7 @@ Campos tomados del manual de la consola (paginas/consola/, bloques 5.4 y 6.8). -
   </div>
   <div class="split wide-l">
     <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-laptop"/></svg></span><h4>Qué tenemos</h4></div>
+      <div class="dx-tit"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-laptop"/></svg></span><h4>Lo que conocemos</h4></div>
       <div class="tiles b">
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-laptop"/></svg></span><div class="tx"><h5>Inventario</h5><div class="td">Modelo de cada equipo y su unidad organizativa (nivel o grupo)</div></div></div>
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-ajustes"/></svg></span><div class="tx"><h5>Sistema</h5><div class="td">Versión de ChromeOS y fecha de fin de actualizaciones automáticas</div></div></div>
@@ -604,7 +674,7 @@ Campos tomados del manual de la consola (paginas/consola/, bloques 5.4 y 6.8). -
     </div>
     <div class="stack">
       <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se entrega</h4></div>
+        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
         <ul class="bens b">
           <li>Por <b>modelo</b>, nivel escolar y región</li>
           <li>Por <b>mes</b> o ciclo escolar</li>
@@ -634,7 +704,7 @@ Campos tomados del manual de la consola (paginas/consola/, bloques 5.4 y 6.8). -
   </div>
   <div class="split wide-l">
     <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-doc"/></svg></span><h4>Qué tenemos</h4></div>
+      <div class="dx-tit"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-doc"/></svg></span><h4>Lo que conocemos</h4></div>
       <div class="tiles b">
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escuela"/></svg></span><div class="tx"><h5>Classroom</h5><div class="td">Clases activas, publicaciones y tareas</div></div></div>
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-doc"/></svg></span><div class="tx"><h5>Drive y Documentos</h5><div class="td">Archivos creados, editados y compartidos</div></div></div>
@@ -646,7 +716,7 @@ Campos tomados del manual de la consola (paginas/consola/, bloques 5.4 y 6.8). -
     </div>
     <div class="stack">
       <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se entrega</h4></div>
+        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
         <ul class="bens b">
           <li>Por <b>aplicación</b>, nivel escolar, región y mes</li>
           <li>Conteos y promedios <b>por grupo</b></li>
@@ -674,11 +744,11 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
   <div class="head">
     <div class="eyebrow r">03 · Páginas web</div>
     <h2>Qué se consulta en internet para aprender</h2>
-    <p class="lead">El filtro de contenido registra la navegación de los equipos; la compartimos en tendencias.</p>
+    <p class="lead">El filtro de contenido cuida la navegación de los alumnos y muestra, en tendencias, qué se consulta.</p>
   </div>
   <div class="split wide-l">
     <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm r"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-globo"/></svg></span><h4>Qué tenemos</h4></div>
+      <div class="dx-tit"><span class="med sm r"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-globo"/></svg></span><h4>Lo que conocemos</h4></div>
       <div class="tiles r">
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-capas"/></svg></span><div class="tx"><h5>Categorías de sitios</h5><div class="td">Educación, referencia, video, productividad y más</div></div></div>
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grafica"/></svg></span><div class="tx"><h5>Sitios más visitados</h5><div class="td">Los dominios más consultados por el conjunto de alumnos</div></div></div>
@@ -690,7 +760,7 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
     </div>
     <div class="stack">
       <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se entrega</h4></div>
+        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
         <ul class="bens r">
           <li>Por <b>categoría</b> y por dominio público</li>
           <li>Por nivel escolar, región y mes</li>
@@ -723,7 +793,7 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
   </div>
   <div class="split wide-l">
     <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm p"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-apps"/></svg></span><h4>Qué tenemos</h4></div>
+      <div class="dx-tit"><span class="med sm p"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-apps"/></svg></span><h4>Lo que conocemos</h4></div>
       <div class="tiles p">
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grafica"/></svg></span><div class="tx"><h5>Apps más usadas</h5><div class="td">Ranking de aplicaciones por nivel escolar</div></div></div>
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-reloj"/></svg></span><div class="tx"><h5>Tiempo de uso</h5><div class="td">Minutos por app y por categoría: educativas, productividad, creatividad</div></div></div>
@@ -735,7 +805,7 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
     </div>
     <div class="stack">
       <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se entrega</h4></div>
+        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
         <ul class="bens p">
           <li><b>Rankings y promedios</b> por nivel, región y mes</li>
           <li>Tiempos de uso <b>por grupo</b></li>
@@ -768,7 +838,7 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
   </div>
   <div class="split wide-l">
     <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm y"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-llave"/></svg></span><h4>Qué tenemos</h4></div>
+      <div class="dx-tit"><span class="med sm y"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-llave"/></svg></span><h4>Lo que conocemos</h4></div>
       <div class="tiles y">
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-laptop"/></svg></span><div class="tx"><h5>Parque activo</h5><div class="td">Chromebooks y tablets por modelo</div></div></div>
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-doc"/></svg></span><div class="tx"><h5>Tickets de soporte</h5><div class="td">Por tipo de incidencia</div></div></div>
@@ -780,7 +850,7 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
     </div>
     <div class="stack">
       <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se entrega</h4></div>
+        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
         <ul class="bens y">
           <li>Por <b>modelo</b>, tipo de incidencia y mes</li>
           <li>Conteos y <b>tiempos promedio</b></li>
@@ -810,7 +880,7 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
   </div>
   <div class="split wide-l">
     <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-libro"/></svg></span><h4>Qué tenemos</h4></div>
+      <div class="dx-tit"><span class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-libro"/></svg></span><h4>Lo que conocemos</h4></div>
       <div class="tiles g">
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-libro"/></svg></span><div class="tx"><h5>Temas en clase</h5><div class="td">Proyectos y temas que se trabajan por grado</div></div></div>
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-tendencia"/></svg></span><div class="tx"><h5>Aprendizajes</h5><div class="td">Lo que van logrando los alumnos, por grupo</div></div></div>
@@ -822,7 +892,7 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
     </div>
     <div class="stack">
       <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se entrega</h4></div>
+        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
         <ul class="bens g">
           <li>Por <b>grado</b>, campo formativo y periodo</li>
           <li>Promedios y avances <b>por grupo</b></li>
@@ -856,7 +926,7 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
   </div>
   <div class="split wide-l">
     <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm t"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escuela"/></svg></span><h4>Qué tenemos</h4></div>
+      <div class="dx-tit"><span class="med sm t"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escuela"/></svg></span><h4>Lo que conocemos</h4></div>
       <div class="tiles t">
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grupo"/></svg></span><div class="tx"><h5>Comunidad</h5><div class="td">Número de estudiantes y maestros</div></div></div>
         <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-calendario"/></svg></span><div class="tx"><h5>Clases y horarios</h5><div class="td">Organización académica de cada nivel</div></div></div>
@@ -867,7 +937,7 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
     </div>
     <div class="stack">
       <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se entrega</h4></div>
+        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
         <ul class="bens t">
           <li>Totales y promedios por <b>nivel</b>, región y mes</li>
           <li>Montos administrativos <b>en cifras generales</b></li>
@@ -918,8 +988,8 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
       <img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner">
     </div>
     <h1 class="p1-h1" style="margin-top:30px">Gracias</h1>
-    <p class="lead" style="margin-top:18px;max-width:none">Datos educativos reales, con la privacidad primero.</p>
-    <span class="p1-sello"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-candado"/></svg>Agregados · anonimizados · con la autorización de cada colegio</span>
+    <p class="lead" style="margin-top:18px;max-width:none">Construyamos juntos una IA que entienda la educación.</p>
+    <span class="p1-sello"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-candado"/></svg>Con la privacidad primero y la autorización de cada colegio</span>
   </div>
 </section>
 
@@ -931,7 +1001,7 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
   <span id="bloque"></span>
   <button id="bPrev" class="mo-hover-eleva mo-hover-hunde" aria-label="Diapositiva anterior" title="Anterior (←)">‹</button>
   <button id="bNext" class="mo-hover-eleva mo-hover-hunde" aria-label="Diapositiva siguiente" title="Siguiente (→)">›</button>
-  <span id="counter" aria-live="polite">1 / 14</span>
+  <span id="counter" aria-live="polite">1 / 15</span>
 </div>
 
 <!-- Motor de movimiento compartido: script CLÁSICO a propósito (los módulos no
@@ -950,10 +1020,10 @@ var progress=document.getElementById("progress");
 var idx=0;
 
 /* bloques narrativos: color y nombre. Un data-bloque que falte aquí sale blanco. */
-var COLOR={apertura:"#1a73e8",oferta:"#4285f4",alcance:"#f9ab00",privacidad:"#1e8e3e",
+var COLOR={apertura:"#1a73e8",quienes:"#4285f4",propuesta:"#34a853",alcance:"#f9ab00",privacidad:"#1e8e3e",
   fuentes:"#4285f4",consola:"#1a73e8",navegacion:"#ea4335",apps:"#7b1fa2",
   soporte:"#f9ab00",aprendizaje:"#34a853",gestion:"#00796b",futuro:"#4285f4",cierre:"#202124"};
-var NOMBRE={apertura:"Apertura",oferta:"Qué ofrecemos",alcance:"Alcance",privacidad:"Privacidad",
+var NOMBRE={apertura:"Apertura",quienes:"Quiénes somos",propuesta:"La propuesta",alcance:"Alcance",privacidad:"Privacidad",
   fuentes:"Las fuentes",consola:"Consola de Google",navegacion:"Páginas web",apps:"Aplicaciones",
   soporte:"Soporte",aprendizaje:"Aprendizaje",gestion:"Gestión escolar",futuro:"2027",cierre:"Cierre"};
 
