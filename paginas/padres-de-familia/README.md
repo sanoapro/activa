@@ -66,7 +66,7 @@ contenido y en rojos tenues en la disonancia, amarillo con aros en la bisagra, *
 bloque D** (nubes lentas, verdes suaves, la pradera; sin estallidos ni cascadas: ahí el padre
 baja la guardia), con color y aros en la solución, tono de logro en el resultado, y el cierre
 —que queda proyectado durante las preguntas— con confeti, globos y olas. Las cifras (+2 M,
-+90, 16, 5, +200 M) **no se animan nunca**; se anima lo que las rodea.
++100, 16, 5, +200 M) **no se animan nunca**; se anima lo que las rodea.
 
 Los bucles decorativos son lentos (4–12 s) y los acentos de entrada cortos (≤ .5 s), como
 manda la normativa. En **impresión** sobrevive todo lo estático congelado en su estado final

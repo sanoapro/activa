@@ -44,7 +44,7 @@ Patrón «confianza y autoridad + conversión» (skill `ui-ux-pro-max`):
 
 1. **Hero:** «Transformamos tu colegio con Google», los cuatro ejes en un mosaico y dos llamados
    (conversación y piloto).
-2. **Cifras:** +2 M docentes, +90 colegios, 16 Google Reference Schools, 6 países.
+2. **Cifras:** +2 M docentes, +100 colegios, 16 Google Reference Schools, 6 países.
 3. **El reto:** por qué la tecnología no transforma sola.
 4. **Programa:** los cuatro ejes con sus marcas.
 5. **Plataformas propias:** impulsa, eleva, motiva, beta e integra, con un dato cada una.

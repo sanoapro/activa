@@ -10,7 +10,7 @@ Se publica en <https://sanoapro.github.io/activa/paginas/quienes-somos/>.
 
 1. **Hero:** «Transformamos tu colegio con Google» y los cuatro ejes.
 2. **Quiénes somos:** qué es activa, qué hace y cómo trabaja (portafolio, secciones 1 y 11).
-3. **Cifras:** +10 años, +2 M docentes, +90 colegios, 16 Google Reference Schools y 6 países.
+3. **Cifras:** +10 años, +2 M docentes, +100 colegios, 16 Google Reference Schools y 6 países.
 4. Del **reto** al **contacto**, igual que el one-pager.
 
 ## Reglas de contenido
