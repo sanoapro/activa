@@ -429,7 +429,7 @@ ul.pv.g li svg{fill:var(--grn-d)} ul.pv.b li svg{fill:var(--blue)}
    «Abierto», halo) tiene base opacity:0 y desaparece. */
 @media (prefers-reduced-motion:reduce){
   .slide.on,.slide.on > .head,.slide.on > .body,.slide.on > .inner,.slide.on > .comp{animation:none!important}
-  [class*="mv-"],[class*="mv-"]::before,[class*="mv-"]::after{animation:none!important;transition:none!important}
+  [class*="mv-"],[class*="mv-"]::before,[class*="mv-"]::after,.mv-anillo > i{animation:none!important;transition:none!important}
   #stage .slide.on .card:hover,#stage .slide.on .campo:hover{transform:none}
   #stage .slide.on .ventana:hover{transform:translate(-50%,-50%)}
 }
@@ -453,6 +453,7 @@ ul.pv.g li svg{fill:var(--grn-d)} ul.pv.b li svg{fill:var(--blue)}
   .ciclo,.radial{width:auto;height:auto;display:grid;gap:10px}
   .ciclo svg.anillo,.radial svg.rayos,.mv-halo{display:none}
   .nodo,.ventana,.centro,.r-centro,.r-logos{position:static;transform:none!important;margin:0;width:auto;height:auto}
+  .nodo,.ventana{position:relative}
   .centro,.r-centro{border-radius:18px;padding:14px;flex-direction:column}
   .slide.on .mv-pop{animation:none}
   .r-logos{flex-wrap:wrap;justify-content:center;border-radius:16px}
@@ -480,7 +481,7 @@ ul.pv.g li svg{fill:var(--grn-d)} ul.pv.b li svg{fill:var(--blue)}
   .cover{padding:0}
   .slide:last-child{page-break-after:auto}
   .slide > *{animation:none!important}
-  [class*="mv-"],[class*="mv-"]::before,[class*="mv-"]::after{animation:none!important}
+  .slide.on,.mv-anillo > i,[class*="mv-"],[class*="mv-"]::before,[class*="mv-"]::after{animation:none!important}
   .shape{transform:none!important}
 }
 </style>
