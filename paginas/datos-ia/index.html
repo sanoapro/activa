@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>activa · Tecnología educativa e IA</title>
-<meta name="description" content="Presentación para reunión 1:1: quién es activa, la alianza que proponemos para construir IA educativa y lo que conocemos del aula, con la privacidad primero. 15 diapositivas.">
+<meta name="description" content="Presentación para reunión 1:1: quién es activa, la alianza que proponemos para construir IA educativa y lo que conocemos del aula, con la privacidad primero. 10 diapositivas.">
 <meta name="theme-color" content="#ffffff">
 <!-- Fuera de los buscadores: el deck se presenta en una reunión 1:1 y se
      comparte solo por liga directa. No está en el portal ni en el kit. -->
@@ -30,14 +30,15 @@
 <link rel="stylesheet" href="../../compartidos/css/motion.css">
 <style>
 /* ═══════════════════════════════════════════════════════════
-   activa Y LA IA · 15 láminas · reunión 1:1 con una empresa de IA
+   activa Y LA IA · 10 láminas · reunión 1:1 con una empresa de IA
    Se presenta como ALIANZA, no como venta de datos: primero quiénes somos y
    qué proponemos; los datos aparecen como «lo que conocemos del aula».
-   Motor y sistema de diseño copiados de paginas/piloto/index.html.
+   Motor de navegación copiado de paginas/piloto/index.html.
    Reglas de contenido (ver README):
    · ningún dato de contacto
    · ningún nombre de colegio: lo que se agrupa por colegio va con código
    · la privacidad se dice en positivo
+   · la información de la empresa vive en UNA lámina (la 2)
    ═══════════════════════════════════════════════════════════ */
 :root{
   --blue:#1a73e8; --blue-d:#174ea6; --blue-t:#e8f0fe; --blue-l:#4285f4;
@@ -51,6 +52,7 @@
   --sh:0 1px 2px rgba(60,64,67,.08), 0 6px 18px -6px rgba(60,64,67,.16);
   --sh2:0 2px 6px rgba(60,64,67,.10), 0 14px 34px -12px rgba(60,64,67,.24);
   --font:"Google Sans","Product Sans","Google Sans Text",Roboto,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --entra:cubic-bezier(.2,.8,.2,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -64,14 +66,13 @@ body{background:#1b1c1e;font-family:var(--font);color:var(--ink);
   box-shadow:0 30px 80px rgba(0,0,0,.55)}
 .slide{position:absolute;inset:0;display:none;flex-direction:column;
   padding:46px 60px 30px;background:var(--white);overflow:hidden}
-.slide.on{display:flex;animation:in .36s cubic-bezier(.2,.8,.2,1)}
+.slide.on{display:flex;animation:in .36s var(--entra)}
 @keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
 /* ---------- cromo ---------- */
 .chrome{position:fixed;z-index:50;font-family:var(--font)}
 #progress{left:0;top:0;right:0;height:6px;display:flex;gap:3px;padding:0 6px}
-#progress .seg{flex:1;height:100%;border-radius:0 0 3px 3px;background:var(--c,#fff);
-  opacity:.22;transition:opacity .25s}
+#progress .seg{flex:1;height:100%;border-radius:0 0 3px 3px;opacity:.22;transition:opacity .25s}
 #progress .seg.on{opacity:1}
 #progress .seg.k.on{box-shadow:inset 0 0 0 1px rgba(255,255,255,.55)}
 #nav{right:22px;bottom:18px;display:flex;align-items:center;gap:10px;color:#fff}
@@ -86,281 +87,385 @@ body{background:#1b1c1e;font-family:var(--font);color:var(--ink);
 
 /* ═══════════ TIPOGRAFÍA ═══════════ */
 h1{font-size:66px;line-height:1.03;font-weight:500;letter-spacing:-2.2px;text-wrap:balance}
-h2{font-size:44px;line-height:1.08;font-weight:500;letter-spacing:-1.4px;text-wrap:balance}
-h3{font-size:21px;line-height:1.2;font-weight:600;letter-spacing:-.3px}
-h4{font-size:17px;line-height:1.25;font-weight:600;letter-spacing:-.1px}
+h2{font-size:42px;line-height:1.08;font-weight:500;letter-spacing:-1.3px;text-wrap:balance}
+h3{font-size:19px;line-height:1.2;font-weight:600;letter-spacing:-.3px}
+h4{font-size:15.5px;line-height:1.25;font-weight:600;letter-spacing:-.1px}
 .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;
   letter-spacing:1.7px;text-transform:uppercase;color:var(--ink2)}
 .eyebrow::before{content:"";width:20px;height:3px;border-radius:2px;background:currentColor}
 .eyebrow.b{color:var(--blue-d)} .eyebrow.r{color:var(--red-d)}
 .eyebrow.y{color:var(--yel-d)} .eyebrow.g{color:var(--grn-d)} .eyebrow.p{color:var(--plum)}
-.eyebrow.t{color:var(--teal)}
-.lead{font-size:18px;line-height:1.45;color:var(--ink2);max-width:760px}
-p{font-size:15.5px;line-height:1.5;color:var(--ink2)}
-.sm{font-size:14px;line-height:1.45;color:var(--ink2)}
-.xs{font-size:13px;line-height:1.42;color:var(--ink2)}
+.lead{font-size:17px;line-height:1.45;color:var(--ink2);max-width:860px}
+.xs{font-size:13px;line-height:1.4;color:var(--ink2)}
 b,strong{font-weight:600;color:var(--ink)}
-.head{flex-shrink:0;display:flex;flex-direction:column;gap:11px;margin-bottom:20px}
+.head{flex-shrink:0;display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
 .body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
-.foot{flex-shrink:0;margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.marca{font-style:italic;font-weight:800;color:var(--ink)}
 
 /* ═══════════ SUPERFICIES ═══════════ */
-.card{background:var(--white);border:1px solid var(--line);border-radius:24px;
-  padding:26px 28px;display:flex;flex-direction:column;gap:11px;justify-content:center}
-.card.pad-s{padding:20px 22px;border-radius:20px}
-.card.soft{background:var(--surf);border-color:transparent}
-.card.t-b{background:var(--blue-t);border-color:transparent}
-.card.t-g{background:var(--grn-t);border-color:transparent}
-.card.t-y{background:var(--yel-t);border-color:transparent}
+.card{background:var(--white);border:1px solid var(--line);border-radius:22px;
+  padding:20px 22px;display:flex;flex-direction:column;gap:11px;justify-content:flex-start;position:relative}
 .card.lift{box-shadow:var(--sh);border-color:transparent}
-.card.rule{border-top:4px solid var(--line);border-radius:4px 4px 24px 24px}
+.card.soft{background:var(--surf);border-color:transparent}
+.card.rule{border-top:4px solid var(--line);border-radius:4px 4px 22px 22px}
 .card.rule.b{border-top-color:var(--blue)} .card.rule.r{border-top-color:var(--red)}
 .card.rule.y{border-top-color:var(--yel)} .card.rule.g{border-top-color:var(--grn-l)}
 .card.rule.p{border-top-color:var(--plum)} .card.rule.t{border-top-color:var(--teal-l)}
 .grid{display:grid;gap:16px}
 .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
-.g4{grid-template-columns:repeat(4,1fr)}
-.split{display:grid;grid-template-columns:1.02fr .98fr;gap:28px;align-items:stretch;flex:1;min-height:0}
-.split.wide-l{grid-template-columns:1.32fr .68fr}
-.stack{display:flex;flex-direction:column;gap:14px;justify-content:center}
 
-/* medallones: iconos Material de relleno, definidos una vez como <symbol> */
-.med{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;flex-shrink:0}
-.med svg{width:26px;height:26px}
+/* medallones: iconos Material de relleno (<symbol> + <use>) */
+.med{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;flex-shrink:0}
+.med svg{width:20px;height:20px}
 .med.b{background:var(--blue-t)} .med.b svg{fill:var(--blue)}
 .med.r{background:var(--red-t)} .med.r svg{fill:var(--red-d)}
 .med.y{background:var(--yel-t)} .med.y svg{fill:var(--yel-d)}
 .med.g{background:var(--grn-t)} .med.g svg{fill:var(--grn-d)}
 .med.p{background:var(--plum-t)} .med.p svg{fill:var(--plum)}
 .med.t{background:var(--teal-t)} .med.t svg{fill:var(--teal)}
-.med.sm{width:38px;height:38px;border-radius:12px} .med.sm svg{width:19px;height:19px}
+.med.w{background:var(--white)}
+.med.xs{width:28px;height:28px;border-radius:9px} .med.xs svg{width:15px;height:15px}
+.ctit{display:flex;align-items:center;gap:11px}
+.ctit .logo{height:20px;width:auto;margin-left:auto}
+.ctit .logos{margin-left:auto;display:flex;align-items:center;gap:10px}
+.ctit .logos img{height:18px;width:auto}
 
-/* píldoras */
-.pill{display:inline-flex;align-items:center;gap:6px;height:25px;padding:0 12px;border-radius:99px;
-  font-size:11.5px;font-weight:700;letter-spacing:.3px;background:var(--surf2);color:var(--ink2)}
-.pill.b{background:var(--blue-t);color:var(--blue-d)} .pill.g{background:var(--grn-t);color:var(--grn-d)}
-.pill.y{background:var(--yel-t);color:var(--yel-d)}
-.pill.ghost{background:transparent;border:1px solid var(--line);color:var(--ink2)}
-.pill svg{width:13px;height:13px;fill:currentColor;flex-shrink:0}
+/* chips de agrupación: «cómo se agrupa» cada dato */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 10px;border-radius:99px;
+  font-size:11.5px;font-weight:700;letter-spacing:.2px;background:var(--surf2);color:var(--ink2);white-space:nowrap}
+.chip.b{background:var(--blue-t);color:var(--blue-d)} .chip.r{background:var(--red-t);color:var(--red-d)}
+.chip.y{background:var(--yel-t);color:var(--yel-d)} .chip.g{background:var(--grn-t);color:var(--grn-d)}
+.chip.p{background:var(--plum-t);color:var(--plum)} .chip.t{background:var(--teal-t);color:var(--teal)}
 
-/* cifras */
-.stat .n{font-size:52px;line-height:1;font-weight:500;letter-spacing:-2.4px;font-variant-numeric:tabular-nums}
-.stat .l{font-size:14px;line-height:1.35;color:var(--ink2);margin-top:8px}
-.stat .n.b{color:var(--blue)} .stat .n.r{color:var(--red)}
-.stat .n.y{color:var(--yel-d)} .stat .n.g{color:var(--grn-l)}
+/* campos: un renglón por dato, con qué es y cómo se agrupa */
+.campos{display:flex;flex-direction:column;gap:7px}
+.campos.dos{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}
+.campo{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:12px;background:var(--surf)}
+.campo .med{margin-top:1px}
+.campo b{display:block;font-size:14px;line-height:1.25;letter-spacing:-.1px}
+.campo span{display:block;font-size:12.5px;line-height:1.35;color:var(--ink2);margin-top:1px}
+
+/* franja «Cómo se comparte», al pie de las láminas de datos */
+.comp{flex-shrink:0;margin-top:14px;display:flex;align-items:center;gap:14px;padding:10px 16px;
+  border-radius:16px;background:var(--ink);color:#fff}
+.comp > b{color:#fff;font-size:13px;letter-spacing:1.2px;text-transform:uppercase;white-space:nowrap}
+.comp .it{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;color:#e8eaed;white-space:nowrap}
+.comp .it svg{width:16px;height:16px;fill:var(--c)}
+
+/* marca de esquina */
+.brandmark{position:absolute;top:38px;right:56px;z-index:6}
+.brandmark img{height:22px;width:auto}
 
 /* formas de fondo */
 .shape{position:absolute;z-index:0;border-radius:50%;pointer-events:none}
-.slide > .head,.slide > .body,.slide > .foot,.slide > .split,.slide > .inner{position:relative;z-index:1}
+.slide > .head,.slide > .body,.slide > .comp,.slide > .inner{position:relative;z-index:1}
 
-/* portada / cierre */
+/* «Google» con su marca */
+.gg i{font-style:normal}
+.gg i:nth-child(1){color:#4285f4}.gg i:nth-child(2){color:#ea4335}
+
+/* ══════════ 1 y 10 · PORTADA Y CIERRE ══════════ */
 .cover{padding:0;justify-content:center}
 .cover .inner{padding:0 84px;position:relative;z-index:2}
-
-/* listas */
-ul.bens{list-style:none;display:flex;flex-direction:column;gap:8px}
-ul.bens li{position:relative;padding-left:19px;font-size:13.5px;line-height:1.38;color:var(--ink2)}
-ul.bens li::before{content:"";position:absolute;left:0;top:5px;width:9px;height:9px;border-radius:50%;
-  border:2.5px solid var(--ink4)}
-ul.bens.b li::before{border-color:var(--blue-l)} ul.bens.r li::before{border-color:var(--red-l)}
-ul.bens.y li::before{border-color:var(--yel-l)} ul.bens.g li::before{border-color:var(--grn-l)}
-ul.bens.p li::before{border-color:var(--plum-l)} ul.bens.t li::before{border-color:var(--teal-l)}
-ul.bens li b{color:var(--ink)}
-
-/* mosaicos: un campo de datos por mosaico */
-.tiles{display:grid;gap:12px;grid-template-columns:1fr 1fr}
-/* en las láminas de datos los mosaicos llenan su tarjeta: tres filas iguales */
-.dx-card > .tiles{flex:1;grid-auto-rows:minmax(0,1fr)}
-.tile{background:var(--surf);border-radius:16px;padding:16px 18px;display:flex;gap:13px;
-  align-items:center;min-height:0}
-.tile .tx{min-width:0}
-.tile h5{font-size:16.5px;font-weight:600;line-height:1.22;letter-spacing:-.2px;color:var(--ink)}
-.tile .td{font-size:14px;line-height:1.38;color:var(--ink2);margin-top:4px}
-.tile .ic{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;flex-shrink:0;
-  background:var(--white)}
-.tile .ic svg{width:19px;height:19px}
-.tiles.b .tile{background:var(--blue-t)} .tiles.b .ic svg{fill:var(--blue)}
-.tiles.r .tile{background:var(--red-t)} .tiles.r .ic svg{fill:var(--red-d)}
-.tiles.y .tile{background:var(--yel-t)} .tiles.y .ic svg{fill:var(--yel-d)}
-.tiles.g .tile{background:var(--grn-t)} .tiles.g .ic svg{fill:var(--grn-d)}
-.tiles.p .tile{background:var(--plum-t)} .tiles.p .ic svg{fill:var(--plum)}
-.tiles.t .tile{background:var(--teal-t)} .tiles.t .ic svg{fill:var(--teal)}
-.tile.ancho{grid-column:1 / -1}
-
-/* «Google», con su marca */
-.gg{font-style:normal;white-space:nowrap}
-.gg i{font-style:normal;font-weight:inherit}
-.gg i:nth-child(1),.gg i:nth-child(4){color:#4285f4}
-.gg i:nth-child(2),.gg i:nth-child(6){color:#ea4335}
-.gg i:nth-child(3){color:#fbbc04}
-.gg i:nth-child(5){color:#34a853}
-.marca{font-style:italic;font-weight:800;color:var(--ink)}
-
-/* marca de esquina */
-.brandmark{position:absolute;top:38px;right:56px;z-index:6;display:flex;align-items:center;gap:12px}
-.brandmark img{height:22px;width:auto}
-
-/* hilo de las siete fuentes, en el pie de cada lámina de datos */
-.ejebar{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.ejebar .seg{width:15px;height:4px;border-radius:99px;background:var(--line)}
-.ejebar .seg.on{width:34px;background:var(--c,var(--blue))}
-.ejebar em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:1.4px;
-  text-transform:uppercase;color:var(--ink3);margin-left:6px}
-
-/* ══════════ PIEZAS PROPIAS DE ESTE DECK ══════════ */
-/* columna derecha de las láminas de datos: cómo se comparte + de dónde sale */
-.dx-k{font-size:10.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3)}
-.dx-logos{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}
-.dx-logos img{height:24px;width:auto}
-.dx-logos .mg{height:36px}
-.dx-logos .wk{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--ink)}
-.dx-logos .wk img{height:20px}
-.dx-card{gap:12px;justify-content:flex-start;padding:22px 24px}
-.dx-tit{display:flex;align-items:center;gap:10px;margin-bottom:2px}
-.dx-tit h4{font-size:17px;letter-spacing:-.2px}
-.dx-card ul.bens{gap:10px}
-.dx-card ul.bens li{font-size:15px;line-height:1.38;padding-left:21px}
-.dx-card ul.bens li::before{top:6px}
-
-/* quiénes somos: tres cifras de trayectoria en columna */
-.qs-cifras{display:flex;flex-direction:column;gap:12px}
-.qs-cifras div{display:flex;align-items:baseline;gap:12px}
-.qs-cifras{gap:16px}
-.qs-cifras b{font-size:42px;font-weight:500;letter-spacing:-1.6px;color:var(--yel-d);min-width:104px;line-height:1}
-.qs-cifras span{font-size:15.5px;color:var(--ink2)}
-/* láminas 2 y 3: tres tarjetas que se leen a distancia de proyector */
-.body > .grid.g3 > .card{gap:14px}
-.body > .grid.g3 > .card h3{font-size:23px}
-.body > .grid.g3 > .card ul.bens{gap:11px}
-.body > .grid.g3 > .card ul.bens li{font-size:16px;line-height:1.4;padding-left:22px}
-.body > .grid.g3 > .card ul.bens li::before{top:6px}
-
-/* privacidad: dos columnas con icono por renglón */
-.pv-col{gap:12px;justify-content:flex-start;padding:22px 24px}
-.pv-top{display:flex;align-items:center;gap:12px}
-.pv-top h3{font-size:20px}
-ul.pv{list-style:none;display:flex;flex-direction:column;gap:9px}
-ul.pv li{display:flex;gap:10px;font-size:13.5px;line-height:1.38;color:var(--ink2)}
-ul.pv li svg{width:17px;height:17px;flex-shrink:0;margin-top:1px}
-ul.pv.g li svg{fill:var(--grn-d)} ul.pv.b li svg{fill:var(--blue)}
-.reglas{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.regla{display:flex;align-items:center;gap:12px;padding:13px 18px;border-radius:16px;background:var(--ink);color:#fff}
-.regla svg{width:22px;height:22px;flex-shrink:0;fill:var(--c)}
-.regla b{color:#fff;font-size:14.5px;line-height:1.3}
-
-/* mapa de fuentes */
-.mapa{grid-template-columns:repeat(4,1fr);gap:14px}
-.mapa .card{gap:9px;justify-content:flex-start;padding:18px 20px}
-.mapa h4{font-size:16.5px;letter-spacing:-.2px}
-.mapa .xs{font-size:12.5px;line-height:1.38}
-.mapa .num{font-size:10.5px;font-weight:800;letter-spacing:1.5px;color:var(--ink3)}
-.mapa .top{display:flex;align-items:center;justify-content:space-between}
-
-/* alcance */
-.al-region{flex-direction:row;align-items:center;justify-content:flex-start;gap:18px;padding:18px 26px;border-radius:20px}
-.al-region b{font-size:24px;letter-spacing:-.6px;font-weight:500}
-.al-region .xs{margin-top:2px}
-
-/* portada y cierre */
-.p1-h1{font-size:76px;line-height:1.02;letter-spacing:-2.8px;margin-top:18px}
+/* La red de partículas vive a la derecha y se desvanece hacia el texto:
+   nunca hay partículas detrás de lo que se lee. */
+.p-red{position:absolute;top:0;bottom:0;right:0;width:58%;z-index:0;pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 42%);mask-image:linear-gradient(90deg,transparent 0,#000 42%)}
+.mo-particulas{position:absolute;inset:0;width:100%;height:100%}
 .p1-logos{display:flex;align-items:center;gap:22px}
 .p1-logos img{height:30px;width:auto}
 .p1-logos .sep{width:1px;height:28px;background:var(--line)}
-.p1-cap{display:flex;align-items:center;gap:14px;margin-top:28px}
-.p1-cap span{font-size:11px;font-weight:800;letter-spacing:1.7px;text-transform:uppercase;
-  color:var(--ink3);white-space:nowrap}
-.p1-cap i{flex:1;height:1px;background:var(--line)}
+.p1-h1{font-size:78px;line-height:1.02;letter-spacing:-2.8px;margin-top:22px;max-width:760px}
+.p1-lead{font-size:19px;line-height:1.45;color:var(--ink2);max-width:640px;margin-top:24px}
 .p1-sello{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:8px 16px;border-radius:99px;
   background:var(--grn-t);color:var(--grn-d);font-size:13.5px;font-weight:700}
 .p1-sello svg{width:16px;height:16px;fill:var(--grn-d)}
-.c-anio{font-size:150px;font-weight:600;letter-spacing:-7px;line-height:.9;
+
+/* ══════════ 2 · QUIÉNES SOMOS ══════════ */
+.qs{grid-template-columns:1.02fr 1fr .98fr;align-items:stretch}
+.fila{display:flex;gap:11px;align-items:flex-start}
+.fila b{display:block;font-size:14.5px;line-height:1.25}
+.fila span{display:block;font-size:12.8px;line-height:1.36;color:var(--ink2);margin-top:2px}
+.eco{display:grid;grid-template-columns:92px 1fr;align-items:center;gap:12px;padding:9px 12px;border-radius:12px;background:var(--surf)}
+.eco img{height:19px;width:auto}
+.eco span{font-size:12.8px;line-height:1.32;color:var(--ink2)}
+.qs-col{display:flex;flex-direction:column;gap:14px}
+.tray{display:flex;flex-direction:column;gap:9px}
+.tray div{display:flex;align-items:center;gap:12px}
+.tray b{font-size:30px;font-weight:500;letter-spacing:-1.1px;color:var(--yel-d);min-width:78px;line-height:1}
+.tray span{font-size:13.5px;color:var(--ink2);line-height:1.3}
+.tray b .mv-cifra{font-size:inherit;color:inherit;line-height:1}
+.red4{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.red4 div{padding:9px 12px;border-radius:12px;background:var(--surf)}
+.red4 b{display:block;font-size:24px;font-weight:500;letter-spacing:-.8px;line-height:1.05}
+.red4 span{font-size:12px;color:var(--ink2)}
+.red4 .c1 b{color:var(--blue)} .red4 .c2 b{color:var(--red)} .red4 .c3 b{color:var(--yel-d)} .red4 .c4 b{color:var(--grn-l)}
+.region{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:14px;background:var(--blue-t)}
+.region b{font-size:14px} .region span{display:block;font-size:12px;color:var(--ink2)}
+
+/* aro de carga alrededor de una cifra (del Piloto). La cifra NO se anima:
+   el aro gira por fuera y se abre. Base opacity:0 → no llega al PDF. */
+.mv-cifra{position:relative;display:inline-block}
+.mv-anillo{position:absolute;left:50%;top:50%;width:62px;height:62px;margin:-31px 0 0 -31px;
+  opacity:0;animation:mv-anillo-sale .88s var(--entra) .3s both;pointer-events:none}
+.mv-anillo > i{display:block;width:100%;height:100%;border-radius:50%;
+  border:3px solid transparent;border-top-color:#4285f4;
+  animation:mv-anillo-gira .44s linear .3s 2,mv-anillo-color .88s steps(1,end) .3s both}
+@keyframes mv-anillo-gira{to{transform:rotate(360deg)}}
+@keyframes mv-anillo-color{0%{border-top-color:#4285f4}25%{border-top-color:#ea4335}50%{border-top-color:#fbbc04}75%,100%{border-top-color:#34a853}}
+@keyframes mv-anillo-sale{0%{opacity:0;transform:scale(.72)}14%,68%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.32)}}
+
+/* pulso tipo radar en el icono de la región. DECORACIÓN declarada en bucle;
+   base opacity:0 → con reducir movimiento y al imprimir no existe. */
+.mv-radar{position:relative}
+.mv-radar::before,.mv-radar::after{content:"";position:absolute;inset:-2px;border-radius:50%;
+  border:2px solid var(--blue-l);opacity:0;animation:mv-radar 2.4s ease-out infinite}
+.mv-radar::after{animation-delay:1.2s}
+@keyframes mv-radar{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(2.2)}}
+
+/* ══════════ 3 · LA PROPUESTA: el ciclo ══════════ */
+.prop{display:grid;grid-template-columns:520px 1fr;gap:30px;align-items:center;flex:1;min-height:0}
+.ciclo{position:relative;width:520px;height:470px}
+.ciclo svg.anillo{position:absolute;inset:0;width:520px;height:470px;overflow:visible}
+.ciclo .aro{fill:none;stroke:var(--ink4);stroke-width:2.5;stroke-dasharray:3 13;stroke-linecap:round}
+/* Los puntos viajan por el aro: DECORACIÓN en bucle, solo transform.
+   Base sin animación = dos puntos quietos sobre el aro. */
+.mv-orbita{transform-box:view-box;transform-origin:260px 235px}
+.slide.on .mv-orbita{animation:mv-gira 9s linear infinite}
+@keyframes mv-gira{to{transform:rotate(360deg)}}
+.mv-flujo{stroke-dashoffset:0}
+.slide.on .mv-flujo{animation:mv-flujo 1.4s linear infinite}
+@keyframes mv-flujo{to{stroke-dashoffset:-32}}
+.nodo{position:absolute;width:176px;transform:translate(-50%,-50%);background:var(--white);border-radius:18px;
+  box-shadow:var(--sh2);padding:12px 14px;display:flex;flex-direction:column;gap:6px;z-index:2}
+.nodo .ctit{gap:9px}
+.nodo b{font-size:15px;line-height:1.2}
+.nodo span{font-size:12.8px;line-height:1.32;color:var(--ink2)}
+.nodo.n1{left:260px;top:62px} .nodo.n2{left:432px;top:235px} .nodo.n3{left:260px;top:408px} .nodo.n4{left:88px;top:235px}
+.centro{position:absolute;left:260px;top:235px;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;
+  background:linear-gradient(145deg,#e8f0fe,#e6f4ea);display:grid;place-items:center;text-align:center;z-index:1}
+.centro b{font-size:15px;line-height:1.22;padding:0 14px;color:var(--ink)}
+.mv-halo{position:absolute;inset:-10px;border-radius:50%;border:2px solid rgba(66,133,244,.35);opacity:0}
+.slide.on .mv-halo{animation:mv-halo 3s ease-in-out infinite}
+@keyframes mv-halo{0%,100%{opacity:.15;transform:scale(.96)}50%{opacity:.6;transform:scale(1.05)}}
+/* entrada de los nodos: de ligeramente chicos a su tamaño, en orden del ciclo */
+.slide.on .mv-pop{animation:mv-pop .5s var(--entra) var(--d,0s) both}
+@keyframes mv-pop{from{opacity:0;transform:translate(-50%,-50%) scale(.86)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+.prop-col{display:grid;gap:12px}
+.prop-col .card{flex-direction:row;gap:14px;align-items:flex-start;padding:16px 20px}
+.prop-col h3{margin-bottom:6px}
+ul.bens{list-style:none;display:flex;flex-direction:column;gap:5px}
+ul.bens li{position:relative;padding-left:18px;font-size:14px;line-height:1.38;color:var(--ink2)}
+ul.bens li::before{content:"";position:absolute;left:0;top:5px;width:8px;height:8px;border-radius:50%;border:2.5px solid var(--ink4)}
+ul.bens.b li::before{border-color:var(--blue-l)} ul.bens.g li::before{border-color:var(--grn-l)} ul.bens.y li::before{border-color:var(--yel-l)}
+
+/* ══════════ 4 · PRIVACIDAD ══════════ */
+.pv-col{gap:10px;padding:18px 22px}
+ul.pv{list-style:none;display:flex;flex-direction:column;gap:8px}
+ul.pv li{display:flex;gap:10px;font-size:14px;line-height:1.38;color:var(--ink2)}
+ul.pv li svg{width:17px;height:17px;flex-shrink:0;margin-top:1px}
+ul.pv.g li svg{fill:var(--grn-d)} ul.pv.b li svg{fill:var(--blue)}
+/* La banda de anonimización: personas → escudo → barras de grupo.
+   Base = dibujo terminado. Las barras crecen al entrar; las flechas fluyen
+   (decoración); el escudo recibe un barrido de luz (base opacity:0). */
+.anon{display:flex;align-items:center;gap:18px;padding:14px 22px;border-radius:18px;background:var(--ink);color:#fff;margin-top:14px}
+.personas{display:grid;grid-template-columns:repeat(4,22px);gap:6px}
+.personas i{width:22px;height:22px;border-radius:50%;background:#3c4043;display:grid;place-items:center}
+.personas i svg{width:14px;height:14px;fill:#9aa0a6}
+.flecha{width:64px;height:12px;overflow:visible}
+.flecha line{stroke:#8ab4f8;stroke-width:2.5;stroke-dasharray:2 7;stroke-linecap:round}
+.escudo{position:relative;width:46px;height:46px;border-radius:14px;background:#174ea6;display:grid;place-items:center;overflow:hidden}
+.escudo svg{width:24px;height:24px;fill:#fff}
+.mv-barrido{position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);opacity:0}
+.slide.on .mv-barrido{animation:mv-barrido 2.8s ease-in-out .6s infinite}
+@keyframes mv-barrido{0%{opacity:1;transform:translateX(-110%)}35%,100%{opacity:1;transform:translateX(110%)}}
+.barras{display:flex;align-items:flex-end;gap:5px;height:44px}
+.barras i{width:13px;border-radius:4px 4px 2px 2px;transform-origin:bottom}
+.barras i:nth-child(1){height:24px;background:#4285f4} .barras i:nth-child(2){height:40px;background:#ea4335}
+.barras i:nth-child(3){height:31px;background:#fbbc04} .barras i:nth-child(4){height:44px;background:#34a853}
+.slide.on .mv-crece{animation:mv-crece .6s var(--entra) var(--d,.2s) both}
+@keyframes mv-crece{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.anon-tx{margin-left:auto;display:flex;gap:22px}
+.anon-tx div{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;white-space:nowrap}
+.anon-tx svg{width:19px;height:19px;fill:var(--c)}
+
+/* ══════════ 5 · SIETE VENTANAS: diagrama radial ══════════ */
+.radial{position:relative;width:1160px;height:470px;margin:0 auto}
+.radial svg.rayos{position:absolute;inset:0;width:1160px;height:470px}
+.rayos line{stroke:#c6dafc;stroke-width:2.5;stroke-dasharray:3 10;stroke-linecap:round}
+.r-centro{position:absolute;left:580px;top:235px;width:170px;height:170px;margin:-85px 0 0 -85px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff,#e8f0fe 70%);box-shadow:var(--sh2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;z-index:2}
+.r-centro .med{width:46px;height:46px;border-radius:14px}
+.r-centro b{font-size:17px;line-height:1.15}
+.r-centro span{font-size:12px;color:var(--ink2);padding:0 16px;line-height:1.3}
+.ventana{position:absolute;width:236px;transform:translate(-50%,-50%);background:var(--white);border-radius:16px;
+  box-shadow:var(--sh);padding:11px 13px;display:flex;gap:10px;align-items:flex-start;z-index:2;border-top:3px solid var(--c)}
+.ventana b{display:block;font-size:14px;line-height:1.2}
+.ventana span{display:block;font-size:12px;line-height:1.3;color:var(--ink2);margin-top:2px}
+.ventana .num{position:absolute;top:8px;right:11px;font-size:10px;font-weight:800;letter-spacing:1.2px;color:var(--ink3)}
+.r-logos{position:absolute;left:50%;bottom:0;transform:translateX(-50%);display:flex;align-items:center;gap:16px;
+  padding:8px 16px;border-radius:99px;background:var(--surf)}
+.r-logos img{height:16px;width:auto}
+
+/* ══════════ 6 · EQUIPOS Y SOPORTE ══════════ */
+.eq{grid-template-columns:262px 1fr 1fr;align-items:stretch;flex:1;min-height:0}
+.ilus{border-radius:22px;background:linear-gradient(170deg,#e8f0fe,#f8f9fa 70%);padding:18px;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center}
+.ilus svg.lap{width:222px;height:auto}
+.mv-bat{transform-box:fill-box;transform-origin:left center}
+.slide.on .mv-bat{animation:mv-llena .8s var(--entra) .35s both}
+@keyframes mv-llena{from{transform:scaleX(.08)}to{transform:scaleX(1)}}
+.mv-onda{opacity:1}
+.slide.on .mv-onda{animation:mv-onda 2.2s ease-in-out infinite}
+.slide.on .mv-onda.o2{animation-delay:.25s} .slide.on .mv-onda.o3{animation-delay:.5s}
+@keyframes mv-onda{0%,100%{opacity:.25}50%{opacity:1}}
+.ticket{width:222px;background:var(--white);border-radius:14px;box-shadow:var(--sh);padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+.ticket .t1{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;font-weight:600}
+.estado{position:relative;display:inline-grid;font-size:11px;font-weight:800;letter-spacing:.4px}
+.estado > span{grid-area:1/1;padding:3px 9px;border-radius:99px;text-align:center}
+.estado .ab{background:var(--yel-t);color:var(--yel-d)}
+.estado .re{background:var(--grn-t);color:var(--grn-d)}
+/* «Abierto» existe solo en movimiento (base opacity:0) y cede a «Resuelto»,
+   que es el estado terminado: lo que ve el PDF. */
+.mv-ab{opacity:0}
+.slide.on .mv-ab{animation:mv-ab .35s ease 1.15s both}
+@keyframes mv-ab{from{opacity:1}to{opacity:0}}
+.slide.on .mv-re{animation:mv-re .35s ease 1.25s both}
+@keyframes mv-re{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+.tiempo{height:6px;border-radius:99px;background:var(--surf2);overflow:hidden}
+.tiempo i{display:block;height:100%;width:100%;border-radius:99px;background:linear-gradient(90deg,#fbbc04,#34a853);transform-origin:left}
+.slide.on .tiempo .mv-crece-x{animation:mv-llena .85s var(--entra) .3s both}
+.ilus .pie{font-size:12px;color:var(--ink2);text-align:center}
+.ilus .pie b{display:block;font-size:22px;font-weight:500;letter-spacing:-.6px;color:var(--blue)}
+
+/* ══════════ 7 · USO DIGITAL: ilustraciones de cabecera ══════════ */
+.mini{height:70px;border-radius:14px;background:var(--surf);display:flex;align-items:flex-end;justify-content:center;gap:16px;padding:10px 14px;overflow:hidden;flex-shrink:0}
+.mini .bar{display:flex;flex-direction:column;align-items:center;gap:4px}
+.mini .bar i{width:30px;border-radius:6px 6px 2px 2px;transform-origin:bottom}
+.mini .bar em{font-style:normal;font-size:10.5px;font-weight:700;color:var(--ink3)}
+.nav-mini{align-items:stretch;flex-direction:column;justify-content:flex-start;gap:8px;padding:9px 12px}
+.nav-mini .barra{display:flex;align-items:center;gap:5px}
+.nav-mini .barra i{width:7px;height:7px;border-radius:50%;background:var(--ink4)}
+.nav-mini .barra s{flex:1;height:10px;border-radius:99px;background:var(--white);margin-left:6px}
+.nav-mini .cats{display:flex;gap:6px;flex-wrap:wrap}
+.slide.on .mv-chip{animation:mv-chip .45s var(--entra) var(--d,.2s) both}
+@keyframes mv-chip{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+.apps-mini{align-items:center;gap:8px}
+.apps-mini i{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;box-shadow:0 2px 6px rgba(60,64,67,.15)}
+.apps-mini i svg{width:16px;height:16px;fill:#fff}
+.slide.on .mv-app{animation:mv-app .4s var(--entra) var(--d,.2s) both}
+@keyframes mv-app{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.mv-late{transform-box:fill-box}
+.slide.on .mv-late{animation:mv-late 1.8s ease-in-out 1s infinite}
+@keyframes mv-late{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.uso .card{gap:10px}
+
+/* ══════════ 8 · APRENDIZAJE Y VIDA ESCOLAR ══════════ */
+.anillos{display:flex;justify-content:space-around;align-items:center;height:96px;border-radius:14px;background:var(--surf);padding:8px}
+.anillos div{display:flex;flex-direction:column;align-items:center;gap:4px}
+.anillos svg{width:58px;height:58px;transform:rotate(-90deg)}
+.anillos circle{fill:none;stroke-width:7;stroke-linecap:round}
+.anillos .fondo{stroke:var(--line)}
+.anillos em{font-style:normal;font-size:11px;font-weight:700;color:var(--ink3)}
+.slide.on .mv-arco{animation:mv-arco .85s var(--entra) var(--d,.3s) both}
+@keyframes mv-arco{from{stroke-dashoffset:100}}
+.ciclo-esc{height:96px;border-radius:14px;background:var(--surf);padding:14px 16px 10px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.linea{position:relative;height:30px}
+.linea::before{content:"";position:absolute;left:0;right:0;top:14px;height:3px;border-radius:99px;background:var(--line)}
+.linea i{position:absolute;top:8px;width:15px;height:15px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 3px rgba(60,64,67,.3);margin-left:-7px}
+.slide.on .linea .mv-pin{animation:mv-pin .4s var(--entra) var(--d,.2s) both}
+@keyframes mv-pin{from{opacity:0;transform:translateY(-10px) scale(.6)}to{opacity:1;transform:none}}
+.meses{display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;color:var(--ink3);letter-spacing:.3px}
+
+/* ══════════ 9 · 2027 ══════════ */
+.fut{display:grid;grid-template-columns:470px 1fr;gap:40px;align-items:center;flex:1;min-height:0}
+.f-izq{position:relative}
+.c-anio{display:inline-block;font-size:160px;font-weight:600;letter-spacing:-7px;line-height:.9;
   background:linear-gradient(90deg,#4285f4 0 25%,#ea4335 25% 50%,#fbbc04 50% 75%,#34a853 75% 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent}
-
-/* subrayado a mano (estado base = trazo completo, llega entero al PDF) */
-.mv-r{position:relative;display:inline-block}
-.mv-r > svg{position:absolute;overflow:visible;pointer-events:none;
-  fill:none;stroke:var(--c,var(--blue-l));stroke-linecap:round;stroke-linejoin:round}
-.mv-traza{stroke-dasharray:100;stroke-dashoffset:0;
-  animation:mv-traza .6s cubic-bezier(.36,.75,.4,1) var(--mv-t,.46s) both}
+.f-izq svg{width:430px;height:120px;margin-top:18px;overflow:visible}
+.f-izq .tend{fill:none;stroke:#4285f4;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.f-izq .area{fill:url(#gArea);opacity:.5}
+.f-izq .punto{fill:#fff;stroke:#34a853;stroke-width:4}
+.mv-traza{stroke-dasharray:100;stroke-dashoffset:0}
+.slide.on .mv-traza{animation:mv-traza .8s var(--entra) var(--d,.3s) both}
 @keyframes mv-traza{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
-.mv-sub{left:-5px;width:calc(100% + 10px);top:100%;height:11px;stroke-width:3.4}
+.hitos{display:grid;gap:12px}
+.hitos .card{flex-direction:row;align-items:center;gap:14px;padding:16px 20px}
+.hitos b{display:block;font-size:16.5px}
+.hitos span{display:block;font-size:13.5px;color:var(--ink2);margin-top:2px}
 
-/* ═══════════ MOVIMIENTO ═══════════ */
-.slide.on > .head{animation:mv-sube .42s cubic-bezier(.2,.8,.2,1) both}
-.slide.on > .body,.slide.on > .split,.slide.on > .inner{
-  animation:mv-sube .46s cubic-bezier(.2,.8,.2,1) .09s both}
-.slide.on > .foot{animation:mv-sube .42s cubic-bezier(.2,.8,.2,1) .18s both}
+/* subrayado a mano de la portada (base = trazo completo) */
+.mv-r{position:relative;display:inline-block}
+.mv-r > svg{position:absolute;left:-5px;width:calc(100% + 10px);top:100%;height:11px;overflow:visible;fill:none;
+  stroke:#4285f4;stroke-width:3.4;stroke-linecap:round;pointer-events:none}
+
+/* ═══════════ ENTRADA DE CADA LÁMINA ═══════════ */
+.slide.on > .head{animation:mv-sube .42s var(--entra) both}
+.slide.on > .body,.slide.on > .inner{animation:mv-sube .46s var(--entra) .09s both}
+.slide.on > .comp{animation:mv-sube .42s var(--entra) .18s both}
 @keyframes mv-sube{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-[class*="mv-"]{will-change:transform,opacity}
 
-/* realce al pasar el cursor */
-#stage .slide.on .card,#stage .slide.on .tile{
-  transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .18s ease}
-#stage .slide.on .card:hover,#stage .slide.on .tile:hover{
-  transform:translateY(-2px);
-  box-shadow:0 2px 6px rgba(60,64,67,.10),0 14px 34px -12px rgba(60,64,67,.24),
-             0 0 0 2px var(--realce,var(--blue-l))}
+/* realce al pasar el cursor + brillo (mo-brillo, del motor) */
+#stage .slide.on .card,#stage .slide.on .ventana,#stage .slide.on .campo{
+  transition:transform .18s var(--entra),box-shadow .18s ease}
+#stage .slide.on .card:hover,#stage .slide.on .ventana:hover{
+  transform:translateY(-3px);
+  box-shadow:0 2px 6px rgba(60,64,67,.10),0 16px 36px -12px rgba(60,64,67,.26),0 0 0 2px var(--realce,var(--blue-l))}
+#stage .slide.on .ventana:hover{transform:translate(-50%,calc(-50% - 3px))}
+#stage .slide.on .campo:hover{transform:translateX(3px)}
 
-/* ═══════════ MOTOR COMPARTIDO (motion.js / motion.css) ═══════════ */
+/* ═══════════ MOTOR COMPARTIDO ═══════════ */
 #stage .slide{--mo-dur:.55s;--mo-subida:12px}
-@keyframes mv-cascada{
-  from{opacity:0;transform:translateY(var(--mo-subida))}
-  to{opacity:1;transform:none}
-}
-#stage .slide.on .mo-stagger > *.mo-in{
-  animation:mv-cascada var(--mo-dur) var(--mo-ease) var(--mo-delay) both}
-@media (prefers-reduced-motion:reduce){
-  #stage .slide.on .mo-stagger > *.mo-in{animation:none}
-}
-@media print{
-  #stage .mo-stagger > *{opacity:1!important;transform:none!important;animation:none!important}
-}
+@keyframes mv-cascada{from{opacity:0;transform:translateY(var(--mo-subida))}to{opacity:1;transform:none}}
+#stage .slide.on .mo-stagger > *.mo-in{animation:mv-cascada var(--mo-dur) var(--mo-ease) var(--mo-delay) both}
+@media (prefers-reduced-motion:reduce){#stage .slide.on .mo-stagger > *.mo-in{animation:none}}
+@media print{#stage .mo-stagger > *{opacity:1!important;transform:none!important;animation:none!important}}
 
-/* reducir movimiento: TODO quieto, TODO visible. Se nombran los
-   pseudoelementos: `animation:none` no alcanza a ::before ni a ::after. */
+/* REDUCIR MOVIMIENTO: TODO quieto y TODO visible, en su estado terminado.
+   Se nombran los pseudoelementos: `animation:none` no alcanza a ::before
+   ni a ::after. Lo que solo existe en movimiento (aro, radar, barrido,
+   «Abierto», halo) tiene base opacity:0 y desaparece. */
 @media (prefers-reduced-motion:reduce){
-  .slide.on,.slide.on > .head,.slide.on > .body,.slide.on > .split,
-  .slide.on > .inner,.slide.on > .foot{animation:none!important}
-  [class*="mv-"],[class*="mv-"]::before,[class*="mv-"]::after{
-    animation:none!important;transition:none!important}
-  #stage .slide.on .card:hover,#stage .slide.on .tile:hover{transform:none}
+  .slide.on,.slide.on > .head,.slide.on > .body,.slide.on > .inner,.slide.on > .comp{animation:none!important}
+  [class*="mv-"],[class*="mv-"]::before,[class*="mv-"]::after{animation:none!important;transition:none!important}
+  #stage .slide.on .card:hover,#stage .slide.on .campo:hover{transform:none}
+  #stage .slide.on .ventana:hover{transform:translate(-50%,-50%)}
 }
 
 /* ═══════════ RESPONSIVE · < 1024 px, lectura vertical ═══════════ */
 @media screen and (max-width:1023px){
   html,body{height:auto}
   body{overflow:auto}
-  #stage{position:static;width:100%;height:auto;transform:none!important;
-    border-radius:0;box-shadow:none;overflow:visible}
-  .slide{position:relative;inset:auto;height:auto;min-height:100svh;
-    padding:58px 22px 96px;overflow:visible;overflow-x:clip}
-  .split > *,.grid > *,.stack > *,.body > *{min-width:0;max-width:100%}
+  #stage{position:static;width:100%;height:auto;transform:none!important;border-radius:0;box-shadow:none;overflow:visible}
+  .slide{position:relative;inset:auto;height:auto;min-height:100svh;padding:58px 20px 96px;overflow:visible;overflow-x:clip}
   .cover{padding:0}
   .cover .inner{padding:64px 22px 96px}
-  h1{font-size:clamp(32px,8.4vw,52px);letter-spacing:-1.3px}
+  .grid > *,.body > *{min-width:0;max-width:100%}
   h2{font-size:clamp(25px,6.6vw,38px);letter-spacing:-.8px}
-  .lead{font-size:clamp(16px,4.4vw,18px);max-width:none}
-  .split,.split.wide-l,.grid.g2,.grid.g3,.grid.g4,.mapa,.reglas,.tiles{grid-template-columns:1fr!important}
-  .split{gap:16px}
+  .lead,.p1-lead{font-size:clamp(15px,4.2vw,18px)}
+  .p1-h1{font-size:clamp(38px,11vw,78px);letter-spacing:-1.6px}
+  .grid.g2,.grid.g3,.qs,.eq,.prop,.fut,.campos.dos{grid-template-columns:1fr!important}
   .body{justify-content:flex-start}
-  .foot{flex-direction:column;align-items:flex-start;gap:12px}
-  .stat .n{font-size:clamp(36px,10vw,52px)}
-  .p1-h1{font-size:clamp(36px,10vw,76px);letter-spacing:-1.4px}
-  .p1-cap span{white-space:normal}
-  .c-anio{font-size:clamp(80px,24vw,150px);letter-spacing:-4px}
-  .al-region{flex-direction:column;align-items:flex-start}
-  .brandmark{top:22px;right:22px}
-  .brandmark img{height:18px}
+  .p-red{width:100%;opacity:.35}
+  /* los diagramas se vuelven listas: los nodos fluyen y el trazo se esconde */
+  .ciclo,.radial{width:auto;height:auto;display:grid;gap:10px}
+  .ciclo svg.anillo,.radial svg.rayos,.mv-halo{display:none}
+  .nodo,.ventana,.centro,.r-centro,.r-logos{position:static;transform:none!important;margin:0;width:auto;height:auto}
+  .centro,.r-centro{border-radius:18px;padding:14px;flex-direction:column}
+  .slide.on .mv-pop{animation:none}
+  .r-logos{flex-wrap:wrap;justify-content:center;border-radius:16px}
+  .anon,.comp{flex-wrap:wrap}
+  .anon-tx{margin-left:0;flex-wrap:wrap;gap:10px}
+  .comp .it{white-space:normal}
+  .f-izq svg{width:100%}
+  .c-anio{font-size:clamp(84px,26vw,160px);letter-spacing:-4px}
+  .brandmark{top:22px;right:20px} .brandmark img{height:18px}
   .shape{display:none}
   #hint{display:none}
-  #nav{right:12px;bottom:12px;background:rgba(32,33,36,.85);border-radius:99px;
-    padding:7px 14px;box-shadow:var(--sh2)}
+  #nav{right:12px;bottom:12px;background:rgba(32,33,36,.85);border-radius:99px;padding:7px 14px;box-shadow:var(--sh2)}
   #nav button{width:34px;height:34px}
-  #progress{background:rgba(32,33,36,.06)}
-}
-@media screen and (min-width:641px) and (max-width:1023px){
-  .grid.g2,.grid.g4,.mapa,.tiles{grid-template-columns:repeat(2,1fr)!important}
 }
 
 /* ═══════════ IMPRESIÓN · una lámina por página, 16:9 ═══════════ */
@@ -368,12 +473,10 @@ ul.pv.g li svg{fill:var(--grn-d)} ul.pv.b li svg{fill:var(--blue)}
 @media print{
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{background:#fff;overflow:visible}
-  .chrome{display:none!important}
-  #stage{position:static;transform:none!important;width:1280px;height:auto;border-radius:0;
-    box-shadow:none;overflow:visible}
-  .slide{position:relative;display:flex!important;width:1280px;height:720px;
-    page-break-after:always;break-after:page;animation:none;overflow:hidden;
-    inset:auto;min-height:0;padding:46px 60px 30px}
+  .chrome,.mo-particulas{display:none!important}
+  #stage{position:static;transform:none!important;width:1280px;height:auto;border-radius:0;box-shadow:none;overflow:visible}
+  .slide{position:relative;display:flex!important;width:1280px;height:720px;page-break-after:always;break-after:page;
+    animation:none;overflow:hidden;inset:auto;min-height:0;padding:46px 60px 30px}
   .cover{padding:0}
   .slide:last-child{page-break-after:auto}
   .slide > *{animation:none!important}
@@ -398,18 +501,28 @@ ul.pv.g li svg{fill:var(--grn-d)} ul.pv.b li svg{fill:var(--blue)}
   <symbol id="m-candado" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></symbol>
   <symbol id="m-check" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></symbol>
   <symbol id="m-grupo" viewBox="0 0 24 24"><path d="M9 11c1.66 0 3-1.34 3-3S10.66 5 9 5 6 6.34 6 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm7.5-8.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5S15 8.83 15 8s.67-1.5 1.5-1.5zm0 5c-.35 0-.69.03-1.02.08 1.02.71 1.52 1.63 1.52 2.42V19h5v-2.5c0-2.33-3.17-3.5-5.5-3.5z"/></symbol>
+  <symbol id="m-persona" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></symbol>
   <symbol id="m-grafica" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></symbol>
   <symbol id="m-calendario" viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></symbol>
   <symbol id="m-tendencia" viewBox="0 0 24 24"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></symbol>
   <symbol id="m-aviso" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></symbol>
   <symbol id="m-reloj" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></symbol>
   <symbol id="m-capas" viewBox="0 0 24 24"><path d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z"/></symbol>
+  <symbol id="m-foco" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></symbol>
+  <symbol id="m-video" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></symbol>
+  <symbol id="m-pincel" viewBox="0 0 24 24"><path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37l-1.34-1.34a.996.996 0 0 0-1.41 0L9 12.25 11.75 15l8.96-8.96a.996.996 0 0 0 0-1.41z"/></symbol>
+  <symbol id="m-calc" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5.97 4.06L14.09 6l1.41 1.41L16.91 6l1.06 1.06-1.41 1.41 1.41 1.41-1.06 1.06-1.41-1.4-1.41 1.41-1.06-1.06 1.41-1.41-1.41-1.42zM6.25 7.72h5v1.5h-5v-1.5zM11.5 16h-2v2H8v-2H6v-1.5h2v-2h1.5v2h2V16zm6.5 1.25h-5v-1.5h5v1.5zm0-2.5h-5v-1.5h5v1.5z"/></symbol>
+  <symbol id="m-musica" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></symbol>
 </svg>
 
 <div id="stage">
 
-<!-- ═════════ 1 · PORTADA ═════════ -->
+<!-- ═════════ 1 · PORTADA ═════════
+Sin datos de la empresa: solo marca, título y para qué estamos aquí.
+MOVIMIENTO: red de partículas en los cuatro colores de Google (a la derecha,
+desvanecida hacia el texto), círculos que siguen al cursor y subrayado a mano. -->
 <section class="slide cover" data-bloque="apertura">
+  <div class="p-red" data-red="64"></div>
   <span class="shape" style="width:560px;height:560px;right:-215px;top:-230px;background:var(--blue-t)"></span>
   <span class="shape" style="width:300px;height:300px;left:-150px;bottom:-165px;background:var(--grn-t)"></span>
   <div class="inner">
@@ -418,19 +531,18 @@ ul.pv.g li svg{fill:var(--grn-d)} ul.pv.b li svg{fill:var(--blue)}
       <span class="sep"></span>
       <img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner">
     </div>
-    <h1 class="p1-h1" style="max-width:900px">A la <span class="mv-r">vanguardia<svg class="mv-sub" viewBox="0 0 200 11"
-      preserveAspectRatio="none" aria-hidden="true" style="--c:#4285f4"><path class="mv-traza"
-      pathLength="100" d="M3 6.4C36 3 72 8.6 108 5.4 140 2.6 169 4.4 197 8"/></svg></span> de la tecnología educativa</h1>
-    <p class="lead" style="max-width:760px;margin-top:24px">Más de 10 años llevando tecnología, contenido y acompañamiento a los colegios. Hoy queremos construir, junto con aliados, una inteligencia artificial que entienda el aula.</p>
-    <div class="p1-cap"><span>Reunión 1:1 · Alianzas en inteligencia artificial</span><i></i></div>
+    <h1 class="p1-h1">A la <span class="mv-r">vanguardia<svg viewBox="0 0 200 11" preserveAspectRatio="none" aria-hidden="true"><path class="mv-traza" pathLength="100" d="M3 6.4C36 3 72 8.6 108 5.4 140 2.6 169 4.4 197 8" style="--d:.5s"/></svg></span> de la tecnología educativa</h1>
+    <p class="p1-lead">Queremos construir, junto con aliados, una inteligencia artificial que entienda el aula.</p>
   </div>
 </section>
 
 <!-- ═════════ 2 · QUIÉNES SOMOS ═════════
-El deck abre presentando a activa, no a los datos: si no, se lee como venta de
-datos. Contenido del portafolio (docs/portafolio-activa.md, secciones 1 y 11). -->
+La ÚNICA lámina con información de la empresa: qué hacemos, el ecosistema
+propio, la trayectoria y la red de hoy (portafolio, secciones 1 y 11).
+MOVIMIENTO: cascada de las tres columnas, aro de carga en «16» (la cifra no
+se toca) y pulso de radar en la región. -->
 <section class="slide" data-bloque="quienes">
-  <span class="shape" style="width:470px;height:470px;right:-205px;top:-195px;background:var(--blue-t)"></span>
+  <span class="shape" style="width:430px;height:430px;right:-190px;top:-190px;background:var(--blue-t)"></span>
   <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
   <div class="head">
     <div class="eyebrow b">Quiénes somos</div>
@@ -438,131 +550,99 @@ datos. Contenido del portafolio (docs/portafolio-activa.md, secciones 1 y 11). -
     <p class="lead"><em class="marca">activa</em> es socio de transformación educativa de los colegios y Google for Education Partner.</p>
   </div>
   <div class="body">
-    <div class="grid g3">
-      <div class="card rule b lift" style="justify-content:flex-start">
-        <div class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escuela"/></svg></div>
-        <h3>Un solo aliado para el colegio</h3>
-        <ul class="bens b">
-          <li>Dispositivos y licencias educativas</li>
-          <li>Plataformas de contenido propias</li>
-          <li>Formación docente y acompañamiento</li>
-          <li>Soporte técnico y gestión escolar</li>
-        </ul>
+    <div class="grid qs">
+      <div class="card rule b lift mo-brillo">
+        <div class="ctit"><span class="med b"><svg aria-hidden="true"><use href="#m-escuela"/></svg></span><h3>Un solo aliado para el colegio</h3></div>
+        <div class="fila"><span class="med xs b"><svg aria-hidden="true"><use href="#m-laptop"/></svg></span><div><b>Dispositivos y licencias</b><span>Chromebooks administradas, Google Workspace, Canva y Wayground</span></div></div>
+        <div class="fila"><span class="med xs b"><svg aria-hidden="true"><use href="#m-libro"/></svg></span><div><b>Contenido propio</b><span>Cinco plataformas alineadas a la Nueva Escuela Mexicana</span></div></div>
+        <div class="fila"><span class="med xs b"><svg aria-hidden="true"><use href="#m-grupo"/></svg></span><div><b>Formación y acompañamiento</b><span>Coach certificado y certificación oficial de Google para docentes</span></div></div>
+        <div class="fila"><span class="med xs b"><svg aria-hidden="true"><use href="#m-llave"/></svg></span><div><b>Soporte y gestión</b><span>Mesa de ayuda con respuesta en menos de 24 horas hábiles</span></div></div>
       </div>
-      <div class="card rule g lift" style="justify-content:flex-start">
-        <div class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-libro"/></svg></div>
-        <h3>Un ecosistema propio</h3>
-        <ul class="bens g">
-          <li>Planeación alineada a la NEM</li>
-          <li>Formación y certificación docente</li>
-          <li>Desarrollo socioemocional e inglés</li>
-          <li>Comunicación y gestión escolar</li>
-        </ul>
-        <div class="dx-logos" style="margin-top:4px;gap:8px 14px">
-          <img src="../../compartidos/img/marcas/impulsa.webp" alt="impulsa" style="height:16px">
-          <img src="../../compartidos/img/marcas/eleva.webp" alt="eleva" style="height:16px">
-          <img src="../../compartidos/img/marcas/motiva.webp" alt="motiva" style="height:16px">
-          <img src="../../compartidos/img/marcas/beta.webp" alt="beta" style="height:16px">
-          <img src="../../compartidos/img/marcas/integra.webp" alt="integra" style="height:16px">
+      <div class="card rule g lift mo-brillo">
+        <div class="ctit"><span class="med g"><svg aria-hidden="true"><use href="#m-capas"/></svg></span><h3>Un ecosistema propio</h3></div>
+        <div class="eco"><img src="../../compartidos/img/marcas/impulsa.webp" alt="impulsa"><span>Planeación y proyectos alineados a la NEM</span></div>
+        <div class="eco"><img src="../../compartidos/img/marcas/eleva.webp" alt="eleva"><span>Formación continua y certificación docente</span></div>
+        <div class="eco"><img src="../../compartidos/img/marcas/motiva.webp" alt="motiva"><span>Desarrollo socioemocional, guiado por psicólogos</span></div>
+        <div class="eco"><img src="../../compartidos/img/marcas/beta.webp" alt="beta"><span>Inglés de 1.º de primaria hasta C1</span></div>
+        <div class="eco"><img src="../../compartidos/img/marcas/integra.webp" alt="integra"><span>Comunicación, control y gestión escolar</span></div>
+      </div>
+      <div class="qs-col">
+        <div class="card rule y lift mo-brillo">
+          <div class="ctit"><span class="med y"><svg aria-hidden="true"><use href="#m-tendencia"/></svg></span><h3>Trayectoria</h3></div>
+          <div class="tray">
+            <div><b>+10</b><span>años en transformación educativa</span></div>
+            <div><b>+2 M</b><span>docentes capacitados</span></div>
+            <div><b><span class="mv-cifra">16<span class="mv-anillo" aria-hidden="true"><i></i></span></span></b><span>Google Reference Schools acompañadas</span></div>
+          </div>
         </div>
-      </div>
-      <div class="card rule y lift" style="justify-content:flex-start">
-        <div class="med sm y"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-tendencia"/></svg></div>
-        <h3>Trayectoria</h3>
-        <div class="qs-cifras">
-          <div><b>+2 M</b><span>docentes capacitados</span></div>
-          <div><b>+100</b><span>colegios acompañados</span></div>
-          <div><b>16</b><span>Google Reference Schools</span></div>
+        <div class="card rule r lift mo-brillo">
+          <div class="ctit"><span class="med r"><svg aria-hidden="true"><use href="#m-grupo"/></svg></span><h3>La red de hoy</h3></div>
+          <div class="red4">
+            <div class="c1"><b>+100</b><span>colegios</span></div>
+            <div class="c2"><b>+25,000</b><span>estudiantes</span></div>
+            <div class="c3"><b>+5,000</b><span>profesores</span></div>
+            <div class="c4"><b>+20,000</b><span>dispositivos activos</span></div>
+          </div>
+          <div class="region"><span class="med xs w mv-radar"><svg aria-hidden="true" style="fill:var(--blue)"><use href="#m-globo"/></svg></span><div><b>México, Centroamérica y el Caribe</b><span>Todo México, con acceso a la región</span></div></div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="foot">
-    <span class="pill b">Google for Education Partner</span>
-    <p class="sm">La tecnología sola no transforma: <b>lo hace un ecosistema con acompañamiento humano.</b></p>
   </div>
 </section>
 
 <!-- ═════════ 3 · LA PROPUESTA ═════════
-Aquí se dice POR QUÉ estamos en la reunión: una alianza para construir IA
-educativa con responsabilidad. Los datos aparecen después, como lo que
-conocemos del aula. -->
+El ciclo: el aula → activa (agrega y anonimiza) → aliado de IA → mejores
+herramientas → el aula. Al centro, el propósito.
+MOVIMIENTO: los cuatro nodos entran en el orden del ciclo; dos puntos de luz
+viajan por el aro y el centro respira (decoración en bucle, solo transform y
+opacity; con reducir movimiento quedan quietos). -->
 <section class="slide" data-bloque="propuesta">
-  <span class="shape" style="width:380px;height:380px;left:-195px;bottom:-205px;background:var(--grn-t)"></span>
   <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
   <div class="head">
     <div class="eyebrow g">La propuesta</div>
     <h2>Una alianza para una IA que entienda el aula</h2>
-    <p class="lead">Vemos todos los días cómo se usa la tecnología en más de 100 colegios. Queremos ponerlo al servicio de quien construye IA para la educación.</p>
   </div>
   <div class="body">
-    <div class="grid g3">
-      <div class="card rule b lift" style="justify-content:flex-start">
-        <div class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-laptop"/></svg></div>
-        <h3>Lo que aportamos</h3>
-        <ul class="bens b">
+    <div class="prop">
+      <div class="ciclo" aria-label="El ciclo de la alianza">
+        <svg class="anillo" viewBox="0 0 520 470" aria-hidden="true">
+          <circle class="aro mv-flujo" cx="260" cy="235" r="172"/>
+          <g class="mv-orbita">
+            <circle cx="382" cy="113" r="7" fill="#4285f4"/>
+            <circle cx="138" cy="357" r="7" fill="#34a853"/>
+            <circle cx="382" cy="357" r="5" fill="#ea4335"/>
+            <circle cx="138" cy="113" r="5" fill="#fbbc04"/>
+          </g>
+        </svg>
+        <div class="centro"><span class="mv-halo" aria-hidden="true"></span><b>Una IA que entiende el aula</b></div>
+        <div class="nodo n1 mv-pop" style="--d:.15s"><div class="ctit"><span class="med xs b"><svg aria-hidden="true"><use href="#m-escuela"/></svg></span><b>El aula</b></div><span>Más de 100 colegios usan la tecnología todos los días</span></div>
+        <div class="nodo n2 mv-pop" style="--d:.3s"><div class="ctit"><img src="../../compartidos/img/marcas/activa.webp" alt="activa" style="height:18px"></div><span>Agrega y anonimiza, con la autorización de cada colegio</span></div>
+        <div class="nodo n3 mv-pop" style="--d:.45s"><div class="ctit"><span class="med xs p"><svg aria-hidden="true"><use href="#m-foco"/></svg></span><b>Aliado de IA</b></div><span>Construye y mejora modelos con conocimiento real</span></div>
+        <div class="nodo n4 mv-pop" style="--d:.6s"><div class="ctit"><span class="med xs g"><svg aria-hidden="true"><use href="#m-tendencia"/></svg></span><b>Mejores herramientas</b></div><span>Que vuelven al aula, para docentes y alumnos</span></div>
+      </div>
+      <div class="prop-col grid">
+        <div class="card rule b lift mo-brillo"><span class="med b"><svg aria-hidden="true"><use href="#m-laptop"/></svg></span><div><h3>Lo que aportamos</h3><ul class="bens b">
           <li>Conocimiento real del aula: uso de tecnología, aprendizaje y operación escolar</li>
           <li>Siempre agregado y anonimizado</li>
-          <li>Con la autorización de cada colegio</li>
-        </ul>
-      </div>
-      <div class="card rule g lift" style="justify-content:flex-start">
-        <div class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grupo"/></svg></div>
-        <h3>Lo que buscamos</h3>
-        <ul class="bens g">
+          <li>Con la autorización de cada colegio</li></ul></div></div>
+        <div class="card rule g lift mo-brillo"><span class="med g"><svg aria-hidden="true"><use href="#m-grupo"/></svg></span><div><h3>Lo que buscamos</h3><ul class="bens g">
           <li>Aliados que desarrollen IA para la educación</li>
           <li>Que compartan el cuidado por la privacidad</li>
-          <li>Proyectos concretos, definidos en conjunto</li>
-        </ul>
-      </div>
-      <div class="card rule y lift" style="justify-content:flex-start">
-        <div class="med sm y"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-tendencia"/></svg></div>
-        <h3>Lo que nos mueve</h3>
-        <ul class="bens y">
+          <li>Proyectos concretos, definidos en conjunto</li></ul></div></div>
+        <div class="card rule y lift mo-brillo"><span class="med y"><svg aria-hidden="true"><use href="#m-tendencia"/></svg></span><div><h3>Lo que nos mueve</h3><ul class="bens y">
           <li>Una IA que entienda la realidad educativa de México y la región</li>
           <li>Mejores herramientas para docentes y alumnos</li>
-          <li>Tecnología educativa responsable</li>
-        </ul>
+          <li>Tecnología educativa responsable</li></ul></div></div>
       </div>
     </div>
-  </div>
-  <div class="foot">
-    <span class="pill g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-candado"/></svg>Privacidad primero</span>
-    <p class="sm">Cada colegio <b>autoriza lo que se comparte.</b></p>
-  </div>
-</section>
-
-<!-- ═════════ 4 · ALCANCE ═════════ -->
-<section class="slide" data-bloque="alcance">
-  <span class="shape" style="width:520px;height:520px;right:-200px;top:-200px;background:var(--yel-t)"></span>
-  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
-  <div class="head">
-    <div class="eyebrow y">Alcance</div>
-    <h2>La red que acompañamos hoy</h2>
-    <p class="lead">Colegios que hoy operan con <em class="marca">activa</em>: dispositivos, licencias, plataformas y gestión.</p>
-  </div>
-  <div class="body">
-    <div class="stack" style="gap:16px">
-      <div class="grid g4">
-        <div class="card rule b lift"><div class="stat"><div class="n b">+100</div><div class="l">colegios</div></div></div>
-        <div class="card rule r lift"><div class="stat"><div class="n r">+25,000</div><div class="l">estudiantes</div></div></div>
-        <div class="card rule y lift"><div class="stat"><div class="n y">+5,000</div><div class="l">profesores</div></div></div>
-        <div class="card rule g lift"><div class="stat"><div class="n g">+20,000</div><div class="l">dispositivos activos: Chromebooks y tablets</div></div></div>
-      </div>
-      <div class="card t-b al-region">
-        <div class="med b" style="background:var(--white)"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-globo"/></svg></div>
-        <div><b>México, Centroamérica y el Caribe</b><div class="xs">Todo México, con acceso a otros países de la región.</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="foot">
-    <span class="pill ghost">Cifras de noviembre de 2026</span>
-    <p class="sm">Cada colegio se identifica con <b>un código, sin su nombre.</b></p>
   </div>
 </section>
 
 <!-- ═════════ 4 · PRIVACIDAD PRIMERO ═════════
-CUENTA: head 92 + body 552 · columnas: pad 44 + top 38 + 12 + 6 renglones ≈ 6×38 + 5×9 = 273 → 367; reglas 50 + gap 14 → 431 ✓ -->
+Todo en positivo. La banda oscura cuenta la anonimización: personas → escudo
+→ barras de grupo.
+MOVIMIENTO: cascada de las dos columnas; en la banda, las flechas fluyen, el
+escudo recibe un barrido de luz (decoración) y las barras crecen al entrar. -->
 <section class="slide" data-bloque="privacidad">
   <span class="shape" style="width:380px;height:380px;left:-195px;bottom:-205px;background:var(--grn-t)"></span>
   <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
@@ -571,393 +651,288 @@ CUENTA: head 92 + body 552 · columnas: pad 44 + top 38 + 12 + 6 renglones ≈ 6
     <h2>Datos útiles, con la privacidad primero</h2>
   </div>
   <div class="body">
-    <div class="stack" style="gap:14px">
-      <div class="grid g2">
-        <div class="card lift pv-col">
-          <div class="pv-top"><span class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-check"/></svg></span><h3>Lo que sí compartimos</h3></div>
-          <ul class="pv g">
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-check"/></svg><span><b>Conteos, tendencias y patrones</b> agregados por nivel escolar, región y periodo</span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-check"/></svg><span><b>Indicadores de aprendizaje</b> por grupo, alineados a la NEM</span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-check"/></svg><span><b>Uso de herramientas:</b> equipos, licencias, documentos y plataformas</span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-check"/></svg><span><b>Navegación y aplicaciones</b> por categoría y en conjunto</span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-check"/></svg><span><b>Métricas de operación:</b> soporte, reparaciones, clases y eventos</span></li>
-          </ul>
-        </div>
-        <div class="card lift pv-col">
-          <div class="pv-top"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escudo"/></svg></span><h3>Cómo cuidamos la privacidad</h3></div>
-          <ul class="pv b">
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escudo"/></svg><span><b>Identidades protegidas:</b> nombres, correos, teléfonos y fotos se quedan dentro del colegio</span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escudo"/></svg><span><b>Alumnos en grupo:</b> cada estudiante se cuenta dentro de su grupo, nivel o región</span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escudo"/></svg><span><b>Contenido privado:</b> documentos y mensajes se quedan con sus autores</span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escudo"/></svg><span><b>Navegación en tendencias:</b> cada historial se queda en su colegio</span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escudo"/></svg><span><b>Administración en totales:</b> cobros y pagos como cifras generales</span></li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escudo"/></svg><span><b>Colegios anónimos:</b> cada colegio se identifica con un código</span></li>
-          </ul>
-        </div>
+    <div class="grid g2">
+      <div class="card lift pv-col mo-brillo">
+        <div class="ctit"><span class="med g"><svg aria-hidden="true"><use href="#m-check"/></svg></span><h3>Lo que sí compartimos</h3></div>
+        <ul class="pv g">
+          <li><svg aria-hidden="true"><use href="#m-check"/></svg><span><b>Conteos, tendencias y patrones</b> agregados por nivel escolar, región y periodo</span></li>
+          <li><svg aria-hidden="true"><use href="#m-check"/></svg><span><b>Indicadores de aprendizaje</b> por grupo, alineados a la NEM</span></li>
+          <li><svg aria-hidden="true"><use href="#m-check"/></svg><span><b>Uso de herramientas:</b> equipos, licencias, documentos y plataformas</span></li>
+          <li><svg aria-hidden="true"><use href="#m-check"/></svg><span><b>Navegación y aplicaciones</b> por categoría y en conjunto</span></li>
+          <li><svg aria-hidden="true"><use href="#m-check"/></svg><span><b>Métricas de operación:</b> soporte, reparaciones, clases y eventos</span></li>
+        </ul>
       </div>
-      <div class="reglas">
-        <div class="regla" style="--c:#81c995"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-capas"/></svg><b>Datos agregados por grupo</b></div>
-        <div class="regla" style="--c:#8ab4f8"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-candado"/></svg><b>Anonimizados antes de salir</b></div>
-        <div class="regla" style="--c:#fdd663"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escuela"/></svg><b>Con la autorización de cada colegio</b></div>
+      <div class="card lift pv-col mo-brillo">
+        <div class="ctit"><span class="med b"><svg aria-hidden="true"><use href="#m-escudo"/></svg></span><h3>Cómo cuidamos la privacidad</h3></div>
+        <ul class="pv b">
+          <li><svg aria-hidden="true"><use href="#m-escudo"/></svg><span><b>Identidades protegidas:</b> nombres, correos, teléfonos y fotos se quedan dentro del colegio</span></li>
+          <li><svg aria-hidden="true"><use href="#m-escudo"/></svg><span><b>Alumnos en grupo:</b> cada estudiante se cuenta dentro de su grupo, nivel o región</span></li>
+          <li><svg aria-hidden="true"><use href="#m-escudo"/></svg><span><b>Contenido privado:</b> documentos y mensajes se quedan con sus autores</span></li>
+          <li><svg aria-hidden="true"><use href="#m-escudo"/></svg><span><b>Navegación en tendencias:</b> cada historial se queda en su colegio</span></li>
+          <li><svg aria-hidden="true"><use href="#m-escudo"/></svg><span><b>Colegios anónimos:</b> cada colegio se identifica con un código</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="anon" aria-label="Cómo se anonimiza un dato">
+      <div class="personas" aria-hidden="true">
+        <i><svg><use href="#m-persona"/></svg></i><i><svg><use href="#m-persona"/></svg></i><i><svg><use href="#m-persona"/></svg></i><i><svg><use href="#m-persona"/></svg></i>
+        <i><svg><use href="#m-persona"/></svg></i><i><svg><use href="#m-persona"/></svg></i><i><svg><use href="#m-persona"/></svg></i><i><svg><use href="#m-persona"/></svg></i>
+      </div>
+      <svg class="flecha" viewBox="0 0 64 12" aria-hidden="true"><line class="mv-flujo" x1="2" y1="6" x2="62" y2="6"/></svg>
+      <div class="escudo" aria-hidden="true"><svg><use href="#m-escudo"/></svg><span class="mv-barrido"></span></div>
+      <svg class="flecha" viewBox="0 0 64 12" aria-hidden="true"><line class="mv-flujo" x1="2" y1="6" x2="62" y2="6"/></svg>
+      <div class="barras" aria-hidden="true"><i class="mv-crece" style="--d:.5s"></i><i class="mv-crece" style="--d:.58s"></i><i class="mv-crece" style="--d:.66s"></i><i class="mv-crece" style="--d:.74s"></i></div>
+      <div class="anon-tx">
+        <div style="--c:#81c995"><svg aria-hidden="true"><use href="#m-capas"/></svg>Agregados por grupo</div>
+        <div style="--c:#8ab4f8"><svg aria-hidden="true"><use href="#m-candado"/></svg>Anonimizados antes de salir</div>
+        <div style="--c:#fdd663"><svg aria-hidden="true"><use href="#m-escuela"/></svg>Con la autorización de cada colegio</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═════════ 5 · MAPA DE FUENTES ═════════
-Ocho tarjetas (siete fuentes + herramientas): más de seis, así que la rejilla
-no lleva cascada (tope de la normativa). -->
+<!-- ═════════ 5 · SIETE VENTANAS AL AULA ═════════
+Diagrama radial: el aula al centro y las siete fuentes alrededor, sobre una
+elipse de 430 × 180 con centro en (580, 235).
+MOVIMIENTO: las siete ventanas entran en cascada propia (siete supera el tope
+de seis del motor) y las líneas al centro fluyen (decoración). -->
 <section class="slide" data-bloque="fuentes">
-  <span class="shape" style="width:470px;height:470px;right:-205px;top:-195px;background:var(--blue-t)"></span>
   <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
   <div class="head">
     <div class="eyebrow b">Lo que conocemos del aula</div>
     <h2>Siete ventanas al aula</h2>
-    <p class="lead">Cada una viene de una herramienta que los colegios ya usan todos los días con nosotros.</p>
   </div>
   <div class="body">
-    <div class="grid mapa">
-      <div class="card rule b lift"><div class="top"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-laptop"/></svg></span><span class="num">01</span></div>
-        <h4>Consola · equipos</h4><div class="xs">¿En qué estado está cada Chromebook?</div></div>
-      <div class="card rule b lift"><div class="top"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-doc"/></svg></span><span class="num">02</span></div>
-        <h4>Consola · Workspace</h4><div class="xs">¿Cómo se usan Classroom, Drive y Meet?</div></div>
-      <div class="card rule r lift"><div class="top"><span class="med sm r"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-globo"/></svg></span><span class="num">03</span></div>
-        <h4>Páginas web</h4><div class="xs">¿Qué se consulta en internet para aprender?</div></div>
-      <div class="card rule p lift"><div class="top"><span class="med sm p"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-apps"/></svg></span><span class="num">04</span></div>
-        <h4>Aplicaciones</h4><div class="xs">¿Qué apps se usan en Chromebooks y tablets, y cuánto?</div></div>
-      <div class="card rule y lift"><div class="top"><span class="med sm y"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-llave"/></svg></span><span class="num">05</span></div>
-        <h4>Soporte técnico</h4><div class="xs">¿Qué falla, cuándo y cuánto tarda en resolverse?</div></div>
-      <div class="card rule g lift"><div class="top"><span class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-libro"/></svg></span><span class="num">06</span></div>
-        <h4>Plataformas educativas</h4><div class="xs">¿Qué se enseña y qué se aprende?</div></div>
-      <div class="card rule t lift"><div class="top"><span class="med sm t"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escuela"/></svg></span><span class="num">07</span></div>
-        <h4>Gestión escolar</h4><div class="xs">¿Cómo opera el colegio día a día?</div></div>
-      <div class="card soft" style="justify-content:center;gap:12px">
-        <div class="dx-k">Herramientas</div>
-        <div class="dx-logos">
-          <img src="../../compartidos/img/marcas/google-g.webp" alt="Google" style="height:22px">
-          <img src="../../compartidos/img/marcas/securly.webp" alt="Securly" style="height:20px">
-          <img src="../../compartidos/img/marcas/mobile-guardian.webp" alt="Mobile Guardian" style="height:30px">
-          <img src="../../compartidos/img/marcas/impulsa.webp" alt="impulsa" style="height:18px">
-          <img src="../../compartidos/img/marcas/motiva.webp" alt="motiva" style="height:18px">
-          <img src="../../compartidos/img/marcas/beta.webp" alt="beta" style="height:18px">
-          <img src="../../compartidos/img/marcas/integra.webp" alt="integra" style="height:18px">
+    <div class="radial">
+      <svg class="rayos" viewBox="0 0 1160 470" aria-hidden="true">
+        <line class="mv-flujo" x1="580" y1="235" x2="580" y2="55"/>
+        <line class="mv-flujo" x1="580" y1="235" x2="916" y2="123"/>
+        <line class="mv-flujo" x1="580" y1="235" x2="999" y2="275"/>
+        <line class="mv-flujo" x1="580" y1="235" x2="767" y2="397"/>
+        <line class="mv-flujo" x1="580" y1="235" x2="393" y2="397"/>
+        <line class="mv-flujo" x1="580" y1="235" x2="161" y2="275"/>
+        <line class="mv-flujo" x1="580" y1="235" x2="244" y2="123"/>
+      </svg>
+      <div class="r-centro"><span class="med b"><svg aria-hidden="true"><use href="#m-escuela"/></svg></span><b>El aula</b><span>Lo que pasa todos los días en +100 colegios</span></div>
+      <div class="ventana mv-pop" style="left:580px;top:55px;--c:#1a73e8;--d:.1s"><span class="med xs b"><svg aria-hidden="true"><use href="#m-laptop"/></svg></span><div><b>Consola · equipos</b><span>¿En qué estado está cada Chromebook?</span></div><em class="num">01</em></div>
+      <div class="ventana mv-pop" style="left:916px;top:123px;--c:#1a73e8;--d:.17s"><span class="med xs b"><svg aria-hidden="true"><use href="#m-doc"/></svg></span><div><b>Consola · Workspace</b><span>¿Cómo se usan Classroom, Drive y Meet?</span></div><em class="num">02</em></div>
+      <div class="ventana mv-pop" style="left:999px;top:275px;--c:#ea4335;--d:.24s"><span class="med xs r"><svg aria-hidden="true"><use href="#m-globo"/></svg></span><div><b>Páginas web</b><span>¿Qué se consulta en internet para aprender?</span></div><em class="num">03</em></div>
+      <div class="ventana mv-pop" style="left:767px;top:397px;--c:#7b1fa2;--d:.31s"><span class="med xs p"><svg aria-hidden="true"><use href="#m-apps"/></svg></span><div><b>Aplicaciones</b><span>¿Qué apps se usan en Chromebooks y tablets?</span></div><em class="num">04</em></div>
+      <div class="ventana mv-pop" style="left:393px;top:397px;--c:#f9ab00;--d:.38s"><span class="med xs y"><svg aria-hidden="true"><use href="#m-llave"/></svg></span><div><b>Soporte técnico</b><span>¿Qué falla, cuándo y cuánto tarda en resolverse?</span></div><em class="num">05</em></div>
+      <div class="ventana mv-pop" style="left:161px;top:275px;--c:#34a853;--d:.45s"><span class="med xs g"><svg aria-hidden="true"><use href="#m-libro"/></svg></span><div><b>Plataformas educativas</b><span>¿Qué se enseña y qué se aprende?</span></div><em class="num">06</em></div>
+      <div class="ventana mv-pop" style="left:244px;top:123px;--c:#4db6ac;--d:.52s"><span class="med xs t"><svg aria-hidden="true"><use href="#m-escuela"/></svg></span><div><b>Gestión escolar</b><span>¿Cómo opera el colegio día a día?</span></div><em class="num">07</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 6 · EQUIPOS Y SOPORTE ═════════
+Consola de Google (manual de paginas/consola/, bloques 5.4 y 6.8) + mesa de
+ayuda de activa.
+MOVIMIENTO: la batería se llena, la señal late (decoración), el ticket pasa de
+«Abierto» a «Resuelto» y la barra de atención se completa. Base = terminado. -->
+<section class="slide" data-bloque="equipos">
+  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
+  <div class="head">
+    <div class="eyebrow b">Lo que conocemos · equipos y soporte</div>
+    <h2>Cómo están y cómo se atienden los equipos</h2>
+  </div>
+  <div class="body">
+    <div class="grid eq">
+      <div class="ilus" aria-hidden="true">
+        <svg class="lap" viewBox="0 0 222 150">
+          <rect x="22" y="6" width="178" height="112" rx="10" fill="#202124"/>
+          <rect x="30" y="14" width="162" height="96" rx="5" fill="#fff"/>
+          <rect x="44" y="30" width="62" height="28" rx="6" fill="none" stroke="#5f6368" stroke-width="3"/>
+          <rect x="106" y="38" width="5" height="12" rx="1.5" fill="#5f6368"/>
+          <rect class="mv-bat" x="49" y="35" width="52" height="18" rx="3" fill="#34a853"/>
+          <path class="mv-onda o3" d="M138 58a32 32 0 0 1 44 0" fill="none" stroke="#4285f4" stroke-width="4" stroke-linecap="round"/>
+          <path class="mv-onda o2" d="M146 66a20 20 0 0 1 28 0" fill="none" stroke="#4285f4" stroke-width="4" stroke-linecap="round"/>
+          <circle class="mv-onda" cx="160" cy="74" r="4.5" fill="#4285f4"/>
+          <rect x="44" y="72" width="70" height="7" rx="3.5" fill="#e8f0fe"/>
+          <rect x="44" y="86" width="104" height="7" rx="3.5" fill="#e8f0fe"/>
+          <path d="M6 122h210l-10 16H16z" fill="#bdc1c6"/>
+        </svg>
+        <div class="ticket">
+          <div class="t1">Ticket de soporte
+            <span class="estado"><span class="ab mv-ab">Abierto</span><span class="re mv-re">Resuelto</span></span></div>
+          <div class="tiempo"><i class="mv-crece-x"></i></div>
+          <span class="xs">Tiempo de atención</span>
+        </div>
+        <div class="pie"><b>+20,000</b>dispositivos activos</div>
+      </div>
+      <div class="card lift">
+        <div class="ctit"><span class="med b"><svg aria-hidden="true"><use href="#m-ajustes"/></svg></span><h3>Consola de Google</h3><img class="logo" src="../../compartidos/img/marcas/google-g.webp" alt="Google"></div>
+        <div class="chips"><span class="chip b">Por modelo</span><span class="chip b">Por nivel</span><span class="chip b">Por mes</span></div>
+        <div class="campos">
+          <div class="campo"><span class="med xs b"><svg aria-hidden="true"><use href="#m-laptop"/></svg></span><div><b>Inventario</b><span>Modelo y unidad organizativa de cada equipo</span></div></div>
+          <div class="campo"><span class="med xs b"><svg aria-hidden="true"><use href="#m-ajustes"/></svg></span><div><b>Sistema</b><span>Versión de ChromeOS y fin de actualizaciones</span></div></div>
+          <div class="campo"><span class="med xs b"><svg aria-hidden="true"><use href="#m-grafica"/></svg></span><div><b>Estado del equipo</b><span>Batería, almacenamiento y último acceso</span></div></div>
+          <div class="campo"><span class="med xs b"><svg aria-hidden="true"><use href="#m-globo"/></svg></span><div><b>Red y periféricos</b><span>Registro de red y dispositivos conectados</span></div></div>
+          <div class="campo"><span class="med xs b"><svg aria-hidden="true"><use href="#m-tendencia"/></svg></span><div><b>Salud del hardware</b><span>Telemetría y alertas proactivas de fallo</span></div></div>
+          <div class="campo"><span class="med xs b"><svg aria-hidden="true"><use href="#m-apps"/></svg></span><div><b>Navegador Chrome</b><span>Estado de Chrome y extensiones instaladas</span></div></div>
+        </div>
+      </div>
+      <div class="card lift">
+        <div class="ctit"><span class="med y"><svg aria-hidden="true"><use href="#m-llave"/></svg></span><h3>Mesa de ayuda</h3><img class="logo" src="../../compartidos/img/marcas/activa.webp" alt="activa"></div>
+        <div class="chips"><span class="chip y">Por modelo</span><span class="chip y">Por tipo</span><span class="chip y">Por mes</span></div>
+        <div class="campos">
+          <div class="campo"><span class="med xs y"><svg aria-hidden="true"><use href="#m-laptop"/></svg></span><div><b>Parque activo</b><span>Chromebooks y tablets por modelo</span></div></div>
+          <div class="campo"><span class="med xs y"><svg aria-hidden="true"><use href="#m-doc"/></svg></span><div><b>Tickets de soporte</b><span>Cuántos y de qué tipo de incidencia</span></div></div>
+          <div class="campo"><span class="med xs y"><svg aria-hidden="true"><use href="#m-reloj"/></svg></span><div><b>Tiempos de atención</b><span>De la apertura del ticket a la solución</span></div></div>
+          <div class="campo"><span class="med xs y"><svg aria-hidden="true"><use href="#m-llave"/></svg></span><div><b>Reparaciones</b><span>Por modelo y por tipo de pieza</span></div></div>
+          <div class="campo"><span class="med xs y"><svg aria-hidden="true"><use href="#m-capas"/></svg></span><div><b>Reemplazos</b><span>Equipos sustituidos desde el stock</span></div></div>
+          <div class="campo"><span class="med xs y"><svg aria-hidden="true"><use href="#m-calendario"/></svg></span><div><b>Temporadas</b><span>Incidencias por mes del ciclo escolar</span></div></div>
         </div>
       </div>
     </div>
   </div>
-</section>
-
-<!-- ═════════ 6 · CONSOLA · EQUIPOS ═════════
-Patrón de las láminas de datos (6 a 12):
-· izquierda: «Lo que conocemos», seis mosaicos de dos renglones
-· derecha: «Cómo se comparte» + de dónde sale
-CUENTA: head 126 + foot 43 · split 475 · izquierda: tit 38 + 3 filas × 72 + 2×10 = 274 + pad 52 → 364 ✓
-Campos tomados del manual de la consola (paginas/consola/, bloques 5.4 y 6.8). -->
-<section class="slide" data-bloque="consola">
-  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
-  <div class="head">
-    <div class="eyebrow b">01 · Consola de Google · equipos</div>
-    <h2>El estado de cada Chromebook</h2>
-    <p class="lead">Informes que la Consola de administración genera de los equipos administrados.</p>
-  </div>
-  <div class="split wide-l">
-    <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-laptop"/></svg></span><h4>Lo que conocemos</h4></div>
-      <div class="tiles b">
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-laptop"/></svg></span><div class="tx"><h5>Inventario</h5><div class="td">Modelo de cada equipo y su unidad organizativa (nivel o grupo)</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-ajustes"/></svg></span><div class="tx"><h5>Sistema</h5><div class="td">Versión de ChromeOS y fecha de fin de actualizaciones automáticas</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grafica"/></svg></span><div class="tx"><h5>Estado del equipo</h5><div class="td">Batería, almacenamiento y último acceso</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-globo"/></svg></span><div class="tx"><h5>Red y periféricos</h5><div class="td">Registro de red y de dispositivos conectados</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-tendencia"/></svg></span><div class="tx"><h5>Salud del hardware</h5><div class="td">Telemetría y alertas proactivas de fallo</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-apps"/></svg></span><div class="tx"><h5>Navegador Chrome</h5><div class="td">Estado de Chrome y extensiones instaladas</div></div></div>
-      </div>
-    </div>
-    <div class="stack">
-      <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
-        <ul class="bens b">
-          <li>Por <b>modelo</b>, nivel escolar y región</li>
-          <li>Por <b>mes</b> o ciclo escolar</li>
-          <li>Conteos y porcentajes del parque de equipos</li>
-          <li>Cada colegio con <b>un código</b>, sin su nombre</li>
-        </ul>
-      </div>
-      <div class="card soft dx-card">
-        <div class="dx-k">De dónde sale</div>
-        <div class="dx-logos"><span class="wk"><img src="../../compartidos/img/marcas/google-g.webp" alt="">Consola de administración</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="foot">
-    <div class="ejebar" style="--c:var(--blue)"><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><em>Fuente 1 de 7</em></div>
-    <p class="sm">Más de <b>20,000 dispositivos activos.</b></p>
+  <div class="comp">
+    <b>Cómo se comparte</b>
+    <span class="it" style="--c:#81c995"><svg aria-hidden="true"><use href="#m-capas"/></svg>Conteos y promedios por grupo</span>
+    <span class="it" style="--c:#8ab4f8"><svg aria-hidden="true"><use href="#m-candado"/></svg>Cada colegio con un código, sin su nombre</span>
+    <span class="it" style="--c:#fdd663"><svg aria-hidden="true"><use href="#m-escuela"/></svg>Con la autorización de cada colegio</span>
   </div>
 </section>
 
-<!-- ═════════ 7 · CONSOLA · WORKSPACE ═════════ -->
-<section class="slide" data-bloque="consola">
+<!-- ═════════ 7 · USO DIGITAL EN EL AULA ═════════
+Workspace (Consola), páginas web (filtro de contenido: la Consola no guarda
+historial en la edición de los colegios) y aplicaciones (Mobile Guardian).
+MOVIMIENTO: cascada de las tres tarjetas; en cada cabecera, una mini
+ilustración: barras que crecen, chips de categoría que entran y apps que
+aparecen. Las barras no llevan cifras. -->
+<section class="slide" data-bloque="uso">
   <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
   <div class="head">
-    <div class="eyebrow b">02 · Consola de Google · Workspace</div>
-    <h2>Cómo se usa Google Workspace</h2>
-    <p class="lead">Informes de uso de Google Workspace for Education en la cuenta de cada colegio.</p>
+    <div class="eyebrow r">Lo que conocemos · uso digital</div>
+    <h2>Cómo se usan la tecnología e internet en el aula</h2>
   </div>
-  <div class="split wide-l">
-    <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-doc"/></svg></span><h4>Lo que conocemos</h4></div>
-      <div class="tiles b">
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escuela"/></svg></span><div class="tx"><h5>Classroom</h5><div class="td">Clases activas, publicaciones y tareas</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-doc"/></svg></span><div class="tx"><h5>Drive y Documentos</h5><div class="td">Archivos creados, editados y compartidos</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grupo"/></svg></span><div class="tx"><h5>Meet</h5><div class="td">Reuniones y minutos de videollamada</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grupo"/></svg></span><div class="tx"><h5>Cuentas activas</h5><div class="td">Alumnos y docentes activos por periodo</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-check"/></svg></span><div class="tx"><h5>Licencias</h5><div class="td">Asignadas y en uso, por edición de Workspace</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-reloj"/></svg></span><div class="tx"><h5>Acceso</h5><div class="td">Frecuencia y horario de inicio de sesión, en conteos</div></div></div>
-      </div>
-    </div>
-    <div class="stack">
-      <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
-        <ul class="bens b">
-          <li>Por <b>aplicación</b>, nivel escolar, región y mes</li>
-          <li>Conteos y promedios <b>por grupo</b></li>
-          <li>Comparables entre ciclos escolares</li>
-          <li>Cada colegio con <b>un código</b>, sin su nombre</li>
-        </ul>
-      </div>
-      <div class="card soft dx-card">
-        <div class="dx-k">De dónde sale</div>
-        <div class="dx-logos"><span class="wk"><img src="../../compartidos/img/marcas/google-g.webp" alt="">Workspace for Education</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="foot">
-    <div class="ejebar" style="--c:var(--blue)"><span class="seg"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><em>Fuente 2 de 7</em></div>
-    <p class="sm">De los <b>+5,000 profesores</b> y <b>+25,000 estudiantes.</b></p>
-  </div>
-</section>
-
-<!-- ═════════ 8 · PÁGINAS WEB ═════════
-La navegación sale del filtro de contenido: la Consola de Google no guarda el
-historial de navegación en la edición de los colegios (manual de la consola, 6.8). -->
-<section class="slide" data-bloque="navegacion">
-  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
-  <div class="head">
-    <div class="eyebrow r">03 · Páginas web</div>
-    <h2>Qué se consulta en internet para aprender</h2>
-    <p class="lead">El filtro de contenido cuida la navegación de los alumnos y muestra, en tendencias, qué se consulta.</p>
-  </div>
-  <div class="split wide-l">
-    <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm r"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-globo"/></svg></span><h4>Lo que conocemos</h4></div>
-      <div class="tiles r">
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-capas"/></svg></span><div class="tx"><h5>Categorías de sitios</h5><div class="td">Educación, referencia, video, productividad y más</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grafica"/></svg></span><div class="tx"><h5>Sitios más visitados</h5><div class="td">Los dominios más consultados por el conjunto de alumnos</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-reloj"/></svg></span><div class="tx"><h5>Horario</h5><div class="td">Navegación dentro y fuera del horario escolar</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escuela"/></svg></span><div class="tx"><h5>Por nivel escolar</h5><div class="td">Primaria, secundaria y bachillerato</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escudo"/></svg></span><div class="tx"><h5>Uso responsable</h5><div class="td">Contenido filtrado por categoría, como señal de navegación segura</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-tendencia"/></svg></span><div class="tx"><h5>Tendencias</h5><div class="td">Cambios por mes y a lo largo del ciclo escolar</div></div></div>
-      </div>
-    </div>
-    <div class="stack">
-      <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
-        <ul class="bens r">
-          <li>Por <b>categoría</b> y por dominio público</li>
-          <li>Por nivel escolar, región y mes</li>
-          <li>Siempre <b>en conjunto</b>, por grupos de alumnos</li>
-          <li>Cada colegio con <b>un código</b>, sin su nombre</li>
-        </ul>
-      </div>
-      <div class="card soft dx-card">
-        <div class="dx-k">De dónde sale</div>
-        <div class="dx-logos">
-          <img src="../../compartidos/img/marcas/securly.webp" alt="Securly">
-          <img class="mg" src="../../compartidos/img/marcas/mobile-guardian.webp" alt="Mobile Guardian">
+  <div class="body">
+    <div class="grid g3 uso">
+      <div class="card rule b lift">
+        <div class="ctit"><span class="med b"><svg aria-hidden="true"><use href="#m-doc"/></svg></span><h3>Google Workspace</h3><img class="logo" src="../../compartidos/img/marcas/google-g.webp" alt="Google"></div>
+        <div class="mini" aria-hidden="true">
+          <div class="bar"><i class="mv-crece" style="height:44px;background:#4285f4;--d:.3s"></i><em>Classroom</em></div>
+          <div class="bar"><i class="mv-crece" style="height:36px;background:#34a853;--d:.38s"></i><em>Drive</em></div>
+          <div class="bar"><i class="mv-crece" style="height:22px;background:#fbbc04;--d:.46s"></i><em>Meet</em></div>
+          <div class="bar"><i class="mv-crece" style="height:30px;background:#ea4335;--d:.54s"></i><em>Docs</em></div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="foot">
-    <div class="ejebar" style="--c:var(--red)"><span class="seg"></span><span class="seg"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><em>Fuente 3 de 7</em></div>
-    <p class="sm">Navegación de <b>Chromebooks y tablets</b> administradas.</p>
-  </div>
-</section>
-
-<!-- ═════════ 9 · APLICACIONES ═════════ -->
-<section class="slide" data-bloque="apps">
-  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
-  <div class="head">
-    <div class="eyebrow p">04 · Aplicaciones</div>
-    <h2>Las apps que se usan en Chromebooks y tablets</h2>
-    <p class="lead">Qué aplicaciones y extensiones se usan en el aula, cuánto tiempo y en qué momento.</p>
-  </div>
-  <div class="split wide-l">
-    <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm p"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-apps"/></svg></span><h4>Lo que conocemos</h4></div>
-      <div class="tiles p">
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grafica"/></svg></span><div class="tx"><h5>Apps más usadas</h5><div class="td">Ranking de aplicaciones por nivel escolar</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-reloj"/></svg></span><div class="tx"><h5>Tiempo de uso</h5><div class="td">Minutos por app y por categoría: educativas, productividad, creatividad</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-apps"/></svg></span><div class="tx"><h5>Extensiones de Chrome</h5><div class="td">Instaladas y activas en los equipos</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-capas"/></svg></span><div class="tx"><h5>Apps instaladas</h5><div class="td">Catálogo de aplicaciones por nivel y por tipo de equipo</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-calendario"/></svg></span><div class="tx"><h5>Momento de uso</h5><div class="td">Dentro y fuera del horario de clase</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-laptop"/></svg></span><div class="tx"><h5>Tiempo de pantalla</h5><div class="td">Promedio diario por nivel escolar</div></div></div>
-      </div>
-    </div>
-    <div class="stack">
-      <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
-        <ul class="bens p">
-          <li><b>Rankings y promedios</b> por nivel, región y mes</li>
-          <li>Tiempos de uso <b>por grupo</b></li>
-          <li>Por categoría de aplicación</li>
-          <li>Cada colegio con <b>un código</b>, sin su nombre</li>
-        </ul>
-      </div>
-      <div class="card soft dx-card">
-        <div class="dx-k">De dónde sale</div>
-        <div class="dx-logos">
-          <img class="mg" src="../../compartidos/img/marcas/mobile-guardian.webp" alt="Mobile Guardian">
-          <span class="wk"><img src="../../compartidos/img/marcas/google-g.webp" alt="">Consola</span>
+        <div class="campos">
+          <div class="campo"><div><b>Classroom</b><span>Clases activas, publicaciones y tareas</span></div></div>
+          <div class="campo"><div><b>Drive y Documentos</b><span>Archivos creados, editados y compartidos</span></div></div>
+          <div class="campo"><div><b>Meet</b><span>Reuniones y minutos de videollamada</span></div></div>
+          <div class="campo"><div><b>Cuentas y licencias</b><span>Usuarios activos y licencias en uso</span></div></div>
         </div>
+        <div class="chips"><span class="chip b">Por aplicación</span><span class="chip b">Por nivel</span><span class="chip b">Por mes</span></div>
+      </div>
+      <div class="card rule r lift">
+        <div class="ctit"><span class="med r"><svg aria-hidden="true"><use href="#m-globo"/></svg></span><h3>Páginas web</h3><span class="logos"><img src="../../compartidos/img/marcas/securly.webp" alt="Securly"><img src="../../compartidos/img/marcas/mobile-guardian.webp" alt="Mobile Guardian" style="height:24px"></span></div>
+        <div class="mini nav-mini" aria-hidden="true">
+          <div class="barra"><i></i><i></i><i></i><s></s></div>
+          <div class="cats">
+            <span class="chip b mv-chip" style="--d:.3s">Educación</span><span class="chip g mv-chip" style="--d:.38s">Referencia</span>
+            <span class="chip r mv-chip" style="--d:.46s">Video</span><span class="chip y mv-chip" style="--d:.54s">Productividad</span>
+          </div>
+        </div>
+        <div class="campos">
+          <div class="campo"><div><b>Categorías de sitios</b><span>Qué tipo de contenido se consulta</span></div></div>
+          <div class="campo"><div><b>Sitios más visitados</b><span>Dominios más consultados, en conjunto</span></div></div>
+          <div class="campo"><div><b>Horario</b><span>Dentro y fuera del horario escolar</span></div></div>
+          <div class="campo"><div><b>Uso responsable</b><span>Contenido filtrado por categoría</span></div></div>
+        </div>
+        <div class="chips"><span class="chip r">Por categoría</span><span class="chip r">Por nivel</span><span class="chip r">Por mes</span></div>
+      </div>
+      <div class="card rule p lift">
+        <div class="ctit"><span class="med p"><svg aria-hidden="true"><use href="#m-apps"/></svg></span><h3>Aplicaciones</h3><img class="logo" src="../../compartidos/img/marcas/mobile-guardian.webp" alt="Mobile Guardian" style="height:26px"></div>
+        <div class="mini apps-mini" aria-hidden="true">
+          <i class="mv-app" style="background:#4285f4;--d:.3s"><svg><use href="#m-doc"/></svg></i>
+          <i class="mv-app" style="background:#34a853;--d:.36s"><svg><use href="#m-calc"/></svg></i>
+          <i class="mv-app" style="background:#ea4335;--d:.42s"><svg><use href="#m-video"/></svg></i>
+          <i class="mv-app" style="background:#fbbc04;--d:.48s"><svg><use href="#m-pincel"/></svg></i>
+          <i class="mv-app" style="background:#7b1fa2;--d:.54s"><svg><use href="#m-musica"/></svg></i>
+          <i class="mv-app" style="background:#00796b;--d:.6s"><svg><use href="#m-libro"/></svg></i>
+          <i class="mv-app" style="background:#202124;--d:.66s"><svg class="mv-late"><use href="#m-reloj"/></svg></i>
+        </div>
+        <div class="campos">
+          <div class="campo"><div><b>Apps más usadas</b><span>Ranking de aplicaciones por nivel</span></div></div>
+          <div class="campo"><div><b>Tiempo de uso</b><span>Por app y por categoría de aplicación</span></div></div>
+          <div class="campo"><div><b>Extensiones de Chrome</b><span>Instaladas y activas en los equipos</span></div></div>
+          <div class="campo"><div><b>Momento de uso</b><span>Dentro y fuera del horario de clase</span></div></div>
+        </div>
+        <div class="chips"><span class="chip p">Por app</span><span class="chip p">Por nivel</span><span class="chip p">Por mes</span></div>
       </div>
     </div>
   </div>
-  <div class="foot">
-    <div class="ejebar" style="--c:var(--plum)"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><em>Fuente 4 de 7</em></div>
-    <p class="sm">En <b>Chromebooks y tablets</b> de uso escolar.</p>
+  <div class="comp">
+    <b>Cómo se comparte</b>
+    <span class="it" style="--c:#81c995"><svg aria-hidden="true"><use href="#m-capas"/></svg>Siempre en conjunto, por grupos de alumnos</span>
+    <span class="it" style="--c:#8ab4f8"><svg aria-hidden="true"><use href="#m-candado"/></svg>Cada colegio con un código, sin su nombre</span>
+    <span class="it" style="--c:#fdd663"><svg aria-hidden="true"><use href="#m-escuela"/></svg>Con la autorización de cada colegio</span>
   </div>
 </section>
 
-<!-- ═════════ 10 · SOPORTE TÉCNICO ═════════ -->
-<section class="slide" data-bloque="soporte">
-  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
-  <div class="head">
-    <div class="eyebrow y">05 · Dispositivos y soporte</div>
-    <h2>+20,000 equipos en operación y su soporte</h2>
-    <p class="lead">Lo que registra la mesa de ayuda de <em class="marca">activa</em> en cada atención y reparación.</p>
-  </div>
-  <div class="split wide-l">
-    <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm y"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-llave"/></svg></span><h4>Lo que conocemos</h4></div>
-      <div class="tiles y">
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-laptop"/></svg></span><div class="tx"><h5>Parque activo</h5><div class="td">Chromebooks y tablets por modelo</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-doc"/></svg></span><div class="tx"><h5>Tickets de soporte</h5><div class="td">Por tipo de incidencia</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-reloj"/></svg></span><div class="tx"><h5>Tiempos de atención</h5><div class="td">De la apertura del ticket a la solución</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-llave"/></svg></span><div class="tx"><h5>Reparaciones</h5><div class="td">Por modelo y por tipo de pieza</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-capas"/></svg></span><div class="tx"><h5>Reemplazos</h5><div class="td">Equipos sustituidos desde el stock</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-calendario"/></svg></span><div class="tx"><h5>Temporadas</h5><div class="td">Incidencias por mes del ciclo escolar</div></div></div>
-      </div>
-    </div>
-    <div class="stack">
-      <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
-        <ul class="bens y">
-          <li>Por <b>modelo</b>, tipo de incidencia y mes</li>
-          <li>Conteos y <b>tiempos promedio</b></li>
-          <li>Por nivel escolar y región</li>
-          <li>Cada colegio con <b>un código</b>, sin su nombre</li>
-        </ul>
-      </div>
-      <div class="card soft dx-card">
-        <div class="dx-k">De dónde sale</div>
-        <div class="dx-logos"><img src="../../compartidos/img/marcas/activa.webp" alt="activa" style="height:22px"><span class="xs">Mesa de ayuda y taller</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="foot">
-    <div class="ejebar" style="--c:var(--yel)"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span><em>Fuente 5 de 7</em></div>
-    <p class="sm">Datos de <b>reparaciones y tickets</b> de soporte.</p>
-  </div>
-</section>
-
-<!-- ═════════ 11 · PLATAFORMAS EDUCATIVAS ═════════ -->
+<!-- ═════════ 8 · APRENDIZAJE Y VIDA ESCOLAR ═════════
+Plataformas educativas (impulsa, motiva, beta) y gestión escolar (integra).
+MOVIMIENTO: cascada de las dos tarjetas; los anillos de avance se trazan (son
+ilustración: no llevan porcentajes) y los eventos aparecen en la línea del
+ciclo escolar. -->
 <section class="slide" data-bloque="aprendizaje">
   <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
   <div class="head">
-    <div class="eyebrow g">06 · Plataformas educativas</div>
-    <h2>Qué se enseña y qué se aprende</h2>
-    <p class="lead">Las plataformas propias de <em class="marca">activa</em> registran lo que pasa en clase, alineado a la NEM.</p>
+    <div class="eyebrow g">Lo que conocemos · aprendizaje y vida escolar</div>
+    <h2>Qué se aprende y cómo vive el colegio</h2>
   </div>
-  <div class="split wide-l">
-    <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-libro"/></svg></span><h4>Lo que conocemos</h4></div>
-      <div class="tiles g">
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-libro"/></svg></span><div class="tx"><h5>Temas en clase</h5><div class="td">Proyectos y temas que se trabajan por grado</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-tendencia"/></svg></span><div class="tx"><h5>Aprendizajes</h5><div class="td">Lo que van logrando los alumnos, por grupo</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-capas"/></svg></span><div class="tx"><h5>Marco de la NEM</h5><div class="td">Campos formativos, ejes articuladores e indicadores</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-globo"/></svg></span><div class="tx"><h5>Inglés</h5><div class="td">Avance por fase, alineado al Marco Común Europeo</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grupo"/></svg></span><div class="tx"><h5>Participación</h5><div class="td">Actividad de cada grupo en las plataformas</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grafica"/></svg></span><div class="tx"><h5>Próximamente</h5><div class="td">Indicadores de aprendizaje más avanzados</div></div></div>
-      </div>
-    </div>
-    <div class="stack">
-      <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
-        <ul class="bens g">
-          <li>Por <b>grado</b>, campo formativo y periodo</li>
-          <li>Promedios y avances <b>por grupo</b></li>
-          <li>Por región</li>
-          <li>Cada colegio con <b>un código</b>, sin su nombre</li>
-        </ul>
-      </div>
-      <div class="card soft dx-card">
-        <div class="dx-k">De dónde sale</div>
-        <div class="dx-logos">
-          <img src="../../compartidos/img/marcas/impulsa.webp" alt="impulsa" style="height:20px">
-          <img src="../../compartidos/img/marcas/motiva.webp" alt="motiva" style="height:20px">
-          <img src="../../compartidos/img/marcas/beta.webp" alt="beta" style="height:20px">
+  <div class="body">
+    <div class="grid g2">
+      <div class="card rule g lift">
+        <div class="ctit"><span class="med g"><svg aria-hidden="true"><use href="#m-libro"/></svg></span><h3>Plataformas educativas</h3><span class="logos"><img src="../../compartidos/img/marcas/impulsa.webp" alt="impulsa"><img src="../../compartidos/img/marcas/motiva.webp" alt="motiva"><img src="../../compartidos/img/marcas/beta.webp" alt="beta"></span></div>
+        <div class="anillos" aria-hidden="true">
+          <div><svg viewBox="0 0 40 40"><circle class="fondo" cx="20" cy="20" r="15.9"/><circle class="mv-arco" cx="20" cy="20" r="15.9" pathLength="100" stroke="#4285f4" stroke-dasharray="74 100" style="--d:.3s"/></svg><em>Temas</em></div>
+          <div><svg viewBox="0 0 40 40"><circle class="fondo" cx="20" cy="20" r="15.9"/><circle class="mv-arco" cx="20" cy="20" r="15.9" pathLength="100" stroke="#34a853" stroke-dasharray="62 100" style="--d:.42s"/></svg><em>Aprendizajes</em></div>
+          <div><svg viewBox="0 0 40 40"><circle class="fondo" cx="20" cy="20" r="15.9"/><circle class="mv-arco" cx="20" cy="20" r="15.9" pathLength="100" stroke="#ea4335" stroke-dasharray="83 100" style="--d:.54s"/></svg><em>Inglés</em></div>
+          <div><svg viewBox="0 0 40 40"><circle class="fondo" cx="20" cy="20" r="15.9"/><circle class="mv-arco" cx="20" cy="20" r="15.9" pathLength="100" stroke="#fbbc04" stroke-dasharray="55 100" style="--d:.66s"/></svg><em>Participación</em></div>
         </div>
+        <div class="campos dos">
+          <div class="campo"><div><b>Temas en clase</b><span>Proyectos y temas por grado</span></div></div>
+          <div class="campo"><div><b>Aprendizajes</b><span>Lo que van logrando, por grupo</span></div></div>
+          <div class="campo"><div><b>Marco de la NEM</b><span>Campos formativos, ejes e indicadores</span></div></div>
+          <div class="campo"><div><b>Inglés</b><span>Avance por fase del Marco Común Europeo</span></div></div>
+        </div>
+        <div class="chips"><span class="chip g">Por grado</span><span class="chip g">Por campo formativo</span><span class="chip g">Por periodo</span><span class="chip y">Próximamente: indicadores más avanzados</span></div>
+      </div>
+      <div class="card rule t lift">
+        <div class="ctit"><span class="med t"><svg aria-hidden="true"><use href="#m-escuela"/></svg></span><h3>Gestión escolar</h3><img class="logo" src="../../compartidos/img/marcas/integra.webp" alt="integra"></div>
+        <div class="ciclo-esc" aria-hidden="true">
+          <div class="linea">
+            <i class="mv-pin" style="left:4%;background:#4285f4;--d:.3s"></i>
+            <i class="mv-pin" style="left:22%;background:#34a853;--d:.38s"></i>
+            <i class="mv-pin" style="left:38%;background:#fbbc04;--d:.46s"></i>
+            <i class="mv-pin" style="left:55%;background:#ea4335;--d:.54s"></i>
+            <i class="mv-pin" style="left:71%;background:#7b1fa2;--d:.62s"></i>
+            <i class="mv-pin" style="left:88%;background:#00796b;--d:.7s"></i>
+          </div>
+          <div class="meses"><span>AGO</span><span>SEP</span><span>OCT</span><span>NOV</span><span>DIC</span><span>ENE</span><span>FEB</span><span>MAR</span><span>ABR</span><span>MAY</span><span>JUN</span></div>
+        </div>
+        <div class="campos dos">
+          <div class="campo"><div><b>Comunidad</b><span>Número de estudiantes y maestros</span></div></div>
+          <div class="campo"><div><b>Clases y horarios</b><span>Organización académica por nivel</span></div></div>
+          <div class="campo"><div><b>Vida escolar</b><span>Extracurriculares y eventos del ciclo</span></div></div>
+          <div class="campo"><div><b>Comunicación</b><span>Avisos a padres de familia, por tipo</span></div></div>
+        </div>
+        <div class="chips"><span class="chip t">Por nivel</span><span class="chip t">Por mes</span><span class="chip t">Administración en cifras generales</span></div>
       </div>
     </div>
   </div>
-  <div class="foot">
-    <div class="ejebar" style="--c:var(--grn-l)"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg on"></span><span class="seg"></span><em>Fuente 6 de 7</em></div>
-    <p class="sm">Alineado a la <b>Nueva Escuela Mexicana.</b></p>
+  <div class="comp">
+    <b>Cómo se comparte</b>
+    <span class="it" style="--c:#81c995"><svg aria-hidden="true"><use href="#m-capas"/></svg>Promedios y avances por grupo</span>
+    <span class="it" style="--c:#8ab4f8"><svg aria-hidden="true"><use href="#m-candado"/></svg>Cada colegio con un código, sin su nombre</span>
+    <span class="it" style="--c:#fdd663"><svg aria-hidden="true"><use href="#m-escuela"/></svg>Con la autorización de cada colegio</span>
   </div>
 </section>
 
-<!-- ═════════ 12 · GESTIÓN ESCOLAR ═════════ -->
-<section class="slide" data-bloque="gestion">
-  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
-  <div class="head">
-    <div class="eyebrow t">07 · Gestión escolar</div>
-    <h2>Cómo opera el colegio día a día</h2>
-    <p class="lead">El sistema de gestión escolar reúne la logística, la academia, la comunicación y la administración.</p>
-  </div>
-  <div class="split wide-l">
-    <div class="card lift dx-card">
-      <div class="dx-tit"><span class="med sm t"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escuela"/></svg></span><h4>Lo que conocemos</h4></div>
-      <div class="tiles t">
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grupo"/></svg></span><div class="tx"><h5>Comunidad</h5><div class="td">Número de estudiantes y maestros</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-calendario"/></svg></span><div class="tx"><h5>Clases y horarios</h5><div class="td">Organización académica de cada nivel</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-tendencia"/></svg></span><div class="tx"><h5>Vida escolar</h5><div class="td">Actividades extracurriculares y eventos</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-aviso"/></svg></span><div class="tx"><h5>Comunicación</h5><div class="td">Volumen de avisos a padres de familia, por tipo</div></div></div>
-        <div class="tile ancho"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grafica"/></svg></span><div class="tx"><h5>Administración</h5><div class="td">Cobros y pagos, reportados como cifras generales</div></div></div>
-      </div>
-    </div>
-    <div class="stack">
-      <div class="card t-b dx-card">
-        <div class="dx-tit"><h4>Cómo se comparte</h4></div>
-        <ul class="bens t">
-          <li>Totales y promedios por <b>nivel</b>, región y mes</li>
-          <li>Montos administrativos <b>en cifras generales</b></li>
-          <li>Comparables entre ciclos escolares</li>
-          <li>Cada colegio con <b>un código</b>, sin su nombre</li>
-        </ul>
-      </div>
-      <div class="card soft dx-card">
-        <div class="dx-k">De dónde sale</div>
-        <div class="dx-logos"><img src="../../compartidos/img/marcas/integra.webp" alt="integra" style="height:22px"></div>
-      </div>
-    </div>
-  </div>
-  <div class="foot">
-    <div class="ejebar" style="--c:var(--teal)"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg on"></span><em>Fuente 7 de 7</em></div>
-    <p class="sm">Logística, academia, comunicación y administración.</p>
-  </div>
-</section>
-
-<!-- ═════════ 13 · 2027 ═════════ -->
+<!-- ═════════ 9 · 2027 ═════════
+MOVIMIENTO: la línea de tendencia se dibuja bajo el «2027» y los tres hitos
+entran en cascada. -->
 <section class="slide" data-bloque="futuro">
   <span class="shape" style="width:470px;height:470px;right:-205px;bottom:-215px;background:var(--blue-t)"></span>
   <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
@@ -966,18 +941,28 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
     <h2>Lo que viene en 2027</h2>
   </div>
   <div class="body">
-    <div class="split" style="flex:0 0 auto;grid-template-columns:auto 1fr;align-items:center;gap:56px">
-      <div class="c-anio" aria-hidden="true">2027</div>
-      <div class="grid" style="gap:12px">
-        <div class="card lift pad-s" style="flex-direction:row;align-items:center;justify-content:flex-start;gap:14px"><span class="med sm b"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-tendencia"/></svg></span><div><b>Nuevas implementaciones y capacidades</b><div class="xs">Programadas para el próximo año</div></div></div>
-        <div class="card lift pad-s" style="flex-direction:row;align-items:center;justify-content:flex-start;gap:14px"><span class="med sm g"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-grafica"/></svg></span><div><b>Indicadores de aprendizaje más avanzados</b><div class="xs">En las plataformas educativas</div></div></div>
-        <div class="card lift pad-s" style="flex-direction:row;align-items:center;justify-content:flex-start;gap:14px"><span class="med sm y"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-escuela"/></svg></span><div><b>Más datos disponibles</b><div class="xs">Conforme crece la red de colegios</div></div></div>
+    <div class="fut">
+      <div class="f-izq">
+        <div class="c-anio" aria-hidden="true">2027</div>
+        <svg viewBox="0 0 430 120" aria-hidden="true">
+          <defs><linearGradient id="gArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4285f4" stop-opacity=".35"/><stop offset="1" stop-color="#4285f4" stop-opacity="0"/></linearGradient></defs>
+          <path class="area" d="M6 104 L90 88 L170 92 L250 62 L330 48 L420 14 L420 118 L6 118 Z"/>
+          <path class="tend mv-traza" pathLength="100" d="M6 104 L90 88 L170 92 L250 62 L330 48 L420 14"/>
+          <circle class="punto" cx="420" cy="14" r="7"/>
+        </svg>
+      </div>
+      <div class="hitos grid">
+        <div class="card lift mo-brillo"><span class="med b"><svg aria-hidden="true"><use href="#m-tendencia"/></svg></span><div><b>Nuevas implementaciones y capacidades</b><span>Programadas para el próximo año</span></div></div>
+        <div class="card lift mo-brillo"><span class="med g"><svg aria-hidden="true"><use href="#m-grafica"/></svg></span><div><b>Indicadores de aprendizaje más avanzados</b><span>En las plataformas educativas</span></div></div>
+        <div class="card lift mo-brillo"><span class="med y"><svg aria-hidden="true"><use href="#m-escuela"/></svg></span><div><b>Más conocimiento del aula</b><span>Conforme crece la red de colegios</span></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═════════ 14 · CIERRE ═════════ Sin datos de contacto, a pedido. -->
+<!-- ═════════ 10 · CIERRE ═════════ Sin datos de contacto, a pedido.
+MOVIMIENTO: los círculos siguen al cursor. Sin red de partículas: al centro,
+detrás del texto, una partícula cercana se leía como un manchón. -->
 <section class="slide cover" data-bloque="cierre">
   <span class="shape" style="width:560px;height:560px;left:-215px;top:-230px;background:var(--grn-t)"></span>
   <span class="shape" style="width:320px;height:320px;right:-150px;bottom:-165px;background:var(--blue-t)"></span>
@@ -988,8 +973,8 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
       <img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner">
     </div>
     <h1 class="p1-h1" style="margin-top:30px">Gracias</h1>
-    <p class="lead" style="margin-top:18px;max-width:none">Construyamos juntos una IA que entienda la educación.</p>
-    <span class="p1-sello"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#m-candado"/></svg>Con la privacidad primero y la autorización de cada colegio</span>
+    <p class="p1-lead" style="margin-top:16px;max-width:none">Construyamos juntos una IA que entienda la educación.</p>
+    <span class="p1-sello"><svg aria-hidden="true"><use href="#m-candado"/></svg>Con la privacidad primero y la autorización de cada colegio</span>
   </div>
 </section>
 
@@ -1001,12 +986,13 @@ historial de navegación en la edición de los colegios (manual de la consola, 6
   <span id="bloque"></span>
   <button id="bPrev" class="mo-hover-eleva mo-hover-hunde" aria-label="Diapositiva anterior" title="Anterior (←)">‹</button>
   <button id="bNext" class="mo-hover-eleva mo-hover-hunde" aria-label="Diapositiva siguiente" title="Siguiente (→)">›</button>
-  <span id="counter" aria-live="polite">1 / 15</span>
+  <span id="counter" aria-live="polite">1 / 10</span>
 </div>
 
-<!-- Motor de movimiento compartido: script CLÁSICO a propósito (los módulos no
-     cargan desde file://). Si falla, el deck navega igual. -->
+<!-- Motor de movimiento compartido + partículas: scripts CLÁSICOS a propósito
+     (los módulos no cargan desde file://). Si fallan, el deck navega igual. -->
 <script src="../../compartidos/js/motion.js"></script>
+<script src="../../compartidos/js/motion-particles.js"></script>
 
 <script>
 /* Navegación del deck (copiada del Piloto). Todo el estado vive en memoria. */
@@ -1020,12 +1006,11 @@ var progress=document.getElementById("progress");
 var idx=0;
 
 /* bloques narrativos: color y nombre. Un data-bloque que falte aquí sale blanco. */
-var COLOR={apertura:"#1a73e8",quienes:"#4285f4",propuesta:"#34a853",alcance:"#f9ab00",privacidad:"#1e8e3e",
-  fuentes:"#4285f4",consola:"#1a73e8",navegacion:"#ea4335",apps:"#7b1fa2",
-  soporte:"#f9ab00",aprendizaje:"#34a853",gestion:"#00796b",futuro:"#4285f4",cierre:"#202124"};
-var NOMBRE={apertura:"Apertura",quienes:"Quiénes somos",propuesta:"La propuesta",alcance:"Alcance",privacidad:"Privacidad",
-  fuentes:"Las fuentes",consola:"Consola de Google",navegacion:"Páginas web",apps:"Aplicaciones",
-  soporte:"Soporte",aprendizaje:"Aprendizaje",gestion:"Gestión escolar",futuro:"2027",cierre:"Cierre"};
+var COLOR={apertura:"#1a73e8",quienes:"#4285f4",propuesta:"#34a853",privacidad:"#1e8e3e",
+  fuentes:"#4285f4",equipos:"#1a73e8",uso:"#ea4335",aprendizaje:"#34a853",futuro:"#f9ab00",cierre:"#202124"};
+var NOMBRE={apertura:"Apertura",quienes:"Quiénes somos",propuesta:"La propuesta",privacidad:"Privacidad",
+  fuentes:"Siete ventanas",equipos:"Equipos y soporte",uso:"Uso digital",aprendizaje:"Aprendizaje",
+  futuro:"2027",cierre:"Cierre"};
 
 var segs=slides.map(function(s){
   var b=s.getAttribute("data-bloque")||"apertura";
@@ -1128,7 +1113,7 @@ var stage=document.getElementById("stage");
 var slides=Motion.qsa(".slide",stage);
 
 /* UNA cascada por lámina: la rejilla focal, de 2 a 6 hijos (tope de la normativa). */
-var SEL=".grid,.tiles,.reglas";
+var SEL=".grid";
 var porSlide=slides.map(function(s){
   var cands=Motion.qsa(SEL,s).filter(function(c){
     var n=c.children.length;
@@ -1138,7 +1123,7 @@ var porSlide=slides.map(function(s){
   }).slice(0,1);
   cands.forEach(function(c){
     c.classList.add("mo-stagger");
-    Motion.stagger(c,Math.min(70,Math.round(320/c.children.length)),90);
+    Motion.stagger(c,Math.min(80,Math.round(320/c.children.length)),90);
   });
   return cands;
 });
@@ -1157,11 +1142,27 @@ window.__moCoreo=function(n){
   }); });
 };
 
+/* Los círculos de portada y cierre derivan con el cursor (solo puntero fino). */
 Motion.qsa(".slide.cover .shape").forEach(function(sh,i){
   Motion.follow(sh,[8,6][i%2]);
 });
 
-Motion.start();
+/* Red de partículas en los cuatro colores de Google, solo en la portada.
+   Semilla fija del motor: la composición es la misma en cada reunión. El
+   motor no gasta frames en lienzos fuera de pantalla. */
+if(Motion.particles){
+  Motion.qsa(".p-red[data-red]").forEach(function(caja){
+    var cv=document.createElement("canvas");
+    cv.className="mo-particulas";
+    caja.appendChild(cv);
+    Motion.particles.mount(cv,{
+      n:parseInt(caja.getAttribute("data-red"),10)||60,
+      paleta:[[66,133,244],[234,67,53],[251,188,5],[52,168,83]]
+    });
+  });
+}
+
+Motion.start();   /* ← siempre lo último que se ejecuta síncronamente */
 requestAnimationFrame(function(){
   var n=parseInt((location.hash||"").slice(1),10);
   window.__moCoreo(isFinite(n)&&n>=1&&n<=slides.length?n-1:0);

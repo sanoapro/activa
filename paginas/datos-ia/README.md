@@ -1,6 +1,6 @@
 # activa y la IA · alianzas
 
-Deck de 15 diapositivas para una **reunión 1:1 con una empresa de IA**. Presenta a activa, propone
+Deck de 10 diapositivas para una **reunión 1:1 con una empresa de IA**. Presenta a activa, propone
 una alianza para construir IA educativa y muestra lo que conocemos del aula, con la privacidad
 primero. La carpeta se llama `datos-ia` por historia; el deck ya no se presenta así.
 
