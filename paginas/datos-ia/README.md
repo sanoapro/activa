@@ -13,13 +13,18 @@ está en el portal ni en el kit comercial.
    tecnología educativa» y la propuesta; los datos aparecen después como «lo que conocemos del
    aula». Nada de «datos para tu IA», «Qué tenemos» ni «Cómo se entrega».
 1. **La información de la empresa vive en UNA lámina** (la 2, «Quiénes somos»): ecosistema,
-   trayectoria y la red de hoy. La portada no lleva datos de la empresa ni rótulos de reunión.
-2. **Ningún dato de contacto.** Es una reunión 1:1: el contacto lo pone quien presenta.
-3. **Ningún nombre de colegio.** Lo que se agrupa por colegio va con un código.
-4. **La privacidad se dice en positivo.** El deck puede llegar a otras manos (un padre, un
+   trayectoria y la red de hoy. La portada no lleva datos de la empresa ni rótulos de reunión:
+   solo las tres marcas, el título y una línea.
+2. **Las tres marcas, siempre juntas:** activa, Google for Education Partner y Certified Canva
+   Reseller Partner (`compartidos/img/marcas/canva-reseller-partner.webp`), en la portada, en
+   «Quiénes somos», en el cierre y en la vista previa de WhatsApp.
+3. **El cierre es solo «Gracias»** con las tres marcas. Sin frase ni sello, a pedido.
+4. **Ningún dato de contacto.** Es una reunión 1:1: el contacto lo pone quien presenta.
+5. **Ningún nombre de colegio.** Lo que se agrupa por colegio va con un código.
+6. **La privacidad se dice en positivo.** El deck puede llegar a otras manos (un padre, un
    colegio), y una lista de «lo que nunca compartimos» se lee como «esto es lo que tenemos». Cada
    punto dice cómo se protege el dato y dónde se queda.
-5. **No se inventan campos.** Lo de la Consola de Google sale del manual de
+7. **No se inventan campos.** Lo de la Consola de Google sale del manual de
    [`../consola/`](../consola/) (bloques 5.4 y 6.8). La Consola no guarda historial de navegación
    en la edición de los colegios: las páginas web salen del filtro de contenido (Securly y Mobile
    Guardian). Las ilustraciones de barras y anillos **no llevan cifras**: son dibujo, no datos.
@@ -33,8 +38,8 @@ trayectoria.
 
 | # | Lámina | `data-bloque` | Movimiento |
 | --- | --- | --- | --- |
-| 1 | Portada · «A la vanguardia de la tecnología educativa» | `apertura` | Red de partículas Google a la derecha (desvanecida hacia el texto), círculos que siguen al cursor, subrayado trazado |
-| 2 | Quiénes somos · un solo aliado, ecosistema propio, trayectoria, la red de hoy | `quienes` | Cascada de las tres columnas; aro de carga alrededor de «16»; pulso de radar en la región |
+| 1 | Portada · las tres marcas y «A la vanguardia de la tecnología educativa» | `apertura` | Red de partículas Google a la derecha (desvanecida hacia el texto), círculos que siguen al cursor, subrayado trazado |
+| 2 | Quiénes somos · sellos de Google y Canva, un solo aliado, ecosistema propio, trayectoria, la red de hoy | `quienes` | Cascada de las tres columnas; aro de carga alrededor de «16»; pulso de radar en la región |
 | 3 | La propuesta · «Una alianza para una IA que entienda el aula» | `propuesta` | Ciclo aula → activa → aliado de IA → mejores herramientas: nodos que entran en orden, puntos que recorren el aro, centro que respira |
 | 4 | Privacidad · «Lo que sí compartimos» y «Cómo cuidamos la privacidad» | `privacidad` | Banda de anonimización: personas → escudo con barrido de luz → barras de grupo que crecen; flechas que fluyen |
 | 5 | Siete ventanas al aula | `fuentes` | Diagrama radial: las siete ventanas entran en orden y las líneas al centro fluyen |
@@ -42,7 +47,7 @@ trayectoria.
 | 7 | Uso digital · Workspace, páginas web y aplicaciones | `uso` | Barras de uso que crecen, chips de categoría que entran, apps que aparecen y un reloj que late |
 | 8 | Aprendizaje y vida escolar · plataformas y gestión escolar | `aprendizaje` | Anillos de avance que se trazan y eventos que aparecen en la línea del ciclo escolar |
 | 9 | Lo que viene en 2027 | `futuro` | Línea de tendencia que se dibuja; hitos en cascada |
-| 10 | Cierre · «Gracias · Construyamos juntos una IA que entienda la educación» | `cierre` | Círculos que siguen al cursor (sin partículas: al centro se leían como manchón) |
+| 10 | Cierre · las tres marcas y «Gracias» | `cierre` | Círculos que siguen al cursor (sin partículas: al centro se leían como manchón) |
 
 Las láminas 6 a 8 terminan con la franja **«Cómo se comparte»**, y cada campo lleva título, qué es
 y chips de cómo se agrupa.

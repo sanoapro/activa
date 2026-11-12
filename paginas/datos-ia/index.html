@@ -184,6 +184,16 @@ b,strong{font-weight:600;color:var(--ink)}
 
 /* ══════════ 2 · QUIÉNES SOMOS ══════════ */
 .qs{grid-template-columns:1.02fr 1fr .98fr;align-items:stretch}
+/* la línea de presentación y los dos sellos de partner, en un solo renglón */
+.qs-sub{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.sellos{display:flex;align-items:center;gap:14px;flex-shrink:0;padding:3px 16px;border-radius:99px;background:var(--white);box-shadow:var(--sh)}
+.sellos img{width:auto}
+.sellos .sep{width:1px;height:30px;background:var(--line)}
+.sellos .xs{font-size:12px;line-height:1.25}
+.slide[data-bloque="quienes"] .head{margin-bottom:12px}
+.slide[data-bloque="quienes"] .tray{gap:6px}
+.slide[data-bloque="quienes"] .card{gap:9px}
+.slide[data-bloque="quienes"] .red4{gap:8px}
 .fila{display:flex;gap:11px;align-items:flex-start}
 .fila b{display:block;font-size:14.5px;line-height:1.25}
 .fila span{display:block;font-size:12.8px;line-height:1.36;color:var(--ink2);margin-top:2px}
@@ -449,6 +459,9 @@ ul.pv.g li svg{fill:var(--grn-d)} ul.pv.b li svg{fill:var(--blue)}
   .grid.g2,.grid.g3,.qs,.eq,.prop,.fut,.campos.dos{grid-template-columns:1fr!important}
   .body{justify-content:flex-start}
   .p-red{width:100%;opacity:.35}
+  .qs-sub{flex-direction:column;align-items:flex-start;gap:12px}
+  .sellos{flex-wrap:wrap;border-radius:18px}
+  .p1-logos{flex-wrap:wrap;justify-content:center}
   /* los diagramas se vuelven listas: los nodos fluyen y el trazo se esconde */
   .ciclo,.radial{width:auto;height:auto;display:grid;gap:10px}
   .ciclo svg.anillo,.radial svg.rayos,.mv-halo{display:none}
@@ -519,7 +532,8 @@ ul.pv.g li svg{fill:var(--grn-d)} ul.pv.b li svg{fill:var(--blue)}
 <div id="stage">
 
 <!-- ═════════ 1 · PORTADA ═════════
-Sin datos de la empresa: solo marca, título y para qué estamos aquí.
+Sin datos de la empresa: solo las tres marcas (activa, Google for Education
+Partner, Certified Canva Reseller Partner), el título y para qué estamos aquí.
 MOVIMIENTO: red de partículas en los cuatro colores de Google (a la derecha,
 desvanecida hacia el texto), círculos que siguen al cursor y subrayado a mano. -->
 <section class="slide cover" data-bloque="apertura">
@@ -531,6 +545,8 @@ desvanecida hacia el texto), círculos que siguen al cursor y subrayado a mano. 
       <img src="../../compartidos/img/marcas/activa.webp" alt="activa" style="height:32px">
       <span class="sep"></span>
       <img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner">
+      <span class="sep"></span>
+      <img src="../../compartidos/img/marcas/canva-reseller-partner.webp" alt="Certified Canva Reseller Partner" style="height:56px">
     </div>
     <h1 class="p1-h1">A la <span class="mv-r">vanguardia<svg viewBox="0 0 200 11" preserveAspectRatio="none" aria-hidden="true"><path class="mv-traza" pathLength="100" d="M3 6.4C36 3 72 8.6 108 5.4 140 2.6 169 4.4 197 8" style="--d:.5s"/></svg></span> de la tecnología educativa</h1>
     <p class="p1-lead">Queremos construir, junto con aliados, una inteligencia artificial que entienda el aula.</p>
@@ -544,11 +560,18 @@ MOVIMIENTO: cascada de las tres columnas, aro de carga en «16» (la cifra no
 se toca) y pulso de radar en la región. -->
 <section class="slide" data-bloque="quienes">
   <span class="shape" style="width:430px;height:430px;right:-190px;top:-190px;background:var(--blue-t)"></span>
-  <div class="brandmark"><img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner"></div>
   <div class="head">
     <div class="eyebrow b">Quiénes somos</div>
     <h2>Más de 10 años transformando la educación con tecnología</h2>
-    <p class="lead"><em class="marca">activa</em> es socio de transformación educativa de los colegios y Google for Education Partner.</p>
+    <div class="qs-sub">
+      <p class="lead"><em class="marca">activa</em> es socio de transformación educativa de los colegios.</p>
+      <div class="sellos">
+        <img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner" style="height:26px">
+        <span class="sep"></span>
+        <img src="../../compartidos/img/marcas/canva-reseller-partner.webp" alt="Certified Canva Reseller Partner" style="height:38px">
+        <span class="xs"><b>Certified Canva</b><br>Reseller Partner</span>
+      </div>
+    </div>
   </div>
   <div class="body">
     <div class="grid qs">
@@ -961,7 +984,8 @@ entran en cascada. -->
   </div>
 </section>
 
-<!-- ═════════ 10 · CIERRE ═════════ Sin datos de contacto, a pedido.
+<!-- ═════════ 10 · CIERRE ═════════ Solo «Gracias» y los tres logos (activa,
+Google for Education Partner, Certified Canva Reseller Partner), a pedido.
 MOVIMIENTO: los círculos siguen al cursor. Sin red de partículas: al centro,
 detrás del texto, una partícula cercana se leía como un manchón. -->
 <section class="slide cover" data-bloque="cierre">
@@ -972,10 +996,10 @@ detrás del texto, una partícula cercana se leía como un manchón. -->
       <img src="../../compartidos/img/marcas/activa.webp" alt="activa" style="height:32px">
       <span class="sep"></span>
       <img src="../../compartidos/img/marcas/google-for-education-partner.webp" alt="Google for Education Partner">
+      <span class="sep"></span>
+      <img src="../../compartidos/img/marcas/canva-reseller-partner.webp" alt="Certified Canva Reseller Partner" style="height:56px">
     </div>
-    <h1 class="p1-h1" style="margin-top:30px">Gracias</h1>
-    <p class="p1-lead" style="margin-top:16px;max-width:none">Construyamos juntos una IA que entienda la educación.</p>
-    <span class="p1-sello"><svg aria-hidden="true"><use href="#m-candado"/></svg>Con la privacidad primero y la autorización de cada colegio</span>
+    <h1 class="p1-h1" style="margin-top:34px;font-size:96px">Gracias</h1>
   </div>
 </section>
 
